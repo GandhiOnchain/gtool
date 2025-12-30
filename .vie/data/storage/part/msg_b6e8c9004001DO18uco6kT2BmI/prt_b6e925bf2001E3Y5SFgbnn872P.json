@@ -1,0 +1,26 @@
+{
+  "id": "prt_b6e925bf2001E3Y5SFgbnn872P",
+  "messageID": "msg_b6e8c9004001DO18uco6kT2BmI",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_0178xosFJNGUesnhSKWL6gqT",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && cat package.json | grep -A 5 \"dependencies\"",
+      "description": "Check package dependencies"
+    },
+    "output": "\t\"dependencies\": {\n\t\t\"@farcaster/miniapp-sdk\": \"^0.2.1\",\n\t\t\"@farcaster/miniapp-wagmi-connector\": \"^1.1.0\",\n\t\t\"@privy-io/react-auth\": \"^3.0.1\",\n\t\t\"@privy-io/wagmi\": \"^2.0.0\",\n\t\t\"@radix-ui/react-accordion\": \"^1.2.0\",\n",
+    "metadata": {
+      "output": "\t\"dependencies\": {\n\t\t\"@farcaster/miniapp-sdk\": \"^0.2.1\",\n\t\t\"@farcaster/miniapp-wagmi-connector\": \"^1.1.0\",\n\t\t\"@privy-io/react-auth\": \"^3.0.1\",\n\t\t\"@privy-io/wagmi\": \"^2.0.0\",\n\t\t\"@radix-ui/react-accordion\": \"^1.2.0\",\n",
+      "exit": 0,
+      "description": "Check package dependencies"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && cat package.json | grep -A 5 \"dependencies\"",
+    "time": {
+      "start": 1767086645014,
+      "end": 1767086645020
+    }
+  }
+}

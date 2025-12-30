@@ -14,6 +14,8 @@
 		"import:active-fonts": "bun run scripts/import-active-fonts.ts"
 	},
 	"dependencies": {
+		"@farcaster/miniapp-sdk": "^0.2.1",
+		"@farcaster/miniapp-wagmi-connector": "^1.1.0",
 		"@privy-io/react-auth": "^3.0.1",
 		"@privy-io/wagmi": "^2.0.0",
 		"@radix-ui/react-accordion": "^1.2.0",

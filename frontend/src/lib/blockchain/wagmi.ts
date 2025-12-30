@@ -2,6 +2,7 @@ import { createConfig as createPrivyConfig } from '@privy-io/wagmi'
 import { createConfig as createWagmiConfig } from 'wagmi'
 import { http } from 'wagmi'
 import { injected } from 'wagmi/connectors'
+import { farcasterMiniApp as miniAppConnector } from '@farcaster/miniapp-wagmi-connector'
 import { 
   supportedChains, 
   base, 
@@ -51,7 +52,7 @@ export const wagmiConfig = config.privy.appId && config.privy.clientId
     })
   : createWagmiConfig({
       chains: supportedChains,
-      connectors: [injected()],
+      connectors: [injected(), miniAppConnector()],
       transports,
     })
 

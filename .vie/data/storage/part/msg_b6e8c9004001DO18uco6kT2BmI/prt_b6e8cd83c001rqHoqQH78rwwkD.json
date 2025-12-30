@@ -1,0 +1,26 @@
+{
+  "id": "prt_b6e8cd83c001rqHoqQH78rwwkD",
+  "messageID": "msg_b6e8c9004001DO18uco6kT2BmI",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_015XQ7vP2ayGCGV5VqiC6xfF",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && bun install @farcaster/miniapp-sdk @farcaster/miniapp-wagmi-connector",
+      "description": "Install Farcaster Mini App packages"
+    },
+    "output": "bun add v1.3.2 (b131639c)\nResolving dependencies\nResolved, downloaded and extracted [46]\nwarn: incorrect peer dependency \"typescript@5.9.2\"\nSaved lockfile\n\n+ abitype@1.1.1 (v1.2.3 available)\n\ninstalled @farcaster/miniapp-sdk@0.2.1\ninstalled @farcaster/miniapp-wagmi-connector@1.1.0\n\n10 packages installed [1131.00ms]\n",
+    "metadata": {
+      "output": "bun add v1.3.2 (b131639c)\nResolving dependencies\nResolved, downloaded and extracted [46]\nwarn: incorrect peer dependency \"typescript@5.9.2\"\nSaved lockfile\n\n+ abitype@1.1.1 (v1.2.3 available)\n\ninstalled @farcaster/miniapp-sdk@0.2.1\ninstalled @farcaster/miniapp-wagmi-connector@1.1.0\n\n10 packages installed [1131.00ms]\n",
+      "exit": 0,
+      "description": "Install Farcaster Mini App packages"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && bun install @farcaster/miniapp-sdk @farcaster/miniapp-wagmi-connector",
+    "time": {
+      "start": 1767086284568,
+      "end": 1767086285715
+    }
+  }
+}

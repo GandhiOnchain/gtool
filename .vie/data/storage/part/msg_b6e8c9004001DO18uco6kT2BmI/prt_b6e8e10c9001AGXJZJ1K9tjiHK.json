@@ -1,0 +1,26 @@
+{
+  "id": "prt_b6e8e10c9001AGXJZJ1K9tjiHK",
+  "messageID": "msg_b6e8c9004001DO18uco6kT2BmI",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "write",
+  "callID": "toolu_vrtx_01LWmgfJzUJGoEvSxmr4cn4L",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/relay/types.ts",
+      "content": "export interface RelayCurrency {\n  chainId: number\n  address: string\n  symbol: string\n  name: string\n  decimals: number\n  vmType?: string\n  metadata?: {\n    logoURI?: string\n    verified?: boolean\n    isNative?: boolean\n  }\n}\n\nexport interface RelayChain {\n  id: number\n  name: string\n  displayName: string\n  httpRpcUrl: string\n  wsRpcUrl?: string\n  explorerUrl: string\n  explorerName: string\n  depositEnabled: boolean\n  tokenSupport: string\n  disabled: boolean\n  currency: {\n    id: string\n    symbol: string\n    name: string\n    address: string\n    decimals: number\n    supportsBridging: boolean\n  }\n  featuredTokens?: RelayCurrency[]\n  erc20Currencies?: RelayCurrency[]\n  iconUrl?: string\n  logoUrl?: string\n  brandColor?: string\n  vmType?: string\n}\n\nexport interface RelayAmount {\n  currency: RelayCurrency\n  amount: string\n  amountFormatted: string\n  amountUsd: string\n  minimumAmount?: string\n}\n\nexport interface RelayQuoteStep {\n  id: string\n  action: string\n  description: string\n  kind: string\n  requestId?: string\n  items: Array<{\n    status: string\n    data: {\n      from: string\n      to: string\n      data: string\n      value: string\n      maxFeePerGas?: string\n      maxPriorityFeePerGas?: string\n      chainId: number\n    }\n    check?: {\n      endpoint: string\n      method: string\n    }\n  }>\n}\n\nexport interface RelayQuote {\n  steps: RelayQuoteStep[]\n  fees: {\n    gas?: RelayAmount\n    relayer?: RelayAmount\n    relayerGas?: RelayAmount\n    relayerService?: RelayAmount\n    app?: RelayAmount\n    subsidized?: RelayAmount\n  }\n  details: {\n    operation?: string\n    sender?: string\n    recipient?: string\n    currencyIn?: RelayAmount\n    currencyOut?: RelayAmount\n    refundCurrency?: RelayAmount\n    currencyGasTopup?: RelayAmount\n    totalImpact?: {\n      usd: string\n      percent: string\n    }\n    swapImpact?: {\n      usd: string\n      percent: string\n    }\n    rate?: string\n    slippageTolerance?: {\n      origin?: {\n        usd: string\n        value: string\n        percent: string\n      }\n      destination?: {\n        usd: string\n        value: string\n        percent: string\n      }\n    }\n    timeEstimate?: number\n    userBalance?: string\n    isFixedRate?: boolean\n    route?: {\n      origin?: {\n        inputCurrency: RelayAmount\n        outputCurrency: RelayAmount\n        router?: string\n        includedSwapSources?: string[]\n      }\n      destination?: {\n        inputCurrency: RelayAmount\n        outputCurrency: RelayAmount\n        router?: string\n        includedSwapSources?: string[]\n      }\n    }\n  }\n  protocol?: {\n    v2?: {\n      orderId: string\n      orderData: unknown\n      paymentDetails: {\n        chainId: string\n        depository: string\n        currency: string\n        amount: string\n      }\n    }\n  }\n}\n\nexport interface RelayStatus {\n  status: 'waiting' | 'pending' | 'submitted' | 'success' | 'delayed' | 'refunded' | 'failure'\n  details?: string\n  inTxHashes?: string[]\n  txHashes?: string[]\n  updatedAt?: number\n  originChainId?: number\n  destinationChainId?: number\n}\n\nexport interface RelayRequest {\n  id: string\n  status: string\n  user: string\n  recipient: string\n  data: {\n    subsidizedRequest: boolean\n    fees: {\n      gas: string\n      fixed: string\n      price: string\n    }\n    feesUsd: {\n      gas: string\n      fixed: string\n      price: string\n    }\n    inTxs: Array<{\n      fee: string\n      data: {\n        to: string\n        data: string\n        from: string\n        value: string\n      }\n      hash: string\n      type: string\n      chainId: number\n      timestamp: number\n    }>\n    currency: string\n    price: string\n    usesExternalLiquidity: boolean\n    outTxs: Array<{\n      fee: string\n      data: {\n        to: string\n        data: string\n        from: string\n        value: string\n      }\n      hash: string\n      type: string\n      chainId: number\n      timestamp: number\n    }>\n  }\n  createdAt: string\n  updatedAt: string\n}\n\nexport interface TokenPrice {\n  price: number\n}\n\nexport interface MultiInputQuote extends RelayQuote {\n  breakdown: Array<{\n    value: string\n    timeEstimate: number\n  }>\n  balances: {\n    userBalance: string\n    requiredToSolve: string\n  }\n}\n"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "filepath": "/home/user/sandbox/workspace/frontend/src/lib/relay/types.ts",
+      "exists": false
+    },
+    "title": "frontend/src/lib/relay/types.ts",
+    "time": {
+      "start": 1767086383732,
+      "end": 1767086383734
+    }
+  }
+}

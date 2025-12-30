@@ -1,0 +1,23 @@
+{
+  "id": "prt_b6e8dc4f9001lnDzT5sYDII92l",
+  "messageID": "msg_b6e8c9004001DO18uco6kT2BmI",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_013NyrLx52ym1ezgk3J2WcPp",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/blockchain/wagmi.ts"
+    },
+    "output": "<file>\n00001| import { createConfig as createPrivyConfig } from '@privy-io/wagmi'\n00002| import { createConfig as createWagmiConfig } from 'wagmi'\n00003| import { http } from 'wagmi'\n00004| import { injected } from 'wagmi/connectors'\n00005| import { \n00006|   supportedChains, \n00007|   base, \n00008|   baseSepolia, \n00009|   getRpcUrl, \n00010|   bsc, \n00011|   arbitrum, \n00012|   berachain, \n00013|   avalanche, \n00014|   hyperliquid, \n00015|   polygon, \n00016|   optimism, \n00017|   linea, \n00018|   mantle, \n00019|   unichain, \n00020|   shape, \n00021|   scroll, \n00022|   ethereum,\n00023|   plume\n00024| } from './chains'\n00025| import { config } from '../../config'\n00026| \n00027| const transports = {\n00028|   [base.id]: http(getRpcUrl(base.id)),\n00029|   [baseSepolia.id]: http(getRpcUrl(baseSepolia.id)),\n00030|   [ethereum.id]: http(getRpcUrl(ethereum.id)),\n00031|   [bsc.id]: http(getRpcUrl(bsc.id)),\n00032|   [arbitrum.id]: http(getRpcUrl(arbitrum.id)),\n00033|   [berachain.id]: http(getRpcUrl(berachain.id)),\n00034|   [avalanche.id]: http(getRpcUrl(avalanche.id)),\n00035|   [hyperliquid.id]: http(getRpcUrl(hyperliquid.id)),\n00036|   [polygon.id]: http(getRpcUrl(polygon.id)),\n00037|   [optimism.id]: http(getRpcUrl(optimism.id)),\n00038|   [linea.id]: http(getRpcUrl(linea.id)),\n00039|   [scroll.id]: http(getRpcUrl(scroll.id)),\n00040|   [mantle.id]: http(getRpcUrl(mantle.id)),\n00041|   [unichain.id]: http(getRpcUrl(unichain.id)),\n00042|   [shape.id]: http(getRpcUrl(shape.id)),\n00043|   [plume.id]: http(getRpcUrl(plume.id)),\n00044| }\n00045| \n00046| // Dynamically choose config: Privy when available, otherwise InjectedConnector fallback\n00047| export const wagmiConfig = config.privy.appId && config.privy.clientId\n00048|   ? createPrivyConfig({\n00049|       chains: supportedChains,\n00050|       transports,\n00051|     })\n00052|   : createWagmiConfig({\n00053|       chains: supportedChains,\n00054|       connectors: [injected()],\n00055|       transports,\n00056|     })\n00057| \n00058| export { \n00059|   supportedChains, \n00060|   base, \n00061|   baseSepolia, \n00062|   bsc, \n00063|   arbitrum, \n00064|   berachain, \n00065|   avalanche, \n00066|   hyperliquid, \n00067|   polygon, \n00068|   optimism, \n00069|   linea, \n00070|   mantle, \n00071|   unichain, \n00072|   shape, \n00073|   scroll,\n00074|   ethereum,\n00075|   plume\n00076| } \n</file>",
+    "metadata": {
+      "preview": "import { createConfig as createPrivyConfig } from '@privy-io/wagmi'\nimport { createConfig as createWagmiConfig } from 'wagmi'\nimport { http } from 'wagmi'\nimport { injected } from 'wagmi/connectors'\nimport { \n  supportedChains, \n  base, \n  baseSepolia, \n  getRpcUrl, \n  bsc, \n  arbitrum, \n  berachain, \n  avalanche, \n  hyperliquid, \n  polygon, \n  optimism, \n  linea, \n  mantle, \n  unichain, \n  shape, "
+    },
+    "title": "frontend/src/lib/blockchain/wagmi.ts",
+    "time": {
+      "start": 1767086343444,
+      "end": 1767086343448
+    }
+  }
+}
