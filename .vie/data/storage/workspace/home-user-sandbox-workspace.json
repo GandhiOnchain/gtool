@@ -1,0 +1,14 @@
+{
+  "hostname": "f84c9621-f792-44fb-b4a2-b6fcf87f8205",
+  "time": {
+    "initialized": 1767086013504
+  },
+  "git": false,
+  "id": "d10ff1a6-d5cf-477e-ae47-f313832cc45c",
+  "remoteUrl": "s3://vie-snapshot-prod/d10ff1a6-d5cf-477e-ae47-f313832cc45c",
+  "sandboxEnv": "production",
+  "enableTracing": false,
+  "path": {
+    "cwd": "/home/user/sandbox/workspace"
+  }
+}

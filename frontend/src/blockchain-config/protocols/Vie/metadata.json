@@ -1,0 +1,44 @@
+{
+    "contracts": {
+        "VieSFTMintManager": {
+            "implBytecodeHash": "0x2b9f379c670b1dd998083e5c34899820108df84925d91c0ce680156658eec170",
+            "context": ""
+        },
+        "VieTokenSwapManager": {
+            "implBytecodeHash": "0x36f14e5ed6357f02a211ca00e217f39e9ed9d9a295213af56759c8c372bc8154",
+            "context": ""
+        },
+        "VieSFT": {
+            "implBytecodeHash": "0x488e560cdefb1fe0058983373edd4a15e8afe9d9519a3239ce977c5aacb4aeea",
+            "context": ""
+        },
+        "VieToken": {
+            "implBytecodeHash": "0x2e7b8f1c9fc29e5841f7b917f8fd6e18fe059766fc71c1e6ef20408b0e8bb9f3",
+            "context": ""
+        },
+        "VieFactory": {
+            "implBytecodeHash": "0xc27b84c680f54e2239d73c734ed9595e838f4a1f2c9695ac07917bc2c42f732e",
+            "context": ""
+        },
+        "VieRegistry": {
+            "implBytecodeHash": "0xdc259d902ca2060b170193ac8c13011c3d905257c1f1d00ea0053e7fbf4d2693",
+            "context": ""
+        },
+        "VieVault": {
+            "implBytecodeHash": "0xf342055e9118e560d673c4629c912225f3315ed78d1b5909fce5fafa14cad662",
+            "context": ""
+        },
+        "ViePredictionMarketUSDC": {
+            "implBytecodeHash": "0x9006517125d02bffed79aea4bec56adf55911afebc2e9c7527a3358d1cdc331c",
+            "context": ""
+        },
+        "ViePredictionMarketInventory": {
+            "implBytecodeHash": "0x7ab6cc51e1a85279d7d9d77cd3d50182e5a8778b1ac1a444fe6ca0ee11399094",
+            "context": "Called VieMarketInventory as well."
+        }
+    },
+    "fileTree": {
+        "CONTEXT.md": "",
+        "uml.svg": ""
+    }
+}

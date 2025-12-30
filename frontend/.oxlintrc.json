@@ -1,0 +1,75 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "import",
+    "typescript",
+    "unicorn",
+    "react"
+  ],
+  "env": {
+    "browser": true,
+    "es2022": true
+  },
+  "globals": {},
+  "ignorePatterns": [
+    "node_modules",
+    "dist",
+    "output",
+    "../output",
+    "src/lib/alchemy/spam/initial-spam-tokens",
+    "src/lib/alchemy/spam/additional-spam-tokens",
+    "src/blockchain-config"
+  ],
+  "categories": {},
+  "settings": {},
+  "rules": {
+      "typescript/no-explicit-any": "error",
+      "import/no-self-import": "error",
+      "oxc/only-used-in-recursion": "off",
+      "unicorn/no-useless-spread": "off",
+      "react/exhaustive-deps": "off",
+      "no-floating-promises": "off",
+      "unbound-method": "off",
+      "eslint/no-unused-vars": "off"
+  },
+  "overrides": [
+      {
+          "files": [
+              "src/vite-env.d.ts",
+              "src/hooks/alchemy/price/useTokenPricesByAddress.ts",
+              "src/hooks/alchemy/price/useTokenPricesBySymbol.ts",
+              "src/hooks/alchemy/price/useHistoricalTokenPrices.ts",
+              "src/hooks/alchemy/price/useHistoricalTokenPricesBySymbol.ts",
+              "src/hooks/alchemy/portfolio/useTokensByOwnerOnMultipleChains.ts",
+              "src/hooks/alchemy/portfolio/useTokenBalancesByOwnerOnMultipleChains.ts",
+              "src/hooks/alchemy/nft/useNftsByOwnerOnMultipleChains.ts",
+              "src/hooks/alchemy/nft/useOwnersByContractOnSpecificChain.ts",
+              "src/hooks/alchemy/nft/useNftMetadataByTokenIdBatchOnSpecificChain.ts",
+              "src/hooks/useQueryEvents.ts",
+              "src/hooks/useSimulateWriteContracts.ts",
+              "src/hooks/useWallet.ts",
+              "src/hooks/useWatchEvent.ts",
+              "src/hooks/useWriteContractLifecycle.ts",
+              "src/lib/utils.ts",
+              "src/lib/blockchain/signatureUtils.ts",
+              "src/lib/blockchain/events.ts",
+              "src/lib/blockchain/types.ts",
+              "src/components/ui/chart.tsx",
+              "src/config.ts",
+              "src/hooks/alchemy/types/price.types.ts",
+              "src/hooks/alchemy/types/portfolio.types.ts",
+              "src/hooks/alchemy/types/nft.types.ts",
+              "src/lib/alchemy/config.ts"
+          ],
+          "rules": {
+              "typescript/no-explicit-any": "off",
+              "typescript/no-unsafe-type-assertion": "off",
+              "typescript/no-unsafe-call": "off",
+              "typescript/no-unsafe-member-access": "off",
+              "typescript/no-unsafe-assignment": "off",
+              "typescript/no-unsafe-argument": "off",
+              "restrict-template-expressions": "off"
+          }
+      }
+  ]
+}
