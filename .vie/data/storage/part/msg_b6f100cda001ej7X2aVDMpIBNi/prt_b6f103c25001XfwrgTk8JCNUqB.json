@@ -1,0 +1,97 @@
+{
+  "id": "prt_b6f103c25001XfwrgTk8JCNUqB",
+  "messageID": "msg_b6f100cda001ej7X2aVDMpIBNi",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01V2T5cRonXhBBvU4H3S9kTh",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Add connect wallet button",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix chain logos display",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Add token balance displays",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Auto-detect wallet tokens for batch swap",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Redesign settings tab to match image",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        },
+        {
+          "content": "Run diagnostics and fix errors",
+          "status": "pending",
+          "priority": "high",
+          "id": "6"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Add connect wallet button\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Fix chain logos display\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Add token balance displays\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Auto-detect wallet tokens for batch swap\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"4\"\n  },\n  {\n    \"content\": \"Redesign settings tab to match image\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"5\"\n  },\n  {\n    \"content\": \"Run diagnostics and fix errors\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"6\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Add connect wallet button",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix chain logos display",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Add token balance displays",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Auto-detect wallet tokens for batch swap",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Redesign settings tab to match image",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        },
+        {
+          "content": "Run diagnostics and fix errors",
+          "status": "pending",
+          "priority": "high",
+          "id": "6"
+        }
+      ]
+    },
+    "title": "6 todos",
+    "time": {
+      "start": 1767094897225,
+      "end": 1767094897225
+    }
+  }
+}

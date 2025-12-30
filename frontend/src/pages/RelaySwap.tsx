@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react'
 import { sdk } from '@farcaster/miniapp-sdk'
-import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
+import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect } from 'wagmi'
 import { parseUnits, formatUnits } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
-import type { RelayChain, RelayCurrency, RelayQuote, RelayStatus } from '@/lib/relay/types'
+import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
+import { Switch } from '@/components/ui/switch'
 import { toast } from 'sonner'
-import { ArrowDownUp, Search, Settings, History, TrendingUp, Trophy, Share2, Flame, X, ChevronDown } from 'lucide-react'
+import { ArrowDownUp, Search, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'
 
 interface TrendingToken {
   address: string
@@ -51,8 +52,17 @@ interface LeaderboardEntry {
   rank: number
 }
 
+interface WalletToken {
+  token: RelayCurrency
+  balance: string
+  balanceFormatted: string
+  balanceUsd?: string
+}
+
 export default function RelaySwap() {
   const { address, isConnected } = useAccount()
+  const { connect, connectors } = useConnect()
+  const { disconnect } = useDisconnect()
   const [chains, setChains] = useState<RelayChain[]>([])
   const [fromChain, setFromChain] = useState<RelayChain | null>(null)
   const [toChain, setToChain] = useState<RelayChain | null>(null)
@@ -63,21 +73,23 @@ export default function RelaySwap() {
   const [quote, setQuote] = useState<RelayQuote | null>(null)
   const [isLoadingQuote, setIsLoadingQuote] = useState(false)
   const [isSwapping, setIsSwapping] = useState(false)
-  const [slippage, setSlippage] = useState('50')
+  const [slippage, setSlippage] = useState('0.1')
   const [searchTerm, setSearchTerm] = useState('')
   const [tokenSearchTerm, setTokenSearchTerm] = useState('')
   const [isChainSelectOpen, setIsChainSelectOpen] = useState(false)
   const [isTokenSelectOpen, setIsTokenSelectOpen] = useState(false)
   const [selectingFor, setSelectingFor] = useState<'from' | 'to'>('from')
-  const [selectingType, setSelectingType] = useState<'chain' | 'token'>('chain')
   const [currencies, setCurrencies] = useState<RelayCurrency[]>([])
   const [trendingTokens, setTrendingTokens] = useState<TrendingToken[]>([])
   const [swapHistory, setSwapHistory] = useState<SwapHistory[]>([])
   const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapDate: '', totalSwaps: 0 })
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([])
   const [showLeaderboard, setShowLeaderboard] = useState(false)
-  const [batchTokens, setBatchTokens] = useState<Array<{ token: RelayCurrency; amount: string }>>([])
+  const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])
+  const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])
   const [contractAddressSearch, setContractAddressSearch] = useState('')
+  const [swapSources, setSwapSources] = useState<string[]>([])
+  const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})
 
   const { sendTransaction, data: txHash } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
@@ -88,6 +100,12 @@ export default function RelaySwap() {
     token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,
   })
 
+  const { data: toBalance } = useBalance({
+    address,
+    chainId: toChain?.id,
+    token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,
+  })
+
   useEffect(() => {
     sdk.actions.ready().catch(() => {})
   }, [])
@@ -96,6 +114,7 @@ export default function RelaySwap() {
     loadChains()
     loadUserData()
     loadTrendingTokens()
+    loadSwapSources()
   }, [])
 
   useEffect(() => {
@@ -131,8 +150,8 @@ export default function RelaySwap() {
   }, [])
 
   useEffect(() => {
-    if (address && fromChain && fromToken) {
-      loadWalletTokensForBatch()
+    if (address && fromChain) {
+      loadWalletTokens()
     }
   }, [address, fromChain])
 
@@ -175,6 +194,44 @@ export default function RelaySwap() {
     }
   }
 
+  const loadWalletTokens = async () => {
+    if (!address || !fromChain) return
+    
+    try {
+      const fetchedCurrencies = await relayAPI.getCurrencies({
+        chainIds: [fromChain.id],
+        defaultList: true,
+        limit: 50,
+      })
+      
+      const tokensWithBalances: WalletToken[] = []
+      
+      for (const currency of fetchedCurrencies) {
+        try {
+          const balance = await fetch(
+            `https://api.relay.link/currencies/token/price?address=${currency.address}&chainId=${currency.chainId}`
+          ).then(r => r.json()).catch(() => null)
+          
+          if (balance) {
+            tokensWithBalances.push({
+              token: currency,
+              balance: '0',
+              balanceFormatted: '0',
+              balanceUsd: balance.price ? '0' : undefined,
+            })
+          }
+        } catch (e) {
+          console.error('Failed to fetch balance for', currency.symbol)
+        }
+      }
+      
+      setWalletTokens(tokensWithBalances)
+      setBatchTokens(tokensWithBalances.slice(0, 5))
+    } catch (error) {
+      console.error('Failed to load wallet tokens:', error)
+    }
+  }
+
   const searchTokenByContract = async (contractAddress: string) => {
     if (!contractAddress || !fromChain) return
     
@@ -204,6 +261,12 @@ export default function RelaySwap() {
     setIsLoadingQuote(true)
     try {
       const amountInWei = parseUnits(fromAmount, fromToken.decimals)
+      const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()
+      
+      const includedSources = Object.entries(enabledSources)
+        .filter(([_, enabled]) => enabled)
+        .map(([source]) => source)
+      
       const quoteData = await relayAPI.getQuote({
         user: address,
         originChainId: fromChain.id,
@@ -212,7 +275,8 @@ export default function RelaySwap() {
         destinationCurrency: toToken.address,
         amount: amountInWei.toString(),
         tradeType: 'EXACT_INPUT',
-        slippageTolerance: slippage,
+        slippageTolerance: slippageBps,
+        includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
       })
       
       setQuote(quoteData)
@@ -273,6 +337,7 @@ export default function RelaySwap() {
           setIsSwapping(false)
           loadSwapHistory()
           updateUserStreak()
+          updateLeaderboard()
           return
         } else if (status.status === 'failure' || status.status === 'refunded') {
           toast.error(`Swap ${status.status}`)
@@ -309,11 +374,19 @@ export default function RelaySwap() {
 
     setIsSwapping(true)
     try {
-      const origins = batchTokens.map(bt => ({
-        chainId: fromChain!.id,
-        currency: bt.token.address,
-        amount: parseUnits(bt.amount, bt.token.decimals).toString(),
-      }))
+      const origins = batchTokens
+        .filter(bt => bt.balance !== '0')
+        .map(bt => ({
+          chainId: fromChain!.id,
+          currency: bt.token.address,
+          amount: bt.balance,
+        }))
+
+      if (origins.length === 0) {
+        toast.error('No tokens with balance selected')
+        setIsSwapping(false)
+        return
+      }
 
       const multiQuote = await relayAPI.getMultiInputQuote({
         user: address,
@@ -345,22 +418,6 @@ export default function RelaySwap() {
       toast.error('Batch swap failed')
     } finally {
       setIsSwapping(false)
-    }
-  }
-
-  const loadWalletTokensForBatch = async () => {
-    if (!address || !fromChain) return
-    
-    try {
-      const tokens = await relayAPI.getCurrencies({
-        chainIds: [fromChain.id],
-        defaultList: true,
-        limit: 50,
-      })
-      
-      setCurrencies(tokens)
-    } catch (error) {
-      console.error('Failed to load wallet tokens:', error)
     }
   }
 
@@ -487,6 +544,27 @@ export default function RelaySwap() {
     }
   }
 
+  const loadSwapSources = async () => {
+    try {
+      const sources = await relayAPI.getSwapSources()
+      setSwapSources(sources)
+      const initialEnabled: Record<string, boolean> = {}
+      sources.forEach(source => {
+        initialEnabled[source] = true
+      })
+      setEnabledSources(initialEnabled)
+    } catch (error) {
+      console.error('Failed to load swap sources:', error)
+      setSwapSources(['weth', '0x', 'open-ocean', 'eisen'])
+      setEnabledSources({
+        'weth': true,
+        '0x': true,
+        'open-ocean': true,
+        'eisen': true,
+      })
+    }
+  }
+
   const shareSwapReceipt = (swap: SwapHistory) => {
     const text = `Just swapped ${swap.fromAmount} ${swap.fromToken} to ${swap.toAmount} ${swap.toToken} on Relay!`
     const url = `https://warpcast.com/~/compose?text=${encodeURIComponent(text)}`
@@ -507,6 +585,13 @@ export default function RelaySwap() {
     setToAmount(tempAmount)
   }
 
+  const handleConnect = () => {
+    const connector = connectors[0]
+    if (connector) {
+      connect({ connector })
+    }
+  }
+
   const filteredChains = chains.filter(chain =>
     chain.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     chain.displayName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -521,25 +606,45 @@ export default function RelaySwap() {
   return (
     <div className="min-h-screen bg-background p-2 max-w-[424px] mx-auto">
       <div className="space-y-2">
-        <div className="flex items-center justify-between mb-2">
-          <h1 className="text-lg font-bold">RELAY</h1>
-          <div className="flex items-center gap-1">
-            {userStreak.currentStreak > 0 && (
-              <Badge variant="secondary" className="gap-1 text-xs px-2 py-0.5">
-                <Flame className="h-3 w-3" />
-                {userStreak.currentStreak}
-              </Badge>
-            )}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setShowLeaderboard(true)}
-              className="h-7 w-7 p-0"
-            >
-              <Trophy className="h-4 w-4" />
-            </Button>
+        {!isConnected ? (
+          <Button
+            onClick={handleConnect}
+            className="w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90"
+          >
+            <Wallet className="h-4 w-4 mr-2" />
+            Connect Wallet
+          </Button>
+        ) : (
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <h1 className="text-lg font-bold">RELAY</h1>
+              {userStreak.currentStreak > 0 && (
+                <Badge variant="secondary" className="gap-1 text-xs px-2 py-0.5">
+                  <Flame className="h-3 w-3" />
+                  {userStreak.currentStreak}
+                </Badge>
+              )}
+            </div>
+            <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowLeaderboard(true)}
+                className="h-7 w-7 p-0"
+              >
+                <Trophy className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => disconnect()}
+                className="h-7 text-xs px-2"
+              >
+                {address?.slice(0, 6)}...{address?.slice(-4)}
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
 
         <Tabs defaultValue="swap" className="w-full">
           <TabsList className="grid w-full grid-cols-4 h-8">
@@ -556,7 +661,7 @@ export default function RelaySwap() {
                   <span className="text-muted-foreground">From</span>
                   {fromBalance && (
                     <span className="text-muted-foreground">
-                      Balance: {parseFloat(formatUnits(fromBalance.value, fromBalance.decimals)).toFixed(4)}
+                      Balance: {parseFloat(formatUnits(fromBalance.value, fromBalance.decimals)).toFixed(4)} {fromToken?.symbol}
                     </span>
                   )}
                 </div>
@@ -566,14 +671,13 @@ export default function RelaySwap() {
                     variant="outline"
                     onClick={() => {
                       setSelectingFor('from')
-                      setSelectingType('chain')
                       setIsChainSelectOpen(true)
                     }}
                     className="flex-1 justify-between h-10 text-xs"
                   >
                     <div className="flex items-center gap-1.5">
-                      {fromChain?.logoUrl && (
-                        <img src={fromChain.logoUrl} alt="" className="h-4 w-4 rounded-full" />
+                      {fromChain?.iconUrl && (
+                        <img src={fromChain.iconUrl} alt="" className="h-4 w-4 rounded-full" />
                       )}
                       <span>{fromChain?.displayName || 'Select'}</span>
                     </div>
@@ -584,7 +688,6 @@ export default function RelaySwap() {
                     variant="outline"
                     onClick={() => {
                       setSelectingFor('from')
-                      setSelectingType('token')
                       setIsTokenSelectOpen(true)
                     }}
                     className="flex-1 justify-between h-10 text-xs"
@@ -622,21 +725,27 @@ export default function RelaySwap() {
 
             <Card className="p-3">
               <div className="space-y-2">
-                <div className="text-xs text-muted-foreground">To</div>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground">To</span>
+                  {toBalance && (
+                    <span className="text-muted-foreground">
+                      Balance: {parseFloat(formatUnits(toBalance.value, toBalance.decimals)).toFixed(4)} {toToken?.symbol}
+                    </span>
+                  )}
+                </div>
                 
                 <div className="flex gap-2">
                   <Button
                     variant="outline"
                     onClick={() => {
                       setSelectingFor('to')
-                      setSelectingType('chain')
                       setIsChainSelectOpen(true)
                     }}
                     className="flex-1 justify-between h-10 text-xs"
                   >
                     <div className="flex items-center gap-1.5">
-                      {toChain?.logoUrl && (
-                        <img src={toChain.logoUrl} alt="" className="h-4 w-4 rounded-full" />
+                      {toChain?.iconUrl && (
+                        <img src={toChain.iconUrl} alt="" className="h-4 w-4 rounded-full" />
                       )}
                       <span>{toChain?.displayName || 'Select'}</span>
                     </div>
@@ -647,7 +756,6 @@ export default function RelaySwap() {
                     variant="outline"
                     onClick={() => {
                       setSelectingFor('to')
-                      setSelectingType('token')
                       setIsTokenSelectOpen(true)
                     }}
                     className="flex-1 justify-between h-10 text-xs"
@@ -753,40 +861,34 @@ export default function RelaySwap() {
               <div className="space-y-2">
                 <div className="text-sm font-medium">Batch Cleanup Swap</div>
                 <div className="text-xs text-muted-foreground">
-                  Select multiple tokens from your wallet to swap to a single token
+                  Detected tokens with balance in your wallet
                 </div>
 
-                <div className="space-y-2">
-                  {batchTokens.map((bt, i) => (
-                    <div key={i} className="flex items-center gap-2">
-                      <div className="flex-1 flex items-center gap-2 p-2 border rounded">
-                        {bt.token.metadata?.logoURI && (
-                          <img src={bt.token.metadata.logoURI} alt="" className="h-4 w-4 rounded-full" />
-                        )}
-                        <span className="text-xs">{bt.token.symbol}</span>
+                <ScrollArea className="h-48">
+                  <div className="space-y-2">
+                    {batchTokens.map((wt, i) => (
+                      <div key={i} className="flex items-center gap-2 p-2 border rounded">
+                        <div className="flex-1 flex items-center gap-2">
+                          {wt.token.metadata?.logoURI && (
+                            <img src={wt.token.metadata.logoURI} alt="" className="h-4 w-4 rounded-full" />
+                          )}
+                          <div className="flex-1">
+                            <div className="text-xs font-medium">{wt.token.symbol}</div>
+                            <div className="text-xs text-muted-foreground">{wt.balanceFormatted}</div>
+                          </div>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setBatchTokens(batchTokens.filter((_, idx) => idx !== i))}
+                          className="h-6 w-6 p-0"
+                        >
+                          <X className="h-3 w-3" />
+                        </Button>
                       </div>
-                      <Input
-                        type="number"
-                        placeholder="Amount"
-                        value={bt.amount}
-                        onChange={(e) => {
-                          const updated = [...batchTokens]
-                          updated[i].amount = e.target.value
-                          setBatchTokens(updated)
-                        }}
-                        className="w-24 h-8 text-xs"
-                      />
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => setBatchTokens(batchTokens.filter((_, idx) => idx !== i))}
-                        className="h-8 w-8 p-0"
-                      >
-                        <X className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                </ScrollArea>
 
                 <Button
                   variant="outline"
@@ -806,14 +908,13 @@ export default function RelaySwap() {
                       variant="outline"
                       onClick={() => {
                         setSelectingFor('to')
-                        setSelectingType('chain')
                         setIsChainSelectOpen(true)
                       }}
                       className="flex-1 justify-between h-8 text-xs"
                     >
                       <div className="flex items-center gap-1.5">
-                        {toChain?.logoUrl && (
-                          <img src={toChain.logoUrl} alt="" className="h-4 w-4 rounded-full" />
+                        {toChain?.iconUrl && (
+                          <img src={toChain.iconUrl} alt="" className="h-4 w-4 rounded-full" />
                         )}
                         <span>{toChain?.displayName || 'Select'}</span>
                       </div>
@@ -824,7 +925,6 @@ export default function RelaySwap() {
                       variant="outline"
                       onClick={() => {
                         setSelectingFor('to')
-                        setSelectingType('token')
                         setIsTokenSelectOpen(true)
                       }}
                       className="flex-1 justify-between h-8 text-xs"
@@ -894,40 +994,78 @@ export default function RelaySwap() {
             </ScrollArea>
           </TabsContent>
 
-          <TabsContent value="settings" className="space-y-2 mt-2">
+          <TabsContent value="settings" className="space-y-3 mt-2">
             <Card className="p-3">
               <div className="space-y-3">
                 <div>
-                  <label className="text-xs font-medium">Slippage Tolerance (bps)</label>
-                  <Input
-                    type="number"
-                    value={slippage}
-                    onChange={(e) => setSlippage(e.target.value)}
-                    className="mt-1 h-8 text-xs"
-                  />
-                  <div className="text-xs text-muted-foreground mt-1">
-                    Current: {(parseFloat(slippage) / 100).toFixed(2)}%
+                  <label className="text-sm font-medium">Token Search</label>
+                  <div className="flex gap-2 mt-2">
+                    <Input
+                      placeholder="0x..."
+                      value={contractAddressSearch}
+                      onChange={(e) => setContractAddressSearch(e.target.value)}
+                      className="h-9 text-xs"
+                    />
+                    <Button
+                      onClick={() => searchTokenByContract(contractAddressSearch)}
+                      size="sm"
+                      className="h-9 px-4 text-xs bg-primary"
+                    >
+                      Search
+                    </Button>
                   </div>
                 </div>
 
                 <Separator />
 
                 <div>
-                  <label className="text-xs font-medium">Search Token by Contract</label>
-                  <div className="flex gap-2 mt-1">
+                  <label className="text-sm font-medium">Slippage Tolerance</label>
+                  <div className="grid grid-cols-4 gap-2 mt-2">
+                    {['0.1', '0.5', '1.0', '3.0'].map((val) => (
+                      <Button
+                        key={val}
+                        variant={slippage === val ? 'default' : 'outline'}
+                        onClick={() => setSlippage(val)}
+                        className="h-9 text-xs"
+                      >
+                        {val}%
+                      </Button>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-2 mt-2">
                     <Input
-                      placeholder="0x..."
-                      value={contractAddressSearch}
-                      onChange={(e) => setContractAddressSearch(e.target.value)}
-                      className="h-8 text-xs"
+                      type="number"
+                      value={slippage}
+                      onChange={(e) => setSlippage(e.target.value)}
+                      className="h-9 text-xs"
+                      step="0.1"
                     />
-                    <Button
-                      onClick={() => searchTokenByContract(contractAddressSearch)}
-                      size="sm"
-                      className="h-8 text-xs"
-                    >
-                      <Search className="h-3 w-3" />
-                    </Button>
+                    <span className="text-xs text-muted-foreground">%</span>
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-1">
+                    Transaction reverts if price changes unfavorably by more than this
+                  </div>
+                </div>
+
+                <Separator />
+
+                <div>
+                  <div className="text-sm font-medium mb-1">Swap Sources</div>
+                  <div className="text-xs text-muted-foreground mb-2">
+                    Select DEXs to include in routing
+                  </div>
+                  <div className="space-y-2">
+                    {swapSources.map((source) => (
+                      <div key={source} className="flex items-center justify-between p-2 rounded bg-muted">
+                        <span className="text-xs">{source}</span>
+                        <Switch
+                          checked={enabledSources[source] || false}
+                          onCheckedChange={(checked) => {
+                            setEnabledSources(prev => ({ ...prev, [source]: checked }))
+                          }}
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -963,8 +1101,8 @@ export default function RelaySwap() {
                       }}
                       className="flex items-center gap-2 p-2 rounded hover:bg-accent cursor-pointer"
                     >
-                      {chain.logoUrl && (
-                        <img src={chain.logoUrl} alt="" className="h-5 w-5 rounded-full" />
+                      {chain.iconUrl && (
+                        <img src={chain.iconUrl} alt="" className="h-5 w-5 rounded-full" />
                       )}
                       <div className="text-xs">{chain.displayName}</div>
                     </div>
@@ -997,9 +1135,6 @@ export default function RelaySwap() {
                           setFromToken(currency)
                         } else {
                           setToToken(currency)
-                        }
-                        if (selectingType === 'token' && batchTokens.length < 10) {
-                          setBatchTokens([...batchTokens, { token: currency, amount: '' }])
                         }
                         setIsTokenSelectOpen(false)
                         setTokenSearchTerm('')
