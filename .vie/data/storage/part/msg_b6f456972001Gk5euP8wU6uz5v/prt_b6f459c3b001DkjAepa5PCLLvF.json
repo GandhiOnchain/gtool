@@ -1,0 +1,85 @@
+{
+  "id": "prt_b6f459c3b001DkjAepa5PCLLvF",
+  "messageID": "msg_b6f456972001Gk5euP8wU6uz5v",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01XhN4A8ncj13QvMWV5cUkVN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Fix cross-VM swap invalid wallet address error",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix history showing 'Unknown' for chain names",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Fix token detection not working anywhere",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Fix contract address search not working",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Run complete diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Fix cross-VM swap invalid wallet address error\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Fix history showing 'Unknown' for chain names\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Fix token detection not working anywhere\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Fix contract address search not working\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"4\"\n  },\n  {\n    \"content\": \"Run complete diagnostics\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"5\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Fix cross-VM swap invalid wallet address error",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix history showing 'Unknown' for chain names",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Fix token detection not working anywhere",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Fix contract address search not working",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Run complete diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        }
+      ]
+    },
+    "title": "5 todos",
+    "time": {
+      "start": 1767098393661,
+      "end": 1767098393662
+    }
+  }
+}

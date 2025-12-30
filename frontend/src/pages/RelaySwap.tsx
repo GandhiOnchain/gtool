@@ -105,6 +105,7 @@ export default function RelaySwap() {
   const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})
   const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)
   const [batchChain, setBatchChain] = useState<RelayChain | null>(null)
+  const [recipientAddress, setRecipientAddress] = useState('')
 
   const { sendTransaction, data: txHash } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
@@ -161,11 +162,11 @@ export default function RelaySwap() {
   }, [fromToken, toToken, fromAmount, fromChain, toChain, address])
 
   useEffect(() => {
-    if (address) {
+    if (address && chains.length > 0) {
       loadSwapHistory()
       loadUserStreak()
     }
-  }, [address])
+  }, [address, chains])
 
   useEffect(() => {
     loadLeaderboard()
@@ -201,24 +202,31 @@ export default function RelaySwap() {
 
   const loadCurrencies = async (chainId: number, type: 'from' | 'to') => {
     try {
+      console.log('Loading currencies for chain:', chainId, 'type:', type)
       const fetchedCurrencies = await relayAPI.getCurrencies({
         chainIds: [chainId],
         defaultList: true,
         limit: 100,
       })
+      console.log('Fetched currencies:', fetchedCurrencies.length, 'for chain', chainId)
       setCurrencies(fetchedCurrencies)
       
       if (fetchedCurrencies.length > 0) {
         const nativeToken = fetchedCurrencies.find(c => c.metadata?.isNative)
         const defaultToken = nativeToken || fetchedCurrencies[0]
+        console.log('Setting default token:', defaultToken.symbol, 'for', type)
         if (type === 'from') {
           setFromToken(defaultToken)
         } else {
           setToToken(defaultToken)
         }
+      } else {
+        console.warn('No currencies found for chain:', chainId)
+        toast.error('No tokens found for this chain')
       }
     } catch (error) {
       console.error('Failed to load currencies:', error)
+      toast.error('Failed to load tokens')
     }
   }
 
@@ -366,21 +374,40 @@ export default function RelaySwap() {
   }
 
   const searchTokenByContract = async (contractAddress: string) => {
-    if (!contractAddress || !fromChain) return
+    if (!contractAddress) {
+      toast.error('Please enter a contract address')
+      return
+    }
     
     try {
+      console.log('Searching for token:', contractAddress)
+      
+      const allChainIds = chains.map(c => c.id)
+      
       const results = await relayAPI.getCurrencies({
         address: contractAddress,
-        chainIds: [fromChain.id],
         useExternalSearch: true,
         limit: 10,
+        includeAllChains: true,
       })
+      
+      console.log('Search results:', results)
       
       if (results.length > 0) {
         setCurrencies(results)
-        toast.success(`Found ${results.length} token(s)`)
+        
+        if (results[0].chainId && fromChain?.id !== results[0].chainId) {
+          const tokenChain = chains.find(c => c.id === results[0].chainId)
+          if (tokenChain) {
+            setFromChain(tokenChain)
+          }
+        }
+        
+        setFromToken(results[0])
+        toast.success(`Found ${results[0].symbol} on ${results[0].chainId}`)
+        setContractAddressSearch('')
       } else {
-        toast.error('Token not found')
+        toast.error('Token not found on any supported chain')
       }
     } catch (error) {
       console.error('Failed to search token:', error)
@@ -402,7 +429,7 @@ export default function RelaySwap() {
       
       const fromVMType = fromChain.vmType || 'evm'
       const toVMType = toChain.vmType || 'evm'
-      const isCrossVM = fromVMType !== 'evm' || toVMType !== 'evm'
+      const isCrossVM = fromVMType !== toVMType
       
       const quoteParams = {
         user: address,
@@ -413,6 +440,7 @@ export default function RelaySwap() {
         amount: amountInWei.toString(),
         tradeType: 'EXACT_INPUT' as const,
         slippageTolerance: slippageBps,
+        recipient: isCrossVM && recipientAddress ? recipientAddress : undefined,
         includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
         useExternalLiquidity: isCrossVM ? true : undefined,
       }
@@ -998,6 +1026,23 @@ export default function RelaySwap() {
                 />
               </div>
             </Card>
+
+            {toChain && (toChain.vmType && toChain.vmType !== 'evm') && (
+              <Card className="p-3 bg-muted/50">
+                <div className="space-y-2">
+                  <div className="text-xs font-medium">Recipient Address ({toChain.displayName})</div>
+                  <Input
+                    placeholder={`Enter ${toChain.displayName} address`}
+                    value={recipientAddress}
+                    onChange={(e) => setRecipientAddress(e.target.value)}
+                    className="h-8 text-xs"
+                  />
+                  <div className="text-xs text-muted-foreground">
+                    Required for cross-chain swaps to non-EVM chains
+                  </div>
+                </div>
+              </Card>
+            )}
 
             {quote && (
               <Card className="p-3 bg-card">

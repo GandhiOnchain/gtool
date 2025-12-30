@@ -1,0 +1,11 @@
+{
+  "id": "prt_b6f4598ee001G1OfFNzpo7SumM",
+  "messageID": "msg_b6f456972001Gk5euP8wU6uz5v",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "text",
+  "text": "The issue is that `chains` state is empty when history loads. Let me fix all these issues comprehensively:",
+  "time": {
+    "start": 1767098396202,
+    "end": 1767098396202
+  }
+}

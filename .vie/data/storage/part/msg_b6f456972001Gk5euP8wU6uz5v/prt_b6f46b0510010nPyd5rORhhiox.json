@@ -1,0 +1,25 @@
+{
+  "id": "prt_b6f46b0510010nPyd5rORhhiox",
+  "messageID": "msg_b6f456972001Gk5euP8wU6uz5v",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01NofUNJ8TuL4835ueBgoCyA",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 950,
+      "limit": 50
+    },
+    "output": "<file>\n00951|               </Button>\n00952|             </div>\n00953| \n00954|             <Card className=\"p-3\">\n00955|               <div className=\"space-y-2\">\n00956|                 <div className=\"flex items-center justify-between text-xs\">\n00957|                   <span className=\"text-muted-foreground\">To</span>\n00958|                   {toBalance && (\n00959|                     <span className=\"text-muted-foreground\">\n00960|                       Balance: {parseFloat(formatUnits(toBalance.value, toBalance.decimals)).toFixed(4)} {toToken?.symbol}\n00961|                     </span>\n00962|                   )}\n00963|                 </div>\n00964|                 \n00965|                 <div className=\"flex gap-2\">\n00966|                   <Button\n00967|                     variant=\"outline\"\n00968|                     onClick={() => {\n00969|                       setSelectingFor('to')\n00970|                       setIsChainSelectOpen(true)\n00971|                     }}\n00972|                     className=\"flex-1 justify-between h-10 text-xs\"\n00973|                   >\n00974|                     <div className=\"flex items-center gap-1.5\">\n00975|                       {toChain?.iconUrl && (\n00976|                         <img src={toChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n00977|                       )}\n00978|                       <span>{toChain?.displayName || 'Select'}</span>\n00979|                     </div>\n00980|                     <ChevronDown className=\"h-3 w-3\" />\n00981|                   </Button>\n00982|                   \n00983|                   <Button\n00984|                     variant=\"outline\"\n00985|                     onClick={() => {\n00986|                       setSelectingFor('to')\n00987|                       setIsTokenSelectOpen(true)\n00988|                     }}\n00989|                     className=\"flex-1 justify-between h-10 text-xs\"\n00990|                   >\n00991|                     <div className=\"flex items-center gap-1.5\">\n00992|                       {toToken?.metadata?.logoURI && (\n00993|                         <img src={toToken.metadata.logoURI} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n00994|                       )}\n00995|                       <span>{toToken?.symbol || 'Select'}</span>\n00996|                     </div>\n00997|                     <ChevronDown className=\"h-3 w-3\" />\n00998|                   </Button>\n00999|                 </div>\n01000| \n\n(File has more lines. Use 'offset' parameter to read beyond line 1000)\n</file>",
+    "metadata": {
+      "preview": "              </Button>\n            </div>\n\n            <Card className=\"p-3\">\n              <div className=\"space-y-2\">\n                <div className=\"flex items-center justify-between text-xs\">\n                  <span className=\"text-muted-foreground\">To</span>\n                  {toBalance && (\n                    <span className=\"text-muted-foreground\">\n                      Balance: {parseFloat(formatUnits(toBalance.value, toBalance.decimals)).toFixed(4)} {toToken?.symbol}\n                    </span>\n                  )}\n                </div>\n                \n                <div className=\"flex gap-2\">\n                  <Button\n                    variant=\"outline\"\n                    onClick={() => {\n                      setSelectingFor('to')\n                      setIsChainSelectOpen(true)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767098463260,
+      "end": 1767098463262
+    }
+  }
+}

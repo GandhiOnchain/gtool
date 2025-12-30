@@ -1,0 +1,7 @@
+{
+  "id": "prt_b6f45688e001SkLqq5KJ0xpBFb",
+  "type": "text",
+  "text": "the crossvm swap from base to solana says invalid wallet address, fix the issue\n\nthe history section now shows the correct swap amounts but the chains are shown as unknown, fix the errors\n\nthe token detection is not working across any section, the batch cleanup, in swap selection etc, even after pasting the contract address",
+  "messageID": "msg_b6f456943001uUTGi6X35a5M8e",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs"
+}

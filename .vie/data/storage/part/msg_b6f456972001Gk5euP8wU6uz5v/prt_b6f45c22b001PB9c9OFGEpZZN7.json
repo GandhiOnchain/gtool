@@ -1,0 +1,26 @@
+{
+  "id": "prt_b6f45c22b001PB9c9OFGEpZZN7",
+  "messageID": "msg_b6f456972001Gk5euP8wU6uz5v",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01AeTro76g1tmxo1Lj29RxwY",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"const quoteParams = {\" src/pages/RelaySwap.tsx",
+      "description": "Find quote params"
+    },
+    "output": "407:      const quoteParams = {\n",
+    "metadata": {
+      "output": "407:      const quoteParams = {\n",
+      "exit": 0,
+      "description": "Find quote params"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"const quoteParams = {\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767098402616,
+      "end": 1767098402618
+    }
+  }
+}

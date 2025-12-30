@@ -1,0 +1,11 @@
+{
+  "id": "prt_b6f45e98e001WM18zlWrDZ0DxV",
+  "messageID": "msg_b6f456972001Gk5euP8wU6uz5v",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "text",
+  "text": "The issue is that for cross-VM swaps, we need to handle the recipient address differently. For Solana, the user needs to provide a Solana address. Let me add a recipient input for cross-VM swaps and also add better error handling. But first, let me check why token detection isn't working. Let me look at the loadCurrencies function:",
+  "time": {
+    "start": 1767098414662,
+    "end": 1767098414662
+  }
+}
