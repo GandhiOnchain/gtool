@@ -1,0 +1,11 @@
+{
+  "id": "prt_b6f4e188d001dNVVvVoqZaOpNe",
+  "messageID": "msg_b6f4c61ad001eaRvgqFegSJ9wL",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "text",
+  "text": "The filtering looks fine. Let me check the token selector dialog to see if there's an issue with how it's displaying:",
+  "time": {
+    "start": 1767098949875,
+    "end": 1767098949875
+  }
+}

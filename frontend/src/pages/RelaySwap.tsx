@@ -106,6 +106,8 @@ export default function RelaySwap() {
   const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)
   const [batchChain, setBatchChain] = useState<RelayChain | null>(null)
   const [recipientAddress, setRecipientAddress] = useState('')
+  const [fromTokenPrice, setFromTokenPrice] = useState<number>(0)
+  const [toTokenPrice, setToTokenPrice] = useState<number>(0)
 
   const { sendTransaction, data: txHash } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
@@ -139,6 +141,18 @@ export default function RelaySwap() {
       setBatchChain(baseChain)
     }
   }, [chains])
+
+  useEffect(() => {
+    if (fromToken && fromChain) {
+      fetchTokenPrice(fromToken.address, fromChain.id, 'from')
+    }
+  }, [fromToken, fromChain])
+
+  useEffect(() => {
+    if (toToken && toChain) {
+      fetchTokenPrice(toToken.address, toChain.id, 'to')
+    }
+  }, [toToken, toChain])
 
   useEffect(() => {
     if (fromChain) {
@@ -200,6 +214,19 @@ export default function RelaySwap() {
     }
   }
 
+  const fetchTokenPrice = async (tokenAddress: string, chainId: number, type: 'from' | 'to') => {
+    try {
+      const priceData = await relayAPI.getTokenPrice({ address: tokenAddress, chainId })
+      if (type === 'from') {
+        setFromTokenPrice(priceData.price)
+      } else {
+        setToTokenPrice(priceData.price)
+      }
+    } catch (error) {
+      console.error('Failed to fetch token price:', error)
+    }
+  }
+
   const loadCurrencies = async (chainId: number, type: 'from' | 'to') => {
     try {
       console.log('Loading currencies for chain:', chainId, 'type:', type)
@@ -209,7 +236,19 @@ export default function RelaySwap() {
         limit: 100,
       })
       console.log('Fetched currencies:', fetchedCurrencies.length, 'for chain', chainId)
-      setCurrencies(fetchedCurrencies)
+      console.log('First few tokens:', fetchedCurrencies.slice(0, 3).map(c => c.symbol))
+      
+      if (type === 'from') {
+        setCurrencies(fetchedCurrencies)
+      } else {
+        setCurrencies(prev => {
+          const combined = [...prev, ...fetchedCurrencies]
+          const unique = combined.filter((c, i, arr) => 
+            arr.findIndex(t => t.chainId === c.chainId && t.address === c.address) === i
+          )
+          return unique
+        })
+      }
       
       if (fetchedCurrencies.length > 0) {
         const nativeToken = fetchedCurrencies.find(c => c.metadata?.isNative)
@@ -878,6 +917,11 @@ export default function RelaySwap() {
                   {fromBalance && (
                     <span className="text-muted-foreground">
                       Balance: {parseFloat(formatUnits(fromBalance.value, fromBalance.decimals)).toFixed(4)} {fromToken?.symbol}
+                      {fromTokenPrice > 0 && (
+                        <span className="ml-1">
+                          (${(parseFloat(formatUnits(fromBalance.value, fromBalance.decimals)) * fromTokenPrice).toFixed(2)})
+                        </span>
+                      )}
                     </span>
                   )}
                 </div>
@@ -977,6 +1021,11 @@ export default function RelaySwap() {
                   {toBalance && (
                     <span className="text-muted-foreground">
                       Balance: {parseFloat(formatUnits(toBalance.value, toBalance.decimals)).toFixed(4)} {toToken?.symbol}
+                      {toTokenPrice > 0 && (
+                        <span className="ml-1">
+                          (${(parseFloat(formatUnits(toBalance.value, toBalance.decimals)) * toTokenPrice).toFixed(2)})
+                        </span>
+                      )}
                     </span>
                   )}
                 </div>
@@ -1027,7 +1076,7 @@ export default function RelaySwap() {
               </div>
             </Card>
 
-            {toChain && (toChain.vmType && toChain.vmType !== 'evm') && (
+            {toChain && fromChain && toChain.id !== fromChain.id && (toChain.vmType && toChain.vmType !== 'evm') && (
               <Card className="p-3 bg-muted/50">
                 <div className="space-y-2">
                   <div className="text-xs font-medium">Recipient Address ({toChain.displayName})</div>
@@ -1038,7 +1087,7 @@ export default function RelaySwap() {
                     className="h-8 text-xs"
                   />
                   <div className="text-xs text-muted-foreground">
-                    Required for cross-chain swaps to non-EVM chains
+                    Required for swaps to {toChain.displayName}
                   </div>
                 </div>
               </Card>
@@ -1430,9 +1479,17 @@ export default function RelaySwap() {
                 onChange={(e) => setTokenSearchTerm(e.target.value)}
                 className="h-8 text-xs"
               />
+              <div className="text-xs text-muted-foreground px-1">
+                {filteredCurrencies.length} tokens available
+              </div>
               <ScrollArea className="h-[300px]">
                 <div className="space-y-1">
-                  {filteredCurrencies.map((currency) => (
+                  {filteredCurrencies.length === 0 ? (
+                    <div className="text-xs text-muted-foreground text-center p-4">
+                      No tokens found. Try selecting a chain first.
+                    </div>
+                  ) : (
+                    filteredCurrencies.map((currency) => (
                     <div
                       key={`${currency.chainId}-${currency.address}`}
                       onClick={() => {
@@ -1454,7 +1511,8 @@ export default function RelaySwap() {
                         <div className="text-xs text-muted-foreground">{currency.name}</div>
                       </div>
                     </div>
-                  ))}
+                    ))
+                  )}
                 </div>
               </ScrollArea>
             </div>

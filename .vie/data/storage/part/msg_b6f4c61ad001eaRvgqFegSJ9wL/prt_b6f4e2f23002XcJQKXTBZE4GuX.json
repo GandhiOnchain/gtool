@@ -1,0 +1,25 @@
+{
+  "id": "prt_b6f4e2f23002XcJQKXTBZE4GuX",
+  "messageID": "msg_b6f4c61ad001eaRvgqFegSJ9wL",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01HN4CLTReCm57dPhKWbJkJH",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1470,
+      "limit": 50
+    },
+    "output": "<file>\n01471|           <DialogContent className=\"max-w-[380px]\">\n01472|             <DialogHeader>\n01473|               <DialogTitle className=\"text-sm\">Select Token</DialogTitle>\n01474|             </DialogHeader>\n01475|             <div className=\"space-y-2\">\n01476|               <Input\n01477|                 placeholder=\"Search tokens...\"\n01478|                 value={tokenSearchTerm}\n01479|                 onChange={(e) => setTokenSearchTerm(e.target.value)}\n01480|                 className=\"h-8 text-xs\"\n01481|               />\n01482|               <ScrollArea className=\"h-[300px]\">\n01483|                 <div className=\"space-y-1\">\n01484|                   {filteredCurrencies.map((currency) => (\n01485|                     <div\n01486|                       key={`${currency.chainId}-${currency.address}`}\n01487|                       onClick={() => {\n01488|                         if (selectingFor === 'from') {\n01489|                           setFromToken(currency)\n01490|                         } else {\n01491|                           setToToken(currency)\n01492|                         }\n01493|                         setIsTokenSelectOpen(false)\n01494|                         setTokenSearchTerm('')\n01495|                       }}\n01496|                       className=\"flex items-center gap-2 p-2 rounded hover:bg-accent cursor-pointer\"\n01497|                     >\n01498|                       {currency.metadata?.logoURI && (\n01499|                         <img src={currency.metadata.logoURI} alt=\"\" className=\"h-5 w-5 rounded-full\" />\n01500|                       )}\n01501|                       <div className=\"flex-1\">\n01502|                         <div className=\"text-xs font-medium\">{currency.symbol}</div>\n01503|                         <div className=\"text-xs text-muted-foreground\">{currency.name}</div>\n01504|                       </div>\n01505|                     </div>\n01506|                   ))}\n01507|                 </div>\n01508|               </ScrollArea>\n01509|             </div>\n01510|           </DialogContent>\n01511|         </Dialog>\n01512| \n01513|         <Dialog open={showLeaderboard} onOpenChange={setShowLeaderboard}>\n01514|           <DialogContent className=\"max-w-[380px]\">\n01515|             <DialogHeader>\n01516|               <DialogTitle className=\"text-sm\">Top Swappers This Week</DialogTitle>\n01517|             </DialogHeader>\n01518|             <ScrollArea className=\"h-[300px]\">\n01519|               <div className=\"space-y-2\">\n01520|                 {leaderboard.slice(0, 10).map((entry) => (\n\n(File has more lines. Use 'offset' parameter to read beyond line 1520)\n</file>",
+    "metadata": {
+      "preview": "          <DialogContent className=\"max-w-[380px]\">\n            <DialogHeader>\n              <DialogTitle className=\"text-sm\">Select Token</DialogTitle>\n            </DialogHeader>\n            <div className=\"space-y-2\">\n              <Input\n                placeholder=\"Search tokens...\"\n                value={tokenSearchTerm}\n                onChange={(e) => setTokenSearchTerm(e.target.value)}\n                className=\"h-8 text-xs\"\n              />\n              <ScrollArea className=\"h-[300px]\">\n                <div className=\"space-y-1\">\n                  {filteredCurrencies.map((currency) => (\n                    <div\n                      key={`${currency.chainId}-${currency.address}`}\n                      onClick={() => {\n                        if (selectingFor === 'from') {\n                          setFromToken(currency)\n                        } else {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767098954415,
+      "end": 1767098954417
+    }
+  }
+}

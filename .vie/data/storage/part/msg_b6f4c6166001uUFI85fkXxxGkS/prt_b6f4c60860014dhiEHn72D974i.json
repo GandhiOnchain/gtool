@@ -1,0 +1,7 @@
+{
+  "id": "prt_b6f4c60860014dhiEHn72D974i",
+  "type": "text",
+  "text": "solana swap is working now but make sure all cross chain swaps work even if it requires inputting wallet address\n\nadd a usd balance display in the swaps amounts\n\nthe history section looks good but the batch swap and swap token detection still fail even after pasting contract address",
+  "messageID": "msg_b6f4c6166001uUFI85fkXxxGkS",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs"
+}

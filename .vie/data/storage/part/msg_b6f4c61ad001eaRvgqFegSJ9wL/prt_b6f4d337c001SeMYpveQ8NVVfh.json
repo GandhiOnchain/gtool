@@ -1,0 +1,26 @@
+{
+  "id": "prt_b6f4d337c001SeMYpveQ8NVVfh",
+  "messageID": "msg_b6f4c61ad001eaRvgqFegSJ9wL",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01RPRj9TYAmbGDLDYhGdN85a",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"Balance: {parseFloat(formatUnits(toBalance\" src/pages/RelaySwap.tsx",
+      "description": "Find to balance display"
+    },
+    "output": "1011:                      Balance: {parseFloat(formatUnits(toBalance.value, toBalance.decimals)).toFixed(4)} {toToken?.symbol}\n",
+    "metadata": {
+      "output": "1011:                      Balance: {parseFloat(formatUnits(toBalance.value, toBalance.decimals)).toFixed(4)} {toToken?.symbol}\n",
+      "exit": 0,
+      "description": "Find to balance display"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"Balance: {parseFloat(formatUnits(toBalance\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767098889960,
+      "end": 1767098889966
+    }
+  }
+}

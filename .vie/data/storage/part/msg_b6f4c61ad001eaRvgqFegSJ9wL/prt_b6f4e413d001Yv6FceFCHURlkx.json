@@ -1,0 +1,11 @@
+{
+  "id": "prt_b6f4e413d001Yv6FceFCHURlkx",
+  "messageID": "msg_b6f4c61ad001eaRvgqFegSJ9wL",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "text",
+  "text": "The token selector looks fine. Let me add a debug display to show how many currencies are loaded:",
+  "time": {
+    "start": 1767098963811,
+    "end": 1767098963811
+  }
+}

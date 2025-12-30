@@ -1,0 +1,26 @@
+{
+  "id": "prt_b6f4e1bab001SP4ORAutKUtVuG",
+  "messageID": "msg_b6f4c61ad001eaRvgqFegSJ9wL",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01XjrKEDudj6KRChiBRwtaWD",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"Dialog open={isTokenSelectOpen}\" src/pages/RelaySwap.tsx",
+      "description": "Find token select dialog"
+    },
+    "output": "1470:        <Dialog open={isTokenSelectOpen} onOpenChange={setIsTokenSelectOpen}>\n",
+    "metadata": {
+      "output": "1470:        <Dialog open={isTokenSelectOpen} onOpenChange={setIsTokenSelectOpen}>\n",
+      "exit": 0,
+      "description": "Find token select dialog"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"Dialog open={isTokenSelectOpen}\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767098949639,
+      "end": 1767098949641
+    }
+  }
+}

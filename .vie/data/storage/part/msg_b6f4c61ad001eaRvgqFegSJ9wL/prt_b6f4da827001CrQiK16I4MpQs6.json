@@ -1,0 +1,11 @@
+{
+  "id": "prt_b6f4da827001CrQiK16I4MpQs6",
+  "messageID": "msg_b6f4c61ad001eaRvgqFegSJ9wL",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "text",
+  "text": "Great! The API is working. The tokens ARE being returned. The issue must be in how we're displaying them or the state isn't updating. Let me add better debugging and fix the token selector dialog to show all currencies properly:",
+  "time": {
+    "start": 1767098933242,
+    "end": 1767098933242
+  }
+}
