@@ -1,0 +1,7 @@
+{
+  "id": "prt_b6f36f9d0001HlpwQH1lmfFOQs",
+  "type": "text",
+  "text": "the quote generation for non evm chains shows this message as in the image attached\n\nthe batch swap still doesnt show tokens, try adding option to select chains on which the swaps should be performed which will help in detecting the tokens easier\n\nthe transactions details are not accurate in the history tab. its showing chain1, chain2 etc instead of eth or sol or bnb etc, the swap amounts are also not accurate, the time stamps are correct, so fix the errors",
+  "messageID": "msg_b6f36fa74001ZvP4Wwg2Q6FnG5",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs"
+}

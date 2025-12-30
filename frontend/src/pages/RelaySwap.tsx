@@ -91,7 +91,7 @@ export default function RelaySwap() {
   const [tokenSearchTerm, setTokenSearchTerm] = useState('')
   const [isChainSelectOpen, setIsChainSelectOpen] = useState(false)
   const [isTokenSelectOpen, setIsTokenSelectOpen] = useState(false)
-  const [selectingFor, setSelectingFor] = useState<'from' | 'to'>('from')
+  const [selectingFor, setSelectingFor] = useState<'from' | 'to' | 'batch'>('from')
   const [currencies, setCurrencies] = useState<RelayCurrency[]>([])
   const [trendingTokens, setTrendingTokens] = useState<TrendingToken[]>([])
   const [swapHistory, setSwapHistory] = useState<SwapHistory[]>([])
@@ -104,6 +104,7 @@ export default function RelaySwap() {
   const [swapSources, setSwapSources] = useState<string[]>([])
   const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})
   const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)
+  const [batchChain, setBatchChain] = useState<RelayChain | null>(null)
 
   const { sendTransaction, data: txHash } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
@@ -169,6 +170,12 @@ export default function RelaySwap() {
     }
   }, [address, fromChain, isConnected])
 
+  useEffect(() => {
+    if (address && batchChain && isConnected) {
+      loadBatchWalletTokens()
+    }
+  }, [address, batchChain, isConnected])
+
   const loadChains = async () => {
     try {
       const { chains: fetchedChains } = await relayAPI.getChains()
@@ -211,68 +218,111 @@ export default function RelaySwap() {
   const loadWalletTokens = async () => {
     if (!address || !fromChain) return
     
+    const chain = fromChain
+    const isEVM = chain.vmType === 'evm' || !chain.vmType
+    
+    if (!isEVM) {
+      return
+    }
+
+    try {
+      const fetchedCurrencies = await relayAPI.getCurrencies({
+        chainIds: [chain.id],
+        defaultList: true,
+        limit: 50,
+      })
+      
+      setCurrencies(fetchedCurrencies)
+    } catch (error) {
+      console.error('Failed to load wallet tokens:', error)
+    }
+  }
+
+  const loadBatchWalletTokens = async () => {
+    if (!address || !batchChain) return
+    
+    const chain = batchChain
+    const isEVM = chain.vmType === 'evm' || !chain.vmType
+    
+    if (!isEVM) {
+      toast.error('Batch swap only supports EVM chains')
+      return
+    }
+    
     setIsLoadingBatchTokens(true)
     try {
       const fetchedCurrencies = await relayAPI.getCurrencies({
-        chainIds: [fromChain.id],
+        chainIds: [chain.id],
         defaultList: true,
         limit: 50,
       })
       
       const tokensWithBalances: WalletToken[] = []
       
-      const isEVM = fromChain.vmType === 'evm' || !fromChain.vmType
-      
-      if (isEVM) {
-        for (const currency of fetchedCurrencies) {
-          try {
-            if (currency.metadata?.isNative) {
-              const balance = fromBalance?.value || BigInt(0)
+      for (const currency of fetchedCurrencies) {
+        try {
+          if (currency.metadata?.isNative) {
+            try {
+              const response = await fetch(chain.httpRpcUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  jsonrpc: '2.0',
+                  method: 'eth_getBalance',
+                  params: [address, 'latest'],
+                  id: 1
+                })
+              })
+              
+              const result = await response.json()
+              const balance = result.result ? BigInt(result.result) : BigInt(0)
               const balanceFormatted = formatUnits(balance, currency.decimals)
               
-              if (parseFloat(balanceFormatted) > 0) {
+              if (parseFloat(balanceFormatted) > 0.000001) {
                 tokensWithBalances.push({
                   token: currency,
                   balance: balance.toString(),
                   balanceFormatted,
                 })
               }
-            } else {
-              const balanceData = `0x70a08231000000000000000000000000${address.slice(2)}`
-              
-              try {
-                const response = await fetch(fromChain.httpRpcUrl, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    jsonrpc: '2.0',
-                    method: 'eth_call',
-                    params: [{
-                      to: currency.address,
-                      data: balanceData
-                    }, 'latest'],
-                    id: 1
-                  })
-                })
-                
-                const result = await response.json()
-                const balance = result.result ? BigInt(result.result) : BigInt(0)
-                const balanceFormatted = formatUnits(balance, currency.decimals)
-                
-                if (parseFloat(balanceFormatted) > 0.000001) {
-                  tokensWithBalances.push({
-                    token: currency,
-                    balance: balance.toString(),
-                    balanceFormatted,
-                  })
-                }
-              } catch (e) {
-                console.error('Failed to fetch balance for', currency.symbol)
-              }
+            } catch (e) {
+              console.error('Failed to fetch native balance')
             }
-          } catch (e) {
-            console.error('Error processing token', currency.symbol, e)
+          } else {
+            const balanceData = `0x70a08231000000000000000000000000${address.slice(2)}`
+            
+            try {
+              const response = await fetch(chain.httpRpcUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  jsonrpc: '2.0',
+                  method: 'eth_call',
+                  params: [{
+                    to: currency.address,
+                    data: balanceData
+                  }, 'latest'],
+                  id: 1
+                })
+              })
+              
+              const result = await response.json()
+              const balance = result.result ? BigInt(result.result) : BigInt(0)
+              const balanceFormatted = formatUnits(balance, currency.decimals)
+              
+              if (parseFloat(balanceFormatted) > 0.000001) {
+                tokensWithBalances.push({
+                  token: currency,
+                  balance: balance.toString(),
+                  balanceFormatted,
+                })
+              }
+            } catch (e) {
+              console.error('Failed to fetch balance for', currency.symbol)
+            }
           }
+        } catch (e) {
+          console.error('Error processing token', currency.symbol, e)
         }
       }
       
@@ -283,6 +333,8 @@ export default function RelaySwap() {
       
       if (tokensWithBalances.length > 0) {
         toast.success(`Found ${tokensWithBalances.length} tokens with balance`)
+      } else {
+        toast.info('No tokens with balance found on this chain')
       }
     } catch (error) {
       console.error('Failed to load wallet tokens:', error)
@@ -318,6 +370,14 @@ export default function RelaySwap() {
   const fetchQuote = async () => {
     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return
 
+    const fromVMType = fromChain.vmType || 'evm'
+    const toVMType = toChain.vmType || 'evm'
+    
+    if (fromVMType !== 'evm' || toVMType !== 'evm') {
+      toast.error('Cross-VM swaps are not yet supported. Please select EVM chains only.')
+      return
+    }
+
     setIsLoadingQuote(true)
     try {
       const amountInWei = parseUnits(fromAmount, fromToken.decimals)
@@ -337,7 +397,6 @@ export default function RelaySwap() {
         tradeType: 'EXACT_INPUT' as const,
         slippageTolerance: slippageBps,
         includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
-        useExternalLiquidity: (fromChain.vmType && fromChain.vmType !== 'evm') || (toChain.vmType && toChain.vmType !== 'evm') ? true : undefined,
       }
       
       const quoteData = await relayAPI.getQuote(quoteParams)
@@ -431,8 +490,8 @@ export default function RelaySwap() {
   }
 
   const executeBatchSwap = async () => {
-    if (!toToken || !toChain || !address || batchTokens.length === 0) {
-      toast.error('Please select tokens to swap')
+    if (!toToken || !toChain || !address || batchTokens.length === 0 || !batchChain) {
+      toast.error('Please select chain and tokens to swap')
       return
     }
 
@@ -441,7 +500,7 @@ export default function RelaySwap() {
       const origins = batchTokens
         .filter(bt => parseFloat(bt.balanceFormatted) > 0)
         .map(bt => ({
-          chainId: fromChain!.id,
+          chainId: batchChain.id,
           currency: bt.token.address,
           amount: bt.balance,
         }))
@@ -511,18 +570,29 @@ export default function RelaySwap() {
         sortDirection: 'desc',
       })
       
-      const history: SwapHistory[] = requests.map(req => ({
-        id: req.id,
-        fromToken: req.data.currency,
-        toToken: req.data.currency,
-        fromAmount: req.data.price,
-        toAmount: req.data.price,
-        fromChain: req.data.inTxs[0]?.chainId.toString() || '',
-        toChain: req.data.outTxs[0]?.chainId.toString() || '',
-        status: req.status,
-        timestamp: new Date(req.createdAt).getTime(),
-        txHash: req.data.outTxs[0]?.hash,
-      }))
+      const history: SwapHistory[] = requests.map(req => {
+        const originChainId = req.data.inTxs[0]?.chainId
+        const destChainId = req.data.outTxs[0]?.chainId
+        
+        const originChain = chains.find(c => c.id === originChainId)
+        const destChain = chains.find(c => c.id === destChainId)
+        
+        const fromValue = req.data.inTxs[0]?.data?.value || '0'
+        const toValue = req.data.outTxs[0]?.data?.value || '0'
+        
+        return {
+          id: req.id,
+          fromToken: req.data.currency || 'Unknown',
+          toToken: req.data.currency || 'Unknown',
+          fromAmount: fromValue,
+          toAmount: toValue,
+          fromChain: originChain?.displayName || originChain?.name || `Chain ${originChainId}`,
+          toChain: destChain?.displayName || destChain?.name || `Chain ${destChainId}`,
+          status: req.status,
+          timestamp: new Date(req.createdAt).getTime(),
+          txHash: req.data.outTxs[0]?.hash,
+        }
+      })
       
       setSwapHistory(history)
     } catch (error) {
@@ -994,11 +1064,34 @@ export default function RelaySwap() {
             <Card className="p-3">
               <div className="space-y-2">
                 <div className="text-sm font-medium">Batch Cleanup Swap</div>
-                <div className="text-xs text-muted-foreground">
-                  {isLoadingBatchTokens ? 'Loading tokens...' : batchTokens.length > 0 ? `${batchTokens.length} tokens detected with balance` : 'No tokens with balance detected'}
+                
+                <div className="space-y-2">
+                  <div className="text-xs text-muted-foreground">Select chain to detect tokens</div>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setSelectingFor('batch')
+                      setIsChainSelectOpen(true)
+                    }}
+                    className="w-full justify-between h-8 text-xs"
+                  >
+                    <div className="flex items-center gap-1.5">
+                      {batchChain?.iconUrl && (
+                        <img src={batchChain.iconUrl} alt="" className="h-4 w-4 rounded-full" />
+                      )}
+                      <span>{batchChain?.displayName || 'Select Chain'}</span>
+                    </div>
+                    <ChevronDown className="h-3 w-3" />
+                  </Button>
                 </div>
 
-                <ScrollArea className="h-48">
+                <Separator />
+
+                <div className="text-xs text-muted-foreground">
+                  {isLoadingBatchTokens ? 'Loading tokens...' : batchTokens.length > 0 ? `${batchTokens.length} tokens detected with balance` : batchChain ? 'No tokens with balance detected' : 'Select a chain to detect tokens'}
+                </div>
+
+                <ScrollArea className="h-40">
                   <div className="space-y-2">
                     {batchTokens.map((wt, i) => (
                       <div key={i} className="flex items-center gap-2 p-2 border rounded">
@@ -1230,8 +1323,10 @@ export default function RelaySwap() {
                       onClick={() => {
                         if (selectingFor === 'from') {
                           setFromChain(chain)
-                        } else {
+                        } else if (selectingFor === 'to') {
                           setToChain(chain)
+                        } else if (selectingFor === 'batch') {
+                          setBatchChain(chain)
                         }
                         setIsChainSelectOpen(false)
                         setSearchTerm('')

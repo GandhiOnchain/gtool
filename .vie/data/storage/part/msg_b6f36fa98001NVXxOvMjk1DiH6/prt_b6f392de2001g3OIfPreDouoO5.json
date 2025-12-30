@@ -1,0 +1,25 @@
+{
+  "id": "prt_b6f392de2001g3OIfPreDouoO5",
+  "messageID": "msg_b6f36fa98001NVXxOvMjk1DiH6",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01793E3VFdoDWBbb38PBRvPS",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1220,
+      "limit": 50
+    },
+    "output": "<file>\n01221|                   ))\n01222|                 )}\n01223|               </div>\n01224|             </ScrollArea>\n01225|           </TabsContent>\n01226| \n01227|           <TabsContent value=\"settings\" className=\"space-y-3 mt-2\">\n01228|             <Card className=\"p-3\">\n01229|               <div className=\"space-y-3\">\n01230|                 <div>\n01231|                   <label className=\"text-sm font-medium\">Token Search</label>\n01232|                   <div className=\"flex gap-2 mt-2\">\n01233|                     <Input\n01234|                       placeholder=\"0x...\"\n01235|                       value={contractAddressSearch}\n01236|                       onChange={(e) => setContractAddressSearch(e.target.value)}\n01237|                       className=\"h-9 text-xs\"\n01238|                     />\n01239|                     <Button\n01240|                       onClick={() => searchTokenByContract(contractAddressSearch)}\n01241|                       size=\"sm\"\n01242|                       className=\"h-9 px-4 text-xs bg-primary\"\n01243|                     >\n01244|                       Search\n01245|                     </Button>\n01246|                   </div>\n01247|                 </div>\n01248| \n01249|                 <Separator />\n01250| \n01251|                 <div>\n01252|                   <label className=\"text-sm font-medium\">Slippage Tolerance</label>\n01253|                   <div className=\"grid grid-cols-4 gap-2 mt-2\">\n01254|                     {['0.1', '0.5', '1.0', '3.0'].map((val) => (\n01255|                       <Button\n01256|                         key={val}\n01257|                         variant={slippage === val ? 'default' : 'outline'}\n01258|                         onClick={() => setSlippage(val)}\n01259|                         className=\"h-9 text-xs\"\n01260|                       >\n01261|                         {val}%\n01262|                       </Button>\n01263|                     ))}\n01264|                   </div>\n01265|                   <div className=\"flex items-center gap-2 mt-2\">\n01266|                     <Input\n01267|                       type=\"number\"\n01268|                       value={slippage}\n01269|                       onChange={(e) => setSlippage(e.target.value)}\n01270|                       className=\"h-9 text-xs\"\n\n(File has more lines. Use 'offset' parameter to read beyond line 1270)\n</file>",
+    "metadata": {
+      "preview": "                  ))\n                )}\n              </div>\n            </ScrollArea>\n          </TabsContent>\n\n          <TabsContent value=\"settings\" className=\"space-y-3 mt-2\">\n            <Card className=\"p-3\">\n              <div className=\"space-y-3\">\n                <div>\n                  <label className=\"text-sm font-medium\">Token Search</label>\n                  <div className=\"flex gap-2 mt-2\">\n                    <Input\n                      placeholder=\"0x...\"\n                      value={contractAddressSearch}\n                      onChange={(e) => setContractAddressSearch(e.target.value)}\n                      className=\"h-9 text-xs\"\n                    />\n                    <Button\n                      onClick={() => searchTokenByContract(contractAddressSearch)}"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767097577969,
+      "end": 1767097577971
+    }
+  }
+}

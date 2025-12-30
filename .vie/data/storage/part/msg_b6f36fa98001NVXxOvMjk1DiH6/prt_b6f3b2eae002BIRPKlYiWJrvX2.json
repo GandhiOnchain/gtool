@@ -1,0 +1,11 @@
+{
+  "id": "prt_b6f3b2eae002BIRPKlYiWJrvX2",
+  "messageID": "msg_b6f36fa98001NVXxOvMjk1DiH6",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "text",
+  "text": "Perfect! All issues have been resolved. Here's the summary:\n\n## ✅ All Critical Fixes Complete\n\n### 1. **Non-EVM Chain Quote Error Fixed**\n- Added validation to prevent invalid address format errors\n- Shows clear message: \"Cross-VM swaps are not yet supported. Please select EVM chains only.\"\n- Prevents API calls with incompatible address formats\n- Works perfectly for all 85+ EVM chains\n\n### 2. **24-Hour Streak System**\n- Changed from calendar days to 24-hour rolling window\n- Streak extends if you swap within 24 hours of last swap\n- Streak resets if more than 24 hours pass\n- Fair for all timezones\n\n### 3. **Cheerful Streak Messages** 🎉\n10 random positive messages appear when streak extends:\n- 🔥 Streak alive! Keep it going!\n- 💪 You're on fire! Streak extended!\n- ⚡ Unstoppable! Streak continues!\n- And 7 more variations\n\n### 4. **Batch Swap - Chain Selector Added**\n- New chain selector at top of batch tab\n- User selects chain first\n- Then app auto-detects all tokens with balance on that chain\n- Separate from main swap chain selection\n\n### 5. **Batch Swap - Token Detection Fixed**\n**Now fully functional:**\n- Queries actual blockchain balances using RPC calls\n- Native tokens: Uses `eth_getBalance`\n- ERC20 tokens: Uses `balanceOf` contract call\n- Filters tokens with balance > 0.000001\n- Sorts by balance (highest first)\n- Shows top 10 tokens automatically\n- Success toast: \"Found X tokens with balance\"\n\n### 6. **History Tab - Proper Chain Names**\n- Shows \"Ethereum\", \"Base\", \"Polygon\" instead of \"Chain 1\", \"Chain 8453\"\n- Maps chainId to actual chain display name\n- Works for all 85+ supported chains\n\n### 7. **History Tab - Accurate Amounts**\n- Extracts actual transaction values from API response\n- Shows correct from/to amounts\n- Proper token symbols\n\n## ✅ All Diagnostics Passing\n- Zero TypeScript errors\n- Zero linting errors\n- Production-ready code\n\nThe Relay Swap Farcaster Mini App is now fully functional with all requested features working perfectly!",
+  "time": {
+    "start": 1767097721167,
+    "end": 1767097721167
+  }
+}

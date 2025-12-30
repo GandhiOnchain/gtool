@@ -1,0 +1,25 @@
+{
+  "id": "prt_b6f371331001Zfdn3jELcblySh",
+  "messageID": "msg_b6f36fa98001NVXxOvMjk1DiH6",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01WfGB5s4iubJjmL3jrqw62Y",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 430,
+      "limit": 50
+    },
+    "output": "<file>\n00431|   }\n00432| \n00433|   const executeBatchSwap = async () => {\n00434|     if (!toToken || !toChain || !address || batchTokens.length === 0) {\n00435|       toast.error('Please select tokens to swap')\n00436|       return\n00437|     }\n00438| \n00439|     setIsSwapping(true)\n00440|     try {\n00441|       const origins = batchTokens\n00442|         .filter(bt => parseFloat(bt.balanceFormatted) > 0)\n00443|         .map(bt => ({\n00444|           chainId: fromChain!.id,\n00445|           currency: bt.token.address,\n00446|           amount: bt.balance,\n00447|         }))\n00448| \n00449|       if (origins.length === 0) {\n00450|         toast.error('No tokens with balance selected')\n00451|         setIsSwapping(false)\n00452|         return\n00453|       }\n00454| \n00455|       const multiQuote = await relayAPI.getMultiInputQuote({\n00456|         user: address,\n00457|         origins,\n00458|         destinationCurrency: toToken.address,\n00459|         destinationChainId: toChain.id,\n00460|         tradeType: 'EXACT_INPUT',\n00461|       })\n00462| \n00463|       for (const step of multiQuote.steps) {\n00464|         if (step.id === 'deposit' && step.items) {\n00465|           for (const item of step.items) {\n00466|             const txData = item.data\n00467|             sendTransaction({\n00468|               to: txData.to as `0x${string}`,\n00469|               data: txData.data as `0x${string}`,\n00470|               value: BigInt(txData.value),\n00471|               chainId: txData.chainId,\n00472|             })\n00473|             await new Promise(resolve => setTimeout(resolve, 1000))\n00474|           }\n00475|         }\n00476|       }\n00477| \n00478|       toast.success('Batch swap initiated')\n00479|       updateUserStreak()\n00480|       setBatchTokens([])\n\n(File has more lines. Use 'offset' parameter to read beyond line 480)\n</file>",
+    "metadata": {
+      "preview": "  }\n\n  const executeBatchSwap = async () => {\n    if (!toToken || !toChain || !address || batchTokens.length === 0) {\n      toast.error('Please select tokens to swap')\n      return\n    }\n\n    setIsSwapping(true)\n    try {\n      const origins = batchTokens\n        .filter(bt => parseFloat(bt.balanceFormatted) > 0)\n        .map(bt => ({\n          chainId: fromChain!.id,\n          currency: bt.token.address,\n          amount: bt.balance,\n        }))\n\n      if (origins.length === 0) {\n        toast.error('No tokens with balance selected')"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767097440091,
+      "end": 1767097440093
+    }
+  }
+}
