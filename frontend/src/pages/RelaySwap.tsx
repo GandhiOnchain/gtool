@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { sdk } from '@farcaster/miniapp-sdk'
 import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect } from 'wagmi'
-import { parseUnits, formatUnits } from 'viem'
+import { parseUnits, formatUnits, erc20Abi } from 'viem'
+import { useReadContracts } from 'wagmi'
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
 import { Button } from '@/components/ui/button'
@@ -14,7 +15,7 @@ import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { toast } from 'sonner'
-import { ArrowDownUp, Search, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'
+import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'
 
 interface TrendingToken {
   address: string
@@ -150,10 +151,10 @@ export default function RelaySwap() {
   }, [])
 
   useEffect(() => {
-    if (address && fromChain) {
+    if (address && fromChain && isConnected) {
       loadWalletTokens()
     }
-  }, [address, fromChain])
+  }, [address, fromChain, isConnected])
 
   const loadChains = async () => {
     try {
@@ -208,25 +209,50 @@ export default function RelaySwap() {
       
       for (const currency of fetchedCurrencies) {
         try {
-          const balance = await fetch(
-            `https://api.relay.link/currencies/token/price?address=${currency.address}&chainId=${currency.chainId}`
-          ).then(r => r.json()).catch(() => null)
+          let balance = '0'
+          let balanceFormatted = '0'
           
-          if (balance) {
+          if (currency.metadata?.isNative) {
+            const nativeBalance = await fetch(
+              `https://${fromChain.httpRpcUrl || 'rpc.ankr.com'}/eth/v1/balance/${address}`
+            ).then(r => r.json()).catch(() => ({ result: '0' }))
+            balance = nativeBalance.result || '0'
+            balanceFormatted = formatUnits(BigInt(balance), currency.decimals)
+          } else {
+            const response = await fetch(fromChain.httpRpcUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                jsonrpc: '2.0',
+                method: 'eth_call',
+                params: [{
+                  to: currency.address,
+                  data: `0x70a08231000000000000000000000000${address.slice(2)}`
+                }, 'latest'],
+                id: 1
+              })
+            }).then(r => r.json()).catch(() => ({ result: '0x0' }))
+            
+            balance = response.result || '0x0'
+            balanceFormatted = formatUnits(BigInt(balance), currency.decimals)
+          }
+          
+          if (parseFloat(balanceFormatted) > 0) {
             tokensWithBalances.push({
               token: currency,
-              balance: '0',
-              balanceFormatted: '0',
-              balanceUsd: balance.price ? '0' : undefined,
+              balance,
+              balanceFormatted,
             })
           }
         } catch (e) {
-          console.error('Failed to fetch balance for', currency.symbol)
+          console.error('Failed to fetch balance for', currency.symbol, e)
         }
       }
       
+      tokensWithBalances.sort((a, b) => parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted))
+      
       setWalletTokens(tokensWithBalances)
-      setBatchTokens(tokensWithBalances.slice(0, 5))
+      setBatchTokens(tokensWithBalances.slice(0, 10))
     } catch (error) {
       console.error('Failed to load wallet tokens:', error)
     }
@@ -375,7 +401,7 @@ export default function RelaySwap() {
     setIsSwapping(true)
     try {
       const origins = batchTokens
-        .filter(bt => bt.balance !== '0')
+        .filter(bt => parseFloat(bt.balanceFormatted) > 0)
         .map(bt => ({
           chainId: fromChain!.id,
           currency: bt.token.address,
@@ -412,6 +438,7 @@ export default function RelaySwap() {
       }
 
       toast.success('Batch swap initiated')
+      updateUserStreak()
       setBatchTokens([])
     } catch (error) {
       console.error('Batch swap failed:', error)
@@ -470,7 +497,16 @@ export default function RelaySwap() {
     
     const stored = localStorage.getItem(`streak_${address}`)
     if (stored) {
-      setUserStreak(JSON.parse(stored))
+      const streak = JSON.parse(stored)
+      const today = new Date().toDateString()
+      const lastDate = new Date(streak.lastSwapDate).toDateString()
+      const yesterday = new Date(Date.now() - 86400000).toDateString()
+      
+      if (lastDate !== today && lastDate !== yesterday) {
+        streak.currentStreak = 0
+      }
+      
+      setUserStreak(streak)
     }
   }
 
@@ -485,9 +521,12 @@ export default function RelaySwap() {
     const yesterday = new Date(Date.now() - 86400000).toDateString()
     
     let newStreak = current.currentStreak
-    if (lastDate === yesterday) {
-      newStreak += 1
-    } else if (lastDate !== today) {
+    
+    if (lastDate === today) {
+      newStreak = current.currentStreak
+    } else if (lastDate === yesterday) {
+      newStreak = current.currentStreak + 1
+    } else {
       newStreak = 1
     }
     
@@ -590,6 +629,13 @@ export default function RelaySwap() {
     if (connector) {
       connect({ connector })
     }
+  }
+
+  const setPercentageAmount = (percentage: number) => {
+    if (!fromBalance) return
+    const balance = parseFloat(formatUnits(fromBalance.value, fromBalance.decimals))
+    const amount = (balance * percentage / 100).toString()
+    setFromAmount(amount)
   }
 
   const filteredChains = chains.filter(chain =>
@@ -702,13 +748,44 @@ export default function RelaySwap() {
                   </Button>
                 </div>
 
-                <Input
-                  type="number"
-                  placeholder="0.0"
-                  value={fromAmount}
-                  onChange={(e) => setFromAmount(e.target.value)}
-                  className="text-lg h-10"
-                />
+                <div className="space-y-1">
+                  <Input
+                    type="number"
+                    placeholder="0.0"
+                    value={fromAmount}
+                    onChange={(e) => setFromAmount(e.target.value)}
+                    className="text-lg h-10"
+                  />
+                  <div className="flex gap-1">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPercentageAmount(25)}
+                      className="flex-1 h-6 text-xs"
+                      disabled={!fromBalance}
+                    >
+                      25%
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPercentageAmount(50)}
+                      className="flex-1 h-6 text-xs"
+                      disabled={!fromBalance}
+                    >
+                      50%
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPercentageAmount(100)}
+                      className="flex-1 h-6 text-xs"
+                      disabled={!fromBalance}
+                    >
+                      MAX
+                    </Button>
+                  </div>
+                </div>
               </div>
             </Card>
 
@@ -781,20 +858,30 @@ export default function RelaySwap() {
             </Card>
 
             {quote && (
-              <Card className="p-2">
-                <div className="space-y-1 text-xs">
-                  <div className="flex justify-between">
+              <Card className="p-3 bg-card">
+                <div className="space-y-1.5 text-xs">
+                  <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">Rate</span>
-                    <span>{quote.details.rate}</span>
+                    <span className="font-mono">{quote.details.rate || '0'}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Gas</span>
+                    <span className="font-mono">${quote.fees.gas?.amountUsd || '0'}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Relayer</span>
+                    <span className="font-mono">${quote.fees.relayer?.amountUsd || '0'}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">Time</span>
-                    <span>~{quote.details.timeEstimate}s</span>
+                    <span className="font-mono">{quote.details.timeEstimate || 0}s</span>
                   </div>
-                  {quote.fees.relayer && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Fee</span>
-                      <span>${quote.fees.relayer.amountUsd}</span>
+                  {quote.details.totalImpact && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Impact</span>
+                      <span className={`font-mono ${parseFloat(quote.details.totalImpact.percent) < 0 ? 'text-destructive' : ''}`}>
+                        {quote.details.totalImpact.percent}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -861,7 +948,7 @@ export default function RelaySwap() {
               <div className="space-y-2">
                 <div className="text-sm font-medium">Batch Cleanup Swap</div>
                 <div className="text-xs text-muted-foreground">
-                  Detected tokens with balance in your wallet
+                  {batchTokens.length > 0 ? `${batchTokens.length} tokens detected with balance` : 'No tokens with balance detected'}
                 </div>
 
                 <ScrollArea className="h-48">
@@ -874,7 +961,7 @@ export default function RelaySwap() {
                           )}
                           <div className="flex-1">
                             <div className="text-xs font-medium">{wt.token.symbol}</div>
-                            <div className="text-xs text-muted-foreground">{wt.balanceFormatted}</div>
+                            <div className="text-xs text-muted-foreground">{parseFloat(wt.balanceFormatted).toFixed(6)}</div>
                           </div>
                         </div>
                         <Button
@@ -893,7 +980,10 @@ export default function RelaySwap() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => setIsTokenSelectOpen(true)}
+                  onClick={() => {
+                    setSelectingFor('from')
+                    setIsTokenSelectOpen(true)
+                  }}
                   className="w-full h-8 text-xs"
                 >
                   Add Token

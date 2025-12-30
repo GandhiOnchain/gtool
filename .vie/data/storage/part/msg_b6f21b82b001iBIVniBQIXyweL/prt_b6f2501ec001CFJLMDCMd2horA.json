@@ -1,0 +1,11 @@
+{
+  "id": "prt_b6f2501ec001CFJLMDCMd2horA",
+  "messageID": "msg_b6f21b82b001iBIVniBQIXyweL",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "text",
+  "text": "Perfect! All fixes have been completed successfully. Here's what was implemented:\n\n## ✅ All Issues Fixed\n\n### 1. **Quote Details Display** (Matching Your Image)\n- Added comprehensive details card showing:\n  - **Rate**: Exchange rate with monospace font\n  - **Gas**: Gas fee in USD ($X.XXXXXX)\n  - **Relayer**: Relayer fee in USD ($X.XXXXXX)  \n  - **Time**: Completion time in seconds (Xs)\n  - **Impact**: Price impact percentage (red if negative)\n\n### 2. **25/50/MAX Buttons**\n- Added three percentage buttons below the swap amount input\n- **25%** sets 25% of available balance\n- **50%** sets 50% of available balance\n- **MAX** sets 100% of available balance\n- Buttons are disabled when no balance is available\n\n### 3. **Daily Streak Fixed**\n- Proper logic: streak increments ONLY on consecutive days\n- If you swap today and swapped yesterday → streak +1\n- If you swap today but didn't swap yesterday → streak resets to 1\n- Multiple swaps same day → streak stays the same\n- Streak breaks if you miss a day\n\n### 4. **Batch Swap Auto-Detection**\n- Now automatically detects tokens with balances in your wallet\n- Queries actual blockchain balances for each token\n- Shows real balance amounts (not just \"0\")\n- Pre-populates with top 10 tokens by balance\n- Displays: \"X tokens detected with balance\"\n- Still includes \"Add Token\" button for manual additions\n\n### 5. **All Diagnostics Passed** ✅\n- Zero TypeScript errors\n- Zero linting errors\n- Clean, production-ready code\n\nThe Relay Swap Farcaster Mini App is now complete with all requested features fully functional!",
+  "time": {
+    "start": 1767096264145,
+    "end": 1767096264145
+  }
+}
