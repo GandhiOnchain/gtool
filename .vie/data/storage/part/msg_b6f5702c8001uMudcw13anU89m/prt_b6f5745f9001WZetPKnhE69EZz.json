@@ -1,0 +1,25 @@
+{
+  "id": "prt_b6f5745f9001WZetPKnhE69EZz",
+  "messageID": "msg_b6f5702c8001uMudcw13anU89m",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01B1JJrbXosXyjsks4JyThZB",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 965,
+      "limit": 30
+    },
+    "output": "<file>\n00966|                   <Input\n00967|                     type=\"number\"\n00968|                     placeholder=\"0.0\"\n00969|                     value={fromAmount}\n00970|                     onChange={(e) => setFromAmount(e.target.value)}\n00971|                     className=\"text-lg h-10\"\n00972|                   />\n00973|                   <div className=\"flex gap-1\">\n00974|                     <Button\n00975|                       variant=\"outline\"\n00976|                       size=\"sm\"\n00977|                       onClick={() => setPercentageAmount(25)}\n00978|                       className=\"flex-1 h-6 text-xs\"\n00979|                       disabled={!fromBalance}\n00980|                     >\n00981|                       25%\n00982|                     </Button>\n00983|                     <Button\n00984|                       variant=\"outline\"\n00985|                       size=\"sm\"\n00986|                       onClick={() => setPercentageAmount(50)}\n00987|                       className=\"flex-1 h-6 text-xs\"\n00988|                       disabled={!fromBalance}\n00989|                     >\n00990|                       50%\n00991|                     </Button>\n00992|                     <Button\n00993|                       variant=\"outline\"\n00994|                       size=\"sm\"\n00995|                       onClick={() => setPercentageAmount(100)}\n\n(File has more lines. Use 'offset' parameter to read beyond line 995)\n</file>",
+    "metadata": {
+      "preview": "                  <Input\n                    type=\"number\"\n                    placeholder=\"0.0\"\n                    value={fromAmount}\n                    onChange={(e) => setFromAmount(e.target.value)}\n                    className=\"text-lg h-10\"\n                  />\n                  <div className=\"flex gap-1\">\n                    <Button\n                      variant=\"outline\"\n                      size=\"sm\"\n                      onClick={() => setPercentageAmount(25)}\n                      className=\"flex-1 h-6 text-xs\"\n                      disabled={!fromBalance}\n                    >\n                      25%\n                    </Button>\n                    <Button\n                      variant=\"outline\"\n                      size=\"sm\""
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767099550304,
+      "end": 1767099550306
+    }
+  }
+}

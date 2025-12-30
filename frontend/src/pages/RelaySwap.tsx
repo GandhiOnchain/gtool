@@ -93,6 +93,8 @@ export default function RelaySwap() {
   const [isTokenSelectOpen, setIsTokenSelectOpen] = useState(false)
   const [selectingFor, setSelectingFor] = useState<'from' | 'to' | 'batch'>('from')
   const [currencies, setCurrencies] = useState<RelayCurrency[]>([])
+  const [fromCurrencies, setFromCurrencies] = useState<RelayCurrency[]>([])
+  const [toCurrencies, setToCurrencies] = useState<RelayCurrency[]>([])
   const [trendingTokens, setTrendingTokens] = useState<TrendingToken[]>([])
   const [swapHistory, setSwapHistory] = useState<SwapHistory[]>([])
   const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 })
@@ -236,18 +238,14 @@ export default function RelaySwap() {
         limit: 100,
       })
       console.log('Fetched currencies:', fetchedCurrencies.length, 'for chain', chainId)
-      console.log('First few tokens:', fetchedCurrencies.slice(0, 3).map(c => c.symbol))
+      console.log('First few tokens:', fetchedCurrencies.slice(0, 5).map(c => c.symbol))
       
       if (type === 'from') {
+        setFromCurrencies(fetchedCurrencies)
         setCurrencies(fetchedCurrencies)
       } else {
-        setCurrencies(prev => {
-          const combined = [...prev, ...fetchedCurrencies]
-          const unique = combined.filter((c, i, arr) => 
-            arr.findIndex(t => t.chainId === c.chainId && t.address === c.address) === i
-          )
-          return unique
-        })
+        setToCurrencies(fetchedCurrencies)
+        setCurrencies(fetchedCurrencies)
       }
       
       if (fetchedCurrencies.length > 0) {
@@ -852,7 +850,9 @@ export default function RelaySwap() {
     chain.displayName.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-  const filteredCurrencies = currencies.filter(currency =>
+  const activeCurrencies = selectingFor === 'from' ? fromCurrencies : selectingFor === 'to' ? toCurrencies : currencies
+  
+  const filteredCurrencies = activeCurrencies.filter(currency =>
     currency.symbol.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||
     currency.name.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||
     currency.address.toLowerCase().includes(tokenSearchTerm.toLowerCase())
@@ -970,6 +970,11 @@ export default function RelaySwap() {
                     onChange={(e) => setFromAmount(e.target.value)}
                     className="text-lg h-10"
                   />
+                  {fromAmount && fromTokenPrice > 0 && (
+                    <div className="text-xs text-muted-foreground px-1">
+                      ≈ ${(parseFloat(fromAmount) * fromTokenPrice).toFixed(2)}
+                    </div>
+                  )}
                   <div className="flex gap-1">
                     <Button
                       variant="outline"
@@ -1073,6 +1078,11 @@ export default function RelaySwap() {
                   readOnly
                   className="text-lg h-10 bg-muted"
                 />
+                {toAmount && toTokenPrice > 0 && (
+                  <div className="text-xs text-muted-foreground px-1">
+                    ≈ ${(parseFloat(toAmount) * toTokenPrice).toFixed(2)}
+                  </div>
+                )}
               </div>
             </Card>
 
@@ -1467,10 +1477,18 @@ export default function RelaySwap() {
           </DialogContent>
         </Dialog>
 
-        <Dialog open={isTokenSelectOpen} onOpenChange={setIsTokenSelectOpen}>
+        <Dialog open={isTokenSelectOpen} onOpenChange={(open) => {
+          setIsTokenSelectOpen(open)
+          if (open) {
+            console.log('Token selector opened for:', selectingFor)
+            console.log('Active currencies:', activeCurrencies.length)
+            console.log('From currencies:', fromCurrencies.length)
+            console.log('To currencies:', toCurrencies.length)
+          }
+        }}>
           <DialogContent className="max-w-[380px]">
             <DialogHeader>
-              <DialogTitle className="text-sm">Select Token</DialogTitle>
+              <DialogTitle className="text-sm">Select Token ({selectingFor})</DialogTitle>
             </DialogHeader>
             <div className="space-y-2">
               <Input
@@ -1480,7 +1498,7 @@ export default function RelaySwap() {
                 className="h-8 text-xs"
               />
               <div className="text-xs text-muted-foreground px-1">
-                {filteredCurrencies.length} tokens available
+                {filteredCurrencies.length} tokens available (from {activeCurrencies.length} total)
               </div>
               <ScrollArea className="h-[300px]">
                 <div className="space-y-1">

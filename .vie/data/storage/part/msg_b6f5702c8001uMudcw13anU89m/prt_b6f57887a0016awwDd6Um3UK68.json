@@ -1,0 +1,25 @@
+{
+  "id": "prt_b6f57887a0016awwDd6Um3UK68",
+  "messageID": "msg_b6f5702c8001uMudcw13anU89m",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01Ce19h3QgzCC4mhCLvcA1ub",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1073,
+      "limit": 15
+    },
+    "output": "<file>\n01074|                 <Input\n01075|                   type=\"number\"\n01076|                   placeholder=\"0.0\"\n01077|                   value={toAmount}\n01078|                   readOnly\n01079|                   className=\"text-lg h-10 bg-muted\"\n01080|                 />\n01081|               </div>\n01082|             </Card>\n01083| \n01084|             {toChain && fromChain && toChain.id !== fromChain.id && (toChain.vmType && toChain.vmType !== 'evm') && (\n01085|               <Card className=\"p-3 bg-muted/50\">\n01086|                 <div className=\"space-y-2\">\n01087|                   <div className=\"text-xs font-medium\">Recipient Address ({toChain.displayName})</div>\n01088|                   <Input\n\n(File has more lines. Use 'offset' parameter to read beyond line 1088)\n</file>",
+    "metadata": {
+      "preview": "                <Input\n                  type=\"number\"\n                  placeholder=\"0.0\"\n                  value={toAmount}\n                  readOnly\n                  className=\"text-lg h-10 bg-muted\"\n                />\n              </div>\n            </Card>\n\n            {toChain && fromChain && toChain.id !== fromChain.id && (toChain.vmType && toChain.vmType !== 'evm') && (\n              <Card className=\"p-3 bg-muted/50\">\n                <div className=\"space-y-2\">\n                  <div className=\"text-xs font-medium\">Recipient Address ({toChain.displayName})</div>\n                  <Input"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767099567168,
+      "end": 1767099567170
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b6f577731001BROJC0gKRHHIdi",
+  "messageID": "msg_b6f5702c8001uMudcw13anU89m",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01QUTF2vFSPLdaMouWpUL7HJ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"value={toAmount}\" src/pages/RelaySwap.tsx",
+      "description": "Find to amount input"
+    },
+    "output": "1077:                  value={toAmount}\n",
+    "metadata": {
+      "output": "1077:                  value={toAmount}\n",
+      "exit": 0,
+      "description": "Find to amount input"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"value={toAmount}\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767099562764,
+      "end": 1767099562767
+    }
+  }
+}
