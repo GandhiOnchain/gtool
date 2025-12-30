@@ -1,0 +1,25 @@
+{
+  "id": "prt_b6f30db920019glyNifyG8h3qn",
+  "messageID": "msg_b6f2dee44001qDmvblJZf2s03O",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01TV4gpNQCaQxHC4EUms8RcE",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 330,
+      "limit": 30
+    },
+    "output": "<file>\n00331|         user: address,\n00332|         originChainId: fromChain.id,\n00333|         destinationChainId: toChain.id,\n00334|         originCurrency: fromToken.address,\n00335|         destinationCurrency: toToken.address,\n00336|         amount: amountInWei.toString(),\n00337|         tradeType: 'EXACT_INPUT',\n00338|         slippageTolerance: slippageBps,\n00339|       }\n00340|       \n00341|       if (includedSources.length > 0) {\n00342|         quoteParams.includedSwapSources = includedSources\n00343|       }\n00344|       \n00345|       const fromVMType = fromChain.vmType || 'evm'\n00346|       const toVMType = toChain.vmType || 'evm'\n00347|       \n00348|       if (fromVMType !== 'evm' || toVMType !== 'evm') {\n00349|         quoteParams.useExternalLiquidity = true\n00350|       }\n00351|       \n00352|       const quoteData = await relayAPI.getQuote(quoteParams)\n00353|       \n00354|       setQuote(quoteData)\n00355|       if (quoteData.details.currencyOut) {\n00356|         setToAmount(quoteData.details.currencyOut.amountFormatted)\n00357|       }\n00358|     } catch (error) {\n00359|       console.error('Failed to fetch quote:', error)\n00360|       const errorMessage = error instanceof Error ? error.message : 'Failed to get quote'\n\n(File has more lines. Use 'offset' parameter to read beyond line 360)\n</file>",
+    "metadata": {
+      "preview": "        user: address,\n        originChainId: fromChain.id,\n        destinationChainId: toChain.id,\n        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        amount: amountInWei.toString(),\n        tradeType: 'EXACT_INPUT',\n        slippageTolerance: slippageBps,\n      }\n      \n      if (includedSources.length > 0) {\n        quoteParams.includedSwapSources = includedSources\n      }\n      \n      const fromVMType = fromChain.vmType || 'evm'\n      const toVMType = toChain.vmType || 'evm'\n      \n      if (fromVMType !== 'evm' || toVMType !== 'evm') {\n        quoteParams.useExternalLiquidity = true\n      }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767097032198,
+      "end": 1767097032201
+    }
+  }
+}

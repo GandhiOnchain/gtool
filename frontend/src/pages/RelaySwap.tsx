@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { sdk } from '@farcaster/miniapp-sdk'
 import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect } from 'wagmi'
-import { parseUnits, formatUnits, erc20Abi } from 'viem'
-import { useReadContracts } from 'wagmi'
+import { parseUnits, formatUnits } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
 import { Button } from '@/components/ui/button'
@@ -42,7 +41,7 @@ interface SwapHistory {
 
 interface UserStreak {
   currentStreak: number
-  lastSwapDate: string
+  lastSwapTimestamp: number
   totalSwaps: number
 }
 
@@ -59,6 +58,19 @@ interface WalletToken {
   balanceFormatted: string
   balanceUsd?: string
 }
+
+const STREAK_MESSAGES = [
+  "🔥 Streak alive! Keep it going!",
+  "💪 You're on fire! Streak extended!",
+  "⚡ Unstoppable! Streak continues!",
+  "🎯 Perfect timing! Streak maintained!",
+  "🌟 Amazing! Your streak grows!",
+  "🚀 To the moon! Streak extended!",
+  "💎 Diamond hands! Streak alive!",
+  "🎊 Fantastic! Keep the momentum!",
+  "🏆 Champion move! Streak continues!",
+  "✨ Brilliant! Your streak shines!",
+]
 
 export default function RelaySwap() {
   const { address, isConnected } = useAccount()
@@ -83,7 +95,7 @@ export default function RelaySwap() {
   const [currencies, setCurrencies] = useState<RelayCurrency[]>([])
   const [trendingTokens, setTrendingTokens] = useState<TrendingToken[]>([])
   const [swapHistory, setSwapHistory] = useState<SwapHistory[]>([])
-  const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapDate: '', totalSwaps: 0 })
+  const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 })
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([])
   const [showLeaderboard, setShowLeaderboard] = useState(false)
   const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])
@@ -91,6 +103,7 @@ export default function RelaySwap() {
   const [contractAddressSearch, setContractAddressSearch] = useState('')
   const [swapSources, setSwapSources] = useState<string[]>([])
   const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})
+  const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)
 
   const { sendTransaction, data: txHash } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
@@ -198,6 +211,7 @@ export default function RelaySwap() {
   const loadWalletTokens = async () => {
     if (!address || !fromChain) return
     
+    setIsLoadingBatchTokens(true)
     try {
       const fetchedCurrencies = await relayAPI.getCurrencies({
         chainIds: [fromChain.id],
@@ -207,45 +221,58 @@ export default function RelaySwap() {
       
       const tokensWithBalances: WalletToken[] = []
       
-      for (const currency of fetchedCurrencies) {
-        try {
-          let balance = '0'
-          let balanceFormatted = '0'
-          
-          if (currency.metadata?.isNative) {
-            const nativeBalance = await fetch(
-              `https://${fromChain.httpRpcUrl || 'rpc.ankr.com'}/eth/v1/balance/${address}`
-            ).then(r => r.json()).catch(() => ({ result: '0' }))
-            balance = nativeBalance.result || '0'
-            balanceFormatted = formatUnits(BigInt(balance), currency.decimals)
-          } else {
-            const response = await fetch(fromChain.httpRpcUrl, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                jsonrpc: '2.0',
-                method: 'eth_call',
-                params: [{
-                  to: currency.address,
-                  data: `0x70a08231000000000000000000000000${address.slice(2)}`
-                }, 'latest'],
-                id: 1
-              })
-            }).then(r => r.json()).catch(() => ({ result: '0x0' }))
-            
-            balance = response.result || '0x0'
-            balanceFormatted = formatUnits(BigInt(balance), currency.decimals)
+      const isEVM = fromChain.vmType === 'evm' || !fromChain.vmType
+      
+      if (isEVM) {
+        for (const currency of fetchedCurrencies) {
+          try {
+            if (currency.metadata?.isNative) {
+              const balance = fromBalance?.value || BigInt(0)
+              const balanceFormatted = formatUnits(balance, currency.decimals)
+              
+              if (parseFloat(balanceFormatted) > 0) {
+                tokensWithBalances.push({
+                  token: currency,
+                  balance: balance.toString(),
+                  balanceFormatted,
+                })
+              }
+            } else {
+              const balanceData = `0x70a08231000000000000000000000000${address.slice(2)}`
+              
+              try {
+                const response = await fetch(fromChain.httpRpcUrl, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    jsonrpc: '2.0',
+                    method: 'eth_call',
+                    params: [{
+                      to: currency.address,
+                      data: balanceData
+                    }, 'latest'],
+                    id: 1
+                  })
+                })
+                
+                const result = await response.json()
+                const balance = result.result ? BigInt(result.result) : BigInt(0)
+                const balanceFormatted = formatUnits(balance, currency.decimals)
+                
+                if (parseFloat(balanceFormatted) > 0.000001) {
+                  tokensWithBalances.push({
+                    token: currency,
+                    balance: balance.toString(),
+                    balanceFormatted,
+                  })
+                }
+              } catch (e) {
+                console.error('Failed to fetch balance for', currency.symbol)
+              }
+            }
+          } catch (e) {
+            console.error('Error processing token', currency.symbol, e)
           }
-          
-          if (parseFloat(balanceFormatted) > 0) {
-            tokensWithBalances.push({
-              token: currency,
-              balance,
-              balanceFormatted,
-            })
-          }
-        } catch (e) {
-          console.error('Failed to fetch balance for', currency.symbol, e)
         }
       }
       
@@ -253,8 +280,15 @@ export default function RelaySwap() {
       
       setWalletTokens(tokensWithBalances)
       setBatchTokens(tokensWithBalances.slice(0, 10))
+      
+      if (tokensWithBalances.length > 0) {
+        toast.success(`Found ${tokensWithBalances.length} tokens with balance`)
+      }
     } catch (error) {
       console.error('Failed to load wallet tokens:', error)
+      toast.error('Failed to load wallet tokens')
+    } finally {
+      setIsLoadingBatchTokens(false)
     }
   }
 
@@ -293,17 +327,20 @@ export default function RelaySwap() {
         .filter(([_, enabled]) => enabled)
         .map(([source]) => source)
       
-      const quoteData = await relayAPI.getQuote({
+      const quoteParams = {
         user: address,
         originChainId: fromChain.id,
         destinationChainId: toChain.id,
         originCurrency: fromToken.address,
         destinationCurrency: toToken.address,
         amount: amountInWei.toString(),
-        tradeType: 'EXACT_INPUT',
+        tradeType: 'EXACT_INPUT' as const,
         slippageTolerance: slippageBps,
         includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
-      })
+        useExternalLiquidity: (fromChain.vmType && fromChain.vmType !== 'evm') || (toChain.vmType && toChain.vmType !== 'evm') ? true : undefined,
+      }
+      
+      const quoteData = await relayAPI.getQuote(quoteParams)
       
       setQuote(quoteData)
       if (quoteData.details.currencyOut) {
@@ -311,7 +348,8 @@ export default function RelaySwap() {
       }
     } catch (error) {
       console.error('Failed to fetch quote:', error)
-      toast.error('Failed to get quote')
+      const errorMessage = error instanceof Error ? error.message : 'Failed to get quote'
+      toast.error(errorMessage)
       setQuote(null)
     } finally {
       setIsLoadingQuote(false)
@@ -498,11 +536,11 @@ export default function RelaySwap() {
     const stored = localStorage.getItem(`streak_${address}`)
     if (stored) {
       const streak = JSON.parse(stored)
-      const today = new Date().toDateString()
-      const lastDate = new Date(streak.lastSwapDate).toDateString()
-      const yesterday = new Date(Date.now() - 86400000).toDateString()
+      const now = Date.now()
+      const timeSinceLastSwap = now - streak.lastSwapTimestamp
+      const twentyFourHours = 24 * 60 * 60 * 1000
       
-      if (lastDate !== today && lastDate !== yesterday) {
+      if (timeSinceLastSwap > twentyFourHours) {
         streak.currentStreak = 0
       }
       
@@ -513,31 +551,40 @@ export default function RelaySwap() {
   const updateUserStreak = () => {
     if (!address) return
     
-    const today = new Date().toDateString()
+    const now = Date.now()
     const stored = localStorage.getItem(`streak_${address}`)
-    const current = stored ? JSON.parse(stored) : { currentStreak: 0, lastSwapDate: '', totalSwaps: 0 }
+    const current = stored ? JSON.parse(stored) : { currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 }
     
-    const lastDate = new Date(current.lastSwapDate).toDateString()
-    const yesterday = new Date(Date.now() - 86400000).toDateString()
+    const timeSinceLastSwap = now - current.lastSwapTimestamp
+    const twentyFourHours = 24 * 60 * 60 * 1000
     
     let newStreak = current.currentStreak
+    let showStreakMessage = false
     
-    if (lastDate === today) {
-      newStreak = current.currentStreak
-    } else if (lastDate === yesterday) {
+    if (current.lastSwapTimestamp === 0) {
+      newStreak = 1
+    } else if (timeSinceLastSwap <= twentyFourHours) {
       newStreak = current.currentStreak + 1
+      showStreakMessage = true
     } else {
       newStreak = 1
     }
     
     const updated = {
       currentStreak: newStreak,
-      lastSwapDate: today,
+      lastSwapTimestamp: now,
       totalSwaps: current.totalSwaps + 1,
     }
     
     localStorage.setItem(`streak_${address}`, JSON.stringify(updated))
     setUserStreak(updated)
+    
+    if (showStreakMessage) {
+      const randomMessage = STREAK_MESSAGES[Math.floor(Math.random() * STREAK_MESSAGES.length)]
+      toast.success(randomMessage, {
+        duration: 3000,
+      })
+    }
   }
 
   const loadLeaderboard = () => {
@@ -948,7 +995,7 @@ export default function RelaySwap() {
               <div className="space-y-2">
                 <div className="text-sm font-medium">Batch Cleanup Swap</div>
                 <div className="text-xs text-muted-foreground">
-                  {batchTokens.length > 0 ? `${batchTokens.length} tokens detected with balance` : 'No tokens with balance detected'}
+                  {isLoadingBatchTokens ? 'Loading tokens...' : batchTokens.length > 0 ? `${batchTokens.length} tokens detected with balance` : 'No tokens with balance detected'}
                 </div>
 
                 <ScrollArea className="h-48">

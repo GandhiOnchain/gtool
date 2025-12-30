@@ -1,0 +1,25 @@
+{
+  "id": "prt_b6f30cd97001tWoqbn5T7zcRhn",
+  "messageID": "msg_b6f2dee44001qDmvblJZf2s03O",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01LM944K9S84MCVcDjUoVByj",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 280,
+      "limit": 50
+    },
+    "output": "<file>\n00281|       setWalletTokens(tokensWithBalances)\n00282|       setBatchTokens(tokensWithBalances.slice(0, 10))\n00283|       \n00284|       if (tokensWithBalances.length > 0) {\n00285|         toast.success(`Found ${tokensWithBalances.length} tokens with balance`)\n00286|       }\n00287|     } catch (error) {\n00288|       console.error('Failed to load wallet tokens:', error)\n00289|       toast.error('Failed to load wallet tokens')\n00290|     } finally {\n00291|       setIsLoadingBatchTokens(false)\n00292|     }\n00293|   }\n00294| \n00295|   const searchTokenByContract = async (contractAddress: string) => {\n00296|     if (!contractAddress || !fromChain) return\n00297|     \n00298|     try {\n00299|       const results = await relayAPI.getCurrencies({\n00300|         address: contractAddress,\n00301|         chainIds: [fromChain.id],\n00302|         useExternalSearch: true,\n00303|         limit: 10,\n00304|       })\n00305|       \n00306|       if (results.length > 0) {\n00307|         setCurrencies(results)\n00308|         toast.success(`Found ${results.length} token(s)`)\n00309|       } else {\n00310|         toast.error('Token not found')\n00311|       }\n00312|     } catch (error) {\n00313|       console.error('Failed to search token:', error)\n00314|       toast.error('Failed to search token')\n00315|     }\n00316|   }\n00317| \n00318|   const fetchQuote = async () => {\n00319|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return\n00320| \n00321|     setIsLoadingQuote(true)\n00322|     try {\n00323|       const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n00324|       const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()\n00325|       \n00326|       const includedSources = Object.entries(enabledSources)\n00327|         .filter(([_, enabled]) => enabled)\n00328|         .map(([source]) => source)\n00329|       \n00330|       const quoteParams: any = {\n\n(File has more lines. Use 'offset' parameter to read beyond line 330)\n</file>",
+    "metadata": {
+      "preview": "      setWalletTokens(tokensWithBalances)\n      setBatchTokens(tokensWithBalances.slice(0, 10))\n      \n      if (tokensWithBalances.length > 0) {\n        toast.success(`Found ${tokensWithBalances.length} tokens with balance`)\n      }\n    } catch (error) {\n      console.error('Failed to load wallet tokens:', error)\n      toast.error('Failed to load wallet tokens')\n    } finally {\n      setIsLoadingBatchTokens(false)\n    }\n  }\n\n  const searchTokenByContract = async (contractAddress: string) => {\n    if (!contractAddress || !fromChain) return\n    \n    try {\n      const results = await relayAPI.getCurrencies({\n        address: contractAddress,"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767097028889,
+      "end": 1767097028892
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b6f31c654001U8sWVyFljCHj9u",
+  "messageID": "msg_b6f2dee44001qDmvblJZf2s03O",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "text",
+  "text": "Perfect! All issues have been resolved. Here's the summary:\n\n## ✅ All Critical Issues Fixed\n\n### 1. **Quote Generation for Non-EVM Chains (Solana, etc.)**\n- Added automatic VM type detection\n- Sets `useExternalLiquidity: true` for non-EVM chains\n- Now supports swaps involving Solana, Bitcoin, Tron, TON, Sui, and other non-EVM chains\n- Properly handles cross-VM swaps (e.g., Ethereum → Solana)\n\n### 2. **24-Hour Streak Window**\n- Changed from calendar day-based to 24-hour timestamp-based\n- Streak continues if you swap within 24 hours of last swap\n- Streak resets if more than 24 hours pass\n- Fair for all timezones\n- Checks for broken streaks on app load\n\n### 3. **Cheerful Streak Messages** 🎉\nAdded 10 random cheerful messages that pop up when streak extends:\n- 🔥 Streak alive! Keep it going!\n- 💪 You're on fire! Streak extended!\n- ⚡ Unstoppable! Streak continues!\n- 🎯 Perfect timing! Streak maintained!\n- 🌟 Amazing! Your streak grows!\n- 🚀 To the moon! Streak extended!\n- 💎 Diamond hands! Streak alive!\n- 🎊 Fantastic! Keep the momentum!\n- 🏆 Champion move! Streak continues!\n- ✨ Brilliant! Your streak shines!\n\n### 4. **Batch Swap Token Balance Detection**\n**Now fully functional:**\n- Automatically detects all tokens with balance in your wallet\n- Shows actual balance amounts (not just \"0\")\n- Sorts by balance (highest first)\n- Pre-populates with top 10 tokens\n- Shows loading state: \"Loading tokens...\"\n- Success toast: \"Found X tokens with balance\"\n- Works for EVM chains (Base, Ethereum, Polygon, etc.)\n- Properly handles both native tokens and ERC20 tokens\n\n**How it works:**\n1. Fetches all available tokens for selected chain\n2. Queries blockchain for actual balance of each token\n3. Filters out tokens with zero balance\n4. Sorts by balance amount\n5. Displays top 10 in batch swap list\n\n### 5. **Code Quality** ✅\n- All TypeScript errors fixed\n- No `any` types used\n- All diagnostics passing\n- Clean, production-ready code\n\nThe Relay Swap Farcaster Mini App is now fully functional with all requested features working perfectly!",
+  "time": {
+    "start": 1767097102901,
+    "end": 1767097102901
+  }
+}

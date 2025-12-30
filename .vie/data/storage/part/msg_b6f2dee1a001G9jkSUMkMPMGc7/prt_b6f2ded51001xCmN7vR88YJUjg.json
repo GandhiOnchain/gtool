@@ -1,0 +1,7 @@
+{
+  "id": "prt_b6f2ded51001xCmN7vR88YJUjg",
+  "type": "text",
+  "text": "the quote fails to generate for some chains like solana, check the issue and fix it\n\nthe daily streak setup looks good, make it a 24 hour setup, users should make a swap within the 24 hours from the last swap to keep the streak alive, pop up cheerful notes everytime users extend their streak\n\nthe batch swap still does not reflect the available tokens with balances, check the issue and fix it",
+  "messageID": "msg_b6f2dee1a001G9jkSUMkMPMGc7",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b6f30c8b5001gF7k38B7LiD2KD",
+  "messageID": "msg_b6f2dee44001qDmvblJZf2s03O",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_014RvYWFgMepdmEVeW83etms",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"const quoteParams: any\" src/pages/RelaySwap.tsx",
+      "description": "Find the any type usage"
+    },
+    "output": "330:      const quoteParams: any = {\n",
+    "metadata": {
+      "output": "330:      const quoteParams: any = {\n",
+      "exit": 0,
+      "description": "Find the any type usage"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"const quoteParams: any\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767097027989,
+      "end": 1767097027993
+    }
+  }
+}
