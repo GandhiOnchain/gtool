@@ -1,0 +1,7 @@
+{
+  "id": "prt_b6f3ee1d9001CjBTIMUMhq0TeI",
+  "type": "text",
+  "text": "the history section looks like full of bugs, i am attaching the screenshot, check it and fix all the errors, the swap amount and chains are not displayed properly\n\nthe batch swap still does not detect tokens even though i have ether on ethereum and base chains\n\nwhen i'm trying to swap to solana it says crossvm swaps are not yet supported, fix the issue and make it work",
+  "messageID": "msg_b6f3ee298001Ozx1xFymDyhpgi",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs"
+}

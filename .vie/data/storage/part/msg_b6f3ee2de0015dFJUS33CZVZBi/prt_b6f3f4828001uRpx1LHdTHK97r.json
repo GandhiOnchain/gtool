@@ -1,0 +1,97 @@
+{
+  "id": "prt_b6f3f4828001uRpx1LHdTHK97r",
+  "messageID": "msg_b6f3ee2de0015dFJUS33CZVZBi",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01FXqTwQKopZ9tne2hUpbWi6",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Fix history tab - show proper chain names instead of 'Chain Chain 1'",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix history tab - format swap amounts properly",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Fix history tab - show correct token symbols",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Fix batch swap token detection - debug why tokens not showing",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Enable cross-VM swaps (EVM to Solana)",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        },
+        {
+          "content": "Run complete diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "6"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Fix history tab - show proper chain names instead of 'Chain Chain 1'\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Fix history tab - format swap amounts properly\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Fix history tab - show correct token symbols\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Fix batch swap token detection - debug why tokens not showing\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"4\"\n  },\n  {\n    \"content\": \"Enable cross-VM swaps (EVM to Solana)\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"5\"\n  },\n  {\n    \"content\": \"Run complete diagnostics\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"6\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Fix history tab - show proper chain names instead of 'Chain Chain 1'",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix history tab - format swap amounts properly",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Fix history tab - show correct token symbols",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Fix batch swap token detection - debug why tokens not showing",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Enable cross-VM swaps (EVM to Solana)",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        },
+        {
+          "content": "Run complete diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "6"
+        }
+      ]
+    },
+    "title": "6 todos",
+    "time": {
+      "start": 1767097981825,
+      "end": 1767097981826
+    }
+  }
+}

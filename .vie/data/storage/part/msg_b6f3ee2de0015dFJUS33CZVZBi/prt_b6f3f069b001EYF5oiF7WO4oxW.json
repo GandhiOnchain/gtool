@@ -1,0 +1,25 @@
+{
+  "id": "prt_b6f3f069b001EYF5oiF7WO4oxW",
+  "messageID": "msg_b6f3ee2de0015dFJUS33CZVZBi",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_0157jfb8UMebA2ocUXhYj5U4",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 503,
+      "limit": 35
+    },
+    "output": "<file>\n00504|           currency: bt.token.address,\n00505|           amount: bt.balance,\n00506|         }))\n00507| \n00508|       if (origins.length === 0) {\n00509|         toast.error('No tokens with balance selected')\n00510|         setIsSwapping(false)\n00511|         return\n00512|       }\n00513| \n00514|       const multiQuote = await relayAPI.getMultiInputQuote({\n00515|         user: address,\n00516|         origins,\n00517|         destinationCurrency: toToken.address,\n00518|         destinationChainId: toChain.id,\n00519|         tradeType: 'EXACT_INPUT',\n00520|       })\n00521| \n00522|       for (const step of multiQuote.steps) {\n00523|         if (step.id === 'deposit' && step.items) {\n00524|           for (const item of step.items) {\n00525|             const txData = item.data\n00526|             sendTransaction({\n00527|               to: txData.to as `0x${string}`,\n00528|               data: txData.data as `0x${string}`,\n00529|               value: BigInt(txData.value),\n00530|               chainId: txData.chainId,\n00531|             })\n00532|             await new Promise(resolve => setTimeout(resolve, 1000))\n00533|           }\n00534|         }\n00535|       }\n00536| \n00537|       toast.success('Batch swap initiated')\n00538|       updateUserStreak()\n\n(File has more lines. Use 'offset' parameter to read beyond line 538)\n</file>",
+    "metadata": {
+      "preview": "          currency: bt.token.address,\n          amount: bt.balance,\n        }))\n\n      if (origins.length === 0) {\n        toast.error('No tokens with balance selected')\n        setIsSwapping(false)\n        return\n      }\n\n      const multiQuote = await relayAPI.getMultiInputQuote({\n        user: address,\n        origins,\n        destinationCurrency: toToken.address,\n        destinationChainId: toChain.id,\n        tradeType: 'EXACT_INPUT',\n      })\n\n      for (const step of multiQuote.steps) {\n        if (step.id === 'deposit' && step.items) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767097961344,
+      "end": 1767097961346
+    }
+  }
+}

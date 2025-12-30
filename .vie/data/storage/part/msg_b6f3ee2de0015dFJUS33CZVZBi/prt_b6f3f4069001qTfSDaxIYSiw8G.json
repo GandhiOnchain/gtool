@@ -1,0 +1,11 @@
+{
+  "id": "prt_b6f3f4069001qTfSDaxIYSiw8G",
+  "messageID": "msg_b6f3ee2de0015dFJUS33CZVZBi",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "text",
+  "text": "I see the issues. The history is showing \"Chain Chain 1\" because the chain name lookup is wrong, and the amounts are raw wei values. Let me also enable cross-VM swaps and fix batch detection. Let me create a comprehensive fix:",
+  "time": {
+    "start": 1767097992960,
+    "end": 1767097992960
+  }
+}

@@ -133,6 +133,13 @@ export default function RelaySwap() {
   }, [])
 
   useEffect(() => {
+    if (chains.length > 0 && !batchChain) {
+      const baseChain = chains.find(c => c.id === 8453) || chains[0]
+      setBatchChain(baseChain)
+    }
+  }, [chains])
+
+  useEffect(() => {
     if (fromChain) {
       loadCurrencies(fromChain.id, 'from')
     }
@@ -239,10 +246,15 @@ export default function RelaySwap() {
   }
 
   const loadBatchWalletTokens = async () => {
-    if (!address || !batchChain) return
+    if (!address || !batchChain) {
+      console.log('Missing address or batchChain:', { address, batchChain })
+      return
+    }
     
     const chain = batchChain
     const isEVM = chain.vmType === 'evm' || !chain.vmType
+    
+    console.log('Loading batch tokens for chain:', chain.displayName, 'isEVM:', isEVM)
     
     if (!isEVM) {
       toast.error('Batch swap only supports EVM chains')
@@ -251,17 +263,21 @@ export default function RelaySwap() {
     
     setIsLoadingBatchTokens(true)
     try {
+      console.log('Fetching currencies for chain:', chain.id)
       const fetchedCurrencies = await relayAPI.getCurrencies({
         chainIds: [chain.id],
         defaultList: true,
         limit: 50,
       })
       
+      console.log('Fetched currencies:', fetchedCurrencies.length)
+      
       const tokensWithBalances: WalletToken[] = []
       
       for (const currency of fetchedCurrencies) {
         try {
           if (currency.metadata?.isNative) {
+            console.log('Checking native token balance:', currency.symbol)
             try {
               const response = await fetch(chain.httpRpcUrl, {
                 method: 'POST',
@@ -275,8 +291,11 @@ export default function RelaySwap() {
               })
               
               const result = await response.json()
+              console.log('Native balance result:', result)
               const balance = result.result ? BigInt(result.result) : BigInt(0)
               const balanceFormatted = formatUnits(balance, currency.decimals)
+              
+              console.log('Native balance formatted:', balanceFormatted, currency.symbol)
               
               if (parseFloat(balanceFormatted) > 0.000001) {
                 tokensWithBalances.push({
@@ -286,7 +305,7 @@ export default function RelaySwap() {
                 })
               }
             } catch (e) {
-              console.error('Failed to fetch native balance')
+              console.error('Failed to fetch native balance:', e)
             }
           } else {
             const balanceData = `0x70a08231000000000000000000000000${address.slice(2)}`
@@ -318,13 +337,15 @@ export default function RelaySwap() {
                 })
               }
             } catch (e) {
-              console.error('Failed to fetch balance for', currency.symbol)
+              console.error('Failed to fetch balance for', currency.symbol, e)
             }
           }
         } catch (e) {
           console.error('Error processing token', currency.symbol, e)
         }
       }
+      
+      console.log('Tokens with balances found:', tokensWithBalances.length)
       
       tokensWithBalances.sort((a, b) => parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted))
       
@@ -370,14 +391,6 @@ export default function RelaySwap() {
   const fetchQuote = async () => {
     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return
 
-    const fromVMType = fromChain.vmType || 'evm'
-    const toVMType = toChain.vmType || 'evm'
-    
-    if (fromVMType !== 'evm' || toVMType !== 'evm') {
-      toast.error('Cross-VM swaps are not yet supported. Please select EVM chains only.')
-      return
-    }
-
     setIsLoadingQuote(true)
     try {
       const amountInWei = parseUnits(fromAmount, fromToken.decimals)
@@ -386,6 +399,10 @@ export default function RelaySwap() {
       const includedSources = Object.entries(enabledSources)
         .filter(([_, enabled]) => enabled)
         .map(([source]) => source)
+      
+      const fromVMType = fromChain.vmType || 'evm'
+      const toVMType = toChain.vmType || 'evm'
+      const isCrossVM = fromVMType !== 'evm' || toVMType !== 'evm'
       
       const quoteParams = {
         user: address,
@@ -397,6 +414,7 @@ export default function RelaySwap() {
         tradeType: 'EXACT_INPUT' as const,
         slippageTolerance: slippageBps,
         includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
+        useExternalLiquidity: isCrossVM ? true : undefined,
       }
       
       const quoteData = await relayAPI.getQuote(quoteParams)
@@ -580,14 +598,21 @@ export default function RelaySwap() {
         const fromValue = req.data.inTxs[0]?.data?.value || '0'
         const toValue = req.data.outTxs[0]?.data?.value || '0'
         
+        const fromAmountFormatted = fromValue.length > 10 
+          ? parseFloat(formatUnits(BigInt(fromValue), 18)).toFixed(6)
+          : fromValue
+        const toAmountFormatted = toValue.length > 10
+          ? parseFloat(formatUnits(BigInt(toValue), 18)).toFixed(6)
+          : toValue
+        
         return {
           id: req.id,
-          fromToken: req.data.currency || 'Unknown',
-          toToken: req.data.currency || 'Unknown',
-          fromAmount: fromValue,
-          toAmount: toValue,
-          fromChain: originChain?.displayName || originChain?.name || `Chain ${originChainId}`,
-          toChain: destChain?.displayName || destChain?.name || `Chain ${destChainId}`,
+          fromToken: originChain?.currency?.symbol || req.data.currency || 'ETH',
+          toToken: destChain?.currency?.symbol || req.data.currency || 'ETH',
+          fromAmount: fromAmountFormatted,
+          toAmount: toAmountFormatted,
+          fromChain: originChain?.displayName || originChain?.name || 'Unknown',
+          toChain: destChain?.displayName || destChain?.name || 'Unknown',
           status: req.status,
           timestamp: new Date(req.createdAt).getTime(),
           txHash: req.data.outTxs[0]?.hash,
@@ -1205,7 +1230,7 @@ export default function RelaySwap() {
                         </div>
                         <div className="flex items-center justify-between">
                           <div className="text-xs">
-                            {swap.fromAmount} on Chain {swap.fromChain}
+                            {swap.fromAmount} {swap.fromToken} on {swap.fromChain}
                           </div>
                           <Button
                             variant="ghost"
@@ -1215,6 +1240,9 @@ export default function RelaySwap() {
                           >
                             <Share2 className="h-3 w-3" />
                           </Button>
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          → {swap.toAmount} {swap.toToken} on {swap.toChain}
                         </div>
                       </div>
                     </Card>

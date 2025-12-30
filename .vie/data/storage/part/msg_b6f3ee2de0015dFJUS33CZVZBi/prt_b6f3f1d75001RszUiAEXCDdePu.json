@@ -1,0 +1,26 @@
+{
+  "id": "prt_b6f3f1d75001RszUiAEXCDdePu",
+  "messageID": "msg_b6f3ee2de0015dFJUS33CZVZBi",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Wbd6g6TW8npQuBE9Z77bmv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"const loadSwapHistory\" src/pages/RelaySwap.tsx",
+      "description": "Find loadSwapHistory function"
+    },
+    "output": "562:  const loadSwapHistory = async () => {\n",
+    "metadata": {
+      "output": "562:  const loadSwapHistory = async () => {\n",
+      "exit": 0,
+      "description": "Find loadSwapHistory function"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"const loadSwapHistory\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767097966918,
+      "end": 1767097966921
+    }
+  }
+}

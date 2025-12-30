@@ -1,0 +1,25 @@
+{
+  "id": "prt_b6f3faa6b001Wuk43kaq29xGuj",
+  "messageID": "msg_b6f3ee2de0015dFJUS33CZVZBi",
+  "sessionID": "ses_491773bfbffeZdB3dz7RBm6uYs",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01Kd61mg2p7yr1BMe4sFZdp3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1190,
+      "limit": 40
+    },
+    "output": "<file>\n01191|           <TabsContent value=\"history\" className=\"mt-2\">\n01192|             <ScrollArea className=\"h-[500px]\">\n01193|               <div className=\"space-y-2\">\n01194|                 {swapHistory.length === 0 ? (\n01195|                   <Card className=\"p-4 text-center text-sm text-muted-foreground\">\n01196|                     No swap history yet\n01197|                   </Card>\n01198|                 ) : (\n01199|                   swapHistory.map((swap) => (\n01200|                     <Card key={swap.id} className=\"p-3\">\n01201|                       <div className=\"space-y-2\">\n01202|                         <div className=\"flex items-center justify-between\">\n01203|                           <div className=\"text-xs font-medium\">\n01204|                             {swap.fromToken} → {swap.toToken}\n01205|                           </div>\n01206|                           <Badge variant={swap.status === 'success' ? 'default' : 'secondary'} className=\"text-xs\">\n01207|                             {swap.status}\n01208|                           </Badge>\n01209|                         </div>\n01210|                         <div className=\"text-xs text-muted-foreground\">\n01211|                           {new Date(swap.timestamp).toLocaleString()}\n01212|                         </div>\n01213|                         <div className=\"flex items-center justify-between\">\n01214|                           <div className=\"text-xs\">\n01215|                             {swap.fromAmount} on Chain {swap.fromChain}\n01216|                           </div>\n01217|                           <Button\n01218|                             variant=\"ghost\"\n01219|                             size=\"sm\"\n01220|                             onClick={() => shareSwapReceipt(swap)}\n01221|                             className=\"h-6 w-6 p-0\"\n01222|                           >\n01223|                             <Share2 className=\"h-3 w-3\" />\n01224|                           </Button>\n01225|                         </div>\n01226|                       </div>\n01227|                     </Card>\n01228|                   ))\n01229|                 )}\n01230|               </div>\n\n(File has more lines. Use 'offset' parameter to read beyond line 1230)\n</file>",
+    "metadata": {
+      "preview": "          <TabsContent value=\"history\" className=\"mt-2\">\n            <ScrollArea className=\"h-[500px]\">\n              <div className=\"space-y-2\">\n                {swapHistory.length === 0 ? (\n                  <Card className=\"p-4 text-center text-sm text-muted-foreground\">\n                    No swap history yet\n                  </Card>\n                ) : (\n                  swapHistory.map((swap) => (\n                    <Card key={swap.id} className=\"p-3\">\n                      <div className=\"space-y-2\">\n                        <div className=\"flex items-center justify-between\">\n                          <div className=\"text-xs font-medium\">\n                            {swap.fromToken} → {swap.toToken}\n                          </div>\n                          <Badge variant={swap.status === 'success' ? 'default' : 'secondary'} className=\"text-xs\">\n                            {swap.status}\n                          </Badge>\n                        </div>\n                        <div className=\"text-xs text-muted-foreground\">"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767098003147,
+      "end": 1767098003149
+    }
+  }
+}
