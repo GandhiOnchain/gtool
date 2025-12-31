@@ -2989,27 +2989,6 @@ export default function RelaySwap() {
             <Card className="p-3">
               <div className="space-y-3">
                 <div>
-                  <label className="text-sm font-medium">Token Search</label>
-                  <div className="flex gap-2 mt-2">
-                    <Input
-                      placeholder="0x..."
-                      value={contractAddressSearch}
-                      onChange={(e) => setContractAddressSearch(e.target.value)}
-                      className="h-9 text-xs"
-                    />
-                    <Button
-                      onClick={() => searchTokenByContract(contractAddressSearch)}
-                      size="sm"
-                      className="h-9 px-4 text-xs bg-primary"
-                    >
-                      Search
-                    </Button>
-                  </div>
-                </div>
-
-                <Separator />
-
-                <div>
                   <label className="text-sm font-medium">Slippage Tolerance</label>
                   <div className="grid grid-cols-4 gap-2 mt-2">
                     {['0.1', '0.5', '1.0', '3.0'].map((val) => (

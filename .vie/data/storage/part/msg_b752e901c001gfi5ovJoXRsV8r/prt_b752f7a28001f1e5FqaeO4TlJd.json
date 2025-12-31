@@ -1,0 +1,11 @@
+{
+  "id": "prt_b752f7a28001f1e5FqaeO4TlJd",
+  "messageID": "msg_b752e901c001gfi5ovJoXRsV8r",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Done! I've removed the Token Search section from the settings menu. The settings tab now only contains:\n\n1. **Slippage Tolerance** - Preset buttons and custom input\n2. **Swap Sources** - Toggle switches for DEX selection\n\nThe token search functionality has been completely removed from the UI.",
+  "time": {
+    "start": 1767197606325,
+    "end": 1767197606325
+  }
+}
