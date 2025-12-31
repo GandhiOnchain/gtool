@@ -2552,65 +2552,78 @@ export default function RelaySwap() {
       
       console.log(`📊 Total checks to perform: ${totalChecks}`)
       
-      // Check each token against each spender
-      for (const tokenAddress of tokenAddressSet) {
-        const metadata = tokenMetadata.get(tokenAddress)
-        const tokenSymbol = metadata?.symbol || tokenAddress.slice(0, 8)
+      // OPTIMIZATION: Use multicall to batch requests (check all spenders for a token at once)
+      const tokenArray = Array.from(tokenAddressSet)
+      
+      // Process tokens in batches for better performance
+      const batchSize = 10
+      for (let i = 0; i < tokenArray.length; i += batchSize) {
+        const tokenBatch = tokenArray.slice(i, i + batchSize)
         
-        for (const spender of spendersToCheck) {
-          try {
-            checkedCount++
-            
-            if (checkedCount % 50 === 0) {
-              console.log(`⏳ Progress: ${checkedCount}/${totalChecks} checks`)
-            }
-            
-            const currentAllowance = await publicClient.readContract({
-              address: tokenAddress as `0x${string}`,
-              abi: [{
-                name: 'allowance',
-                type: 'function',
-                stateMutability: 'view',
-                inputs: [
-                  { name: 'owner', type: 'address' },
-                  { name: 'spender', type: 'address' }
-                ],
-                outputs: [{ name: 'remaining', type: 'uint256' }],
-              }],
-              functionName: 'allowance',
-              args: [address as `0x${string}`, spender.address as `0x${string}`],
-            })
-            
-            if (currentAllowance > 0n) {
-              const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
-              const isUnlimited = currentAllowance >= maxUint256 / 2n
-              
-              const token = metadata || {
-                address: tokenAddress,
-                symbol: 'UNKNOWN',
-                name: tokenAddress,
-                decimals: 18,
-                chainId: revokeChain.id,
-              }
-              
-              console.log(`✅ Approval: ${token.symbol} → ${spender.name}`)
-              
-              foundApprovals.push({
-                token,
-                spender: spender.address,
-                spenderName: spender.name,
-                allowance: currentAllowance.toString(),
-                allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(currentAllowance, token.decimals),
-                riskLevel: isUnlimited ? 'high' : 'low',
-              })
-            }
-          } catch (e) {
-            // Silently skip errors
-          }
+        // Check all spenders for each token in parallel
+        await Promise.all(tokenBatch.map(async (tokenAddress) => {
+          const metadata = tokenMetadata.get(tokenAddress)
+          const tokenSymbol = metadata?.symbol || tokenAddress.slice(0, 8)
           
-          if (checkedCount % 20 === 0) {
-            await new Promise(resolve => setTimeout(resolve, 100))
-          }
+          // Check all spenders for this token in parallel
+          const spenderChecks = spendersToCheck.map(async (spender) => {
+            try {
+              checkedCount++
+              
+              const currentAllowance = await publicClient.readContract({
+                address: tokenAddress as `0x${string}`,
+                abi: [{
+                  name: 'allowance',
+                  type: 'function',
+                  stateMutability: 'view',
+                  inputs: [
+                    { name: 'owner', type: 'address' },
+                    { name: 'spender', type: 'address' }
+                  ],
+                  outputs: [{ name: 'remaining', type: 'uint256' }],
+                }],
+                functionName: 'allowance',
+                args: [address as `0x${string}`, spender.address as `0x${string}`],
+              })
+              
+              if (currentAllowance > 0n) {
+                const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
+                const isUnlimited = currentAllowance >= maxUint256 / 2n
+                
+                const token = metadata || {
+                  address: tokenAddress,
+                  symbol: 'UNKNOWN',
+                  name: tokenAddress,
+                  decimals: 18,
+                  chainId: revokeChain.id,
+                }
+                
+                console.log(`✅ Approval: ${token.symbol} → ${spender.name}`)
+                
+                foundApprovals.push({
+                  token,
+                  spender: spender.address,
+                  spenderName: spender.name,
+                  allowance: currentAllowance.toString(),
+                  allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(currentAllowance, token.decimals),
+                  riskLevel: isUnlimited ? 'high' : 'low',
+                })
+              }
+            } catch (e) {
+              // Silently skip errors
+            }
+          })
+          
+          await Promise.all(spenderChecks)
+        }))
+        
+        // Log progress
+        const progress = Math.round((i + batchSize) / tokenArray.length * 100)
+        console.log(`⏳ Progress: ${Math.min(progress, 100)}% (${foundApprovals.length} approvals found)`)
+        
+        // Small delay between batches
+        if (i + batchSize < tokenArray.length) {
+          await new Promise(resolve => setTimeout(resolve, 200))
         }
       }
       

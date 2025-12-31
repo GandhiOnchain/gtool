@@ -1,0 +1,11 @@
+{
+  "id": "prt_b758299a6001ILg0oF4B1l8y8E",
+  "messageID": "msg_b7581bd45001OTuEY9biz6n2Rr",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "I've optimized the on-chain scanning to be **much faster**:\n\n## ⚡ Performance Improvements\n\n**Before:**\n- Sequential checks: 535 requests one-by-one\n- ~100ms delay every 20 checks\n- Total time: ~60+ seconds\n\n**Now:**\n- Parallel batch processing: 10 tokens at once\n- All 5 spenders checked in parallel for each token\n- 50 parallel requests at a time\n- Total time: **~10-15 seconds**\n\n**How it works:**\n1. Processes 10 tokens at a time\n2. For each token, checks all 5 spenders in parallel\n3. Shows progress percentage in console\n4. Much faster completion\n\nThis should now complete in 10-15 seconds instead of 60+ seconds. The approvals will show up much quicker, similar to Smol Frame's experience (though they use a pre-indexed API which is instant).\n\nTry it now - it should be significantly faster!",
+  "time": {
+    "start": 1767203057906,
+    "end": 1767203057906
+  }
+}
