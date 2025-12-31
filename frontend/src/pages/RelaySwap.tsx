@@ -256,7 +256,9 @@ export default function RelaySwap() {
         if (type === 'from') {
           setFromToken(defaultToken)
         } else {
-          setToToken(defaultToken)
+          // For 'to' token, select a different token than the native one
+          const alternativeToken = fetchedCurrencies.find(c => !c.metadata?.isNative) || fetchedCurrencies[1] || fetchedCurrencies[0]
+          setToToken(alternativeToken)
         }
       } else {
         console.warn('No currencies found for chain:', chainId)

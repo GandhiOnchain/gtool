@@ -1,0 +1,25 @@
+{
+  "id": "prt_b737da581001fq50vwfVVJPInP",
+  "messageID": "msg_b737d691a001Rr4RKTH04X1tQ7",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01TXmGMoLjruZ7fN89XXxNra",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 460,
+      "limit": 80
+    },
+    "output": "<file>\n00461|       console.error('Failed to search token:', error)\n00462|       toast.error('Failed to search token')\n00463|     }\n00464|   }\n00465| \n00466|   const fetchQuote = async () => {\n00467|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return\n00468| \n00469|     // Don't fetch quote if trying to swap same token on same chain\n00470|     if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n00471|       setQuote(null)\n00472|       setToAmount('')\n00473|       return\n00474|     }\n00475| \n00476|     setIsLoadingQuote(true)\n00477|     try {\n00478|       const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n00479|       const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()\n00480|       \n00481|       const includedSources = Object.entries(enabledSources)\n00482|         .filter(([_, enabled]) => enabled)\n00483|         .map(([source]) => source)\n00484|       \n00485|       const fromVMType = fromChain.vmType || 'evm'\n00486|       const toVMType = toChain.vmType || 'evm'\n00487|       const isCrossVM = fromVMType !== toVMType\n00488|       \n00489|       const quoteParams = {\n00490|         user: address,\n00491|         originChainId: fromChain.id,\n00492|         destinationChainId: toChain.id,\n00493|         originCurrency: fromToken.address,\n00494|         destinationCurrency: toToken.address,\n00495|         amount: amountInWei.toString(),\n00496|         tradeType: 'EXACT_INPUT' as const,\n00497|         slippageTolerance: slippageBps,\n00498|         recipient: isCrossVM && recipientAddress ? recipientAddress : undefined,\n00499|         includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n00500|         useExternalLiquidity: isCrossVM ? true : undefined,\n00501|       }\n00502|       \n00503|       const quoteData = await relayAPI.getQuote(quoteParams)\n00504|       \n00505|       setQuote(quoteData)\n00506|       if (quoteData.details.currencyOut) {\n00507|         setToAmount(quoteData.details.currencyOut.amountFormatted)\n00508|       }\n00509|     } catch (error) {\n00510|       console.error('Failed to fetch quote:', error)\n00511|       const errorMessage = error instanceof Error ? error.message : 'Failed to get quote'\n00512|       toast.error(errorMessage)\n00513|       setQuote(null)\n00514|     } finally {\n00515|       setIsLoadingQuote(false)\n00516|     }\n00517|   }\n00518| \n00519|   const executeSwap = async () => {\n00520|     if (!quote || !quote.steps || quote.steps.length === 0) {\n00521|       toast.error('No quote available')\n00522|       return\n00523|     }\n00524| \n00525|     if (!isConnected || !address) {\n00526|       toast.error('Please connect your wallet first')\n00527|       return\n00528|     }\n00529| \n00530|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {\n00531|       toast.error('Missing swap parameters')\n00532|       return\n00533|     }\n00534| \n00535|     // Check if trying to swap same token on same chain\n00536|     if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n00537|       toast.error('Cannot swap the same token to itself')\n00538|       return\n00539|     }\n00540| \n\n(File has more lines. Use 'offset' parameter to read beyond line 540)\n</file>",
+    "metadata": {
+      "preview": "      console.error('Failed to search token:', error)\n      toast.error('Failed to search token')\n    }\n  }\n\n  const fetchQuote = async () => {\n    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return\n\n    // Don't fetch quote if trying to swap same token on same chain\n    if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n      setQuote(null)\n      setToAmount('')\n      return\n    }\n\n    setIsLoadingQuote(true)\n    try {\n      const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n      const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()\n      "
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767169174103,
+      "end": 1767169174106
+    }
+  }
+}

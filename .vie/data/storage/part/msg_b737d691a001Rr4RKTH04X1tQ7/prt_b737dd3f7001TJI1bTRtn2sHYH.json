@@ -1,0 +1,26 @@
+{
+  "id": "prt_b737dd3f7001TJI1bTRtn2sHYH",
+  "messageID": "msg_b737d691a001Rr4RKTH04X1tQ7",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Wk3arXUtZkK8YNgr5Qjw6o",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"setFromToken|setToToken\" src/pages/RelaySwap.tsx | head -30",
+      "description": "Search for token selection logic"
+    },
+    "output": "  const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n  const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n  const [fromTokenPrice, setFromTokenPrice] = useState<number>(0)\n  const [toTokenPrice, setToTokenPrice] = useState<number>(0)\n        setFromTokenPrice(priceData.price)\n        setToTokenPrice(priceData.price)\n          setFromToken(defaultToken)\n          setToToken(defaultToken)\n        setFromToken(results[0])\n    setFromToken(toToken)\n    setToToken(tempToken)\n                            setFromToken({\n                          setFromToken(currency)\n                          setToToken(currency)\n",
+    "metadata": {
+      "output": "  const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n  const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n  const [fromTokenPrice, setFromTokenPrice] = useState<number>(0)\n  const [toTokenPrice, setToTokenPrice] = useState<number>(0)\n        setFromTokenPrice(priceData.price)\n        setToTokenPrice(priceData.price)\n          setFromToken(defaultToken)\n          setToToken(defaultToken)\n        setFromToken(results[0])\n    setFromToken(toToken)\n    setToToken(tempToken)\n                            setFromToken({\n                          setFromToken(currency)\n                          setToToken(currency)\n",
+      "exit": 0,
+      "description": "Search for token selection logic"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"setFromToken|setToToken\" src/pages/RelaySwap.tsx | head -30",
+    "time": {
+      "start": 1767169186521,
+      "end": 1767169186528
+    }
+  }
+}

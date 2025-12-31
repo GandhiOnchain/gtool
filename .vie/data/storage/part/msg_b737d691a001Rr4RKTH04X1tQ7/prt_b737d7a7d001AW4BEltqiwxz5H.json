@@ -1,0 +1,26 @@
+{
+  "id": "prt_b737d7a7d001AW4BEltqiwxz5H",
+  "messageID": "msg_b737d691a001Rr4RKTH04X1tQ7",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01JxyB1bgtrupSicfYoaqqCA",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "find /home/user/sandbox/workspace/frontend/src -name \"*.tsx\" -type f | head -20",
+      "description": "Find tsx files in src directory"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/src/App.tsx\n/home/user/sandbox/workspace/frontend/src/components/ErrorBoundary.tsx\n/home/user/sandbox/workspace/frontend/src/components/Layout.tsx\n/home/user/sandbox/workspace/frontend/src/components/RouteSync.tsx\n/home/user/sandbox/workspace/frontend/src/components/ThemeSelector.tsx\n/home/user/sandbox/workspace/frontend/src/components/ThemeSync.tsx\n/home/user/sandbox/workspace/frontend/src/components/examples/AlchemyExample.tsx\n/home/user/sandbox/workspace/frontend/src/components/examples/SwapWidgetExample.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/accordion.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/alert-dialog.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/alert.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/aspect-ratio.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/avatar.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/badge.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/breadcrumb.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/button.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/calendar.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/card.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/carousel.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/chart.tsx\n",
+    "metadata": {
+      "output": "/home/user/sandbox/workspace/frontend/src/App.tsx\n/home/user/sandbox/workspace/frontend/src/components/ErrorBoundary.tsx\n/home/user/sandbox/workspace/frontend/src/components/Layout.tsx\n/home/user/sandbox/workspace/frontend/src/components/RouteSync.tsx\n/home/user/sandbox/workspace/frontend/src/components/ThemeSelector.tsx\n/home/user/sandbox/workspace/frontend/src/components/ThemeSync.tsx\n/home/user/sandbox/workspace/frontend/src/components/examples/AlchemyExample.tsx\n/home/user/sandbox/workspace/frontend/src/components/examples/SwapWidgetExample.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/accordion.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/alert-dialog.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/alert.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/aspect-ratio.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/avatar.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/badge.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/breadcrumb.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/button.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/calendar.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/card.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/carousel.tsx\n/home/user/sandbox/workspace/frontend/src/components/ui/chart.tsx\n",
+      "exit": 0,
+      "description": "Find tsx files in src directory"
+    },
+    "title": "find /home/user/sandbox/workspace/frontend/src -name \"*.tsx\" -type f | head -20",
+    "time": {
+      "start": 1767169162592,
+      "end": 1767169162610
+    }
+  }
+}
