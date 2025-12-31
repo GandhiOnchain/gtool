@@ -1,0 +1,11 @@
+{
+  "id": "prt_b735a1605001KxlXKCWFfD0VdA",
+  "messageID": "msg_b735a020b0013XCiN8nbhPcjJ0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Great! So Solana is showing up. Now the issue is just that the swaps are failing. Since Relay supports cross-VM swaps, the problem is likely in how we're calling the API or handling the transaction.\n\nCan you try a swap from Ethereum to Solana and tell me:\n\n1. Do you see a \"Recipient Address\" field appear when you select Solana as the destination?\n2. Did you enter a Solana wallet address in that field?\n3. What exact error message do you see when you click \"Swap\"?\n\nThe \"Input and output currencies don't match\" error suggests the API call might be malformed. Let me check what's being sent to Relay when you try to swap.",
+  "time": {
+    "start": 1767166847295,
+    "end": 1767166847295
+  }
+}
