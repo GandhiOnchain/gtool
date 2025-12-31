@@ -3159,15 +3159,11 @@ export default function RelaySwap() {
                 onChange={(e) => setTokenSearchTerm(e.target.value)}
                 className="h-8 text-xs"
               />
-              <div className="text-xs text-muted-foreground px-1">
-                {isSearchingExternal ? (
-                  'Searching for token...'
-                ) : externalSearchResults.length > 0 ? (
-                  `Found ${externalSearchResults.length} external token(s)`
-                ) : (
-                  `${filteredCurrencies.length} tokens available (from {activeCurrencies.length} total)`
-                )}
-              </div>
+              {(isSearchingExternal || externalSearchResults.length > 0) && (
+                <div className="text-xs text-muted-foreground px-1">
+                  {isSearchingExternal ? 'Searching for token...' : `Found ${externalSearchResults.length} external token(s)`}
+                </div>
+              )}
               <ScrollArea className="h-[300px]">
                 <div className="space-y-1">
                   {filteredCurrencies.length === 0 ? (

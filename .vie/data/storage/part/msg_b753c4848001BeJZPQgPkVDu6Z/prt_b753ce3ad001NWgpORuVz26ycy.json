@@ -1,0 +1,11 @@
+{
+  "id": "prt_b753ce3ad001NWgpORuVz26ycy",
+  "messageID": "msg_b753c4848001BeJZPQgPkVDu6Z",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Done! I've removed the token count text. Now it will only show:\n- **\"Searching for token...\"** when actively searching\n- **\"Found X external token(s)\"** when external results are found\n- **Nothing** when browsing the regular token list\n\nThe token selector is now cleaner without the distracting count message.",
+  "time": {
+    "start": 1767198485116,
+    "end": 1767198485116
+  }
+}
