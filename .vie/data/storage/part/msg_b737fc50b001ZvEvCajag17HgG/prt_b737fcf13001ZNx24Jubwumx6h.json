@@ -1,0 +1,26 @@
+{
+  "id": "prt_b737fcf13001ZNx24Jubwumx6h",
+  "messageID": "msg_b737fc50b001ZvEvCajag17HgG",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01J4R56zzt6oPrym83RVJoRa",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"Failed to execute swap\" -A 5 -B 5",
+      "description": "Find error message location"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": null,
+      "description": "Find error message location"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"Failed to execute swap\" -A 5 -B 5",
+    "time": {
+      "start": 1767169315642,
+      "end": 1767169375643
+    }
+  }
+}

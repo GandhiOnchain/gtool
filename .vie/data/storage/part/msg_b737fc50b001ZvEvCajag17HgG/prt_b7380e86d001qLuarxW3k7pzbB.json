@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7380e86d001qLuarxW3k7pzbB",
+  "messageID": "msg_b737fc50b001ZvEvCajag17HgG",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now I see the issue! When you click the switch button (ArrowDownUp), it swaps the chains AND the tokens. But if both chains are the same (or become the same after switching), and the tokens are also swapped, you could end up with the same token on both sides.\n\nLet me trace through the flow more carefully:",
+  "time": {
+    "start": 1767169389436,
+    "end": 1767169389436
+  }
+}

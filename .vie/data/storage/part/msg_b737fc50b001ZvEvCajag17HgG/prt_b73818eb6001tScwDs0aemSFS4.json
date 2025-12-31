@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73818eb6001tScwDs0aemSFS4",
+  "messageID": "msg_b737fc50b001ZvEvCajag17HgG",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01LCuwy36ihVDNEwcW7LDCgu",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 160,
+      "limit": 15
+    },
+    "output": "<file>\n00161|     if (fromChain) {\n00162|       loadCurrencies(fromChain.id, 'from')\n00163|     }\n00164|   }, [fromChain])\n00165| \n00166|   useEffect(() => {\n00167|     if (toChain) {\n00168|       loadCurrencies(toChain.id, 'to')\n00169|     }\n00170|   }, [toChain])\n00171| \n00172|   useEffect(() => {\n00173|     if (fromToken && toToken && fromAmount && fromChain && toChain && address) {\n00174|       const debounce = setTimeout(() => {\n00175|         fetchQuote()\n\n(File has more lines. Use 'offset' parameter to read beyond line 175)\n</file>",
+    "metadata": {
+      "preview": "    if (fromChain) {\n      loadCurrencies(fromChain.id, 'from')\n    }\n  }, [fromChain])\n\n  useEffect(() => {\n    if (toChain) {\n      loadCurrencies(toChain.id, 'to')\n    }\n  }, [toChain])\n\n  useEffect(() => {\n    if (fromToken && toToken && fromAmount && fromChain && toChain && address) {\n      const debounce = setTimeout(() => {\n        fetchQuote()"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767169430045,
+      "end": 1767169430051
+    }
+  }
+}

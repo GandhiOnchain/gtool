@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7381993e001b0ZxlouCvypDJw",
+  "messageID": "msg_b737fc50b001ZvEvCajag17HgG",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "The issue is that these useEffects run independently. When `toChain` changes, it calls `loadCurrencies` which sets `toToken`, but it doesn't know what `fromToken` is at that moment.\n\nI need to modify the `loadCurrencies` function to be aware of the current state of both tokens when setting defaults. Let me create a better solution:",
+  "time": {
+    "start": 1767169446110,
+    "end": 1767169446110
+  }
+}

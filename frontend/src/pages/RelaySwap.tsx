@@ -256,9 +256,21 @@ export default function RelaySwap() {
         if (type === 'from') {
           setFromToken(defaultToken)
         } else {
-          // For 'to' token, select a different token than the native one
-          const alternativeToken = fetchedCurrencies.find(c => !c.metadata?.isNative) || fetchedCurrencies[1] || fetchedCurrencies[0]
-          setToToken(alternativeToken)
+          // For 'to' token, ensure it's different from 'from' token if on same chain
+          let selectedToken = defaultToken
+          
+          // If chains are the same and we have a fromToken, make sure toToken is different
+          if (fromChain && toChain && fromChain.id === toChain.id && fromToken) {
+            const differentToken = fetchedCurrencies.find(
+              c => c.address.toLowerCase() !== fromToken.address.toLowerCase()
+            )
+            if (differentToken) {
+              selectedToken = differentToken
+              console.log('Same chain detected, selecting different token:', differentToken.symbol)
+            }
+          }
+          
+          setToToken(selectedToken)
         }
       } else {
         console.warn('No currencies found for chain:', chainId)
@@ -1768,10 +1780,23 @@ export default function RelaySwap() {
                     <div
                       key={`${currency.chainId}-${currency.address}`}
                       onClick={() => {
+                        // Prevent selecting same token on same chain
                         if (selectingFor === 'from') {
                           setFromToken(currency)
+                          // If toToken is the same and chains are the same, clear toToken
+                          if (toToken && toChain && fromChain && 
+                              fromChain.id === toChain.id && 
+                              currency.address.toLowerCase() === toToken.address.toLowerCase()) {
+                            setToToken(null)
+                          }
                         } else {
                           setToToken(currency)
+                          // If fromToken is the same and chains are the same, clear fromToken
+                          if (fromToken && fromChain && toChain && 
+                              fromChain.id === toChain.id && 
+                              currency.address.toLowerCase() === fromToken.address.toLowerCase()) {
+                            setFromToken(null)
+                          }
                         }
                         setIsTokenSelectOpen(false)
                         setTokenSearchTerm('')

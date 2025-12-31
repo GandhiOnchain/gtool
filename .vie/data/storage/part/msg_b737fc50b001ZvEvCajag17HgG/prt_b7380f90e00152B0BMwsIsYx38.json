@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7380f90e00152B0BMwsIsYx38",
+  "messageID": "msg_b737fc50b001ZvEvCajag17HgG",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I see the problem now! Look at lines 161-170. When `fromChain` or `toChain` changes, it calls `loadCurrencies` which sets the default tokens. The issue is:\n\n1. Initial load sets `fromChain` to Base (8453) and `toChain` to a different chain\n2. `loadCurrencies` is called for both chains\n3. For `fromChain`, it sets `fromToken` to the native token (ETH)\n4. For `toChain`, my fix tries to set a different token, but...\n5. If the user then switches chains or if both chains end up being the same, the tokens could match\n\nLet me check what happens when chains are selected:",
+  "time": {
+    "start": 1767169396773,
+    "end": 1767169396773
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b738293a2001TFaiLCjdHoTGng",
+  "messageID": "msg_b737fc50b001ZvEvCajag17HgG",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Perfect! Let me create a summary of the fixes I've implemented:\n\n## Fixed Issues\n\nI've identified and fixed the \"Input and output currencies don't match\" error with three key changes:\n\n1. **Smart default token selection in `loadCurrencies`**: When loading currencies for the 'to' chain, the function now checks if both chains are the same. If they are and a `fromToken` is already selected, it automatically selects a different token to prevent same-token swaps.\n\n2. **Token selection validation**: When manually selecting a token in the UI, if you select the same token that's already selected on the other side (and both chains are the same), the other token is automatically cleared. This prevents you from accidentally creating an invalid same-token swap.\n\n3. **Preserved existing validations**: The existing validation that prevents executing a swap when both tokens are the same on the same chain remains in place, providing a safety net.\n\nThese changes ensure that you can't accidentally end up with the same token selected for both input and output when swapping on the same chain, which was causing the Relay API error.",
+  "time": {
+    "start": 1767169501956,
+    "end": 1767169501956
+  }
+}

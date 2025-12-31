@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73816502001iRUtrasdm84ekB",
+  "messageID": "msg_b737fc50b001ZvEvCajag17HgG",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Good! There's validation. But the issue is that when the chains are the same AND the user hasn't manually selected different tokens, the default token selection might still set them to the same token.\n\nThe real problem is in my fix. When `loadCurrencies` is called for the 'to' chain, it tries to find a non-native token. But what if:\n1. Both chains are the same\n2. The 'from' loadCurrencies runs first and sets fromToken to native\n3. The 'to' loadCurrencies runs second and sets toToken to non-native\n4. BUT then the user clicks the swap button, which swaps the tokens\n5. Now both are the same!\n\nActually, let me re-read the `switchChains` function:",
+  "time": {
+    "start": 1767169423655,
+    "end": 1767169423655
+  }
+}

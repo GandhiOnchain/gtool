@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7380cb7a001iyQI201NzFl0kP",
+  "messageID": "msg_b737fc50b001ZvEvCajag17HgG",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01TzAaqZQhsuSxSZkfRJjGKD",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"originCurrency|destinationCurrency\" src/pages/RelaySwap.tsx | head -20",
+      "description": "Check currency parameters"
+    },
+    "output": "        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        destinationCurrency: toToken.address,\n",
+    "metadata": {
+      "output": "        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        destinationCurrency: toToken.address,\n",
+      "exit": 0,
+      "description": "Check currency parameters"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"originCurrency|destinationCurrency\" src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1767169380529,
+      "end": 1767169380534
+    }
+  }
+}

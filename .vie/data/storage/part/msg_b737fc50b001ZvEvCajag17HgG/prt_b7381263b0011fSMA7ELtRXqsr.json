@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7381263b0011fSMA7ELtRXqsr",
+  "messageID": "msg_b737fc50b001ZvEvCajag17HgG",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_019dNiz5DcMeeXLj1DG7LF85",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"setToChain\\(chain\\)\" src/pages/RelaySwap.tsx -B 3 -A 3",
+      "description": "Find all setToChain calls"
+    },
+    "output": "1713-                        if (selectingFor === 'from') {\n1714-                          setFromChain(chain)\n1715-                        } else if (selectingFor === 'to') {\n1716:                          setToChain(chain)\n1717-                        } else if (selectingFor === 'batch') {\n1718-                          setBatchChain(chain)\n1719-                        }\n",
+    "metadata": {
+      "output": "1713-                        if (selectingFor === 'from') {\n1714-                          setFromChain(chain)\n1715-                        } else if (selectingFor === 'to') {\n1716:                          setToChain(chain)\n1717-                        } else if (selectingFor === 'batch') {\n1718-                          setBatchChain(chain)\n1719-                        }\n",
+      "exit": 0,
+      "description": "Find all setToChain calls"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"setToChain\\(chain\\)\" src/pages/RelaySwap.tsx -B 3 -A 3",
+    "time": {
+      "start": 1767169403469,
+      "end": 1767169403475
+    }
+  }
+}

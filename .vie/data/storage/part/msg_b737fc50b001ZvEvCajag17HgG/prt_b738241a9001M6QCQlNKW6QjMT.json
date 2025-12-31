@@ -1,0 +1,11 @@
+{
+  "id": "prt_b738241a9001M6QCQlNKW6QjMT",
+  "messageID": "msg_b737fc50b001ZvEvCajag17HgG",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Let me add validation when selecting a token to prevent selecting the same token on the same chain:",
+  "time": {
+    "start": 1767169481669,
+    "end": 1767169481669
+  }
+}

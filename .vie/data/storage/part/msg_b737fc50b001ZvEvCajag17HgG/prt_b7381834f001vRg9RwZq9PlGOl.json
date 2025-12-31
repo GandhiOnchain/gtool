@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7381834f001vRg9RwZq9PlGOl",
+  "messageID": "msg_b737fc50b001ZvEvCajag17HgG",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "OK so `switchChains` just swaps everything. That should be fine.\n\nLet me think about this from a different angle. The error message says \"Input and output currencies don't match\". This is coming from the Relay API. Let me check if maybe the issue is that when both chains are the SAME, the API expects the currencies to be different, but somehow they're ending up the same.\n\nLet me add better logic to ensure that when loading currencies, if both chains are the same, we ensure different tokens are selected:",
+  "time": {
+    "start": 1767169430104,
+    "end": 1767169430104
+  }
+}

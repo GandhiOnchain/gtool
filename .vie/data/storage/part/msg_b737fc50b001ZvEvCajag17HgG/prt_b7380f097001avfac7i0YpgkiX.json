@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7380f097001avfac7i0YpgkiX",
+  "messageID": "msg_b737fc50b001ZvEvCajag17HgG",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_014D85KCSswzFQ2NuvTf7gif",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 140,
+      "limit": 80
+    },
+    "output": "<file>\n00141|   useEffect(() => {\n00142|     if (chains.length > 0 && !batchChain) {\n00143|       const baseChain = chains.find(c => c.id === 8453) || chains[0]\n00144|       setBatchChain(baseChain)\n00145|     }\n00146|   }, [chains])\n00147| \n00148|   useEffect(() => {\n00149|     if (fromToken && fromChain) {\n00150|       fetchTokenPrice(fromToken.address, fromChain.id, 'from')\n00151|     }\n00152|   }, [fromToken, fromChain])\n00153| \n00154|   useEffect(() => {\n00155|     if (toToken && toChain) {\n00156|       fetchTokenPrice(toToken.address, toChain.id, 'to')\n00157|     }\n00158|   }, [toToken, toChain])\n00159| \n00160|   useEffect(() => {\n00161|     if (fromChain) {\n00162|       loadCurrencies(fromChain.id, 'from')\n00163|     }\n00164|   }, [fromChain])\n00165| \n00166|   useEffect(() => {\n00167|     if (toChain) {\n00168|       loadCurrencies(toChain.id, 'to')\n00169|     }\n00170|   }, [toChain])\n00171| \n00172|   useEffect(() => {\n00173|     if (fromToken && toToken && fromAmount && fromChain && toChain && address) {\n00174|       const debounce = setTimeout(() => {\n00175|         fetchQuote()\n00176|       }, 500)\n00177|       return () => clearTimeout(debounce)\n00178|     }\n00179|   }, [fromToken, toToken, fromAmount, fromChain, toChain, address])\n00180| \n00181|   useEffect(() => {\n00182|     if (address && chains.length > 0) {\n00183|       loadSwapHistory()\n00184|       loadUserStreak()\n00185|     }\n00186|   }, [address, chains])\n00187| \n00188|   useEffect(() => {\n00189|     loadLeaderboard()\n00190|   }, [])\n00191| \n00192|   useEffect(() => {\n00193|     if (address && fromChain && isConnected) {\n00194|       loadWalletTokens()\n00195|     }\n00196|   }, [address, fromChain, isConnected])\n00197| \n00198|   useEffect(() => {\n00199|     if (address && batchChain && isConnected) {\n00200|       loadBatchWalletTokens()\n00201|     }\n00202|   }, [address, batchChain, isConnected])\n00203| \n00204|   const loadChains = async () => {\n00205|     try {\n00206|       const { chains: fetchedChains } = await relayAPI.getChains()\n00207|       const activeChains = fetchedChains.filter(c => !c.disabled)\n00208|       setChains(activeChains)\n00209|       if (activeChains.length > 0) {\n00210|         const baseChain = activeChains.find(c => c.id === 8453) || activeChains[0]\n00211|         setFromChain(baseChain)\n00212|         setToChain(activeChains.find(c => c.id !== baseChain.id) || activeChains[1])\n00213|       }\n00214|     } catch (error) {\n00215|       console.error('Failed to load chains:', error)\n00216|       toast.error('Failed to load chains')\n00217|     }\n00218|   }\n00219| \n00220|   const fetchTokenPrice = async (tokenAddress: string, chainId: number, type: 'from' | 'to') => {\n\n(File has more lines. Use 'offset' parameter to read beyond line 220)\n</file>",
+    "metadata": {
+      "preview": "  useEffect(() => {\n    if (chains.length > 0 && !batchChain) {\n      const baseChain = chains.find(c => c.id === 8453) || chains[0]\n      setBatchChain(baseChain)\n    }\n  }, [chains])\n\n  useEffect(() => {\n    if (fromToken && fromChain) {\n      fetchTokenPrice(fromToken.address, fromChain.id, 'from')\n    }\n  }, [fromToken, fromChain])\n\n  useEffect(() => {\n    if (toToken && toChain) {\n      fetchTokenPrice(toToken.address, toChain.id, 'to')\n    }\n  }, [toToken, toChain])\n\n  useEffect(() => {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767169389386,
+      "end": 1767169389388
+    }
+  }
+}
