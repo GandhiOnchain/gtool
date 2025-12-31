@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73588e89001H82AA4hYwnOtuK",
+  "messageID": "msg_b7357fd45001KAZW7gxcxHjgRg",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_013fVb9QyKFWhuaWkzkr1fRa",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && cp /tmp/original_relay.tsx src/pages/RelaySwap.tsx",
+      "description": "Restore original file"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Restore original file"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && cp /tmp/original_relay.tsx src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767166743030,
+      "end": 1767166743033
+    }
+  }
+}

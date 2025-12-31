@@ -1,0 +1,26 @@
+{
+  "id": "prt_b735934d2001G7RYPFW4v5Z9Yj",
+  "messageID": "msg_b7357fd45001KAZW7gxcxHjgRg",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_0199o2NM5PaZ95VMmHCXcqgu",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git show ac4a52a:frontend/src/pages/RelaySwap.tsx | head -20",
+      "description": "Check earlier version"
+    },
+    "output": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\nimport { parseUnits, formatUnits } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\nimport { Button } from '@/components/ui/button'\nimport { Input } from '@/components/ui/input'\nimport { Card } from '@/components/ui/card'\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\nimport { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'\nimport { ScrollArea } from '@/components/ui/scroll-area'\nimport { Badge } from '@/components/ui/badge'\nimport { Separator } from '@/components/ui/separator'\nimport { Switch } from '@/components/ui/switch'\nimport { toast } from 'sonner'\nimport { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'\n\ninterface TrendingToken {\n  address: string\n",
+    "metadata": {
+      "output": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\nimport { parseUnits, formatUnits } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\nimport { Button } from '@/components/ui/button'\nimport { Input } from '@/components/ui/input'\nimport { Card } from '@/components/ui/card'\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\nimport { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'\nimport { ScrollArea } from '@/components/ui/scroll-area'\nimport { Badge } from '@/components/ui/badge'\nimport { Separator } from '@/components/ui/separator'\nimport { Switch } from '@/components/ui/switch'\nimport { toast } from 'sonner'\nimport { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'\n\ninterface TrendingToken {\n  address: string\n",
+      "exit": 0,
+      "description": "Check earlier version"
+    },
+    "title": "cd /home/user/sandbox/workspace && git show ac4a52a:frontend/src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1767166785862,
+      "end": 1767166785868
+    }
+  }
+}

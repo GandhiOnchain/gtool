@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7358fc9b001zxW9OrxaQWmM3C",
+  "messageID": "msg_b7357fd45001KAZW7gxcxHjgRg",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01UEoox5q9a5z6vBwLpoyMZw",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1,
+      "limit": 10
+    },
+    "output": "<file>\n00002| import { sdk } from '@farcaster/miniapp-sdk'\n00003| import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\n00004| import { parseUnits, formatUnits } from 'viem'\n00005| import { relayAPI } from '@/lib/relay/api'\n00006| import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\n00007| import { swapRouter } from '@/lib/swap-router/router'\n00008| import type { UnifiedQuote } from '@/lib/swap-router/types'\n00009| import { rangoAPI } from '@/lib/rango/api'\n00010| import { Button } from '@/components/ui/button'\n00011| import { Input } from '@/components/ui/input'\n\n(File has more lines. Use 'offset' parameter to read beyond line 11)\n</file>",
+    "metadata": {
+      "preview": "import { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\nimport { parseUnits, formatUnits } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\nimport { swapRouter } from '@/lib/swap-router/router'\nimport type { UnifiedQuote } from '@/lib/swap-router/types'\nimport { rangoAPI } from '@/lib/rango/api'\nimport { Button } from '@/components/ui/button'\nimport { Input } from '@/components/ui/input'"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767166771721,
+      "end": 1767166771726
+    }
+  }
+}

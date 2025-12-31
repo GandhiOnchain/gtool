@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73594e79001hG4iScxK1SyU1S",
+  "messageID": "msg_b7357fd45001KAZW7gxcxHjgRg",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Lm5sDDruvhDt37584WVBbM",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git show ac4a52a:frontend/src/pages/RelaySwap.tsx > frontend/src/pages/RelaySwap.tsx && echo \"Restored to clean version\"",
+      "description": "Restore clean RelaySwap version"
+    },
+    "output": "Restored to clean version\n",
+    "metadata": {
+      "output": "Restored to clean version\n",
+      "exit": 0,
+      "description": "Restore clean RelaySwap version"
+    },
+    "title": "cd /home/user/sandbox/workspace && git show ac4a52a:frontend/src/pages/RelaySwap.tsx > frontend/src/pages/RelaySwap.tsx && echo \"Restored to clean version\"",
+    "time": {
+      "start": 1767166792828,
+      "end": 1767166792833
+    }
+  }
+}

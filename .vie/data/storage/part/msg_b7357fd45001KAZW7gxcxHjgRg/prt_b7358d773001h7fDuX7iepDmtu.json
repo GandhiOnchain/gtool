@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7358d773001h7fDuX7iepDmtu",
+  "messageID": "msg_b7357fd45001KAZW7gxcxHjgRg",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Excellent! Relay DOES support cross-VM swaps - they have:\n- **73 EVM chains** (vmType: \"evm\")\n- **3 SVM chains** (vmType: \"svm\") - Solana!\n- **1 BVM chain** (vmType: \"bvm\") - Bitcoin!\n- **1 TVM chain** (vmType: \"tvm\") - Tron!\n\nLet me find which chains are SVM:",
+  "time": {
+    "start": 1767166765487,
+    "end": 1767166765487
+  }
+}

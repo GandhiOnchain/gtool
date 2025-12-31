@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73599423001SVHp4aI9rq6P2q",
+  "messageID": "msg_b7357fd45001KAZW7gxcxHjgRg",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! Now I've rolled back to the clean version. Based on my research, **Relay already supports Solana** (chain ID: 792703809, vmType: \"svm\"). \n\nThe issue is that Relay's `/chains` endpoint returns Solana, but we need to make sure it's being loaded and displayed. Can you tell me - when you open the chain selector, do you see Solana in the list? Or is it only showing EVM chains like Ethereum, Base, Optimism, etc.?",
+  "time": {
+    "start": 1767166813070,
+    "end": 1767166813070
+  }
+}

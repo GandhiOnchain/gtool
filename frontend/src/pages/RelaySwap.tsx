@@ -3,10 +3,7 @@ import { sdk } from '@farcaster/miniapp-sdk'
 import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'
 import { parseUnits, formatUnits } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
-import type { RelayChain, RelayCurrency } from '@/lib/relay/types'
-import { swapRouter } from '@/lib/swap-router/router'
-import type { UnifiedQuote } from '@/lib/swap-router/types'
-import { rangoAPI } from '@/lib/rango/api'
+import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
@@ -87,7 +84,7 @@ export default function RelaySwap() {
   const [toToken, setToToken] = useState<RelayCurrency | null>(null)
   const [fromAmount, setFromAmount] = useState('')
   const [toAmount, setToAmount] = useState('')
-  const [quote, setQuote] = useState<UnifiedQuote | null>(null)
+  const [quote, setQuote] = useState<RelayQuote | null>(null)
   const [isLoadingQuote, setIsLoadingQuote] = useState(false)
   const [isSwapping, setIsSwapping] = useState(false)
   const [slippage, setSlippage] = useState('0.1')
@@ -206,45 +203,14 @@ export default function RelaySwap() {
 
   const loadChains = async () => {
     try {
-      console.log('Loading chains from Relay and Rango...')
-      
-      const relayResponse = await relayAPI.getChains()
-      const relayChains = relayResponse.chains.filter(c => !c.disabled)
-      console.log('Loaded Relay chains:', relayChains.length)
-      
-      // Add Solana chain
-      const solanaChain: RelayChain = {
-        id: 900000,
-        name: 'solana',
-        displayName: 'Solana',
-        httpRpcUrl: 'https://api.mainnet-beta.solana.com',
-        explorerUrl: 'https://explorer.solana.com',
-        explorerName: 'Solana Explorer',
-        depositEnabled: true,
-        tokenSupport: 'All',
-        disabled: false,
-        currency: {
-          id: 'sol',
-          symbol: 'SOL',
-          name: 'Solana',
-          address: '0x0000000000000000000000000000000000000000',
-          decimals: 9,
-          supportsBridging: true,
-        },
-        iconUrl: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png',
-        vmType: 'svm',
-      }
-      
-      const allChains = [...relayChains, solanaChain]
-      setChains(allChains)
-      
-      if (allChains.length > 0) {
-        const baseChain = allChains.find(c => c.id === 8453) || allChains[0]
+      const { chains: fetchedChains } = await relayAPI.getChains()
+      const activeChains = fetchedChains.filter(c => !c.disabled)
+      setChains(activeChains)
+      if (activeChains.length > 0) {
+        const baseChain = activeChains.find(c => c.id === 8453) || activeChains[0]
         setFromChain(baseChain)
-        setToChain(allChains.find(c => c.id !== baseChain.id) || allChains[1])
+        setToChain(activeChains.find(c => c.id !== baseChain.id) || activeChains[1])
       }
-      
-      console.log('Total chains loaded:', allChains.length)
     } catch (error) {
       console.error('Failed to load chains:', error)
       toast.error('Failed to load chains')
@@ -267,95 +233,13 @@ export default function RelaySwap() {
   const loadCurrencies = async (chainId: number, type: 'from' | 'to') => {
     try {
       console.log('Loading currencies for chain:', chainId, 'type:', type)
-      
-      const chain = chains.find(c => c.id === chainId)
-      if (!chain) {
-        console.error('Chain not found:', chainId)
-        return
-      }
-      
-      const vmType = chain.vmType || 'evm'
-      console.log('Chain vmType:', vmType, 'name:', chain.name)
-      
-      let fetchedCurrencies: RelayCurrency[] = []
-      
-      // For EVM chains, use Relay API
-      if (vmType === 'evm') {
-        console.log('Fetching EVM tokens from Relay...')
-        fetchedCurrencies = await relayAPI.getCurrencies({
-          chainIds: [chainId],
-          defaultList: true,
-          limit: 100,
-        })
-      } else if (chain.name === 'solana') {
-        // Hardcoded Solana tokens for reliability
-        console.log('Loading hardcoded Solana tokens...')
-        fetchedCurrencies = [
-          {
-            chainId: 900000,
-            address: '0x0000000000000000000000000000000000000000',
-            symbol: 'SOL',
-            name: 'Solana',
-            decimals: 9,
-            metadata: {
-              logoURI: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png',
-              isNative: true,
-            },
-          },
-          {
-            chainId: 900000,
-            address: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
-            symbol: 'USDC',
-            name: 'USD Coin',
-            decimals: 6,
-            metadata: {
-              logoURI: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png',
-              isNative: false,
-            },
-          },
-          {
-            chainId: 900000,
-            address: 'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB',
-            symbol: 'USDT',
-            name: 'Tether USD',
-            decimals: 6,
-            metadata: {
-              logoURI: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB/logo.svg',
-              isNative: false,
-            },
-          },
-        ]
-      } else {
-        // For other non-EVM chains, try Rango API
-        const blockchainName = chain.name.toUpperCase()
-        console.log('Fetching non-EVM tokens from Rango for blockchain:', blockchainName)
-        
-        try {
-          const rangoTokens = await rangoAPI.getTokens(blockchainName)
-          console.log('Rango returned', rangoTokens.length, 'tokens for', blockchainName)
-          
-          fetchedCurrencies = rangoTokens.map(t => ({
-            chainId: chainId,
-            address: t.address || '0x0000000000000000000000000000000000000000',
-            symbol: t.symbol,
-            name: t.name,
-            decimals: t.decimals,
-            metadata: {
-              logoURI: t.image,
-              isNative: !t.address,
-            },
-          }))
-        } catch (rangoError) {
-          console.error('Failed to fetch Rango tokens:', rangoError)
-          toast.error(`Failed to load tokens for ${chain.displayName}`)
-          return
-        }
-      }
-      
+      const fetchedCurrencies = await relayAPI.getCurrencies({
+        chainIds: [chainId],
+        defaultList: true,
+        limit: 100,
+      })
       console.log('Fetched currencies:', fetchedCurrencies.length, 'for chain', chainId)
-      if (fetchedCurrencies.length > 0) {
-        console.log('First few tokens:', fetchedCurrencies.slice(0, 5).map(c => c.symbol))
-      }
+      console.log('First few tokens:', fetchedCurrencies.slice(0, 5).map(c => c.symbol))
       
       if (type === 'from') {
         setFromCurrencies(fetchedCurrencies)
@@ -582,65 +466,46 @@ export default function RelaySwap() {
   const fetchQuote = async () => {
     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return
 
+    // Don't fetch quote if trying to swap same token on same chain
+    if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {
+      setQuote(null)
+      setToAmount('')
+      return
+    }
+
     setIsLoadingQuote(true)
     try {
       const amountInWei = parseUnits(fromAmount, fromToken.decimals)
+      const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()
+      
+      const includedSources = Object.entries(enabledSources)
+        .filter(([_, enabled]) => enabled)
+        .map(([source]) => source)
       
       const fromVMType = fromChain.vmType || 'evm'
       const toVMType = toChain.vmType || 'evm'
       const isCrossVM = fromVMType !== toVMType
       
-      console.log('Fetching quote...', { fromVMType, toVMType, isCrossVM })
+      const quoteParams = {
+        user: address,
+        originChainId: fromChain.id,
+        destinationChainId: toChain.id,
+        originCurrency: fromToken.address,
+        destinationCurrency: toToken.address,
+        amount: amountInWei.toString(),
+        tradeType: 'EXACT_INPUT' as const,
+        slippageTolerance: slippageBps,
+        recipient: isCrossVM && recipientAddress ? recipientAddress : undefined,
+        includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
+        useExternalLiquidity: isCrossVM ? true : undefined,
+      }
       
-      const unifiedQuote = await swapRouter.getQuote({
-        fromChain: {
-          id: fromChain.id,
-          name: fromChain.name,
-          displayName: fromChain.displayName,
-          vmType: fromVMType as 'evm' | 'svm' | 'cosmos' | 'utxo' | 'tron' | 'starknet',
-          nativeCurrency: {
-            symbol: fromChain.currency.symbol,
-            decimals: fromChain.currency.decimals,
-          },
-          iconUrl: fromChain.iconUrl,
-        },
-        toChain: {
-          id: toChain.id,
-          name: toChain.name,
-          displayName: toChain.displayName,
-          vmType: toVMType as 'evm' | 'svm' | 'cosmos' | 'utxo' | 'tron' | 'starknet',
-          nativeCurrency: {
-            symbol: toChain.currency.symbol,
-            decimals: toChain.currency.decimals,
-          },
-          iconUrl: toChain.iconUrl,
-        },
-        fromToken: {
-          address: fromToken.address,
-          symbol: fromToken.symbol,
-          name: fromToken.name,
-          decimals: fromToken.decimals,
-          chainId: fromChain.id,
-          logoURI: fromToken.metadata?.logoURI,
-        },
-        toToken: {
-          address: toToken.address,
-          symbol: toToken.symbol,
-          name: toToken.name,
-          decimals: toToken.decimals,
-          chainId: toChain.id,
-          logoURI: toToken.metadata?.logoURI,
-        },
-        fromAmount: amountInWei.toString(),
-        fromAddress: address,
-        toAddress: isCrossVM && recipientAddress ? recipientAddress : address,
-        slippage: parseFloat(slippage),
-      })
+      const quoteData = await relayAPI.getQuote(quoteParams)
       
-      console.log('Quote received from', unifiedQuote.provider, ':', unifiedQuote)
-      
-      setQuote(unifiedQuote)
-      setToAmount(unifiedQuote.toAmount)
+      setQuote(quoteData)
+      if (quoteData.details.currencyOut) {
+        setToAmount(quoteData.details.currencyOut.amountFormatted)
+      }
     } catch (error) {
       console.error('Failed to fetch quote:', error)
       const errorMessage = error instanceof Error ? error.message : 'Failed to get quote'
@@ -652,7 +517,7 @@ export default function RelaySwap() {
   }
 
   const executeSwap = async () => {
-    if (!quote) {
+    if (!quote || !quote.steps || quote.steps.length === 0) {
       toast.error('No quote available')
       return
     }
@@ -664,6 +529,12 @@ export default function RelaySwap() {
 
     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {
       toast.error('Missing swap parameters')
+      return
+    }
+
+    // Check if trying to swap same token on same chain
+    if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {
+      toast.error('Cannot swap the same token to itself')
       return
     }
 
@@ -680,111 +551,52 @@ export default function RelaySwap() {
     setIsSwapping(true)
 
     try {
-      // Use unified swap router to get transaction data
-      console.log('Executing swap via unified router...')
+      // Use execute endpoint to get fresh transaction data
+      console.log('Executing swap via Relay API...')
       const amountInWei = parseUnits(fromAmount, fromToken.decimals)
+      const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()
       
-      // Get fresh quote using swap router
-      const unifiedQuote = await swapRouter.getQuote({
-        fromChain: {
-          id: fromChain.id,
-          name: fromChain.name,
-          displayName: fromChain.displayName,
-          vmType: (fromChain.vmType || 'evm') as 'evm' | 'svm' | 'cosmos' | 'utxo' | 'tron' | 'starknet',
-          nativeCurrency: {
-            symbol: fromChain.currency.symbol,
-            decimals: fromChain.currency.decimals,
-          },
-          iconUrl: fromChain.iconUrl,
-        },
-        toChain: {
-          id: toChain.id,
-          name: toChain.name,
-          displayName: toChain.displayName,
-          vmType: (toChain.vmType || 'evm') as 'evm' | 'svm' | 'cosmos' | 'utxo' | 'tron' | 'starknet',
-          nativeCurrency: {
-            symbol: toChain.currency.symbol,
-            decimals: toChain.currency.decimals,
-          },
-          iconUrl: toChain.iconUrl,
-        },
-        fromToken: {
-          address: fromToken.address,
-          symbol: fromToken.symbol,
-          name: fromToken.name,
-          decimals: fromToken.decimals,
-          chainId: fromChain.id,
-          logoURI: fromToken.metadata?.logoURI,
-        },
-        toToken: {
-          address: toToken.address,
-          symbol: toToken.symbol,
-          name: toToken.name,
-          decimals: toToken.decimals,
-          chainId: toChain.id,
-          logoURI: toToken.metadata?.logoURI,
-        },
-        fromAmount: amountInWei.toString(),
-        fromAddress: address,
-        toAddress: isCrossVM && recipientAddress ? recipientAddress : address,
-        slippage: parseFloat(slippage),
-      })
+      const includedSources = Object.entries(enabledSources)
+        .filter(([_, enabled]) => enabled)
+        .map(([source]) => source)
       
-      console.log('Unified quote received:', {
-        provider: unifiedQuote.provider,
-        toAmount: unifiedQuote.toAmount,
-        estimatedTime: unifiedQuote.estimatedTime,
-        fees: unifiedQuote.fees,
+      const executeParams = {
+        user: address,
+        originChainId: fromChain.id,
+        destinationChainId: toChain.id,
+        originCurrency: fromToken.address,
+        destinationCurrency: toToken.address,
+        amount: amountInWei.toString(),
+        tradeType: 'EXACT_INPUT' as const,
+        slippageTolerance: slippageBps,
+        recipient: isCrossVM && recipientAddress ? recipientAddress : undefined,
+        includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
+        useExternalLiquidity: isCrossVM ? true : undefined,
+      }
+      
+      const freshQuote = await relayAPI.executeSwap(executeParams)
+      
+      console.log('Fresh quote received:', {
+        steps: freshQuote.steps.length,
+        fees: freshQuote.fees,
+        details: freshQuote.details,
       })
 
-      // Get transaction data
-      const txData = await swapRouter.getSwapTransaction(unifiedQuote, {
-        fromChain: {
-          id: fromChain.id,
-          name: fromChain.name,
-          displayName: fromChain.displayName,
-          vmType: (fromChain.vmType || 'evm') as 'evm' | 'svm' | 'cosmos' | 'utxo' | 'tron' | 'starknet',
-          nativeCurrency: {
-            symbol: fromChain.currency.symbol,
-            decimals: fromChain.currency.decimals,
-          },
-        },
-        toChain: {
-          id: toChain.id,
-          name: toChain.name,
-          displayName: toChain.displayName,
-          vmType: (toChain.vmType || 'evm') as 'evm' | 'svm' | 'cosmos' | 'utxo' | 'tron' | 'starknet',
-          nativeCurrency: {
-            symbol: toChain.currency.symbol,
-            decimals: toChain.currency.decimals,
-          },
-        },
-        fromToken: {
-          address: fromToken.address,
-          symbol: fromToken.symbol,
-          name: fromToken.name,
-          decimals: fromToken.decimals,
-          chainId: fromChain.id,
-        },
-        toToken: {
-          address: toToken.address,
-          symbol: toToken.symbol,
-          name: toToken.name,
-          decimals: toToken.decimals,
-          chainId: toChain.id,
-        },
-        fromAmount: amountInWei.toString(),
-        fromAddress: address,
-        toAddress: isCrossVM && recipientAddress ? recipientAddress : address,
-        slippage: parseFloat(slippage),
-      })
+      const depositStep = freshQuote.steps.find(s => s.id === 'deposit')
+      if (!depositStep || !depositStep.items || depositStep.items.length === 0) {
+        throw new Error('No deposit step found in fresh quote')
+      }
+
+      const txData = depositStep.items[0].data
       
       console.log('Executing swap transaction:', {
-        provider: unifiedQuote.provider,
         to: txData.to,
         value: txData.value,
+        data: txData.data?.slice(0, 20) + '...',
         chainId: txData.chainId,
         connectedChainId,
+        recipientAddress,
+        requestId: depositStep.requestId,
       })
 
       // Check if we need to switch chains
@@ -810,32 +622,28 @@ export default function RelaySwap() {
       }, {
         onSuccess: async (hash) => {
           console.log('Transaction submitted successfully:', hash)
-          toast.success(`Swap submitted via ${unifiedQuote.provider.toUpperCase()}`)
+          toast.success('Transaction submitted')
           
-          // For Relay swaps, index the transaction
-          if (unifiedQuote.provider === 'relay') {
-            try {
-              console.log('Indexing transaction with Relay:', hash)
-              await relayAPI.indexSingleTransaction({
-                txHash: hash,
-                chainId: txData.chainId,
-              })
-              console.log('Transaction indexed successfully')
-            } catch (indexError) {
-              console.error('Failed to index transaction:', indexError)
-            }
+          // Index the transaction with Relay
+          try {
+            console.log('Indexing transaction with Relay:', hash, 'on chain', txData.chainId)
+            await relayAPI.indexSingleTransaction({
+              txHash: hash,
+              chainId: txData.chainId,
+            })
+            console.log('Transaction indexed successfully')
+          } catch (indexError) {
+            console.error('Failed to index transaction:', indexError)
+            // Continue anyway - the transaction is still submitted
           }
           
-          // Monitor status based on provider
-          // For now, just mark as complete after a delay
-          setTimeout(() => {
+          if (depositStep.requestId) {
+            console.log('Monitoring swap status with requestId:', depositStep.requestId)
+            monitorSwapStatus(depositStep.requestId)
+          } else {
+            console.warn('No requestId found, cannot monitor status')
             setIsSwapping(false)
-            toast.success('Swap completed!')
-            setFromAmount('')
-            setToAmount('')
-            loadSwapHistory()
-            updateUserStreak()
-          }, 3000)
+          }
         },
         onError: (error) => {
           console.error('Transaction failed:', error)
@@ -1513,27 +1321,39 @@ export default function RelaySwap() {
               <Card className="p-3 bg-card">
                 <div className="space-y-1.5 text-xs">
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Provider</span>
-                    <Badge variant="secondary" className="text-xs">{quote.provider.toUpperCase()}</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">You get</span>
-                    <span className="font-mono">{parseFloat(quote.toAmount).toFixed(6)}</span>
+                    <span className="text-muted-foreground">Rate</span>
+                    <span className="font-mono">{quote.details.rate || '0'}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">Gas</span>
-                    <span className="font-mono">${quote.estimatedGas}</span>
+                    <span className="font-mono">${quote.fees.gas?.amountUsd || '0'}</span>
                   </div>
-                  {quote.fees.protocol && (
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Protocol Fee</span>
-                      <span className="font-mono">${quote.fees.protocol}</span>
-                    </div>
-                  )}
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Relayer</span>
+                    <span className="font-mono">${quote.fees.relayer?.amountUsd || '0'}</span>
+                  </div>
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">Time</span>
-                    <span className="font-mono">{quote.estimatedTime}s</span>
+                    <span className="font-mono">{quote.details.timeEstimate || 0}s</span>
                   </div>
+                  {quote.details.totalImpact && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Impact</span>
+                      <span className={`font-mono ${parseFloat(quote.details.totalImpact.percent) < 0 ? 'text-destructive' : ''}`}>
+                        {quote.details.totalImpact.percent}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </Card>
+            )}
+
+            {fromChain && toChain && fromToken && toToken && 
+             fromChain.id === toChain.id && 
+             fromToken.address.toLowerCase() === toToken.address.toLowerCase() && (
+              <Card className="p-3 bg-destructive/10 border-destructive">
+                <div className="text-xs text-destructive text-center">
+                  Cannot swap the same token to itself. Please select a different token.
                 </div>
               </Card>
             )}
@@ -1542,6 +1362,13 @@ export default function RelaySwap() {
               onClick={executeSwap}
               disabled={(() => {
                 if (!quote || isSwapping || !isConnected) return true
+                
+                // Check if same token
+                if (fromChain && toChain && fromToken && toToken &&
+                    fromChain.id === toChain.id && 
+                    fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {
+                  return true
+                }
                 
                 // Check if cross-VM swap requires recipient address
                 if (fromChain && toChain) {

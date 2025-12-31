@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73581e76001PKsLW8G2QE9T37",
+  "messageID": "msg_b7357fd45001KAZW7gxcxHjgRg",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Rk7JYhDZDJWWJKp5m27Nrr",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && git checkout src/pages/RelaySwap.tsx",
+      "description": "Restore original RelaySwap.tsx"
+    },
+    "output": "Updated 0 paths from the index\n",
+    "metadata": {
+      "output": "Updated 0 paths from the index\n",
+      "exit": 0,
+      "description": "Restore original RelaySwap.tsx"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && git checkout src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767166714442,
+      "end": 1767166714449
+    }
+  }
+}
