@@ -1,0 +1,12 @@
+{
+  "id": "prt_b74439f9a0019l56OznJMjL1JP",
+  "messageID": "msg_b74437153001tIKvcwhPGO7y3k",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "diagnostics",
+  "diagnostics": [
+    {
+      "type": "frontend",
+      "build": true
+    }
+  ]
+}
