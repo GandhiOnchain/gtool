@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7383e4440017H0t12XdqkGGfy",
+  "messageID": "msg_b7383bb5800163barj2ty6QBV6",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01XPSRoDLrpMtn1mCGr1ZCmV",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"RelayCurrency\" src/lib/relay/types.ts -A 15",
+      "description": "Check RelayCurrency type definition"
+    },
+    "output": "export interface RelayCurrency {\n  chainId: number\n  address: string\n  symbol: string\n  name: string\n  decimals: number\n  vmType?: string\n  metadata?: {\n    logoURI?: string\n    verified?: boolean\n    isNative?: boolean\n  }\n}\n\nexport interface RelayChain {\n  id: number\n--\n  featuredTokens?: RelayCurrency[]\n  erc20Currencies?: RelayCurrency[]\n  iconUrl?: string\n  logoUrl?: string\n  brandColor?: string\n  vmType?: string\n}\n\nexport interface RelayAmount {\n  currency: RelayCurrency\n  amount: string\n  amountFormatted: string\n  amountUsd: string\n  minimumAmount?: string\n}\n\nexport interface RelayQuoteStep {\n  id: string\n  action: string\n  description: string\n  kind: string\n  requestId?: string\n  items: Array<{\n    status: string\n    data: {\n",
+    "metadata": {
+      "output": "export interface RelayCurrency {\n  chainId: number\n  address: string\n  symbol: string\n  name: string\n  decimals: number\n  vmType?: string\n  metadata?: {\n    logoURI?: string\n    verified?: boolean\n    isNative?: boolean\n  }\n}\n\nexport interface RelayChain {\n  id: number\n--\n  featuredTokens?: RelayCurrency[]\n  erc20Currencies?: RelayCurrency[]\n  iconUrl?: string\n  logoUrl?: string\n  brandColor?: string\n  vmType?: string\n}\n\nexport interface RelayAmount {\n  currency: RelayCurrency\n  amount: string\n  amountFormatted: string\n  amountUsd: string\n  minimumAmount?: string\n}\n\nexport interface RelayQuoteStep {\n  id: string\n  action: string\n  description: string\n  kind: string\n  requestId?: string\n  items: Array<{\n    status: string\n    data: {\n",
+      "exit": 0,
+      "description": "Check RelayCurrency type definition"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"RelayCurrency\" src/lib/relay/types.ts -A 15",
+    "time": {
+      "start": 1767169582849,
+      "end": 1767169582852
+    }
+  }
+}

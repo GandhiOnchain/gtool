@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7384e399001EJB3wwiwVfTogz",
+  "messageID": "msg_b7383bb5800163barj2ty6QBV6",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Perfect! Now let me create a comprehensive summary of all the fixes:\n\n## Comprehensive Fix for \"Input and output currencies don't match\" Error\n\nI've implemented multiple layers of validation and fixes:\n\n### 1. **Chain-Token Validation**\nAdded validation before executing swap to ensure each token's `chainId` matches its selected chain's `id`. This catches mismatches early with clear error messages.\n\n### 2. **Auto-clear Tokens on Chain Switch**\nWhen you switch chains, if the currently selected token doesn't belong to the new chain, it's automatically cleared. This prevents stale token selections from causing API errors.\n\n### 3. **Smart Default Token Selection**\nWhen loading currencies for a chain, if both chains are the same, the system ensures different tokens are selected by default.\n\n### 4. **Manual Selection Protection**\nWhen manually selecting a token, if it would create a same-token swap on the same chain, the other token is cleared.\n\n### 5. **Enhanced Debug Logging**\nAdded detailed console logging that shows:\n- Token chainIds vs selected chain IDs\n- Validation results\n- All parameters being sent to the API\n\n**Next Steps:**\nPlease try the swap again and check the browser console (F12 → Console tab). The debug logs will show exactly what's being sent to the API and whether there's a chainId mismatch. This will help us identify if there are any remaining issues.",
+  "time": {
+    "start": 1767169655616,
+    "end": 1767169655616
+  }
+}

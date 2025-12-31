@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73843b8d0017zTL5A6muC3bXf",
+  "messageID": "msg_b7383bb5800163barj2ty6QBV6",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now, the real issue is likely that when a user switches chains, the old token remains selected even though it doesn't belong to the new chain. Let me fix the useEffect that loads currencies to also clear the token if the chain changes:",
+  "time": {
+    "start": 1767169608495,
+    "end": 1767169608495
+  }
+}

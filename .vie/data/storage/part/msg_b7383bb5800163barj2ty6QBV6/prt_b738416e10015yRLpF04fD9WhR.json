@@ -1,0 +1,11 @@
+{
+  "id": "prt_b738416e10015yRLpF04fD9WhR",
+  "messageID": "msg_b7383bb5800163barj2ty6QBV6",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "The currencies are fetched with `chainIds: [chainId]`, so they should have the correct chainId. But let me add validation to ensure the token's chainId matches the selected chain's id before executing the swap:",
+  "time": {
+    "start": 1767169602266,
+    "end": 1767169602266
+  }
+}

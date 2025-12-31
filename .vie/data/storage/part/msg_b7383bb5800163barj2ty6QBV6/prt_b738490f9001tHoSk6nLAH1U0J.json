@@ -1,0 +1,11 @@
+{
+  "id": "prt_b738490f9001tHoSk6nLAH1U0J",
+  "messageID": "msg_b7383bb5800163barj2ty6QBV6",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Good! Now let me also add better logging to help debug this issue. Let me enhance the debug output:",
+  "time": {
+    "start": 1767169633783,
+    "end": 1767169633783
+  }
+}

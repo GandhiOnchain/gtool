@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7383c932001vw0B1Oup92BPpB",
+  "messageID": "msg_b7383bb5800163barj2ty6QBV6",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01SEoyTJV5uXLL3kimspEoNp",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"EXECUTE SWAP DEBUG\" src/pages/RelaySwap.tsx -A 10",
+      "description": "Find debug logging section"
+    },
+    "output": "      console.log('=== EXECUTE SWAP DEBUG ===')\n      console.log('From Chain:', fromChain.displayName, 'ID:', fromChain.id, 'vmType:', fromChain.vmType)\n      console.log('To Chain:', toChain.displayName, 'ID:', toChain.id, 'vmType:', toChain.vmType)\n      console.log('From Token:', fromToken.symbol, 'Address:', fromToken.address)\n      console.log('To Token:', toToken.symbol, 'Address:', toToken.address)\n      console.log('Amount:', amountInWei.toString())\n      console.log('Recipient:', recipientAddress)\n      console.log('Is Cross-VM:', isCrossVM)\n      console.log('Execute Params:', JSON.stringify(executeParams, null, 2))\n      console.log('=========================')\n      \n",
+    "metadata": {
+      "output": "      console.log('=== EXECUTE SWAP DEBUG ===')\n      console.log('From Chain:', fromChain.displayName, 'ID:', fromChain.id, 'vmType:', fromChain.vmType)\n      console.log('To Chain:', toChain.displayName, 'ID:', toChain.id, 'vmType:', toChain.vmType)\n      console.log('From Token:', fromToken.symbol, 'Address:', fromToken.address)\n      console.log('To Token:', toToken.symbol, 'Address:', toToken.address)\n      console.log('Amount:', amountInWei.toString())\n      console.log('Recipient:', recipientAddress)\n      console.log('Is Cross-VM:', isCrossVM)\n      console.log('Execute Params:', JSON.stringify(executeParams, null, 2))\n      console.log('=========================')\n      \n",
+      "exit": 0,
+      "description": "Find debug logging section"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"EXECUTE SWAP DEBUG\" src/pages/RelaySwap.tsx -A 10",
+    "time": {
+      "start": 1767169576446,
+      "end": 1767169576452
+    }
+  }
+}

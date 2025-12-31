@@ -159,12 +159,20 @@ export default function RelaySwap() {
 
   useEffect(() => {
     if (fromChain) {
+      // Clear fromToken if it doesn't belong to the new chain
+      if (fromToken && fromToken.chainId !== fromChain.id) {
+        setFromToken(null)
+      }
       loadCurrencies(fromChain.id, 'from')
     }
   }, [fromChain])
 
   useEffect(() => {
     if (toChain) {
+      // Clear toToken if it doesn't belong to the new chain
+      if (toToken && toToken.chainId !== toChain.id) {
+        setToToken(null)
+      }
       loadCurrencies(toChain.id, 'to')
     }
   }, [toChain])
@@ -546,6 +554,27 @@ export default function RelaySwap() {
       return
     }
 
+    // Validate that token chainIds match selected chains
+    if (fromToken.chainId !== fromChain.id) {
+      console.error('Token chainId mismatch:', {
+        fromTokenChainId: fromToken.chainId,
+        fromChainId: fromChain.id,
+        fromToken: fromToken.symbol
+      })
+      toast.error(`${fromToken.symbol} is not available on ${fromChain.displayName}. Please select a different token.`)
+      return
+    }
+
+    if (toToken.chainId !== toChain.id) {
+      console.error('Token chainId mismatch:', {
+        toTokenChainId: toToken.chainId,
+        toChainId: toChain.id,
+        toToken: toToken.symbol
+      })
+      toast.error(`${toToken.symbol} is not available on ${toChain.displayName}. Please select a different token.`)
+      return
+    }
+
     // Check if trying to swap same token on same chain
     if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {
       toast.error('Cannot swap the same token to itself')
@@ -591,8 +620,11 @@ export default function RelaySwap() {
       console.log('=== EXECUTE SWAP DEBUG ===')
       console.log('From Chain:', fromChain.displayName, 'ID:', fromChain.id, 'vmType:', fromChain.vmType)
       console.log('To Chain:', toChain.displayName, 'ID:', toChain.id, 'vmType:', toChain.vmType)
-      console.log('From Token:', fromToken.symbol, 'Address:', fromToken.address)
-      console.log('To Token:', toToken.symbol, 'Address:', toToken.address)
+      console.log('From Token:', fromToken.symbol, 'Address:', fromToken.address, 'ChainId:', fromToken.chainId)
+      console.log('To Token:', toToken.symbol, 'Address:', toToken.address, 'ChainId:', toToken.chainId)
+      console.log('ChainId Match Check:')
+      console.log('  - fromToken.chainId === fromChain.id?', fromToken.chainId === fromChain.id)
+      console.log('  - toToken.chainId === toChain.id?', toToken.chainId === toChain.id)
       console.log('Amount:', amountInWei.toString())
       console.log('Recipient:', recipientAddress)
       console.log('Is Cross-VM:', isCrossVM)

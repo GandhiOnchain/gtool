@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7383c468001hZWIamlF4cxxFY",
+  "messageID": "msg_b7383bb5800163barj2ty6QBV6",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Let me investigate this more thoroughly by checking the browser console logs and understanding what's actually being sent to the API.",
+  "time": {
+    "start": 1767169577682,
+    "end": 1767169577682
+  }
+}

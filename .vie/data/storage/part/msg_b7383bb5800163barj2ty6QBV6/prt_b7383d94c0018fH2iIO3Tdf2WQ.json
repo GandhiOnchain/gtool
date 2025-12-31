@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7383d94c0018fH2iIO3Tdf2WQ",
+  "messageID": "msg_b7383bb5800163barj2ty6QBV6",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "The error message \"Input and output currencies don't match\" is very specific. Let me check the Relay API documentation or look at what this error actually means. The issue might not be about same tokens, but about the currency format or chain compatibility.\n\nLet me check if there's an issue with how currencies are being passed:",
+  "time": {
+    "start": 1767169582921,
+    "end": 1767169582921
+  }
+}

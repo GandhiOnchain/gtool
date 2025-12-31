@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7383cdff001tj1BZFh4JFOZ63",
+  "messageID": "msg_b7383bb5800163barj2ty6QBV6",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01W2CHz17KMWjkjUTvtDPjdm",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/relay/api.ts",
+      "offset": 222,
+      "limit": 40
+    },
+    "output": "<file>\n00223|     user: string\n00224|     originChainId: number\n00225|     destinationChainId: number\n00226|     originCurrency: string\n00227|     destinationCurrency: string\n00228|     amount: string\n00229|     tradeType: 'EXACT_INPUT' | 'EXACT_OUTPUT' | 'EXPECTED_OUTPUT'\n00230|     recipient?: string\n00231|     slippageTolerance?: string\n00232|     useExternalLiquidity?: boolean\n00233|     includedSwapSources?: string[]\n00234|   }): Promise<RelayQuote> {\n00235|     console.log('Calling /execute/swap with params:', JSON.stringify(params, null, 2))\n00236|     \n00237|     const response = await fetch(`${this.baseUrl}/execute/swap`, {\n00238|       method: 'POST',\n00239|       headers: {\n00240|         'Content-Type': 'application/json',\n00241|       },\n00242|       body: JSON.stringify(params),\n00243|     })\n00244|     \n00245|     if (!response.ok) {\n00246|       const error = await response.text()\n00247|       console.error('Execute swap failed:', {\n00248|         status: response.status,\n00249|         statusText: response.statusText,\n00250|         error,\n00251|         params,\n00252|       })\n00253|       throw new Error(`Failed to execute swap: ${error}`)\n00254|     }\n00255|     \n00256|     const result = await response.json()\n00257|     console.log('Execute swap response:', result)\n00258|     return result\n00259|   }\n00260| \n00261|   async getSwapSources(): Promise<string[]> {\n00262|     const response = await fetch(`${this.baseUrl}/swap-sources`)\n\n(File has more lines. Use 'offset' parameter to read beyond line 262)\n</file>",
+    "metadata": {
+      "preview": "    user: string\n    originChainId: number\n    destinationChainId: number\n    originCurrency: string\n    destinationCurrency: string\n    amount: string\n    tradeType: 'EXACT_INPUT' | 'EXACT_OUTPUT' | 'EXPECTED_OUTPUT'\n    recipient?: string\n    slippageTolerance?: string\n    useExternalLiquidity?: boolean\n    includedSwapSources?: string[]\n  }): Promise<RelayQuote> {\n    console.log('Calling /execute/swap with params:', JSON.stringify(params, null, 2))\n    \n    const response = await fetch(`${this.baseUrl}/execute/swap`, {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n      },\n      body: JSON.stringify(params),"
+    },
+    "title": "frontend/src/lib/relay/api.ts",
+    "time": {
+      "start": 1767169577597,
+      "end": 1767169577598
+    }
+  }
+}

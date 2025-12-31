@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7384017000100dTOYAszkcSg5",
+  "messageID": "msg_b7383bb5800163barj2ty6QBV6",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I think I found the issue! When we're sending the request, we're using:\n- `originChainId: fromChain.id`\n- `originCurrency: fromToken.address`\n\nBut `fromToken` has its own `chainId` property. If the user switches chains but the token isn't updated, the token's chainId might not match the selected chain's id!\n\nLet me verify this is the issue by checking when tokens are loaded:",
+  "time": {
+    "start": 1767169592752,
+    "end": 1767169592752
+  }
+}

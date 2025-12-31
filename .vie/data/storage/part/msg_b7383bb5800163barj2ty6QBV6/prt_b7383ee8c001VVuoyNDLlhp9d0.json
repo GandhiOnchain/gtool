@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7383ee8c001VVuoyNDLlhp9d0",
+  "messageID": "msg_b7383bb5800163barj2ty6QBV6",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I see! The `RelayCurrency` has a `chainId` field. The error \"Input and output currencies don't match\" might mean that the currency's `chainId` doesn't match the `originChainId` or `destinationChainId` being sent.\n\nLet me check if when we select tokens, their chainId matches the selected chain:",
+  "time": {
+    "start": 1767169587745,
+    "end": 1767169587745
+  }
+}
