@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73bdc27b001zdOqEiInDDVMCQ",
+  "messageID": "msg_b73bc9f19001QNJed3a2ZEBR8i",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I see the issue! The `getChainById` function only returns chains that are in the `chainById` object, which only includes the chains we've defined in this file. But Relay supports many more chains that aren't in this list. When the user selects a chain that's not in our `chainById` mapping, `getChainById` returns `undefined`, causing the error.\n\nThe solution is to dynamically create a chain config for any Relay chain, not just the ones we've pre-defined:",
+  "time": {
+    "start": 1767173385808,
+    "end": 1767173385808
+  }
+}

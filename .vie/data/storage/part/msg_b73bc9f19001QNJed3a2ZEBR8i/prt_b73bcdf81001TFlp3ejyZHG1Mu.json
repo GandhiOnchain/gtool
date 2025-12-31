@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73bcdf81001TFlp3ejyZHG1Mu",
+  "messageID": "msg_b73bc9f19001QNJed3a2ZEBR8i",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now let me check the useEffect that calls loadBatchWalletTokens:",
+  "time": {
+    "start": 1767173318033,
+    "end": 1767173318033
+  }
+}

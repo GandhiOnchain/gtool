@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73bcf833001iv35TV5j1Y23R7",
+  "messageID": "msg_b73bc9f19001QNJed3a2ZEBR8i",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "The useEffect looks correct. Let me check if there's an issue with the viem imports or the getChainById function:",
+  "time": {
+    "start": 1767173325066,
+    "end": 1767173325066
+  }
+}

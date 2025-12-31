@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73bce2c80016fq4kaxI2ir47F",
+  "messageID": "msg_b73bc9f19001QNJed3a2ZEBR8i",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01G7sFmjYzaxZhP3A8NUHEku",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 267,
+      "limit": 10
+    },
+    "output": "<file>\n00268|   useEffect(() => {\n00269|     if (address && batchChain && isConnected) {\n00270|       loadBatchWalletTokens()\n00271|     }\n00272|   }, [address, batchChain, isConnected])\n00273| \n00274|   // Fetch Solana balance for from chain\n00275|   useEffect(() => {\n00276|     if (fromChain && fromToken && fromChain.vmType === 'svm' && solanaAddress) {\n00277|       fetchSolanaBalance(fromToken.address, fromToken.decimals, fromToken.symbol, 'from')\n\n(File has more lines. Use 'offset' parameter to read beyond line 277)\n</file>",
+    "metadata": {
+      "preview": "  useEffect(() => {\n    if (address && batchChain && isConnected) {\n      loadBatchWalletTokens()\n    }\n  }, [address, batchChain, isConnected])\n\n  // Fetch Solana balance for from chain\n  useEffect(() => {\n    if (fromChain && fromToken && fromChain.vmType === 'svm' && solanaAddress) {\n      fetchSolanaBalance(fromToken.address, fromToken.decimals, fromToken.symbol, 'from')"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767173317905,
+      "end": 1767173317907
+    }
+  }
+}

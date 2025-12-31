@@ -502,8 +502,13 @@ export default function RelaySwap() {
   }
 
   const loadBatchWalletTokens = async () => {
+    console.log('=== loadBatchWalletTokens called ===')
+    console.log('address:', address)
+    console.log('batchChain:', batchChain)
+    console.log('isConnected:', isConnected)
+    
     if (!address || !batchChain) {
-      console.log('Missing address or batchChain:', { address, batchChain })
+      console.log('Missing address or batchChain, returning early')
       return
     }
     
@@ -538,13 +543,32 @@ export default function RelaySwap() {
       const tokensWithBalances: WalletToken[] = []
       
       // Use viem's publicClient for more reliable RPC calls
-      const { createPublicClient, http } = await import('viem')
-      const { getChainById } = await import('@/lib/blockchain/chains')
+      console.log('Importing viem...')
+      const { createPublicClient, http, defineChain } = await import('viem')
       
-      const publicClient = createPublicClient({
-        chain: getChainById(chain.id),
-        transport: http(),
+      console.log('Creating chain config for:', chain.displayName, 'chainId:', chain.id)
+      
+      // Dynamically create chain config from Relay chain data
+      const chainConfig = defineChain({
+        id: chain.id,
+        name: chain.displayName,
+        nativeCurrency: {
+          name: chain.currency.name,
+          symbol: chain.currency.symbol,
+          decimals: chain.currency.decimals,
+        },
+        rpcUrls: {
+          default: { http: [chain.httpRpcUrl] },
+        },
       })
+      
+      console.log('Creating public client with RPC:', chain.httpRpcUrl)
+      const publicClient = createPublicClient({
+        chain: chainConfig,
+        transport: http(chain.httpRpcUrl),
+      })
+      
+      console.log('Public client created successfully')
       
       // Process tokens in smaller batches to avoid overwhelming the RPC
       const batchSize = 5
@@ -555,31 +579,47 @@ export default function RelaySwap() {
           try {
             let balance = BigInt(0)
             
+            console.log(`Fetching balance for ${currency.symbol} (${currency.address})`)
+            
             if (currency.metadata?.isNative) {
               // Fetch native token balance
-              balance = await publicClient.getBalance({
-                address: address as `0x${string}`,
-              })
+              try {
+                balance = await publicClient.getBalance({
+                  address: address as `0x${string}`,
+                })
+                console.log(`Native balance for ${currency.symbol}:`, balance.toString())
+              } catch (nativeError) {
+                console.error(`Failed to fetch native balance for ${currency.symbol}:`, nativeError)
+                return null
+              }
             } else {
               // Fetch ERC20 token balance
-              balance = await publicClient.readContract({
-                address: currency.address as `0x${string}`,
-                abi: [{
-                  name: 'balanceOf',
-                  type: 'function',
-                  stateMutability: 'view',
-                  inputs: [{ name: 'account', type: 'address' }],
-                  outputs: [{ name: 'balance', type: 'uint256' }],
-                }],
-                functionName: 'balanceOf',
-                args: [address as `0x${string}`],
-              })
+              try {
+                balance = await publicClient.readContract({
+                  address: currency.address as `0x${string}`,
+                  abi: [{
+                    name: 'balanceOf',
+                    type: 'function',
+                    stateMutability: 'view',
+                    inputs: [{ name: 'account', type: 'address' }],
+                    outputs: [{ name: 'balance', type: 'uint256' }],
+                  }],
+                  functionName: 'balanceOf',
+                  args: [address as `0x${string}`],
+                })
+                console.log(`Token balance for ${currency.symbol}:`, balance.toString())
+              } catch (tokenError) {
+                // Token might not exist or contract might not be valid
+                // This is expected for some tokens, so we skip silently
+                return null
+              }
             }
             
             const balanceFormatted = formatUnits(balance, currency.decimals)
             
             // Only include tokens with non-zero balance
             if (parseFloat(balanceFormatted) > 0.00000001) {
+              console.log(`✓ ${currency.symbol} has balance:`, balanceFormatted)
               return {
                 token: currency,
                 balance: balance.toString(),
@@ -588,7 +628,7 @@ export default function RelaySwap() {
             }
             return null
           } catch (e) {
-            console.error(`Failed to fetch balance for ${currency.symbol}:`, e)
+            console.error(`Unexpected error fetching balance for ${currency.symbol}:`, e)
             return null
           }
         })
@@ -619,8 +659,16 @@ export default function RelaySwap() {
         toast.info('No tokens with balance found. Try a different chain or add tokens manually.')
       }
     } catch (error) {
-      console.error('Failed to load wallet tokens:', error)
-      toast.error('Failed to load wallet tokens. Please try again or select tokens manually.')
+      console.error('=== Failed to load wallet tokens ===')
+      console.error('Error details:', error)
+      console.error('Error message:', error instanceof Error ? error.message : 'Unknown error')
+      console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace')
+      console.error('Chain:', chain.displayName, 'ID:', chain.id)
+      console.error('Address:', address)
+      console.error('====================================')
+      
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+      toast.error(`Failed to load wallet tokens: ${errorMessage}`)
     } finally {
       setIsLoadingBatchTokens(false)
     }
