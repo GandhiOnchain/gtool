@@ -1,0 +1,25 @@
+{
+  "id": "prt_b734d1835001o5I4b6lvj4ncPl",
+  "messageID": "msg_b734ce4b2001QbdCeO3KvLd5pP",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01Uz5J8wKpMeDdbnXVKn2ns8",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/swap-router/router.ts",
+      "offset": 105,
+      "limit": 40
+    },
+    "output": "<file>\n00106|   }\n00107| \n00108|   private async getRangoQuote(request: UnifiedQuoteRequest): Promise<UnifiedQuote> {\n00109|     const quote = await rangoAPI.getQuote({\n00110|       from: {\n00111|         blockchain: request.fromChain.name.toUpperCase(),\n00112|         symbol: request.fromToken.symbol,\n00113|         address: request.fromToken.address === '0x0000000000000000000000000000000000000000' \n00114|           ? null \n00115|           : request.fromToken.address,\n00116|       },\n00117|       to: {\n00118|         blockchain: request.toChain.name.toUpperCase(),\n00119|         symbol: request.toToken.symbol,\n00120|         address: request.toToken.address === '0x0000000000000000000000000000000000000000'\n00121|           ? null\n00122|           : request.toToken.address,\n00123|       },\n00124|       amount: request.fromAmount,\n00125|       fromAddress: request.fromAddress,\n00126|       toAddress: request.toAddress,\n00127|       slippage: request.slippage,\n00128|     })\n00129| \n00130|     const totalFees = quote.fee.reduce((sum, fee) => sum + parseFloat(fee.amount), 0)\n00131| \n00132|     return {\n00133|       provider: 'rango',\n00134|       fromAmount: request.fromAmount,\n00135|       toAmount: quote.route.outputAmount,\n00136|       toAmountMin: quote.route.outputAmount,\n00137|       estimatedGas: quote.route.outputAmountUsd || '0',\n00138|       estimatedTime: quote.estimatedTimeInSeconds,\n00139|       route: {\n00140|         steps: quote.route.path.map(step => ({\n00141|           tool: step.swapper.title,\n00142|           fromChain: step.from.blockchain,\n00143|           toChain: step.to.blockchain,\n00144|           fromToken: step.from.symbol,\n00145|           toToken: step.to.symbol,\n\n(File has more lines. Use 'offset' parameter to read beyond line 145)\n</file>",
+    "metadata": {
+      "preview": "  }\n\n  private async getRangoQuote(request: UnifiedQuoteRequest): Promise<UnifiedQuote> {\n    const quote = await rangoAPI.getQuote({\n      from: {\n        blockchain: request.fromChain.name.toUpperCase(),\n        symbol: request.fromToken.symbol,\n        address: request.fromToken.address === '0x0000000000000000000000000000000000000000' \n          ? null \n          : request.fromToken.address,\n      },\n      to: {\n        blockchain: request.toChain.name.toUpperCase(),\n        symbol: request.toToken.symbol,\n        address: request.toToken.address === '0x0000000000000000000000000000000000000000'\n          ? null\n          : request.toToken.address,\n      },\n      amount: request.fromAmount,\n      fromAddress: request.fromAddress,"
+    },
+    "title": "frontend/src/lib/swap-router/router.ts",
+    "time": {
+      "start": 1767165991873,
+      "end": 1767165991876
+    }
+  }
+}

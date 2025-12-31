@@ -1,0 +1,25 @@
+{
+  "id": "prt_b734cfe79001wuTBA1QIuX1nuu",
+  "messageID": "msg_b734ce4b2001QbdCeO3KvLd5pP",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_018CddHH2EWUDjW666TkQGxg",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/swap-router/router.ts",
+      "offset": 55,
+      "limit": 40
+    },
+    "output": "<file>\n00056|         console.log('Falling back to Rango...')\n00057|         return await this.getRangoQuote(request)\n00058|       } else if (provider === 'rango') {\n00059|         console.log('Falling back to LI.FI...')\n00060|         return await this.getLiFiQuote(request)\n00061|       }\n00062|       \n00063|       throw error\n00064|     }\n00065|   }\n00066| \n00067|   private async getRelayQuote(request: UnifiedQuoteRequest): Promise<UnifiedQuote> {\n00068|     const quote = await relayAPI.executeSwap({\n00069|       user: request.fromAddress,\n00070|       originChainId: Number(request.fromChain.id),\n00071|       destinationChainId: Number(request.toChain.id),\n00072|       originCurrency: request.fromToken.address,\n00073|       destinationCurrency: request.toToken.address,\n00074|       amount: request.fromAmount,\n00075|       tradeType: 'EXACT_INPUT',\n00076|       slippageTolerance: request.slippage?.toString(),\n00077|       recipient: request.toAddress,\n00078|     })\n00079| \n00080|     return {\n00081|       provider: 'relay',\n00082|       fromAmount: request.fromAmount,\n00083|       toAmount: quote.details.currencyOut?.amountFormatted || '0',\n00084|       toAmountMin: quote.details.currencyOut?.minimumAmount || '0',\n00085|       estimatedGas: quote.fees.gas?.amountUsd || '0',\n00086|       estimatedTime: quote.details.timeEstimate || 0,\n00087|       route: {\n00088|         steps: [{\n00089|           tool: 'Relay',\n00090|           fromChain: request.fromChain.name,\n00091|           toChain: request.toChain.name,\n00092|           fromToken: request.fromToken.symbol,\n00093|           toToken: request.toToken.symbol,\n00094|         }],\n00095|       },\n\n(File has more lines. Use 'offset' parameter to read beyond line 95)\n</file>",
+    "metadata": {
+      "preview": "        console.log('Falling back to Rango...')\n        return await this.getRangoQuote(request)\n      } else if (provider === 'rango') {\n        console.log('Falling back to LI.FI...')\n        return await this.getLiFiQuote(request)\n      }\n      \n      throw error\n    }\n  }\n\n  private async getRelayQuote(request: UnifiedQuoteRequest): Promise<UnifiedQuote> {\n    const quote = await relayAPI.executeSwap({\n      user: request.fromAddress,\n      originChainId: Number(request.fromChain.id),\n      destinationChainId: Number(request.toChain.id),\n      originCurrency: request.fromToken.address,\n      destinationCurrency: request.toToken.address,\n      amount: request.fromAmount,\n      tradeType: 'EXACT_INPUT',"
+    },
+    "title": "frontend/src/lib/swap-router/router.ts",
+    "time": {
+      "start": 1767165985794,
+      "end": 1767165985796
+    }
+  }
+}

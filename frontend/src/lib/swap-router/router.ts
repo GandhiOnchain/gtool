@@ -106,20 +106,32 @@ export class SwapRouter {
   }
 
   private async getRangoQuote(request: UnifiedQuoteRequest): Promise<UnifiedQuote> {
+    // For Rango, native tokens should have null address
+    const isFromNative = request.fromToken.address === '0x0000000000000000000000000000000000000000' ||
+                         (request.fromChain.vmType === 'evm' && request.fromToken.symbol === request.fromChain.nativeCurrency.symbol)
+    
+    const isToNative = request.toToken.address === '0x0000000000000000000000000000000000000000' ||
+                       (request.toChain.vmType === 'evm' && request.toToken.symbol === request.toChain.nativeCurrency.symbol)
+    
+    console.log('Rango quote params:', {
+      fromBlockchain: request.fromChain.name.toUpperCase(),
+      fromSymbol: request.fromToken.symbol,
+      fromAddress: isFromNative ? null : request.fromToken.address,
+      toBlockchain: request.toChain.name.toUpperCase(),
+      toSymbol: request.toToken.symbol,
+      toAddress: isToNative ? null : request.toToken.address,
+    })
+    
     const quote = await rangoAPI.getQuote({
       from: {
         blockchain: request.fromChain.name.toUpperCase(),
         symbol: request.fromToken.symbol,
-        address: request.fromToken.address === '0x0000000000000000000000000000000000000000' 
-          ? null 
-          : request.fromToken.address,
+        address: isFromNative ? null : request.fromToken.address,
       },
       to: {
         blockchain: request.toChain.name.toUpperCase(),
         symbol: request.toToken.symbol,
-        address: request.toToken.address === '0x0000000000000000000000000000000000000000'
-          ? null
-          : request.toToken.address,
+        address: isToNative ? null : request.toToken.address,
       },
       amount: request.fromAmount,
       fromAddress: request.fromAddress,

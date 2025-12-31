@@ -1,0 +1,11 @@
+{
+  "id": "prt_b734d2f08001HzcPZcGvUY5KU7",
+  "messageID": "msg_b734ce4b2001QbdCeO3KvLd5pP",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "The issue is clear - we're checking if the address is `0x000...` to determine if it's native, but for Solana tokens we're storing the actual Solana address. The logic needs to check if the token is native differently. Let me fix this:",
+  "time": {
+    "start": 1767166008132,
+    "end": 1767166008132
+  }
+}

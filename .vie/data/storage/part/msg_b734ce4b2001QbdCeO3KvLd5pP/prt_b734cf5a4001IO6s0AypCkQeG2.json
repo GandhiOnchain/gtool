@@ -1,0 +1,11 @@
+{
+  "id": "prt_b734cf5a4001IO6s0AypCkQeG2",
+  "messageID": "msg_b734ce4b2001QbdCeO3KvLd5pP",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "The error shows \"Invalid output currency\" - this means the Rango API doesn't recognize the Solana token addresses we're sending. The issue is that for Solana tokens, we need to send the actual Solana address format, not the placeholder `0x000...` address.\n\nLet me fix the swap router to properly handle Solana addresses:",
+  "time": {
+    "start": 1767165986019,
+    "end": 1767165986019
+  }
+}
