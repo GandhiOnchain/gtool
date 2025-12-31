@@ -1,0 +1,25 @@
+{
+  "id": "prt_b754edbf8001TT4Aocwyp1RU0Z",
+  "messageID": "msg_b754bf4e1001yre4DEP0fWcLeY",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01BjBzxqfWnrEMwftCQvZBJD",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 17,
+      "limit": 2
+    },
+    "output": "<file>\n00018| \n00019| interface TrendingToken {\n\n(File has more lines. Use 'offset' parameter to read beyond line 19)\n</file>",
+    "metadata": {
+      "preview": "\ninterface TrendingToken {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767199661914,
+      "end": 1767199661917
+    }
+  }
+}

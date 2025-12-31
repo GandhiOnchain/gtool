@@ -1,0 +1,25 @@
+{
+  "id": "prt_b754c0b450017ZH66o8g02aBOh",
+  "messageID": "msg_b754bf4e1001yre4DEP0fWcLeY",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_012ho4aix1hBPcTkKrksgPBf",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2250,
+      "limit": 20
+    },
+    "output": "<file>\n02251|     <div className=\"min-h-screen bg-background p-2 max-w-[424px] mx-auto\">\n02252|       <div className=\"space-y-2\">\n02253|         {!isConnected ? (\n02254|           <Button\n02255|             onClick={handleConnect}\n02256|             className=\"w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90\"\n02257|           >\n02258|             <Wallet className=\"h-4 w-4 mr-2\" />\n02259|             Connect Wallet\n02260|           </Button>\n02261|         ) : (\n02262|           <div className=\"flex items-center justify-between mb-2\">\n02263|             <div className=\"flex items-center gap-2\">\n02264|               <h1 className=\"text-lg font-bold\">RELAY</h1>\n02265|               {userStreak.currentStreak > 0 && (\n02266|                 <Badge variant=\"secondary\" className=\"gap-1 text-xs px-2 py-0.5\">\n02267|                   <Flame className=\"h-3 w-3\" />\n02268|                   {userStreak.currentStreak}\n02269|                 </Badge>\n02270|               )}\n\n(File has more lines. Use 'offset' parameter to read beyond line 2270)\n</file>",
+    "metadata": {
+      "preview": "    <div className=\"min-h-screen bg-background p-2 max-w-[424px] mx-auto\">\n      <div className=\"space-y-2\">\n        {!isConnected ? (\n          <Button\n            onClick={handleConnect}\n            className=\"w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90\"\n          >\n            <Wallet className=\"h-4 w-4 mr-2\" />\n            Connect Wallet\n          </Button>\n        ) : (\n          <div className=\"flex items-center justify-between mb-2\">\n            <div className=\"flex items-center gap-2\">\n              <h1 className=\"text-lg font-bold\">RELAY</h1>\n              {userStreak.currentStreak > 0 && (\n                <Badge variant=\"secondary\" className=\"gap-1 text-xs px-2 py-0.5\">\n                  <Flame className=\"h-3 w-3\" />\n                  {userStreak.currentStreak}\n                </Badge>\n              )}"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767199477580,
+      "end": 1767199477583
+    }
+  }
+}

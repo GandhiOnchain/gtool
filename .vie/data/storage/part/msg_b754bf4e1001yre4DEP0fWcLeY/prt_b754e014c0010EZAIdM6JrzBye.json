@@ -1,0 +1,25 @@
+{
+  "id": "prt_b754e014c0010EZAIdM6JrzBye",
+  "messageID": "msg_b754bf4e1001yre4DEP0fWcLeY",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_014GN5MUzYCTCyUashPNeYvz",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3180,
+      "limit": 40
+    },
+    "output": "<file>\n03181|                             )}\n03182|                           </div>\n03183| \n03184|                           {/* Share button */}\n03185|                           <div className=\"flex justify-end\">\n03186|                             <Button\n03187|                               variant=\"ghost\"\n03188|                               size=\"sm\"\n03189|                               onClick={() => shareSwapReceipt(swap)}\n03190|                               className=\"h-7 px-2 text-xs\"\n03191|                             >\n03192|                               <Share2 className=\"h-3 w-3 mr-1\" />\n03193|                               Share\n03194|                             </Button>\n03195|                           </div>\n03196|                         </div>\n03197|                       </Card>\n03198|                     )\n03199|                   })\n03200|                 )}\n03201|               </div>\n03202|             </ScrollArea>\n03203|           </TabsContent>\n03204| \n03205|           <TabsContent value=\"revoke\" className=\"space-y-2 mt-2\">\n03206|             <Card className=\"p-3\">\n03207|               <div className=\"space-y-2\">\n03208|                 <div className=\"text-sm font-medium\">Revoke Token Approvals</div>\n03209|                 <div className=\"text-xs text-muted-foreground\">\n03210|                   Select a chain to view and revoke token approvals\n03211|                 </div>\n03212|                 \n03213|                 <Button\n03214|                   variant=\"outline\"\n03215|                   onClick={() => {\n03216|                     setSelectingFor('from')\n03217|                     setIsChainSelectOpen(true)\n03218|                   }}\n03219|                   className=\"w-full justify-between h-8 text-xs\"\n03220|                 >\n\n(File has more lines. Use 'offset' parameter to read beyond line 3220)\n</file>",
+    "metadata": {
+      "preview": "                            )}\n                          </div>\n\n                          {/* Share button */}\n                          <div className=\"flex justify-end\">\n                            <Button\n                              variant=\"ghost\"\n                              size=\"sm\"\n                              onClick={() => shareSwapReceipt(swap)}\n                              className=\"h-7 px-2 text-xs\"\n                            >\n                              <Share2 className=\"h-3 w-3 mr-1\" />\n                              Share\n                            </Button>\n                          </div>\n                        </div>\n                      </Card>\n                    )\n                  })\n                )}"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767199606587,
+      "end": 1767199606590
+    }
+  }
+}

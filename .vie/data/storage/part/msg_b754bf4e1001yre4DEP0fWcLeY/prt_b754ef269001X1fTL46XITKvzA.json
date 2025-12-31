@@ -1,0 +1,25 @@
+{
+  "id": "prt_b754ef269001X1fTL46XITKvzA",
+  "messageID": "msg_b754bf4e1001yre4DEP0fWcLeY",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01ACpPYry6Z7knvfb2um815X",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 16,
+      "limit": 3
+    },
+    "output": "<file>\n00017| import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'\n00018| \n00019| interface TrendingToken {\n\n(File has more lines. Use 'offset' parameter to read beyond line 19)\n</file>",
+    "metadata": {
+      "preview": "import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'\n\ninterface TrendingToken {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767199667643,
+      "end": 1767199667644
+    }
+  }
+}

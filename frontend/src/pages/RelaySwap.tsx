@@ -114,7 +114,7 @@ export default function RelaySwap() {
   const [tokenSearchTerm, setTokenSearchTerm] = useState('')
   const [isChainSelectOpen, setIsChainSelectOpen] = useState(false)
   const [isTokenSelectOpen, setIsTokenSelectOpen] = useState(false)
-  const [selectingFor, setSelectingFor] = useState<'from' | 'to' | 'batch'>('from')
+  const [selectingFor, setSelectingFor] = useState<'from' | 'to' | 'batch' | 'revoke'>('from')
   const [currencies, setCurrencies] = useState<RelayCurrency[]>([])
   const [fromCurrencies, setFromCurrencies] = useState<RelayCurrency[]>([])
   const [toCurrencies, setToCurrencies] = useState<RelayCurrency[]>([])
@@ -147,6 +147,16 @@ export default function RelaySwap() {
   const [isLoadingHistory, setIsLoadingHistory] = useState(false)
   const [externalSearchResults, setExternalSearchResults] = useState<RelayCurrency[]>([])
   const [isSearchingExternal, setIsSearchingExternal] = useState(false)
+  const [revokeChain, setRevokeChain] = useState<RelayChain | null>(null)
+  const [approvals, setApprovals] = useState<Array<{
+    token: RelayCurrency
+    spender: string
+    spenderName?: string
+    allowance: string
+    allowanceFormatted: string
+  }>>([])
+  const [isLoadingApprovals, setIsLoadingApprovals] = useState(false)
+  const [isRevoking, setIsRevoking] = useState(false)
 
   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
@@ -328,6 +338,15 @@ export default function RelaySwap() {
       setBatchQuote(null)
     }
   }, [batchTokens, toToken, toChain, batchChain, address])
+
+  // Load approvals when revoke chain changes
+  useEffect(() => {
+    if (revokeChain && address && isConnected) {
+      loadApprovals()
+    } else {
+      setApprovals([])
+    }
+  }, [revokeChain, address, isConnected])
 
   // External token search when contract address is pasted
   useEffect(() => {
@@ -2151,6 +2170,149 @@ export default function RelaySwap() {
     }
   }
 
+  const loadApprovals = async () => {
+    if (!address || !revokeChain) return
+    
+    setIsLoadingApprovals(true)
+    try {
+      console.log('Loading approvals for chain:', revokeChain.displayName)
+      
+      const { createPublicClient, http, defineChain } = await import('viem')
+      
+      const chainConfig = defineChain({
+        id: revokeChain.id,
+        name: revokeChain.displayName,
+        nativeCurrency: {
+          name: revokeChain.currency.name,
+          symbol: revokeChain.currency.symbol,
+          decimals: revokeChain.currency.decimals,
+        },
+        rpcUrls: {
+          default: { http: [revokeChain.httpRpcUrl] },
+        },
+      })
+      
+      const publicClient = createPublicClient({
+        chain: chainConfig,
+        transport: http(revokeChain.httpRpcUrl),
+      })
+      
+      // Get tokens for this chain
+      const tokens = await relayAPI.getCurrencies({
+        chainIds: [revokeChain.id],
+        defaultList: true,
+        limit: 50,
+      })
+      
+      console.log('Checking approvals for', tokens.length, 'tokens')
+      
+      const foundApprovals: typeof approvals = []
+      
+      // Common spender addresses (Relay, Uniswap, etc.)
+      const commonSpenders = [
+        { address: '0x0000000000001ff3684f28c67538d4d072c22734', name: 'Relay' },
+        { address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad', name: 'Uniswap Universal Router' },
+        { address: '0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b', name: 'Uniswap Permit2' },
+      ]
+      
+      for (const token of tokens) {
+        if (token.metadata?.isNative) continue
+        
+        for (const spender of commonSpenders) {
+          try {
+            const allowance = await publicClient.readContract({
+              address: token.address as `0x${string}`,
+              abi: [{
+                name: 'allowance',
+                type: 'function',
+                stateMutability: 'view',
+                inputs: [
+                  { name: 'owner', type: 'address' },
+                  { name: 'spender', type: 'address' }
+                ],
+                outputs: [{ name: 'remaining', type: 'uint256' }],
+              }],
+              functionName: 'allowance',
+              args: [address as `0x${string}`, spender.address as `0x${string}`],
+            })
+            
+            if (allowance > 0n) {
+              const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
+              const isUnlimited = allowance >= maxUint256 / 2n
+              
+              foundApprovals.push({
+                token,
+                spender: spender.address,
+                spenderName: spender.name,
+                allowance: allowance.toString(),
+                allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(allowance, token.decimals),
+              })
+            }
+          } catch (e) {
+            // Token might not support allowance or other error
+          }
+        }
+      }
+      
+      console.log('Found', foundApprovals.length, 'approvals')
+      setApprovals(foundApprovals)
+    } catch (error) {
+      console.error('Failed to load approvals:', error)
+      toast.error('Failed to load approvals')
+    } finally {
+      setIsLoadingApprovals(false)
+    }
+  }
+
+  const revokeApproval = async (approval: typeof approvals[0]) => {
+    if (!address || !revokeChain) return
+    
+    setIsRevoking(true)
+    try {
+      // Check if we need to switch chains
+      if (connectedChainId !== revokeChain.id) {
+        console.log('Switching chain to', revokeChain.displayName)
+        try {
+          await switchChain({ chainId: revokeChain.id })
+          toast.success('Chain switched')
+          await new Promise(resolve => setTimeout(resolve, 500))
+        } catch (switchError) {
+          console.error('Failed to switch chain:', switchError)
+          toast.error('Please switch to the correct network')
+          setIsRevoking(false)
+          return
+        }
+      }
+      
+      // Send approval transaction with 0 allowance
+      sendTransaction({
+        to: approval.token.address as `0x${string}`,
+        data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,
+      }, {
+        onSuccess: (hash) => {
+          console.log('Revoke transaction submitted:', hash)
+          toast.success('Approval revoked successfully')
+          
+          // Reload approvals after a delay
+          setTimeout(() => {
+            loadApprovals()
+          }, 2000)
+          
+          setIsRevoking(false)
+        },
+        onError: (error) => {
+          console.error('Revoke failed:', error)
+          toast.error('Failed to revoke approval')
+          setIsRevoking(false)
+        }
+      })
+    } catch (error) {
+      console.error('Revoke approval failed:', error)
+      toast.error('Failed to revoke approval')
+      setIsRevoking(false)
+    }
+  }
+
   const loadSwapSources = async () => {
     try {
       const sources = await relayAPI.getSwapSources()
@@ -2296,10 +2458,11 @@ export default function RelaySwap() {
         )}
 
         <Tabs defaultValue="swap" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 h-8">
+          <TabsList className="grid w-full grid-cols-5 h-8">
             <TabsTrigger value="swap" className="text-xs">Swap</TabsTrigger>
             <TabsTrigger value="batch" className="text-xs">Batch</TabsTrigger>
             <TabsTrigger value="history" className="text-xs">History</TabsTrigger>
+            <TabsTrigger value="revoke" className="text-xs">Revoke</TabsTrigger>
             <TabsTrigger value="settings" className="text-xs">Settings</TabsTrigger>
           </TabsList>
 
@@ -3039,6 +3202,94 @@ export default function RelaySwap() {
             </ScrollArea>
           </TabsContent>
 
+          <TabsContent value="revoke" className="space-y-2 mt-2">
+            <Card className="p-3">
+              <div className="space-y-2">
+                <div className="text-sm font-medium">Revoke Token Approvals</div>
+                <div className="text-xs text-muted-foreground">
+                  Select a chain to view and revoke token approvals
+                </div>
+                
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setSelectingFor('revoke')
+                    setIsChainSelectOpen(true)
+                  }}
+                  className="w-full justify-between h-8 text-xs"
+                >
+                  <div className="flex items-center gap-1.5">
+                    {revokeChain?.iconUrl && (
+                      <img src={revokeChain.iconUrl} alt="" className="h-4 w-4 rounded-full" />
+                    )}
+                    <span>{revokeChain?.displayName || 'Select Chain'}</span>
+                  </div>
+                  <ChevronDown className="h-3 w-3" />
+                </Button>
+              </div>
+            </Card>
+
+            {isLoadingApprovals ? (
+              <Card className="p-4 text-center text-sm text-muted-foreground">
+                Loading approvals...
+              </Card>
+            ) : approvals.length === 0 && revokeChain ? (
+              <Card className="p-4 text-center text-sm text-muted-foreground">
+                No active approvals found
+              </Card>
+            ) : approvals.length > 0 ? (
+              <ScrollArea className="h-[400px]">
+                <div className="space-y-2">
+                  {approvals.map((approval, idx) => (
+                    <Card key={idx} className="p-3">
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            {approval.token.metadata?.logoURI && (
+                              <img src={approval.token.metadata.logoURI} alt="" className="h-5 w-5 rounded-full" />
+                            )}
+                            <div>
+                              <div className="text-xs font-medium">{approval.token.symbol}</div>
+                              <div className="text-xs text-muted-foreground">{approval.token.name}</div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-xs">
+                            <span className="text-muted-foreground">Spender</span>
+                            <span className="font-mono">
+                              {approval.spenderName || `${approval.spender.slice(0, 6)}...${approval.spender.slice(-4)}`}
+                            </span>
+                          </div>
+                          <div className="flex justify-between text-xs">
+                            <span className="text-muted-foreground">Allowance</span>
+                            <span className="font-mono">
+                              {approval.allowanceFormatted === 'Unlimited' 
+                                ? 'Unlimited' 
+                                : `${approval.allowanceFormatted} ${approval.token.symbol}`
+                              }
+                            </span>
+                          </div>
+                        </div>
+                        
+                        <Button
+                          onClick={() => revokeApproval(approval)}
+                          disabled={isRevoking}
+                          variant="destructive"
+                          size="sm"
+                          className="w-full h-8 text-xs"
+                        >
+                          {isRevoking ? 'Revoking...' : 'Revoke Approval'}
+                        </Button>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </ScrollArea>
+            ) : null}
+          </TabsContent>
+
           <TabsContent value="settings" className="space-y-3 mt-2">
             <Card className="p-3">
               <div className="space-y-3">
@@ -3121,6 +3372,8 @@ export default function RelaySwap() {
                           setToChain(chain)
                         } else if (selectingFor === 'batch') {
                           setBatchChain(chain)
+                        } else if (selectingFor === 'revoke') {
+                          setRevokeChain(chain)
                         }
                         setIsChainSelectOpen(false)
                         setSearchTerm('')

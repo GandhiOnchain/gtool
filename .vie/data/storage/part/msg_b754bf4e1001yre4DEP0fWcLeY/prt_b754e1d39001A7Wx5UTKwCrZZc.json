@@ -1,0 +1,11 @@
+{
+  "id": "prt_b754e1d39001A7Wx5UTKwCrZZc",
+  "messageID": "msg_b754bf4e1001yre4DEP0fWcLeY",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "I need to update the selectingFor to support 'revoke'. Let me check the type:",
+  "time": {
+    "start": 1767199614632,
+    "end": 1767199614632
+  }
+}

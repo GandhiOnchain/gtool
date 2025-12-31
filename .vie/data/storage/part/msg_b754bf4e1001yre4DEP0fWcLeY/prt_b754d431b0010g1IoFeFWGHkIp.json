@@ -1,0 +1,11 @@
+{
+  "id": "prt_b754d431b0010g1IoFeFWGHkIp",
+  "messageID": "msg_b754bf4e1001yre4DEP0fWcLeY",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Now let me add the functions to load approvals and revoke them. First, let me add an effect to load approvals when the revoke chain changes:",
+  "time": {
+    "start": 1767199561151,
+    "end": 1767199561151
+  }
+}

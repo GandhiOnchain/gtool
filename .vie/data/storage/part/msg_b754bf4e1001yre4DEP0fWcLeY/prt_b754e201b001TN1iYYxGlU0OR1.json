@@ -1,0 +1,26 @@
+{
+  "id": "prt_b754e201b001TN1iYYxGlU0OR1",
+  "messageID": "msg_b754bf4e1001yre4DEP0fWcLeY",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_012Xoe5tA7fEWFSvB1nACZj4",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"selectingFor.*'from' | 'to'\" src/pages/RelaySwap.tsx | head -3",
+      "description": "Find selectingFor type definition"
+    },
+    "output": "117:  const [selectingFor, setSelectingFor] = useState<'from' | 'to' | 'batch'>('from')\n",
+    "metadata": {
+      "output": "117:  const [selectingFor, setSelectingFor] = useState<'from' | 'to' | 'batch'>('from')\n",
+      "exit": 0,
+      "description": "Find selectingFor type definition"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"selectingFor.*'from' | 'to'\" src/pages/RelaySwap.tsx | head -3",
+    "time": {
+      "start": 1767199614371,
+      "end": 1767199614375
+    }
+  }
+}
