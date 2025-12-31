@@ -1,0 +1,11 @@
+{
+  "id": "prt_b731043b5001lPcKlEsPP3fPbF",
+  "messageID": "msg_b730f6c11001n7f3zYP9yFKRft",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Now let me fix the batch token detection. The issue is that it's only checking the default token list, but not properly filtering tokens with actual balances:",
+  "time": {
+    "start": 1767162032926,
+    "end": 1767162032926
+  }
+}

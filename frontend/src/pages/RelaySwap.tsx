@@ -309,98 +309,108 @@ export default function RelaySwap() {
     setIsLoadingBatchTokens(true)
     try {
       console.log('Fetching currencies for chain:', chain.id)
+      
+      // Fetch more tokens to increase chances of finding tokens with balance
       const fetchedCurrencies = await relayAPI.getCurrencies({
         chainIds: [chain.id],
         defaultList: true,
-        limit: 50,
+        limit: 250,
       })
       
       console.log('Fetched currencies:', fetchedCurrencies.length)
       
       const tokensWithBalances: WalletToken[] = []
       
-      for (const currency of fetchedCurrencies) {
-        try {
-          if (currency.metadata?.isNative) {
-            console.log('Checking native token balance:', currency.symbol)
-            try {
-              const response = await fetch(chain.httpRpcUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  jsonrpc: '2.0',
-                  method: 'eth_getBalance',
-                  params: [address, 'latest'],
-                  id: 1
-                })
-              })
-              
-              const result = await response.json()
-              console.log('Native balance result:', result)
-              const balance = result.result ? BigInt(result.result) : BigInt(0)
-              const balanceFormatted = formatUnits(balance, currency.decimals)
-              
-              console.log('Native balance formatted:', balanceFormatted, currency.symbol)
-              
-              if (parseFloat(balanceFormatted) > 0.000001) {
-                tokensWithBalances.push({
-                  token: currency,
-                  balance: balance.toString(),
-                  balanceFormatted,
-                })
-              }
-            } catch (e) {
-              console.error('Failed to fetch native balance:', e)
-            }
-          } else {
-            const balanceData = `0x70a08231000000000000000000000000${address.slice(2)}`
+      // Process tokens in batches to avoid overwhelming the RPC
+      const batchSize = 10
+      for (let i = 0; i < fetchedCurrencies.length; i += batchSize) {
+        const batch = fetchedCurrencies.slice(i, i + batchSize)
+        
+        await Promise.all(batch.map(async (currency) => {
+          try {
+            let balance = BigInt(0)
             
-            try {
-              const response = await fetch(chain.httpRpcUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  jsonrpc: '2.0',
-                  method: 'eth_call',
-                  params: [{
-                    to: currency.address,
-                    data: balanceData
-                  }, 'latest'],
-                  id: 1
+            if (currency.metadata?.isNative) {
+              try {
+                const response = await fetch(chain.httpRpcUrl, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    jsonrpc: '2.0',
+                    method: 'eth_getBalance',
+                    params: [address, 'latest'],
+                    id: 1
+                  })
                 })
-              })
-              
-              const result = await response.json()
-              const balance = result.result ? BigInt(result.result) : BigInt(0)
-              const balanceFormatted = formatUnits(balance, currency.decimals)
-              
-              if (parseFloat(balanceFormatted) > 0.000001) {
-                tokensWithBalances.push({
-                  token: currency,
-                  balance: balance.toString(),
-                  balanceFormatted,
-                })
+                
+                const result = await response.json()
+                if (result.result) {
+                  balance = BigInt(result.result)
+                }
+              } catch (e) {
+                console.error('Failed to fetch native balance:', e)
               }
-            } catch (e) {
-              console.error('Failed to fetch balance for', currency.symbol, e)
+            } else {
+              const balanceData = `0x70a08231000000000000000000000000${address.slice(2)}`
+              
+              try {
+                const response = await fetch(chain.httpRpcUrl, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    jsonrpc: '2.0',
+                    method: 'eth_call',
+                    params: [{
+                      to: currency.address,
+                      data: balanceData
+                    }, 'latest'],
+                    id: 1
+                  })
+                })
+                
+                const result = await response.json()
+                if (result.result && result.result !== '0x') {
+                  balance = BigInt(result.result)
+                }
+              } catch (e) {
+                // Silently skip tokens that fail
+              }
             }
+            
+            const balanceFormatted = formatUnits(balance, currency.decimals)
+            
+            // Lower threshold to catch more tokens
+            if (parseFloat(balanceFormatted) > 0.00000001) {
+              tokensWithBalances.push({
+                token: currency,
+                balance: balance.toString(),
+                balanceFormatted,
+              })
+            }
+          } catch (e) {
+            // Silently skip problematic tokens
           }
-        } catch (e) {
-          console.error('Error processing token', currency.symbol, e)
+        }))
+        
+        // Update UI progressively as we find tokens
+        if (tokensWithBalances.length > 0) {
+          const sorted = [...tokensWithBalances].sort((a, b) => parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted))
+          setWalletTokens(sorted)
+          setBatchTokens(sorted.slice(0, 10))
         }
       }
       
       console.log('Tokens with balances found:', tokensWithBalances.length)
       
-      tokensWithBalances.sort((a, b) => parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted))
+      const sorted = tokensWithBalances.sort((a, b) => parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted))
       
-      setWalletTokens(tokensWithBalances)
-      setBatchTokens(tokensWithBalances.slice(0, 10))
+      setWalletTokens(sorted)
+      setBatchTokens(sorted.slice(0, 10))
       
       if (tokensWithBalances.length > 0) {
         toast.success(`Found ${tokensWithBalances.length} tokens with balance`)
       } else {
-        toast.info('No tokens with balance found on this chain')
+        toast.info('No tokens with balance found. Try a different chain or add tokens manually.')
       }
     } catch (error) {
       console.error('Failed to load wallet tokens:', error)
@@ -504,6 +514,11 @@ export default function RelaySwap() {
       return
     }
 
+    if (!isConnected || !address) {
+      toast.error('Please connect your wallet first')
+      return
+    }
+
     setIsSwapping(true)
     try {
       const depositStep = quote.steps.find(s => s.id === 'deposit')
@@ -513,7 +528,13 @@ export default function RelaySwap() {
 
       const txData = depositStep.items[0].data
       
-      sendTransaction({
+      console.log('Executing swap transaction:', {
+        to: txData.to,
+        value: txData.value,
+        chainId: txData.chainId,
+      })
+
+      await sendTransaction({
         to: txData.to as `0x${string}`,
         data: txData.data as `0x${string}`,
         value: BigInt(txData.value),
@@ -525,7 +546,8 @@ export default function RelaySwap() {
       }
     } catch (error) {
       console.error('Swap failed:', error)
-      toast.error('Swap failed')
+      const errorMessage = error instanceof Error ? error.message : 'Swap failed'
+      toast.error(errorMessage)
       setIsSwapping(false)
     }
   }
@@ -578,6 +600,11 @@ export default function RelaySwap() {
       return
     }
 
+    if (!isConnected) {
+      toast.error('Please connect your wallet first')
+      return
+    }
+
     setIsSwapping(true)
     try {
       const origins = batchTokens
@@ -594,6 +621,8 @@ export default function RelaySwap() {
         return
       }
 
+      console.log('Getting batch swap quote for', origins.length, 'tokens')
+
       const multiQuote = await relayAPI.getMultiInputQuote({
         user: address,
         origins,
@@ -602,27 +631,41 @@ export default function RelaySwap() {
         tradeType: 'EXACT_INPUT',
       })
 
+      console.log('Batch quote received, executing transactions...')
+
+      let successCount = 0
       for (const step of multiQuote.steps) {
         if (step.id === 'deposit' && step.items) {
           for (const item of step.items) {
-            const txData = item.data
-            sendTransaction({
-              to: txData.to as `0x${string}`,
-              data: txData.data as `0x${string}`,
-              value: BigInt(txData.value),
-              chainId: txData.chainId,
-            })
-            await new Promise(resolve => setTimeout(resolve, 1000))
+            try {
+              const txData = item.data
+              await sendTransaction({
+                to: txData.to as `0x${string}`,
+                data: txData.data as `0x${string}`,
+                value: BigInt(txData.value),
+                chainId: txData.chainId,
+              })
+              successCount++
+              await new Promise(resolve => setTimeout(resolve, 1000))
+            } catch (txError) {
+              console.error('Transaction failed:', txError)
+              // Continue with other transactions even if one fails
+            }
           }
         }
       }
 
-      toast.success('Batch swap initiated')
-      updateUserStreak()
-      setBatchTokens([])
+      if (successCount > 0) {
+        toast.success(`Batch swap initiated: ${successCount} transactions submitted`)
+        updateUserStreak()
+        setBatchTokens([])
+      } else {
+        toast.error('All batch swap transactions failed')
+      }
     } catch (error) {
       console.error('Batch swap failed:', error)
-      toast.error('Batch swap failed')
+      const errorMessage = error instanceof Error ? error.message : 'Batch swap failed'
+      toast.error(errorMessage)
     } finally {
       setIsSwapping(false)
     }
@@ -831,10 +874,17 @@ export default function RelaySwap() {
     setToAmount(tempAmount)
   }
 
-  const handleConnect = () => {
-    const connector = connectors[0]
-    if (connector) {
-      connect({ connector })
+  const handleConnect = async () => {
+    try {
+      const connector = connectors.find(c => c.id === 'io.metamask' || c.id === 'injected') || connectors[0]
+      if (connector) {
+        await connect({ connector })
+      } else {
+        toast.error('No wallet connector found. Please install MetaMask or another Web3 wallet.')
+      }
+    } catch (error) {
+      console.error('Failed to connect wallet:', error)
+      toast.error('Failed to connect wallet')
     }
   }
 

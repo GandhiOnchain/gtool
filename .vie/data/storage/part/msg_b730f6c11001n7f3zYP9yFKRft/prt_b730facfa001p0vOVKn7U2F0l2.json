@@ -1,0 +1,23 @@
+{
+  "id": "prt_b730facfa001p0vOVKn7U2F0l2",
+  "messageID": "msg_b730f6c11001n7f3zYP9yFKRft",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01X4Ya6wq9RrstH7pWmZGkGe",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/providers/AuthProvider.tsx"
+    },
+    "output": "<file>\n00001| import React from 'react'\n00002| import { PrivyProvider } from '@privy-io/react-auth'\n00003| import { WagmiProvider as PrivyWagmiProvider } from '@privy-io/wagmi'\n00004| import { WagmiProvider } from 'wagmi'\n00005| import { wagmiConfig } from '../blockchain/wagmi'\n00006| import { QueryClient, QueryClientProvider } from '@tanstack/react-query'\n00007| import { config } from '../../config'\n00008| import { JSONStringifyBigIntHelper } from '../blockchain/bigint'\n00009| \n00010| // Create a single query client instance\n00011| const queryClient = new QueryClient({\n00012|   defaultOptions: {\n00013|     queries: {\n00014|       retry: (failureCount, error) => {\n00015|         // Don't retry on 4xx errors\n00016|         if (error && typeof error === 'object' && 'status' in error && \n00017|             typeof error.status === 'number' && error.status >= 400 && error.status < 500) {\n00018|           return false\n00019|         }\n00020|         return failureCount < 3\n00021|       },\n00022|       staleTime: 1000 * 60 * 5, // 5 minutes\n00023|       refetchOnWindowFocus: false,\n00024|       queryKeyHashFn: (key) => {\n00025|         return JSON.stringify(key, JSONStringifyBigIntHelper)\n00026|       },\n00027|     },\n00028|   },\n00029| })\n00030| \n00031| export interface AuthProviderProps {\n00032|   children: React.ReactNode\n00033| }\n00034| \n00035| export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {\n00036|   // If Privy is not configured, use standard Wagmi with InjectedConnector\n00037|   if (!config.privy.appId) {\n00038|     return (\n00039|       <React.StrictMode>\n00040|         <QueryClientProvider client={queryClient}>\n00041|           <WagmiProvider config={wagmiConfig}>\n00042|             {children}\n00043|           </WagmiProvider>\n00044|         </QueryClientProvider>\n00045|       </React.StrictMode>\n00046|     )\n00047|   }\n00048| \n00049|   // Otherwise use Privy + Wagmi\n00050|   return (\n00051|     <React.StrictMode>\n00052|       <QueryClientProvider client={queryClient}>\n00053|         <PrivyProvider appId={config.privy.appId!} clientId={config.privy.clientId!}>\n00054|           <PrivyWagmiProvider config={wagmiConfig}>\n00055|             {children}\n00056|           </PrivyWagmiProvider>\n00057|         </PrivyProvider>\n00058|       </QueryClientProvider>\n00059|     </React.StrictMode>\n00060|   )\n00061| }\n00062| \n00063| // Export query client for use in other parts of the app\n00064| export { queryClient } \n</file>",
+    "metadata": {
+      "preview": "import React from 'react'\nimport { PrivyProvider } from '@privy-io/react-auth'\nimport { WagmiProvider as PrivyWagmiProvider } from '@privy-io/wagmi'\nimport { WagmiProvider } from 'wagmi'\nimport { wagmiConfig } from '../blockchain/wagmi'\nimport { QueryClient, QueryClientProvider } from '@tanstack/react-query'\nimport { config } from '../../config'\nimport { JSONStringifyBigIntHelper } from '../blockchain/bigint'\n\n// Create a single query client instance\nconst queryClient = new QueryClient({\n  defaultOptions: {\n    queries: {\n      retry: (failureCount, error) => {\n        // Don't retry on 4xx errors\n        if (error && typeof error === 'object' && 'status' in error && \n            typeof error.status === 'number' && error.status >= 400 && error.status < 500) {\n          return false\n        }\n        return failureCount < 3"
+    },
+    "title": "frontend/src/lib/providers/AuthProvider.tsx",
+    "time": {
+      "start": 1767161966855,
+      "end": 1767161966858
+    }
+  }
+}

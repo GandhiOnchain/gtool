@@ -1,0 +1,25 @@
+{
+  "id": "prt_b730f86cf001kBUHHhWomTLQGI",
+  "messageID": "msg_b730f6c11001n7f3zYP9yFKRft",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "grep",
+  "callID": "toolu_vrtx_01W1Np5xxaDAL6HejQbzVRXo",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "batch.*swap|swap.*batch",
+      "include": "*.tsx"
+    },
+    "output": "No files found",
+    "metadata": {
+      "matches": 0,
+      "truncated": false
+    },
+    "title": "batch.*swap|swap.*batch",
+    "time": {
+      "start": 1767161956851,
+      "end": 1767161956876
+    }
+  }
+}

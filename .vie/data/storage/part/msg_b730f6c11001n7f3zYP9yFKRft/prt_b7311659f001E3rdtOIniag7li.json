@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7311659f001E3rdtOIniag7li",
+  "messageID": "msg_b730f6c11001n7f3zYP9yFKRft",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Fixed both issues:\n\n**Wallet Connection & Swap Execution:**\n- Improved wallet connection to properly find and connect to MetaMask or injected wallets\n- Added wallet connection check before executing swaps\n- Made `sendTransaction` async with proper await to trigger wallet modal\n- Added better error messages and logging\n\n**Token Detection for Batch Swap:**\n- Increased token limit from 50 to 250 to find more tokens\n- Lowered balance threshold from 0.000001 to 0.00000001 to catch smaller balances\n- Added batch processing to avoid overwhelming RPC endpoints\n- Progressive UI updates as tokens are found\n- Better error handling that silently skips problematic tokens\n- Improved success/failure feedback\n\nThe wallet should now properly open when you hit swap, and batch swap will detect tokens with balances much more reliably.",
+  "time": {
+    "start": 1767162084192,
+    "end": 1767162084192
+  }
+}

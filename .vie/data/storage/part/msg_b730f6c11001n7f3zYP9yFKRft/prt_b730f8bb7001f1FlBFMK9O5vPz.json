@@ -1,0 +1,26 @@
+{
+  "id": "prt_b730f8bb7001f1FlBFMK9O5vPz",
+  "messageID": "msg_b730f6c11001n7f3zYP9yFKRft",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01FqwRHioSapz5b29KsVpVN3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src && find . -name \"*.tsx\" -type f | head -20",
+      "description": "Find all tsx files"
+    },
+    "output": "./App.tsx\n./components/ErrorBoundary.tsx\n./components/Layout.tsx\n./components/RouteSync.tsx\n./components/ThemeSelector.tsx\n./components/ThemeSync.tsx\n./components/examples/AlchemyExample.tsx\n./components/examples/SwapWidgetExample.tsx\n./components/ui/accordion.tsx\n./components/ui/alert-dialog.tsx\n./components/ui/alert.tsx\n./components/ui/aspect-ratio.tsx\n./components/ui/avatar.tsx\n./components/ui/badge.tsx\n./components/ui/breadcrumb.tsx\n./components/ui/button.tsx\n./components/ui/calendar.tsx\n./components/ui/card.tsx\n./components/ui/carousel.tsx\n./components/ui/chart.tsx\n",
+    "metadata": {
+      "output": "./App.tsx\n./components/ErrorBoundary.tsx\n./components/Layout.tsx\n./components/RouteSync.tsx\n./components/ThemeSelector.tsx\n./components/ThemeSync.tsx\n./components/examples/AlchemyExample.tsx\n./components/examples/SwapWidgetExample.tsx\n./components/ui/accordion.tsx\n./components/ui/alert-dialog.tsx\n./components/ui/alert.tsx\n./components/ui/aspect-ratio.tsx\n./components/ui/avatar.tsx\n./components/ui/badge.tsx\n./components/ui/breadcrumb.tsx\n./components/ui/button.tsx\n./components/ui/calendar.tsx\n./components/ui/card.tsx\n./components/ui/carousel.tsx\n./components/ui/chart.tsx\n",
+      "exit": 0,
+      "description": "Find all tsx files"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src && find . -name \"*.tsx\" -type f | head -20",
+    "time": {
+      "start": 1767161958376,
+      "end": 1767161958394
+    }
+  }
+}

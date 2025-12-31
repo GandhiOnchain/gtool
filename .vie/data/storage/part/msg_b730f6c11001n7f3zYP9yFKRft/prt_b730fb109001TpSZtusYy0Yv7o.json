@@ -1,0 +1,26 @@
+{
+  "id": "prt_b730fb109001TpSZtusYy0Yv7o",
+  "messageID": "msg_b730f6c11001n7f3zYP9yFKRft",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_016dPwMWR8Ceh1sUbtuupwN2",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"WagmiProvider|createConfig\" --type tsx --type ts -A 3",
+      "description": "Search for Wagmi config"
+    },
+    "output": "rg: unrecognized file type: tsx\n",
+    "metadata": {
+      "output": "rg: unrecognized file type: tsx\n",
+      "exit": 2,
+      "description": "Search for Wagmi config"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"WagmiProvider|createConfig\" --type tsx --type ts -A 3",
+    "time": {
+      "start": 1767161968389,
+      "end": 1767161968394
+    }
+  }
+}

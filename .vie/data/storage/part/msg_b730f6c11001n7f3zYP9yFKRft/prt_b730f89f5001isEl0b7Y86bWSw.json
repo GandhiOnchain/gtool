@@ -1,0 +1,25 @@
+{
+  "id": "prt_b730f89f5001isEl0b7Y86bWSw",
+  "messageID": "msg_b730f6c11001n7f3zYP9yFKRft",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "grep",
+  "callID": "toolu_vrtx_012UiTwLt6bL2GpKQHbMMMdC",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "SwapWidget",
+      "include": "*.tsx"
+    },
+    "output": "Found 2 matches\n/home/user/sandbox/workspace/frontend/src/components/examples/SwapWidgetExample.tsx:\n  Line 2:  * SwapWidgetExample.tsx\n  Line 51: export function SwapWidgetExample() {",
+    "metadata": {
+      "matches": 2,
+      "truncated": false
+    },
+    "title": "SwapWidget",
+    "time": {
+      "start": 1767161957301,
+      "end": 1767161957326
+    }
+  }
+}
