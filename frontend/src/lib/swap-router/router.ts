@@ -8,6 +8,19 @@ import type {
   UnifiedSwapTransaction,
 } from './types'
 
+// Map chain names to Rango blockchain identifiers
+const RANGO_BLOCKCHAIN_MAP: Record<string, string> = {
+  'ethereum': 'ETH',
+  'base': 'BASE',
+  'optimism': 'OPTIMISM',
+  'arbitrum': 'ARBITRUM',
+  'polygon': 'POLYGON',
+  'bsc': 'BSC',
+  'avalanche': 'AVAX_CCHAIN',
+  'solana': 'SOLANA',
+  'cosmos': 'COSMOS',
+}
+
 export class SwapRouter {
   /**
    * Determines the best provider for a given swap
@@ -106,37 +119,47 @@ export class SwapRouter {
   }
 
   private async getRangoQuote(request: UnifiedQuoteRequest): Promise<UnifiedQuote> {
+    // Map chain names to Rango blockchain identifiers
+    const fromBlockchain = RANGO_BLOCKCHAIN_MAP[request.fromChain.name.toLowerCase()] || request.fromChain.name.toUpperCase()
+    const toBlockchain = RANGO_BLOCKCHAIN_MAP[request.toChain.name.toLowerCase()] || request.toChain.name.toUpperCase()
+    
     // For Rango, native tokens should have null address
     const isFromNative = request.fromToken.address === '0x0000000000000000000000000000000000000000' ||
-                         (request.fromChain.vmType === 'evm' && request.fromToken.symbol === request.fromChain.nativeCurrency.symbol)
+                         request.fromToken.symbol === request.fromChain.nativeCurrency.symbol
     
     const isToNative = request.toToken.address === '0x0000000000000000000000000000000000000000' ||
-                       (request.toChain.vmType === 'evm' && request.toToken.symbol === request.toChain.nativeCurrency.symbol)
+                       request.toToken.symbol === request.toChain.nativeCurrency.symbol
+    
+    const fromAddress = isFromNative ? null : request.fromToken.address
+    const toAddress = isToNative ? null : request.toToken.address
     
     console.log('Rango quote params:', {
-      fromBlockchain: request.fromChain.name.toUpperCase(),
+      fromBlockchain,
       fromSymbol: request.fromToken.symbol,
-      fromAddress: isFromNative ? null : request.fromToken.address,
-      toBlockchain: request.toChain.name.toUpperCase(),
+      fromAddress,
+      toBlockchain,
       toSymbol: request.toToken.symbol,
-      toAddress: isToNative ? null : request.toToken.address,
+      toAddress,
+      amount: request.fromAmount,
+      userFromAddress: request.fromAddress,
+      userToAddress: request.toAddress,
     })
     
     const quote = await rangoAPI.getQuote({
       from: {
-        blockchain: request.fromChain.name.toUpperCase(),
+        blockchain: fromBlockchain,
         symbol: request.fromToken.symbol,
-        address: isFromNative ? null : request.fromToken.address,
+        address: fromAddress,
       },
       to: {
-        blockchain: request.toChain.name.toUpperCase(),
+        blockchain: toBlockchain,
         symbol: request.toToken.symbol,
-        address: isToNative ? null : request.toToken.address,
+        address: toAddress,
       },
       amount: request.fromAmount,
       fromAddress: request.fromAddress,
-      toAddress: request.toAddress,
-      slippage: request.slippage,
+      toAddress: request.toAddress || request.fromAddress,
+      slippage: request.slippage || 1,
     })
 
     const totalFees = quote.fee.reduce((sum, fee) => sum + parseFloat(fee.amount), 0)

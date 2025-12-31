@@ -1,0 +1,11 @@
+{
+  "id": "prt_b734e57a5001vV5BomwXU1xeB6",
+  "messageID": "msg_b734e46c1001qm8ObAlrRVfM15",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Let me check what's actually being sent. The issue might be that we're using the wrong blockchain name. Let me add a mapping for the correct Rango blockchain names:",
+  "time": {
+    "start": 1767166091071,
+    "end": 1767166091071
+  }
+}

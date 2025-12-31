@@ -1,0 +1,11 @@
+{
+  "id": "prt_b734ee1ae001fKkRzckx3L7IqV",
+  "messageID": "msg_b734e46c1001qm8ObAlrRVfM15",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! The key fixes:\n\n1. **Correct blockchain names** - Rango uses \"ETH\" not \"ETHEREUM\", \"SOLANA\" not \"SOLANA\", etc.\n2. **Proper native token detection** - Checks if the token symbol matches the chain's native currency\n3. **Default recipient address** - If no Solana address is provided, uses the from address\n4. **Default slippage** - Sets to 1% if not provided\n\nNow when you swap ETH → SOL:\n- From: blockchain=\"ETH\", symbol=\"ETH\", address=null\n- To: blockchain=\"SOLANA\", symbol=\"SOL\", address=null\n\nTry the swap again - it should work now! Make sure to enter your Solana wallet address in the recipient field when it appears.",
+  "time": {
+    "start": 1767166112225,
+    "end": 1767166112225
+  }
+}

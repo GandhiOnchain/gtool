@@ -1,0 +1,26 @@
+{
+  "id": "prt_b734e5d0a0017fqJrl7RINQ6wV",
+  "messageID": "msg_b734e46c1001qm8ObAlrRVfM15",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "edit",
+  "callID": "toolu_vrtx_01NBusxkM5kYsKaevX8QfiUW",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/swap-router/router.ts",
+      "oldString": "import { relayAPI } from '../relay/api'\nimport { rangoAPI } from '../rango/api'\nimport { lifiAPI } from '../lifi/api'\nimport type {\n  SwapProvider,\n  UnifiedQuoteRequest,\n  UnifiedQuote,\n  UnifiedSwapTransaction,\n} from './types'",
+      "newString": "import { relayAPI } from '../relay/api'\nimport { rangoAPI } from '../rango/api'\nimport { lifiAPI } from '../lifi/api'\nimport type {\n  SwapProvider,\n  UnifiedQuoteRequest,\n  UnifiedQuote,\n  UnifiedSwapTransaction,\n} from './types'\n\n// Map chain names to Rango blockchain identifiers\nconst RANGO_BLOCKCHAIN_MAP: Record<string, string> = {\n  'ethereum': 'ETH',\n  'base': 'BASE',\n  'optimism': 'OPTIMISM',\n  'arbitrum': 'ARBITRUM',\n  'polygon': 'POLYGON',\n  'bsc': 'BSC',\n  'avalanche': 'AVAX_CCHAIN',\n  'solana': 'SOLANA',\n  'cosmos': 'COSMOS',\n}"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "diff": "Index: /home/user/sandbox/workspace/frontend/src/lib/swap-router/router.ts\n===================================================================\n--- /home/user/sandbox/workspace/frontend/src/lib/swap-router/router.ts\n+++ /home/user/sandbox/workspace/frontend/src/lib/swap-router/router.ts\n@@ -7,8 +7,21 @@\n   UnifiedQuote,\n   UnifiedSwapTransaction,\n } from './types'\n \n+// Map chain names to Rango blockchain identifiers\n+const RANGO_BLOCKCHAIN_MAP: Record<string, string> = {\n+  'ethereum': 'ETH',\n+  'base': 'BASE',\n+  'optimism': 'OPTIMISM',\n+  'arbitrum': 'ARBITRUM',\n+  'polygon': 'POLYGON',\n+  'bsc': 'BSC',\n+  'avalanche': 'AVAX_CCHAIN',\n+  'solana': 'SOLANA',\n+  'cosmos': 'COSMOS',\n+}\n+\n export class SwapRouter {\n   /**\n    * Determines the best provider for a given swap\n    */\n"
+    },
+    "title": "frontend/src/lib/swap-router/router.ts",
+    "time": {
+      "start": 1767166079381,
+      "end": 1767166079385
+    }
+  }
+}
