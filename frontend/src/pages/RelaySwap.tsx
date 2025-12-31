@@ -145,6 +145,8 @@ export default function RelaySwap() {
   const [batchQuote, setBatchQuote] = useState<RelayQuote | null>(null)
   const [isLoadingBatchQuote, setIsLoadingBatchQuote] = useState(false)
   const [isLoadingHistory, setIsLoadingHistory] = useState(false)
+  const [externalSearchResults, setExternalSearchResults] = useState<RelayCurrency[]>([])
+  const [isSearchingExternal, setIsSearchingExternal] = useState(false)
 
   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
@@ -326,6 +328,53 @@ export default function RelaySwap() {
       setBatchQuote(null)
     }
   }, [batchTokens, toToken, toChain, batchChain, address])
+
+  // External token search when contract address is pasted
+  useEffect(() => {
+    const searchExternally = async () => {
+      // Check if the search term looks like a contract address (0x followed by 40 hex chars)
+      const isContractAddress = /^0x[a-fA-F0-9]{40}$/.test(tokenSearchTerm.trim())
+      
+      if (isContractAddress && tokenSearchTerm.trim().length === 42) {
+        setIsSearchingExternal(true)
+        try {
+          const chainId = selectingFor === 'from' 
+            ? fromChain?.id 
+            : selectingFor === 'to' 
+            ? toChain?.id 
+            : batchChain?.id
+          
+          if (!chainId) {
+            console.log('No chain selected for external search')
+            setIsSearchingExternal(false)
+            return
+          }
+          
+          console.log('Searching externally for token:', tokenSearchTerm, 'on chain:', chainId)
+          
+          const results = await relayAPI.getCurrencies({
+            address: tokenSearchTerm.trim(),
+            chainIds: [chainId],
+            useExternalSearch: true,
+            limit: 10,
+          })
+          
+          console.log('External search results:', results)
+          setExternalSearchResults(results)
+        } catch (error) {
+          console.error('External search failed:', error)
+          setExternalSearchResults([])
+        } finally {
+          setIsSearchingExternal(false)
+        }
+      } else {
+        setExternalSearchResults([])
+      }
+    }
+    
+    const debounce = setTimeout(searchExternally, 300)
+    return () => clearTimeout(debounce)
+  }, [tokenSearchTerm, selectingFor, fromChain, toChain, batchChain])
 
   // Fetch Solana balance for from chain
   useEffect(() => {
@@ -2187,7 +2236,12 @@ export default function RelaySwap() {
     ? currencies.filter(c => c.chainId === batchChain.id)
     : currencies
   
-  const filteredCurrencies = activeCurrencies.filter(currency =>
+  // Combine regular currencies with external search results
+  const allCurrencies = externalSearchResults.length > 0 
+    ? [...externalSearchResults, ...activeCurrencies]
+    : activeCurrencies
+  
+  const filteredCurrencies = allCurrencies.filter(currency =>
     currency.symbol.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||
     currency.name.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||
     currency.address.toLowerCase().includes(tokenSearchTerm.toLowerCase())
@@ -3100,13 +3154,19 @@ export default function RelaySwap() {
             </DialogHeader>
             <div className="space-y-2">
               <Input
-                placeholder="Search tokens..."
+                placeholder="Search tokens or paste contract address..."
                 value={tokenSearchTerm}
                 onChange={(e) => setTokenSearchTerm(e.target.value)}
                 className="h-8 text-xs"
               />
               <div className="text-xs text-muted-foreground px-1">
-                {filteredCurrencies.length} tokens available (from {activeCurrencies.length} total)
+                {isSearchingExternal ? (
+                  'Searching for token...'
+                ) : externalSearchResults.length > 0 ? (
+                  `Found ${externalSearchResults.length} external token(s)`
+                ) : (
+                  `${filteredCurrencies.length} tokens available (from {activeCurrencies.length} total)`
+                )}
               </div>
               <ScrollArea className="h-[300px]">
                 <div className="space-y-1">

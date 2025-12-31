@@ -1,0 +1,11 @@
+{
+  "id": "prt_b753611c7001zZ9V7lvroYtHW4",
+  "messageID": "msg_b7535c9df0014pEXxOOCAvXVdu",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "I can see the token search is filtering by address. The issue is that when you paste a contract address, it's searching within the already-loaded currencies list (which has a limit of 100 tokens). If the token isn't in that list, it won't be found. We need to add external search capability. Let me check the filtering logic:",
+  "time": {
+    "start": 1767198039937,
+    "end": 1767198039937
+  }
+}
