@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73d7183f001qaYnuOd47BD9Cs",
+  "messageID": "msg_b73d66282001ztMbHfVRuccgfr",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01JmnevLDcxyZGdjQ85KRmiY",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"loadUserStreak\" src/pages/RelaySwap.tsx -A 30 | head -50",
+      "description": "Find loadUserStreak function"
+    },
+    "output": "      loadUserStreak()\n    }\n  }, [address, chains])\n\n  useEffect(() => {\n    loadLeaderboard()\n  }, [])\n\n  useEffect(() => {\n    if (address && fromChain && isConnected) {\n      loadWalletTokens()\n    }\n  }, [address, fromChain, isConnected])\n\n  useEffect(() => {\n    if (batchChain) {\n      const vmType = batchChain.vmType || 'evm'\n      // For EVM chains, need EVM wallet connected\n      // For Solana chains, need Solana wallet connected\n      const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n                                ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)\n      \n      if (hasRequiredWallet) {\n        loadBatchWalletTokens()\n      }\n    }\n  }, [address, batchChain, isConnected, solanaAddress])\n\n  // Fetch Solana balance for from chain\n  useEffect(() => {\n    if (fromChain && fromToken && fromChain.vmType === 'svm' && solanaAddress) {\n--\n  const loadUserStreak = () => {\n    if (!address) return\n    \n    const stored = localStorage.getItem(`streak_${address}`)\n    if (stored) {\n      const streak = JSON.parse(stored)\n      const now = Date.now()\n      const timeSinceLastSwap = now - streak.lastSwapTimestamp\n      const twentyFourHours = 24 * 60 * 60 * 1000\n      \n      if (timeSinceLastSwap > twentyFourHours) {\n        streak.currentStreak = 0\n      }\n      \n      setUserStreak(streak)\n    }\n  }\n\n",
+    "metadata": {
+      "output": "      loadUserStreak()\n    }\n  }, [address, chains])\n\n  useEffect(() => {\n    loadLeaderboard()\n  }, [])\n\n  useEffect(() => {\n    if (address && fromChain && isConnected) {\n      loadWalletTokens()\n    }\n  }, [address, fromChain, isConnected])\n\n  useEffect(() => {\n    if (batchChain) {\n      const vmType = batchChain.vmType || 'evm'\n      // For EVM chains, need EVM wallet connected\n      // For Solana chains, need Solana wallet connected\n      const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n                                ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)\n      \n      if (hasRequiredWallet) {\n        loadBatchWalletTokens()\n      }\n    }\n  }, [address, batchChain, isConnected, solanaAddress])\n\n  // Fetch Solana balance for from chain\n  useEffect(() => {\n    if (fromChain && fromToken && fromChain.vmType === 'svm' && solanaAddress) {\n--\n  const loadUserStreak = () => {\n    if (!address) return\n    \n    const stored = localStorage.getItem(`streak_${address}`)\n    if (stored) {\n      const streak = JSON.parse(stored)\n      const now = Date.now()\n      const timeSinceLastSwap = now - streak.lastSwapTimestamp\n      const twentyFourHours = 24 * 60 * 60 * 1000\n      \n      if (timeSinceLastSwap > twentyFourHours) {\n        streak.currentStreak = 0\n      }\n      \n      setUserStreak(streak)\n    }\n  }\n\n",
+      "exit": 0,
+      "description": "Find loadUserStreak function"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"loadUserStreak\" src/pages/RelaySwap.tsx -A 30 | head -50",
+    "time": {
+      "start": 1767175036658,
+      "end": 1767175036665
+    }
+  }
+}

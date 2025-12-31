@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73d6ae7f0018N0gk61sy3MWCv",
+  "messageID": "msg_b73d66282001ztMbHfVRuccgfr",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Shu44CDMB7EUsLxzRQmKAx",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"const updateUserStreak\" src/pages/RelaySwap.tsx -A 40",
+      "description": "Find updateUserStreak function implementation"
+    },
+    "output": "  const updateUserStreak = () => {\n    if (!address) return\n    \n    const now = Date.now()\n    const stored = localStorage.getItem(`streak_${address}`)\n    const current = stored ? JSON.parse(stored) : { currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 }\n    \n    const timeSinceLastSwap = now - current.lastSwapTimestamp\n    const twentyFourHours = 24 * 60 * 60 * 1000\n    \n    let newStreak = current.currentStreak\n    let showStreakMessage = false\n    \n    if (current.lastSwapTimestamp === 0) {\n      newStreak = 1\n    } else if (timeSinceLastSwap <= twentyFourHours) {\n      newStreak = current.currentStreak + 1\n      showStreakMessage = true\n    } else {\n      newStreak = 1\n    }\n    \n    const updated = {\n      currentStreak: newStreak,\n      lastSwapTimestamp: now,\n      totalSwaps: current.totalSwaps + 1,\n    }\n    \n    localStorage.setItem(`streak_${address}`, JSON.stringify(updated))\n    setUserStreak(updated)\n    \n    if (showStreakMessage) {\n      const randomMessage = STREAK_MESSAGES[Math.floor(Math.random() * STREAK_MESSAGES.length)]\n      toast.success(randomMessage, {\n        duration: 3000,\n      })\n    }\n  }\n\n  const loadLeaderboard = () => {\n    const stored = localStorage.getItem('leaderboard')\n",
+    "metadata": {
+      "output": "  const updateUserStreak = () => {\n    if (!address) return\n    \n    const now = Date.now()\n    const stored = localStorage.getItem(`streak_${address}`)\n    const current = stored ? JSON.parse(stored) : { currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 }\n    \n    const timeSinceLastSwap = now - current.lastSwapTimestamp\n    const twentyFourHours = 24 * 60 * 60 * 1000\n    \n    let newStreak = current.currentStreak\n    let showStreakMessage = false\n    \n    if (current.lastSwapTimestamp === 0) {\n      newStreak = 1\n    } else if (timeSinceLastSwap <= twentyFourHours) {\n      newStreak = current.currentStreak + 1\n      showStreakMessage = true\n    } else {\n      newStreak = 1\n    }\n    \n    const updated = {\n      currentStreak: newStreak,\n      lastSwapTimestamp: now,\n      totalSwaps: current.totalSwaps + 1,\n    }\n    \n    localStorage.setItem(`streak_${address}`, JSON.stringify(updated))\n    setUserStreak(updated)\n    \n    if (showStreakMessage) {\n      const randomMessage = STREAK_MESSAGES[Math.floor(Math.random() * STREAK_MESSAGES.length)]\n      toast.success(randomMessage, {\n        duration: 3000,\n      })\n    }\n  }\n\n  const loadLeaderboard = () => {\n    const stored = localStorage.getItem('leaderboard')\n",
+      "exit": 0,
+      "description": "Find updateUserStreak function implementation"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"const updateUserStreak\" src/pages/RelaySwap.tsx -A 40",
+    "time": {
+      "start": 1767175009237,
+      "end": 1767175009243
+    }
+  }
+}

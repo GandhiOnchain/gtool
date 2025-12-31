@@ -1399,11 +1399,17 @@ export default function RelaySwap() {
       const timeSinceLastSwap = now - streak.lastSwapTimestamp
       const twentyFourHours = 24 * 60 * 60 * 1000
       
+      // Reset streak if more than 24 hours have passed since last swap
       if (timeSinceLastSwap > twentyFourHours) {
-        streak.currentStreak = 0
+        const updated = {
+          ...streak,
+          currentStreak: 0,
+        }
+        localStorage.setItem(`streak_${address}`, JSON.stringify(updated))
+        setUserStreak(updated)
+      } else {
+        setUserStreak(streak)
       }
-      
-      setUserStreak(streak)
     }
   }
 
@@ -1417,16 +1423,32 @@ export default function RelaySwap() {
     const timeSinceLastSwap = now - current.lastSwapTimestamp
     const twentyFourHours = 24 * 60 * 60 * 1000
     
+    // Check if this is a swap on a new day (not just within 24 hours)
+    const lastSwapDate = new Date(current.lastSwapTimestamp)
+    const currentDate = new Date(now)
+    const isSameDay = lastSwapDate.getFullYear() === currentDate.getFullYear() &&
+                      lastSwapDate.getMonth() === currentDate.getMonth() &&
+                      lastSwapDate.getDate() === currentDate.getDate()
+    
     let newStreak = current.currentStreak
     let showStreakMessage = false
     
     if (current.lastSwapTimestamp === 0) {
+      // First swap ever
       newStreak = 1
+      showStreakMessage = true
+    } else if (isSameDay) {
+      // Same day - don't increment streak, just update total swaps
+      newStreak = current.currentStreak
+      showStreakMessage = false
     } else if (timeSinceLastSwap <= twentyFourHours) {
+      // Next day within 24 hours - extend streak
       newStreak = current.currentStreak + 1
       showStreakMessage = true
     } else {
+      // More than 24 hours - reset streak
       newStreak = 1
+      showStreakMessage = true
     }
     
     const updated = {
@@ -1438,7 +1460,7 @@ export default function RelaySwap() {
     localStorage.setItem(`streak_${address}`, JSON.stringify(updated))
     setUserStreak(updated)
     
-    if (showStreakMessage) {
+    if (showStreakMessage && newStreak > 1) {
       const randomMessage = STREAK_MESSAGES[Math.floor(Math.random() * STREAK_MESSAGES.length)]
       toast.success(randomMessage, {
         duration: 3000,

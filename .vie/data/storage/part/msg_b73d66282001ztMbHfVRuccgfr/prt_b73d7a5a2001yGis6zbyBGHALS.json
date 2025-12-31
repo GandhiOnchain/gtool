@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73d7a5a2001yGis6zbyBGHALS",
+  "messageID": "msg_b73d66282001ztMbHfVRuccgfr",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Perfect! I've fixed the streak logic. Here's what I changed:\n\n## Streak Logic Fix\n\n### Previous Behavior (Incorrect)\n- Streak incremented on **every swap** within 24 hours\n- Multiple swaps per day would artificially inflate the streak\n- No distinction between same-day swaps and consecutive-day swaps\n\n### New Behavior (Correct)\n\n**Same Day Swaps**:\n- First swap of the day → Extends streak (if within 24 hours of previous day)\n- Additional swaps same day → Streak stays the same, only total swaps increases\n- No streak message shown for same-day swaps\n\n**Next Day Swaps**:\n- Swap on next day (within 24 hours) → Streak extends by 1\n- Shows celebration message\n- Updates timestamp to new day\n\n**Streak Break**:\n- More than 24 hours since last swap → Streak resets to 1\n- Starts fresh streak\n\n### Implementation Details\n\n```typescript\n// Check if swap is on the same calendar day\nconst lastSwapDate = new Date(current.lastSwapTimestamp)\nconst currentDate = new Date(now)\nconst isSameDay = lastSwapDate.getFullYear() === currentDate.getFullYear() &&\n                  lastSwapDate.getMonth() === currentDate.getMonth() &&\n                  lastSwapDate.getDate() === currentDate.getDate()\n\nif (isSameDay) {\n  // Same day - don't increment streak\n  newStreak = current.currentStreak\n  showStreakMessage = false\n}\n```\n\n### What This Fixes\n\n✅ **One Streak Per Day**: Streak only extends once per calendar day\n✅ **Accurate Tracking**: Total swaps still increments on every swap\n✅ **Fair Gamification**: Can't game the system with multiple swaps per day\n✅ **Proper Messages**: Celebration messages only on actual streak extensions\n✅ **Consistent Logic**: Both `updateUserStreak` and `loadUserStreak` use same logic\n\nThe streak system now works correctly - it extends only on the first swap of each new day, not on every swap.",
+  "time": {
+    "start": 1767175082087,
+    "end": 1767175082087
+  }
+}

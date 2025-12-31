@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73d6c727001GmOUccXH6c9vod",
+  "messageID": "msg_b73d66282001ztMbHfVRuccgfr",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I found the issue! The streak logic on line 1416 is wrong:\n\n```typescript\n} else if (timeSinceLastSwap <= twentyFourHours) {\n  newStreak = current.currentStreak + 1  // This increments on EVERY swap within 24 hours!\n  showStreakMessage = true\n}\n```\n\nThis increments the streak on every swap within 24 hours, not just once per day. Let me fix this to only increment once per day:",
+  "time": {
+    "start": 1767175028679,
+    "end": 1767175028679
+  }
+}
