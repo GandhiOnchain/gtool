@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7560d8be001FxEZgzOgRzQq5Z",
+  "messageID": "msg_b755f6a85001qk2QEIFKINmECc",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01SPSEWvhxqBEd6Tfew9h2nD",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && head -5 src/pages/RelaySwap.tsx",
+      "description": "Check first few lines"
+    },
+    "output": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\nimport { parseUnits, formatUnits } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\n",
+    "metadata": {
+      "output": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\nimport { parseUnits, formatUnits } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\n",
+      "exit": 0,
+      "description": "Check first few lines"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && head -5 src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767200841188,
+      "end": 1767200841191
+    }
+  }
+}

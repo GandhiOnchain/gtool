@@ -1,0 +1,25 @@
+{
+  "id": "prt_b75610e4c001vmGptIMEmMgMef",
+  "messageID": "msg_b755f6a85001qk2QEIFKINmECc",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01W6q5w6qYs8MpRL7vxXyqpB",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2220,
+      "limit": 25
+    },
+    "output": "<file>\n02221|       // Group by token address and spender\n02222|       const approvalMap = new Map<string, { token: string; spender: string; lastValue: bigint }>()\n02223|       \n02224|       for (const event of approvalEvents) {\n02225|         const tokenAddress = event.address\n02226|         const spender = event.args.spender\n02227|         const value = event.args.value\n02228|         \n02229|         if (!spender || value === undefined) continue\n02230|         \n02231|         const key = `${tokenAddress.toLowerCase()}-${spender.toLowerCase()}`\n02232|         \n02233|         // Keep the most recent approval value\n02234|         if (!approvalMap.has(key) || event.blockNumber > (approvalMap.get(key) as any).blockNumber) {\n02235|           approvalMap.set(key, {\n02236|             token: tokenAddress,\n02237|             spender,\n02238|             lastValue: value,\n02239|           })\n02240|         }\n02241|       }\n02242|       \n02243|       console.log('Unique token-spender pairs:', approvalMap.size)\n02244|       \n02245|       const foundApprovals: typeof approvals = []\n\n(File has more lines. Use 'offset' parameter to read beyond line 2245)\n</file>",
+    "metadata": {
+      "preview": "      // Group by token address and spender\n      const approvalMap = new Map<string, { token: string; spender: string; lastValue: bigint }>()\n      \n      for (const event of approvalEvents) {\n        const tokenAddress = event.address\n        const spender = event.args.spender\n        const value = event.args.value\n        \n        if (!spender || value === undefined) continue\n        \n        const key = `${tokenAddress.toLowerCase()}-${spender.toLowerCase()}`\n        \n        // Keep the most recent approval value\n        if (!approvalMap.has(key) || event.blockNumber > (approvalMap.get(key) as any).blockNumber) {\n          approvalMap.set(key, {\n            token: tokenAddress,\n            spender,\n            lastValue: value,\n          })\n        }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767200854617,
+      "end": 1767200854619
+    }
+  }
+}

@@ -2175,9 +2175,9 @@ export default function RelaySwap() {
     
     setIsLoadingApprovals(true)
     try {
-      console.log('Loading approvals for chain:', revokeChain.displayName)
+      console.log('Loading approvals for chain:', revokeChain.displayName, 'address:', address)
       
-      const { createPublicClient, http, defineChain } = await import('viem')
+      const { createPublicClient, http, defineChain, parseAbiItem } = await import('viem')
       
       const chainConfig = defineChain({
         id: revokeChain.id,
@@ -2197,122 +2197,123 @@ export default function RelaySwap() {
         transport: http(revokeChain.httpRpcUrl),
       })
       
-      // Get tokens for this chain
-      const tokens = await relayAPI.getCurrencies({
-        chainIds: [revokeChain.id],
-        defaultList: true,
-        limit: 100,
+      // Get current block number
+      const currentBlock = await publicClient.getBlockNumber()
+      console.log('Current block:', currentBlock)
+      
+      // Scan for Approval events from the last 1M blocks (or less if chain is new)
+      const fromBlock = currentBlock > 1000000n ? currentBlock - 1000000n : 0n
+      
+      console.log('Scanning for Approval events from block', fromBlock.toString(), 'to', currentBlock.toString())
+      
+      // Get Approval events where owner is the user's address
+      const approvalEvents = await publicClient.getLogs({
+        event: parseAbiItem('event Approval(address indexed owner, address indexed spender, uint256 value)'),
+        args: {
+          owner: address as `0x${string}`,
+        },
+        fromBlock,
+        toBlock: currentBlock,
       })
       
-      console.log('Checking approvals for', tokens.length, 'tokens on', revokeChain.displayName)
+      console.log('Found', approvalEvents.length, 'Approval events')
+      
+      // Group by token address and spender
+      const approvalMap = new Map<string, { token: string; spender: string; lastValue: bigint; blockNumber: bigint }>()
+      
+      for (const event of approvalEvents) {
+        const tokenAddress = event.address
+        const spender = event.args.spender
+        const value = event.args.value
+        
+        if (!spender || value === undefined) continue
+        
+        const key = `${tokenAddress.toLowerCase()}-${spender.toLowerCase()}`
+        
+        // Keep the most recent approval value
+        const existing = approvalMap.get(key)
+        if (!existing || event.blockNumber > existing.blockNumber) {
+          approvalMap.set(key, {
+            token: tokenAddress,
+            spender,
+            lastValue: value,
+            blockNumber: event.blockNumber,
+          })
+        }
+      }
+      
+      console.log('Unique token-spender pairs:', approvalMap.size)
       
       const foundApprovals: typeof approvals = []
       
-      // Common spender addresses per chain
-      const getSpendersForChain = (chainId: number) => {
-        const common = [
-          { address: '0x0000000000001ff3684f28c67538d4d072c22734', name: 'Relay' },
-          { address: '0x000000000022d473030f116ddee9f6b43ac78ba3', name: 'Permit2' },
-        ]
-        
-        // Chain-specific spenders
-        if (chainId === 1) { // Ethereum
-          return [
-            ...common,
-            { address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad', name: 'Uniswap Universal Router' },
-            { address: '0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45', name: 'Uniswap V3 Router' },
-            { address: '0x7a250d5630b4cf539739df2c5dacb4c659f2488d', name: 'Uniswap V2 Router' },
-          ]
-        } else if (chainId === 8453) { // Base
-          return [
-            ...common,
-            { address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad', name: 'Uniswap Universal Router' },
-            { address: '0x2626664c2603336e57b271c5c0b26f421741e481', name: 'Uniswap V3 Router (Base)' },
-          ]
-        } else if (chainId === 10) { // Optimism
-          return [
-            ...common,
-            { address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad', name: 'Uniswap Universal Router' },
-            { address: '0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45', name: 'Uniswap V3 Router' },
-          ]
-        } else if (chainId === 42161) { // Arbitrum
-          return [
-            ...common,
-            { address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad', name: 'Uniswap Universal Router' },
-            { address: '0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45', name: 'Uniswap V3 Router' },
-          ]
-        } else if (chainId === 137) { // Polygon
-          return [
-            ...common,
-            { address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad', name: 'Uniswap Universal Router' },
-            { address: '0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45', name: 'Uniswap V3 Router' },
-          ]
-        }
-        
-        return common
-      }
-      
-      const commonSpenders = getSpendersForChain(revokeChain.id)
-      console.log('Checking against', commonSpenders.length, 'spenders:', commonSpenders.map(s => s.name))
+      // Now check current allowances for each unique token-spender pair
+      const uniquePairs = Array.from(approvalMap.values())
+      console.log('Checking current allowances for', uniquePairs.length, 'unique token-spender pairs')
       
       let checkedCount = 0
-      let errorCount = 0
+      let activeCount = 0
       
-      for (const token of tokens) {
-        if (token.metadata?.isNative) {
-          console.log('Skipping native token:', token.symbol)
-          continue
-        }
-        
-        for (const spender of commonSpenders) {
-          try {
-            checkedCount++
-            console.log(`Checking ${token.symbol} approval for ${spender.name}...`)
-            
-            const allowance = await publicClient.readContract({
-              address: token.address as `0x${string}`,
-              abi: [{
-                name: 'allowance',
-                type: 'function',
-                stateMutability: 'view',
-                inputs: [
-                  { name: 'owner', type: 'address' },
-                  { name: 'spender', type: 'address' }
-                ],
-                outputs: [{ name: 'remaining', type: 'uint256' }],
-              }],
-              functionName: 'allowance',
-              args: [address as `0x${string}`, spender.address as `0x${string}`],
-            })
-            
-            console.log(`${token.symbol} allowance for ${spender.name}:`, allowance.toString())
-            
-            if (allowance > 0n) {
-              const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
-              const isUnlimited = allowance >= maxUint256 / 2n
-              
-              console.log(`✓ Found approval: ${token.symbol} → ${spender.name}, allowance:`, allowance.toString())
-              
-              foundApprovals.push({
-                token,
-                spender: spender.address,
-                spenderName: spender.name,
-                allowance: allowance.toString(),
-                allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(allowance, token.decimals),
-              })
-            }
-          } catch (e) {
-            errorCount++
-            console.error(`Error checking ${token.symbol} for ${spender.name}:`, e)
+      for (const pair of uniquePairs) {
+        try {
+          checkedCount++
+          
+          // Fetch token info
+          const tokenInfo = await relayAPI.getCurrencies({
+            address: pair.token,
+            chainIds: [revokeChain.id],
+            limit: 1,
+          })
+          
+          const token = tokenInfo[0]
+          if (!token) {
+            console.log('Token not found in Relay DB:', pair.token)
+            continue
           }
+          
+          // Check current allowance (might have been revoked since the event)
+          const currentAllowance = await publicClient.readContract({
+            address: pair.token as `0x${string}`,
+            abi: [{
+              name: 'allowance',
+              type: 'function',
+              stateMutability: 'view',
+              inputs: [
+                { name: 'owner', type: 'address' },
+                { name: 'spender', type: 'address' }
+              ],
+              outputs: [{ name: 'remaining', type: 'uint256' }],
+            }],
+            functionName: 'allowance',
+            args: [address as `0x${string}`, pair.spender as `0x${string}`],
+          })
+          
+          console.log(`${token.symbol} current allowance for ${pair.spender}:`, currentAllowance.toString())
+          
+          if (currentAllowance > 0n) {
+            activeCount++
+            const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
+            const isUnlimited = currentAllowance >= maxUint256 / 2n
+            
+            console.log(`✓ Active approval: ${token.symbol} → ${pair.spender}, allowance:`, currentAllowance.toString())
+            
+            foundApprovals.push({
+              token,
+              spender: pair.spender,
+              spenderName: undefined, // Will show address
+              allowance: currentAllowance.toString(),
+              allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(currentAllowance, token.decimals),
+            })
+          }
+        } catch (e) {
+          console.error('Error checking approval for', pair.token, pair.spender, e)
         }
       }
       
       console.log('Approval scan complete:', {
-        tokensScanned: tokens.length,
-        checksPerformed: checkedCount,
-        errors: errorCount,
-        approvalsFound: foundApprovals.length
+        eventsFound: approvalEvents.length,
+        uniquePairs: uniquePairs.length,
+        checked: checkedCount,
+        activeApprovals: activeCount
       })
       
       console.log('Found', foundApprovals.length, 'approvals')
