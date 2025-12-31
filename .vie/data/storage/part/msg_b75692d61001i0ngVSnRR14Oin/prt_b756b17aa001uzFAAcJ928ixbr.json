@@ -1,0 +1,97 @@
+{
+  "id": "prt_b756b17aa001uzFAAcJ928ixbr",
+  "messageID": "msg_b75692d61001i0ngVSnRR14Oin",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_015r8cKDxA2NpPKpFUkcSUhE",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Research how Rabby/Revoke.cash detect all approvals",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Implement token balance fetching to get user's actual tokens",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Check all user tokens against common spenders",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Add support for more chains and protocols",
+          "status": "completed",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Improve UI to show more approval details",
+          "status": "in_progress",
+          "priority": "medium",
+          "id": "5"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "6"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Research how Rabby/Revoke.cash detect all approvals\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Implement token balance fetching to get user's actual tokens\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Check all user tokens against common spenders\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Add support for more chains and protocols\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"4\"\n  },\n  {\n    \"content\": \"Improve UI to show more approval details\",\n    \"status\": \"in_progress\",\n    \"priority\": \"medium\",\n    \"id\": \"5\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"6\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Research how Rabby/Revoke.cash detect all approvals",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Implement token balance fetching to get user's actual tokens",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Check all user tokens against common spenders",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Add support for more chains and protocols",
+          "status": "completed",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Improve UI to show more approval details",
+          "status": "in_progress",
+          "priority": "medium",
+          "id": "5"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "6"
+        }
+      ]
+    },
+    "title": "2 todos",
+    "time": {
+      "start": 1767201515378,
+      "end": 1767201515379
+    }
+  }
+}

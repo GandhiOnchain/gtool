@@ -4,6 +4,7 @@ import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceip
 import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
+import { useTokensByOwnerOnMultipleChains } from '@/hooks/alchemy/portfolio/useTokensByOwnerOnMultipleChains'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
@@ -2195,33 +2196,79 @@ export default function RelaySwap() {
         transport: http(revokeChain.httpRpcUrl),
       })
       
-      // Common protocol router/spender addresses by chain
+      // Comprehensive protocol spender addresses by chain (like Rabby/Revoke.cash)
       const commonSpenders: Record<number, Array<{ address: string; name: string }>> = {
         1: [ // Ethereum
           { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },
           { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },
           { address: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', name: 'Uniswap V2 Router' },
-          { address: '0xDef1C0ded9bec7F1a1670819833240f027b25EfF', name: '0x Exchange' },
+          { address: '0xDef1C0ded9bec7F1a1670819833240f027b25EfF', name: '0x Exchange Proxy' },
           { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
+          { address: '0x1111111254fb6c44bAC0beD2854e76F90643097d', name: '1inch V4 Router' },
+          { address: '0x11111112542D85B3EF69AE05771c2dCCff4fAa26', name: '1inch V3 Router' },
+          { address: '0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F', name: 'SushiSwap Router' },
+          { address: '0x881D40237659C251811CEC9c364ef91dC08D300C', name: 'Metamask Swap Router' },
+          { address: '0x216B4B4Ba9F3e719726886d34a177484278Bfcae', name: 'ParaSwap V5 Router' },
+          { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap V4 Router' },
+          { address: '0x74de5d4FCbf63E00296fd95d33236B9794016631', name: 'MetaMask Swap' },
+          { address: '0x3328F7f4A1D1C57c35df56bBf0c9dCAFCA309C49', name: 'Curve Router' },
+          { address: '0x99a58482BD75cbab83b27EC03CA68fF489b5788f', name: 'Curve Router V2' },
+          { address: '0xF9234CB08edb93c0d4a4d4c70cC3FfD070e78e07', name: 'Balancer Vault' },
+          { address: '0xBA12222222228d8Ba445958a75a0704d566BF2C8', name: 'Balancer V2 Vault' },
         ],
         8453: [ // Base
           { address: '0x2626664c2603336E57B271c5C0b26F421741e481', name: 'Uniswap V3 Router 2' },
           { address: '0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD', name: 'Uniswap Universal Router' },
           { address: '0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24', name: 'BaseSwap Router' },
+          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
+          { address: '0x327Df1E6de05895d2ab08513aaDD9313Fe505d86', name: 'Aerodrome Router' },
+          { address: '0xcF77a3Ba9A5CA399B7c97c74d54e5b1Beb874E43', name: 'Aerodrome Sugar' },
         ],
         42161: [ // Arbitrum
           { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },
           { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },
           { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
+          { address: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', name: 'SushiSwap Router' },
+          { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap Router' },
+          { address: '0xBA12222222228d8Ba445958a75a0704d566BF2C8', name: 'Balancer V2 Vault' },
         ],
         137: [ // Polygon
           { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },
           { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },
           { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
+          { address: '0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff', name: 'QuickSwap Router' },
+          { address: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', name: 'SushiSwap Router' },
+          { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap Router' },
+          { address: '0xBA12222222228d8Ba445958a75a0704d566BF2C8', name: 'Balancer V2 Vault' },
         ],
         10: [ // Optimism
           { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },
           { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },
+          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
+          { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap Router' },
+          { address: '0xBA12222222228d8Ba445958a75a0704d566BF2C8', name: 'Balancer V2 Vault' },
+        ],
+        56: [ // BNB Chain
+          { address: '0x10ED43C718714eb63d5aA57B78B54704E256024E', name: 'PancakeSwap Router' },
+          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
+          { address: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', name: 'SushiSwap Router' },
+          { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap Router' },
+        ],
+        43114: [ // Avalanche
+          { address: '0x60aE616a2155Ee3d9A68541Ba4544862310933d4', name: 'Trader Joe Router' },
+          { address: '0xE54Ca86531e17Ef3616d22Ca28b0D458b6C89106', name: 'Pangolin Router' },
+          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
+          { address: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', name: 'SushiSwap Router' },
+        ],
+        59144: [ // Linea
+          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
+          { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap Router' },
+        ],
+        534352: [ // Scroll
+          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
+        ],
+        5000: [ // Mantle
+          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
         ],
       }
       
@@ -2234,24 +2281,63 @@ export default function RelaySwap() {
         return
       }
       
-      console.log('Checking approvals for', spendersToCheck.length, 'common protocols')
+      console.log('Fetching user tokens via Alchemy...')
       
-      // Get popular tokens on this chain
-      const popularTokens = await relayAPI.getCurrencies({
-        chainIds: [revokeChain.id],
-        limit: 50,
-      })
+      // Get user's actual token holdings via Alchemy
+      let userTokens: Array<{ address: string; symbol: string; name: string; decimals: number; logo?: string }> = []
       
-      console.log('Checking', popularTokens.length, 'popular tokens')
+      try {
+        const { useTokensByOwnerOnMultipleChains } = await import('@/hooks/alchemy/portfolio/useTokensByOwnerOnMultipleChains')
+        const { fetchTokensByOwnerOnMultipleChains } = useTokensByOwnerOnMultipleChains()
+        
+        const tokensResponse = await fetchTokensByOwnerOnMultipleChains({
+          walletAddress: address,
+          chainIds: [revokeChain.id],
+          withMetadata: true,
+          withPrices: false,
+          includeNativeTokens: false,
+        })
+        
+        userTokens = tokensResponse.data.tokens
+          .filter(t => t.tokenAddress && t.tokenAddress !== '0x0000000000000000000000000000000000000000')
+          .map(t => ({
+            address: t.tokenAddress!,
+            symbol: t.tokenMetadata?.symbol || 'UNKNOWN',
+            name: t.tokenMetadata?.name || 'Unknown Token',
+            decimals: t.tokenMetadata?.decimals || 18,
+            logo: t.tokenMetadata?.logo || undefined,
+          }))
+        
+        console.log('Found', userTokens.length, 'tokens in wallet via Alchemy')
+      } catch (alchemyError) {
+        console.warn('Alchemy fetch failed, falling back to popular tokens:', alchemyError)
+        
+        // Fallback to popular tokens if Alchemy fails
+        const popularTokens = await relayAPI.getCurrencies({
+          chainIds: [revokeChain.id],
+          limit: 100,
+        })
+        
+        userTokens = popularTokens
+          .filter(t => t.address !== '0x0000000000000000000000000000000000000000')
+          .map(t => ({
+            address: t.address,
+            symbol: t.symbol,
+            name: t.name,
+            decimals: t.decimals,
+            logo: t.metadata?.logoURI,
+          }))
+        
+        console.log('Using', userTokens.length, 'popular tokens as fallback')
+      }
       
       const foundApprovals: typeof approvals = []
       let checkedCount = 0
       
-      // Check each token against each spender
-      for (const token of popularTokens) {
-        // Skip native token
-        if (token.address === '0x0000000000000000000000000000000000000000') continue
-        
+      console.log('Checking', userTokens.length, 'tokens against', spendersToCheck.length, 'protocols')
+      
+      // Check each user token against each spender
+      for (const token of userTokens) {
         for (const spender of spendersToCheck) {
           try {
             checkedCount++
@@ -2278,8 +2364,18 @@ export default function RelaySwap() {
               
               console.log(`✓ Active approval: ${token.symbol} → ${spender.name}, allowance:`, currentAllowance.toString())
               
+              // Convert to RelayCurrency format
+              const relayCurrency: RelayCurrency = {
+                address: token.address,
+                symbol: token.symbol,
+                name: token.name,
+                decimals: token.decimals,
+                chainId: revokeChain.id,
+                metadata: token.logo ? { logoURI: token.logo } : undefined,
+              }
+              
               foundApprovals.push({
-                token,
+                token: relayCurrency,
                 spender: spender.address,
                 spenderName: spender.name,
                 allowance: currentAllowance.toString(),
@@ -2287,18 +2383,18 @@ export default function RelaySwap() {
               })
             }
           } catch (e) {
-            // Silently skip tokens that don't support allowance (might not be ERC20)
+            // Silently skip tokens that don't support allowance
           }
           
-          // Small delay to avoid rate limiting
-          if (checkedCount % 10 === 0) {
-            await new Promise(resolve => setTimeout(resolve, 50))
+          // Small delay every 20 checks to avoid rate limiting
+          if (checkedCount % 20 === 0) {
+            await new Promise(resolve => setTimeout(resolve, 100))
           }
         }
       }
       
       console.log('Approval scan complete:', {
-        tokensChecked: popularTokens.length,
+        tokensChecked: userTokens.length,
         spendersChecked: spendersToCheck.length,
         totalChecks: checkedCount,
         activeApprovals: foundApprovals.length
@@ -3285,8 +3381,13 @@ export default function RelaySwap() {
             </Card>
 
             {isLoadingApprovals ? (
-              <Card className="p-4 text-center text-sm text-muted-foreground">
-                Scanning for approvals...
+              <Card className="p-4 text-center">
+                <div className="text-sm text-muted-foreground mb-2">
+                  Scanning for approvals...
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Checking your tokens against known protocols
+                </div>
               </Card>
             ) : approvals.length === 0 && revokeChain ? (
               <Card className="p-4 text-center">
@@ -3294,60 +3395,81 @@ export default function RelaySwap() {
                   No active approvals found
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  This means you haven't approved any tokens for common protocols on {revokeChain.displayName}.
-                  Approvals are created when you swap tokens.
+                  You haven't approved any tokens for common protocols on {revokeChain.displayName}.
                 </div>
               </Card>
             ) : approvals.length > 0 ? (
-              <ScrollArea className="h-[400px]">
-                <div className="space-y-2">
-                  {approvals.map((approval, idx) => (
-                    <Card key={idx} className="p-3">
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            {approval.token.metadata?.logoURI && (
-                              <img src={approval.token.metadata.logoURI} alt="" className="h-5 w-5 rounded-full" />
+              <>
+                <Card className="p-3 bg-muted/50">
+                  <div className="text-xs text-muted-foreground">
+                    Found {approvals.length} active approval{approvals.length > 1 ? 's' : ''} • Review and revoke unused approvals to improve security
+                  </div>
+                </Card>
+                <ScrollArea className="h-[400px]">
+                  <div className="space-y-2">
+                    {approvals.map((approval, idx) => (
+                      <Card key={idx} className="p-3 hover:bg-muted/50 transition-colors">
+                        <div className="space-y-2.5">
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="flex items-center gap-2 flex-1 min-w-0">
+                              {approval.token.metadata?.logoURI ? (
+                                <img src={approval.token.metadata.logoURI} alt="" className="h-6 w-6 rounded-full flex-shrink-0" />
+                              ) : (
+                                <div className="h-6 w-6 rounded-full bg-muted flex-shrink-0" />
+                              )}
+                              <div className="min-w-0 flex-1">
+                                <div className="text-sm font-medium">{approval.token.symbol}</div>
+                                <div className="text-xs text-muted-foreground truncate">{approval.token.name}</div>
+                              </div>
+                            </div>
+                            {approval.allowanceFormatted === 'Unlimited' && (
+                              <Badge variant="destructive" className="text-xs flex-shrink-0">
+                                Unlimited
+                              </Badge>
                             )}
-                            <div>
-                              <div className="text-xs font-medium">{approval.token.symbol}</div>
-                              <div className="text-xs text-muted-foreground">{approval.token.name}</div>
+                          </div>
+                          
+                          <Separator />
+                          
+                          <div className="space-y-1.5">
+                            <div className="flex justify-between text-xs gap-2">
+                              <span className="text-muted-foreground">Protocol</span>
+                              <span className="font-medium text-right">
+                                {approval.spenderName || `${approval.spender.slice(0, 6)}...${approval.spender.slice(-4)}`}
+                              </span>
+                            </div>
+                            <div className="flex justify-between text-xs gap-2">
+                              <span className="text-muted-foreground">Allowance</span>
+                              <span className="font-mono text-right">
+                                {approval.allowanceFormatted === 'Unlimited' 
+                                  ? '∞' 
+                                  : `${parseFloat(approval.allowanceFormatted).toFixed(4)} ${approval.token.symbol}`
+                                }
+                              </span>
+                            </div>
+                            <div className="flex justify-between text-xs gap-2">
+                              <span className="text-muted-foreground">Spender Address</span>
+                              <span className="font-mono text-right text-muted-foreground">
+                                {approval.spender.slice(0, 6)}...{approval.spender.slice(-4)}
+                              </span>
                             </div>
                           </div>
+                          
+                          <Button
+                            onClick={() => revokeApproval(approval)}
+                            disabled={isRevoking}
+                            variant="destructive"
+                            size="sm"
+                            className="w-full h-8 text-xs"
+                          >
+                            {isRevoking ? 'Revoking...' : 'Revoke Approval'}
+                          </Button>
                         </div>
-                        
-                        <div className="space-y-1">
-                          <div className="flex justify-between text-xs">
-                            <span className="text-muted-foreground">Spender</span>
-                            <span className="font-mono">
-                              {approval.spenderName || `${approval.spender.slice(0, 6)}...${approval.spender.slice(-4)}`}
-                            </span>
-                          </div>
-                          <div className="flex justify-between text-xs">
-                            <span className="text-muted-foreground">Allowance</span>
-                            <span className="font-mono">
-                              {approval.allowanceFormatted === 'Unlimited' 
-                                ? 'Unlimited' 
-                                : `${approval.allowanceFormatted} ${approval.token.symbol}`
-                              }
-                            </span>
-                          </div>
-                        </div>
-                        
-                        <Button
-                          onClick={() => revokeApproval(approval)}
-                          disabled={isRevoking}
-                          variant="destructive"
-                          size="sm"
-                          className="w-full h-8 text-xs"
-                        >
-                          {isRevoking ? 'Revoking...' : 'Revoke Approval'}
-                        </Button>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </ScrollArea>
+                      </Card>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </>
             ) : null}
           </TabsContent>
 

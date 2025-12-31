@@ -1,0 +1,25 @@
+{
+  "id": "prt_b75696944001yp0GpN1r5UA4Nq",
+  "messageID": "msg_b75692d61001i0ngVSnRR14Oin",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01HTMT2Y4sxcKz1nGW3VtxwX",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/config.ts",
+      "offset": 100,
+      "limit": 150
+    },
+    "output": "<file>\n00101|   METIS_MAINNET = \"metis-mainnet\",\n00102| \n00103|   // opBNB\n00104|   OPBNB_MAINNET = \"opbnb-mainnet\",\n00105| \n00106|   // Berachain\n00107|   BERACHAIN_MAINNET = \"berachain-mainnet\",\n00108| \n00109|   // Soneium\n00110|   SONEIUM_MAINNET = \"soneium-mainnet\",\n00111| \n00112|   // World Chain\n00113|   WORLDCHAIN_MAINNET = \"worldchain-mainnet\",\n00114| \n00115|   // Rootstock\n00116|   ROOTSTOCK_MAINNET = \"rootstock-mainnet\",\n00117| \n00118|   // Zora\n00119|   ZORA_MAINNET = \"zora-mainnet\",\n00120| \n00121|   // Frax (Fraxtal)\n00122|   FRAX_MAINNET = \"frax-mainnet\",\n00123| \n00124|   // CrossFi (only testnet present in your list)\n00125|   CROSSFI_TESTNET = \"crossfi-testnet\",\n00126| \n00127|   // ApeChain\n00128|   APECHAIN_MAINNET = \"apechain-mainnet\",\n00129| \n00130|   // Lumia\n00131|   LUMIA_PRISM = \"lumia-prism\",\n00132| \n00133|   // Unichain\n00134|   UNICHAIN_MAINNET = \"unichain-mainnet\",\n00135| \n00136|   // Sonic\n00137|   SONIC_MAINNET = \"sonic-mainnet\",\n00138| \n00139|   // Abstract\n00140|   ABSTRACT_MAINNET = \"abstract-mainnet\",\n00141| \n00142|   // Ink\n00143|   INK_MAINNET = \"ink-mainnet\",\n00144| \n00145|   // Sei\n00146|   SEI_MAINNET = \"sei-mainnet\",\n00147| \n00148|   // Ronin\n00149|   RONIN_MAINNET = \"ronin-mainnet\",\n00150| \n00151|   // Superseed\n00152|   SUPERSEED_MAINNET = \"superseed-mainnet\",\n00153| \n00154|   // Tea (only Sepolia in your list)\n00155|   TEA_SEPOLIA = \"tea-sepolia\",\n00156| \n00157|   // Story\n00158|   STORY_MAINNET = \"story-mainnet\",\n00159| \n00160|   // Botanix\n00161|   BOTANIX_MAINNET = \"botanix-mainnet\",\n00162|   BOTANIX_TESTNET = \"botanix-testnet\",\n00163| \n00164|   // Humanity\n00165|   HUMANITY_MAINNET = \"humanity-mainnet\",\n00166| \n00167|   // Rise (testnet only)\n00168|   RISE_TESTNET = \"rise-testnet\",\n00169| \n00170|   // Hyperliquid (app-chain id in your list)\n00171|   HYPERLIQUID_MAINNET = \"hyperliquid-mainnet\",\n00172| \n00173|   SHAPE_MAINNET = \"shape-mainnet\",\n00174| }\n00175| \n00176| export const CHAIN_ID_TO_NETWORK: Record<number, Network> = {\n00177|   // Ethereum\n00178|   1: Network.ETH_MAINNET,\n00179| \n00180|   // Optimism\n00181|   10: Network.OPT_MAINNET,\n00182| \n00183|   // Arbitrum\n00184|   42161: Network.ARB_MAINNET,\n00185|   42170: Network.ARBNOVA_MAINNET,\n00186| \n00187|   // Polygon\n00188|   137: Network.MATIC_MAINNET,\n00189| \n00190|   // Base\n00191|   8453: Network.BASE_MAINNET,\n00192|   84532: Network.BASE_SEPOLIA,\n00193| \n00194|   // zkSync Era\n00195|   324: Network.ZKSYNC_MAINNET,\n00196| \n00197|   // Astar\n00198|   592: Network.ASTAR_MAINNET,\n00199| \n00200|   // Linea\n00201|   59144: Network.LINEA_MAINNET,\n00202| \n00203|   // Fantom\n00204|   250: Network.FANTOM_MAINNET,\n00205| \n00206|   // ZetaChain\n00207|   7000: Network.ZETACHAIN_MAINNET,\n00208| \n00209|   // Blast\n00210|   81457: Network.BLAST_MAINNET,\n00211| \n00212|   // Mantle\n00213|   5000: Network.MANTLE_MAINNET,\n00214| \n00215|   // Scroll\n00216|   534352: Network.SCROLL_MAINNET,\n00217| \n00218|   // Gnosis (xDai)\n00219|   100: Network.GNOSIS_MAINNET,\n00220| \n00221|   // BNB Chain\n00222|   56: Network.BNB_MAINNET,\n00223| \n00224|   // Avalanche\n00225|   43114: Network.AVAX_MAINNET,\n00226| \n00227|   // Celo\n00228|   42220: Network.CELO_MAINNET,\n00229| \n00230|   // Metis\n00231|   1088: Network.METIS_MAINNET,\n00232| \n00233|   // opBNB\n00234|   204: Network.OPBNB_MAINNET,\n00235| \n00236|   // Berachain\n00237|   80094: Network.BERACHAIN_MAINNET,\n00238| \n00239|   // Soneium\n00240|   1868: Network.SONEIUM_MAINNET,\n00241| \n00242|   // World Chain\n00243|   480: Network.WORLDCHAIN_MAINNET,\n00244| \n00245|   // Rootstock\n00246|   30: Network.ROOTSTOCK_MAINNET,\n00247| \n00248|   // Zora\n00249|   7777777: Network.ZORA_MAINNET,\n00250| \n\n(File has more lines. Use 'offset' parameter to read beyond line 250)\n</file>",
+    "metadata": {
+      "preview": "  METIS_MAINNET = \"metis-mainnet\",\n\n  // opBNB\n  OPBNB_MAINNET = \"opbnb-mainnet\",\n\n  // Berachain\n  BERACHAIN_MAINNET = \"berachain-mainnet\",\n\n  // Soneium\n  SONEIUM_MAINNET = \"soneium-mainnet\",\n\n  // World Chain\n  WORLDCHAIN_MAINNET = \"worldchain-mainnet\",\n\n  // Rootstock\n  ROOTSTOCK_MAINNET = \"rootstock-mainnet\",\n\n  // Zora\n  ZORA_MAINNET = \"zora-mainnet\",\n"
+    },
+    "title": "frontend/src/lib/alchemy/config.ts",
+    "time": {
+      "start": 1767201402303,
+      "end": 1767201402304
+    }
+  }
+}

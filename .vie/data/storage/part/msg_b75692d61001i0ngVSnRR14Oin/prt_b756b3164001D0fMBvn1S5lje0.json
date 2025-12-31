@@ -1,0 +1,25 @@
+{
+  "id": "prt_b756b3164001D0fMBvn1S5lje0",
+  "messageID": "msg_b75692d61001i0ngVSnRR14Oin",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01RLfuLmPYrdDEBprbhbzyCA",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3310,
+      "limit": 60
+    },
+    "output": "<file>\n03311|                                 <img src={swap.toChainIcon} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n03312|                               )}\n03313|                               <div className=\"flex-1\">\n03314|                                 <div className=\"text-xs font-medium\">\n03315|                                   {swap.toAmount} {swap.toTokenSymbol}\n03316|                                 </div>\n03317|                                 <div className=\"text-xs text-muted-foreground\">\n03318|                                   {swap.toChain}\n03319|                                   {swap.toAmountUsd && ` • $${swap.toAmountUsd}`}\n03320|                                 </div>\n03321|                               </div>\n03322|                             </div>\n03323|                             {swap.txHash && (\n03324|                               <a\n03325|                                 href={`https://relay.link/tx/${swap.txHash}`}\n03326|                                 target=\"_blank\"\n03327|                                 rel=\"noopener noreferrer\"\n03328|                                 className=\"text-xs text-primary hover:underline\"\n03329|                               >\n03330|                                 View\n03331|                               </a>\n03332|                             )}\n03333|                           </div>\n03334| \n03335|                           {/* Share button */}\n03336|                           <div className=\"flex justify-end\">\n03337|                             <Button\n03338|                               variant=\"ghost\"\n03339|                               size=\"sm\"\n03340|                               onClick={() => shareSwapReceipt(swap)}\n03341|                               className=\"h-7 px-2 text-xs\"\n03342|                             >\n03343|                               <Share2 className=\"h-3 w-3 mr-1\" />\n03344|                               Share\n03345|                             </Button>\n03346|                           </div>\n03347|                         </div>\n03348|                       </Card>\n03349|                     )\n03350|                   })\n03351|                 )}\n03352|               </div>\n03353|             </ScrollArea>\n03354|           </TabsContent>\n03355| \n03356|           <TabsContent value=\"revoke\" className=\"space-y-2 mt-2\">\n03357|             <Card className=\"p-3\">\n03358|               <div className=\"space-y-2\">\n03359|                 <div className=\"text-sm font-medium\">Revoke Token Approvals</div>\n03360|                 <div className=\"text-xs text-muted-foreground\">\n03361|                   Select a chain to view and revoke token approvals\n03362|                 </div>\n03363|                 \n03364|                 <Button\n03365|                   variant=\"outline\"\n03366|                   onClick={() => {\n03367|                     setSelectingFor('revoke')\n03368|                     setIsChainSelectOpen(true)\n03369|                   }}\n03370|                   className=\"w-full justify-between h-8 text-xs\"\n\n(File has more lines. Use 'offset' parameter to read beyond line 3370)\n</file>",
+    "metadata": {
+      "preview": "                                <img src={swap.toChainIcon} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n                              )}\n                              <div className=\"flex-1\">\n                                <div className=\"text-xs font-medium\">\n                                  {swap.toAmount} {swap.toTokenSymbol}\n                                </div>\n                                <div className=\"text-xs text-muted-foreground\">\n                                  {swap.toChain}\n                                  {swap.toAmountUsd && ` • $${swap.toAmountUsd}`}\n                                </div>\n                              </div>\n                            </div>\n                            {swap.txHash && (\n                              <a\n                                href={`https://relay.link/tx/${swap.txHash}`}\n                                target=\"_blank\"\n                                rel=\"noopener noreferrer\"\n                                className=\"text-xs text-primary hover:underline\"\n                              >\n                                View"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767201519270,
+      "end": 1767201519275
+    }
+  }
+}
