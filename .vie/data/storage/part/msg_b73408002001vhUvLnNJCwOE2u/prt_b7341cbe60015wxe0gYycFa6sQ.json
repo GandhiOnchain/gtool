@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7341cbe60015wxe0gYycFa6sQ",
+  "messageID": "msg_b73408002001vhUvLnNJCwOE2u",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! Now the app will:\n\n1. **Load chains from both Relay AND Rango** - so you'll see Solana, Cosmos, and other non-EVM chains in the chain selector\n2. **Load tokens appropriately**:\n   - EVM chains → Uses Relay API\n   - Solana/Cosmos → Uses Rango API\n3. **Route swaps intelligently**:\n   - EVM → EVM: Uses Relay\n   - EVM → Solana: Uses Rango\n   - Cross-VM: Uses Rango/LI.FI\n\nNow when you select Solana as the destination chain, you should see:\n- Solana appears in the chain list\n- SOL and other Solana tokens appear in the token list\n- The swap uses Rango Exchange instead of Relay\n- No more \"currencies don't match\" error\n\nTry swapping from Ethereum to Solana now!",
+  "time": {
+    "start": 1767165256071,
+    "end": 1767165256071
+  }
+}

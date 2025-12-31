@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73409271001O3ajpKwPI6rz1t",
+  "messageID": "msg_b73408002001vhUvLnNJCwOE2u",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01L943ZV4cd7suuGtcoGJJKV",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://api.rango.exchange/basic/meta\" -H \"API-KEY: c6381a79-2817-4602-83bf-6a641a409e32\" | grep -i \"solana\" -A 5 -B 5 | head -30",
+      "description": "Check if Rango supports Solana"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Check if Rango supports Solana"
+    },
+    "title": "curl -s \"https://api.rango.exchange/basic/meta\" -H \"API-KEY: c6381a79-2817-4602-83bf-6a641a409e32\" | grep -i \"solana\" -A 5 -B 5 | head -30",
+    "time": {
+      "start": 1767165172459,
+      "end": 1767165172813
+    }
+  }
+}

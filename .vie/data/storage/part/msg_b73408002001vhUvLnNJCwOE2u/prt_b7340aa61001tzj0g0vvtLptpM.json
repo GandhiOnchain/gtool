@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7340aa61001tzj0g0vvtLptpM",
+  "messageID": "msg_b73408002001vhUvLnNJCwOE2u",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01HK9ypfHVthfsK1ZojTRqSp",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://api.rango.exchange/basic/meta\" -H \"API-KEY: c6381a79-2817-4602-83bf-6a641a409e32\" 2>&1 | python3 -m json.tool 2>/dev/null | grep -i \"solana\" -B 2 -A 2 | head -20",
+      "description": "Check Rango metadata for Solana"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Check Rango metadata for Solana"
+    },
+    "title": "curl -s \"https://api.rango.exchange/basic/meta\" -H \"API-KEY: c6381a79-2817-4602-83bf-6a641a409e32\" 2>&1 | python3 -m json.tool 2>/dev/null | grep -i \"solana\" -B 2 -A 2 | head -20",
+    "time": {
+      "start": 1767165177859,
+      "end": 1767165178021
+    }
+  }
+}

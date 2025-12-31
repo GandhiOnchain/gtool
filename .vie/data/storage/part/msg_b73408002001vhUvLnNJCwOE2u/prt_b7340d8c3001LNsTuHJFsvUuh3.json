@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7340d8c3001LNsTuHJFsvUuh3",
+  "messageID": "msg_b73408002001vhUvLnNJCwOE2u",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "The problem is clear - we're only loading chains from Relay API which doesn't have Solana. We need to also load chains from Rango. Let me update the loadChains function:",
+  "time": {
+    "start": 1767165203410,
+    "end": 1767165203410
+  }
+}

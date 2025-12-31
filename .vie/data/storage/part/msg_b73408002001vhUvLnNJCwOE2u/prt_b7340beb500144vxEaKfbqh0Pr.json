@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7340beb500144vxEaKfbqh0Pr",
+  "messageID": "msg_b73408002001vhUvLnNJCwOE2u",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Let me check the actual error more carefully. The issue is that we're loading chains from Relay (which only has EVM chains), but trying to swap to Solana. We need to load chains from Rango/LI.FI which support Solana. Let me update the chain loading:",
+  "time": {
+    "start": 1767165185068,
+    "end": 1767165185068
+  }
+}

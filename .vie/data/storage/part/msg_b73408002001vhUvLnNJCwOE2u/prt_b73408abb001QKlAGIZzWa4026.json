@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73408abb001QKlAGIZzWa4026",
+  "messageID": "msg_b73408002001vhUvLnNJCwOE2u",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "The error shows that LI.FI is being used as a fallback but Solana isn't in their supported chains list. The issue is that the swap router is trying LI.FI when Rango fails. Let me check what's happening and fix the Rango integration:",
+  "time": {
+    "start": 1767165172683,
+    "end": 1767165172683
+  }
+}

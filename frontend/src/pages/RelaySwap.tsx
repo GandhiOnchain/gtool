@@ -6,6 +6,7 @@ import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
 import { swapRouter } from '@/lib/swap-router/router'
 import type { UnifiedQuote } from '@/lib/swap-router/types'
+import { rangoAPI } from '@/lib/rango/api'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
@@ -205,14 +206,54 @@ export default function RelaySwap() {
 
   const loadChains = async () => {
     try {
-      const { chains: fetchedChains } = await relayAPI.getChains()
-      const activeChains = fetchedChains.filter(c => !c.disabled)
-      setChains(activeChains)
-      if (activeChains.length > 0) {
-        const baseChain = activeChains.find(c => c.id === 8453) || activeChains[0]
+      // Load chains from both Relay and Rango
+      const [relayResponse, rangoBlockchains] = await Promise.all([
+        relayAPI.getChains(),
+        rangoAPI.getBlockchains(),
+      ])
+      
+      const relayChains = relayResponse.chains.filter(c => !c.disabled)
+      
+      // Convert Rango blockchains to RelayChain format
+      const rangoChains: RelayChain[] = rangoBlockchains
+        .filter(b => b.enabled && (b.type === 'SOLANA' || b.type === 'COSMOS'))
+        .map(b => ({
+          id: b.chainId ? parseInt(b.chainId) : b.name.toLowerCase().charCodeAt(0) * 1000,
+          name: b.name.toLowerCase(),
+          displayName: b.displayName,
+          httpRpcUrl: '',
+          explorerUrl: '',
+          explorerName: '',
+          depositEnabled: true,
+          tokenSupport: 'All',
+          disabled: false,
+          currency: {
+            id: b.shortName.toLowerCase(),
+            symbol: b.shortName,
+            name: b.displayName,
+            address: '0x0000000000000000000000000000000000000000',
+            decimals: 9,
+            supportsBridging: true,
+          },
+          iconUrl: b.logo,
+          vmType: b.type.toLowerCase() as 'evm' | 'svm' | 'cosmos',
+        }))
+      
+      // Combine both chain lists
+      const allChains = [...relayChains, ...rangoChains]
+      setChains(allChains)
+      
+      if (allChains.length > 0) {
+        const baseChain = allChains.find(c => c.id === 8453) || allChains[0]
         setFromChain(baseChain)
-        setToChain(activeChains.find(c => c.id !== baseChain.id) || activeChains[1])
+        setToChain(allChains.find(c => c.id !== baseChain.id) || allChains[1])
       }
+      
+      console.log('Loaded chains:', {
+        relay: relayChains.length,
+        rango: rangoChains.length,
+        total: allChains.length,
+      })
     } catch (error) {
       console.error('Failed to load chains:', error)
       toast.error('Failed to load chains')
@@ -235,11 +276,35 @@ export default function RelaySwap() {
   const loadCurrencies = async (chainId: number, type: 'from' | 'to') => {
     try {
       console.log('Loading currencies for chain:', chainId, 'type:', type)
-      const fetchedCurrencies = await relayAPI.getCurrencies({
-        chainIds: [chainId],
-        defaultList: true,
-        limit: 100,
-      })
+      
+      const chain = chains.find(c => c.id === chainId)
+      const vmType = chain?.vmType || 'evm'
+      
+      let fetchedCurrencies: RelayCurrency[] = []
+      
+      // For EVM chains, use Relay API
+      if (vmType === 'evm') {
+        fetchedCurrencies = await relayAPI.getCurrencies({
+          chainIds: [chainId],
+          defaultList: true,
+          limit: 100,
+        })
+      } else {
+        // For non-EVM chains, use Rango API
+        const rangoTokens = await rangoAPI.getTokens(chain?.name.toUpperCase())
+        fetchedCurrencies = rangoTokens.map(t => ({
+          chainId: chainId,
+          address: t.address || '0x0000000000000000000000000000000000000000',
+          symbol: t.symbol,
+          name: t.name,
+          decimals: t.decimals,
+          metadata: {
+            logoURI: t.image,
+            isNative: !t.address,
+          },
+        }))
+      }
+      
       console.log('Fetched currencies:', fetchedCurrencies.length, 'for chain', chainId)
       console.log('First few tokens:', fetchedCurrencies.slice(0, 5).map(c => c.symbol))
       
