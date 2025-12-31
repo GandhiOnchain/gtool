@@ -1,0 +1,11 @@
+{
+  "id": "prt_b758e3e1c0010Q2DobyquUFGPf",
+  "messageID": "msg_b758d7280001wndQUypjwlnINK",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Now I see the issue! The problem is that we're checking but the approvals might be for different spender addresses than the ones we have in our list. \n\n**Can you please check in Rabby wallet:**\n1. What is the exact spender address shown for your Base approvals?\n2. What protocol name does it show?\n\nThis will help me add the correct spender addresses. The spender address is the key - if we don't have the right spender address in our list, we won't find the approval even though it exists.",
+  "time": {
+    "start": 1767203818738,
+    "end": 1767203818738
+  }
+}

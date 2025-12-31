@@ -1,0 +1,11 @@
+{
+  "id": "prt_b758da8880019sdKvLe1mFdf1j",
+  "messageID": "msg_b758d7280001wndQUypjwlnINK",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "I see we have 6 spenders for Base. The issue is that we're checking but finding 0 approvals. Let me add detailed logging to see what's actually happening with the allowance checks. Let me also check what Rabby shows - can you tell me which protocol/spender Rabby shows for your Base approvals?\n\nIn the meantime, let me add a test to verify the allowance check is working correctly:",
+  "time": {
+    "start": 1767203797440,
+    "end": 1767203797440
+  }
+}
