@@ -1,0 +1,11 @@
+{
+  "id": "prt_b741e34dc00155tptCWcre3UsK",
+  "messageID": "msg_b741e17f9001KyT8El9gqC1GHx",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "The issue is that for batch swaps, we're trying to decode the amount from the transaction data, but Relay's batch swap transactions might use a different encoding. Let me check what the actual transaction structure looks like and use a better approach - we should look at the actual balance changes or use Relay's API to get the proper amounts.\n\nLet me add more detailed logging first to see what we're actually receiving:",
+  "time": {
+    "start": 1767179702124,
+    "end": 1767179702124
+  }
+}

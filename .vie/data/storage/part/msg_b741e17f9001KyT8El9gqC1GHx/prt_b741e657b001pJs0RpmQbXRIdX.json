@@ -1,0 +1,11 @@
+{
+  "id": "prt_b741e657b001pJs0RpmQbXRIdX",
+  "messageID": "msg_b741e17f9001KyT8El9gqC1GHx",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "I see the issue now. For batch swaps, the transactions might not be simple ERC-20 transfers - they could be calls to a Relay contract that handles the batch. Let me try a different approach - instead of trying to decode the transaction data, let's look at what tokens were actually involved by checking the transaction receipts or using a simpler heuristic.\n\nActually, the better approach is to realize that for batch swaps, each `inTx` might be calling a Relay aggregator contract, not the token directly. Let me check if we can extract the token information differently:",
+  "time": {
+    "start": 1767179742381,
+    "end": 1767179742381
+  }
+}
