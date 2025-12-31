@@ -1651,13 +1651,18 @@ export default function RelaySwap() {
               let rawAmount = inTx.data?.value || '0'
               
               console.log(`Batch tx ${i}:`, {
+                to: inTx.data?.to,
                 value: rawAmount,
-                dataLength: inTx.data?.data?.length
+                dataLength: inTx.data?.data?.length,
+                dataPrefix: inTx.data?.data?.substring(0, 10),
+                fee: inTx.fee
               })
               
               // If value is 0, try to decode from data
               if (rawAmount === '0' && inTx.data?.data && inTx.data.data.length > 10) {
                 const txData = inTx.data.data
+                
+                console.log('Full transaction data:', txData)
                 
                 try {
                   // Try standard ERC-20 transfer/approve
@@ -1666,22 +1671,36 @@ export default function RelaySwap() {
                     rawAmount = BigInt(amountHex).toString()
                     console.log('Decoded from standard transfer:', rawAmount)
                   }
-                  // Try other positions for complex calls
+                  // Try multiple positions for complex calls
                   else if (txData.length >= 200) {
-                    // Try second parameter position (common for swap functions)
-                    const amountHex1 = '0x' + txData.substring(10 + 64, 10 + 128)
-                    const amount1 = BigInt(amountHex1)
+                    console.log('Trying to decode from complex transaction, length:', txData.length)
                     
-                    if (amount1 > 0n && amount1 < BigInt('1000000000000000000000000')) {
-                      rawAmount = amount1.toString()
-                      console.log('Decoded from position 2:', rawAmount)
-                    } else {
-                      // Try last position
-                      const amountHex2 = '0x' + txData.slice(-64)
-                      const amount2 = BigInt(amountHex2)
-                      if (amount2 > 0n && amount2 < BigInt('1000000000000000000000000')) {
-                        rawAmount = amount2.toString()
-                        console.log('Decoded from last position:', rawAmount)
+                    // Try multiple positions where amount might be encoded
+                    const positions = [
+                      { name: 'position 1 (offset 10)', start: 10, end: 74 },
+                      { name: 'position 2 (offset 74)', start: 74, end: 138 },
+                      { name: 'position 3 (offset 138)', start: 138, end: 202 },
+                      { name: 'position 4 (offset 202)', start: 202, end: 266 },
+                      { name: 'last 64 chars', start: txData.length - 64, end: txData.length },
+                    ]
+                    
+                    for (const pos of positions) {
+                      try {
+                        if (txData.length >= pos.end) {
+                          const amountHex = '0x' + txData.substring(pos.start, pos.end)
+                          const amount = BigInt(amountHex)
+                          
+                          console.log(`Trying ${pos.name}:`, amountHex, '=', amount.toString())
+                          
+                          // Check if this looks like a reasonable amount
+                          if (amount > 0n && amount < BigInt('1000000000000000000000000')) {
+                            rawAmount = amount.toString()
+                            console.log(`✓ Decoded from ${pos.name}:`, rawAmount)
+                            break
+                          }
+                        }
+                      } catch (e) {
+                        console.log(`Failed at ${pos.name}:`, e)
                       }
                     }
                   }

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b742feca9001OyI8F31uX5zG5u",
+  "messageID": "msg_b742fbd23001lySWzUusicZqFH",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Perfect! I can see the issue clearly in the console. The log shows:\n\n```\nSkipping batch token — amount is zero\nFinal batch tokens: 0 tokens\nBatch tokens detail: Array(0)\n```\n\nThis means the amount decoding is failing - `rawAmount` is staying at \"0\". The issue is that the decoding strategies aren't working for Relay's batch swap transactions. Let me check what the actual transaction data looks like and try a different approach.\n\nLooking at the console, I can see it's trying to format an amount but getting 0. The problem is likely that Relay's batch swap uses a multicall or aggregator contract, not direct token transfers. Let me try a completely different approach - using the fee or price data to estimate amounts:",
+  "time": {
+    "start": 1767180883392,
+    "end": 1767180883392
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7430a1680013WYa0jRyUMKsxM",
+  "messageID": "msg_b742fbd23001lySWzUusicZqFH",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Perfect! I've added comprehensive decoding that tries multiple positions in the transaction data. The new logging will show:\n\n1. **Full transaction data** for each batch transaction\n2. **Attempts at each position** (5 different positions)\n3. **The decoded value at each position**\n4. **Which position successfully decoded** the amount\n\nThis will help us see exactly where the amount is encoded in Relay's batch swap transactions. The console will now show something like:\n\n```\nBatch tx 0: {to: \"0x...\", value: \"0\", dataLength: 324, dataPrefix: \"0x12345678\", fee: \"...\"}\nFull transaction data: 0x123456789abcdef...\nTrying to decode from complex transaction, length: 324\nTrying position 1 (offset 10): 0x0000000000000000000000000000000000000000000000000000000000000000 = 0\nTrying position 2 (offset 74): 0x00000000000000000000000000000000000000000000000000000000000f4240 = 1000000\n✓ Decoded from position 2 (offset 74): 1000000\n```\n\nOnce we see which position works, the batch tokens should display correctly with their logos, symbols, amounts, and USD values!",
+  "time": {
+    "start": 1767180909388,
+    "end": 1767180909388
+  }
+}
