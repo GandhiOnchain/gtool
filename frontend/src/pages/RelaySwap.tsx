@@ -1505,6 +1505,7 @@ export default function RelaySwap() {
       
       const history: SwapHistory[] = await Promise.all(requests.map(async req => {
         console.log('=== Processing request:', req.id)
+        console.log('Full request object:', req)
         console.log('Request data:', {
           inTxs: req.data.inTxs,
           outTxs: req.data.outTxs,
@@ -1512,6 +1513,8 @@ export default function RelaySwap() {
           fees: req.data.fees,
           feesUsd: req.data.feesUsd
         })
+        console.log('Number of inTxs:', req.data.inTxs?.length)
+        console.log('Number of outTxs:', req.data.outTxs?.length)
         
         // Get chain IDs from transactions
         const originChainId = req.data.inTxs?.[0]?.chainId
@@ -1650,12 +1653,17 @@ export default function RelaySwap() {
             try {
               let rawAmount = inTx.data?.value || '0'
               
-              console.log(`Batch tx ${i}:`, {
+              console.log(`=== Batch tx ${i} ===`)
+              console.log('Full inTx object:', inTx)
+              console.log('inTx.data:', inTx.data)
+              console.log('Batch tx details:', {
                 to: inTx.data?.to,
                 value: rawAmount,
                 dataLength: inTx.data?.data?.length,
                 dataPrefix: inTx.data?.data?.substring(0, 10),
-                fee: inTx.fee
+                fee: inTx.fee,
+                type: inTx.type,
+                chainId: inTx.chainId
               })
               
               // If value is 0, try to decode from data

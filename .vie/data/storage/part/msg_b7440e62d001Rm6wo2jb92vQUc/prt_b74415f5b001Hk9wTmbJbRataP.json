@@ -1,0 +1,11 @@
+{
+  "id": "prt_b74415f5b001Hk9wTmbJbRataP",
+  "messageID": "msg_b7440e62d001Rm6wo2jb92vQUc",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Good! Now the console should show the full transaction data. I've added:\n\n1. **Full request object** - Shows the entire request structure\n2. **Full inTx object** - Shows the complete transaction object for each batch item\n3. **inTx.data** - Shows the data field specifically\n4. **Additional fields** - type, chainId to understand the transaction better\n\nThe console will now output:\n\n```\n=== Processing request: [id]\nFull request object: {id: \"...\", status: \"...\", user: \"...\", data: {...}, ...}\nRequest data: {inTxs: [...], outTxs: [...], currency: \"0x...\", ...}\nNumber of inTxs: 3\nNumber of outTxs: 1\n\n=== Batch tx 0 ===\nFull inTx object: {fee: \"...\", data: {...}, hash: \"...\", type: \"...\", chainId: 8453, timestamp: ...}\ninTx.data: {to: \"0x...\", data: \"0x...\", from: \"0x...\", value: \"0\"}\nBatch tx details: {to: \"0x...\", value: \"0\", dataLength: 324, dataPrefix: \"0x12345678\", fee: \"...\", type: \"...\", chainId: 8453}\nFull transaction data: 0x123456789abcdef... [full hex string]\n```\n\nPlease refresh the page, execute a batch swap, go to the History tab, and share the full console output. Specifically, I need to see:\n1. The `Full inTx object` for at least one batch transaction\n2. The `Full transaction data` hex string\n3. All the \"Trying position X\" logs\n\nThis will show us exactly where the amount is encoded in Relay's batch swap format!",
+  "time": {
+    "start": 1767182009239,
+    "end": 1767182009239
+  }
+}
