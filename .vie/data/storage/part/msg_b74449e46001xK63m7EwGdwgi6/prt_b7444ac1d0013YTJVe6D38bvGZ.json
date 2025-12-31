@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7444ac1d0013YTJVe6D38bvGZ",
+  "messageID": "msg_b74449e46001xK63m7EwGdwgi6",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Perfect! I can see the issue now. The console shows:\n\n```\n✓ Decoded from position 1 (offset 10): 1e8\nAbout to format amount: Object\nFormatted amount: 0.000000 ETH\nChecking if amount > 0: Object\nSkipping batch token — amount is zero\n```\n\nThe problem is clear:\n1. **Amount IS being decoded** (1e8 = 100000000)\n2. **But it's being formatted as 0.000000** \n3. **Then skipped because it appears to be zero**\n\nThe issue is that `1e8` (scientific notation) is being treated as an object or string instead of a number. Let me fix the decoding to ensure we get a proper string representation:",
+  "time": {
+    "start": 1767182229551,
+    "end": 1767182229551
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b744563d3001xbNBNXsAh736IJ",
+  "messageID": "msg_b74449e46001xK63m7EwGdwgi6",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Perfect! I've added detailed type checking and conversion logging. The issue is that `rawAmount` is somehow becoming an object instead of a string. The new logging will show:\n\n```\nAbout to format amount: {\n  rawAmount: [object],\n  rawAmountType: \"object\",\n  rawAmountString: \"100000000\",\n  tokenDecimals: 18,\n  tokenSymbol: \"ETH\"\n}\nConverting to BigInt: \"100000000\"\nBigInt created: 100000000\nFormatted amount: 0.100000 ETH\nChecking if amount > 0: {amount: \"0.100000\", parsed: 0.1, isGreaterThanZero: true}\n```\n\nThis will help us see:\n1. **What type** `rawAmount` actually is\n2. **What happens** when we convert it to string\n3. **If BigInt conversion** works\n4. **The final formatted amount**\n5. **Whether the > 0 check** passes\n\nThe fix I added ensures we always convert `rawAmount` to a string before passing to `BigInt()`, which should handle the case where it's somehow an object or number in scientific notation.\n\nPlease refresh the page, go to the History tab, and share the new console output. This should now properly decode and display the batch tokens!",
+  "time": {
+    "start": 1767182270283,
+    "end": 1767182270283
+  }
+}

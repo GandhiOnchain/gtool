@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7444ed350011xzm1fkX2Js21T",
+  "messageID": "msg_b74449e46001xK63m7EwGdwgi6",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Now let me check the formatting section more carefully. The issue is that the console shows \"About to format amount: Object\" which means `rawAmount` is somehow an object. Let me add type checking:",
+  "time": {
+    "start": 1767182242629,
+    "end": 1767182242629
+  }
+}

@@ -1702,8 +1702,9 @@ export default function RelaySwap() {
                           
                           // Check if this looks like a reasonable amount
                           if (amount > 0n && amount < BigInt('1000000000000000000000000')) {
+                            // CRITICAL: Convert BigInt to string properly
                             rawAmount = amount.toString()
-                            console.log(`✓ Decoded from ${pos.name}:`, rawAmount)
+                            console.log(`✓ Decoded from ${pos.name}:`, rawAmount, 'type:', typeof rawAmount)
                             break
                           }
                         }
@@ -1719,20 +1720,31 @@ export default function RelaySwap() {
               
               // Format the amount
               let amount = '0'
-              console.log('About to format amount:', { rawAmount, tokenDecimals, tokenSymbol })
+              console.log('About to format amount:', { 
+                rawAmount, 
+                rawAmountType: typeof rawAmount,
+                rawAmountString: String(rawAmount),
+                tokenDecimals, 
+                tokenSymbol 
+              })
               
               if (rawAmount && rawAmount !== '0') {
                 try {
-                  amount = parseFloat(formatUnits(BigInt(rawAmount), tokenDecimals)).toFixed(6)
+                  // Ensure rawAmount is a string
+                  const rawAmountStr = String(rawAmount)
+                  console.log('Converting to BigInt:', rawAmountStr)
+                  const bigIntAmount = BigInt(rawAmountStr)
+                  console.log('BigInt created:', bigIntAmount.toString())
+                  amount = parseFloat(formatUnits(bigIntAmount, tokenDecimals)).toFixed(6)
                   console.log('Formatted amount:', amount, tokenSymbol)
                 } catch (e) {
-                  console.error('Error formatting amount:', e)
+                  console.error('Error formatting amount:', e, 'rawAmount:', rawAmount, 'type:', typeof rawAmount)
                 }
               } else {
                 console.warn('Raw amount is zero or missing for batch tx', i)
               }
               
-              console.log('Checking if amount > 0:', { amount, parsed: parseFloat(amount) })
+              console.log('Checking if amount > 0:', { amount, parsed: parseFloat(amount), isGreaterThanZero: parseFloat(amount) > 0 })
               
               // Only add if we have a valid amount
               if (parseFloat(amount) > 0) {
