@@ -1588,121 +1588,106 @@ export default function RelaySwap() {
         }
         
         // For batch swaps, collect all input tokens
+        // Note: For batch swaps, all tokens are typically the same (currencyAddress)
+        // but with different amounts per transaction
         let batchTokens: Array<{ symbol: string; amount: string; logo?: string; address: string }> = []
         if (transactionType === 'batch' && req.data.inTxs && req.data.inTxs.length > 1) {
           console.log('Processing batch swap with', req.data.inTxs.length, 'input transactions')
-          console.log('Full request data for batch:', req.data)
+          console.log('Currency address:', currencyAddress)
           
-          for (let i = 0; i < req.data.inTxs.length; i++) {
-            const inTx = req.data.inTxs[i]
+          // Fetch the token info once for all batch transactions (they're all the same token)
+          let batchTokenCurrency: RelayCurrency | null = null
+          if (currencyAddress && originChainId) {
             try {
-              console.log(`Processing batch input tx ${i}:`, {
-                to: inTx.data?.to,
-                value: inTx.data?.value,
-                dataLength: inTx.data?.data?.length,
-                dataPrefix: inTx.data?.data?.substring(0, 10),
-                fee: inTx.fee
+              const currencies = await relayAPI.getCurrencies({
+                address: currencyAddress,
+                chainIds: [originChainId],
+                limit: 1,
               })
-              
-              let rawAmount = inTx.data?.value || '0'
-              let tokenAddress = inTx.data?.to || currencyAddress
-              
-              // Check if this is an ERC-20 transaction by looking at the data field
-              if (inTx.data?.data && inTx.data.data.length > 10) {
-                const txData = inTx.data.data
-                
-                // Try multiple decoding strategies
-                // Strategy 1: Standard ERC-20 transfer (0xa9059cbb) or approve (0x095ea7b3)
-                if (txData.startsWith('0xa9059cbb') || txData.startsWith('0x095ea7b3')) {
-                  // The 'to' field is the token contract
-                  tokenAddress = inTx.data.to
-                  
-                  // Amount is in the last 32 bytes
-                  try {
-                    const amountHex = '0x' + txData.slice(-64)
-                    rawAmount = BigInt(amountHex).toString()
-                    console.log('Strategy 1 - Decoded ERC-20 transfer amount:', rawAmount)
-                  } catch (e) {
-                    console.error('Error decoding with strategy 1:', e)
-                  }
-                }
-                // Strategy 2: Permit2 or complex swap (look for amount in different positions)
-                else if (txData.length >= 200) {
-                  // For complex transactions, try to find the amount
-                  // Amount might be at different positions depending on the function
-                  try {
-                    // Try position after first 4 bytes (function selector) + 32 bytes (first param)
-                    // This often contains the amount for swap functions
-                    const possibleAmountHex1 = '0x' + txData.substring(10 + 64, 10 + 128)
-                    const possibleAmount1 = BigInt(possibleAmountHex1)
-                    
-                    // Also try the last 64 characters
-                    const possibleAmountHex2 = '0x' + txData.slice(-64)
-                    const possibleAmount2 = BigInt(possibleAmountHex2)
-                    
-                    // Use the larger non-zero value (more likely to be the amount)
-                    if (possibleAmount1 > 0n && possibleAmount1 < BigInt('1000000000000000000000000')) {
-                      rawAmount = possibleAmount1.toString()
-                      console.log('Strategy 2a - Decoded amount from position 2:', rawAmount)
-                    } else if (possibleAmount2 > 0n && possibleAmount2 < BigInt('1000000000000000000000000')) {
-                      rawAmount = possibleAmount2.toString()
-                      console.log('Strategy 2b - Decoded amount from last position:', rawAmount)
-                    }
-                  } catch (e) {
-                    console.error('Error decoding with strategy 2:', e)
-                  }
-                }
-                
-                // If still no amount and it's not a native transfer, use the fee as a hint
-                if (rawAmount === '0' && inTx.fee) {
-                  console.log('No amount decoded, fee is:', inTx.fee)
-                }
-              }
-              
-              // Fetch currency details for this specific token
-              let tokenCurrency: RelayCurrency | null = null
-              try {
-                if (tokenAddress && inTx.chainId) {
-                  const currencies = await relayAPI.getCurrencies({
-                    address: tokenAddress,
-                    chainIds: [inTx.chainId],
-                    limit: 1,
-                  })
-                  tokenCurrency = currencies[0] || null
-                  console.log('Fetched batch token currency:', tokenCurrency?.symbol, 'at', tokenCurrency?.address)
-                }
-              } catch (e) {
-                console.error('Failed to fetch batch token currency:', e)
-              }
-              
-              const decimals = tokenCurrency?.decimals || 18
-              const symbol = tokenCurrency?.symbol || 'Unknown'
-              const logo = tokenCurrency?.metadata?.logoURI
-              const address = tokenCurrency?.address || tokenAddress || '0x0'
-              
-              let amount = '0'
-              if (rawAmount && rawAmount !== '0') {
-                try {
-                  amount = parseFloat(formatUnits(BigInt(rawAmount), decimals)).toFixed(6)
-                  console.log('Formatted batch token amount:', amount, symbol, 'from raw:', rawAmount, 'decimals:', decimals)
-                } catch (e) {
-                  console.error('Error formatting batch token amount:', e, 'raw:', rawAmount, 'decimals:', decimals)
-                }
-              }
-              
-              // Add token even if amount is 0 for debugging, but mark it
-              if (parseFloat(amount) > 0 || rawAmount !== '0') {
-                batchTokens.push({ symbol, amount, logo, address })
-                console.log('Added batch token:', { symbol, amount, logo: logo ? 'yes' : 'no', address })
-              } else {
-                console.warn('Skipping token with zero amount:', symbol, address)
-              }
+              batchTokenCurrency = currencies[0] || null
+              console.log('Batch token currency:', batchTokenCurrency?.symbol, batchTokenCurrency?.address)
             } catch (e) {
-              console.error('Error processing batch token:', e)
+              console.error('Failed to fetch batch token currency:', e)
             }
           }
           
-          console.log('Final batch tokens:', batchTokens.length, 'tokens', batchTokens)
+          const tokenDecimals = batchTokenCurrency?.decimals || originChain?.currency?.decimals || 18
+          const tokenSymbol = batchTokenCurrency?.symbol || originChain?.currency?.symbol || 'Unknown'
+          const tokenLogo = batchTokenCurrency?.metadata?.logoURI
+          const tokenAddr = batchTokenCurrency?.address || currencyAddress || '0x0'
+          
+          // Process each transaction to get the amount
+          for (let i = 0; i < req.data.inTxs.length; i++) {
+            const inTx = req.data.inTxs[i]
+            try {
+              let rawAmount = inTx.data?.value || '0'
+              
+              console.log(`Batch tx ${i}:`, {
+                value: rawAmount,
+                dataLength: inTx.data?.data?.length
+              })
+              
+              // If value is 0, try to decode from data
+              if (rawAmount === '0' && inTx.data?.data && inTx.data.data.length > 10) {
+                const txData = inTx.data.data
+                
+                try {
+                  // Try standard ERC-20 transfer/approve
+                  if (txData.startsWith('0xa9059cbb') || txData.startsWith('0x095ea7b3')) {
+                    const amountHex = '0x' + txData.slice(-64)
+                    rawAmount = BigInt(amountHex).toString()
+                    console.log('Decoded from standard transfer:', rawAmount)
+                  }
+                  // Try other positions for complex calls
+                  else if (txData.length >= 200) {
+                    // Try second parameter position (common for swap functions)
+                    const amountHex1 = '0x' + txData.substring(10 + 64, 10 + 128)
+                    const amount1 = BigInt(amountHex1)
+                    
+                    if (amount1 > 0n && amount1 < BigInt('1000000000000000000000000')) {
+                      rawAmount = amount1.toString()
+                      console.log('Decoded from position 2:', rawAmount)
+                    } else {
+                      // Try last position
+                      const amountHex2 = '0x' + txData.slice(-64)
+                      const amount2 = BigInt(amountHex2)
+                      if (amount2 > 0n && amount2 < BigInt('1000000000000000000000000')) {
+                        rawAmount = amount2.toString()
+                        console.log('Decoded from last position:', rawAmount)
+                      }
+                    }
+                  }
+                } catch (e) {
+                  console.error('Error decoding amount:', e)
+                }
+              }
+              
+              // Format the amount
+              let amount = '0'
+              if (rawAmount && rawAmount !== '0') {
+                try {
+                  amount = parseFloat(formatUnits(BigInt(rawAmount), tokenDecimals)).toFixed(6)
+                  console.log('Formatted amount:', amount, tokenSymbol)
+                } catch (e) {
+                  console.error('Error formatting amount:', e)
+                }
+              }
+              
+              // Only add if we have a valid amount
+              if (parseFloat(amount) > 0) {
+                batchTokens.push({ 
+                  symbol: tokenSymbol, 
+                  amount, 
+                  logo: tokenLogo, 
+                  address: tokenAddr 
+                })
+              }
+            } catch (e) {
+              console.error('Error processing batch tx:', e)
+            }
+          }
+          
+          console.log('Final batch tokens:', batchTokens)
         }
         
         // Process input transaction

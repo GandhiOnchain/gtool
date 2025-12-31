@@ -1,0 +1,11 @@
+{
+  "id": "prt_b742036ae001NYGhzpKJj2SnNt",
+  "messageID": "msg_b74201bd500116AY1OFxzHByib",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "I see the issue. The problem is that `tokenAddress` is being set to `inTx.data.to`, but for batch swaps through Relay, the `to` address is likely the Relay contract, not the actual token. The token information should come from the `currencyAddress` field. Let me revert to a simpler, working approach:",
+  "time": {
+    "start": 1767179864894,
+    "end": 1767179864894
+  }
+}
