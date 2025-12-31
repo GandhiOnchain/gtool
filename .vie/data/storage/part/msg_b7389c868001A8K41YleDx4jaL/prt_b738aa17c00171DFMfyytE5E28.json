@@ -1,0 +1,11 @@
+{
+  "id": "prt_b738aa17c00171DFMfyytE5E28",
+  "messageID": "msg_b7389c868001A8K41YleDx4jaL",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Perfect! Now the swap should work correctly. The issue was that we were passing `chainId` to the `sendTransaction` function, which wagmi's `useSendTransaction` doesn't support. This likely caused the transaction to fail or be sent with incorrect parameters, leading to the refund.\n\n## Summary of the Fix\n\n**Root Cause**: The `sendTransaction` function from wagmi's `useSendTransaction` hook doesn't accept a `chainId` parameter. Passing it was causing the transaction to fail.\n\n**Solution**: \n1. Removed the `chainId` parameter from both `sendTransaction` calls (regular swap and batch swap)\n2. The chain switching logic already ensures we're on the correct chain before sending the transaction (line 634)\n3. The transaction will now be sent on the currently connected chain, which is correct after the chain switch\n\nThe swap should now execute successfully without being refunded.",
+  "time": {
+    "start": 1767170028735,
+    "end": 1767170028735
+  }
+}

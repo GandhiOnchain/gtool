@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7389d17b001Fq15MJDCctNAMj",
+  "messageID": "msg_b7389c868001A8K41YleDx4jaL",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Let me investigate why the swap is being refunded. This usually happens when there's an issue with the transaction execution. Let me check the transaction flow:",
+  "time": {
+    "start": 1767169973634,
+    "end": 1767169973634
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b738a14e3001MTq9VtDmXHy2s0",
+  "messageID": "msg_b7389c868001A8K41YleDx4jaL",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01H84H7Z6snvSgeRLByrAEXt",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"sendTransaction\\({\" src/pages/RelaySwap.tsx -A 5",
+      "description": "Find all sendTransaction calls"
+    },
+    "output": "rg: regex parse error:\n    (?:sendTransaction\\({)\n                         ^\nerror: repetition quantifier expects a valid decimal\n",
+    "metadata": {
+      "output": "rg: regex parse error:\n    (?:sendTransaction\\({)\n                         ^\nerror: repetition quantifier expects a valid decimal\n",
+      "exit": 2,
+      "description": "Find all sendTransaction calls"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"sendTransaction\\({\" src/pages/RelaySwap.tsx -A 5",
+    "time": {
+      "start": 1767169988810,
+      "end": 1767169988814
+    }
+  }
+}

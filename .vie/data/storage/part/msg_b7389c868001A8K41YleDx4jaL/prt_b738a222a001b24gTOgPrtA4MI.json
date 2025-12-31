@@ -1,0 +1,26 @@
+{
+  "id": "prt_b738a222a001b24gTOgPrtA4MI",
+  "messageID": "msg_b7389c868001A8K41YleDx4jaL",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Gga2C8bjUwtSsPryEGHLfN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"sendTransaction\" src/pages/RelaySwap.tsx -A 5 | head -40",
+      "description": "Find all sendTransaction calls"
+    },
+    "output": "  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n  const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n\n  const { data: fromBalance } = useBalance({\n    address,\n    chainId: fromChain?.id,\n--\n      sendTransaction({\n        to: txData.to as `0x${string}`,\n        data: txData.data as `0x${string}`,\n        value: BigInt(txData.value),\n      }, {\n        onSuccess: async (hash) => {\n--\n            sendTransaction({\n              to: txData.to as `0x${string}`,\n              data: txData.data as `0x${string}`,\n              value: BigInt(txData.value),\n              chainId: txData.chainId,\n            }, {\n",
+    "metadata": {
+      "output": "  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n  const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n\n  const { data: fromBalance } = useBalance({\n    address,\n    chainId: fromChain?.id,\n--\n      sendTransaction({\n        to: txData.to as `0x${string}`,\n        data: txData.data as `0x${string}`,\n        value: BigInt(txData.value),\n      }, {\n        onSuccess: async (hash) => {\n--\n            sendTransaction({\n              to: txData.to as `0x${string}`,\n              data: txData.data as `0x${string}`,\n              value: BigInt(txData.value),\n              chainId: txData.chainId,\n            }, {\n",
+      "exit": 0,
+      "description": "Find all sendTransaction calls"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"sendTransaction\" src/pages/RelaySwap.tsx -A 5 | head -40",
+    "time": {
+      "start": 1767169992167,
+      "end": 1767169992176
+    }
+  }
+}

@@ -646,7 +646,6 @@ export default function RelaySwap() {
         to: txData.to as `0x${string}`,
         data: txData.data as `0x${string}`,
         value: BigInt(txData.value),
-        chainId: txData.chainId,
       }, {
         onSuccess: async (hash) => {
           console.log('Transaction submitted successfully:', hash)
@@ -824,7 +823,6 @@ export default function RelaySwap() {
               to: txData.to as `0x${string}`,
               data: txData.data as `0x${string}`,
               value: BigInt(txData.value),
-              chainId: txData.chainId,
             }, {
               onSuccess: () => {
                 successCount++

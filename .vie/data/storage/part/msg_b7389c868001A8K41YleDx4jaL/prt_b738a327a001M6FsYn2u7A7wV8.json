@@ -1,0 +1,26 @@
+{
+  "id": "prt_b738a327a001M6FsYn2u7A7wV8",
+  "messageID": "msg_b7389c868001A8K41YleDx4jaL",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Lsh1uGc2Q1HGgU89dmSqLN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"sendTransaction\" src/pages/RelaySwap.tsx | tail -5",
+      "description": "Find line numbers for sendTransaction"
+    },
+    "output": "115:  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n645:      sendTransaction({\n822:            sendTransaction({\n",
+    "metadata": {
+      "output": "115:  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n645:      sendTransaction({\n822:            sendTransaction({\n",
+      "exit": 0,
+      "description": "Find line numbers for sendTransaction"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"sendTransaction\" src/pages/RelaySwap.tsx | tail -5",
+    "time": {
+      "start": 1767169996334,
+      "end": 1767169996340
+    }
+  }
+}
