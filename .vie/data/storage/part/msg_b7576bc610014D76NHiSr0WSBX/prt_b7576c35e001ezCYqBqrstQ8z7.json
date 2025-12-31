@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7576c35e001ezCYqBqrstQ8z7",
+  "messageID": "msg_b7576bc610014D76NHiSr0WSBX",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Let me add comprehensive debugging to see exactly what's happening and why approvals aren't being detected.",
+  "time": {
+    "start": 1767202279995,
+    "end": 1767202279995
+  }
+}

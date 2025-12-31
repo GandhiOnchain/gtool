@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7576d9ab001r6TwJdIy0MGZsl",
+  "messageID": "msg_b7576bc610014D76NHiSr0WSBX",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Let me add a debug state to show what's happening in the UI and add more detailed logging:",
+  "time": {
+    "start": 1767202284181,
+    "end": 1767202284181
+  }
+}
