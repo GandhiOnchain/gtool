@@ -1,0 +1,28 @@
+{
+  "id": "prt_b742b8950001kfSzaFlyuRA4Xs",
+  "messageID": "msg_b742a0fd8001N00iGhU33Vxtfd",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01DsKkU4NfrULVERY5gAr9w6",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ❌ ERROR [1715:19] Object literal may only specify known properties, and 'usdValue' does not exist in type '{ symbol: string; amount: string; logo?: string | undefined; address: string; }'. [typescript]\n\n──────────────────────────────────────────────────\nSummary: 1 issue(s) found\n  - 1 error(s)\n",
+    "metadata": {
+      "filesChecked": 1,
+      "filesWithIssues": 1,
+      "totalIssues": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "title": "Diagnostics: 1 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1767180569284,
+      "end": 1767180578579
+    }
+  }
+}

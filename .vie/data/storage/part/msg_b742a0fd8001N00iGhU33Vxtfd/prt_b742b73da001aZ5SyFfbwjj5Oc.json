@@ -1,0 +1,11 @@
+{
+  "id": "prt_b742b73da001aZ5SyFfbwjj5Oc",
+  "messageID": "msg_b742a0fd8001N00iGhU33Vxtfd",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Now let's also add better logging to see if batchTokens is being populated:",
+  "time": {
+    "start": 1767180565833,
+    "end": 1767180565833
+  }
+}

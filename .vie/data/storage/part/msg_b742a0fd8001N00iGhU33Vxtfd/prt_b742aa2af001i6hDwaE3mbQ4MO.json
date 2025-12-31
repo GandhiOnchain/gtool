@@ -1,0 +1,11 @@
+{
+  "id": "prt_b742aa2af001i6hDwaE3mbQ4MO",
+  "messageID": "msg_b742a0fd8001N00iGhU33Vxtfd",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Now let me also add USD values for regular swaps. Let me find where we're creating the history item and add price fetching:",
+  "time": {
+    "start": 1767180517150,
+    "end": 1767180517150
+  }
+}

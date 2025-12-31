@@ -1,0 +1,11 @@
+{
+  "id": "prt_b742a3449001sArBnmxOK7A89U",
+  "messageID": "msg_b742a0fd8001N00iGhU33Vxtfd",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "I see the UI is there for batch tokens. The issue is that `swap.batchTokens` is likely empty or undefined. Let me check the batch token processing again and also add USD values. First, let me check if batchTokens is being populated:",
+  "time": {
+    "start": 1767180485042,
+    "end": 1767180485042
+  }
+}

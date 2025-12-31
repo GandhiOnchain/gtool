@@ -1,0 +1,11 @@
+{
+  "id": "prt_b742a4b8c001RI5KXl2LKuJlS8",
+  "messageID": "msg_b742a0fd8001N00iGhU33Vxtfd",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "The batch token processing looks correct. The issue might be that the condition `swap.batchTokens && swap.batchTokens.length > 0` is failing. Let me add better debugging and also ensure we're showing the batch tokens even if the array exists but might be empty. Also, let me add USD values. First, let me update the interface to include USD values:",
+  "time": {
+    "start": 1767180492805,
+    "end": 1767180492805
+  }
+}

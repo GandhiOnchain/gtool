@@ -55,7 +55,10 @@ interface SwapHistory {
     amount: string
     logo?: string
     address: string
+    usdValue?: string
   }>
+  fromAmountUsd?: string
+  toAmountUsd?: string
 }
 
 interface UserStreak {
@@ -1600,7 +1603,7 @@ export default function RelaySwap() {
         // For batch swaps, collect all input tokens
         // Note: For batch swaps, all tokens are typically the same (currencyAddress)
         // but with different amounts per transaction
-        let batchTokens: Array<{ symbol: string; amount: string; logo?: string; address: string }> = []
+        let batchTokens: Array<{ symbol: string; amount: string; logo?: string; address: string; usdValue?: string }> = []
         if (transactionType === 'batch' && req.data.inTxs && req.data.inTxs.length > 1) {
           console.log('Processing batch swap with', req.data.inTxs.length, 'input transactions')
           console.log('Currency address:', currencyAddress)
@@ -1625,6 +1628,21 @@ export default function RelaySwap() {
           const tokenSymbol = batchTokenCurrency?.symbol || originChain?.currency?.symbol || 'Unknown'
           const tokenLogo = batchTokenCurrency?.metadata?.logoURI
           const tokenAddr = batchTokenCurrency?.address || currencyAddress || '0x0'
+          
+          // Fetch token price for USD values
+          let tokenPrice = 0
+          try {
+            if (tokenAddr && originChainId) {
+              const priceData = await relayAPI.getTokenPrice({ 
+                address: tokenAddr, 
+                chainId: originChainId 
+              })
+              tokenPrice = priceData.price
+              console.log('Batch token price:', tokenPrice, 'USD')
+            }
+          } catch (e) {
+            console.log('Could not fetch batch token price:', e)
+          }
           
           // Process each transaction to get the amount
           for (let i = 0; i < req.data.inTxs.length; i++) {
@@ -1685,19 +1703,26 @@ export default function RelaySwap() {
               
               // Only add if we have a valid amount
               if (parseFloat(amount) > 0) {
+                const usdValue = tokenPrice > 0 
+                  ? (parseFloat(amount) * tokenPrice).toFixed(2)
+                  : undefined
+                
                 batchTokens.push({ 
                   symbol: tokenSymbol, 
                   amount, 
                   logo: tokenLogo, 
-                  address: tokenAddr 
+                  address: tokenAddr,
+                  usdValue
                 })
+                console.log('Added batch token with USD:', { symbol: tokenSymbol, amount, usdValue })
               }
             } catch (e) {
               console.error('Error processing batch tx:', e)
             }
           }
           
-          console.log('Final batch tokens:', batchTokens)
+          console.log('Final batch tokens:', batchTokens.length, 'tokens')
+          console.log('Batch tokens detail:', batchTokens)
         }
         
         // Process input transaction
@@ -1826,6 +1851,34 @@ export default function RelaySwap() {
         const updatedTime = new Date(req.updatedAt).getTime()
         const completedAt = req.status === 'success' ? updatedTime : undefined
         
+        // Fetch USD values for from and to tokens
+        let fromAmountUsd: string | undefined
+        let toAmountUsd: string | undefined
+        
+        try {
+          if (fromTokenAddress && originChainId && parseFloat(fromAmount) > 0) {
+            const priceData = await relayAPI.getTokenPrice({ 
+              address: fromTokenAddress, 
+              chainId: originChainId 
+            })
+            fromAmountUsd = (parseFloat(fromAmount) * priceData.price).toFixed(2)
+          }
+        } catch (e) {
+          console.log('Could not fetch from token price')
+        }
+        
+        try {
+          if (toTokenAddress && destChainId && parseFloat(toAmount) > 0) {
+            const priceData = await relayAPI.getTokenPrice({ 
+              address: toTokenAddress, 
+              chainId: destChainId 
+            })
+            toAmountUsd = (parseFloat(toAmount) * priceData.price).toFixed(2)
+          }
+        } catch (e) {
+          console.log('Could not fetch to token price')
+        }
+        
         const historyItem = {
           id: req.id,
           type: transactionType,
@@ -1839,6 +1892,8 @@ export default function RelaySwap() {
           toTokenLogo,
           fromAmount,
           toAmount,
+          fromAmountUsd,
+          toAmountUsd,
           fromChain: originChain?.displayName || originChain?.name || 'Unknown',
           fromChainId: originChainId || 0,
           fromChainIcon: originChain?.iconUrl,
@@ -1850,7 +1905,7 @@ export default function RelaySwap() {
           completedAt,
           txHash: req.data.outTxs?.[0]?.hash,
           inTxHash: req.data.inTxs?.[0]?.hash,
-          batchTokens: transactionType === 'batch' ? batchTokens : undefined,
+          batchTokens: transactionType === 'batch' && batchTokens.length > 0 ? batchTokens : undefined,
         }
         
         console.log('Final history item:', {
@@ -2753,7 +2808,7 @@ export default function RelaySwap() {
                           {swap.type === 'batch' && swap.batchTokens && swap.batchTokens.length > 0 ? (
                             <div className="p-2 bg-muted/50 rounded space-y-2">
                               <div className="text-xs font-medium text-muted-foreground">
-                                Swapping {swap.batchTokens.length} tokens:
+                                Swapping {swap.batchTokens.length} token{swap.batchTokens.length > 1 ? 's' : ''}:
                               </div>
                               <div className="grid grid-cols-2 gap-2">
                                 {swap.batchTokens.map((token, idx) => (
@@ -2765,6 +2820,11 @@ export default function RelaySwap() {
                                       <div className="text-xs font-medium truncate">
                                         {token.amount} {token.symbol}
                                       </div>
+                                      {token.usdValue && (
+                                        <div className="text-xs text-muted-foreground">
+                                          ${token.usdValue}
+                                        </div>
+                                      )}
                                     </div>
                                   </div>
                                 ))}
@@ -2793,6 +2853,7 @@ export default function RelaySwap() {
                                   </div>
                                   <div className="text-xs text-muted-foreground">
                                     {swap.fromChain}
+                                    {swap.fromAmountUsd && ` • $${swap.fromAmountUsd}`}
                                   </div>
                                 </div>
                               </div>
@@ -2829,6 +2890,7 @@ export default function RelaySwap() {
                                 </div>
                                 <div className="text-xs text-muted-foreground">
                                   {swap.toChain}
+                                  {swap.toAmountUsd && ` • $${swap.toAmountUsd}`}
                                 </div>
                               </div>
                             </div>
