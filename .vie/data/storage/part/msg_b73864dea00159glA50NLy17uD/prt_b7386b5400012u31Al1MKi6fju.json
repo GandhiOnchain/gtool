@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7386b5400012u31Al1MKi6fju",
+  "messageID": "msg_b73864dea00159glA50NLy17uD",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01SDV743f1grHdKVuVvfGwXJ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 550,
+      "limit": 50
+    },
+    "output": "<file>\n00551| \n00552|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {\n00553|       toast.error('Missing swap parameters')\n00554|       return\n00555|     }\n00556| \n00557|     // Validate that token chainIds match selected chains\n00558|     if (fromToken.chainId !== fromChain.id) {\n00559|       console.error('Token chainId mismatch:', {\n00560|         fromTokenChainId: fromToken.chainId,\n00561|         fromChainId: fromChain.id,\n00562|         fromToken: fromToken.symbol\n00563|       })\n00564|       toast.error(`${fromToken.symbol} is not available on ${fromChain.displayName}. Please select a different token.`)\n00565|       return\n00566|     }\n00567| \n00568|     if (toToken.chainId !== toChain.id) {\n00569|       console.error('Token chainId mismatch:', {\n00570|         toTokenChainId: toToken.chainId,\n00571|         toChainId: toChain.id,\n00572|         toToken: toToken.symbol\n00573|       })\n00574|       toast.error(`${toToken.symbol} is not available on ${toChain.displayName}. Please select a different token.`)\n00575|       return\n00576|     }\n00577| \n00578|     // Check if trying to swap same token on same chain\n00579|     if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n00580|       toast.error('Cannot swap the same token to itself')\n00581|       return\n00582|     }\n00583| \n00584|     // Check for cross-VM swap recipient requirement\n00585|     const fromVMType = fromChain.vmType || 'evm'\n00586|     const toVMType = toChain.vmType || 'evm'\n00587|     const isCrossVM = fromVMType !== toVMType\n00588|     \n00589|     if (isCrossVM && !recipientAddress) {\n00590|       toast.error(`Recipient address required for ${toChain.displayName}`)\n00591|       return\n00592|     }\n00593| \n00594|     setIsSwapping(true)\n00595| \n00596|     try {\n00597|       // Use execute endpoint to get fresh transaction data\n00598|       console.log('Executing swap via Relay API...')\n00599|       const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n00600|       const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()\n\n(File has more lines. Use 'offset' parameter to read beyond line 600)\n</file>",
+    "metadata": {
+      "preview": "\n    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {\n      toast.error('Missing swap parameters')\n      return\n    }\n\n    // Validate that token chainIds match selected chains\n    if (fromToken.chainId !== fromChain.id) {\n      console.error('Token chainId mismatch:', {\n        fromTokenChainId: fromToken.chainId,\n        fromChainId: fromChain.id,\n        fromToken: fromToken.symbol\n      })\n      toast.error(`${fromToken.symbol} is not available on ${fromChain.displayName}. Please select a different token.`)\n      return\n    }\n\n    if (toToken.chainId !== toChain.id) {\n      console.error('Token chainId mismatch:', {\n        toTokenChainId: toToken.chainId,"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767169767975,
+      "end": 1767169767978
+    }
+  }
+}

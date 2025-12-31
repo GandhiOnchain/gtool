@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7386c3d0001L337Bjht571CFB",
+  "messageID": "msg_b73864dea00159glA50NLy17uD",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Wait! I just realized something. The error message says \"Input and output currencies don't match\". This might mean that when we're doing a same-chain swap, the API is expecting us to use the `/quote/v2` endpoint instead of `/execute/swap`. The `/execute/swap` endpoint might be deprecated and have stricter validation.\n\nLet me check if we should be using the quote endpoint first, then executing based on that quote. Actually, looking at the code, we ARE calling `fetchQuote` first (which uses `/quote/v2`), and then when the user clicks \"Swap\", we call `executeSwap` which uses `/execute/swap`.\n\nThe issue might be that the `/execute/swap` endpoint has different validation than `/quote/v2`. Let me modify the code to use the quote we already have instead of calling `/execute/swap`:",
+  "time": {
+    "start": 1767169775623,
+    "end": 1767169775623
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7386675c0010s1aAulPHYiZnh",
+  "messageID": "msg_b73864dea00159glA50NLy17uD",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01TpSburE3bFTsGQ8rTUL3pn",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 488,
+      "limit": 30
+    },
+    "output": "<file>\n00489|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return\n00490| \n00491|     // Don't fetch quote if trying to swap same token on same chain\n00492|     if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n00493|       setQuote(null)\n00494|       setToAmount('')\n00495|       return\n00496|     }\n00497| \n00498|     setIsLoadingQuote(true)\n00499|     try {\n00500|       const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n00501|       const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()\n00502|       \n00503|       const includedSources = Object.entries(enabledSources)\n00504|         .filter(([_, enabled]) => enabled)\n00505|         .map(([source]) => source)\n00506|       \n00507|       const fromVMType = fromChain.vmType || 'evm'\n00508|       const toVMType = toChain.vmType || 'evm'\n00509|       const isCrossVM = fromVMType !== toVMType\n00510|       \n00511|       const quoteParams = {\n00512|         user: address,\n00513|         originChainId: fromChain.id,\n00514|         destinationChainId: toChain.id,\n00515|         originCurrency: fromToken.address,\n00516|         destinationCurrency: toToken.address,\n00517|         amount: amountInWei.toString(),\n00518|         tradeType: 'EXACT_INPUT' as const,\n\n(File has more lines. Use 'offset' parameter to read beyond line 518)\n</file>",
+    "metadata": {
+      "preview": "    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return\n\n    // Don't fetch quote if trying to swap same token on same chain\n    if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n      setQuote(null)\n      setToAmount('')\n      return\n    }\n\n    setIsLoadingQuote(true)\n    try {\n      const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n      const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()\n      \n      const includedSources = Object.entries(enabledSources)\n        .filter(([_, enabled]) => enabled)\n        .map(([source]) => source)\n      \n      const fromVMType = fromChain.vmType || 'evm'\n      const toVMType = toChain.vmType || 'evm'"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767169747749,
+      "end": 1767169747753
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b738688e8001CBZzWKY8wYZExU",
+  "messageID": "msg_b73864dea00159glA50NLy17uD",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I see! The documentation shows that `originCurrency` and `destinationCurrency` should be strings (token addresses). But wait - I notice the API is marked as \"Deprecated\" and it says to use the \"Get Quote API\" instead. But we're using `/execute/swap` which is the deprecated endpoint.\n\nHowever, the real issue is likely that the error \"Input and output currencies don't match\" means the currency format is wrong. Let me check if we need to use a specific format like `chainId:address`:",
+  "time": {
+    "start": 1767169760438,
+    "end": 1767169760438
+  }
+}

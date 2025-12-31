@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7386a556001jXsmtA15XyDsav",
+  "messageID": "msg_b73864dea00159glA50NLy17uD",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I see! Looking at the documentation, both APIs use the same format - just the token address as a string. The error \"Input and output currencies don't match\" is likely a validation error from the Relay API itself.\n\nLet me think about this differently. The error might mean that the API is validating that the currency addresses actually exist on their respective chains. Let me add some console logging to see what's actually being sent. But first, let me check if maybe the issue is that we're using the `/execute/swap` endpoint when we should be using `/quote/v2` first:",
+  "time": {
+    "start": 1767169768077,
+    "end": 1767169768077
+  }
+}

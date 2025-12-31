@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73866404001sXggBEYQzJlssN",
+  "messageID": "msg_b73864dea00159glA50NLy17uD",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_017jEzHtskkFCf8Yn57p6MC1",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"originCurrency.*address\" src/pages/RelaySwap.tsx -B 2 -A 2",
+      "description": "Check how currency addresses are passed"
+    },
+    "output": "        originChainId: fromChain.id,\n        destinationChainId: toChain.id,\n        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        amount: amountInWei.toString(),\n--\n        originChainId: fromChain.id,\n        destinationChainId: toChain.id,\n        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        amount: amountInWei.toString(),\n",
+    "metadata": {
+      "output": "        originChainId: fromChain.id,\n        destinationChainId: toChain.id,\n        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        amount: amountInWei.toString(),\n--\n        originChainId: fromChain.id,\n        destinationChainId: toChain.id,\n        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        amount: amountInWei.toString(),\n",
+      "exit": 0,
+      "description": "Check how currency addresses are passed"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"originCurrency.*address\" src/pages/RelaySwap.tsx -B 2 -A 2",
+    "time": {
+      "start": 1767169746778,
+      "end": 1767169746788
+    }
+  }
+}

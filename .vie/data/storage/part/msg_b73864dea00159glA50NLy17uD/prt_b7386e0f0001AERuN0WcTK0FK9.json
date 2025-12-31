@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7386e0f0001AERuN0WcTK0FK9",
+  "messageID": "msg_b73864dea00159glA50NLy17uD",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I see the issue now! We're calling `relayAPI.executeSwap()` on line 634, which is the deprecated `/execute/swap` endpoint. But we already have a quote from `fetchQuote()` which uses `/quote/v2`. We should just use the existing quote instead of calling execute/swap again!\n\nLet me fix this by using the existing quote:",
+  "time": {
+    "start": 1767169791640,
+    "end": 1767169791640
+  }
+}

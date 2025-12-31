@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7386787b001vVSEAD3SkxgjIF",
+  "messageID": "msg_b73864dea00159glA50NLy17uD",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01NhvpZuKgugZDVBaQhRsCak",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"currency.*:\" src/lib/relay/types.ts | head -20",
+      "description": "Check currency field types"
+    },
+    "output": "  currency: {\n  currency: RelayCurrency\n    currencyIn?: RelayAmount\n    currencyOut?: RelayAmount\n    currencyGasTopup?: RelayAmount\n        currency: string\n    currency: string\n",
+    "metadata": {
+      "output": "  currency: {\n  currency: RelayCurrency\n    currencyIn?: RelayAmount\n    currencyOut?: RelayAmount\n    currencyGasTopup?: RelayAmount\n        currency: string\n    currency: string\n",
+      "exit": 0,
+      "description": "Check currency field types"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"currency.*:\" src/lib/relay/types.ts | head -20",
+    "time": {
+      "start": 1767169752465,
+      "end": 1767169752473
+    }
+  }
+}

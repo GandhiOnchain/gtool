@@ -594,28 +594,8 @@ export default function RelaySwap() {
     setIsSwapping(true)
 
     try {
-      // Use execute endpoint to get fresh transaction data
-      console.log('Executing swap via Relay API...')
-      const amountInWei = parseUnits(fromAmount, fromToken.decimals)
-      const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()
-      
-      const includedSources = Object.entries(enabledSources)
-        .filter(([_, enabled]) => enabled)
-        .map(([source]) => source)
-      
-      const executeParams = {
-        user: address,
-        originChainId: fromChain.id,
-        destinationChainId: toChain.id,
-        originCurrency: fromToken.address,
-        destinationCurrency: toToken.address,
-        amount: amountInWei.toString(),
-        tradeType: 'EXACT_INPUT' as const,
-        slippageTolerance: slippageBps,
-        recipient: isCrossVM && recipientAddress ? recipientAddress : undefined,
-        includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
-        useExternalLiquidity: isCrossVM ? true : undefined,
-      }
+      // Use the existing quote from fetchQuote (which uses /quote/v2)
+      console.log('Executing swap using existing quote...')
       
       console.log('=== EXECUTE SWAP DEBUG ===')
       console.log('From Chain:', fromChain.displayName, 'ID:', fromChain.id, 'vmType:', fromChain.vmType)
@@ -625,23 +605,14 @@ export default function RelaySwap() {
       console.log('ChainId Match Check:')
       console.log('  - fromToken.chainId === fromChain.id?', fromToken.chainId === fromChain.id)
       console.log('  - toToken.chainId === toChain.id?', toToken.chainId === toChain.id)
-      console.log('Amount:', amountInWei.toString())
       console.log('Recipient:', recipientAddress)
       console.log('Is Cross-VM:', isCrossVM)
-      console.log('Execute Params:', JSON.stringify(executeParams, null, 2))
+      console.log('Quote:', JSON.stringify(quote, null, 2))
       console.log('=========================')
-      
-      const freshQuote = await relayAPI.executeSwap(executeParams)
-      
-      console.log('Fresh quote received:', {
-        steps: freshQuote.steps.length,
-        fees: freshQuote.fees,
-        details: freshQuote.details,
-      })
 
-      const depositStep = freshQuote.steps.find(s => s.id === 'deposit')
+      const depositStep = quote.steps.find(s => s.id === 'deposit')
       if (!depositStep || !depositStep.items || depositStep.items.length === 0) {
-        throw new Error('No deposit step found in fresh quote')
+        throw new Error('No deposit step found in quote')
       }
 
       const txData = depositStep.items[0].data

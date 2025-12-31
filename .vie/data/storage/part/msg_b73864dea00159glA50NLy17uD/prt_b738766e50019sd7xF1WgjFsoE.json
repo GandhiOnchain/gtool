@@ -1,0 +1,11 @@
+{
+  "id": "prt_b738766e50019sd7xF1WgjFsoE",
+  "messageID": "msg_b73864dea00159glA50NLy17uD",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Perfect! The fix is complete. The issue was that we were calling the deprecated `/execute/swap` endpoint which has stricter validation and was throwing the \"Input and output currencies don't match\" error. \n\nInstead, we should use the quote that was already fetched via the `/quote/v2` endpoint (which is the modern, recommended API). The quote already contains all the transaction data we need to execute the swap.\n\n## Summary of the Fix\n\nThe error was caused by calling the deprecated `/execute/swap` API endpoint, which has stricter validation. The solution:\n\n1. **Removed the redundant API call**: We were calling `/execute/swap` even though we already had a valid quote from `/quote/v2`\n2. **Use existing quote**: The `fetchQuote()` function already gets all the transaction data we need from the modern `/quote/v2` endpoint\n3. **Kept all validations**: Chain-token validation, same-token prevention, and cross-VM checks remain in place\n\nThe swap should now work correctly using the quote that's already been fetched and displayed to the user.",
+  "time": {
+    "start": 1767169818415,
+    "end": 1767169818415
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b738654ed001PEbMsI77xMjLqy",
+  "messageID": "msg_b73864dea00159glA50NLy17uD",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Perfect! Now I can see the actual error. The API is returning a 500 error with the message \"Input and output currencies don't match\". Let me check the browser console to see what parameters are being sent. Can you open the browser console (F12) and look for the \"EXECUTE SWAP DEBUG\" logs? \n\nBut based on the error, let me investigate the actual API call. The issue might be with the currency address format. Let me check if there's something wrong with how we're passing the currency addresses:",
+  "time": {
+    "start": 1767169747849,
+    "end": 1767169747849
+  }
+}
