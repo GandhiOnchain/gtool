@@ -1,0 +1,11 @@
+{
+  "id": "prt_b732bd886001vwFraamFG0YTRm",
+  "messageID": "msg_b732ae72d001OW2hLMeV5kWYE0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! Now when you try to swap, check the browser console and you'll see detailed logs showing:\n\n1. **Execute swap params** - Shows exactly what we're sending to the API including:\n   - originChainId and destinationChainId\n   - originCurrency and destinationCurrency addresses\n   - Token symbols and chain names\n   - Whether tokens are native\n\n2. **Error details** - If it fails, shows the full error response from Relay\n\nCan you try the swap again and share what you see in the console? Specifically look for:\n- The \"Calling /execute/swap with params:\" log\n- What are the originChainId and destinationChainId values?\n- What are the originCurrency and destinationCurrency addresses?\n- Are they actually different chains or the same chain?\n\nThis will help me understand why Relay is saying the currencies don't match.",
+  "time": {
+    "start": 1767163816650,
+    "end": 1767163816650
+  }
+}

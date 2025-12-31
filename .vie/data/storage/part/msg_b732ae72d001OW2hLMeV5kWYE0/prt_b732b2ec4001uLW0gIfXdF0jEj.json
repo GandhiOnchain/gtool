@@ -1,0 +1,11 @@
+{
+  "id": "prt_b732b2ec4001uLW0gIfXdF0jEj",
+  "messageID": "msg_b732ae72d001OW2hLMeV5kWYE0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Now let me check what the actual token addresses look like when they're loaded. The issue might be that both chains are returning the same address for native tokens. Let me also check if we need to use a special format for native tokens:",
+  "time": {
+    "start": 1767163771340,
+    "end": 1767163771340
+  }
+}

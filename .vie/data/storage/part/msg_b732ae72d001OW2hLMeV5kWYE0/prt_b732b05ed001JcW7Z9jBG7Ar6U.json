@@ -1,0 +1,11 @@
+{
+  "id": "prt_b732b05ed001JcW7Z9jBG7Ar6U",
+  "messageID": "msg_b732ae72d001OW2hLMeV5kWYE0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "The issue is that we're sending the token addresses, but for native tokens (like ETH), the address might be `0x0000000000000000000000000000000000000000` on both chains. Let me add logging to see what's actually being sent and handle native tokens properly:",
+  "time": {
+    "start": 1767163766427,
+    "end": 1767163766427
+  }
+}

@@ -232,6 +232,8 @@ export class RelayAPI {
     useExternalLiquidity?: boolean
     includedSwapSources?: string[]
   }): Promise<RelayQuote> {
+    console.log('Calling /execute/swap with params:', JSON.stringify(params, null, 2))
+    
     const response = await fetch(`${this.baseUrl}/execute/swap`, {
       method: 'POST',
       headers: {
@@ -239,11 +241,21 @@ export class RelayAPI {
       },
       body: JSON.stringify(params),
     })
+    
     if (!response.ok) {
       const error = await response.text()
+      console.error('Execute swap failed:', {
+        status: response.status,
+        statusText: response.statusText,
+        error,
+        params,
+      })
       throw new Error(`Failed to execute swap: ${error}`)
     }
-    return response.json()
+    
+    const result = await response.json()
+    console.log('Execute swap response:', result)
+    return result
   }
 
   async getSwapSources(): Promise<string[]> {

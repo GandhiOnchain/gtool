@@ -1,0 +1,26 @@
+{
+  "id": "prt_b732af7cf001WnbWmvEHaELpSH",
+  "messageID": "msg_b732ae72d001OW2hLMeV5kWYE0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_011dcRfHfDgmKW7ngHv5j59H",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"originCurrency|destinationCurrency\" src/pages/RelaySwap.tsx -B 2 -A 2 | head -40",
+      "description": "Check currency parameters"
+    },
+    "output": "        originChainId: fromChain.id,\n        destinationChainId: toChain.id,\n        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        amount: amountInWei.toString(),\n        tradeType: 'EXACT_INPUT' as const,\n--\n        originChainId: fromChain.id,\n        destinationChainId: toChain.id,\n        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        amount: amountInWei.toString(),\n        tradeType: 'EXACT_INPUT' as const,\n--\n        user: address,\n        origins,\n        destinationCurrency: toToken.address,\n        destinationChainId: toChain.id,\n        tradeType: 'EXACT_INPUT',\n",
+    "metadata": {
+      "output": "        originChainId: fromChain.id,\n        destinationChainId: toChain.id,\n        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        amount: amountInWei.toString(),\n        tradeType: 'EXACT_INPUT' as const,\n--\n        originChainId: fromChain.id,\n        destinationChainId: toChain.id,\n        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        amount: amountInWei.toString(),\n        tradeType: 'EXACT_INPUT' as const,\n--\n        user: address,\n        origins,\n        destinationCurrency: toToken.address,\n        destinationChainId: toChain.id,\n        tradeType: 'EXACT_INPUT',\n",
+      "exit": 0,
+      "description": "Check currency parameters"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"originCurrency|destinationCurrency\" src/pages/RelaySwap.tsx -B 2 -A 2 | head -40",
+    "time": {
+      "start": 1767163756010,
+      "end": 1767163756017
+    }
+  }
+}

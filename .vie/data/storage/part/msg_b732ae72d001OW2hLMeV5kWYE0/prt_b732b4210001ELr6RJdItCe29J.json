@@ -1,0 +1,11 @@
+{
+  "id": "prt_b732b4210001ELr6RJdItCe29J",
+  "messageID": "msg_b732ae72d001OW2hLMeV5kWYE0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "I see - native tokens use `0x0000000000000000000000000000000000000000`. The problem is that when you select ETH on Ethereum and ETH on Base, both have the same address (`0x0000...`), so Relay thinks they're the same currency. \n\nThe solution is that Relay needs the **currency to include the chain ID** to differentiate them. Let me check the Relay API - we might need to use a different format like `chainId:address`:",
+  "time": {
+    "start": 1767163779834,
+    "end": 1767163779834
+  }
+}

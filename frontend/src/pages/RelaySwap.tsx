@@ -561,6 +561,16 @@ export default function RelaySwap() {
         useExternalLiquidity: isCrossVM ? true : undefined,
       }
       
+      console.log('Execute swap params:', {
+        ...executeParams,
+        fromToken: fromToken.symbol,
+        toToken: toToken.symbol,
+        fromChain: fromChain.displayName,
+        toChain: toChain.displayName,
+        fromTokenIsNative: fromToken.metadata?.isNative,
+        toTokenIsNative: toToken.metadata?.isNative,
+      })
+      
       const freshQuote = await relayAPI.executeSwap(executeParams)
       
       console.log('Fresh quote received:', {

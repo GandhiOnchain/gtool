@@ -1,0 +1,11 @@
+{
+  "id": "prt_b732af034001WqCUQKTDM5opqN",
+  "messageID": "msg_b732ae72d001OW2hLMeV5kWYE0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "The error is coming from the Relay API itself when we call `/execute/swap`. This means the API is rejecting the request because it thinks the input and output currencies are the same. Let me check what we're sending:",
+  "time": {
+    "start": 1767163756110,
+    "end": 1767163756110
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b732b6409001DpoTGLV20PPDDw",
+  "messageID": "msg_b732ae72d001OW2hLMeV5kWYE0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Great! The API actually works fine with the same address on different chains. The error must be happening when the chains are the **same** and the tokens are the **same**. Let me add better error handling and logging to see exactly what's being sent:",
+  "time": {
+    "start": 1767163791775,
+    "end": 1767163791775
+  }
+}

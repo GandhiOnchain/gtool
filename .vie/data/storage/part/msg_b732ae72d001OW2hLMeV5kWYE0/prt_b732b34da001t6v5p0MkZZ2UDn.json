@@ -1,0 +1,26 @@
+{
+  "id": "prt_b732b34da001t6v5p0MkZZ2UDn",
+  "messageID": "msg_b732ae72d001OW2hLMeV5kWYE0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01GoRKXXo4Hc6vzQJhuMXaaf",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"0x0000000000000000000000000000000000000000\" src/ -A 2 -B 2 | head -20",
+      "description": "Check for zero address usage"
+    },
+    "output": "src/pages/RelaySwap.tsx-    address,\nsrc/pages/RelaySwap.tsx-    chainId: fromChain?.id,\nsrc/pages/RelaySwap.tsx:    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\nsrc/pages/RelaySwap.tsx-  })\nsrc/pages/RelaySwap.tsx-\n--\nsrc/pages/RelaySwap.tsx-    address,\nsrc/pages/RelaySwap.tsx-    chainId: toChain?.id,\nsrc/pages/RelaySwap.tsx:    token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\nsrc/pages/RelaySwap.tsx-  })\nsrc/pages/RelaySwap.tsx-\n--\nsrc/lib/blockchain/signatureUtils.ts-export function validateNonZeroAddress(addr: unknown): Address {\nsrc/lib/blockchain/signatureUtils.ts-  const address = validateAddress(addr);\nsrc/lib/blockchain/signatureUtils.ts:  if (address === '0x0000000000000000000000000000000000000000') {\nsrc/lib/blockchain/signatureUtils.ts-    throw new Error('Address cannot be zero');\nsrc/lib/blockchain/signatureUtils.ts-  }\n--\nsrc/lib/blockchain/signatureUtils.ts-      chainId: chainIdResult,\nsrc/lib/blockchain/signatureUtils.ts-      verifyingContract,\n",
+    "metadata": {
+      "output": "src/pages/RelaySwap.tsx-    address,\nsrc/pages/RelaySwap.tsx-    chainId: fromChain?.id,\nsrc/pages/RelaySwap.tsx:    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\nsrc/pages/RelaySwap.tsx-  })\nsrc/pages/RelaySwap.tsx-\n--\nsrc/pages/RelaySwap.tsx-    address,\nsrc/pages/RelaySwap.tsx-    chainId: toChain?.id,\nsrc/pages/RelaySwap.tsx:    token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\nsrc/pages/RelaySwap.tsx-  })\nsrc/pages/RelaySwap.tsx-\n--\nsrc/lib/blockchain/signatureUtils.ts-export function validateNonZeroAddress(addr: unknown): Address {\nsrc/lib/blockchain/signatureUtils.ts-  const address = validateAddress(addr);\nsrc/lib/blockchain/signatureUtils.ts:  if (address === '0x0000000000000000000000000000000000000000') {\nsrc/lib/blockchain/signatureUtils.ts-    throw new Error('Address cannot be zero');\nsrc/lib/blockchain/signatureUtils.ts-  }\n--\nsrc/lib/blockchain/signatureUtils.ts-      chainId: chainIdResult,\nsrc/lib/blockchain/signatureUtils.ts-      verifyingContract,\n",
+      "exit": 0,
+      "description": "Check for zero address usage"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"0x0000000000000000000000000000000000000000\" src/ -A 2 -B 2 | head -20",
+    "time": {
+      "start": 1767163771264,
+      "end": 1767163771291
+    }
+  }
+}
