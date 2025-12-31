@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7328ca67001oTFVEFcfqNyZqo",
+  "messageID": "msg_b7328b60a001c8nvsr2EMWhjo6",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "You're absolutely right! I apologize - swapping the same token across different chains is a perfectly valid use case (bridging). The issue is that I was checking if the tokens are the same, but I should only prevent it if they're the same token on the **same chain**. Let me fix this:",
+  "time": {
+    "start": 1767163622600,
+    "end": 1767163622600
+  }
+}

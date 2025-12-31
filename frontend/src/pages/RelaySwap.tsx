@@ -466,13 +466,6 @@ export default function RelaySwap() {
   const fetchQuote = async () => {
     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return
 
-    // Don't fetch quote if trying to swap same token on same chain
-    if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {
-      setQuote(null)
-      setToAmount('')
-      return
-    }
-
     setIsLoadingQuote(true)
     try {
       const amountInWei = parseUnits(fromAmount, fromToken.decimals)
@@ -529,12 +522,6 @@ export default function RelaySwap() {
 
     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {
       toast.error('Missing swap parameters')
-      return
-    }
-
-    // Check if trying to swap same token on same chain
-    if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {
-      toast.error('Cannot swap the same token to itself')
       return
     }
 
@@ -1348,27 +1335,10 @@ export default function RelaySwap() {
               </Card>
             )}
 
-            {fromChain && toChain && fromToken && toToken && 
-             fromChain.id === toChain.id && 
-             fromToken.address.toLowerCase() === toToken.address.toLowerCase() && (
-              <Card className="p-3 bg-destructive/10 border-destructive">
-                <div className="text-xs text-destructive text-center">
-                  Cannot swap the same token to itself. Please select a different token.
-                </div>
-              </Card>
-            )}
-
             <Button
               onClick={executeSwap}
               disabled={(() => {
                 if (!quote || isSwapping || !isConnected) return true
-                
-                // Check if same token
-                if (fromChain && toChain && fromToken && toToken &&
-                    fromChain.id === toChain.id && 
-                    fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {
-                  return true
-                }
                 
                 // Check if cross-VM swap requires recipient address
                 if (fromChain && toChain) {
