@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7564618d001xSqlgJelrw86f7",
+  "messageID": "msg_b7564574c001JJzppps2l0z90h",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Va4wbbBQWPBfLK8eFNZFDq",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "find /home/user/sandbox/workspace -type f -name \"*.tsx\" -o -name \"*.ts\" | grep -i revoke",
+      "description": "Find revoke-related files"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 1,
+      "description": "Find revoke-related files"
+    },
+    "title": "find /home/user/sandbox/workspace -type f -name \"*.tsx\" -o -name \"*.ts\" | grep -i revoke",
+    "time": {
+      "start": 1767201073210,
+      "end": 1767201074877
+    }
+  }
+}

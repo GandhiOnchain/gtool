@@ -1,0 +1,25 @@
+{
+  "id": "prt_b756498bc001P2oEFdWJ4mg9tB",
+  "messageID": "msg_b7564574c001JJzppps2l0z90h",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_017yH1VWC3iEtUvip7HS9fp3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 0,
+      "limit": 50
+    },
+    "output": "<file>\n00001| import { useEffect, useState } from 'react'\n00002| import { sdk } from '@farcaster/miniapp-sdk'\n00003| import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\n00004| import { parseUnits, formatUnits } from 'viem'\n00005| import { relayAPI } from '@/lib/relay/api'\n00006| import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\n00007| import { Button } from '@/components/ui/button'\n00008| import { Input } from '@/components/ui/input'\n00009| import { Card } from '@/components/ui/card'\n00010| import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\n00011| import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'\n00012| import { ScrollArea } from '@/components/ui/scroll-area'\n00013| import { Badge } from '@/components/ui/badge'\n00014| import { Separator } from '@/components/ui/separator'\n00015| import { Switch } from '@/components/ui/switch'\n00016| import { toast } from 'sonner'\n00017| import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'\n00018| \n00019| interface TrendingToken {\n00020|   address: string\n00021|   chainId: number\n00022|   symbol: string\n00023|   name: string\n00024|   logoURI?: string\n00025|   volume24h?: number\n00026|   priceChange24h?: number\n00027| }\n00028| \n00029| interface SwapHistory {\n00030|   id: string\n00031|   type: 'swap' | 'bridge' | 'batch'\n00032|   fromToken: string\n00033|   fromTokenSymbol: string\n00034|   fromTokenDecimals: number\n00035|   fromTokenLogo?: string\n00036|   toToken: string\n00037|   toTokenSymbol: string\n00038|   toTokenDecimals: number\n00039|   toTokenLogo?: string\n00040|   fromAmount: string\n00041|   toAmount: string\n00042|   fromChain: string\n00043|   fromChainId: number\n00044|   fromChainIcon?: string\n00045|   toChain: string\n00046|   toChainId: number\n00047|   toChainIcon?: string\n00048|   status: string\n00049|   timestamp: number\n00050|   completedAt?: number\n\n(File has more lines. Use 'offset' parameter to read beyond line 50)\n</file>",
+    "metadata": {
+      "preview": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\nimport { parseUnits, formatUnits } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\nimport { Button } from '@/components/ui/button'\nimport { Input } from '@/components/ui/input'\nimport { Card } from '@/components/ui/card'\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\nimport { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'\nimport { ScrollArea } from '@/components/ui/scroll-area'\nimport { Badge } from '@/components/ui/badge'\nimport { Separator } from '@/components/ui/separator'\nimport { Switch } from '@/components/ui/switch'\nimport { toast } from 'sonner'\nimport { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'\n\ninterface TrendingToken {\n  address: string"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767201086744,
+      "end": 1767201086754
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_b75647ef2001H2vI8pN8ee3i5W",
+  "messageID": "msg_b7564574c001JJzppps2l0z90h",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01DCCSJimyP46kHKCoKyk5Dw",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 140,
+      "limit": 50
+    },
+    "output": "<file>\n00141|     to?: { value: bigint; decimals: number; symbol: string }\n00142|   }>({})\n00143|   const [inputMode, setInputMode] = useState<'token' | 'usd'>('token')\n00144|   const [usdAmount, setUsdAmount] = useState('')\n00145|   const [batchQuote, setBatchQuote] = useState<RelayQuote | null>(null)\n00146|   const [isLoadingBatchQuote, setIsLoadingBatchQuote] = useState(false)\n00147|   const [isLoadingHistory, setIsLoadingHistory] = useState(false)\n00148|   const [externalSearchResults, setExternalSearchResults] = useState<RelayCurrency[]>([])\n00149|   const [isSearchingExternal, setIsSearchingExternal] = useState(false)\n00150|   const [revokeChain, setRevokeChain] = useState<RelayChain | null>(null)\n00151|   const [approvals, setApprovals] = useState<Array<{\n00152|     token: RelayCurrency\n00153|     spender: string\n00154|     spenderName?: string\n00155|     allowance: string\n00156|     allowanceFormatted: string\n00157|   }>>([])\n00158|   const [isLoadingApprovals, setIsLoadingApprovals] = useState(false)\n00159|   const [isRevoking, setIsRevoking] = useState(false)\n00160| \n00161|   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n00162|   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n00163| \n00164|   // EVM balance hooks - only used for EVM chains\n00165|   const { data: evmFromBalance, refetch: refetchFromBalance } = useBalance({\n00166|     address,\n00167|     chainId: fromChain?.id,\n00168|     token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n00169|     query: {\n00170|       enabled: fromChain?.vmType === 'evm' || !fromChain?.vmType,\n00171|     },\n00172|   })\n00173| \n00174|   const { data: evmToBalance, refetch: refetchToBalance } = useBalance({\n00175|     address,\n00176|     chainId: toChain?.id,\n00177|     token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n00178|     query: {\n00179|       enabled: toChain?.vmType === 'evm' || !toChain?.vmType,\n00180|     },\n00181|   })\n00182| \n00183|   // Use EVM balance or custom balance based on chain type\n00184|   const fromBalance = (fromChain?.vmType === 'evm' || !fromChain?.vmType) ? evmFromBalance : customBalances.from\n00185|   const toBalance = (toChain?.vmType === 'evm' || !toChain?.vmType) ? evmToBalance : customBalances.to\n00186| \n00187|   useEffect(() => {\n00188|     sdk.actions.ready().catch(() => {})\n00189|   }, [])\n00190| \n\n(File has more lines. Use 'offset' parameter to read beyond line 190)\n</file>",
+    "metadata": {
+      "preview": "    to?: { value: bigint; decimals: number; symbol: string }\n  }>({})\n  const [inputMode, setInputMode] = useState<'token' | 'usd'>('token')\n  const [usdAmount, setUsdAmount] = useState('')\n  const [batchQuote, setBatchQuote] = useState<RelayQuote | null>(null)\n  const [isLoadingBatchQuote, setIsLoadingBatchQuote] = useState(false)\n  const [isLoadingHistory, setIsLoadingHistory] = useState(false)\n  const [externalSearchResults, setExternalSearchResults] = useState<RelayCurrency[]>([])\n  const [isSearchingExternal, setIsSearchingExternal] = useState(false)\n  const [revokeChain, setRevokeChain] = useState<RelayChain | null>(null)\n  const [approvals, setApprovals] = useState<Array<{\n    token: RelayCurrency\n    spender: string\n    spenderName?: string\n    allowance: string\n    allowanceFormatted: string\n  }>>([])\n  const [isLoadingApprovals, setIsLoadingApprovals] = useState(false)\n  const [isRevoking, setIsRevoking] = useState(false)\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767201080409,
+      "end": 1767201080410
+    }
+  }
+}

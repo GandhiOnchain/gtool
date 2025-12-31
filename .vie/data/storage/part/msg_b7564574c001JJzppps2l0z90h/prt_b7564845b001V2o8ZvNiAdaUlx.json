@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7564845b001V2o8ZvNiAdaUlx",
+  "messageID": "msg_b7564574c001JJzppps2l0z90h",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01B96TgNRjuB7UePqZMHdvFb",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 340,
+      "limit": 20
+    },
+    "output": "<file>\n00341| \n00342|   // Load approvals when revoke chain changes\n00343|   useEffect(() => {\n00344|     if (revokeChain && address && isConnected) {\n00345|       loadApprovals()\n00346|     } else {\n00347|       setApprovals([])\n00348|     }\n00349|   }, [revokeChain, address, isConnected])\n00350| \n00351|   // External token search when contract address is pasted\n00352|   useEffect(() => {\n00353|     const searchExternally = async () => {\n00354|       // Check if the search term looks like a contract address (0x followed by 40 hex chars)\n00355|       const isContractAddress = /^0x[a-fA-F0-9]{40}$/.test(tokenSearchTerm.trim())\n00356|       \n00357|       if (isContractAddress && tokenSearchTerm.trim().length === 42) {\n00358|         setIsSearchingExternal(true)\n00359|         try {\n00360|           const chainId = selectingFor === 'from' \n\n(File has more lines. Use 'offset' parameter to read beyond line 360)\n</file>",
+    "metadata": {
+      "preview": "\n  // Load approvals when revoke chain changes\n  useEffect(() => {\n    if (revokeChain && address && isConnected) {\n      loadApprovals()\n    } else {\n      setApprovals([])\n    }\n  }, [revokeChain, address, isConnected])\n\n  // External token search when contract address is pasted\n  useEffect(() => {\n    const searchExternally = async () => {\n      // Check if the search term looks like a contract address (0x followed by 40 hex chars)\n      const isContractAddress = /^0x[a-fA-F0-9]{40}$/.test(tokenSearchTerm.trim())\n      \n      if (isContractAddress && tokenSearchTerm.trim().length === 42) {\n        setIsSearchingExternal(true)\n        try {\n          const chainId = selectingFor === 'from' "
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767201081095,
+      "end": 1767201081100
+    }
+  }
+}

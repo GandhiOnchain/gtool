@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7564a679001A4idhjA6SLUTt6",
+  "messageID": "msg_b7564574c001JJzppps2l0z90h",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01NKPrDmmxAUBinVbdQvdLWu",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"formatUnits\" src/pages/RelaySwap.tsx | head -20",
+      "description": "Check formatUnits usage"
+    },
+    "output": "4:import { parseUnits, formatUnits } from 'viem'\n776:              const balanceFormatted = formatUnits(balance, currency.decimals)\n856:            const balanceFormatted = formatUnits(balance, currency.decimals)\n1806:                  amount = parseFloat(formatUnits(bigIntAmount, tokenDecimals)).toFixed(6)\n1898:              fromAmount = parseFloat(formatUnits(BigInt(rawAmount), fromDecimals)).toFixed(6)\n1953:              toAmount = parseFloat(formatUnits(BigInt(rawAmount), toDecimals)).toFixed(6)\n2304:              allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(currentAllowance, token.decimals),\n2440:    const balance = parseFloat(formatUnits(fromBalance.value, fromBalance.decimals))\n2538:                      Balance: {parseFloat(formatUnits(fromBalance.value, fromBalance.decimals)).toFixed(4)} {fromToken?.symbol}\n2541:                          (${(parseFloat(formatUnits(fromBalance.value, fromBalance.decimals)) * fromTokenPrice).toFixed(2)})\n2680:                      Balance: {parseFloat(formatUnits(toBalance.value, toBalance.decimals)).toFixed(4)} {toToken?.symbol}\n2683:                          (${(parseFloat(formatUnits(toBalance.value, toBalance.decimals)) * toTokenPrice).toFixed(2)})\n3564:                                balanceFormatted = formatUnits(balanceBigInt, currency.decimals)\n",
+    "metadata": {
+      "output": "4:import { parseUnits, formatUnits } from 'viem'\n776:              const balanceFormatted = formatUnits(balance, currency.decimals)\n856:            const balanceFormatted = formatUnits(balance, currency.decimals)\n1806:                  amount = parseFloat(formatUnits(bigIntAmount, tokenDecimals)).toFixed(6)\n1898:              fromAmount = parseFloat(formatUnits(BigInt(rawAmount), fromDecimals)).toFixed(6)\n1953:              toAmount = parseFloat(formatUnits(BigInt(rawAmount), toDecimals)).toFixed(6)\n2304:              allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(currentAllowance, token.decimals),\n2440:    const balance = parseFloat(formatUnits(fromBalance.value, fromBalance.decimals))\n2538:                      Balance: {parseFloat(formatUnits(fromBalance.value, fromBalance.decimals)).toFixed(4)} {fromToken?.symbol}\n2541:                          (${(parseFloat(formatUnits(fromBalance.value, fromBalance.decimals)) * fromTokenPrice).toFixed(2)})\n2680:                      Balance: {parseFloat(formatUnits(toBalance.value, toBalance.decimals)).toFixed(4)} {toToken?.symbol}\n2683:                          (${(parseFloat(formatUnits(toBalance.value, toBalance.decimals)) * toTokenPrice).toFixed(2)})\n3564:                                balanceFormatted = formatUnits(balanceBigInt, currency.decimals)\n",
+      "exit": 0,
+      "description": "Check formatUnits usage"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"formatUnits\" src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1767201090149,
+      "end": 1767201090154
+    }
+  }
+}

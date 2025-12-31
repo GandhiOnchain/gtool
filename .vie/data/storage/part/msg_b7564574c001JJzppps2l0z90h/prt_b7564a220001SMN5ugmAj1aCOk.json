@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7564a220001SMN5ugmAj1aCOk",
+  "messageID": "msg_b7564574c001JJzppps2l0z90h",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Now let me check if there's an issue with how the `loadApprovals` function is being called. Let me look at the actual implementation more carefully and check for potential issues:",
+  "time": {
+    "start": 1767201090908,
+    "end": 1767201090908
+  }
+}

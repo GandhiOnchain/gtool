@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7564683e001goGaStzzb9yOAy",
+  "messageID": "msg_b7564574c001JJzppps2l0z90h",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "grep",
+  "callID": "toolu_vrtx_01Q8Mw1VM1VhWL8umPXgEeaD",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "revoke|Revoke",
+      "include": "*.{tsx,ts}"
+    },
+    "output": "Found 41 matches\n/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx:\n  Line 117:   const [selectingFor, setSelectingFor] = useState<'from' | 'to' | 'batch' | 'revoke'>('from')\n  Line 150:   const [revokeChain, setRevokeChain] = useState<RelayChain | null>(null)\n  Line 342:   // Load approvals when revoke chain changes\n  Line 344:     if (revokeChain && address && isConnected) {\n  Line 349:   }, [revokeChain, address, isConnected])\n  Line 2174:     if (!address || !revokeChain) return\n  Line 2178:       console.log('Loading approvals for chain:', revokeChain.displayName, 'address:', address)\n  Line 2183:         id: revokeChain.id,\n  Line 2184:         name: revokeChain.displayName,\n  Line 2186:           name: revokeChain.currency.name,\n  Line 2187:           symbol: revokeChain.currency.symbol,\n  Line 2188:           decimals: revokeChain.currency.decimals,\n  Line 2191:           default: { http: [revokeChain.httpRpcUrl] },\n  Line 2197:         transport: http(revokeChain.httpRpcUrl),\n  Line 2263:             chainIds: [revokeChain.id],\n  Line 2273:           // Check current allowance (might have been revoked since the event)\n  Line 2329:   const revokeApproval = async (approval: typeof approvals[0]) => {\n  Line 2330:     if (!address || !revokeChain) return\n  Line 2335:       if (connectedChainId !== revokeChain.id) {\n  Line 2336:         console.log('Switching chain to', revokeChain.displayName)\n  Line 2338:           await switchChain({ chainId: revokeChain.id })\n  Line 2355:           console.log('Revoke transaction submitted:', hash)\n  Line 2356:           toast.success('Approval revoked successfully')\n  Line 2366:           console.error('Revoke failed:', error)\n  Line 2367:           toast.error('Failed to revoke approval')\n  Line 2372:       console.error('Revoke approval failed:', error)\n  Line 2373:       toast.error('Failed to revoke approval')\n  Line 2527:             <TabsTrigger value=\"revoke\" className=\"text-xs\">Revoke</TabsTrigger>\n  Line 3267:           <TabsContent value=\"revoke\" className=\"space-y-2 mt-2\">\n  Line 3270:                 <div className=\"text-sm font-medium\">Revoke Token Approvals</div>\n  Line 3272:                   Select a chain to view and revoke token approvals\n  Line 3278:                     setSelectingFor('revoke')\n  Line 3284:                     {revokeChain?.iconUrl && (\n  Line 3285:                       <img src={revokeChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n  Line 3287:                     <span>{revokeChain?.displayName || 'Select Chain'}</span>\n  Line 3298:             ) : approvals.length === 0 && revokeChain ? (\n  Line 3304:                   This means you haven't approved any tokens for common protocols on {revokeChain.displayName}.\n  Line 3345:                           onClick={() => revokeApproval(approval)}\n  Line 3351:                           {isRevoking ? 'Revoking...' : 'Revoke Approval'}\n  Line 3443:                         } else if (selectingFor === 'revoke') {\n  Line 3444:                           setRevokeChain(chain)",
+    "metadata": {
+      "matches": 41,
+      "truncated": false
+    },
+    "title": "revoke|Revoke",
+    "time": {
+      "start": 1767201073439,
+      "end": 1767201073462
+    }
+  }
+}

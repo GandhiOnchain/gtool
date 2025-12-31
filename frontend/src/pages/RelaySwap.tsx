@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { sdk } from '@farcaster/miniapp-sdk'
 import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'
-import { parseUnits, formatUnits } from 'viem'
+import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
 import { Button } from '@/components/ui/button'
@@ -2177,8 +2177,6 @@ export default function RelaySwap() {
     try {
       console.log('Loading approvals for chain:', revokeChain.displayName, 'address:', address)
       
-      const { createPublicClient, http, defineChain, parseAbiItem } = await import('viem')
-      
       const chainConfig = defineChain({
         id: revokeChain.id,
         name: revokeChain.displayName,
@@ -2201,22 +2199,49 @@ export default function RelaySwap() {
       const currentBlock = await publicClient.getBlockNumber()
       console.log('Current block:', currentBlock)
       
-      // Scan for Approval events from the last 1M blocks (or less if chain is new)
-      const fromBlock = currentBlock > 1000000n ? currentBlock - 1000000n : 0n
+      // Scan for Approval events from the last 100K blocks (reduced from 1M to avoid RPC timeouts)
+      const blockRange = 100000n
+      const fromBlock = currentBlock > blockRange ? currentBlock - blockRange : 0n
       
       console.log('Scanning for Approval events from block', fromBlock.toString(), 'to', currentBlock.toString())
       
       // Get Approval events where owner is the user's address
-      const approvalEvents = await publicClient.getLogs({
-        event: parseAbiItem('event Approval(address indexed owner, address indexed spender, uint256 value)'),
-        args: {
-          owner: address as `0x${string}`,
-        },
-        fromBlock,
-        toBlock: currentBlock,
-      })
-      
-      console.log('Found', approvalEvents.length, 'Approval events')
+      let approvalEvents = []
+      try {
+        approvalEvents = await publicClient.getLogs({
+          event: parseAbiItem('event Approval(address indexed owner, address indexed spender, uint256 value)'),
+          args: {
+            owner: address as `0x${string}`,
+          },
+          fromBlock,
+          toBlock: currentBlock,
+        })
+        console.log('Found', approvalEvents.length, 'Approval events')
+      } catch (logsError) {
+        console.error('Error fetching logs (trying smaller range):', logsError)
+        
+        // Try with a smaller range if the first attempt fails
+        const smallerRange = 10000n
+        const smallerFromBlock = currentBlock > smallerRange ? currentBlock - smallerRange : 0n
+        console.log('Retrying with smaller range:', smallerFromBlock.toString(), 'to', currentBlock.toString())
+        
+        try {
+          approvalEvents = await publicClient.getLogs({
+            event: parseAbiItem('event Approval(address indexed owner, address indexed spender, uint256 value)'),
+            args: {
+              owner: address as `0x${string}`,
+            },
+            fromBlock: smallerFromBlock,
+            toBlock: currentBlock,
+          })
+          console.log('Found', approvalEvents.length, 'Approval events with smaller range')
+        } catch (retryError) {
+          console.error('Failed to fetch logs even with smaller range:', retryError)
+          toast.error('RPC error: Try a different chain or try again later')
+          setIsLoadingApprovals(false)
+          return
+        }
+      }
       
       // Group by token address and spender
       const approvalMap = new Map<string, { token: string; spender: string; lastValue: bigint; blockNumber: bigint }>()
@@ -2225,19 +2250,20 @@ export default function RelaySwap() {
         const tokenAddress = event.address
         const spender = event.args.spender
         const value = event.args.value
+        const blockNumber = event.blockNumber
         
-        if (!spender || value === undefined) continue
+        if (!spender || value === undefined || !blockNumber) continue
         
         const key = `${tokenAddress.toLowerCase()}-${spender.toLowerCase()}`
         
         // Keep the most recent approval value
         const existing = approvalMap.get(key)
-        if (!existing || event.blockNumber > existing.blockNumber) {
+        if (!existing || blockNumber > existing.blockNumber) {
           approvalMap.set(key, {
             token: tokenAddress,
             spender,
             lastValue: value,
-            blockNumber: event.blockNumber,
+            blockNumber,
           })
         }
       }
@@ -2253,59 +2279,70 @@ export default function RelaySwap() {
       let checkedCount = 0
       let activeCount = 0
       
-      for (const pair of uniquePairs) {
-        try {
-          checkedCount++
-          
-          // Fetch token info
-          const tokenInfo = await relayAPI.getCurrencies({
-            address: pair.token,
-            chainIds: [revokeChain.id],
-            limit: 1,
-          })
-          
-          const token = tokenInfo[0]
-          if (!token) {
-            console.log('Token not found in Relay DB:', pair.token)
-            continue
-          }
-          
-          // Check current allowance (might have been revoked since the event)
-          const currentAllowance = await publicClient.readContract({
-            address: pair.token as `0x${string}`,
-            abi: [{
-              name: 'allowance',
-              type: 'function',
-              stateMutability: 'view',
-              inputs: [
-                { name: 'owner', type: 'address' },
-                { name: 'spender', type: 'address' }
-              ],
-              outputs: [{ name: 'remaining', type: 'uint256' }],
-            }],
-            functionName: 'allowance',
-            args: [address as `0x${string}`, pair.spender as `0x${string}`],
-          })
-          
-          console.log(`${token.symbol} current allowance for ${pair.spender}:`, currentAllowance.toString())
-          
-          if (currentAllowance > 0n) {
-            activeCount++
-            const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
-            const isUnlimited = currentAllowance >= maxUint256 / 2n
+      // Process in batches to avoid rate limits
+      const batchSize = 5
+      for (let i = 0; i < uniquePairs.length; i += batchSize) {
+        const batch = uniquePairs.slice(i, i + batchSize)
+        
+        await Promise.all(batch.map(async (pair) => {
+          try {
+            checkedCount++
             
-            console.log(`✓ Active approval: ${token.symbol} → ${pair.spender}, allowance:`, currentAllowance.toString())
-            
-            foundApprovals.push({
-              token,
-              spender: pair.spender,
-              spenderName: undefined, // Will show address
-              allowance: currentAllowance.toString(),
-              allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(currentAllowance, token.decimals),
+            // Fetch token info
+            const tokenInfo = await relayAPI.getCurrencies({
+              address: pair.token,
+              chainIds: [revokeChain.id],
+              limit: 1,
             })
+            
+            const token = tokenInfo[0]
+            if (!token) {
+              console.log('Token not found in Relay DB:', pair.token)
+              return
+            }
+            
+            // Check current allowance (might have been revoked since the event)
+            const currentAllowance = await publicClient.readContract({
+              address: pair.token as `0x${string}`,
+              abi: [{
+                name: 'allowance',
+                type: 'function',
+                stateMutability: 'view',
+                inputs: [
+                  { name: 'owner', type: 'address' },
+                  { name: 'spender', type: 'address' }
+                ],
+                outputs: [{ name: 'remaining', type: 'uint256' }],
+              }],
+              functionName: 'allowance',
+              args: [address as `0x${string}`, pair.spender as `0x${string}`],
+            })
+            
+            console.log(`${token.symbol} current allowance for ${pair.spender}:`, currentAllowance.toString())
+            
+            if (currentAllowance > 0n) {
+              activeCount++
+              const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
+              const isUnlimited = currentAllowance >= maxUint256 / 2n
+              
+              console.log(`✓ Active approval: ${token.symbol} → ${pair.spender}, allowance:`, currentAllowance.toString())
+              
+              foundApprovals.push({
+                token,
+                spender: pair.spender,
+                spenderName: undefined,
+                allowance: currentAllowance.toString(),
+                allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(currentAllowance, token.decimals),
+              })
+            }
+          } catch (e) {
+            console.error('Error checking approval for', pair.token, pair.spender, e)
           }
-        } catch (e) {
-          console.error('Error checking approval for', pair.token, pair.spender, e)
+        }))
+        
+        // Small delay between batches to avoid rate limiting
+        if (i + batchSize < uniquePairs.length) {
+          await new Promise(resolve => setTimeout(resolve, 100))
         }
       }
       
