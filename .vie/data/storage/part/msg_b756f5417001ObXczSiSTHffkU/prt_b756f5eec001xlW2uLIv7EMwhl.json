@@ -1,0 +1,22 @@
+{
+  "id": "prt_b756f5eec001xlW2uLIv7EMwhl",
+  "messageID": "msg_b756f5417001ObXczSiSTHffkU",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "webfetch",
+  "callID": "toolu_vrtx_01D4SrxeuSvpia96qAgrsJX5",
+  "state": {
+    "status": "completed",
+    "input": {
+      "url": "https://farcaster.xyz/miniapps/bzs-XgtfmjIw/smol-frame",
+      "format": "markdown"
+    },
+    "output": "         Farcaster               \n\nYou need to enable JavaScript to run this app.",
+    "metadata": {},
+    "title": "https://farcaster.xyz/miniapps/bzs-XgtfmjIw/smol-frame (text/html; charset=utf-8)",
+    "time": {
+      "start": 1767201792230,
+      "end": 1767201792522
+    }
+  }
+}
