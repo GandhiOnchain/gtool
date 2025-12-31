@@ -1482,8 +1482,15 @@ export default function RelaySwap() {
   const loadSwapHistory = async () => {
     if (!address) return
     
+    if (chains.length === 0) {
+      console.warn('Chains not loaded yet, skipping history load')
+      return
+    }
+    
     setIsLoadingHistory(true)
     try {
+      console.log('Loading swap history with', chains.length, 'chains available')
+      
       const { requests } = await relayAPI.getRequests({
         user: address,
         limit: 20,
@@ -1491,22 +1498,33 @@ export default function RelaySwap() {
         sortDirection: 'desc',
       })
       
+      console.log('Received', requests.length, 'requests')
+      
       const history: SwapHistory[] = await Promise.all(requests.map(async req => {
-        console.log('Processing request:', req.id, req)
+        console.log('=== Processing request:', req.id)
+        console.log('Request data:', {
+          inTxs: req.data.inTxs,
+          outTxs: req.data.outTxs,
+          currency: req.data.currency,
+          fees: req.data.fees,
+          feesUsd: req.data.feesUsd
+        })
         
         // Get chain IDs from transactions
         const originChainId = req.data.inTxs?.[0]?.chainId
         const destChainId = req.data.outTxs?.[0]?.chainId
         
         console.log('Chain IDs:', { originChainId, destChainId })
-        console.log('Available chains:', chains.length)
+        console.log('Available chains:', chains.length, chains.map(c => c.id))
         
         const originChain = chains.find(c => c.id === originChainId)
         const destChain = chains.find(c => c.id === destChainId)
         
         console.log('Found chains:', { 
           originChain: originChain?.displayName, 
+          originChainIcon: originChain?.iconUrl,
           destChain: destChain?.displayName,
+          destChainIcon: destChain?.iconUrl,
           originChainId,
           destChainId
         })
@@ -1611,7 +1629,18 @@ export default function RelaySwap() {
         // Process input transaction
         if (req.data.inTxs?.[0]) {
           const inTx = req.data.inTxs[0]
-          const rawAmount = inTx.data?.value || '0'
+          
+          // For native tokens, the value is in data.value
+          // For ERC-20 tokens, we need to decode the data field or use the price
+          let rawAmount = inTx.data?.value || '0'
+          
+          console.log('Input transaction:', {
+            rawAmount,
+            dataLength: inTx.data?.data?.length,
+            fromCurrency: fromCurrency?.symbol,
+            originChain: originChain?.currency?.symbol,
+            price: req.data.price
+          })
           
           // Use fetched currency data if available, otherwise fall back to chain native currency
           if (fromCurrency) {
@@ -1619,26 +1648,57 @@ export default function RelaySwap() {
             fromSymbol = fromCurrency.symbol
             fromTokenAddress = fromCurrency.address
             fromTokenLogo = fromCurrency.metadata?.logoURI
+            
+            // If this is an ERC-20 token (has transaction data), try to decode the amount
+            // The data field contains the encoded function call
+            if (inTx.data?.data && inTx.data.data.length > 10 && rawAmount === '0') {
+              // For ERC-20 transfers/approvals, the amount is typically in the last 64 characters
+              // This is a simplified approach - in production you'd want proper ABI decoding
+              try {
+                const data = inTx.data.data
+                // Check if it's a transfer or approve function (0xa9059cbb or 0x095ea7b3)
+                if (data.startsWith('0xa9059cbb') || data.startsWith('0x095ea7b3')) {
+                  // Amount is the last 32 bytes (64 hex chars)
+                  const amountHex = '0x' + data.slice(-64)
+                  rawAmount = BigInt(amountHex).toString()
+                  console.log('Decoded ERC-20 amount from data:', rawAmount)
+                }
+              } catch (e) {
+                console.error('Error decoding ERC-20 amount:', e)
+              }
+            }
           } else if (originChain) {
             fromDecimals = originChain.currency.decimals
             fromSymbol = originChain.currency.symbol
             fromTokenAddress = originChain.currency.address
           }
           
+          console.log('From token info:', { fromSymbol, fromDecimals, fromTokenAddress, rawAmount })
+          
           if (rawAmount && rawAmount !== '0') {
             try {
               fromAmount = parseFloat(formatUnits(BigInt(rawAmount), fromDecimals)).toFixed(6)
+              console.log('Formatted from amount:', fromAmount)
             } catch (e) {
-              console.error('Error formatting from amount:', e)
+              console.error('Error formatting from amount:', e, rawAmount)
               fromAmount = '0'
             }
+          } else {
+            console.log('Raw amount is zero or missing')
           }
         }
         
         // Process output transaction
         if (req.data.outTxs?.[0]) {
           const outTx = req.data.outTxs[0]
-          const rawAmount = outTx.data?.value || '0'
+          let rawAmount = outTx.data?.value || '0'
+          
+          console.log('Output transaction:', {
+            rawAmount,
+            dataLength: outTx.data?.data?.length,
+            toCurrency: toCurrency?.symbol,
+            destChain: destChain?.currency?.symbol
+          })
           
           // Use fetched currency data if available, otherwise fall back to chain native currency
           if (toCurrency) {
@@ -1646,19 +1706,38 @@ export default function RelaySwap() {
             toSymbol = toCurrency.symbol
             toTokenAddress = toCurrency.address
             toTokenLogo = toCurrency.metadata?.logoURI
+            
+            // If this is an ERC-20 token, try to decode the amount
+            if (outTx.data?.data && outTx.data.data.length > 10 && rawAmount === '0') {
+              try {
+                const data = outTx.data.data
+                if (data.startsWith('0xa9059cbb') || data.startsWith('0x095ea7b3')) {
+                  const amountHex = '0x' + data.slice(-64)
+                  rawAmount = BigInt(amountHex).toString()
+                  console.log('Decoded ERC-20 amount from data:', rawAmount)
+                }
+              } catch (e) {
+                console.error('Error decoding ERC-20 amount:', e)
+              }
+            }
           } else if (destChain) {
             toDecimals = destChain.currency.decimals
             toSymbol = destChain.currency.symbol
             toTokenAddress = destChain.currency.address
           }
           
+          console.log('To token info:', { toSymbol, toDecimals, toTokenAddress, rawAmount })
+          
           if (rawAmount && rawAmount !== '0') {
             try {
               toAmount = parseFloat(formatUnits(BigInt(rawAmount), toDecimals)).toFixed(6)
+              console.log('Formatted to amount:', toAmount)
             } catch (e) {
-              console.error('Error formatting to amount:', e)
+              console.error('Error formatting to amount:', e, rawAmount)
               toAmount = '0'
             }
+          } else {
+            console.log('To raw amount is zero or missing')
           }
         }
         
@@ -1667,7 +1746,7 @@ export default function RelaySwap() {
         const updatedTime = new Date(req.updatedAt).getTime()
         const completedAt = req.status === 'success' ? updatedTime : undefined
         
-        return {
+        const historyItem = {
           id: req.id,
           type: transactionType,
           fromToken: fromTokenAddress,
@@ -1693,6 +1772,11 @@ export default function RelaySwap() {
           inTxHash: req.data.inTxs?.[0]?.hash,
           batchTokens: transactionType === 'batch' ? batchTokens : undefined,
         }
+        
+        console.log('Final history item:', historyItem)
+        console.log('===')
+        
+        return historyItem
       }))
       
       setSwapHistory(history)

@@ -20,7 +20,8 @@
     "title": "find /home/user/sandbox/workspace -type f -name \"*.tsx\" -o -name \"*.ts\" | grep -i swap | head -20",
     "time": {
       "start": 1767175445609,
-      "end": 1767175446391
+      "end": 1767175446391,
+      "compacted": 1767178782568
     }
   }
 }

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7412d21e001B6U57n5sd93dxx",
+  "messageID": "msg_b741176a3001fJm6UHNXQHM0ac",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Good! Now the code should have better logging and attempt to decode ERC-20 amounts. However, I realize there might be a simpler issue - the chains array might not be populated when we're loading history. Let me check if we're waiting for chains to load:",
+  "time": {
+    "start": 1767178952410,
+    "end": 1767178952410
+  }
+}

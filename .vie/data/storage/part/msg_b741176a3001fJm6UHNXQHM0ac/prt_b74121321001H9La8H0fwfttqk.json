@@ -1,0 +1,25 @@
+{
+  "id": "prt_b74121321001H9La8H0fwfttqk",
+  "messageID": "msg_b741176a3001fJm6UHNXQHM0ac",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01WQKEjyRT7a2Z3fCx2ibcpc",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/relay/types.ts",
+      "offset": 155,
+      "limit": 50
+    },
+    "output": "<file>\n00156|   id: string\n00157|   status: string\n00158|   user: string\n00159|   recipient: string\n00160|   data: {\n00161|     subsidizedRequest: boolean\n00162|     fees: {\n00163|       gas: string\n00164|       fixed: string\n00165|       price: string\n00166|     }\n00167|     feesUsd: {\n00168|       gas: string\n00169|       fixed: string\n00170|       price: string\n00171|     }\n00172|     inTxs: Array<{\n00173|       fee: string\n00174|       data: {\n00175|         to: string\n00176|         data: string\n00177|         from: string\n00178|         value: string\n00179|       }\n00180|       hash: string\n00181|       type: string\n00182|       chainId: number\n00183|       timestamp: number\n00184|     }>\n00185|     currency: string\n00186|     price: string\n00187|     usesExternalLiquidity: boolean\n00188|     outTxs: Array<{\n00189|       fee: string\n00190|       data: {\n00191|         to: string\n00192|         data: string\n00193|         from: string\n00194|         value: string\n00195|       }\n00196|       hash: string\n00197|       type: string\n00198|       chainId: number\n00199|       timestamp: number\n00200|     }>\n00201|   }\n00202|   createdAt: string\n00203|   updatedAt: string\n00204| }\n00205| \n\n(File has more lines. Use 'offset' parameter to read beyond line 205)\n</file>",
+    "metadata": {
+      "preview": "  id: string\n  status: string\n  user: string\n  recipient: string\n  data: {\n    subsidizedRequest: boolean\n    fees: {\n      gas: string\n      fixed: string\n      price: string\n    }\n    feesUsd: {\n      gas: string\n      fixed: string\n      price: string\n    }\n    inTxs: Array<{\n      fee: string\n      data: {\n        to: string"
+    },
+    "title": "frontend/src/lib/relay/types.ts",
+    "time": {
+      "start": 1767178901300,
+      "end": 1767178901301
+    }
+  }
+}

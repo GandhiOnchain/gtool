@@ -1,0 +1,11 @@
+{
+  "id": "prt_b74122179001sa3SQxKnvK7w95",
+  "messageID": "msg_b741176a3001fJm6UHNXQHM0ac",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "I see - the value is at `inTx.data.value`. But the issue is that this `value` field represents the native gas token value sent with the transaction, NOT the ERC-20 token amount. For ERC-20 tokens, we need to decode the transaction data. \n\nHowever, there's a simpler approach - we can use the `price` field in the request data which should give us the total value. Let me check if there's better data available. Actually, looking at the Relay API, I think the issue is that we need to look at the actual transaction data more carefully or use a different approach.\n\nLet me try a different strategy - instead of trying to parse transaction data, let's see if we can get the amounts from the fees/price fields:",
+  "time": {
+    "start": 1767178923730,
+    "end": 1767178923730
+  }
+}

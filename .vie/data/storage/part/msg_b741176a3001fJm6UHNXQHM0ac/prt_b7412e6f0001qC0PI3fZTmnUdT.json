@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7412e6f0001qC0PI3fZTmnUdT",
+  "messageID": "msg_b741176a3001fJm6UHNXQHM0ac",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_0146XfABAQGS7THYq2WgcBpX",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 283,
+      "limit": 6
+    },
+    "output": "<file>\n00284|   useEffect(() => {\n00285|     if (address && chains.length > 0) {\n00286|       loadSwapHistory()\n00287|       loadUserStreak()\n00288|     }\n00289|   }, [address, chains])\n\n(File has more lines. Use 'offset' parameter to read beyond line 289)\n</file>",
+    "metadata": {
+      "preview": "  useEffect(() => {\n    if (address && chains.length > 0) {\n      loadSwapHistory()\n      loadUserStreak()\n    }\n  }, [address, chains])"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767178955108,
+      "end": 1767178955109
+    }
+  }
+}
