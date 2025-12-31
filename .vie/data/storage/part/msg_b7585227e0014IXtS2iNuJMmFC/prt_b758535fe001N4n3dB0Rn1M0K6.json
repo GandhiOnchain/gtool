@@ -1,0 +1,26 @@
+{
+  "id": "prt_b758535fe001N4n3dB0Rn1M0K6",
+  "messageID": "msg_b7585227e0014IXtS2iNuJMmFC",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Jveg2rBFMdVB54rAQ54Qfu",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://openapi.debank.com/v1/user/token_authorized_list?id=0x742d35Cc6634C0532925a3b844Bc454e4438f44e&chain_id=eth\" 2>&1 | head -50",
+      "description": "Test DeBank API for approvals"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Test DeBank API for approvals"
+    },
+    "title": "curl -s \"https://openapi.debank.com/v1/user/token_authorized_list?id=0x742d35Cc6634C0532925a3b844Bc454e4438f44e&chain_id=eth\" 2>&1 | head -50",
+    "time": {
+      "start": 1767203225176,
+      "end": 1767203225184
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7585eedd001PRtZVnYDO988VL",
+  "messageID": "msg_b7585227e0014IXtS2iNuJMmFC",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "I've implemented two critical fixes:\n\n## 🔧 Fixes Applied\n\n**1. CORS Proxy Fallback**\n- First tries direct API call\n- If CORS blocks it, automatically uses `corsproxy.io` \n- This bypasses browser CORS restrictions\n\n**2. Correct API Endpoint**\n- Changed from chain names (`ethereum`, `base`) to chain IDs (`1`, `8453`)\n- Revoke.cash API accepts chain IDs directly\n\n**How it works now:**\n1. Tries `https://api.revoke.cash/v1/allowances/1/0x...` (direct)\n2. If CORS blocked → Uses `https://corsproxy.io/?https://api.revoke.cash/v1/allowances/1/0x...`\n3. Gets instant results from pre-indexed data\n4. Shows approvals immediately (like Smol Frame)\n\nTry it now - it should work instantly with the CORS proxy!",
+  "time": {
+    "start": 1767203275518,
+    "end": 1767203275518
+  }
+}

@@ -2197,16 +2197,32 @@ export default function RelaySwap() {
       console.log('Fetching from Revoke.cash API for chain:', revokeCashChainName)
       setDebugInfo(`Fetching from Revoke.cash API...`)
       
-      // Use CORS proxy to avoid CORS issues
-      const apiUrl = `https://api.revoke.cash/v1/allowances/${revokeCashChainName}/${address}`
+      // Try direct API call first, then fallback to CORS proxy
+      let apiUrl = `https://api.revoke.cash/v1/allowances/${revokeCashChainName}/${address}`
       console.log('API URL:', apiUrl)
       
-      const response = await fetch(apiUrl, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-        },
-      })
+      let response: Response
+      
+      try {
+        // Try direct call first
+        response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+          },
+        })
+      } catch (corsError) {
+        console.warn('Direct API call failed (likely CORS), trying with CORS proxy...')
+        // Use CORS proxy as fallback
+        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`
+        console.log('Proxy URL:', proxyUrl)
+        response = await fetch(proxyUrl, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+          },
+        })
+      }
       
       console.log('API Response status:', response.status)
       
@@ -2319,25 +2335,11 @@ export default function RelaySwap() {
     }
   }
   
-  // Helper function to map chain IDs to Revoke.cash chain names
+  // Helper function to map chain IDs to Revoke.cash chain names (use chain ID directly)
   const getRevokeCashChainName = (chainId: number): string | null => {
-    const chainMap: Record<number, string> = {
-      1: 'ethereum',
-      8453: 'base',
-      42161: 'arbitrum',
-      137: 'polygon',
-      10: 'optimism',
-      56: 'bsc',
-      43114: 'avalanche',
-      59144: 'linea',
-      534352: 'scroll',
-      5000: 'mantle',
-      324: 'zksync',
-      250: 'fantom',
-      100: 'gnosis',
-      42220: 'celo',
-    }
-    return chainMap[chainId] || null
+    // Revoke.cash API accepts chain IDs directly
+    const supportedChains = [1, 8453, 42161, 137, 10, 56, 43114, 59144, 534352, 5000, 324, 250, 100, 42220]
+    return supportedChains.includes(chainId) ? chainId.toString() : null
   }
   
   // Fallback: On-chain scanning (original method)

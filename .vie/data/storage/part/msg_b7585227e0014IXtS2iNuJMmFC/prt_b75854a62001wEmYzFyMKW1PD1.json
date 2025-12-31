@@ -1,0 +1,26 @@
+{
+  "id": "prt_b75854a62001wEmYzFyMKW1PD1",
+  "messageID": "msg_b7585227e0014IXtS2iNuJMmFC",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01DqJYhie7YQ4qbAwqhi45Aq",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s -H \"Accept: application/json\" \"https://api.revoke.cash/v1/allowances/1/0x742d35Cc6634C0532925a3b844Bc454e4438f44e\" 2>&1 | jq '.' | head -100",
+      "description": "Test Revoke.cash API with chain ID"
+    },
+    "output": "/bin/sh: jq: not found\n",
+    "metadata": {
+      "output": "/bin/sh: jq: not found\n",
+      "exit": 0,
+      "description": "Test Revoke.cash API with chain ID"
+    },
+    "title": "curl -s -H \"Accept: application/json\" \"https://api.revoke.cash/v1/allowances/1/0x742d35Cc6634C0532925a3b844Bc454e4438f44e\" 2>&1 | jq '.' | head -100",
+    "time": {
+      "start": 1767203230048,
+      "end": 1767203230058
+    }
+  }
+}
