@@ -1,0 +1,11 @@
+{
+  "id": "prt_b758ce2a3001lsp6wCZg9NwtpO",
+  "messageID": "msg_b758c5871001HnsDrO4I19E673",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "I've updated the code to try 4 different methods to fetch the approvals:\n\n1. **Direct API call** (in case CORS is allowed)\n2. **allorigins.win proxy**\n3. **cors-anywhere.herokuapp.com**\n4. **corsproxy.io**\n\nIt will try each one until one succeeds. The console will show which method worked.\n\nNow try it again and check the browser console. It will show:\n- Which methods it's trying\n- Which one succeeded (if any)\n- The actual error if all fail\n\nPlease share what you see in the console so I can fix the exact issue. The console logs will tell us exactly what's blocking the API calls.",
+  "time": {
+    "start": 1767203730262,
+    "end": 1767203730262
+  }
+}

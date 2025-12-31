@@ -2183,24 +2183,76 @@ export default function RelaySwap() {
     try {
       console.log('🔍 Loading approvals for:', revokeChain.displayName, address)
       
-      // Try to fetch from Revoke.cash API using CORS proxy
+      // Try multiple methods to fetch approvals
       const chainId = revokeChain.id
-      const revokeCashUrl = `https://api.revoke.cash/v1/allowances/${chainId}/${address}`
+      let data = null
       
-      console.log('Fetching from:', revokeCashUrl)
-      
-      // Use allorigins.win as CORS proxy (reliable public service)
-      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(revokeCashUrl)}`
-      console.log('Using proxy:', proxyUrl)
-      
-      const response = await fetch(proxyUrl)
-      
-      if (!response.ok) {
-        console.error('API failed:', response.status)
-        throw new Error(`API returned ${response.status}`)
+      // Method 1: Try direct API call (might work in some environments)
+      try {
+        console.log('Method 1: Trying direct API call...')
+        const directUrl = `https://api.revoke.cash/v1/allowances/${chainId}/${address}`
+        const directResponse = await fetch(directUrl)
+        if (directResponse.ok) {
+          data = await directResponse.json()
+          console.log('✅ Direct API call succeeded!')
+        }
+      } catch (e) {
+        console.log('Direct API failed (expected due to CORS)')
       }
       
-      const data = await response.json()
+      // Method 2: Try allorigins proxy
+      if (!data) {
+        try {
+          console.log('Method 2: Trying allorigins proxy...')
+          const revokeCashUrl = `https://api.revoke.cash/v1/allowances/${chainId}/${address}`
+          const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(revokeCashUrl)}`
+          const proxyResponse = await fetch(proxyUrl)
+          if (proxyResponse.ok) {
+            data = await proxyResponse.json()
+            console.log('✅ Allorigins proxy succeeded!')
+          }
+        } catch (e) {
+          console.log('Allorigins proxy failed:', e)
+        }
+      }
+      
+      // Method 3: Try cors-anywhere
+      if (!data) {
+        try {
+          console.log('Method 3: Trying cors-anywhere...')
+          const revokeCashUrl = `https://api.revoke.cash/v1/allowances/${chainId}/${address}`
+          const corsAnywhereUrl = `https://cors-anywhere.herokuapp.com/${revokeCashUrl}`
+          const corsResponse = await fetch(corsAnywhereUrl)
+          if (corsResponse.ok) {
+            data = await corsResponse.json()
+            console.log('✅ CORS-anywhere succeeded!')
+          }
+        } catch (e) {
+          console.log('CORS-anywhere failed:', e)
+        }
+      }
+      
+      // Method 4: Try corsproxy.io
+      if (!data) {
+        try {
+          console.log('Method 4: Trying corsproxy.io...')
+          const revokeCashUrl = `https://api.revoke.cash/v1/allowances/${chainId}/${address}`
+          const corsProxyUrl = `https://corsproxy.io/?${encodeURIComponent(revokeCashUrl)}`
+          const corsProxyResponse = await fetch(corsProxyUrl)
+          if (corsProxyResponse.ok) {
+            data = await corsProxyResponse.json()
+            console.log('✅ Corsproxy.io succeeded!')
+          }
+        } catch (e) {
+          console.log('Corsproxy.io failed:', e)
+        }
+      }
+      
+      if (!data) {
+        console.error('All API methods failed')
+        throw new Error('All API proxy methods failed')
+      }
+      
       console.log('API Response:', data)
       console.log('Type:', typeof data, 'Is Array:', Array.isArray(data))
       
