@@ -2215,11 +2215,20 @@ export default function RelaySwap() {
         { address: '0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b', name: 'Uniswap Permit2' },
       ]
       
+      let checkedCount = 0
+      let errorCount = 0
+      
       for (const token of tokens) {
-        if (token.metadata?.isNative) continue
+        if (token.metadata?.isNative) {
+          console.log('Skipping native token:', token.symbol)
+          continue
+        }
         
         for (const spender of commonSpenders) {
           try {
+            checkedCount++
+            console.log(`Checking ${token.symbol} approval for ${spender.name}...`)
+            
             const allowance = await publicClient.readContract({
               address: token.address as `0x${string}`,
               abi: [{
@@ -2236,9 +2245,13 @@ export default function RelaySwap() {
               args: [address as `0x${string}`, spender.address as `0x${string}`],
             })
             
+            console.log(`${token.symbol} allowance for ${spender.name}:`, allowance.toString())
+            
             if (allowance > 0n) {
               const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
               const isUnlimited = allowance >= maxUint256 / 2n
+              
+              console.log(`✓ Found approval: ${token.symbol} → ${spender.name}, allowance:`, allowance.toString())
               
               foundApprovals.push({
                 token,
@@ -2249,10 +2262,18 @@ export default function RelaySwap() {
               })
             }
           } catch (e) {
-            // Token might not support allowance or other error
+            errorCount++
+            console.error(`Error checking ${token.symbol} for ${spender.name}:`, e)
           }
         }
       }
+      
+      console.log('Approval scan complete:', {
+        tokensScanned: tokens.length,
+        checksPerformed: checkedCount,
+        errors: errorCount,
+        approvalsFound: foundApprovals.length
+      })
       
       console.log('Found', foundApprovals.length, 'approvals')
       setApprovals(foundApprovals)

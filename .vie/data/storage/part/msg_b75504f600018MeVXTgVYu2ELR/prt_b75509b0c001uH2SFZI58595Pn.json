@@ -1,0 +1,11 @@
+{
+  "id": "prt_b75509b0c001uH2SFZI58595Pn",
+  "messageID": "msg_b75504f600018MeVXTgVYu2ELR",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "The logic looks correct. The issue is likely that:\n1. The function is checking too few tokens (only 50)\n2. The spender addresses might be wrong for the specific chain\n3. The errors are being silently caught\n\nLet me add better logging and error handling:",
+  "time": {
+    "start": 1767199790572,
+    "end": 1767199790572
+  }
+}
