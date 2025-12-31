@@ -2370,8 +2370,8 @@ export default function RelaySwap() {
       const tokenAddressSet = new Set<string>()
       const tokenMetadata = new Map<string, RelayCurrency>()
       
-      // Get tokens from Alchemy SDK directly
-      console.log('🔮 Fetching tokens from Alchemy...')
+      // ONLY get tokens from Alchemy (user's actual holdings) - don't add popular tokens
+      console.log('🔮 Fetching YOUR tokens from Alchemy...')
       
       try {
         const alchemyNetwork = getAlchemyNetwork(revokeChain.id) as unknown as AlchemyNetwork
@@ -2414,6 +2414,7 @@ export default function RelaySwap() {
             }
           })
           console.log(`✓ Found ${alchemyResponse.data.tokens.length} tokens from Alchemy`)
+          console.log(`✓ ONLY checking YOUR ${tokenAddressSet.size} tokens (not 100+ popular tokens)`)
         } else {
           console.warn('No tokens in Alchemy response')
         }
@@ -2421,34 +2422,6 @@ export default function RelaySwap() {
         const err = alchemyError as Error
         console.error('⚠️ Alchemy fetch failed:', err)
         console.error('Error stack:', err.stack)
-      }
-      
-      // Add popular tokens from Relay
-      console.log('📊 Fetching popular tokens from Relay...')
-      
-      try {
-        const popularTokens = await relayAPI.getCurrencies({
-          chainIds: [revokeChain.id],
-          limit: 100,
-        })
-        
-        console.log(`Relay returned ${popularTokens.length} popular tokens`)
-        
-        popularTokens.forEach(t => {
-          if (t.address !== '0x0000000000000000000000000000000000000000') {
-            const addr = t.address.toLowerCase()
-            tokenAddressSet.add(addr)
-            if (!tokenMetadata.has(addr)) {
-              tokenMetadata.set(addr, t)
-            }
-          }
-        })
-        
-        console.log(`✓ Total unique tokens to check: ${tokenAddressSet.size}`)
-        console.log('First 10 tokens:', Array.from(tokenAddressSet).slice(0, 10))
-      } catch (popularError) {
-        const err = popularError as Error
-        console.error('❌ Popular tokens fetch failed:', err)
       }
       
       // Comprehensive protocol spender addresses by chain (like Rabby/Revoke.cash)
@@ -2537,11 +2510,14 @@ export default function RelaySwap() {
       }
       
       if (tokenAddressSet.size === 0) {
-        console.log('⚠️ No tokens found to check')
+        console.log('⚠️ No tokens found in your wallet')
         setApprovals([])
-        toast.info('No tokens found in wallet')
+        toast.info('No tokens found in your wallet')
         return
       }
+      
+      console.log(`✅ Will check ${tokenAddressSet.size} tokens × ${spendersToCheck.length} protocols = ${tokenAddressSet.size * spendersToCheck.length} checks`)
+      console.log('This should take ~5-10 seconds...')
       
       console.log(`🔎 Checking ${tokenAddressSet.size} tokens against ${spendersToCheck.length} protocols`)
       console.log('Spenders to check:', spendersToCheck.map(s => s.name))

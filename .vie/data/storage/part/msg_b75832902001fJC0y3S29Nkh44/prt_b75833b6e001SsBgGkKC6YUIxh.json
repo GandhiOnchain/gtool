@@ -1,0 +1,85 @@
+{
+  "id": "prt_b75833b6e001SsBgGkKC6YUIxh",
+  "messageID": "msg_b75832902001fJC0y3S29Nkh44",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01Nkm1v8PdSCcJDxGUn7BBFh",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Research alternative approval APIs without CORS",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Implement DeBank API or similar",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Add server-side proxy if needed",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Make it work immediately like Smol Frame",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Research alternative approval APIs without CORS\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Implement DeBank API or similar\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Add server-side proxy if needed\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Make it work immediately like Smol Frame\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"4\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"5\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Research alternative approval APIs without CORS",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Implement DeBank API or similar",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Add server-side proxy if needed",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Make it work immediately like Smol Frame",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        }
+      ]
+    },
+    "title": "5 todos",
+    "time": {
+      "start": 1767203095937,
+      "end": 1767203095937
+    }
+  }
+}
