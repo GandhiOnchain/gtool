@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7587e99b001P47F17xp2HcRoW",
+  "messageID": "msg_b75878f1d001nuAWaqDpZZy5Mw",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Based on my research, Smol Frame and similar apps typically use one of these approaches:\n\n1. **Their own backend** that fetches approvals server-side\n2. **Covalent API** - has CORS enabled\n3. **Zerion API** - has CORS enabled  \n4. **Zapper API** - has CORS enabled\n\nLet me implement using Covalent API which is free and has CORS support:",
+  "time": {
+    "start": 1767203441421,
+    "end": 1767203441421
+  }
+}

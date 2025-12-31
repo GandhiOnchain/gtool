@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7587d7c8001sxIAhQrC5E8aIy",
+  "messageID": "msg_b75878f1d001nuAWaqDpZZy5Mw",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01LJBTYpCxiLMs4ofR37Cbaa",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://api.etherscan.io/api?module=account&action=tokentx&address=0x742d35Cc6634C0532925a3b844Bc454e4438f44e&page=1&offset=5&sort=desc&apikey=YourApiKeyToken\" 2>&1 | head -100",
+      "description": "Test Etherscan API"
+    },
+    "output": "{\"status\":\"0\",\"message\":\"NOTOK\",\"result\":\"You are using a deprecated V1 endpoint, switch to Etherscan API V2 using https://docs.etherscan.io/v2-migration\"}",
+    "metadata": {
+      "output": "{\"status\":\"0\",\"message\":\"NOTOK\",\"result\":\"You are using a deprecated V1 endpoint, switch to Etherscan API V2 using https://docs.etherscan.io/v2-migration\"}",
+      "exit": 0,
+      "description": "Test Etherscan API"
+    },
+    "title": "curl -s \"https://api.etherscan.io/api?module=account&action=tokentx&address=0x742d35Cc6634C0532925a3b844Bc454e4438f44e&page=1&offset=5&sort=desc&apikey=YourApiKeyToken\" 2>&1 | head -100",
+    "time": {
+      "start": 1767203397105,
+      "end": 1767203397264
+    }
+  }
+}

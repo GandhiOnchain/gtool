@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7587c408001cCUQiR1ujwyRUq",
+  "messageID": "msg_b75878f1d001nuAWaqDpZZy5Mw",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01RC9Vkp98b4PT2pFJvovH5D",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -sL \"https://smol.kiwi\" 2>&1 | grep -i \"api\\|fetch\\|allowance\\|approval\" | head -20",
+      "description": "Check Smol Frame source"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Check Smol Frame source"
+    },
+    "title": "curl -sL \"https://smol.kiwi\" 2>&1 | grep -i \"api\\|fetch\\|allowance\\|approval\" | head -20",
+    "time": {
+      "start": 1767203391699,
+      "end": 1767203391706
+    }
+  }
+}

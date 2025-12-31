@@ -1,0 +1,20 @@
+{
+  "id": "prt_b7587b5c0001fgC6mHa6gdoRYB",
+  "messageID": "msg_b75878f1d001nuAWaqDpZZy5Mw",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "webfetch",
+  "callID": "toolu_vrtx_01TLsngti99DJ7jzR3Lffo2M",
+  "state": {
+    "status": "error",
+    "input": {
+      "url": "https://smol.kiwi",
+      "format": "html"
+    },
+    "error": "Error: Unable to connect. Is the computer able to access the url?",
+    "time": {
+      "start": 1767203387416,
+      "end": 1767203387437
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7587d355001Z48V8E6yNYSBy0",
+  "messageID": "msg_b75878f1d001nuAWaqDpZZy5Mw",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Let me check what APIs are commonly used for approval detection that work without CORS:",
+  "time": {
+    "start": 1767203397252,
+    "end": 1767203397252
+  }
+}

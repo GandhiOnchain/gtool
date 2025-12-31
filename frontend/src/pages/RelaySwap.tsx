@@ -2178,176 +2178,11 @@ export default function RelaySwap() {
     if (!address || !revokeChain) return
     
     setIsLoadingApprovals(true)
-    setDebugInfo('Fetching approvals from indexer...')
+    setDebugInfo('Scanning for approvals...')
     
     try {
-      console.log('🔍 Loading approvals for chain:', revokeChain.displayName, 'address:', address)
-      console.log('Chain ID:', revokeChain.id)
-      
-      // Use Revoke.cash API to get approvals (like Smol Frame does)
-      const revokeCashChainName = getRevokeCashChainName(revokeChain.id)
-      
-      if (!revokeCashChainName) {
-        console.warn('Chain not supported by Revoke.cash API, falling back to on-chain scan')
-        setDebugInfo('Chain not supported by API, using on-chain scan...')
-        await loadApprovalsOnChain()
-        return
-      }
-      
-      console.log('Fetching from Revoke.cash API for chain:', revokeCashChainName)
-      setDebugInfo(`Fetching from Revoke.cash API...`)
-      
-      // Try direct API call first, then fallback to CORS proxy
-      let apiUrl = `https://api.revoke.cash/v1/allowances/${revokeCashChainName}/${address}`
-      console.log('API URL:', apiUrl)
-      
-      let response: Response
-      
-      try {
-        // Try direct call first
-        response = await fetch(apiUrl, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-          },
-        })
-      } catch (corsError) {
-        console.warn('Direct API call failed (likely CORS), trying with CORS proxy...')
-        // Use CORS proxy as fallback
-        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`
-        console.log('Proxy URL:', proxyUrl)
-        response = await fetch(proxyUrl, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-          },
-        })
-      }
-      
-      console.log('API Response status:', response.status)
-      
-      if (!response.ok) {
-        const errorText = await response.text()
-        console.error('Revoke.cash API failed:', response.status, response.statusText)
-        console.error('Error response:', errorText)
-        setDebugInfo('API failed, using on-chain scan...')
-        await loadApprovalsOnChain()
-        return
-      }
-      
-      const data = await response.json()
-      console.log('Revoke.cash API response:', data)
-      console.log('Response type:', typeof data, 'Is array:', Array.isArray(data))
-      
-      // Handle different response formats
-      let approvalsData = data
-      if (data && typeof data === 'object' && !Array.isArray(data)) {
-        // Response might be wrapped in an object
-        approvalsData = data.allowances || data.data || data.results || []
-        console.log('Unwrapped data:', approvalsData)
-      }
-      
-      if (!Array.isArray(approvalsData)) {
-        console.warn('Invalid API response format, expected array but got:', typeof approvalsData)
-        console.warn('Full response:', JSON.stringify(data, null, 2))
-        setDebugInfo('Invalid API response, using on-chain scan...')
-        await loadApprovalsOnChain()
-        return
-      }
-      
-      console.log(`Found ${approvalsData.length} approvals from API`)
-      setDebugInfo(`Processing ${approvalsData.length} approvals...`)
-      
-      if (approvalsData.length > 0) {
-        console.log('First approval sample:', JSON.stringify(approvalsData[0], null, 2))
-      }
-      
-      const foundApprovals: typeof approvals = []
-      
-      for (const approval of approvalsData) {
-        try {
-          console.log('Processing approval:', approval)
-          
-          // Handle different field names
-          const allowanceValue = approval.allowance || approval.value || approval.amount
-          const tokenAddress = approval.asset?.address || approval.token_address || approval.tokenAddress || approval.token?.address
-          const spenderAddress = approval.spender?.address || approval.spender_address || approval.spenderAddress || approval.spender
-          
-          if (!allowanceValue || allowanceValue === '0') {
-            console.log('Skipping - no allowance')
-            continue
-          }
-          
-          const allowanceBigInt = BigInt(allowanceValue)
-          if (allowanceBigInt === 0n) {
-            console.log('Skipping - zero allowance')
-            continue
-          }
-          
-          const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
-          const isUnlimited = allowanceBigInt >= maxUint256 / 2n
-          
-          const token: RelayCurrency = {
-            address: tokenAddress,
-            symbol: approval.asset?.symbol || approval.token?.symbol || approval.tokenSymbol || 'UNKNOWN',
-            name: approval.asset?.name || approval.token?.name || approval.tokenName || 'Unknown Token',
-            decimals: approval.asset?.decimals || approval.token?.decimals || approval.tokenDecimals || 18,
-            chainId: revokeChain.id,
-            metadata: (approval.asset?.icon_url || approval.token?.logo) ? { 
-              logoURI: approval.asset?.icon_url || approval.token?.logo 
-            } : undefined,
-          }
-          
-          foundApprovals.push({
-            token,
-            spender: spenderAddress,
-            spenderName: approval.spender?.name || approval.spenderName || undefined,
-            allowance: allowanceValue,
-            allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(allowanceBigInt, token.decimals),
-            riskLevel: isUnlimited ? 'high' : 'low',
-          })
-          
-          console.log(`✅ Approval: ${token.symbol} → ${approval.spender?.name || spenderAddress}`)
-        } catch (e) {
-          const err = e as Error
-          console.error('Error processing approval:', err.message, approval)
-        }
-      }
-      
-      console.log(`🎉 Found ${foundApprovals.length} active approvals`)
-      setApprovals(foundApprovals)
-      
-      if (foundApprovals.length === 0) {
-        toast.success('No active approvals found')
-      } else {
-        toast.success(`Found ${foundApprovals.length} active approval${foundApprovals.length > 1 ? 's' : ''}`)
-      }
-    } catch (error) {
-      const err = error as Error
-      console.error('❌ Failed to load approvals:', err)
-      console.error('Error details:', err.message, err.stack)
-      setDebugInfo('Error loading approvals, trying on-chain scan...')
-      
-      // Fallback to on-chain scanning
-      await loadApprovalsOnChain()
-    } finally {
-      setIsLoadingApprovals(false)
-    }
-  }
-  
-  // Helper function to map chain IDs to Revoke.cash chain names (use chain ID directly)
-  const getRevokeCashChainName = (chainId: number): string | null => {
-    // Revoke.cash API accepts chain IDs directly
-    const supportedChains = [1, 8453, 42161, 137, 10, 56, 43114, 59144, 534352, 5000, 324, 250, 100, 42220]
-    return supportedChains.includes(chainId) ? chainId.toString() : null
-  }
-  
-  // Fallback: On-chain scanning (original method)
-  const loadApprovalsOnChain = async () => {
-    if (!address || !revokeChain) return
-    
-    try {
-      console.log('🔗 Starting on-chain approval scan...')
+      console.log('🔍 Starting approval scan for:', revokeChain.displayName)
+      console.log('Address:', address)
       console.log('RPC URL:', revokeChain.httpRpcUrl)
       
       const chainConfig = defineChain({
@@ -2605,7 +2440,7 @@ export default function RelaySwap() {
         }
       }
       
-      console.log(`🎉 On-chain scan complete: ${foundApprovals.length} approvals found`)
+      console.log(`🎉 Scan complete: ${foundApprovals.length} approvals found`)
       
       setApprovals(foundApprovals)
       
@@ -2616,8 +2451,10 @@ export default function RelaySwap() {
       }
     } catch (error) {
       const err = error as Error
-      console.error('❌ On-chain scan failed:', err)
+      console.error('❌ Scan failed:', err)
       toast.error(`Failed to scan approvals: ${err.message || 'Unknown error'}`)
+    } finally {
+      setIsLoadingApprovals(false)
     }
   }
 
