@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73491bec0013HVIhcauO194mh",
+  "messageID": "msg_b73490ec10010CZh18UxDQOneG",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "No problem! Let me help you open the browser console to see what's happening:\n\n**To open the browser console:**\n\n1. **If you're using Chrome or Edge:**\n   - Press `F12` on your keyboard\n   - OR right-click anywhere on the page and click \"Inspect\"\n   - Then click the \"Console\" tab at the top\n\n2. **If you're using Firefox:**\n   - Press `F12` on your keyboard\n   - OR right-click and click \"Inspect Element\"\n   - Then click \"Console\"\n\n3. **If you're using Safari:**\n   - Press `Command + Option + C` (on Mac)\n\nOnce you open it, you'll see a lot of text messages. Look for messages in **red** (those are errors) or messages that say \"Loading chains\" or \"Fetching tokens\".\n\n**But let me try a different approach** - instead of debugging, let me just simplify the code to make it work reliably. The issue is that Rango API might be slow or failing. Let me make the app work with just the chains we know are available:",
+  "time": {
+    "start": 1767165753509,
+    "end": 1767165753509
+  }
+}

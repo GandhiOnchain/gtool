@@ -1,0 +1,11 @@
+{
+  "id": "prt_b734a34ad001rNYYP24aRTKzJc",
+  "messageID": "msg_b73490ec10010CZh18UxDQOneG",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! Now the app should work much better:\n\n1. **Solana is now available** in the chain selector\n2. **Solana tokens (SOL, USDC, USDT)** will load instantly - no waiting for API calls\n3. **When you swap from Ethereum to Solana**, it will use Rango Exchange automatically\n\nTry this now:\n1. Select **Ethereum** as the \"From\" chain\n2. Select **Solana** as the \"To\" chain  \n3. You should see SOL, USDC, USDT in the token list\n4. Enter a Solana wallet address in the recipient field (it should appear automatically)\n5. Click Swap\n\nThe swap should now work using Rango Exchange for the cross-VM swap!",
+  "time": {
+    "start": 1767165806361,
+    "end": 1767165806361
+  }
+}

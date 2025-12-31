@@ -213,44 +213,31 @@ export default function RelaySwap() {
       const relayChains = relayResponse.chains.filter(c => !c.disabled)
       console.log('Loaded Relay chains:', relayChains.length)
       
-      // Try to load Rango chains, but don't fail if it errors
-      let rangoChains: RelayChain[] = []
-      try {
-        console.log('Loading Rango blockchains...')
-        const rangoBlockchains = await rangoAPI.getBlockchains()
-        console.log('Rango blockchains response:', rangoBlockchains.length)
-        
-        // Convert Rango blockchains to RelayChain format
-        rangoChains = rangoBlockchains
-          .filter(b => b.enabled && (b.type === 'SOLANA' || b.type === 'COSMOS'))
-          .map(b => ({
-            id: b.chainId ? parseInt(b.chainId) : b.name.toLowerCase().charCodeAt(0) * 1000,
-            name: b.name.toLowerCase(),
-            displayName: b.displayName,
-            httpRpcUrl: '',
-            explorerUrl: '',
-            explorerName: '',
-            depositEnabled: true,
-            tokenSupport: 'All',
-            disabled: false,
-            currency: {
-              id: b.shortName.toLowerCase(),
-              symbol: b.shortName,
-              name: b.displayName,
-              address: '0x0000000000000000000000000000000000000000',
-              decimals: 9,
-              supportsBridging: true,
-            },
-            iconUrl: b.logo,
-            vmType: b.type.toLowerCase() as 'evm' | 'svm' | 'cosmos',
-          }))
-        console.log('Converted Rango chains:', rangoChains.length)
-      } catch (rangoError) {
-        console.error('Failed to load Rango chains (continuing with Relay only):', rangoError)
+      // Manually add Solana chain (hardcoded since Rango API might be slow)
+      const solanaChain: RelayChain = {
+        id: 900000, // Unique ID for Solana
+        name: 'solana',
+        displayName: 'Solana',
+        httpRpcUrl: 'https://api.mainnet-beta.solana.com',
+        explorerUrl: 'https://explorer.solana.com',
+        explorerName: 'Solana Explorer',
+        depositEnabled: true,
+        tokenSupport: 'All',
+        disabled: false,
+        currency: {
+          id: 'sol',
+          symbol: 'SOL',
+          name: 'Solana',
+          address: '0x0000000000000000000000000000000000000000',
+          decimals: 9,
+          supportsBridging: true,
+        },
+        iconUrl: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png',
+        vmType: 'svm',
       }
       
-      // Combine both chain lists
-      const allChains = [...relayChains, ...rangoChains]
+      // Combine Relay chains with Solana
+      const allChains = [...relayChains, solanaChain]
       setChains(allChains)
       
       if (allChains.length > 0) {
@@ -259,11 +246,7 @@ export default function RelaySwap() {
         setToChain(allChains.find(c => c.id !== baseChain.id) || allChains[1])
       }
       
-      console.log('Total chains loaded:', {
-        relay: relayChains.length,
-        rango: rangoChains.length,
-        total: allChains.length,
-      })
+      console.log('Total chains loaded:', allChains.length, '(including Solana)')
     } catch (error) {
       console.error('Failed to load chains:', error)
       toast.error('Failed to load chains')
@@ -306,9 +289,46 @@ export default function RelaySwap() {
           defaultList: true,
           limit: 100,
         })
+      } else if (chain.name === 'solana') {
+        // Hardcoded Solana tokens for reliability
+        console.log('Loading hardcoded Solana tokens...')
+        fetchedCurrencies = [
+          {
+            chainId: 900000,
+            address: '0x0000000000000000000000000000000000000000',
+            symbol: 'SOL',
+            name: 'Solana',
+            decimals: 9,
+            metadata: {
+              logoURI: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png',
+              isNative: true,
+            },
+          },
+          {
+            chainId: 900000,
+            address: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
+            symbol: 'USDC',
+            name: 'USD Coin',
+            decimals: 6,
+            metadata: {
+              logoURI: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png',
+              isNative: false,
+            },
+          },
+          {
+            chainId: 900000,
+            address: 'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB',
+            symbol: 'USDT',
+            name: 'Tether USD',
+            decimals: 6,
+            metadata: {
+              logoURI: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB/logo.svg',
+              isNative: false,
+            },
+          },
+        ]
       } else {
-        // For non-EVM chains, use Rango API
-        // Rango uses uppercase blockchain names like "SOLANA", "COSMOS"
+        // For other non-EVM chains, try Rango API
         const blockchainName = chain.name.toUpperCase()
         console.log('Fetching non-EVM tokens from Rango for blockchain:', blockchainName)
         
