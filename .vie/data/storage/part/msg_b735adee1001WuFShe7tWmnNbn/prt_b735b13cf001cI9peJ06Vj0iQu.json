@@ -1,0 +1,11 @@
+{
+  "id": "prt_b735b13cf001cI9peJ06Vj0iQu",
+  "messageID": "msg_b735adee1001WuFShe7tWmnNbn",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "I see the issue now! Look at line 536 - we're checking if `fromChain.id === toChain.id` and blocking the swap. But for Ethereum (id: 1) to Solana (id: 792703809), those IDs are different, so that's not the issue.\n\nThe real problem is likely that when you select Solana tokens, they might have the same address format as Ethereum tokens (`0x000...` for native). Let me add detailed logging to see what's being sent:",
+  "time": {
+    "start": 1767166919198,
+    "end": 1767166919198
+  }
+}

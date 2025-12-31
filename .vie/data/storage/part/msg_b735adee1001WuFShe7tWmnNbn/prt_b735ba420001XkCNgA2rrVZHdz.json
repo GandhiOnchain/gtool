@@ -1,0 +1,11 @@
+{
+  "id": "prt_b735ba420001XkCNgA2rrVZHdz",
+  "messageID": "msg_b735adee1001WuFShe7tWmnNbn",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! Now when you try to swap, look at the browser console (press F12) and you'll see a section that says:\n\n```\n=== EXECUTE SWAP DEBUG ===\nFrom Chain: Ethereum ID: 1 vmType: evm\nTo Chain: Solana ID: 792703809 vmType: svm\nFrom Token: ETH Address: 0x0000...\nTo Token: SOL Address: 0x0000...\n...\n```\n\nPlease try the swap again and copy/paste that debug section from the console. That will show me exactly what's being sent to Relay and I can fix the issue.",
+  "time": {
+    "start": 1767166947615,
+    "end": 1767166947615
+  }
+}

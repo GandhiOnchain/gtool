@@ -1,0 +1,11 @@
+{
+  "id": "prt_b735af451001ejmWTKGPMiblG4",
+  "messageID": "msg_b735adee1001WuFShe7tWmnNbn",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Let me check the console logs to see what's actually being sent to the Relay API. Can you open the browser console (press F12) and look for a log that says \"Execute swap params:\" or \"Calling /execute/swap with params:\"? \n\nThat will show me exactly what data is being sent. But let me also add better logging to help debug this:",
+  "time": {
+    "start": 1767166903053,
+    "end": 1767166903053
+  }
+}

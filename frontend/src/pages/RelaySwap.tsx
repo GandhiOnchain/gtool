@@ -574,6 +574,17 @@ export default function RelaySwap() {
         useExternalLiquidity: isCrossVM ? true : undefined,
       }
       
+      console.log('=== EXECUTE SWAP DEBUG ===')
+      console.log('From Chain:', fromChain.displayName, 'ID:', fromChain.id, 'vmType:', fromChain.vmType)
+      console.log('To Chain:', toChain.displayName, 'ID:', toChain.id, 'vmType:', toChain.vmType)
+      console.log('From Token:', fromToken.symbol, 'Address:', fromToken.address)
+      console.log('To Token:', toToken.symbol, 'Address:', toToken.address)
+      console.log('Amount:', amountInWei.toString())
+      console.log('Recipient:', recipientAddress)
+      console.log('Is Cross-VM:', isCrossVM)
+      console.log('Execute Params:', JSON.stringify(executeParams, null, 2))
+      console.log('=========================')
+      
       const freshQuote = await relayAPI.executeSwap(executeParams)
       
       console.log('Fresh quote received:', {
