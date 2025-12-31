@@ -1,0 +1,11 @@
+{
+  "id": "prt_b758f06b7001ncMux2UcbQtCxm",
+  "messageID": "msg_b758ef87f001m3O8QA0jHPReni",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Perfect! I can see the approvals in Rabby. I can see several contract addresses like:\n- `0x1e0049...003c71` (OpenSea)\n- `0xa39a5f...6912a9` (Element)\n- `0xdef1c0...b25eff` (0x)\n- And several \"Unknown\" contracts\n\nThe issue is clear now - these are **NFT marketplace approvals** (OpenSea, Element, 0x), not DEX router approvals! We're only checking DEX routers, but you have NFT approvals.\n\nLet me add NFT marketplace spender addresses to the list:",
+  "time": {
+    "start": 1767203893160,
+    "end": 1767203893160
+  }
+}

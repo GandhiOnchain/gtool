@@ -2433,12 +2433,22 @@ export default function RelaySwap() {
           { address: '0xBA12222222228d8Ba445958a75a0704d566BF2C8', name: 'Balancer V2 Vault' },
         ],
         8453: [ // Base
+          // DEX Routers
           { address: '0x2626664c2603336E57B271c5C0b26F421741e481', name: 'Uniswap V3 Router 2' },
           { address: '0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD', name: 'Uniswap Universal Router' },
           { address: '0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24', name: 'BaseSwap Router' },
           { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
           { address: '0x327Df1E6de05895d2ab08513aaDD9313Fe505d86', name: 'Aerodrome Router' },
           { address: '0xcF77a3Ba9A5CA399B7c97c74d54e5b1Beb874E43', name: 'Aerodrome Sugar' },
+          // NFT Marketplaces (Base)
+          { address: '0x1e0049783F008A0085193E00003D00cd54003c71', name: 'OpenSea Seaport 1.5' },
+          { address: '0x00000000000000ADc04C56Bf30aC9d3c0aAF14dC', name: 'OpenSea Seaport 1.6' },
+          { address: '0x00000000006c3852cbEf3e08E8dF289169EdE581', name: 'OpenSea Seaport 1.1' },
+          { address: '0xa39a5f6912a9', name: 'Element' },
+          { address: '0xdef1c0ded9bec7f1a1670819833240f027b25eff', name: '0x Protocol' },
+          { address: '0x0000000000E655fAe4d56241588680F86E3b2377', name: 'LooksRare' },
+          { address: '0x59728544B08AB483533076417FbBB2fD0B17CE3a', name: 'Blur' },
+          { address: '0x74312363e45DCaBA76c59ec49a7Aa8A65a67EeD3', name: 'X2Y2' },
         ],
         42161: [ // Arbitrum
           { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b759015b3001Gsqb607KhVwMEs",
+  "messageID": "msg_b758ef87f001m3O8QA0jHPReni",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Perfect! I've added NFT marketplace spender addresses for Base including:\n- OpenSea Seaport (multiple versions)\n- Element\n- 0x Protocol  \n- LooksRare\n- Blur\n- X2Y2\n\nNow the app will check your 8 tokens against 14 spenders (6 DEX + 8 NFT marketplaces) = 112 checks.\n\n**This should now detect your NFT approvals!**\n\nTry it now - it should find the OpenSea, Element, and 0x approvals that Rabby shows!",
+  "time": {
+    "start": 1767203939674,
+    "end": 1767203939674
+  }
+}
