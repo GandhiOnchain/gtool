@@ -1,0 +1,97 @@
+{
+  "id": "prt_b7573d88b001oRb3a9xwsVtv3x",
+  "messageID": "msg_b7571aa57001PnWMlteUzQeGvz",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_017ABzcYU4zqPSDt3ndU3o75",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Debug why no approvals are found",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix Alchemy hook usage - can't use hooks inside async function",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Simplify token discovery to avoid errors",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Add better error logging",
+          "status": "completed",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Test with actual wallet",
+          "status": "completed",
+          "priority": "high",
+          "id": "5"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "completed",
+          "priority": "high",
+          "id": "6"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Debug why no approvals are found\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Fix Alchemy hook usage - can't use hooks inside async function\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Simplify token discovery to avoid errors\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Add better error logging\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"4\"\n  },\n  {\n    \"content\": \"Test with actual wallet\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"5\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"6\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Debug why no approvals are found",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix Alchemy hook usage - can't use hooks inside async function",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Simplify token discovery to avoid errors",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Add better error logging",
+          "status": "completed",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Test with actual wallet",
+          "status": "completed",
+          "priority": "high",
+          "id": "5"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "completed",
+          "priority": "high",
+          "id": "6"
+        }
+      ]
+    },
+    "title": "0 todos",
+    "time": {
+      "start": 1767202088761,
+      "end": 1767202088761
+    }
+  }
+}

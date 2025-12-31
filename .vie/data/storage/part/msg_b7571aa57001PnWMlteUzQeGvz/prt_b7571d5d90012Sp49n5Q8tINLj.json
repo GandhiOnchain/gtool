@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7571d5d90012Sp49n5Q8tINLj",
+  "messageID": "msg_b7571aa57001PnWMlteUzQeGvz",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_011bXTtREYmW7hftEa8uj6Xe",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/config.ts",
+      "offset": 250,
+      "limit": 50
+    },
+    "output": "<file>\n00251|   // Frax (Fraxtal)\n00252|   252: Network.FRAX_MAINNET,\n00253| \n00254|   // CrossFi (your list only includes 4158)\n00255|   4158: Network.CROSSFI_TESTNET,\n00256| \n00257|   // ApeChain\n00258|   33139: Network.APECHAIN_MAINNET,\n00259| \n00260|   // Lumia\n00261|   994873017: Network.LUMIA_PRISM,\n00262| \n00263|   // Unichain\n00264|   130: Network.UNICHAIN_MAINNET,\n00265| \n00266|   // Sonic\n00267|   146: Network.SONIC_MAINNET,\n00268| \n00269|   // Abstract\n00270|   2741: Network.ABSTRACT_MAINNET,\n00271| \n00272|   // Ink\n00273|   57073: Network.INK_MAINNET,\n00274| \n00275|   // Sei\n00276|   1329: Network.SEI_MAINNET,\n00277| \n00278|   // Ronin\n00279|   2020: Network.RONIN_MAINNET,\n00280| \n00281|   // Superseed\n00282|   5330: Network.SUPERSEED_MAINNET,\n00283| \n00284|   // Tea (Sepolia)\n00285|   667: Network.TEA_SEPOLIA,\n00286| \n00287|   // Story\n00288|   1514: Network.STORY_MAINNET,\n00289| \n00290|   // Botanix\n00291|   3636: Network.BOTANIX_MAINNET,\n00292|   3637: Network.BOTANIX_TESTNET,\n00293| \n00294|   // Humanity\n00295|   332: Network.HUMANITY_MAINNET,\n00296| \n00297|   // Rise\n00298|   202020: Network.RISE_TESTNET,\n00299| \n00300|   // Hyperliquid\n\n(File has more lines. Use 'offset' parameter to read beyond line 300)\n</file>",
+    "metadata": {
+      "preview": "  // Frax (Fraxtal)\n  252: Network.FRAX_MAINNET,\n\n  // CrossFi (your list only includes 4158)\n  4158: Network.CROSSFI_TESTNET,\n\n  // ApeChain\n  33139: Network.APECHAIN_MAINNET,\n\n  // Lumia\n  994873017: Network.LUMIA_PRISM,\n\n  // Unichain\n  130: Network.UNICHAIN_MAINNET,\n\n  // Sonic\n  146: Network.SONIC_MAINNET,\n\n  // Abstract\n  2741: Network.ABSTRACT_MAINNET,"
+    },
+    "title": "frontend/src/lib/alchemy/config.ts",
+    "time": {
+      "start": 1767201953885,
+      "end": 1767201953886
+    }
+  }
+}

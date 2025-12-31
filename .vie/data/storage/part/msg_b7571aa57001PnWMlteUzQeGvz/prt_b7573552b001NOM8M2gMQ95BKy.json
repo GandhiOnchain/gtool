@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7573552b001NOM8M2gMQ95BKy",
+  "messageID": "msg_b7571aa57001PnWMlteUzQeGvz",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01CwarRzsqyhi99VZuA9yZEJ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && npx oxlint src/pages/RelaySwap.tsx 2>&1 | grep -A 3 \"ERROR\"",
+      "description": "Get detailed oxlint error"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 1,
+      "description": "Get detailed oxlint error"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && npx oxlint src/pages/RelaySwap.tsx 2>&1 | grep -A 3 \"ERROR\"",
+    "time": {
+      "start": 1767202052578,
+      "end": 1767202053329
+    }
+  }
+}
