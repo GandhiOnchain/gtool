@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73c77165001dMPyrNmL1MJs4T",
+  "messageID": "msg_b73c57851001bcBGPgQPfIxKoc",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I see! The `searchTokenByContract` function also sets `fromToken` instead of adding to `batchTokens`. This is wrong for the batch swap context. Let me check where this search is being used:",
+  "time": {
+    "start": 1767174012226,
+    "end": 1767174012226
+  }
+}

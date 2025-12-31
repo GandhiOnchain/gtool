@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73c77779001Gw15MGZy256wHx",
+  "messageID": "msg_b73c57851001bcBGPgQPfIxKoc",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_012Yd7WLVVwKskG9xcn9Fk4P",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"searchTokenByContract\" src/pages/RelaySwap.tsx -B 5 -A 2 | head -30",
+      "description": "Find where searchTokenByContract is called"
+    },
+    "output": "    } finally {\n      setIsLoadingBatchTokens(false)\n    }\n  }\n\n  const searchTokenByContract = async (contractAddress: string) => {\n    if (!contractAddress) {\n      toast.error('Please enter a contract address')\n--\n                      value={contractAddressSearch}\n                      onChange={(e) => setContractAddressSearch(e.target.value)}\n                      className=\"h-9 text-xs\"\n                    />\n                    <Button\n                      onClick={() => searchTokenByContract(contractAddressSearch)}\n                      size=\"sm\"\n                      className=\"h-9 px-4 text-xs bg-primary\"\n",
+    "metadata": {
+      "output": "    } finally {\n      setIsLoadingBatchTokens(false)\n    }\n  }\n\n  const searchTokenByContract = async (contractAddress: string) => {\n    if (!contractAddress) {\n      toast.error('Please enter a contract address')\n--\n                      value={contractAddressSearch}\n                      onChange={(e) => setContractAddressSearch(e.target.value)}\n                      className=\"h-9 text-xs\"\n                    />\n                    <Button\n                      onClick={() => searchTokenByContract(contractAddressSearch)}\n                      size=\"sm\"\n                      className=\"h-9 px-4 text-xs bg-primary\"\n",
+      "exit": 0,
+      "description": "Find where searchTokenByContract is called"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"searchTokenByContract\" src/pages/RelaySwap.tsx -B 5 -A 2 | head -30",
+    "time": {
+      "start": 1767174012098,
+      "end": 1767174012125
+    }
+  }
+}

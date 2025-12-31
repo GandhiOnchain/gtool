@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73c75e5a001esok6QOh77uUhk",
+  "messageID": "msg_b73c57851001bcBGPgQPfIxKoc",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01WNYrV7Vsi2Su3AWWVPx8rU",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 745,
+      "limit": 40
+    },
+    "output": "<file>\n00746|   const searchTokenByContract = async (contractAddress: string) => {\n00747|     if (!contractAddress) {\n00748|       toast.error('Please enter a contract address')\n00749|       return\n00750|     }\n00751|     \n00752|     try {\n00753|       console.log('Searching for token:', contractAddress)\n00754|       \n00755|       const allChainIds = chains.map(c => c.id)\n00756|       \n00757|       const results = await relayAPI.getCurrencies({\n00758|         address: contractAddress,\n00759|         useExternalSearch: true,\n00760|         limit: 10,\n00761|         includeAllChains: true,\n00762|       })\n00763|       \n00764|       console.log('Search results:', results)\n00765|       \n00766|       if (results.length > 0) {\n00767|         setCurrencies(results)\n00768|         \n00769|         if (results[0].chainId && fromChain?.id !== results[0].chainId) {\n00770|           const tokenChain = chains.find(c => c.id === results[0].chainId)\n00771|           if (tokenChain) {\n00772|             setFromChain(tokenChain)\n00773|           }\n00774|         }\n00775|         \n00776|         setFromToken(results[0])\n00777|         toast.success(`Found ${results[0].symbol} on ${results[0].chainId}`)\n00778|         setContractAddressSearch('')\n00779|       } else {\n00780|         toast.error('Token not found on any supported chain')\n00781|       }\n00782|     } catch (error) {\n00783|       console.error('Failed to search token:', error)\n00784|       toast.error('Failed to search token')\n00785|     }\n\n(File has more lines. Use 'offset' parameter to read beyond line 785)\n</file>",
+    "metadata": {
+      "preview": "  const searchTokenByContract = async (contractAddress: string) => {\n    if (!contractAddress) {\n      toast.error('Please enter a contract address')\n      return\n    }\n    \n    try {\n      console.log('Searching for token:', contractAddress)\n      \n      const allChainIds = chains.map(c => c.id)\n      \n      const results = await relayAPI.getCurrencies({\n        address: contractAddress,\n        useExternalSearch: true,\n        limit: 10,\n        includeAllChains: true,\n      })\n      \n      console.log('Search results:', results)\n      "
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767174005360,
+      "end": 1767174005362
+    }
+  }
+}

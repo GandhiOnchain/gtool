@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73c66709001BqEGOKLpqPdsB6",
+  "messageID": "msg_b73c57851001bcBGPgQPfIxKoc",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01AHawHvt7fEaeRP8hhsGQKg",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"setIsTokenSelectOpen\\(false\\)\" src/pages/RelaySwap.tsx -B 10 -A 2 | head -50",
+      "description": "Find token selection handler"
+    },
+    "output": "                          }\n                        } else {\n                          setToToken(currency)\n                          // If fromToken is the same and chains are the same, clear fromToken\n                          if (fromToken && fromChain && toChain && \n                              fromChain.id === toChain.id && \n                              currency.address.toLowerCase() === fromToken.address.toLowerCase()) {\n                            setFromToken(null)\n                          }\n                        }\n                        setIsTokenSelectOpen(false)\n                        setTokenSearchTerm('')\n                      }}\n",
+    "metadata": {
+      "output": "                          }\n                        } else {\n                          setToToken(currency)\n                          // If fromToken is the same and chains are the same, clear fromToken\n                          if (fromToken && fromChain && toChain && \n                              fromChain.id === toChain.id && \n                              currency.address.toLowerCase() === fromToken.address.toLowerCase()) {\n                            setFromToken(null)\n                          }\n                        }\n                        setIsTokenSelectOpen(false)\n                        setTokenSearchTerm('')\n                      }}\n",
+      "exit": 0,
+      "description": "Find token selection handler"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"setIsTokenSelectOpen\\(false\\)\" src/pages/RelaySwap.tsx -B 10 -A 2 | head -50",
+    "time": {
+      "start": 1767173942551,
+      "end": 1767173942564
+    }
+  }
+}

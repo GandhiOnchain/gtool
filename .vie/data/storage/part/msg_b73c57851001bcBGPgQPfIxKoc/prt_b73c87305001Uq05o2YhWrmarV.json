@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73c87305001Uq05o2YhWrmarV",
+  "messageID": "msg_b73c57851001bcBGPgQPfIxKoc",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now I need to make sure currencies are loaded for the batch chain. Let me add a useEffect for that:",
+  "time": {
+    "start": 1767174082508,
+    "end": 1767174082508
+  }
+}

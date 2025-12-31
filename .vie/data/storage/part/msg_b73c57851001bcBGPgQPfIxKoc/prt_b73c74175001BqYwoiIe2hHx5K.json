@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73c74175001BqYwoiIe2hHx5K",
+  "messageID": "msg_b73c57851001bcBGPgQPfIxKoc",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01HGFK3TPyarTMLdEitzwyhK",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"contractAddressSearch\" src/pages/RelaySwap.tsx -B 3 -A 10 | head -60",
+      "description": "Find contract address search"
+    },
+    "output": "  const [showLeaderboard, setShowLeaderboard] = useState(false)\n  const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])\n  const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])\n  const [contractAddressSearch, setContractAddressSearch] = useState('')\n  const [swapSources, setSwapSources] = useState<string[]>([])\n  const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})\n  const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)\n  const [batchChain, setBatchChain] = useState<RelayChain | null>(null)\n  const [recipientAddress, setRecipientAddress] = useState('')\n  const [fromTokenPrice, setFromTokenPrice] = useState<number>(0)\n  const [toTokenPrice, setToTokenPrice] = useState<number>(0)\n  const [currentSwapRequestId, setCurrentSwapRequestId] = useState<string | null>(null)\n  const [currentSwapChainId, setCurrentSwapChainId] = useState<number | null>(null)\n  const [solanaAddress, setSolanaAddress] = useState<string | null>(null)\n--\n                  <div className=\"flex gap-2 mt-2\">\n                    <Input\n                      placeholder=\"0x...\"\n                      value={contractAddressSearch}\n                      onChange={(e) => setContractAddressSearch(e.target.value)}\n                      className=\"h-9 text-xs\"\n                    />\n                    <Button\n                      onClick={() => searchTokenByContract(contractAddressSearch)}\n                      size=\"sm\"\n                      className=\"h-9 px-4 text-xs bg-primary\"\n                    >\n                      Search\n                    </Button>\n                  </div>\n                </div>\n\n                <Separator />\n\n",
+    "metadata": {
+      "output": "  const [showLeaderboard, setShowLeaderboard] = useState(false)\n  const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])\n  const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])\n  const [contractAddressSearch, setContractAddressSearch] = useState('')\n  const [swapSources, setSwapSources] = useState<string[]>([])\n  const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})\n  const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)\n  const [batchChain, setBatchChain] = useState<RelayChain | null>(null)\n  const [recipientAddress, setRecipientAddress] = useState('')\n  const [fromTokenPrice, setFromTokenPrice] = useState<number>(0)\n  const [toTokenPrice, setToTokenPrice] = useState<number>(0)\n  const [currentSwapRequestId, setCurrentSwapRequestId] = useState<string | null>(null)\n  const [currentSwapChainId, setCurrentSwapChainId] = useState<number | null>(null)\n  const [solanaAddress, setSolanaAddress] = useState<string | null>(null)\n--\n                  <div className=\"flex gap-2 mt-2\">\n                    <Input\n                      placeholder=\"0x...\"\n                      value={contractAddressSearch}\n                      onChange={(e) => setContractAddressSearch(e.target.value)}\n                      className=\"h-9 text-xs\"\n                    />\n                    <Button\n                      onClick={() => searchTokenByContract(contractAddressSearch)}\n                      size=\"sm\"\n                      className=\"h-9 px-4 text-xs bg-primary\"\n                    >\n                      Search\n                    </Button>\n                  </div>\n                </div>\n\n                <Separator />\n\n",
+      "exit": 0,
+      "description": "Find contract address search"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"contractAddressSearch\" src/pages/RelaySwap.tsx -B 3 -A 10 | head -60",
+    "time": {
+      "start": 1767173998389,
+      "end": 1767173998397
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "id": "prt_b73c576ea004C0hyn1Aiah7UKg",
+  "type": "text",
+  "text": "the batch swap doesnt work. no tokens show under selcted chains with tokens that have balances. this sucks. even when i try to add a token by selecting it, it doesn't show. users will get frustrated if it wont work let alone a token detected by pasting contract address. run thorough diagnosis on batch cleanup swap to identify the issue and fix it.",
+  "messageID": "msg_b73c577d4001BlOPmeYjhHx1Op",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU"
+}

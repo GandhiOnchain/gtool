@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73c836b5001QEnlzRyc4kCFVv",
+  "messageID": "msg_b73c57851001bcBGPgQPfIxKoc",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now let me also make sure the token selector shows the right currencies for batch mode. Let me check the `activeCurrencies` logic:",
+  "time": {
+    "start": 1767174062571,
+    "end": 1767174062571
+  }
+}

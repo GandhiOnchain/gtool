@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73c68041001E5s5SNowOlwqDI",
+  "messageID": "msg_b73c57851001bcBGPgQPfIxKoc",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01N3tLSwBpDxW8aGEK4UFSbt",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2050,
+      "limit": 50
+    },
+    "output": "<file>\n02051|                     <span className=\"text-xs text-muted-foreground\">%</span>\n02052|                   </div>\n02053|                   <div className=\"text-xs text-muted-foreground mt-1\">\n02054|                     Transaction reverts if price changes unfavorably by more than this\n02055|                   </div>\n02056|                 </div>\n02057| \n02058|                 <Separator />\n02059| \n02060|                 <div>\n02061|                   <div className=\"text-sm font-medium mb-1\">Swap Sources</div>\n02062|                   <div className=\"text-xs text-muted-foreground mb-2\">\n02063|                     Select DEXs to include in routing\n02064|                   </div>\n02065|                   <div className=\"space-y-2\">\n02066|                     {swapSources.map((source) => (\n02067|                       <div key={source} className=\"flex items-center justify-between p-2 rounded bg-muted\">\n02068|                         <span className=\"text-xs\">{source}</span>\n02069|                         <Switch\n02070|                           checked={enabledSources[source] || false}\n02071|                           onCheckedChange={(checked) => {\n02072|                             setEnabledSources(prev => ({ ...prev, [source]: checked }))\n02073|                           }}\n02074|                         />\n02075|                       </div>\n02076|                     ))}\n02077|                   </div>\n02078|                 </div>\n02079|               </div>\n02080|             </Card>\n02081|           </TabsContent>\n02082|         </Tabs>\n02083| \n02084|         <Dialog open={isChainSelectOpen} onOpenChange={setIsChainSelectOpen}>\n02085|           <DialogContent className=\"max-w-[380px]\">\n02086|             <DialogHeader>\n02087|               <DialogTitle className=\"text-sm\">Select Chain</DialogTitle>\n02088|             </DialogHeader>\n02089|             <div className=\"space-y-2\">\n02090|               <Input\n02091|                 placeholder=\"Search chains...\"\n02092|                 value={searchTerm}\n02093|                 onChange={(e) => setSearchTerm(e.target.value)}\n02094|                 className=\"h-8 text-xs\"\n02095|               />\n02096|               <ScrollArea className=\"h-[300px]\">\n02097|                 <div className=\"space-y-1\">\n02098|                   {filteredChains.map((chain) => (\n02099|                     <div\n02100|                       key={chain.id}\n\n(File has more lines. Use 'offset' parameter to read beyond line 2100)\n</file>",
+    "metadata": {
+      "preview": "                    <span className=\"text-xs text-muted-foreground\">%</span>\n                  </div>\n                  <div className=\"text-xs text-muted-foreground mt-1\">\n                    Transaction reverts if price changes unfavorably by more than this\n                  </div>\n                </div>\n\n                <Separator />\n\n                <div>\n                  <div className=\"text-sm font-medium mb-1\">Swap Sources</div>\n                  <div className=\"text-xs text-muted-foreground mb-2\">\n                    Select DEXs to include in routing\n                  </div>\n                  <div className=\"space-y-2\">\n                    {swapSources.map((source) => (\n                      <div key={source} className=\"flex items-center justify-between p-2 rounded bg-muted\">\n                        <span className=\"text-xs\">{source}</span>\n                        <Switch\n                          checked={enabledSources[source] || false}"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767173948886,
+      "end": 1767173948887
+    }
+  }
+}

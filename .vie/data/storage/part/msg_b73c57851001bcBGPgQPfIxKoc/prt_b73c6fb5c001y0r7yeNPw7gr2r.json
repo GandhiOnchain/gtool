@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73c6fb5c001y0r7yeNPw7gr2r",
+  "messageID": "msg_b73c57851001bcBGPgQPfIxKoc",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now let me add the handler for when `selectingFor === 'batch'`:",
+  "time": {
+    "start": 1767173990860,
+    "end": 1767173990860
+  }
+}

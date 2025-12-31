@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73c6ae13001iVpFLbrSpVilvW",
+  "messageID": "msg_b73c57851001bcBGPgQPfIxKoc",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Found it! The token selection handler (lines 2159-2180) only handles `selectingFor === 'from'` or `'to'`, but when the user clicks \"Add Token\" in the batch swap, it sets `selectingFor` to `'from'` (line 1899). This means it's setting the `fromToken` instead of adding to `batchTokens`!\n\nLet me fix this by adding a `'batch'` case to the token selection handler:",
+  "time": {
+    "start": 1767173966429,
+    "end": 1767173966429
+  }
+}

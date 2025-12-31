@@ -293,6 +293,28 @@ export default function RelaySwap() {
     }
   }, [toChain, toToken, solanaAddress])
 
+  // Load currencies for batch chain
+  useEffect(() => {
+    const loadBatchChainCurrencies = async () => {
+      if (batchChain) {
+        try {
+          console.log('Loading currencies for batch chain:', batchChain.displayName)
+          const fetchedCurrencies = await relayAPI.getCurrencies({
+            chainIds: [batchChain.id],
+            defaultList: true,
+            limit: 100,
+          })
+          console.log('Loaded', fetchedCurrencies.length, 'currencies for batch chain')
+          setCurrencies(fetchedCurrencies)
+        } catch (error) {
+          console.error('Failed to load batch chain currencies:', error)
+        }
+      }
+    }
+    
+    loadBatchChainCurrencies()
+  }, [batchChain])
+
   // Handle transaction confirmation and indexing
   useEffect(() => {
     const handleTransactionConfirmation = async () => {
@@ -749,35 +771,50 @@ export default function RelaySwap() {
       return
     }
     
+    if (!batchChain) {
+      toast.error('Please select a chain first')
+      return
+    }
+    
     try {
-      console.log('Searching for token:', contractAddress)
-      
-      const allChainIds = chains.map(c => c.id)
+      console.log('Searching for token:', contractAddress, 'on chain:', batchChain.id)
       
       const results = await relayAPI.getCurrencies({
         address: contractAddress,
+        chainIds: [batchChain.id],
         useExternalSearch: true,
         limit: 10,
-        includeAllChains: true,
       })
       
       console.log('Search results:', results)
       
       if (results.length > 0) {
-        setCurrencies(results)
+        const foundToken = results[0]
         
-        if (results[0].chainId && fromChain?.id !== results[0].chainId) {
-          const tokenChain = chains.find(c => c.id === results[0].chainId)
-          if (tokenChain) {
-            setFromChain(tokenChain)
-          }
+        // Check if already added
+        const alreadyAdded = batchTokens.some(
+          wt => wt.token.address.toLowerCase() === foundToken.address.toLowerCase() &&
+                wt.token.chainId === foundToken.chainId
+        )
+        
+        if (alreadyAdded) {
+          toast.info(`${foundToken.symbol} already added to batch`)
+          setContractAddressSearch('')
+          return
         }
         
-        setFromToken(results[0])
-        toast.success(`Found ${results[0].symbol} on ${results[0].chainId}`)
+        // Add token to batch with balance of 0 (will be fetched when executing)
+        const newToken: WalletToken = {
+          token: foundToken,
+          balance: '0',
+          balanceFormatted: '0',
+        }
+        
+        setBatchTokens([...batchTokens, newToken])
+        toast.success(`Added ${foundToken.symbol} to batch swap`)
         setContractAddressSearch('')
       } else {
-        toast.error('Token not found on any supported chain')
+        toast.error(`Token not found on ${batchChain.displayName}`)
       }
     } catch (error) {
       console.error('Failed to search token:', error)
@@ -1453,7 +1490,13 @@ export default function RelaySwap() {
     chain.displayName.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-  const activeCurrencies = selectingFor === 'from' ? fromCurrencies : selectingFor === 'to' ? toCurrencies : currencies
+  const activeCurrencies = selectingFor === 'from' 
+    ? fromCurrencies 
+    : selectingFor === 'to' 
+    ? toCurrencies 
+    : selectingFor === 'batch' && batchChain
+    ? currencies.filter(c => c.chainId === batchChain.id)
+    : currencies
   
   const filteredCurrencies = activeCurrencies.filter(currency =>
     currency.symbol.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||
@@ -1896,7 +1939,7 @@ export default function RelaySwap() {
                   variant="outline"
                   size="sm"
                   onClick={() => {
-                    setSelectingFor('from')
+                    setSelectingFor('batch')
                     setIsTokenSelectOpen(true)
                   }}
                   className="w-full h-8 text-xs"
@@ -2156,9 +2199,89 @@ export default function RelaySwap() {
                     filteredCurrencies.map((currency) => (
                     <div
                       key={`${currency.chainId}-${currency.address}`}
-                      onClick={() => {
-                        // Prevent selecting same token on same chain
-                        if (selectingFor === 'from') {
+                      onClick={async () => {
+                        if (selectingFor === 'batch') {
+                          // Add token to batch tokens if not already added
+                          const alreadyAdded = batchTokens.some(
+                            wt => wt.token.address.toLowerCase() === currency.address.toLowerCase() &&
+                                  wt.token.chainId === currency.chainId
+                          )
+                          
+                          if (alreadyAdded) {
+                            toast.info(`${currency.symbol} already added`)
+                            setIsTokenSelectOpen(false)
+                            setTokenSearchTerm('')
+                            return
+                          }
+                          
+                          // Try to fetch the actual balance for this token
+                          let balance = '0'
+                          let balanceFormatted = '0'
+                          
+                          try {
+                            const vmType = batchChain?.vmType || 'evm'
+                            
+                            if (vmType === 'evm' || vmType === 'hypevm') {
+                              const { createPublicClient, http, defineChain } = await import('viem')
+                              
+                              if (batchChain) {
+                                const chainConfig = defineChain({
+                                  id: batchChain.id,
+                                  name: batchChain.displayName,
+                                  nativeCurrency: {
+                                    name: batchChain.currency.name,
+                                    symbol: batchChain.currency.symbol,
+                                    decimals: batchChain.currency.decimals,
+                                  },
+                                  rpcUrls: {
+                                    default: { http: [batchChain.httpRpcUrl] },
+                                  },
+                                })
+                                
+                                const publicClient = createPublicClient({
+                                  chain: chainConfig,
+                                  transport: http(batchChain.httpRpcUrl),
+                                })
+                                
+                                let balanceBigInt = BigInt(0)
+                                
+                                if (currency.metadata?.isNative) {
+                                  balanceBigInt = await publicClient.getBalance({
+                                    address: address as `0x${string}`,
+                                  })
+                                } else {
+                                  balanceBigInt = await publicClient.readContract({
+                                    address: currency.address as `0x${string}`,
+                                    abi: [{
+                                      name: 'balanceOf',
+                                      type: 'function',
+                                      stateMutability: 'view',
+                                      inputs: [{ name: 'account', type: 'address' }],
+                                      outputs: [{ name: 'balance', type: 'uint256' }],
+                                    }],
+                                    functionName: 'balanceOf',
+                                    args: [address as `0x${string}`],
+                                  })
+                                }
+                                
+                                balance = balanceBigInt.toString()
+                                balanceFormatted = formatUnits(balanceBigInt, currency.decimals)
+                              }
+                            }
+                          } catch (e) {
+                            console.error('Failed to fetch balance for manually added token:', e)
+                            // Continue with 0 balance
+                          }
+                          
+                          const newToken: WalletToken = {
+                            token: currency,
+                            balance,
+                            balanceFormatted,
+                          }
+                          
+                          setBatchTokens([...batchTokens, newToken])
+                          toast.success(`Added ${currency.symbol} to batch swap${balanceFormatted !== '0' ? ` (Balance: ${balanceFormatted})` : ''}`)
+                        } else if (selectingFor === 'from') {
                           setFromToken(currency)
                           // If toToken is the same and chains are the same, clear toToken
                           if (toToken && toChain && fromChain && 

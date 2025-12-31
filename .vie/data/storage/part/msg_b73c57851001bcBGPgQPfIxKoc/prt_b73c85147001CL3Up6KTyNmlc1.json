@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73c85147001CL3Up6KTyNmlc1",
+  "messageID": "msg_b73c57851001bcBGPgQPfIxKoc",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I see the issue! When `selectingFor === 'batch'`, it falls back to `currencies`, but `currencies` might not be loaded for the batch chain. Let me fix this:",
+  "time": {
+    "start": 1767174070503,
+    "end": 1767174070503
+  }
+}
