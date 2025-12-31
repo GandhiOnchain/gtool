@@ -2195,115 +2195,69 @@ export default function RelaySwap() {
         transport: http(revokeChain.httpRpcUrl),
       })
       
-      // Get current block number
-      const currentBlock = await publicClient.getBlockNumber()
-      console.log('Current block:', currentBlock)
-      
-      // Scan for Approval events from the last 100K blocks (reduced from 1M to avoid RPC timeouts)
-      const blockRange = 100000n
-      const fromBlock = currentBlock > blockRange ? currentBlock - blockRange : 0n
-      
-      console.log('Scanning for Approval events from block', fromBlock.toString(), 'to', currentBlock.toString())
-      
-      // Get Approval events where owner is the user's address
-      let approvalEvents = []
-      try {
-        approvalEvents = await publicClient.getLogs({
-          event: parseAbiItem('event Approval(address indexed owner, address indexed spender, uint256 value)'),
-          args: {
-            owner: address as `0x${string}`,
-          },
-          fromBlock,
-          toBlock: currentBlock,
-        })
-        console.log('Found', approvalEvents.length, 'Approval events')
-      } catch (logsError) {
-        console.error('Error fetching logs (trying smaller range):', logsError)
-        
-        // Try with a smaller range if the first attempt fails
-        const smallerRange = 10000n
-        const smallerFromBlock = currentBlock > smallerRange ? currentBlock - smallerRange : 0n
-        console.log('Retrying with smaller range:', smallerFromBlock.toString(), 'to', currentBlock.toString())
-        
-        try {
-          approvalEvents = await publicClient.getLogs({
-            event: parseAbiItem('event Approval(address indexed owner, address indexed spender, uint256 value)'),
-            args: {
-              owner: address as `0x${string}`,
-            },
-            fromBlock: smallerFromBlock,
-            toBlock: currentBlock,
-          })
-          console.log('Found', approvalEvents.length, 'Approval events with smaller range')
-        } catch (retryError) {
-          console.error('Failed to fetch logs even with smaller range:', retryError)
-          toast.error('RPC error: Try a different chain or try again later')
-          setIsLoadingApprovals(false)
-          return
-        }
+      // Common protocol router/spender addresses by chain
+      const commonSpenders: Record<number, Array<{ address: string; name: string }>> = {
+        1: [ // Ethereum
+          { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },
+          { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },
+          { address: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', name: 'Uniswap V2 Router' },
+          { address: '0xDef1C0ded9bec7F1a1670819833240f027b25EfF', name: '0x Exchange' },
+          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
+        ],
+        8453: [ // Base
+          { address: '0x2626664c2603336E57B271c5C0b26F421741e481', name: 'Uniswap V3 Router 2' },
+          { address: '0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD', name: 'Uniswap Universal Router' },
+          { address: '0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24', name: 'BaseSwap Router' },
+        ],
+        42161: [ // Arbitrum
+          { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },
+          { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },
+          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
+        ],
+        137: [ // Polygon
+          { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },
+          { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },
+          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
+        ],
+        10: [ // Optimism
+          { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },
+          { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },
+        ],
       }
       
-      // Group by token address and spender
-      const approvalMap = new Map<string, { token: string; spender: string; lastValue: bigint; blockNumber: bigint }>()
+      const spendersToCheck = commonSpenders[revokeChain.id] || []
       
-      for (const event of approvalEvents) {
-        const tokenAddress = event.address
-        const spender = event.args.spender
-        const value = event.args.value
-        const blockNumber = event.blockNumber
-        
-        if (!spender || value === undefined || !blockNumber) continue
-        
-        const key = `${tokenAddress.toLowerCase()}-${spender.toLowerCase()}`
-        
-        // Keep the most recent approval value
-        const existing = approvalMap.get(key)
-        if (!existing || blockNumber > existing.blockNumber) {
-          approvalMap.set(key, {
-            token: tokenAddress,
-            spender,
-            lastValue: value,
-            blockNumber,
-          })
-        }
+      if (spendersToCheck.length === 0) {
+        console.log('No common spenders configured for chain:', revokeChain.id)
+        toast.error('Approval scanning not supported for this chain yet')
+        setIsLoadingApprovals(false)
+        return
       }
       
-      console.log('Unique token-spender pairs:', approvalMap.size)
+      console.log('Checking approvals for', spendersToCheck.length, 'common protocols')
+      
+      // Get popular tokens on this chain
+      const popularTokens = await relayAPI.getCurrencies({
+        chainIds: [revokeChain.id],
+        limit: 50,
+      })
+      
+      console.log('Checking', popularTokens.length, 'popular tokens')
       
       const foundApprovals: typeof approvals = []
-      
-      // Now check current allowances for each unique token-spender pair
-      const uniquePairs = Array.from(approvalMap.values())
-      console.log('Checking current allowances for', uniquePairs.length, 'unique token-spender pairs')
-      
       let checkedCount = 0
-      let activeCount = 0
       
-      // Process in batches to avoid rate limits
-      const batchSize = 5
-      for (let i = 0; i < uniquePairs.length; i += batchSize) {
-        const batch = uniquePairs.slice(i, i + batchSize)
+      // Check each token against each spender
+      for (const token of popularTokens) {
+        // Skip native token
+        if (token.address === '0x0000000000000000000000000000000000000000') continue
         
-        await Promise.all(batch.map(async (pair) => {
+        for (const spender of spendersToCheck) {
           try {
             checkedCount++
             
-            // Fetch token info
-            const tokenInfo = await relayAPI.getCurrencies({
-              address: pair.token,
-              chainIds: [revokeChain.id],
-              limit: 1,
-            })
-            
-            const token = tokenInfo[0]
-            if (!token) {
-              console.log('Token not found in Relay DB:', pair.token)
-              return
-            }
-            
-            // Check current allowance (might have been revoked since the event)
             const currentAllowance = await publicClient.readContract({
-              address: pair.token as `0x${string}`,
+              address: token.address as `0x${string}`,
               abi: [{
                 name: 'allowance',
                 type: 'function',
@@ -2315,46 +2269,48 @@ export default function RelaySwap() {
                 outputs: [{ name: 'remaining', type: 'uint256' }],
               }],
               functionName: 'allowance',
-              args: [address as `0x${string}`, pair.spender as `0x${string}`],
+              args: [address as `0x${string}`, spender.address as `0x${string}`],
             })
             
-            console.log(`${token.symbol} current allowance for ${pair.spender}:`, currentAllowance.toString())
-            
             if (currentAllowance > 0n) {
-              activeCount++
               const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
               const isUnlimited = currentAllowance >= maxUint256 / 2n
               
-              console.log(`✓ Active approval: ${token.symbol} → ${pair.spender}, allowance:`, currentAllowance.toString())
+              console.log(`✓ Active approval: ${token.symbol} → ${spender.name}, allowance:`, currentAllowance.toString())
               
               foundApprovals.push({
                 token,
-                spender: pair.spender,
-                spenderName: undefined,
+                spender: spender.address,
+                spenderName: spender.name,
                 allowance: currentAllowance.toString(),
                 allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(currentAllowance, token.decimals),
               })
             }
           } catch (e) {
-            console.error('Error checking approval for', pair.token, pair.spender, e)
+            // Silently skip tokens that don't support allowance (might not be ERC20)
           }
-        }))
-        
-        // Small delay between batches to avoid rate limiting
-        if (i + batchSize < uniquePairs.length) {
-          await new Promise(resolve => setTimeout(resolve, 100))
+          
+          // Small delay to avoid rate limiting
+          if (checkedCount % 10 === 0) {
+            await new Promise(resolve => setTimeout(resolve, 50))
+          }
         }
       }
       
       console.log('Approval scan complete:', {
-        eventsFound: approvalEvents.length,
-        uniquePairs: uniquePairs.length,
-        checked: checkedCount,
-        activeApprovals: activeCount
+        tokensChecked: popularTokens.length,
+        spendersChecked: spendersToCheck.length,
+        totalChecks: checkedCount,
+        activeApprovals: foundApprovals.length
       })
       
-      console.log('Found', foundApprovals.length, 'approvals')
       setApprovals(foundApprovals)
+      
+      if (foundApprovals.length === 0) {
+        toast.success('No active approvals found')
+      } else {
+        toast.success(`Found ${foundApprovals.length} active approval${foundApprovals.length > 1 ? 's' : ''}`)
+      }
     } catch (error) {
       console.error('Failed to load approvals:', error)
       toast.error('Failed to load approvals')
