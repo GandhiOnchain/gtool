@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73fcc6b4001iYJOYSnLjISovl",
+  "messageID": "msg_b73fcbe3e0019hUP7mUd6DzYPY",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_016xR2dBPhhBJMs2Zzs7PWxV",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1145,
+      "limit": 30
+    },
+    "output": "<file>\n01146|         // Show status updates to user\n01147|         if (status.status !== lastStatus) {\n01148|           lastStatus = status.status\n01149|           \n01150|           if (status.status === 'waiting') {\n01151|             toast.info('Waiting for transaction confirmation...')\n01152|           } else if (status.status === 'pending') {\n01153|             toast.info('Processing swap...')\n01154|           } else if (status.status === 'submitted') {\n01155|             toast.info('Swap submitted to destination chain...')\n01156|           } else if (status.status === 'delayed') {\n01157|             toast.warning('Swap is taking longer than expected...')\n01158|           }\n01159|         }\n01160|         \n01161|         if (status.status === 'success') {\n01162|           toast.success('Swap completed successfully!')\n01163|           setIsSwapping(false)\n01164|           loadSwapHistory()\n01165|           updateUserStreak()\n01166|           updateLeaderboard()\n01167|           setFromAmount('')\n01168|           setToAmount('')\n01169|           setUsdAmount('')\n01170|           return\n01171|         } else if (status.status === 'failure') {\n01172|           toast.error(`Swap failed: ${status.details || 'Unknown error'}`)\n01173|           console.error('Swap failure details:', status)\n01174|           setIsSwapping(false)\n01175|           return\n\n(File has more lines. Use 'offset' parameter to read beyond line 1175)\n</file>",
+    "metadata": {
+      "preview": "        // Show status updates to user\n        if (status.status !== lastStatus) {\n          lastStatus = status.status\n          \n          if (status.status === 'waiting') {\n            toast.info('Waiting for transaction confirmation...')\n          } else if (status.status === 'pending') {\n            toast.info('Processing swap...')\n          } else if (status.status === 'submitted') {\n            toast.info('Swap submitted to destination chain...')\n          } else if (status.status === 'delayed') {\n            toast.warning('Swap is taking longer than expected...')\n          }\n        }\n        \n        if (status.status === 'success') {\n          toast.success('Swap completed successfully!')\n          setIsSwapping(false)\n          loadSwapHistory()\n          updateUserStreak()"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767177505351,
+      "end": 1767177505352
+    }
+  }
+}

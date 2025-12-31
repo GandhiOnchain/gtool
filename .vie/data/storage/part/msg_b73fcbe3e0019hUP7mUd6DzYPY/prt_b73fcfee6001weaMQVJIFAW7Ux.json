@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73fcfee6001weaMQVJIFAW7Ux",
+  "messageID": "msg_b73fcbe3e0019hUP7mUd6DzYPY",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "edit",
+  "callID": "toolu_vrtx_01FEcsqWxom6ZFQxpSeqZbUV",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "oldString": "  const fetchSolanaBalance = async (tokenAddress: string, decimals: number, symbol: string, type: 'from' | 'to') => {",
+      "newString": "  const refetchBalances = async () => {\n    console.log('Refetching balances after swap...')\n    \n    // Refetch EVM balances\n    if (fromChain?.vmType === 'evm' || !fromChain?.vmType) {\n      await refetchFromBalance()\n    }\n    if (toChain?.vmType === 'evm' || !toChain?.vmType) {\n      await refetchToBalance()\n    }\n    \n    // Refetch Solana balances\n    if (fromChain?.vmType === 'svm' && fromToken && solanaAddress) {\n      await fetchSolanaBalance(fromToken.address, fromToken.decimals, fromToken.symbol, 'from')\n    }\n    if (toChain?.vmType === 'svm' && toToken && solanaAddress) {\n      await fetchSolanaBalance(toToken.address, toToken.decimals, toToken.symbol, 'to')\n    }\n    \n    console.log('Balances refetched')\n  }\n\n  const fetchSolanaBalance = async (tokenAddress: string, decimals: number, symbol: string, type: 'from' | 'to') => {"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "diff": "Index: /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n===================================================================\n--- /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n+++ /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n@@ -372,8 +372,30 @@\n   \n   handleTransactionConfirmation()\n }, [isTxSuccess, txHash, currentSwapRequestId, currentSwapChainId])\n \n+const refetchBalances = async () => {\n+  console.log('Refetching balances after swap...')\n+  \n+  // Refetch EVM balances\n+  if (fromChain?.vmType === 'evm' || !fromChain?.vmType) {\n+    await refetchFromBalance()\n+  }\n+  if (toChain?.vmType === 'evm' || !toChain?.vmType) {\n+    await refetchToBalance()\n+  }\n+  \n+  // Refetch Solana balances\n+  if (fromChain?.vmType === 'svm' && fromToken && solanaAddress) {\n+    await fetchSolanaBalance(fromToken.address, fromToken.decimals, fromToken.symbol, 'from')\n+  }\n+  if (toChain?.vmType === 'svm' && toToken && solanaAddress) {\n+    await fetchSolanaBalance(toToken.address, toToken.decimals, toToken.symbol, 'to')\n+  }\n+  \n+  console.log('Balances refetched')\n+}\n+\n const fetchSolanaBalance = async (tokenAddress: string, decimals: number, symbol: string, type: 'from' | 'to') => {\n   if (!solanaAddress) {\n     console.log('No Solana address available')\n     return\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767177522995,
+      "end": 1767177523003
+    }
+  }
+}

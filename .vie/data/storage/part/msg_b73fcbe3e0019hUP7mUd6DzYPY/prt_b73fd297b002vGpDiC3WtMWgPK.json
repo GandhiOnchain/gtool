@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73fd297b002vGpDiC3WtMWgPK",
+  "messageID": "msg_b73fcbe3e0019hUP7mUd6DzYPY",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Now let's also refetch balances after batch swaps complete:",
+  "time": {
+    "start": 1767177535387,
+    "end": 1767177535387
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73fd45ad002QPj5ml367rSa0X",
+  "messageID": "msg_b73fcbe3e0019hUP7mUd6DzYPY",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Let's also add a manual refetch when the transaction is confirmed on-chain (in addition to when the swap status becomes 'success'):",
+  "time": {
+    "start": 1767177539088,
+    "end": 1767177539088
+  }
+}

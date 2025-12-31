@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73fcd0cf001We86H2j144lDP8",
+  "messageID": "msg_b73fcbe3e0019hUP7mUd6DzYPY",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "The issue is that the balance hooks (`useBalance` from wagmi) are not being refetched after a successful swap. Let me check how the balance is being used and add refetch functionality:",
+  "time": {
+    "start": 1767177509140,
+    "end": 1767177509140
+  }
+}

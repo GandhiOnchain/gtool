@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73fcd65f001CFJgYENYyA23kj",
+  "messageID": "msg_b73fcbe3e0019hUP7mUd6DzYPY",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01CnrrGNpwDfh7bMu13Yc9WY",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 125,
+      "limit": 25
+    },
+    "output": "<file>\n00126|   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n00127|   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n00128| \n00129|   // EVM balance hooks - only used for EVM chains\n00130|   const { data: evmFromBalance } = useBalance({\n00131|     address,\n00132|     chainId: fromChain?.id,\n00133|     token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n00134|     query: {\n00135|       enabled: fromChain?.vmType === 'evm' || !fromChain?.vmType,\n00136|     },\n00137|   })\n00138| \n00139|   const { data: evmToBalance } = useBalance({\n00140|     address,\n00141|     chainId: toChain?.id,\n00142|     token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n00143|     query: {\n00144|       enabled: toChain?.vmType === 'evm' || !toChain?.vmType,\n00145|     },\n00146|   })\n00147| \n00148|   // Use EVM balance or custom balance based on chain type\n00149|   const fromBalance = (fromChain?.vmType === 'evm' || !fromChain?.vmType) ? evmFromBalance : customBalances.from\n00150|   const toBalance = (toChain?.vmType === 'evm' || !toChain?.vmType) ? evmToBalance : customBalances.to\n\n(File has more lines. Use 'offset' parameter to read beyond line 150)\n</file>",
+    "metadata": {
+      "preview": "  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n  const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n\n  // EVM balance hooks - only used for EVM chains\n  const { data: evmFromBalance } = useBalance({\n    address,\n    chainId: fromChain?.id,\n    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n    query: {\n      enabled: fromChain?.vmType === 'evm' || !fromChain?.vmType,\n    },\n  })\n\n  const { data: evmToBalance } = useBalance({\n    address,\n    chainId: toChain?.id,\n    token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n    query: {\n      enabled: toChain?.vmType === 'evm' || !toChain?.vmType,\n    },"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767177509076,
+      "end": 1767177509078
+    }
+  }
+}

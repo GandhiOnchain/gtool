@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73fda2bc001et1LmPur6N1sS5",
+  "messageID": "msg_b73fcbe3e0019hUP7mUd6DzYPY",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Perfect! I've successfully implemented balance refetching after swaps. Here's what I added:\n\n## Changes Made\n\n### 1. **Added Refetch Capabilities**\nUpdated the `useBalance` hooks to expose `refetch` functions:\n- `refetchFromBalance`: Refetches the \"from\" token balance\n- `refetchToBalance`: Refetches the \"to\" token balance\n\n### 2. **Created refetchBalances Function**\nA centralized function that:\n- Refetches EVM balances for both from/to tokens\n- Refetches Solana balances if applicable\n- Logs the refetch operation for debugging\n\n### 3. **Balance Updates After Regular Swaps**\nBalances are now refetched at two key moments:\n\n**a) Transaction Confirmation (1 second delay)**\n- When the transaction is confirmed on-chain\n- Gives the blockchain 1 second to update state\n- Shows updated balance while swap is still being processed\n\n**b) Swap Success (immediate)**\n- When Relay confirms the swap completed successfully\n- Ensures final balance is accurate\n\n### 4. **Balance Updates After Batch Swaps**\nAfter successful batch swaps:\n- Immediately refetches all balances\n- Reloads batch wallet tokens after 2 seconds\n- Updates the token list with new balances\n\n## How It Works\n\n1. **User executes swap** → Transaction submitted\n2. **Transaction confirms** → Balance refetched after 1 second\n3. **Swap completes** → Balance refetched again\n4. **UI updates** → User sees current balance immediately\n\nThis ensures users always see their updated balance after swaps complete, whether it's a regular swap or a batch swap. The delays (1-2 seconds) account for blockchain state propagation time.",
+  "time": {
+    "start": 1767177569810,
+    "end": 1767177569810
+  }
+}

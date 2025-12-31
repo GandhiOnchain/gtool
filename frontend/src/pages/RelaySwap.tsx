@@ -127,7 +127,7 @@ export default function RelaySwap() {
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
 
   // EVM balance hooks - only used for EVM chains
-  const { data: evmFromBalance } = useBalance({
+  const { data: evmFromBalance, refetch: refetchFromBalance } = useBalance({
     address,
     chainId: fromChain?.id,
     token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,
@@ -136,7 +136,7 @@ export default function RelaySwap() {
     },
   })
 
-  const { data: evmToBalance } = useBalance({
+  const { data: evmToBalance, refetch: refetchToBalance } = useBalance({
     address,
     chainId: toChain?.id,
     token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,
@@ -347,6 +347,11 @@ export default function RelaySwap() {
         console.log('Transaction confirmed on-chain:', txHash)
         toast.success('Transaction confirmed')
         
+        // Refetch balances immediately after transaction confirmation
+        setTimeout(() => {
+          refetchBalances()
+        }, 1000) // Wait 1 second for blockchain state to update
+        
         // Index the transaction with Relay after confirmation
         try {
           console.log('Indexing confirmed transaction with Relay:', txHash, 'on chain', currentSwapChainId)
@@ -372,6 +377,28 @@ export default function RelaySwap() {
     
     handleTransactionConfirmation()
   }, [isTxSuccess, txHash, currentSwapRequestId, currentSwapChainId])
+
+  const refetchBalances = async () => {
+    console.log('Refetching balances after swap...')
+    
+    // Refetch EVM balances
+    if (fromChain?.vmType === 'evm' || !fromChain?.vmType) {
+      await refetchFromBalance()
+    }
+    if (toChain?.vmType === 'evm' || !toChain?.vmType) {
+      await refetchToBalance()
+    }
+    
+    // Refetch Solana balances
+    if (fromChain?.vmType === 'svm' && fromToken && solanaAddress) {
+      await fetchSolanaBalance(fromToken.address, fromToken.decimals, fromToken.symbol, 'from')
+    }
+    if (toChain?.vmType === 'svm' && toToken && solanaAddress) {
+      await fetchSolanaBalance(toToken.address, toToken.decimals, toToken.symbol, 'to')
+    }
+    
+    console.log('Balances refetched')
+  }
 
   const fetchSolanaBalance = async (tokenAddress: string, decimals: number, symbol: string, type: 'from' | 'to') => {
     if (!solanaAddress) {
@@ -1167,6 +1194,10 @@ export default function RelaySwap() {
           setFromAmount('')
           setToAmount('')
           setUsdAmount('')
+          
+          // Refetch balances to show updated amounts
+          refetchBalances()
+          
           return
         } else if (status.status === 'failure') {
           toast.error(`Swap failed: ${status.details || 'Unknown error'}`)
@@ -1388,6 +1419,16 @@ export default function RelaySwap() {
         loadSwapHistory()
         setBatchTokens([])
         setBatchQuote(null)
+        
+        // Refetch balances to show updated amounts
+        refetchBalances()
+        
+        // Reload batch wallet tokens to update the list
+        if (batchChain) {
+          setTimeout(() => {
+            loadBatchWalletTokens()
+          }, 2000) // Wait 2 seconds for blockchain to update
+        }
       } else {
         toast.error('All batch swap transactions failed')
       }
