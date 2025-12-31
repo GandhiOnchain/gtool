@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7404828f001QfCkQ79lZZQdfv",
+  "messageID": "msg_b74043cff001wv0UkEjP7oyP0v",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Good! The history is loaded when `chains.length > 0`, so chains should be available. The issue might be that the chains array is empty when mapping. Let me add better debugging and also check if we need to look up the actual token information from the Relay API. Let me check what data is actually in the request:",
+  "time": {
+    "start": 1767178018906,
+    "end": 1767178018906
+  }
+}

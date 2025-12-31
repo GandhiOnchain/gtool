@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7404b6ee001Dy5hrdRNIzazS5",
+  "messageID": "msg_b74043cff001wv0UkEjP7oyP0v",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "I see that the `getRequests` API doesn't have a parameter to include detailed currency information. The issue is that the request data only contains transaction hashes and values, not the full token details. We need to parse the `currency` field from the request data. Let me look at what's actually in the request data more carefully and use the currency field:",
+  "time": {
+    "start": 1767178049308,
+    "end": 1767178049308
+  }
+}

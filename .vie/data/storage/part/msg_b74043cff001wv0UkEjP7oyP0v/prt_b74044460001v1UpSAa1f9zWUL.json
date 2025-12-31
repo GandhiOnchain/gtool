@@ -1,0 +1,26 @@
+{
+  "id": "prt_b74044460001v1UpSAa1f9zWUL",
+  "messageID": "msg_b74043cff001wv0UkEjP7oyP0v",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01TPdGg9GB4tK5amiXgqaLU9",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && npm run dev 2>&1 | head -50",
+      "description": "Check if dev server shows any errors"
+    },
+    "output": "\n> vie@0.0.0 dev\n> bunx --bun vite\n\nerror when starting dev server:\nError: Port 5174 is already in use\n    at onError$1 (/home/user/sandbox/workspace/frontend/node_modules/vite/dist/node/chunks/dep-BBMkAPRG.js:17579:32)\n    at emitError (node:events:43:23)\n",
+    "metadata": {
+      "output": "\n> vie@0.0.0 dev\n> bunx --bun vite\n\nerror when starting dev server:\nError: Port 5174 is already in use\n    at onError$1 (/home/user/sandbox/workspace/frontend/node_modules/vite/dist/node/chunks/dep-BBMkAPRG.js:17579:32)\n    at emitError (node:events:43:23)\n",
+      "exit": 0,
+      "description": "Check if dev server shows any errors"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && npm run dev 2>&1 | head -50",
+    "time": {
+      "start": 1767177996446,
+      "end": 1767177999224
+    }
+  }
+}

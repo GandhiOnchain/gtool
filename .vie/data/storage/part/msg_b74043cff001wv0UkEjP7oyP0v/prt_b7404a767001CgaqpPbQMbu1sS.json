@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7404a767001CgaqpPbQMbu1sS",
+  "messageID": "msg_b74043cff001wv0UkEjP7oyP0v",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Actually, let me think about this differently. The real issue is likely that we need to fetch the actual token details from the Relay API, not just use the chain's native currency. Let me check the Relay API to see if we can get better request details:",
+  "time": {
+    "start": 1767178022827,
+    "end": 1767178022827
+  }
+}

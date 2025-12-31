@@ -132,6 +132,7 @@ export default function RelaySwap() {
   const [usdAmount, setUsdAmount] = useState('')
   const [batchQuote, setBatchQuote] = useState<RelayQuote | null>(null)
   const [isLoadingBatchQuote, setIsLoadingBatchQuote] = useState(false)
+  const [isLoadingHistory, setIsLoadingHistory] = useState(false)
 
   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
@@ -1472,6 +1473,7 @@ export default function RelaySwap() {
   const loadSwapHistory = async () => {
     if (!address) return
     
+    setIsLoadingHistory(true)
     try {
       const { requests } = await relayAPI.getRequests({
         user: address,
@@ -1480,15 +1482,25 @@ export default function RelaySwap() {
         sortDirection: 'desc',
       })
       
-      const history: SwapHistory[] = requests.map(req => {
+      const history: SwapHistory[] = await Promise.all(requests.map(async req => {
         console.log('Processing request:', req.id, req)
         
         // Get chain IDs from transactions
         const originChainId = req.data.inTxs?.[0]?.chainId
         const destChainId = req.data.outTxs?.[0]?.chainId
         
+        console.log('Chain IDs:', { originChainId, destChainId })
+        console.log('Available chains:', chains.length)
+        
         const originChain = chains.find(c => c.id === originChainId)
         const destChain = chains.find(c => c.id === destChainId)
+        
+        console.log('Found chains:', { 
+          originChain: originChain?.displayName, 
+          destChain: destChain?.displayName,
+          originChainId,
+          destChainId
+        })
         
         // Get amounts from transaction data
         let fromAmount = '0'
@@ -1500,13 +1512,50 @@ export default function RelaySwap() {
         let fromTokenAddress = '0x0'
         let toTokenAddress = '0x0'
         
+        // The currency field in req.data contains the token address
+        const currencyAddress = req.data.currency
+        
+        // Try to fetch currency details for both chains
+        let fromCurrency: RelayCurrency | null = null
+        let toCurrency: RelayCurrency | null = null
+        
+        try {
+          if (currencyAddress && originChainId) {
+            const currencies = await relayAPI.getCurrencies({
+              address: currencyAddress,
+              chainIds: [originChainId],
+              limit: 1,
+            })
+            fromCurrency = currencies[0] || null
+          }
+        } catch (e) {
+          console.error('Failed to fetch from currency:', e)
+        }
+        
+        try {
+          if (currencyAddress && destChainId) {
+            const currencies = await relayAPI.getCurrencies({
+              address: currencyAddress,
+              chainIds: [destChainId],
+              limit: 1,
+            })
+            toCurrency = currencies[0] || null
+          }
+        } catch (e) {
+          console.error('Failed to fetch to currency:', e)
+        }
+        
         // Process input transaction
         if (req.data.inTxs?.[0]) {
           const inTx = req.data.inTxs[0]
           const rawAmount = inTx.data?.value || '0'
           
-          // Try to determine token from chain's native currency or use defaults
-          if (originChain) {
+          // Use fetched currency data if available, otherwise fall back to chain native currency
+          if (fromCurrency) {
+            fromDecimals = fromCurrency.decimals
+            fromSymbol = fromCurrency.symbol
+            fromTokenAddress = fromCurrency.address
+          } else if (originChain) {
             fromDecimals = originChain.currency.decimals
             fromSymbol = originChain.currency.symbol
             fromTokenAddress = originChain.currency.address
@@ -1527,8 +1576,12 @@ export default function RelaySwap() {
           const outTx = req.data.outTxs[0]
           const rawAmount = outTx.data?.value || '0'
           
-          // Try to determine token from chain's native currency or use defaults
-          if (destChain) {
+          // Use fetched currency data if available, otherwise fall back to chain native currency
+          if (toCurrency) {
+            toDecimals = toCurrency.decimals
+            toSymbol = toCurrency.symbol
+            toTokenAddress = toCurrency.address
+          } else if (destChain) {
             toDecimals = destChain.currency.decimals
             toSymbol = destChain.currency.symbol
             toTokenAddress = destChain.currency.address
@@ -1571,11 +1624,13 @@ export default function RelaySwap() {
           txHash: req.data.outTxs?.[0]?.hash,
           inTxHash: req.data.inTxs?.[0]?.hash,
         }
-      })
+      }))
       
       setSwapHistory(history)
     } catch (error) {
       console.error('Failed to load swap history:', error)
+    } finally {
+      setIsLoadingHistory(false)
     }
   }
 
@@ -2397,7 +2452,11 @@ export default function RelaySwap() {
           <TabsContent value="history" className="mt-2">
             <ScrollArea className="h-[500px]">
               <div className="space-y-2">
-                {swapHistory.length === 0 ? (
+                {isLoadingHistory ? (
+                  <Card className="p-4 text-center text-sm text-muted-foreground">
+                    Loading history...
+                  </Card>
+                ) : swapHistory.length === 0 ? (
                   <Card className="p-4 text-center text-sm text-muted-foreground">
                     No swap history yet
                   </Card>

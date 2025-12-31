@@ -1,0 +1,11 @@
+{
+  "id": "prt_b74046798001X8oAog2saogg01",
+  "messageID": "msg_b74043cff001wv0UkEjP7oyP0v",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "I see the issue. The problem is that `loadSwapHistory` is being called before the `chains` array is populated. Let me check when chains are loaded and when history is loaded:",
+  "time": {
+    "start": 1767178007123,
+    "end": 1767178007123
+  }
+}

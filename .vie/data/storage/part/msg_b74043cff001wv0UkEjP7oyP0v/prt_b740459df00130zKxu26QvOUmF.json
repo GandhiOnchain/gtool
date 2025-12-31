@@ -1,0 +1,11 @@
+{
+  "id": "prt_b740459df00130zKxu26QvOUmF",
+  "messageID": "msg_b74043cff001wv0UkEjP7oyP0v",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "The dev server is already running. Let me check the console logs to see what's happening with the swap history data:",
+  "time": {
+    "start": 1767178002659,
+    "end": 1767178002659
+  }
+}

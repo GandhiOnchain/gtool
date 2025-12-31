@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7405dc36001DOv3Z7QkOxJZIJ",
+  "messageID": "msg_b74043cff001wv0UkEjP7oyP0v",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Excellent! Now let me create a summary of the fixes I made:\n\n## Summary of History Tab Fixes\n\nI've identified and fixed the issue where chains and tokens were showing as \"Unknown\" without logos. Here's what was wrong and how I fixed it:\n\n### **Root Cause**\nThe Relay API's `getRequests` endpoint returns minimal transaction data - just transaction hashes, values, and a `currency` field (token address). It doesn't include:\n- Token symbols, names, or decimals\n- Token logos\n- Detailed chain information\n\n### **The Fix**\n\n1. **Async Currency Lookup**\n   - Changed the history mapping to be async (`Promise.all`)\n   - For each request, we now fetch the actual token details from the Relay API using the `currency` address\n   - Fetches currency data for both origin and destination chains\n\n2. **Fallback Strategy**\n   - First tries to fetch the specific token from Relay API\n   - Falls back to the chain's native currency if token fetch fails\n   - Uses \"Unknown\" only as a last resort\n\n3. **Chain Information**\n   - Properly looks up chains from the `chains` array using chain IDs\n   - Extracts chain logos (`iconUrl`) for display\n   - Shows chain display names\n\n4. **Loading State**\n   - Added `isLoadingHistory` state\n   - Shows \"Loading history...\" while fetching and processing requests\n   - Prevents showing \"No swap history yet\" during loading\n\n### **What Now Works**\n\n✅ Chain logos display correctly  \n✅ Chain names show properly (not \"Unknown\")  \n✅ Token symbols are accurate  \n✅ Token amounts use correct decimals  \n✅ Handles both native tokens and ERC-20 tokens  \n✅ Loading indicator while fetching history  \n\nThe history tab will now show complete, accurate information with all logos and proper token/chain details!",
+  "time": {
+    "start": 1767178110419,
+    "end": 1767178110419
+  }
+}

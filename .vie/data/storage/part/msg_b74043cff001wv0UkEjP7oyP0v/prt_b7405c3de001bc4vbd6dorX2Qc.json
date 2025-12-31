@@ -1,0 +1,44 @@
+{
+  "id": "prt_b7405c3de001bc4vbd6dorX2Qc",
+  "messageID": "msg_b74043cff001wv0UkEjP7oyP0v",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01Du2Wk6KG66AL2cydZoiF89",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "✅ All checked files are clean!\n\nChecked 17 file(s):\n  - frontend/output/index.html\n  - frontend/src/pages/RelaySwap.tsx\n  - frontend/output/assets/SIWXUtil-C3xrCPE_.js\n  - frontend/output/assets/_esm-BbsftLOz.js\n  - frontend/output/assets/basic-Dvgdm3L3.js\n  - frontend/output/assets/ccip-B6wFKq9v.js\n  - frontend/output/assets/ccip-BxQWyOTc.js\n  - frontend/output/assets/ccip-DxleiT12.js\n  - frontend/output/assets/core-DzmDEDu_.js\n  - frontend/output/assets/dist-D9kKIRai.js\n  - frontend/output/assets/index-DGXAheUe.js\n  - frontend/output/assets/localBatchGatewayRequest-BVeiqHx1.js\n  - frontend/output/assets/secp256k1-Bz2ngGOw.js\n  - frontend/output/assets/secp256k1-CZkLp4jH.js\n  - frontend/output/assets/secp256k1-D697no-y.js\n  - frontend/output/assets/w3m-modal-CAkUjmLD.js\n  - frontend/output/assets/wui-text-BJ4KI_SV.js",
+    "metadata": {
+      "filesChecked": 17,
+      "filesWithIssues": 0,
+      "totalIssues": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/output/index.html",
+        "frontend/src/pages/RelaySwap.tsx",
+        "frontend/output/assets/SIWXUtil-C3xrCPE_.js",
+        "frontend/output/assets/_esm-BbsftLOz.js",
+        "frontend/output/assets/basic-Dvgdm3L3.js",
+        "frontend/output/assets/ccip-B6wFKq9v.js",
+        "frontend/output/assets/ccip-BxQWyOTc.js",
+        "frontend/output/assets/ccip-DxleiT12.js",
+        "frontend/output/assets/core-DzmDEDu_.js",
+        "frontend/output/assets/dist-D9kKIRai.js",
+        "frontend/output/assets/index-DGXAheUe.js",
+        "frontend/output/assets/localBatchGatewayRequest-BVeiqHx1.js",
+        "frontend/output/assets/secp256k1-Bz2ngGOw.js",
+        "frontend/output/assets/secp256k1-CZkLp4jH.js",
+        "frontend/output/assets/secp256k1-D697no-y.js",
+        "frontend/output/assets/w3m-modal-CAkUjmLD.js",
+        "frontend/output/assets/wui-text-BJ4KI_SV.js"
+      ]
+    },
+    "title": "Diagnostics: 0 issue(s) in 0 file(s)",
+    "time": {
+      "start": 1767178093653,
+      "end": 1767178097983
+    }
+  }
+}
