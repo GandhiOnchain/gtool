@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73964fab0012kCbrzyTOTQbvb",
+  "messageID": "msg_b7395d674001kHHLzI43jMogVK",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I notice we're not logging or checking the `from` field in txData! According to the Relay docs and the type definition, `txData.from` should match the `user` address in the quote. Let me add validation and logging:",
+  "time": {
+    "start": 1767170794935,
+    "end": 1767170794935
+  }
+}

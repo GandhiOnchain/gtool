@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7396d315001aYQHCod1KBKR5l",
+  "messageID": "msg_b7395d674001kHHLzI43jMogVK",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "The amount looks correct. Now let me add more detailed logging to compare what we're sending vs what the quote expects:",
+  "time": {
+    "start": 1767170828709,
+    "end": 1767170828709
+  }
+}

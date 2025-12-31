@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7395fbea001s0u2Fe056z4ttb",
+  "messageID": "msg_b7395d674001kHHLzI43jMogVK",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "The \"processing swap\" toast means Relay detected the transaction and started processing it, but then it was refunded. This suggests the transaction itself is being detected, but there's something wrong with the transaction data that causes Relay to refund it.\n\nLet me check the Relay refunds documentation:",
+  "time": {
+    "start": 1767170772793,
+    "end": 1767170772793
+  }
+}

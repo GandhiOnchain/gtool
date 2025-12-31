@@ -1,0 +1,85 @@
+{
+  "id": "prt_b73965731001SFPgy4xuZHNsH7",
+  "messageID": "msg_b7395d674001kHHLzI43jMogVK",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01NHGN5oKrHJ1yQ6U9z4Ujta",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Analyze the processing swap toast and refund sequence",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Check Relay status monitoring and refund conditions",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Review the actual transaction data being sent",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Check if there's a mismatch between quote and execution",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Implement the fix",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Analyze the processing swap toast and refund sequence\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Check Relay status monitoring and refund conditions\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Review the actual transaction data being sent\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Check if there's a mismatch between quote and execution\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"4\"\n  },\n  {\n    \"content\": \"Implement the fix\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"5\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Analyze the processing swap toast and refund sequence",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Check Relay status monitoring and refund conditions",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Review the actual transaction data being sent",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Check if there's a mismatch between quote and execution",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Implement the fix",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        }
+      ]
+    },
+    "title": "3 todos",
+    "time": {
+      "start": 1767170794933,
+      "end": 1767170794933
+    }
+  }
+}

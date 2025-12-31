@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73960a17001uEpd0G6TGMpT1G",
+  "messageID": "msg_b7395d674001kHHLzI43jMogVK",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01SMfbjgKxTFNb7WTRKnUy3q",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 725,
+      "limit": 30
+    },
+    "output": "<file>\n00726|           if (depositStep.requestId) {\n00727|             setCurrentSwapRequestId(depositStep.requestId)\n00728|             setCurrentSwapChainId(txData.chainId)\n00729|           } else {\n00730|             console.warn('No requestId found in deposit step')\n00731|             setIsSwapping(false)\n00732|           }\n00733|         },\n00734|         onError: (error) => {\n00735|           console.error('Transaction failed:', error)\n00736|           const errorMessage = error instanceof Error ? error.message : 'Transaction failed'\n00737|           toast.error(errorMessage)\n00738|           setIsSwapping(false)\n00739|         }\n00740|       })\n00741|     } catch (error) {\n00742|       console.error('Swap execution failed:', error)\n00743|       const errorMessage = error instanceof Error ? error.message : 'Failed to execute swap'\n00744|       toast.error(errorMessage)\n00745|       setIsSwapping(false)\n00746|     }\n00747|   }\n00748| \n00749|   const monitorSwapStatus = async (requestId: string) => {\n00750|     const maxAttempts = 60\n00751|     let attempts = 0\n00752|     let lastStatus = ''\n00753| \n00754|     const checkStatus = async () => {\n00755|       try {\n\n(File has more lines. Use 'offset' parameter to read beyond line 755)\n</file>",
+    "metadata": {
+      "preview": "          if (depositStep.requestId) {\n            setCurrentSwapRequestId(depositStep.requestId)\n            setCurrentSwapChainId(txData.chainId)\n          } else {\n            console.warn('No requestId found in deposit step')\n            setIsSwapping(false)\n          }\n        },\n        onError: (error) => {\n          console.error('Transaction failed:', error)\n          const errorMessage = error instanceof Error ? error.message : 'Transaction failed'\n          toast.error(errorMessage)\n          setIsSwapping(false)\n        }\n      })\n    } catch (error) {\n      console.error('Swap execution failed:', error)\n      const errorMessage = error instanceof Error ? error.message : 'Failed to execute swap'\n      toast.error(errorMessage)\n      setIsSwapping(false)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767170772647,
+      "end": 1767170772649
+    }
+  }
+}

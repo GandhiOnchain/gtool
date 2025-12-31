@@ -676,6 +676,7 @@ export default function RelaySwap() {
       const txData = depositStep.items[0].data
       
       console.log('Executing swap transaction:', {
+        from: txData.from,
         to: txData.to,
         value: txData.value,
         data: txData.data?.slice(0, 20) + '...',
@@ -684,6 +685,18 @@ export default function RelaySwap() {
         recipientAddress,
         requestId: depositStep.requestId,
       })
+      
+      // CRITICAL: Verify the transaction 'from' address matches the connected wallet
+      // Relay will refund if these don't match
+      if (txData.from.toLowerCase() !== address.toLowerCase()) {
+        console.error('Address mismatch!', {
+          txDataFrom: txData.from,
+          connectedAddress: address,
+        })
+        toast.error('Wallet address mismatch. Please ensure you are using the same wallet that requested the quote.')
+        setIsSwapping(false)
+        return
+      }
 
       // Check if we need to switch chains
       if (connectedChainId !== txData.chainId) {
@@ -701,6 +714,8 @@ export default function RelaySwap() {
       }
 
       // Prepare transaction with all fields from the quote
+      // Note: wagmi's sendTransaction automatically uses the connected wallet as 'from'
+      // We've already verified above that txData.from matches the connected address
       const txParams = {
         to: txData.to as `0x${string}`,
         data: txData.data as `0x${string}`,
@@ -709,7 +724,19 @@ export default function RelaySwap() {
         ...(txData.maxPriorityFeePerGas && { maxPriorityFeePerGas: BigInt(txData.maxPriorityFeePerGas) }),
       }
       
+      console.log('=== TRANSACTION VALIDATION ===')
+      console.log('Quote requested by:', address)
+      console.log('Transaction from (in quote):', txData.from)
+      console.log('Transaction to:', txData.to)
+      console.log('Transaction value (expected):', txData.value)
+      console.log('Transaction value (sending):', txParams.value.toString())
+      console.log('Transaction data match:', txData.data === txParams.data)
+      console.log('Amount in quote params:', amountInWei.toString())
+      console.log('RequestId:', depositStep.requestId)
+      console.log('============================')
+      
       console.log('Sending transaction with params:', {
+        from: address, // This will be used by wagmi automatically
         ...txParams,
         value: txParams.value.toString(),
         maxFeePerGas: txParams.maxFeePerGas?.toString(),

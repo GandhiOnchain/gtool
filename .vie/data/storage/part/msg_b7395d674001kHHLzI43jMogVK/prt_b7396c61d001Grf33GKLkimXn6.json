@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7396c61d001Grf33GKLkimXn6",
+  "messageID": "msg_b7395d674001kHHLzI43jMogVK",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01UtCEYpwGfKBP2A1vX13NUY",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 632,
+      "limit": 20
+    },
+    "output": "<file>\n00633|       console.log('Getting fresh quote for execution...')\n00634|       const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n00635|       const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()\n00636|       \n00637|       const includedSources = Object.entries(enabledSources)\n00638|         .filter(([_, enabled]) => enabled)\n00639|         .map(([source]) => source)\n00640|       \n00641|       const quoteParams = {\n00642|         user: address,\n00643|         originChainId: fromChain.id,\n00644|         destinationChainId: toChain.id,\n00645|         originCurrency: fromToken.address,\n00646|         destinationCurrency: toToken.address,\n00647|         amount: amountInWei.toString(),\n00648|         tradeType: 'EXACT_INPUT' as const,\n00649|         slippageTolerance: slippageBps,\n00650|         recipient: isCrossVM && recipientAddress ? recipientAddress : undefined,\n00651|         includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n00652|         useExternalLiquidity: isCrossVM ? true : undefined,\n\n(File has more lines. Use 'offset' parameter to read beyond line 652)\n</file>",
+    "metadata": {
+      "preview": "      console.log('Getting fresh quote for execution...')\n      const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n      const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()\n      \n      const includedSources = Object.entries(enabledSources)\n        .filter(([_, enabled]) => enabled)\n        .map(([source]) => source)\n      \n      const quoteParams = {\n        user: address,\n        originChainId: fromChain.id,\n        destinationChainId: toChain.id,\n        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        amount: amountInWei.toString(),\n        tradeType: 'EXACT_INPUT' as const,\n        slippageTolerance: slippageBps,\n        recipient: isCrossVM && recipientAddress ? recipientAddress : undefined,\n        includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n        useExternalLiquidity: isCrossVM ? true : undefined,"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767170820445,
+      "end": 1767170820447
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b739691f1001odiesaHiNYcHbB",
+  "messageID": "msg_b7395d674001kHHLzI43jMogVK",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now, the bigger issue - I just realized we're using `sendTransaction` from wagmi which doesn't accept a `from` parameter because it automatically uses the connected wallet. But what if the quote's `from` address doesn't match? Let me also add the `from` field to our transaction params for clarity:",
+  "time": {
+    "start": 1767170815161,
+    "end": 1767170815161
+  }
+}

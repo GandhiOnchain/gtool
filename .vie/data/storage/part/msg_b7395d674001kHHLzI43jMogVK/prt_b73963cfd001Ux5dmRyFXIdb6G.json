@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73963cfd001Ux5dmRyFXIdb6G",
+  "messageID": "msg_b7395d674001kHHLzI43jMogVK",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I see we're using `address` from `useAccount()` for the quote. Now let me check the transaction data to see if it has a `from` field that matches:",
+  "time": {
+    "start": 1767170786743,
+    "end": 1767170786743
+  }
+}

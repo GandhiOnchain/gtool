@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73961bb3001CHesgLvCjdwzzG",
+  "messageID": "msg_b7395d674001kHHLzI43jMogVK",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Based on the refunds documentation, the most likely causes are:\n\n1. **User's Wallet Address is Different Than Transaction Depositing Address** - The quote was generated for one address but the transaction is sent from a different address\n2. **User Deposits Too Little** - The amount doesn't match what was quoted\n3. **Transactions Reverting** - The quote became stale between getting it and executing\n\nThe key issue is likely: **\"Users must execute the transaction with the wallet address that received the quote.\"**\n\nLet me check if we're passing the correct `user` address in the quote:",
+  "time": {
+    "start": 1767170782013,
+    "end": 1767170782013
+  }
+}

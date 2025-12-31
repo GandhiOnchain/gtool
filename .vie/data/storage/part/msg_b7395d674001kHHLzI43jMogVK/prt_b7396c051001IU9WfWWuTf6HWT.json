@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7396c051001IU9WfWWuTf6HWT",
+  "messageID": "msg_b7395d674001kHHLzI43jMogVK",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now let me check if there's an issue with the amount. According to the docs, \"User Deposits Too Little\" can cause refunds. Let me verify the amount matches exactly:",
+  "time": {
+    "start": 1767170820600,
+    "end": 1767170820600
+  }
+}
