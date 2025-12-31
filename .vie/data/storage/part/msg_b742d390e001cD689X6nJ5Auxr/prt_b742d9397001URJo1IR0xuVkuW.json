@@ -1,0 +1,25 @@
+{
+  "id": "prt_b742d9397001URJo1IR0xuVkuW",
+  "messageID": "msg_b742d390e001cD689X6nJ5Auxr",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01MSPHHpWooiJ6twJHQ5C5fk",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1900,
+      "limit": 30
+    },
+    "output": "<file>\n01901|           toChainId: destChainId || 0,\n01902|           toChainIcon: destChain?.iconUrl,\n01903|           status: req.status,\n01904|           timestamp: createdTime,\n01905|           completedAt,\n01906|           txHash: req.data.outTxs?.[0]?.hash,\n01907|           inTxHash: req.data.inTxs?.[0]?.hash,\n01908|           batchTokens: transactionType === 'batch' && batchTokens.length > 0 ? batchTokens : undefined,\n01909|         }\n01910|         \n01911|         console.log('Final history item:', {\n01912|           id: historyItem.id,\n01913|           type: historyItem.type,\n01914|           fromSymbol: historyItem.fromTokenSymbol,\n01915|           toSymbol: historyItem.toTokenSymbol,\n01916|           fromAmount: historyItem.fromAmount,\n01917|           toAmount: historyItem.toAmount,\n01918|           fromChain: historyItem.fromChain,\n01919|           toChain: historyItem.toChain,\n01920|           batchTokensCount: historyItem.batchTokens?.length\n01921|         })\n01922|         console.log('===')\n01923|         \n01924|         return historyItem\n01925|       }))\n01926|       \n01927|       setSwapHistory(history)\n01928|     } catch (error) {\n01929|       console.error('Failed to load swap history:', error)\n01930|     } finally {\n\n(File has more lines. Use 'offset' parameter to read beyond line 1930)\n</file>",
+    "metadata": {
+      "preview": "          toChainId: destChainId || 0,\n          toChainIcon: destChain?.iconUrl,\n          status: req.status,\n          timestamp: createdTime,\n          completedAt,\n          txHash: req.data.outTxs?.[0]?.hash,\n          inTxHash: req.data.inTxs?.[0]?.hash,\n          batchTokens: transactionType === 'batch' && batchTokens.length > 0 ? batchTokens : undefined,\n        }\n        \n        console.log('Final history item:', {\n          id: historyItem.id,\n          type: historyItem.type,\n          fromSymbol: historyItem.fromTokenSymbol,\n          toSymbol: historyItem.toTokenSymbol,\n          fromAmount: historyItem.fromAmount,\n          toAmount: historyItem.toAmount,\n          fromChain: historyItem.fromChain,\n          toChain: historyItem.toChain,\n          batchTokensCount: historyItem.batchTokens?.length"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767180703217,
+      "end": 1767180703218
+    }
+  }
+}

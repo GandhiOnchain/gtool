@@ -1,0 +1,11 @@
+{
+  "id": "prt_b742d56a0001gLr2g687mZ0fmO",
+  "messageID": "msg_b742d390e001cD689X6nJ5Auxr",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "The UI condition looks correct. The issue must be that `swap.batchTokens` is either undefined, null, or an empty array. Let me add a console.log in the UI to see what we're actually receiving:",
+  "time": {
+    "start": 1767180694909,
+    "end": 1767180694909
+  }
+}

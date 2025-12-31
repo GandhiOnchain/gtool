@@ -1692,6 +1692,8 @@ export default function RelaySwap() {
               
               // Format the amount
               let amount = '0'
+              console.log('About to format amount:', { rawAmount, tokenDecimals, tokenSymbol })
+              
               if (rawAmount && rawAmount !== '0') {
                 try {
                   amount = parseFloat(formatUnits(BigInt(rawAmount), tokenDecimals)).toFixed(6)
@@ -1699,7 +1701,11 @@ export default function RelaySwap() {
                 } catch (e) {
                   console.error('Error formatting amount:', e)
                 }
+              } else {
+                console.warn('Raw amount is zero or missing for batch tx', i)
               }
+              
+              console.log('Checking if amount > 0:', { amount, parsed: parseFloat(amount) })
               
               // Only add if we have a valid amount
               if (parseFloat(amount) > 0) {
@@ -1715,6 +1721,8 @@ export default function RelaySwap() {
                   usdValue
                 })
                 console.log('Added batch token with USD:', { symbol: tokenSymbol, amount, usdValue })
+              } else {
+                console.warn('Skipping batch token - amount is zero:', { symbol: tokenSymbol, amount, rawAmount })
               }
             } catch (e) {
               console.error('Error processing batch tx:', e)
@@ -1917,7 +1925,8 @@ export default function RelaySwap() {
           toAmount: historyItem.toAmount,
           fromChain: historyItem.fromChain,
           toChain: historyItem.toChain,
-          batchTokensCount: historyItem.batchTokens?.length
+          batchTokensCount: historyItem.batchTokens?.length,
+          batchTokens: historyItem.batchTokens
         })
         console.log('===')
         
@@ -2766,6 +2775,16 @@ export default function RelaySwap() {
                     
                     const typeLabel = swap.type === 'batch' ? 'Batch Swap' : swap.type === 'bridge' ? 'Bridge' : 'Swap'
                     const typeColor = swap.type === 'batch' ? 'bg-purple-500/10 text-purple-500' : swap.type === 'bridge' ? 'bg-blue-500/10 text-blue-500' : 'bg-green-500/10 text-green-500'
+                    
+                    // Debug batch tokens
+                    if (swap.type === 'batch') {
+                      console.log('Rendering batch swap:', {
+                        id: swap.id,
+                        hasBatchTokens: !!swap.batchTokens,
+                        batchTokensLength: swap.batchTokens?.length,
+                        batchTokens: swap.batchTokens
+                      })
+                    }
                     
                     return (
                       <Card key={swap.id} className="p-3">

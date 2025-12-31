@@ -1,0 +1,11 @@
+{
+  "id": "prt_b742d7fc3001A1GA39xe2KTMoh",
+  "messageID": "msg_b742d390e001cD689X6nJ5Auxr",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Now let me also check what's being logged when we create the history item. Let me look at the final logging:",
+  "time": {
+    "start": 1767180699828,
+    "end": 1767180699828
+  }
+}

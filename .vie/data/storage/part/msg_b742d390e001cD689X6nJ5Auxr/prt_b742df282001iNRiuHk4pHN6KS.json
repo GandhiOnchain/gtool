@@ -1,0 +1,11 @@
+{
+  "id": "prt_b742df282001iNRiuHk4pHN6KS",
+  "messageID": "msg_b742d390e001cD689X6nJ5Auxr",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "The logic looks correct. The issue might be that the amounts are being decoded as 0. Let me add even more detailed logging to see what's happening with the amount decoding:",
+  "time": {
+    "start": 1767180732644,
+    "end": 1767180732644
+  }
+}

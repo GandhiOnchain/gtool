@@ -1,0 +1,11 @@
+{
+  "id": "prt_b742ddeff001HX2xgCXlwNKQ2q",
+  "messageID": "msg_b742d390e001cD689X6nJ5Auxr",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Good, batch processing (line 1603) happens before regular processing (line 1728), so that's correct. Now let me check if there's an issue with the condition. Let me look more carefully at the batch token processing to see if there's a logic error:",
+  "time": {
+    "start": 1767180724382,
+    "end": 1767180724382
+  }
+}
