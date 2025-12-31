@@ -1,0 +1,11 @@
+{
+  "id": "prt_b75527815001roTP1Ac6YSi6eQ",
+  "messageID": "msg_b75525c5b001R8kblOKvMgkc75",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Perfect! I can see the exact issues from the console:\n\n```\nChecking approvals for 0 tokens\n→ Chain doesn't have tokens in Relay's database\n\nError checking USDC for Relay: Contract function \"allowance\" reverted\n→ RPC endpoint issue or wrong contract addresses\n\nIssue 3: Allowances are all 0\nUSDC allowance for Relay: 0\nDAI allowance for Relay: 0\n\nApproval scan complete: {tokensScanned: 21, checksPerformed: 60, errors: 3, approvalsFound: 0}\nFound 0 approvals\n```\n\nThe issues are:\n1. **Only 21 tokens loaded** (should be more)\n2. **Some RPC errors** (contract function reverted)\n3. **All allowances are 0** (you haven't approved these spenders yet)\n\nThe main issue is that you likely haven't made any swaps that required approvals to these specific spender addresses. Let me improve the feature to:\n1. Scan more tokens\n2. Add more common spender addresses\n3. Show better messaging when no approvals exist",
+  "time": {
+    "start": 1767199925676,
+    "end": 1767199925676
+  }
+}

@@ -2201,19 +2201,59 @@ export default function RelaySwap() {
       const tokens = await relayAPI.getCurrencies({
         chainIds: [revokeChain.id],
         defaultList: true,
-        limit: 50,
+        limit: 100,
       })
       
-      console.log('Checking approvals for', tokens.length, 'tokens')
+      console.log('Checking approvals for', tokens.length, 'tokens on', revokeChain.displayName)
       
       const foundApprovals: typeof approvals = []
       
-      // Common spender addresses (Relay, Uniswap, etc.)
-      const commonSpenders = [
-        { address: '0x0000000000001ff3684f28c67538d4d072c22734', name: 'Relay' },
-        { address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad', name: 'Uniswap Universal Router' },
-        { address: '0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b', name: 'Uniswap Permit2' },
-      ]
+      // Common spender addresses per chain
+      const getSpendersForChain = (chainId: number) => {
+        const common = [
+          { address: '0x0000000000001ff3684f28c67538d4d072c22734', name: 'Relay' },
+          { address: '0x000000000022d473030f116ddee9f6b43ac78ba3', name: 'Permit2' },
+        ]
+        
+        // Chain-specific spenders
+        if (chainId === 1) { // Ethereum
+          return [
+            ...common,
+            { address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad', name: 'Uniswap Universal Router' },
+            { address: '0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45', name: 'Uniswap V3 Router' },
+            { address: '0x7a250d5630b4cf539739df2c5dacb4c659f2488d', name: 'Uniswap V2 Router' },
+          ]
+        } else if (chainId === 8453) { // Base
+          return [
+            ...common,
+            { address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad', name: 'Uniswap Universal Router' },
+            { address: '0x2626664c2603336e57b271c5c0b26f421741e481', name: 'Uniswap V3 Router (Base)' },
+          ]
+        } else if (chainId === 10) { // Optimism
+          return [
+            ...common,
+            { address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad', name: 'Uniswap Universal Router' },
+            { address: '0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45', name: 'Uniswap V3 Router' },
+          ]
+        } else if (chainId === 42161) { // Arbitrum
+          return [
+            ...common,
+            { address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad', name: 'Uniswap Universal Router' },
+            { address: '0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45', name: 'Uniswap V3 Router' },
+          ]
+        } else if (chainId === 137) { // Polygon
+          return [
+            ...common,
+            { address: '0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad', name: 'Uniswap Universal Router' },
+            { address: '0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45', name: 'Uniswap V3 Router' },
+          ]
+        }
+        
+        return common
+      }
+      
+      const commonSpenders = getSpendersForChain(revokeChain.id)
+      console.log('Checking against', commonSpenders.length, 'spenders:', commonSpenders.map(s => s.name))
       
       let checkedCount = 0
       let errorCount = 0
@@ -3252,11 +3292,17 @@ export default function RelaySwap() {
 
             {isLoadingApprovals ? (
               <Card className="p-4 text-center text-sm text-muted-foreground">
-                Loading approvals...
+                Scanning for approvals...
               </Card>
             ) : approvals.length === 0 && revokeChain ? (
-              <Card className="p-4 text-center text-sm text-muted-foreground">
-                No active approvals found
+              <Card className="p-4 text-center">
+                <div className="text-sm text-muted-foreground mb-2">
+                  No active approvals found
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  This means you haven't approved any tokens for common protocols on {revokeChain.displayName}.
+                  Approvals are created when you swap tokens.
+                </div>
               </Card>
             ) : approvals.length > 0 ? (
               <ScrollArea className="h-[400px]">
