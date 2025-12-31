@@ -1221,37 +1221,90 @@ export default function RelaySwap() {
 
       console.log('Batch quote received, executing transactions...')
 
-      let successCount = 0
+      // Collect all transactions to execute
+      const transactions: Array<{
+        to: `0x${string}`
+        data: `0x${string}`
+        value: bigint
+        maxFeePerGas?: bigint
+        maxPriorityFeePerGas?: bigint
+        requestId?: string
+      }> = []
+      
       for (const step of multiQuote.steps) {
         if (step.id === 'deposit' && step.items) {
           for (const item of step.items) {
             const txData = item.data
-            
-            // Prepare transaction with all fields from the quote
-            const batchTxParams = {
+            transactions.push({
               to: txData.to as `0x${string}`,
               data: txData.data as `0x${string}`,
               value: BigInt(txData.value),
               ...(txData.maxFeePerGas && { maxFeePerGas: BigInt(txData.maxFeePerGas) }),
               ...(txData.maxPriorityFeePerGas && { maxPriorityFeePerGas: BigInt(txData.maxPriorityFeePerGas) }),
-            }
-            
-            sendTransaction(batchTxParams, {
-              onSuccess: () => {
-                successCount++
-              },
-              onError: (error) => {
-                console.error('Transaction failed:', error)
-              }
+              requestId: step.requestId,
             })
-            await new Promise(resolve => setTimeout(resolve, 1000))
           }
         }
       }
 
-      toast.success(`Batch swap initiated`)
-      updateUserStreak()
-      setBatchTokens([])
+      if (transactions.length === 0) {
+        toast.error('No transactions to execute')
+        setIsSwapping(false)
+        return
+      }
+
+      console.log(`Executing ${transactions.length} batch swap transactions...`)
+      
+      // Execute transactions sequentially and wait for each to complete
+      let successCount = 0
+      const failedTxs: string[] = []
+      
+      for (let i = 0; i < transactions.length; i++) {
+        const tx = transactions[i]
+        console.log(`Executing transaction ${i + 1}/${transactions.length}`)
+        
+        try {
+          // Create a promise that resolves when the transaction succeeds or fails
+          await new Promise<void>((resolve, reject) => {
+            sendTransaction(tx, {
+              onSuccess: (hash) => {
+                console.log(`Transaction ${i + 1} submitted:`, hash)
+                successCount++
+                toast.success(`Transaction ${i + 1}/${transactions.length} submitted`)
+                resolve()
+              },
+              onError: (error) => {
+                console.error(`Transaction ${i + 1} failed:`, error)
+                failedTxs.push(`Transaction ${i + 1}`)
+                reject(error)
+              }
+            })
+          })
+          
+          // Wait a bit between transactions
+          if (i < transactions.length - 1) {
+            await new Promise(resolve => setTimeout(resolve, 2000))
+          }
+        } catch (error) {
+          console.error(`Failed to execute transaction ${i + 1}:`, error)
+          // Continue with next transaction even if one fails
+        }
+      }
+
+      // Only update streak and clear tokens if at least one transaction succeeded
+      if (successCount > 0) {
+        toast.success(`Batch swap completed: ${successCount}/${transactions.length} transactions successful`)
+        updateUserStreak()
+        updateLeaderboard()
+        loadSwapHistory()
+        setBatchTokens([])
+      } else {
+        toast.error('All batch swap transactions failed')
+      }
+      
+      if (failedTxs.length > 0) {
+        toast.warning(`${failedTxs.length} transaction(s) failed`)
+      }
     } catch (error) {
       console.error('Batch swap failed:', error)
       const errorMessage = error instanceof Error ? error.message : 'Batch swap failed'

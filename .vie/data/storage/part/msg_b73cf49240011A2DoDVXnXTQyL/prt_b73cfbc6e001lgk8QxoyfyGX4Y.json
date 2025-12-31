@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73cfbc6e001lgk8QxoyfyGX4Y",
+  "messageID": "msg_b73cf49240011A2DoDVXnXTQyL",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I found the critical issues!\n\n1. **Line 1252-1254**: `updateUserStreak()` and `setBatchTokens([])` are called immediately after initiating transactions, NOT after they complete\n2. **Line 1239-1246**: The `sendTransaction` callbacks are not being awaited - they're fire-and-forget\n3. **Line 1260**: `setIsSwapping(false)` is called in finally block, which runs immediately after the loop, not after transactions complete\n\nThe function is treating the batch swap as complete as soon as it submits the transactions, not when they actually succeed. Let me fix this:",
+  "time": {
+    "start": 1767174559913,
+    "end": 1767174559913
+  }
+}
