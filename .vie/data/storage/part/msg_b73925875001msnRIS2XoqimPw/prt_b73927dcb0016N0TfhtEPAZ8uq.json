@@ -1,0 +1,22 @@
+{
+  "id": "prt_b73927dcb0016N0TfhtEPAZ8uq",
+  "messageID": "msg_b73925875001msnRIS2XoqimPw",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "webfetch",
+  "callID": "toolu_vrtx_012ip74fRmGUBbbyYjqwaRGh",
+  "state": {
+    "status": "completed",
+    "input": {
+      "url": "https://docs.relay.link/guides/integrations/swap",
+      "format": "markdown"
+    },
+    "output": "Page Not Found\n\n[Skip to main content](#content-area)\n\n[Relay home page![light logo](https://mintcdn.com/unevenlabs/EQZvqdUTUiQuFwvU/logo/relay-black.svg?fit=max&auto=format&n=EQZvqdUTUiQuFwvU&q=85&s=898e63b17eddfca534404ed10f80e4f6)![dark logo](https://mintcdn.com/unevenlabs/EQZvqdUTUiQuFwvU/logo/relay-white.svg?fit=max&auto=format&n=EQZvqdUTUiQuFwvU&q=85&s=67acd28ab846890e9a5d6c4b6e121078)](/)\n\nSearch...\n\n⌘K\n\n-   [Support](https://support.relay.link/en/)\n-   [Get in Touch](https://forms.gle/XNeELYavjwoJwPEf7)\n-   [Try Relay](https://www.relay.link/)\n-   [\n    \n    Try Relay\n    \n    ](https://www.relay.link/)\n\nSearch...\n\nNavigation\n\nPage Not Found\n\n[Overview\n\n](/what-is-relay)[API Reference\n\n](/references/api/overview)[RelayKit\n\n](/references/relay-kit/overview)[Relay Protocol\n\n](/references/protocol/overview)\n\n##### Introduction\n\n-   [\n    \n    What is Relay?\n    \n    \n    \n    ](/what-is-relay)\n\n##### Solutions\n\n-   [\n    \n    Wallets & Wallet Providers\n    \n    \n    \n    ](/solutions/wallets-and-wallet-providers)\n-   [\n    \n    Multichain Apps\n    \n    \n    \n    ](/solutions/multichain-apps)\n-   [\n    \n    Chains\n    \n    \n    \n    ](/solutions/chains)\n\n##### Use Cases\n\n-   [\n    \n    Bridging & Onboarding\n    \n    \n    \n    ](/use-cases/bridging)\n-   [\n    \n    Swaps\n    \n    \n    \n    ](/use-cases/cross-chain-swaps)\n-   [\n    \n    Call Execution\n    \n    \n    \n    ](/use-cases/calling)\n\n##### Features\n\n-   [\n    \n    App Fees\n    \n    \n    \n    ](/features/app-fees)\n-   [\n    \n    Fee Sponsorship\n    \n    \n    \n    ](/features/fee-sponsorship)\n-   [\n    \n    Deposit Addresses\n    \n    \n    \n    ](/features/deposit-addresses)\n-   [\n    \n    MEV protection\n    \n    \n    \n    ](/features/mev-protection)\n\n##### Resources\n\n-   [\n    \n    Supported Chains\n    \n    \n    \n    ](/references/api/api_resources/supported-chains)\n-   [\n    \n    Enterprise Partner Program\n    \n    \n    \n    ](/resources/enterprise)\n-   [\n    \n    Bounties\n    \n    \n    \n    ](/resources/bounties)\n-   [\n    \n    Support\n    \n    \n    \n    ](https://support.relay.link/en/)\n-   [\n    \n    Brand Assets\n    \n    \n    \n    ](/resources/brand-assets)\n-   [\n    \n    Security & Compliance\n    \n    \n    \n    ](/resources/security-and-compliance)\n\n \n\n404\n\n# Page Not Found\n\nWe couldn't find the page.\n\n⌘I",
+    "metadata": {},
+    "title": "https://docs.relay.link/guides/integrations/swap (text/html; charset=utf-8)",
+    "time": {
+      "start": 1767170539464,
+      "end": 1767170542124
+    }
+  }
+}

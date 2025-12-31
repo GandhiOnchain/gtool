@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7392f734002DswKClGiW8naNT",
+  "messageID": "msg_b73925875001msnRIS2XoqimPw",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now I need to check if we're waiting for the transaction to be confirmed before indexing:",
+  "time": {
+    "start": 1767170572694,
+    "end": 1767170572694
+  }
+}

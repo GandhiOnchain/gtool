@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7392e5780016VEydGjgdN6YdK",
+  "messageID": "msg_b73925875001msnRIS2XoqimPw",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I see the issue now! We're using `depositStep.requestId` to monitor status, but according to the documentation, we should be using the `check` endpoint from the step item. Also, we need to wait for the transaction to be confirmed on-chain before Relay can process it.\n\nLet me check the check endpoint structure:",
+  "time": {
+    "start": 1767170568068,
+    "end": 1767170568068
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7392fb47001rP5bPc2Me5SVBi",
+  "messageID": "msg_b73925875001msnRIS2XoqimPw",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_017N9qebngMp11cwJpvHG8Qc",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"useWaitForTransactionReceipt\" src/pages/RelaySwap.tsx -B 2 -A 5",
+      "description": "Check transaction receipt waiting"
+    },
+    "output": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\nimport { parseUnits, formatUnits } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\nimport { Button } from '@/components/ui/button'\nimport { Input } from '@/components/ui/input'\n--\n\n  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n  const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n\n  const { data: fromBalance } = useBalance({\n    address,\n    chainId: fromChain?.id,\n    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n",
+    "metadata": {
+      "output": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\nimport { parseUnits, formatUnits } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\nimport { Button } from '@/components/ui/button'\nimport { Input } from '@/components/ui/input'\n--\n\n  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n  const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n\n  const { data: fromBalance } = useBalance({\n    address,\n    chainId: fromChain?.id,\n    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n",
+      "exit": 0,
+      "description": "Check transaction receipt waiting"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"useWaitForTransactionReceipt\" src/pages/RelaySwap.tsx -B 2 -A 5",
+    "time": {
+      "start": 1767170572594,
+      "end": 1767170572599
+    }
+  }
+}

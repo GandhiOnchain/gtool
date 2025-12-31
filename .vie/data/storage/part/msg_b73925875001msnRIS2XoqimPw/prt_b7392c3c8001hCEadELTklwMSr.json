@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7392c3c8001hCEadELTklwMSr",
+  "messageID": "msg_b73925875001msnRIS2XoqimPw",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now I understand the issue! According to the Relay documentation, after submitting a transaction, we need to **poll the check endpoint** to verify the transaction status. The refund is likely happening because we're not properly waiting for Relay to detect and process the transaction.\n\nThe key insight from the docs:\n\n> \"After the transaction is submitted onchain you can poll the step items `check` endpoint. The endpoint will return a status which when successful will return 'success'.\"\n\nWe're currently calling `indexSingleTransaction` but we're not properly waiting for Relay to confirm the transaction was detected. Let me check our current implementation:",
+  "time": {
+    "start": 1767170562846,
+    "end": 1767170562846
+  }
+}

@@ -111,6 +111,8 @@ export default function RelaySwap() {
   const [recipientAddress, setRecipientAddress] = useState('')
   const [fromTokenPrice, setFromTokenPrice] = useState<number>(0)
   const [toTokenPrice, setToTokenPrice] = useState<number>(0)
+  const [currentSwapRequestId, setCurrentSwapRequestId] = useState<string | null>(null)
+  const [currentSwapChainId, setCurrentSwapChainId] = useState<number | null>(null)
 
   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
@@ -208,6 +210,39 @@ export default function RelaySwap() {
       loadBatchWalletTokens()
     }
   }, [address, batchChain, isConnected])
+
+  // Handle transaction confirmation and indexing
+  useEffect(() => {
+    const handleTransactionConfirmation = async () => {
+      if (isTxSuccess && txHash && currentSwapRequestId && currentSwapChainId) {
+        console.log('Transaction confirmed on-chain:', txHash)
+        toast.success('Transaction confirmed')
+        
+        // Index the transaction with Relay after confirmation
+        try {
+          console.log('Indexing confirmed transaction with Relay:', txHash, 'on chain', currentSwapChainId)
+          await relayAPI.indexSingleTransaction({
+            txHash,
+            chainId: currentSwapChainId,
+          })
+          console.log('Transaction indexed successfully')
+        } catch (indexError) {
+          console.error('Failed to index transaction:', indexError)
+          // Continue anyway - Relay may auto-detect the transaction
+        }
+        
+        // Start monitoring the swap status
+        console.log('Starting swap status monitoring with requestId:', currentSwapRequestId)
+        monitorSwapStatus(currentSwapRequestId)
+        
+        // Clear the current swap state
+        setCurrentSwapRequestId(null)
+        setCurrentSwapChainId(null)
+      }
+    }
+    
+    handleTransactionConfirmation()
+  }, [isTxSuccess, txHash, currentSwapRequestId, currentSwapChainId])
 
   const loadChains = async () => {
     try {
@@ -682,28 +717,17 @@ export default function RelaySwap() {
       })
       
       sendTransaction(txParams, {
-        onSuccess: async (hash) => {
+        onSuccess: (hash) => {
           console.log('Transaction submitted successfully:', hash)
-          toast.success('Transaction submitted')
+          toast.success('Transaction submitted - waiting for confirmation...')
           
-          // Index the transaction with Relay
-          try {
-            console.log('Indexing transaction with Relay:', hash, 'on chain', txData.chainId)
-            await relayAPI.indexSingleTransaction({
-              txHash: hash,
-              chainId: txData.chainId,
-            })
-            console.log('Transaction indexed successfully')
-          } catch (indexError) {
-            console.error('Failed to index transaction:', indexError)
-            // Continue anyway - the transaction is still submitted
-          }
-          
+          // Store the requestId and chainId to use after transaction confirmation
+          // The useEffect will handle indexing and monitoring after the tx is confirmed
           if (depositStep.requestId) {
-            console.log('Monitoring swap status with requestId:', depositStep.requestId)
-            monitorSwapStatus(depositStep.requestId)
+            setCurrentSwapRequestId(depositStep.requestId)
+            setCurrentSwapChainId(txData.chainId)
           } else {
-            console.warn('No requestId found, cannot monitor status')
+            console.warn('No requestId found in deposit step')
             setIsSwapping(false)
           }
         },

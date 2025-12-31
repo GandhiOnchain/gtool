@@ -1,0 +1,25 @@
+{
+  "id": "prt_b739369b7001IJcaU7ADVct0MH",
+  "messageID": "msg_b73925875001msnRIS2XoqimPw",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_017hKUkj1jj5JeXPZn83CPMu",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 200,
+      "limit": 15
+    },
+    "output": "<file>\n00201|     if (address && fromChain && isConnected) {\n00202|       loadWalletTokens()\n00203|     }\n00204|   }, [address, fromChain, isConnected])\n00205| \n00206|   useEffect(() => {\n00207|     if (address && batchChain && isConnected) {\n00208|       loadBatchWalletTokens()\n00209|     }\n00210|   }, [address, batchChain, isConnected])\n00211| \n00212|   const loadChains = async () => {\n00213|     try {\n00214|       const { chains: fetchedChains } = await relayAPI.getChains()\n00215|       const activeChains = fetchedChains.filter(c => !c.disabled)\n\n(File has more lines. Use 'offset' parameter to read beyond line 215)\n</file>",
+    "metadata": {
+      "preview": "    if (address && fromChain && isConnected) {\n      loadWalletTokens()\n    }\n  }, [address, fromChain, isConnected])\n\n  useEffect(() => {\n    if (address && batchChain && isConnected) {\n      loadBatchWalletTokens()\n    }\n  }, [address, batchChain, isConnected])\n\n  const loadChains = async () => {\n    try {\n      const { chains: fetchedChains } = await relayAPI.getChains()\n      const activeChains = fetchedChains.filter(c => !c.disabled)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767170600037,
+      "end": 1767170600040
+    }
+  }
+}

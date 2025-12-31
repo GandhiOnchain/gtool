@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73930ae2001HWE7h3bROWJRvI",
+  "messageID": "msg_b73925875001msnRIS2XoqimPw",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Perfect! I found the critical issue. We have `useWaitForTransactionReceipt` but we're not using it! We're calling `indexSingleTransaction` immediately after the transaction is submitted, but we should wait for it to be **confirmed on-chain** first.\n\nAccording to the Relay docs, the proper flow is:\n1. Submit the transaction\n2. **Wait for the transaction to be confirmed on-chain**\n3. Index the transaction with Relay (or Relay will auto-detect it)\n4. Monitor the status using the requestId\n\nLet me fix this:",
+  "time": {
+    "start": 1767170581933,
+    "end": 1767170581933
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b739377e8001g6Dj7bTa1h5UAc",
+  "messageID": "msg_b73925875001msnRIS2XoqimPw",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now let me add a useEffect to handle transaction confirmation and add state to track the current swap:",
+  "time": {
+    "start": 1767170607629,
+    "end": 1767170607629
+  }
+}

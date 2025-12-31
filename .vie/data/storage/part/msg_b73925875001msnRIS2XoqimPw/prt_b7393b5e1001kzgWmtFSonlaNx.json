@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7393b5e1001kzgWmtFSonlaNx",
+  "messageID": "msg_b73925875001msnRIS2XoqimPw",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now I need to update the sendTransaction onSuccess to set the state:",
+  "time": {
+    "start": 1767170624814,
+    "end": 1767170624814
+  }
+}

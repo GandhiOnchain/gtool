@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73935ad5001Vr5TTJudwAEZSA",
+  "messageID": "msg_b73925875001msnRIS2XoqimPw",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01WuzRz8iXaGto5k3kmmyNz7",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 115,
+      "limit": 10
+    },
+    "output": "<file>\n00116|   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n00117| \n00118|   const { data: fromBalance } = useBalance({\n00119|     address,\n00120|     chainId: fromChain?.id,\n00121|     token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n00122|   })\n00123| \n00124|   const { data: toBalance } = useBalance({\n00125|     address,\n\n(File has more lines. Use 'offset' parameter to read beyond line 125)\n</file>",
+    "metadata": {
+      "preview": "  const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n\n  const { data: fromBalance } = useBalance({\n    address,\n    chainId: fromChain?.id,\n    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n  })\n\n  const { data: toBalance } = useBalance({\n    address,"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767170596346,
+      "end": 1767170596361
+    }
+  }
+}
