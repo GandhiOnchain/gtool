@@ -1,0 +1,11 @@
+{
+  "id": "prt_b738f2ace001CbZs5FB5cO0rJM",
+  "messageID": "msg_b738e9dd4001jYyu1IyIhC2dBy",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Perfect! I found the issue! The transaction data includes a `from` field (line 59), but we're not passing it to `sendTransaction`. The `from` field is critical because Relay needs to know which address is sending the transaction to properly track and execute the swap.",
+  "time": {
+    "start": 1767170327238,
+    "end": 1767170327238
+  }
+}

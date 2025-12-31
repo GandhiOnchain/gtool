@@ -665,11 +665,23 @@ export default function RelaySwap() {
         }
       }
 
-      sendTransaction({
+      // Prepare transaction with all fields from the quote
+      const txParams = {
         to: txData.to as `0x${string}`,
         data: txData.data as `0x${string}`,
         value: BigInt(txData.value),
-      }, {
+        ...(txData.maxFeePerGas && { maxFeePerGas: BigInt(txData.maxFeePerGas) }),
+        ...(txData.maxPriorityFeePerGas && { maxPriorityFeePerGas: BigInt(txData.maxPriorityFeePerGas) }),
+      }
+      
+      console.log('Sending transaction with params:', {
+        ...txParams,
+        value: txParams.value.toString(),
+        maxFeePerGas: txParams.maxFeePerGas?.toString(),
+        maxPriorityFeePerGas: txParams.maxPriorityFeePerGas?.toString(),
+      })
+      
+      sendTransaction(txParams, {
         onSuccess: async (hash) => {
           console.log('Transaction submitted successfully:', hash)
           toast.success('Transaction submitted')
@@ -842,11 +854,17 @@ export default function RelaySwap() {
         if (step.id === 'deposit' && step.items) {
           for (const item of step.items) {
             const txData = item.data
-            sendTransaction({
+            
+            // Prepare transaction with all fields from the quote
+            const batchTxParams = {
               to: txData.to as `0x${string}`,
               data: txData.data as `0x${string}`,
               value: BigInt(txData.value),
-            }, {
+              ...(txData.maxFeePerGas && { maxFeePerGas: BigInt(txData.maxFeePerGas) }),
+              ...(txData.maxPriorityFeePerGas && { maxPriorityFeePerGas: BigInt(txData.maxPriorityFeePerGas) }),
+            }
+            
+            sendTransaction(batchTxParams, {
               onSuccess: () => {
                 successCount++
               },

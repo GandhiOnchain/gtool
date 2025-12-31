@@ -1,0 +1,11 @@
+{
+  "id": "prt_b738f0492001OSRZ6KKRi3T2UX",
+  "messageID": "msg_b738e9dd4001jYyu1IyIhC2dBy",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I notice we're missing the `from` field in the transaction! Let me check the Relay API response structure:",
+  "time": {
+    "start": 1767170315118,
+    "end": 1767170315118
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_b738f0ef0001otcoxeZmAWjEPA",
+  "messageID": "msg_b738e9dd4001jYyu1IyIhC2dBy",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01ALuaujVPt7ZN3bjUivzjRj",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/relay/types.ts",
+      "offset": 60,
+      "limit": 50
+    },
+    "output": "<file>\n00061|       data: string\n00062|       value: string\n00063|       maxFeePerGas?: string\n00064|       maxPriorityFeePerGas?: string\n00065|       chainId: number\n00066|     }\n00067|     check?: {\n00068|       endpoint: string\n00069|       method: string\n00070|     }\n00071|   }>\n00072| }\n00073| \n00074| export interface RelayQuote {\n00075|   steps: RelayQuoteStep[]\n00076|   fees: {\n00077|     gas?: RelayAmount\n00078|     relayer?: RelayAmount\n00079|     relayerGas?: RelayAmount\n00080|     relayerService?: RelayAmount\n00081|     app?: RelayAmount\n00082|     subsidized?: RelayAmount\n00083|   }\n00084|   details: {\n00085|     operation?: string\n00086|     sender?: string\n00087|     recipient?: string\n00088|     currencyIn?: RelayAmount\n00089|     currencyOut?: RelayAmount\n00090|     refundCurrency?: RelayAmount\n00091|     currencyGasTopup?: RelayAmount\n00092|     totalImpact?: {\n00093|       usd: string\n00094|       percent: string\n00095|     }\n00096|     swapImpact?: {\n00097|       usd: string\n00098|       percent: string\n00099|     }\n00100|     rate?: string\n00101|     slippageTolerance?: {\n00102|       origin?: {\n00103|         usd: string\n00104|         value: string\n00105|         percent: string\n00106|       }\n00107|       destination?: {\n00108|         usd: string\n00109|         value: string\n00110|         percent: string\n\n(File has more lines. Use 'offset' parameter to read beyond line 110)\n</file>",
+    "metadata": {
+      "preview": "      data: string\n      value: string\n      maxFeePerGas?: string\n      maxPriorityFeePerGas?: string\n      chainId: number\n    }\n    check?: {\n      endpoint: string\n      method: string\n    }\n  }>\n}\n\nexport interface RelayQuote {\n  steps: RelayQuoteStep[]\n  fees: {\n    gas?: RelayAmount\n    relayer?: RelayAmount\n    relayerGas?: RelayAmount\n    relayerService?: RelayAmount"
+    },
+    "title": "frontend/src/lib/relay/types.ts",
+    "time": {
+      "start": 1767170314984,
+      "end": 1767170314986
+    }
+  }
+}
