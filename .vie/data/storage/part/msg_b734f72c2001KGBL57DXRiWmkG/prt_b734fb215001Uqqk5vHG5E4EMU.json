@@ -1,0 +1,26 @@
+{
+  "id": "prt_b734fb215001Uqqk5vHG5E4EMU",
+  "messageID": "msg_b734f72c2001KGBL57DXRiWmkG",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01JG4oQHi68hRsXmaCWDmBLJ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && bun add @rango-dev/widget-embedded",
+      "description": "Install Rango widget"
+    },
+    "output": "bun add v1.3.2 (b131639c)\nResolving dependencies\nResolved, downloaded and extracted [1763]\nerror: GET https://registry.npmjs.org/@ledgerhq%2fclient-ids - 404\nerror: @ledgerhq/client-ids@0.2.0 failed to resolve\n",
+    "metadata": {
+      "output": "bun add v1.3.2 (b131639c)\nResolving dependencies\nResolved, downloaded and extracted [1763]\nerror: GET https://registry.npmjs.org/@ledgerhq%2fclient-ids - 404\nerror: @ledgerhq/client-ids@0.2.0 failed to resolve\n",
+      "exit": 1,
+      "description": "Install Rango widget"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && bun add @rango-dev/widget-embedded",
+    "time": {
+      "start": 1767166162690,
+      "end": 1767166170474
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7352327c001tRs4sPJPaUe4Q3",
+  "messageID": "msg_b734f72c2001KGBL57DXRiWmkG",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! I've added cross-VM swap support using Rango's embedded widget. Here's what's now available:\n\n## Tabs in your app:\n\n1. **Swap** - EVM to EVM swaps using Relay (Ethereum, Base, Optimism, etc.)\n2. **Cross-VM** - NEW! Swap between ANY chains using Rango widget:\n   - Ethereum ↔ Solana ✅\n   - Ethereum ↔ Cosmos ✅\n   - Base ↔ Bitcoin ✅\n   - Any chain to any chain ✅\n3. **Batch** - Batch swap multiple tokens\n4. **History** - Your swap history\n5. **Settings** - Slippage and preferences\n\n## How to use Cross-VM swaps:\n\n1. Click the **\"Cross-VM\"** tab\n2. The Rango widget will load (it's an embedded iframe)\n3. Select your chains (e.g., Ethereum → Solana)\n4. Select your tokens\n5. Enter amount and swap\n\nThe widget handles everything including:\n- Wallet connection\n- Chain switching\n- Cross-VM routing\n- Transaction signing\n\nTry clicking the \"Cross-VM\" tab now - you'll see the Rango widget where you can swap to Solana!",
+  "time": {
+    "start": 1767166332546,
+    "end": 1767166332546
+  }
+}

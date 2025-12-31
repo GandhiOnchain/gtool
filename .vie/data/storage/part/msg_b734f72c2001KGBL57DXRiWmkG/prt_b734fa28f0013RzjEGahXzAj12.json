@@ -1,0 +1,11 @@
+{
+  "id": "prt_b734fa28f0013RzjEGahXzAj12",
+  "messageID": "msg_b734f72c2001KGBL57DXRiWmkG",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "I see - the chain name is 'solana' (lowercase) and we're mapping it to 'SOLANA', but Rango might need just 'SOLANA' as the blockchain identifier. But the real issue is the CORS error is preventing the quote API call from even working. \n\nSince Rango API has CORS issues, let me use a proxy approach or switch to only using LI.FI. But first, let me check if we can make the Rango API call work by using their widget approach instead:",
+  "time": {
+    "start": 1767166162949,
+    "end": 1767166162949
+  }
+}

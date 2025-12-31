@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73509df1001dChneIeC8TKD3X",
+  "messageID": "msg_b734f72c2001KGBL57DXRiWmkG",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "The problem is clear now - CORS is blocking all external APIs. The only solution is to either:\n1. Set up a backend proxy\n2. Use an embedded widget\n3. Stick with Relay only\n\nSince you want cross-VM swaps working NOW, let me embed the Rango widget directly which bypasses CORS:",
+  "time": {
+    "start": 1767166236467,
+    "end": 1767166236467
+  }
+}

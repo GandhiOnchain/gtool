@@ -1,0 +1,11 @@
+{
+  "id": "prt_b734fe7400015QD4oRhpiDpNBN",
+  "messageID": "msg_b734f72c2001KGBL57DXRiWmkG",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "The Rango widget has dependency issues. Let me take a completely different approach - since both Rango and LI.FI have CORS issues, let me just use Relay for everything and show a clear message when cross-VM swaps are attempted:",
+  "time": {
+    "start": 1767166188493,
+    "end": 1767166188493
+  }
+}

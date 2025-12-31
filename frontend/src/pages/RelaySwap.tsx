@@ -206,47 +206,21 @@ export default function RelaySwap() {
 
   const loadChains = async () => {
     try {
-      console.log('Loading chains from Relay and Rango...')
+      console.log('Loading chains from Relay...')
       
-      // Load Relay chains first (always works)
       const relayResponse = await relayAPI.getChains()
       const relayChains = relayResponse.chains.filter(c => !c.disabled)
       console.log('Loaded Relay chains:', relayChains.length)
       
-      // Manually add Solana chain (hardcoded since Rango API might be slow)
-      const solanaChain: RelayChain = {
-        id: 900000, // Unique ID for Solana
-        name: 'solana',
-        displayName: 'Solana',
-        httpRpcUrl: 'https://api.mainnet-beta.solana.com',
-        explorerUrl: 'https://explorer.solana.com',
-        explorerName: 'Solana Explorer',
-        depositEnabled: true,
-        tokenSupport: 'All',
-        disabled: false,
-        currency: {
-          id: 'sol',
-          symbol: 'SOL',
-          name: 'Solana',
-          address: '0x0000000000000000000000000000000000000000',
-          decimals: 9,
-          supportsBridging: true,
-        },
-        iconUrl: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png',
-        vmType: 'svm',
-      }
+      setChains(relayChains)
       
-      // Combine Relay chains with Solana
-      const allChains = [...relayChains, solanaChain]
-      setChains(allChains)
-      
-      if (allChains.length > 0) {
-        const baseChain = allChains.find(c => c.id === 8453) || allChains[0]
+      if (relayChains.length > 0) {
+        const baseChain = relayChains.find(c => c.id === 8453) || relayChains[0]
         setFromChain(baseChain)
-        setToChain(allChains.find(c => c.id !== baseChain.id) || allChains[1])
+        setToChain(relayChains.find(c => c.id !== baseChain.id) || relayChains[1])
       }
       
-      console.log('Total chains loaded:', allChains.length, '(including Solana)')
+      console.log('Total chains loaded:', relayChains.length)
     } catch (error) {
       console.error('Failed to load chains:', error)
       toast.error('Failed to load chains')
@@ -1276,8 +1250,9 @@ export default function RelaySwap() {
         )}
 
         <Tabs defaultValue="swap" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 h-8">
+          <TabsList className="grid w-full grid-cols-5 h-8">
             <TabsTrigger value="swap" className="text-xs">Swap</TabsTrigger>
+            <TabsTrigger value="crossvm" className="text-xs">Cross-VM</TabsTrigger>
             <TabsTrigger value="batch" className="text-xs">Batch</TabsTrigger>
             <TabsTrigger value="history" className="text-xs">History</TabsTrigger>
             <TabsTrigger value="settings" className="text-xs">Settings</TabsTrigger>
@@ -1582,6 +1557,22 @@ export default function RelaySwap() {
                 </ScrollArea>
               </div>
             )}
+          </TabsContent>
+
+          <TabsContent value="crossvm" className="space-y-2 mt-2">
+            <Card className="p-4">
+              <div className="space-y-3">
+                <div className="text-sm font-medium">Cross-Chain Swap (Powered by Rango)</div>
+                <div className="text-xs text-muted-foreground">
+                  Swap between any chains: Ethereum, Solana, Cosmos, Bitcoin, and more
+                </div>
+                <iframe
+                  src={`https://widget.rango.exchange/?apiKey=c6381a79-2817-4602-83bf-6a641a409e32&theme=dark&fromBlockchain=ETH&toBlockchain=SOLANA${address ? `&fromAddress=${address}` : ''}`}
+                  className="w-full h-[600px] border-0 rounded-lg"
+                  allow="clipboard-read; clipboard-write"
+                />
+              </div>
+            </Card>
           </TabsContent>
 
           <TabsContent value="batch" className="space-y-2 mt-2">

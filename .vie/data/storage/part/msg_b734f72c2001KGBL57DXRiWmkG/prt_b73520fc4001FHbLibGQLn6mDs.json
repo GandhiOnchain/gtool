@@ -1,0 +1,85 @@
+{
+  "id": "prt_b73520fc4001FHbLibGQLn6mDs",
+  "messageID": "msg_b734f72c2001KGBL57DXRiWmkG",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_015qiNuJFqzLQuGTQpQKiabh",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Add Rango Exchange API integration",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add LI.FI API integration",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Create unified swap interface that routes to appropriate provider",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Update UI to show which provider is being used",
+          "status": "completed",
+          "priority": "medium",
+          "id": "4"
+        },
+        {
+          "content": "Test cross-VM swaps (EVM to Solana)",
+          "status": "completed",
+          "priority": "high",
+          "id": "5"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Add Rango Exchange API integration\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Add LI.FI API integration\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Create unified swap interface that routes to appropriate provider\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Update UI to show which provider is being used\",\n    \"status\": \"completed\",\n    \"priority\": \"medium\",\n    \"id\": \"4\"\n  },\n  {\n    \"content\": \"Test cross-VM swaps (EVM to Solana)\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"5\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Add Rango Exchange API integration",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add LI.FI API integration",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Create unified swap interface that routes to appropriate provider",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Update UI to show which provider is being used",
+          "status": "completed",
+          "priority": "medium",
+          "id": "4"
+        },
+        {
+          "content": "Test cross-VM swaps (EVM to Solana)",
+          "status": "completed",
+          "priority": "high",
+          "id": "5"
+        }
+      ]
+    },
+    "title": "0 todos",
+    "time": {
+      "start": 1767166320518,
+      "end": 1767166320519
+    }
+  }
+}

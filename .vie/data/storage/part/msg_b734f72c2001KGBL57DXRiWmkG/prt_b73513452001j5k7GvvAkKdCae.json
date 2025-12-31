@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73513452001j5k7GvvAkKdCae",
+  "messageID": "msg_b734f72c2001KGBL57DXRiWmkG",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01HsJhL68UgEqvnKmmoSZr5G",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1250,
+      "limit": 15
+    },
+    "output": "<file>\n01251| \n01252|         <Tabs defaultValue=\"swap\" className=\"w-full\">\n01253|           <TabsList className=\"grid w-full grid-cols-4 h-8\">\n01254|             <TabsTrigger value=\"swap\" className=\"text-xs\">Swap</TabsTrigger>\n01255|             <TabsTrigger value=\"batch\" className=\"text-xs\">Batch</TabsTrigger>\n01256|             <TabsTrigger value=\"history\" className=\"text-xs\">History</TabsTrigger>\n01257|             <TabsTrigger value=\"settings\" className=\"text-xs\">Settings</TabsTrigger>\n01258|           </TabsList>\n01259| \n01260|           <TabsContent value=\"swap\" className=\"space-y-2 mt-2\">\n01261|             <Card className=\"p-3\">\n01262|               <div className=\"space-y-2\">\n01263|                 <div className=\"flex items-center justify-between text-xs\">\n01264|                   <span className=\"text-muted-foreground\">From</span>\n01265|                   {fromBalance && (\n\n(File has more lines. Use 'offset' parameter to read beyond line 1265)\n</file>",
+    "metadata": {
+      "preview": "\n        <Tabs defaultValue=\"swap\" className=\"w-full\">\n          <TabsList className=\"grid w-full grid-cols-4 h-8\">\n            <TabsTrigger value=\"swap\" className=\"text-xs\">Swap</TabsTrigger>\n            <TabsTrigger value=\"batch\" className=\"text-xs\">Batch</TabsTrigger>\n            <TabsTrigger value=\"history\" className=\"text-xs\">History</TabsTrigger>\n            <TabsTrigger value=\"settings\" className=\"text-xs\">Settings</TabsTrigger>\n          </TabsList>\n\n          <TabsContent value=\"swap\" className=\"space-y-2 mt-2\">\n            <Card className=\"p-3\">\n              <div className=\"space-y-2\">\n                <div className=\"flex items-center justify-between text-xs\">\n                  <span className=\"text-muted-foreground\">From</span>\n                  {fromBalance && ("
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767166261167,
+      "end": 1767166261168
+    }
+  }
+}

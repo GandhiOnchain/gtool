@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7350ef16001HMwNIdn2dDAXex",
+  "messageID": "msg_b734f72c2001KGBL57DXRiWmkG",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01TjSSug7LcbUYFzBHNVNUxh",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 995,
+      "limit": 20
+    },
+    "output": "<file>\n00996|         const originChain = chains.find(c => c.id === originChainId)\n00997|         const destChain = chains.find(c => c.id === destChainId)\n00998|         \n00999|         const fromValue = req.data.inTxs[0]?.data?.value || '0'\n01000|         const toValue = req.data.outTxs[0]?.data?.value || '0'\n01001|         \n01002|         const fromAmountFormatted = fromValue.length > 10 \n01003|           ? parseFloat(formatUnits(BigInt(fromValue), 18)).toFixed(6)\n01004|           : fromValue\n01005|         const toAmountFormatted = toValue.length > 10\n01006|           ? parseFloat(formatUnits(BigInt(toValue), 18)).toFixed(6)\n01007|           : toValue\n01008|         \n01009|         return {\n01010|           id: req.id,\n01011|           fromToken: originChain?.currency?.symbol || req.data.currency || 'ETH',\n01012|           toToken: destChain?.currency?.symbol || req.data.currency || 'ETH',\n01013|           fromAmount: fromAmountFormatted,\n01014|           toAmount: toAmountFormatted,\n01015|           fromChain: originChain?.displayName || originChain?.name || 'Unknown',\n\n(File has more lines. Use 'offset' parameter to read beyond line 1015)\n</file>",
+    "metadata": {
+      "preview": "        const originChain = chains.find(c => c.id === originChainId)\n        const destChain = chains.find(c => c.id === destChainId)\n        \n        const fromValue = req.data.inTxs[0]?.data?.value || '0'\n        const toValue = req.data.outTxs[0]?.data?.value || '0'\n        \n        const fromAmountFormatted = fromValue.length > 10 \n          ? parseFloat(formatUnits(BigInt(fromValue), 18)).toFixed(6)\n          : fromValue\n        const toAmountFormatted = toValue.length > 10\n          ? parseFloat(formatUnits(BigInt(toValue), 18)).toFixed(6)\n          : toValue\n        \n        return {\n          id: req.id,\n          fromToken: originChain?.currency?.symbol || req.data.currency || 'ETH',\n          toToken: destChain?.currency?.symbol || req.data.currency || 'ETH',\n          fromAmount: fromAmountFormatted,\n          toAmount: toAmountFormatted,\n          fromChain: originChain?.displayName || originChain?.name || 'Unknown',"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767166243695,
+      "end": 1767166243696
+    }
+  }
+}

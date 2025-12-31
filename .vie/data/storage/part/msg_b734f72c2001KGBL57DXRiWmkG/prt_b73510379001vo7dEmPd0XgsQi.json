@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73510379001vo7dEmPd0XgsQi",
+  "messageID": "msg_b734f72c2001KGBL57DXRiWmkG",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_014SRB2GLRRaBxpfLyR3tD9g",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1195,
+      "limit": 20
+    },
+    "output": "<file>\n01196|   const activeCurrencies = selectingFor === 'from' ? fromCurrencies : selectingFor === 'to' ? toCurrencies : currencies\n01197|   \n01198|   const filteredCurrencies = activeCurrencies.filter(currency =>\n01199|     currency.symbol.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||\n01200|     currency.name.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||\n01201|     currency.address.toLowerCase().includes(tokenSearchTerm.toLowerCase())\n01202|   )\n01203| \n01204|   return (\n01205|     <div className=\"min-h-screen bg-background p-2 max-w-[424px] mx-auto\">\n01206|       <div className=\"space-y-2\">\n01207|         {!isConnected ? (\n01208|           <Button\n01209|             onClick={handleConnect}\n01210|             className=\"w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90\"\n01211|           >\n01212|             <Wallet className=\"h-4 w-4 mr-2\" />\n01213|             Connect Wallet\n01214|           </Button>\n01215|         ) : (\n\n(File has more lines. Use 'offset' parameter to read beyond line 1215)\n</file>",
+    "metadata": {
+      "preview": "  const activeCurrencies = selectingFor === 'from' ? fromCurrencies : selectingFor === 'to' ? toCurrencies : currencies\n  \n  const filteredCurrencies = activeCurrencies.filter(currency =>\n    currency.symbol.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||\n    currency.name.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||\n    currency.address.toLowerCase().includes(tokenSearchTerm.toLowerCase())\n  )\n\n  return (\n    <div className=\"min-h-screen bg-background p-2 max-w-[424px] mx-auto\">\n      <div className=\"space-y-2\">\n        {!isConnected ? (\n          <Button\n            onClick={handleConnect}\n            className=\"w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90\"\n          >\n            <Wallet className=\"h-4 w-4 mr-2\" />\n            Connect Wallet\n          </Button>\n        ) : ("
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767166248711,
+      "end": 1767166248712
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73511cf1001MLa8v3oXlTNVuw",
+  "messageID": "msg_b734f72c2001KGBL57DXRiWmkG",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01LD9rrk2ZmZqvRFz5vdUuX2",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1235,
+      "limit": 15
+    },
+    "output": "<file>\n01236|                 className=\"h-7 w-7 p-0\"\n01237|               >\n01238|                 <Trophy className=\"h-4 w-4\" />\n01239|               </Button>\n01240|               <Button\n01241|                 variant=\"ghost\"\n01242|                 size=\"sm\"\n01243|                 onClick={() => disconnect()}\n01244|                 className=\"h-7 text-xs px-2\"\n01245|               >\n01246|                 {address?.slice(0, 6)}...{address?.slice(-4)}\n01247|               </Button>\n01248|             </div>\n01249|           </div>\n01250|         )}\n\n(File has more lines. Use 'offset' parameter to read beyond line 1250)\n</file>",
+    "metadata": {
+      "preview": "                className=\"h-7 w-7 p-0\"\n              >\n                <Trophy className=\"h-4 w-4\" />\n              </Button>\n              <Button\n                variant=\"ghost\"\n                size=\"sm\"\n                onClick={() => disconnect()}\n                className=\"h-7 text-xs px-2\"\n              >\n                {address?.slice(0, 6)}...{address?.slice(-4)}\n              </Button>\n            </div>\n          </div>\n        )}"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767166255240,
+      "end": 1767166255243
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b734f87ed001PLN2T7xppFtj7W",
+  "messageID": "msg_b734f72c2001KGBL57DXRiWmkG",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Let me check the console logs to see what blockchain names are actually being sent. The issue is that we're still sending the wrong blockchain identifier. Let me look at what the actual chain name is:",
+  "time": {
+    "start": 1767166153363,
+    "end": 1767166153363
+  }
+}
