@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73b6be530010S9IcGDXVs4dtl",
+  "messageID": "msg_b73b6acc80019eGiwH6wXAUFWZ",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I can see the \"Failed to load wallet tokens\" toast error at the bottom right. Let me diagnose this issue by checking the `loadWalletTokens` function:",
+  "time": {
+    "start": 1767172918937,
+    "end": 1767172918937
+  }
+}

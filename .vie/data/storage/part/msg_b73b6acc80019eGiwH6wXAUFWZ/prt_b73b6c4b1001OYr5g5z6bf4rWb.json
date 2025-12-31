@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73b6c4b1001OYr5g5z6bf4rWb",
+  "messageID": "msg_b73b6acc80019eGiwH6wXAUFWZ",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01XZFvDa9ZJNcVTuwmTgFAmd",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"Failed to load wallet tokens\" src/pages/RelaySwap.tsx -B 5 -A 5",
+      "description": "Find the error message location"
+    },
+    "output": "        limit: 50,\n      })\n      \n      setCurrencies(fetchedCurrencies)\n    } catch (error) {\n      console.error('Failed to load wallet tokens:', error)\n    }\n  }\n\n  const loadBatchWalletTokens = async () => {\n    if (!address || !batchChain) {\n--\n        toast.success(`Found ${tokensWithBalances.length} tokens with balance`)\n      } else {\n        toast.info('No tokens with balance found. Try a different chain or add tokens manually.')\n      }\n    } catch (error) {\n      console.error('Failed to load wallet tokens:', error)\n      toast.error('Failed to load wallet tokens')\n    } finally {\n      setIsLoadingBatchTokens(false)\n    }\n  }\n\n",
+    "metadata": {
+      "output": "        limit: 50,\n      })\n      \n      setCurrencies(fetchedCurrencies)\n    } catch (error) {\n      console.error('Failed to load wallet tokens:', error)\n    }\n  }\n\n  const loadBatchWalletTokens = async () => {\n    if (!address || !batchChain) {\n--\n        toast.success(`Found ${tokensWithBalances.length} tokens with balance`)\n      } else {\n        toast.info('No tokens with balance found. Try a different chain or add tokens manually.')\n      }\n    } catch (error) {\n      console.error('Failed to load wallet tokens:', error)\n      toast.error('Failed to load wallet tokens')\n    } finally {\n      setIsLoadingBatchTokens(false)\n    }\n  }\n\n",
+      "exit": 0,
+      "description": "Find the error message location"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"Failed to load wallet tokens\" src/pages/RelaySwap.tsx -B 5 -A 5",
+    "time": {
+      "start": 1767172917967,
+      "end": 1767172917974
+    }
+  }
+}

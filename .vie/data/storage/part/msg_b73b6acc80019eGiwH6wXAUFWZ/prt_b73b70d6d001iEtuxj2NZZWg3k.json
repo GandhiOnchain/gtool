@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73b70d6d001iEtuxj2NZZWg3k",
+  "messageID": "msg_b73b6acc80019eGiwH6wXAUFWZ",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_014FuCVkL9XAL6aXbkqi5FPg",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"httpRpcUrl\" src/lib/relay/types.ts",
+      "description": "Check if httpRpcUrl exists in types"
+    },
+    "output": "  httpRpcUrl: string\n",
+    "metadata": {
+      "output": "  httpRpcUrl: string\n",
+      "exit": 0,
+      "description": "Check if httpRpcUrl exists in types"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"httpRpcUrl\" src/lib/relay/types.ts",
+    "time": {
+      "start": 1767172936136,
+      "end": 1767172936140
+    }
+  }
+}

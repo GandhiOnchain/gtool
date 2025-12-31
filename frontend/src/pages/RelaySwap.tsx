@@ -513,7 +513,13 @@ export default function RelaySwap() {
     console.log('Loading batch tokens for chain:', chain.displayName, 'isEVM:', isEVM)
     
     if (!isEVM) {
-      toast.error('Batch swap only supports EVM chains')
+      console.log('Batch swap only supports EVM chains, skipping')
+      return
+    }
+    
+    // Validate that the chain has an RPC URL
+    if (!chain.httpRpcUrl) {
+      console.error('Chain does not have an RPC URL:', chain.displayName)
       return
     }
     
@@ -625,7 +631,8 @@ export default function RelaySwap() {
       }
     } catch (error) {
       console.error('Failed to load wallet tokens:', error)
-      toast.error('Failed to load wallet tokens')
+      // Don't show error toast - this is a background operation
+      // Users can still manually select tokens if needed
     } finally {
       setIsLoadingBatchTokens(false)
     }

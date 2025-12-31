@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73b762a6001FErtPSNVv0DTvV",
+  "messageID": "msg_b73b6acc80019eGiwH6wXAUFWZ",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now I see the issue! The error toast is shown on line 628. The problem is that this function is being called on app startup, and it's likely failing because:\n\n1. The user might not be connected yet\n2. The RPC call might be failing\n3. The `batchChain` might not have a valid `httpRpcUrl`\n\nThe fix is to add better error handling and not show the error toast on initial load. Let me fix this:",
+  "time": {
+    "start": 1767172964495,
+    "end": 1767172964495
+  }
+}

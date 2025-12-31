@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73b7541d001x02P0ih46DjNfl",
+  "messageID": "msg_b73b6acc80019eGiwH6wXAUFWZ",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01B3fy3gXyeVtSy72Pbfe58g",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 625,
+      "limit": 10
+    },
+    "output": "<file>\n00626|     } catch (error) {\n00627|       console.error('Failed to load wallet tokens:', error)\n00628|       toast.error('Failed to load wallet tokens')\n00629|     } finally {\n00630|       setIsLoadingBatchTokens(false)\n00631|     }\n00632|   }\n00633| \n00634|   const searchTokenByContract = async (contractAddress: string) => {\n00635|     if (!contractAddress) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 635)\n</file>",
+    "metadata": {
+      "preview": "    } catch (error) {\n      console.error('Failed to load wallet tokens:', error)\n      toast.error('Failed to load wallet tokens')\n    } finally {\n      setIsLoadingBatchTokens(false)\n    }\n  }\n\n  const searchTokenByContract = async (contractAddress: string) => {\n    if (!contractAddress) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767172953809,
+      "end": 1767172953811
+    }
+  }
+}

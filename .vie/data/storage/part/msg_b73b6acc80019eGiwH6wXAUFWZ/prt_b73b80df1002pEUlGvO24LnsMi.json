@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73b80df1002pEUlGvO24LnsMi",
+  "messageID": "msg_b73b6acc80019eGiwH6wXAUFWZ",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Perfect! Now let me create a summary of the fix:\n\n## Root Cause Analysis\n\nThe \"Failed to load wallet tokens\" toast error was appearing on app startup because:\n\n1. **Background Operation**: The `loadBatchWalletTokens` function is called automatically when the app detects a wallet connection\n2. **Premature Execution**: It was being triggered before the wallet was fully connected or before the RPC endpoint was ready\n3. **Aggressive Error Handling**: Any error in this background operation was showing a toast error, which is disruptive to the user experience\n\n## Implemented Fixes\n\n### 1. **Added RPC URL Validation**\n```typescript\nif (!chain.httpRpcUrl) {\n  console.error('Chain does not have an RPC URL:', chain.displayName)\n  return\n}\n```\nThis prevents the function from attempting RPC calls when the chain data isn't fully loaded.\n\n### 2. **Removed Non-EVM Error Toast**\nChanged from:\n```typescript\ntoast.error('Batch swap only supports EVM chains')\n```\nTo:\n```typescript\nconsole.log('Batch swap only supports EVM chains, skipping')\n```\nThis prevents showing an error for non-EVM chains, which is expected behavior.\n\n### 3. **Removed Error Toast for Background Operation**\nThe batch wallet token loading is a **background convenience feature** that:\n- Automatically detects tokens with balances\n- Pre-populates the batch swap interface\n- Is NOT critical to app functionality\n\nSince users can still manually select tokens if this fails, showing an error toast is unnecessary and creates a poor user experience. The error is still logged to the console for debugging.\n\n## Result\n\n- No more \"Failed to load wallet tokens\" toast on app startup\n- Errors are still logged to console for debugging\n- The app gracefully handles cases where:\n  - Wallet isn't fully connected yet\n  - RPC endpoint isn't available\n  - Chain is non-EVM\n- Users can still use all swap functionality normally\n\nThe app will now start cleanly without showing error toasts for background operations that aren't critical to core functionality.",
+  "time": {
+    "start": 1767173010905,
+    "end": 1767173010905
+  }
+}

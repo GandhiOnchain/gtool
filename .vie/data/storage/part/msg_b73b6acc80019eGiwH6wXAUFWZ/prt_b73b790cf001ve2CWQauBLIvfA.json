@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73b790cf001ve2CWQauBLIvfA",
+  "messageID": "msg_b73b6acc80019eGiwH6wXAUFWZ",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now let me update the error handling to not show a toast error on initial load:",
+  "time": {
+    "start": 1767172972596,
+    "end": 1767172972596
+  }
+}

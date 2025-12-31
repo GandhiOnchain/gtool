@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73b6eff2001G4CDAPXrhRwKKN",
+  "messageID": "msg_b73b6acc80019eGiwH6wXAUFWZ",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I see the issue! The `loadWalletTokens` function (line 481-502) doesn't show a toast error, but `loadBatchWalletTokens` does (which we saw in the first search). The error is coming from `loadBatchWalletTokens`. Let me check where it's being called:",
+  "time": {
+    "start": 1767172930136,
+    "end": 1767172930136
+  }
+}
