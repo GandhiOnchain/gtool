@@ -513,13 +513,7 @@ export default function RelaySwap() {
     console.log('Loading batch tokens for chain:', chain.displayName, 'isEVM:', isEVM)
     
     if (!isEVM) {
-      console.log('Batch swap only supports EVM chains, skipping')
-      return
-    }
-    
-    // Validate that the chain has an RPC URL
-    if (!chain.httpRpcUrl) {
-      console.error('Chain does not have an RPC URL:', chain.displayName)
+      toast.error('Batch swap only supports EVM chains')
       return
     }
     
@@ -527,87 +521,82 @@ export default function RelaySwap() {
     try {
       console.log('Fetching currencies for chain:', chain.id)
       
-      // Fetch more tokens to increase chances of finding tokens with balance
+      // Fetch popular tokens that are more likely to have balances
       const fetchedCurrencies = await relayAPI.getCurrencies({
         chainIds: [chain.id],
         defaultList: true,
-        limit: 250,
+        limit: 100, // Reduced from 250 to avoid rate limits
       })
       
       console.log('Fetched currencies:', fetchedCurrencies.length)
       
+      if (fetchedCurrencies.length === 0) {
+        toast.info('No tokens available for this chain')
+        return
+      }
+      
       const tokensWithBalances: WalletToken[] = []
       
-      // Process tokens in batches to avoid overwhelming the RPC
-      const batchSize = 10
+      // Use viem's publicClient for more reliable RPC calls
+      const { createPublicClient, http } = await import('viem')
+      const { getChainById } = await import('@/lib/blockchain/chains')
+      
+      const publicClient = createPublicClient({
+        chain: getChainById(chain.id),
+        transport: http(),
+      })
+      
+      // Process tokens in smaller batches to avoid overwhelming the RPC
+      const batchSize = 5
       for (let i = 0; i < fetchedCurrencies.length; i += batchSize) {
         const batch = fetchedCurrencies.slice(i, i + batchSize)
         
-        await Promise.all(batch.map(async (currency) => {
+        const balancePromises = batch.map(async (currency) => {
           try {
             let balance = BigInt(0)
             
             if (currency.metadata?.isNative) {
-              try {
-                const response = await fetch(chain.httpRpcUrl, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    jsonrpc: '2.0',
-                    method: 'eth_getBalance',
-                    params: [address, 'latest'],
-                    id: 1
-                  })
-                })
-                
-                const result = await response.json()
-                if (result.result) {
-                  balance = BigInt(result.result)
-                }
-              } catch (e) {
-                console.error('Failed to fetch native balance:', e)
-              }
+              // Fetch native token balance
+              balance = await publicClient.getBalance({
+                address: address as `0x${string}`,
+              })
             } else {
-              const balanceData = `0x70a08231000000000000000000000000${address.slice(2)}`
-              
-              try {
-                const response = await fetch(chain.httpRpcUrl, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    jsonrpc: '2.0',
-                    method: 'eth_call',
-                    params: [{
-                      to: currency.address,
-                      data: balanceData
-                    }, 'latest'],
-                    id: 1
-                  })
-                })
-                
-                const result = await response.json()
-                if (result.result && result.result !== '0x') {
-                  balance = BigInt(result.result)
-                }
-              } catch (e) {
-                // Silently skip tokens that fail
-              }
+              // Fetch ERC20 token balance
+              balance = await publicClient.readContract({
+                address: currency.address as `0x${string}`,
+                abi: [{
+                  name: 'balanceOf',
+                  type: 'function',
+                  stateMutability: 'view',
+                  inputs: [{ name: 'account', type: 'address' }],
+                  outputs: [{ name: 'balance', type: 'uint256' }],
+                }],
+                functionName: 'balanceOf',
+                args: [address as `0x${string}`],
+              })
             }
             
             const balanceFormatted = formatUnits(balance, currency.decimals)
             
-            // Lower threshold to catch more tokens
+            // Only include tokens with non-zero balance
             if (parseFloat(balanceFormatted) > 0.00000001) {
-              tokensWithBalances.push({
+              return {
                 token: currency,
                 balance: balance.toString(),
                 balanceFormatted,
-              })
+              }
             }
+            return null
           } catch (e) {
-            // Silently skip problematic tokens
+            console.error(`Failed to fetch balance for ${currency.symbol}:`, e)
+            return null
           }
-        }))
+        })
+        
+        const batchResults = await Promise.all(balancePromises)
+        const validTokens = batchResults.filter((t): t is WalletToken => t !== null)
+        
+        tokensWithBalances.push(...validTokens)
         
         // Update UI progressively as we find tokens
         if (tokensWithBalances.length > 0) {
@@ -631,8 +620,7 @@ export default function RelaySwap() {
       }
     } catch (error) {
       console.error('Failed to load wallet tokens:', error)
-      // Don't show error toast - this is a background operation
-      // Users can still manually select tokens if needed
+      toast.error('Failed to load wallet tokens. Please try again or select tokens manually.')
     } finally {
       setIsLoadingBatchTokens(false)
     }

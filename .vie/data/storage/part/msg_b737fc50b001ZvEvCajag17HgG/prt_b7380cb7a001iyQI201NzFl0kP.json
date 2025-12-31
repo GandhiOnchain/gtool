@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && rg \"originCurrency|destinationCurrency\" src/pages/RelaySwap.tsx | head -20",
     "time": {
       "start": 1767169380529,
-      "end": 1767169380534
+      "end": 1767169380534,
+      "compacted": 1767173017350
     }
   }
 }

@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && rg \"setFromToken|setToToken\" src/pages/RelaySwap.tsx | head -30",
     "time": {
       "start": 1767169186521,
-      "end": 1767169186528
+      "end": 1767169186528,
+      "compacted": 1767173017351
     }
   }
 }

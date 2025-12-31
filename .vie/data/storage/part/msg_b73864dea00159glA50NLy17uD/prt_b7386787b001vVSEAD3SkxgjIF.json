@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && rg \"currency.*:\" src/lib/relay/types.ts | head -20",
     "time": {
       "start": 1767169752465,
-      "end": 1767169752473
+      "end": 1767169752473,
+      "compacted": 1767173017345
     }
   }
 }

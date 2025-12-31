@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && rg \"originCurrency.*address\" src/pages/RelaySwap.tsx -B 2 -A 2",
     "time": {
       "start": 1767169746778,
-      "end": 1767169746788
+      "end": 1767169746788,
+      "compacted": 1767173017345
     }
   }
 }

@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && rg \"Failed to execute swap\" -A 5 -B 5",
     "time": {
       "start": 1767169315642,
-      "end": 1767169375643
+      "end": 1767169375643,
+      "compacted": 1767173017350
     }
   }
 }

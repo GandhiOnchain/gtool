@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && rg \"switchChains\" src/pages/RelaySwap.tsx -A 10 -B 2",
     "time": {
       "start": 1767169385203,
-      "end": 1767169385209
+      "end": 1767169385209,
+      "compacted": 1767173017350
     }
   }
 }

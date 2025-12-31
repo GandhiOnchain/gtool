@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && rg \"EXECUTE SWAP DEBUG\" src/pages/RelaySwap.tsx -A 10",
     "time": {
       "start": 1767169576446,
-      "end": 1767169576452
+      "end": 1767169576452,
+      "compacted": 1767173017348
     }
   }
 }

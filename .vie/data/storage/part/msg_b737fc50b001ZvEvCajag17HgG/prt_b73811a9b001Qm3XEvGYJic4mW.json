@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && rg \"setFromChain\\(chain\\)\" src/pages/RelaySwap.tsx -B 5 -A 5",
     "time": {
       "start": 1767169400386,
-      "end": 1767169400392
+      "end": 1767169400392,
+      "compacted": 1767173017350
     }
   }
 }
