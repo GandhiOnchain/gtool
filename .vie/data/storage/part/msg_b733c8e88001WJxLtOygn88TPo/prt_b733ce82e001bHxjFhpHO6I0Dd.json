@@ -1,0 +1,26 @@
+{
+  "id": "prt_b733ce82e001bHxjFhpHO6I0Dd",
+  "messageID": "msg_b733c8e88001WJxLtOygn88TPo",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Xjdg3FFirsbYrP4taycZTJ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && mv RelaySwap.old.tsx RelaySwap.tsx",
+      "description": "Restore RelaySwap file"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Restore RelaySwap file"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && mv RelaySwap.old.tsx RelaySwap.tsx",
+    "time": {
+      "start": 1767164930895,
+      "end": 1767164930896
+    }
+  }
+}

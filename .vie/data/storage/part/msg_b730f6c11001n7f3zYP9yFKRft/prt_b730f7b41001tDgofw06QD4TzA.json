@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && git diff",
     "time": {
       "start": 1767161953707,
-      "end": 1767161953718
+      "end": 1767161953718,
+      "compacted": 1767164676463
     }
   }
 }

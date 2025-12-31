@@ -19,7 +19,8 @@
     "title": "batch.*swap|swap.*batch",
     "time": {
       "start": 1767161956851,
-      "end": 1767161956876
+      "end": 1767161956876,
+      "compacted": 1767164676463
     }
   }
 }

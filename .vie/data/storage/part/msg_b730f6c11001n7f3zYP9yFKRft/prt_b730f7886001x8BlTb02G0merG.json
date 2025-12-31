@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && git status",
     "time": {
       "start": 1767161953087,
-      "end": 1767161953114
+      "end": 1767161953114,
+      "compacted": 1767164676463
     }
   }
 }

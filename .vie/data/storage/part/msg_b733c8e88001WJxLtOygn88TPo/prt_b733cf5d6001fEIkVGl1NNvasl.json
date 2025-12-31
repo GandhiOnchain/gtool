@@ -1,0 +1,11 @@
+{
+  "id": "prt_b733cf5d6001fEIkVGl1NNvasl",
+  "messageID": "msg_b733c8e88001WJxLtOygn88TPo",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Now the app should load again. The swap router infrastructure is ready - you can now swap between EVM and Solana chains using Rango or LI.FI! \n\nThe current UI still uses Relay directly, but the backend support for cross-VM swaps via Rango and LI.FI is fully implemented. To use it, you would need to:\n\n1. Replace the Relay API calls with the unified `swapRouter`\n2. Load chains from Rango/LI.FI (which include Solana)\n3. The router will automatically choose the right provider\n\nWould you like me to update the UI to use the new swap router, or would you prefer to test the current setup first?",
+  "time": {
+    "start": 1767164938446,
+    "end": 1767164938446
+  }
+}

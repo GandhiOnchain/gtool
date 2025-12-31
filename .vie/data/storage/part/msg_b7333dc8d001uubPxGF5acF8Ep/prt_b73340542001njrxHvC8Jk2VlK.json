@@ -1,0 +1,17 @@
+{
+  "id": "prt_b73340542001njrxHvC8Jk2VlK",
+  "messageID": "msg_b7333dc8d001uubPxGF5acF8Ep",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "write",
+  "callID": "toolu_vrtx_01Cw3JeU5i2zimY6bLSeN4Co",
+  "state": {
+    "status": "error",
+    "error": "Tool execution aborted",
+    "time": {
+      "start": 1767164676405,
+      "end": 1767164676405
+    },
+    "input": {}
+  }
+}
