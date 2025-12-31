@@ -1,0 +1,11 @@
+{
+  "id": "prt_b74466abd001F0jOIKd6SgsJw7",
+  "messageID": "msg_b74465aba001I7CZVKK3S7tfln",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Excellent! Now I can see the exact issue. The console shows:\n\n```\n✓ Decoded from position 1 (offset 10): 1e8\nChecking if amount > 0: Object\nSkipping batch token — amount is zero\nFinal batch tokens: 0 tokens\n```\n\nThe problem is that `1e8` is being logged (which is 100000000 in scientific notation), but then when we check `parseFloat(amount)`, it's showing as an Object instead of a number. This means the `amount` variable itself is somehow an object.\n\nLooking more carefully, I see the issue - the console.log is showing the object `{ amount, parsed: parseFloat(amount) }` but the values aren't being displayed. Let me check if there's an issue with how we're checking the condition:",
+  "time": {
+    "start": 1767182337785,
+    "end": 1767182337785
+  }
+}

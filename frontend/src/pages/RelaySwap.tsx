@@ -1696,14 +1696,14 @@ export default function RelaySwap() {
                       try {
                         if (txData.length >= pos.end) {
                           const amountHex = '0x' + txData.substring(pos.start, pos.end)
-                          const amount = BigInt(amountHex)
+                          const decodedAmount = BigInt(amountHex)
                           
-                          console.log(`Trying ${pos.name}:`, amountHex, '=', amount.toString())
+                          console.log(`Trying ${pos.name}:`, amountHex, '=', decodedAmount.toString())
                           
                           // Check if this looks like a reasonable amount
-                          if (amount > 0n && amount < BigInt('1000000000000000000000000')) {
+                          if (decodedAmount > 0n && decodedAmount < BigInt('1000000000000000000000000')) {
                             // CRITICAL: Convert BigInt to string properly
-                            rawAmount = amount.toString()
+                            rawAmount = decodedAmount.toString()
                             console.log(`✓ Decoded from ${pos.name}:`, rawAmount, 'type:', typeof rawAmount)
                             break
                           }
