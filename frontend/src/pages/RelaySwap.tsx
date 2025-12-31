@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { sdk } from '@farcaster/miniapp-sdk'
-import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect } from 'wagmi'
+import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'
 import { parseUnits, formatUnits } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
@@ -73,9 +73,10 @@ const STREAK_MESSAGES = [
 ]
 
 export default function RelaySwap() {
-  const { address, isConnected } = useAccount()
+  const { address, isConnected, chainId: connectedChainId } = useAccount()
   const { connect, connectors } = useConnect()
   const { disconnect } = useDisconnect()
+  const { switchChain } = useSwitchChain()
   const [chains, setChains] = useState<RelayChain[]>([])
   const [fromChain, setFromChain] = useState<RelayChain | null>(null)
   const [toChain, setToChain] = useState<RelayChain | null>(null)
@@ -508,7 +509,7 @@ export default function RelaySwap() {
     }
   }
 
-  const executeSwap = () => {
+  const executeSwap = async () => {
     if (!quote || !quote.steps || quote.steps.length === 0) {
       toast.error('No quote available')
       return
@@ -531,7 +532,23 @@ export default function RelaySwap() {
         to: txData.to,
         value: txData.value,
         chainId: txData.chainId,
+        connectedChainId,
       })
+
+      // Check if we need to switch chains
+      if (connectedChainId !== txData.chainId) {
+        console.log('Switching chain from', connectedChainId, 'to', txData.chainId)
+        try {
+          await switchChain({ chainId: txData.chainId })
+          toast.success('Chain switched successfully')
+          // Wait a bit for the chain switch to complete
+          await new Promise(resolve => setTimeout(resolve, 500))
+        } catch (switchError) {
+          console.error('Failed to switch chain:', switchError)
+          toast.error('Please switch to the correct network in your wallet')
+          return
+        }
+      }
 
       setIsSwapping(true)
 
@@ -613,6 +630,20 @@ export default function RelaySwap() {
     if (!isConnected) {
       toast.error('Please connect your wallet first')
       return
+    }
+
+    // Check if we need to switch chains
+    if (connectedChainId !== batchChain.id) {
+      console.log('Switching chain from', connectedChainId, 'to', batchChain.id)
+      try {
+        await switchChain({ chainId: batchChain.id })
+        toast.success('Chain switched successfully')
+        await new Promise(resolve => setTimeout(resolve, 500))
+      } catch (switchError) {
+        console.error('Failed to switch chain:', switchError)
+        toast.error('Please switch to the correct network in your wallet')
+        return
+      }
     }
 
     setIsSwapping(true)
@@ -934,6 +965,11 @@ export default function RelaySwap() {
                 <Badge variant="secondary" className="gap-1 text-xs px-2 py-0.5">
                   <Flame className="h-3 w-3" />
                   {userStreak.currentStreak}
+                </Badge>
+              )}
+              {connectedChainId && (
+                <Badge variant="outline" className="text-xs px-2 py-0.5">
+                  {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}
                 </Badge>
               )}
             </div>

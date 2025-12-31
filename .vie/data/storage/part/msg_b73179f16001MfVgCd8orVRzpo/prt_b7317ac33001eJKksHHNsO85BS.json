@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7317ac33001eJKksHHNsO85BS",
+  "messageID": "msg_b73179f16001MfVgCd8orVRzpo",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01JmnUzkToXJdHhheM9g3kGU",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 0,
+      "limit": 20
+    },
+    "output": "<file>\n00001| import { useEffect, useState } from 'react'\n00002| import { sdk } from '@farcaster/miniapp-sdk'\n00003| import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect } from 'wagmi'\n00004| import { parseUnits, formatUnits } from 'viem'\n00005| import { relayAPI } from '@/lib/relay/api'\n00006| import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\n00007| import { Button } from '@/components/ui/button'\n00008| import { Input } from '@/components/ui/input'\n00009| import { Card } from '@/components/ui/card'\n00010| import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\n00011| import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'\n00012| import { ScrollArea } from '@/components/ui/scroll-area'\n00013| import { Badge } from '@/components/ui/badge'\n00014| import { Separator } from '@/components/ui/separator'\n00015| import { Switch } from '@/components/ui/switch'\n00016| import { toast } from 'sonner'\n00017| import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'\n00018| \n00019| interface TrendingToken {\n00020|   address: string\n\n(File has more lines. Use 'offset' parameter to read beyond line 20)\n</file>",
+    "metadata": {
+      "preview": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect } from 'wagmi'\nimport { parseUnits, formatUnits } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\nimport { Button } from '@/components/ui/button'\nimport { Input } from '@/components/ui/input'\nimport { Card } from '@/components/ui/card'\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\nimport { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'\nimport { ScrollArea } from '@/components/ui/scroll-area'\nimport { Badge } from '@/components/ui/badge'\nimport { Separator } from '@/components/ui/separator'\nimport { Switch } from '@/components/ui/switch'\nimport { toast } from 'sonner'\nimport { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'\n\ninterface TrendingToken {\n  address: string"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767162490988,
+      "end": 1767162490991
+    }
+  }
+}
