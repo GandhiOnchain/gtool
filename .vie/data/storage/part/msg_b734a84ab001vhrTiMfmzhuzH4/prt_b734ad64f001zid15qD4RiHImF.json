@@ -1,0 +1,26 @@
+{
+  "id": "prt_b734ad64f001zid15qD4RiHImF",
+  "messageID": "msg_b734a84ab001vhrTiMfmzhuzH4",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01SqdhCTd5RYsQB29yWfUFB4",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://li.quest/v1/chains\" 2>&1 | python3 -m json.tool 2>/dev/null | grep -i \"solana\\|sol\" -B 3 -A 3 | head -30",
+      "description": "Check if LI.FI supports Solana"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Check if LI.FI supports Solana"
+    },
+    "title": "curl -s \"https://li.quest/v1/chains\" 2>&1 | python3 -m json.tool 2>/dev/null | grep -i \"solana\\|sol\" -B 3 -A 3 | head -30",
+    "time": {
+      "start": 1767165844814,
+      "end": 1767165844899
+    }
+  }
+}

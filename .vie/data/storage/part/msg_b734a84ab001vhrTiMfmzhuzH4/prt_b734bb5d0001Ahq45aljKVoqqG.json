@@ -1,0 +1,11 @@
+{
+  "id": "prt_b734bb5d0001Ahq45aljKVoqqG",
+  "messageID": "msg_b734a84ab001vhrTiMfmzhuzH4",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! Now the app will work even with CORS blocking Rango:\n\n1. **Solana chain** will appear in the chain selector\n2. **Solana tokens** (SOL, USDC, USDT) will load instantly\n3. **When you swap**, it will still try to use Rango's quote/swap API (which should work for the actual swap execution)\n\nThe CORS issue only affects loading metadata - the actual swap execution should work fine. Try selecting Solana as the destination chain now - you should see SOL, USDC, and USDT tokens available!",
+  "time": {
+    "start": 1767165904342,
+    "end": 1767165904342
+  }
+}

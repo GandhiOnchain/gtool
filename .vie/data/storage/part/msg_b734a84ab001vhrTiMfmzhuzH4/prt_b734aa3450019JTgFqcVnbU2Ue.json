@@ -1,0 +1,26 @@
+{
+  "id": "prt_b734aa3450019JTgFqcVnbU2Ue",
+  "messageID": "msg_b734a84ab001vhrTiMfmzhuzH4",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_011TSHeovQpy5G3B2YCoCTLJ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && npm list @rango-dev/rango-sdk 2>/dev/null || echo \"not installed\"",
+      "description": "Check if Rango SDK is installed"
+    },
+    "output": "vie@0.0.0 /home/user/sandbox/workspace/frontend\n`-- (empty)\n\nnot installed\n",
+    "metadata": {
+      "output": "vie@0.0.0 /home/user/sandbox/workspace/frontend\n`-- (empty)\n\nnot installed\n",
+      "exit": 0,
+      "description": "Check if Rango SDK is installed"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && npm list @rango-dev/rango-sdk 2>/dev/null || echo \"not installed\"",
+    "time": {
+      "start": 1767165831485,
+      "end": 1767165832640
+    }
+  }
+}

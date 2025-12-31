@@ -1,0 +1,11 @@
+{
+  "id": "prt_b734a95a50016qIcm5z5EfGl0S",
+  "messageID": "msg_b734a84ab001vhrTiMfmzhuzH4",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! I can see the console now. The errors show:\n\n1. **CORS error** - Rango API is blocked by CORS policy\n2. **Failed to fetch Rango tokens** - TypeErrors due to CORS\n\nThis is a browser security issue - we can't call Rango API directly from the browser. We need to use a different approach. Let me switch to using only LI.FI which has better CORS support, or use Rango's SDK instead:",
+  "time": {
+    "start": 1767165831742,
+    "end": 1767165831742
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b734abf77001tzY36nh3TDBF6c",
+  "messageID": "msg_b734a84ab001vhrTiMfmzhuzH4",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01MtXLHPWEkKZG5gewMDijVN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && bun add @rango-dev/rango-sdk",
+      "description": "Install Rango SDK"
+    },
+    "output": "bun add v1.3.2 (b131639c)\nResolving dependencies\nResolved, downloaded and extracted [1]\nerror: GET https://registry.npmjs.org/@rango-dev%2frango-sdk - 404\n",
+    "metadata": {
+      "output": "bun add v1.3.2 (b131639c)\nResolving dependencies\nResolved, downloaded and extracted [1]\nerror: GET https://registry.npmjs.org/@rango-dev%2frango-sdk - 404\n",
+      "exit": 1,
+      "description": "Install Rango SDK"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && bun add @rango-dev/rango-sdk",
+    "time": {
+      "start": 1767165837982,
+      "end": 1767165838148
+    }
+  }
+}

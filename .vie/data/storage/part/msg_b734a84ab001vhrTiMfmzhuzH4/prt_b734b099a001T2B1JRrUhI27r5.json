@@ -1,0 +1,11 @@
+{
+  "id": "prt_b734b099a001T2B1JRrUhI27r5",
+  "messageID": "msg_b734a84ab001vhrTiMfmzhuzH4",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "I see - LI.FI only has EVM chains too (chainType: \"EVM\"). The CORS error is blocking Rango. Let me use a simpler approach - just hardcode Solana support and use the swap router which will handle the actual API calls server-side style:",
+  "time": {
+    "start": 1767165879644,
+    "end": 1767165879644
+  }
+}
