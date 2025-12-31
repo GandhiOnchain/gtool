@@ -1,0 +1,11 @@
+{
+  "id": "prt_b742216ba0010V8nKKC0N0wouS",
+  "messageID": "msg_b7421ed9c001mcS1pTYPwnqdGl",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "I see the issue. The symbols are being set from `fromSymbol` and `toSymbol` variables, but these are initialized as 'Unknown' and might not be getting updated properly. Let me check where they're initialized:",
+  "time": {
+    "start": 1767179952697,
+    "end": 1767179952697
+  }
+}

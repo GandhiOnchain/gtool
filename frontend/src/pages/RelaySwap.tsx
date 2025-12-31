@@ -1557,18 +1557,24 @@ export default function RelaySwap() {
         // The currency field in req.data contains the token address
         const currencyAddress = req.data.currency
         
+        console.log('Currency address from request:', currencyAddress)
+        
         // Try to fetch currency details for both chains
         let fromCurrency: RelayCurrency | null = null
         let toCurrency: RelayCurrency | null = null
         
         try {
           if (currencyAddress && originChainId) {
+            console.log('Fetching from currency for:', currencyAddress, 'on chain:', originChainId)
             const currencies = await relayAPI.getCurrencies({
               address: currencyAddress,
               chainIds: [originChainId],
               limit: 1,
             })
             fromCurrency = currencies[0] || null
+            console.log('From currency fetched:', fromCurrency?.symbol, fromCurrency?.address)
+          } else {
+            console.log('Missing currencyAddress or originChainId:', { currencyAddress, originChainId })
           }
         } catch (e) {
           console.error('Failed to fetch from currency:', e)
@@ -1576,12 +1582,16 @@ export default function RelaySwap() {
         
         try {
           if (currencyAddress && destChainId) {
+            console.log('Fetching to currency for:', currencyAddress, 'on chain:', destChainId)
             const currencies = await relayAPI.getCurrencies({
               address: currencyAddress,
               chainIds: [destChainId],
               limit: 1,
             })
             toCurrency = currencies[0] || null
+            console.log('To currency fetched:', toCurrency?.symbol, toCurrency?.address)
+          } else {
+            console.log('Missing currencyAddress or destChainId:', { currencyAddress, destChainId })
           }
         } catch (e) {
           console.error('Failed to fetch to currency:', e)
@@ -1820,11 +1830,11 @@ export default function RelaySwap() {
           id: req.id,
           type: transactionType,
           fromToken: fromTokenAddress,
-          fromTokenSymbol: fromSymbol,
+          fromTokenSymbol: fromSymbol || 'Unknown',
           fromTokenDecimals: fromDecimals,
           fromTokenLogo,
           toToken: toTokenAddress,
-          toTokenSymbol: toSymbol,
+          toTokenSymbol: toSymbol || 'Unknown',
           toTokenDecimals: toDecimals,
           toTokenLogo,
           fromAmount,
@@ -1843,7 +1853,17 @@ export default function RelaySwap() {
           batchTokens: transactionType === 'batch' ? batchTokens : undefined,
         }
         
-        console.log('Final history item:', historyItem)
+        console.log('Final history item:', {
+          id: historyItem.id,
+          type: historyItem.type,
+          fromSymbol: historyItem.fromTokenSymbol,
+          toSymbol: historyItem.toTokenSymbol,
+          fromAmount: historyItem.fromAmount,
+          toAmount: historyItem.toAmount,
+          fromChain: historyItem.fromChain,
+          toChain: historyItem.toChain,
+          batchTokensCount: historyItem.batchTokens?.length
+        })
         console.log('===')
         
         return historyItem

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7421f7bf001sXKneqL5apu3GI",
+  "messageID": "msg_b7421ed9c001mcS1pTYPwnqdGl",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_012M2QpyCgHfEiABv3zUK9SX",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"fromTokenSymbol\\|toTokenSymbol\" src/pages/RelaySwap.tsx | head -20",
+      "description": "Find where token symbols are used"
+    },
+    "output": "33:  fromTokenSymbol: string\n37:  toTokenSymbol: string\n1823:          fromTokenSymbol: fromSymbol,\n1827:          toTokenSymbol: toSymbol,\n2004:    const text = `Just swapped ${swap.fromAmount} ${swap.fromTokenSymbol} (${swap.fromChain}) to ${swap.toAmount} ${swap.toTokenSymbol} (${swap.toChain}) on Relay!`\n2706:                                  {swap.fromTokenSymbol} → {swap.toTokenSymbol}\n2772:                                    {swap.fromAmount} {swap.fromTokenSymbol}\n2808:                                  {swap.toAmount} {swap.toTokenSymbol}\n",
+    "metadata": {
+      "output": "33:  fromTokenSymbol: string\n37:  toTokenSymbol: string\n1823:          fromTokenSymbol: fromSymbol,\n1827:          toTokenSymbol: toSymbol,\n2004:    const text = `Just swapped ${swap.fromAmount} ${swap.fromTokenSymbol} (${swap.fromChain}) to ${swap.toAmount} ${swap.toTokenSymbol} (${swap.toChain}) on Relay!`\n2706:                                  {swap.fromTokenSymbol} → {swap.toTokenSymbol}\n2772:                                    {swap.fromAmount} {swap.fromTokenSymbol}\n2808:                                  {swap.toAmount} {swap.toTokenSymbol}\n",
+      "exit": 0,
+      "description": "Find where token symbols are used"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"fromTokenSymbol\\|toTokenSymbol\" src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1767179943035,
+      "end": 1767179943039
+    }
+  }
+}

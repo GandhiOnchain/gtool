@@ -1,0 +1,25 @@
+{
+  "id": "prt_b74221ca5001uGwiVWQFKo2kjG",
+  "messageID": "msg_b7421ed9c001mcS1pTYPwnqdGl",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_018qcMHtk93wN45x1qbCnkgL",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1530,
+      "limit": 20
+    },
+    "output": "<file>\n01531|         \n01532|         // Get amounts from transaction data\n01533|         let fromAmount = '0'\n01534|         let toAmount = '0'\n01535|         let fromDecimals = 18\n01536|         let toDecimals = 18\n01537|         let fromSymbol = 'Unknown'\n01538|         let toSymbol = 'Unknown'\n01539|         let fromTokenAddress = '0x0'\n01540|         let toTokenAddress = '0x0'\n01541|         let fromTokenLogo: string | undefined\n01542|         let toTokenLogo: string | undefined\n01543|         \n01544|         // Determine transaction type\n01545|         const isSameChain = originChainId === destChainId\n01546|         const hasMultipleInputs = req.data.inTxs && req.data.inTxs.length > 1\n01547|         \n01548|         let transactionType: 'swap' | 'bridge' | 'batch' = 'swap'\n01549|         if (hasMultipleInputs) {\n01550|           transactionType = 'batch'\n\n(File has more lines. Use 'offset' parameter to read beyond line 1550)\n</file>",
+    "metadata": {
+      "preview": "        \n        // Get amounts from transaction data\n        let fromAmount = '0'\n        let toAmount = '0'\n        let fromDecimals = 18\n        let toDecimals = 18\n        let fromSymbol = 'Unknown'\n        let toSymbol = 'Unknown'\n        let fromTokenAddress = '0x0'\n        let toTokenAddress = '0x0'\n        let fromTokenLogo: string | undefined\n        let toTokenLogo: string | undefined\n        \n        // Determine transaction type\n        const isSameChain = originChainId === destChainId\n        const hasMultipleInputs = req.data.inTxs && req.data.inTxs.length > 1\n        \n        let transactionType: 'swap' | 'bridge' | 'batch' = 'swap'\n        if (hasMultipleInputs) {\n          transactionType = 'batch'"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767179952545,
+      "end": 1767179952547
+    }
+  }
+}

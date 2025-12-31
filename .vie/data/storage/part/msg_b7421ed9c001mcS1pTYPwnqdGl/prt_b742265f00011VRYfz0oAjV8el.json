@@ -1,0 +1,11 @@
+{
+  "id": "prt_b742265f00011VRYfz0oAjV8el",
+  "messageID": "msg_b7421ed9c001mcS1pTYPwnqdGl",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Now let's also add a fallback to ensure we always show something:",
+  "time": {
+    "start": 1767179981088,
+    "end": 1767179981088
+  }
+}
