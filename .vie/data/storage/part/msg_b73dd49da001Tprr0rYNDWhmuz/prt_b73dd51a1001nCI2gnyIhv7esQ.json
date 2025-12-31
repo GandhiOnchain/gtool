@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73dd51a1001nCI2gnyIhv7esQ",
+  "messageID": "msg_b73dd49da001Tprr0rYNDWhmuz",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "I can see the error \"No deposit step found in quote\" appearing in your swap interface. Let me investigate the swap implementation to understand what's causing this issue.",
+  "time": {
+    "start": 1767175446501,
+    "end": 1767175446501
+  }
+}

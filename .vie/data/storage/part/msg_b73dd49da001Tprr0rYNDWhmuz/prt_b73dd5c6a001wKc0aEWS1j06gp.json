@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73dd5c6a001wKc0aEWS1j06gp",
+  "messageID": "msg_b73dd49da001Tprr0rYNDWhmuz",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "grep",
+  "callID": "toolu_vrtx_01FQ3JaVt6aaTa7jMgtyhYrW",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "No deposit step found",
+      "include": "*.{ts,tsx}"
+    },
+    "output": "Found 1 matches\n/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx:\n  Line 994:         throw new Error('No deposit step found in quote')",
+    "metadata": {
+      "matches": 1,
+      "truncated": false
+    },
+    "title": "No deposit step found",
+    "time": {
+      "start": 1767175446468,
+      "end": 1767175446485
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73dd7c93002EJ5jgxMNT0GiLi",
+  "messageID": "msg_b73dd49da001Tprr0rYNDWhmuz",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Now I can see the issue. Looking at the error \"No deposit step found in quote\" on line 994, and examining the `executeSwap` function, I can see the problem:\n\nWhen swapping between tokens on the **same chain**, the Relay API quote structure is different. For same-chain swaps (which are just DEX swaps, not cross-chain bridges), the quote doesn't have a \"deposit\" step - it likely has a \"swap\" step instead.\n\nThe code at line 992-995 is looking specifically for a step with `id === 'deposit'`, but for same-chain swaps, this step doesn't exist. Let me fix this:",
+  "time": {
+    "start": 1767175463903,
+    "end": 1767175463903
+  }
+}

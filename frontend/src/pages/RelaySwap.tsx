@@ -989,12 +989,20 @@ export default function RelaySwap() {
       const freshQuote = await relayAPI.getQuote(quoteParams)
       console.log('Fresh quote received:', freshQuote)
 
-      const depositStep = freshQuote.steps.find(s => s.id === 'deposit')
-      if (!depositStep || !depositStep.items || depositStep.items.length === 0) {
-        throw new Error('No deposit step found in quote')
+      // For same-chain swaps, look for 'swap' step; for cross-chain, look for 'deposit' step
+      const isSameChain = fromChain.id === toChain.id
+      const executionStep = freshQuote.steps.find(s => 
+        s.id === 'deposit' || s.id === 'swap' || s.kind === 'transaction'
+      )
+      
+      if (!executionStep || !executionStep.items || executionStep.items.length === 0) {
+        console.error('No execution step found in quote. Available steps:', freshQuote.steps.map(s => ({ id: s.id, kind: s.kind })))
+        throw new Error(`No ${isSameChain ? 'swap' : 'deposit'} step found in quote`)
       }
+      
+      console.log('Using execution step:', executionStep.id, 'kind:', executionStep.kind)
 
-      const txData = depositStep.items[0].data
+      const txData = executionStep.items[0].data
       
       console.log('Executing swap transaction:', {
         from: txData.from,
@@ -1004,7 +1012,7 @@ export default function RelaySwap() {
         chainId: txData.chainId,
         connectedChainId,
         recipientAddress,
-        requestId: depositStep.requestId,
+        requestId: executionStep.requestId,
       })
       
       // CRITICAL: Verify the transaction 'from' address matches the connected wallet
@@ -1049,36 +1057,36 @@ export default function RelaySwap() {
       console.log('Quote requested by:', address)
       console.log('Transaction from (in quote):', txData.from)
       console.log('Transaction to:', txData.to)
-      console.log('Transaction value (expected):', txData.value)
-      console.log('Transaction value (sending):', txParams.value.toString())
-      console.log('Transaction data match:', txData.data === txParams.data)
-      console.log('Amount in quote params:', amountInWei.toString())
-      console.log('RequestId:', depositStep.requestId)
-      console.log('============================')
-      
-      console.log('Sending transaction with params:', {
-        from: address, // This will be used by wagmi automatically
-        ...txParams,
-        value: txParams.value.toString(),
-        maxFeePerGas: txParams.maxFeePerGas?.toString(),
-        maxPriorityFeePerGas: txParams.maxPriorityFeePerGas?.toString(),
-      })
-      
-      sendTransaction(txParams, {
-        onSuccess: (hash) => {
-          console.log('Transaction submitted successfully:', hash)
-          toast.success('Transaction submitted - waiting for confirmation...')
-          
-          // Store the requestId and chainId to use after transaction confirmation
-          // The useEffect will handle indexing and monitoring after the tx is confirmed
-          if (depositStep.requestId) {
-            setCurrentSwapRequestId(depositStep.requestId)
-            setCurrentSwapChainId(txData.chainId)
-          } else {
-            console.warn('No requestId found in deposit step')
-            setIsSwapping(false)
-          }
-        },
+       console.log('Transaction value (expected):', txData.value)
+       console.log('Transaction value (sending):', txParams.value.toString())
+       console.log('Transaction data match:', txData.data === txParams.data)
+       console.log('Amount in quote params:', amountInWei.toString())
+       console.log('RequestId:', executionStep.requestId)
+       console.log('============================')
+       
+       console.log('Sending transaction with params:', {
+         from: address, // This will be used by wagmi automatically
+         ...txParams,
+         value: txParams.value.toString(),
+         maxFeePerGas: txParams.maxFeePerGas?.toString(),
+         maxPriorityFeePerGas: txParams.maxPriorityFeePerGas?.toString(),
+       })
+       
+       sendTransaction(txParams, {
+         onSuccess: (hash) => {
+           console.log('Transaction submitted successfully:', hash)
+           toast.success('Transaction submitted - waiting for confirmation...')
+           
+           // Store the requestId and chainId to use after transaction confirmation
+           // The useEffect will handle indexing and monitoring after the tx is confirmed
+           if (executionStep.requestId) {
+             setCurrentSwapRequestId(executionStep.requestId)
+             setCurrentSwapChainId(txData.chainId)
+           } else {
+             console.warn('No requestId found in execution step')
+             setIsSwapping(false)
+           }
+         },
         onError: (error) => {
           console.error('Transaction failed:', error)
           const errorMessage = error instanceof Error ? error.message : 'Transaction failed'
