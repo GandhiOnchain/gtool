@@ -1,0 +1,26 @@
+{
+  "id": "prt_b739db4a5001gTWVsn4384U5iL",
+  "messageID": "msg_b739b2ab2001ehIccN4lIW6I8d",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01VUHyAq7rHVKpWq8AhNgJtF",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"window as any\" src/pages/RelaySwap.tsx -n",
+      "description": "Find the any usage"
+    },
+    "output": "157:        if (typeof window !== 'undefined' && (window as any).solana) {\n158:          const solanaWallet = (window as any).solana\n",
+    "metadata": {
+      "output": "157:        if (typeof window !== 'undefined' && (window as any).solana) {\n158:          const solanaWallet = (window as any).solana\n",
+      "exit": 0,
+      "description": "Find the any usage"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"window as any\" src/pages/RelaySwap.tsx -n",
+    "time": {
+      "start": 1767171274516,
+      "end": 1767171274522
+    }
+  }
+}

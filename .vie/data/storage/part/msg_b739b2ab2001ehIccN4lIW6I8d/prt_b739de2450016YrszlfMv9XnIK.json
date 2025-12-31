@@ -1,0 +1,32 @@
+{
+  "id": "prt_b739de2450016YrszlfMv9XnIK",
+  "messageID": "msg_b739b2ab2001ehIccN4lIW6I8d",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01RK1PWMwFgGjpzc6Pm9fFSi",
+  "state": {
+    "status": "completed",
+    "input": {
+      "files": [
+        "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ❌ ERROR [169:15] 'solanaWallet' is possibly 'undefined'. [typescript]\n  ❌ ERROR [169:43] 'solanaWallet' is possibly 'undefined'. [typescript]\n  ❌ ERROR [170:28] 'solanaWallet' is possibly 'undefined'. [typescript]\n  ❌ ERROR [176:38] 'solanaWallet' is possibly 'undefined'. [typescript]\n\n──────────────────────────────────────────────────\nSummary: 4 issue(s) found\n  - 4 error(s)\n",
+    "metadata": {
+      "filesChecked": 1,
+      "filesWithIssues": 1,
+      "totalIssues": 4,
+      "errorCount": 4,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "title": "Diagnostics: 4 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1767171285947,
+      "end": 1767171296065
+    }
+  }
+}

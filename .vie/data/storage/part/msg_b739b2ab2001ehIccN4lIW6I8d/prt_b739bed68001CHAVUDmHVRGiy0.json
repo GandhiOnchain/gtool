@@ -1,0 +1,11 @@
+{
+  "id": "prt_b739bed68001CHAVUDmHVRGiy0",
+  "messageID": "msg_b739b2ab2001ehIccN4lIW6I8d",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "The solution is to detect Solana wallets separately and fetch balances using the Solana Web3.js library or by detecting the wallet provider. Let me implement a multi-chain balance solution:",
+  "time": {
+    "start": 1767171170753,
+    "end": 1767171170753
+  }
+}

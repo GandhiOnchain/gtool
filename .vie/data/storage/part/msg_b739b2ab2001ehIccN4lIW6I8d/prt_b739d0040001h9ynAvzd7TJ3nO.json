@@ -1,0 +1,11 @@
+{
+  "id": "prt_b739d0040001h9ynAvzd7TJ3nO",
+  "messageID": "msg_b739b2ab2001ehIccN4lIW6I8d",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Now I need to update the quote generation to use the Solana address when the origin chain is Solana:",
+  "time": {
+    "start": 1767171234661,
+    "end": 1767171234661
+  }
+}

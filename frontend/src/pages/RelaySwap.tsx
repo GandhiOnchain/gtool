@@ -113,24 +113,84 @@ export default function RelaySwap() {
   const [toTokenPrice, setToTokenPrice] = useState<number>(0)
   const [currentSwapRequestId, setCurrentSwapRequestId] = useState<string | null>(null)
   const [currentSwapChainId, setCurrentSwapChainId] = useState<number | null>(null)
+  const [solanaAddress, setSolanaAddress] = useState<string | null>(null)
+  const [customBalances, setCustomBalances] = useState<{
+    from?: { value: bigint; decimals: number; symbol: string }
+    to?: { value: bigint; decimals: number; symbol: string }
+  }>({})
 
   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
 
-  const { data: fromBalance } = useBalance({
+  // EVM balance hooks - only used for EVM chains
+  const { data: evmFromBalance } = useBalance({
     address,
     chainId: fromChain?.id,
     token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,
+    query: {
+      enabled: fromChain?.vmType === 'evm' || !fromChain?.vmType,
+    },
   })
 
-  const { data: toBalance } = useBalance({
+  const { data: evmToBalance } = useBalance({
     address,
     chainId: toChain?.id,
     token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,
+    query: {
+      enabled: toChain?.vmType === 'evm' || !toChain?.vmType,
+    },
   })
+
+  // Use EVM balance or custom balance based on chain type
+  const fromBalance = (fromChain?.vmType === 'evm' || !fromChain?.vmType) ? evmFromBalance : customBalances.from
+  const toBalance = (toChain?.vmType === 'evm' || !toChain?.vmType) ? evmToBalance : customBalances.to
 
   useEffect(() => {
     sdk.actions.ready().catch(() => {})
+  }, [])
+
+  // Detect Solana wallet
+  useEffect(() => {
+    const detectSolanaWallet = async () => {
+      try {
+        // Check if window.solana exists (Phantom, Solflare, etc.)
+        interface SolanaWindow extends Window {
+          solana?: {
+            isConnected: boolean
+            publicKey?: { toString: () => string }
+            connect: (options?: { onlyIfTrusted?: boolean }) => Promise<{ publicKey: { toString: () => string } }>
+          }
+        }
+        
+        const solanaWallet = (window as SolanaWindow).solana
+        
+        if (solanaWallet) {
+          // Check if already connected
+          if (solanaWallet.isConnected && solanaWallet.publicKey) {
+            const pubKey = solanaWallet.publicKey.toString()
+            console.log('Solana wallet detected:', pubKey)
+            setSolanaAddress(pubKey)
+          } else {
+            // Try to connect silently
+            try {
+              const response = await solanaWallet.connect({ onlyIfTrusted: true })
+              if (response.publicKey) {
+                const pubKey = response.publicKey.toString()
+                console.log('Solana wallet connected:', pubKey)
+                setSolanaAddress(pubKey)
+              }
+            } catch (err) {
+              // User hasn't approved this site yet
+              console.log('Solana wallet not connected yet')
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error detecting Solana wallet:', error)
+      }
+    }
+
+    detectSolanaWallet()
   }, [])
 
   useEffect(() => {
@@ -211,6 +271,20 @@ export default function RelaySwap() {
     }
   }, [address, batchChain, isConnected])
 
+  // Fetch Solana balance for from chain
+  useEffect(() => {
+    if (fromChain && fromToken && fromChain.vmType === 'svm' && solanaAddress) {
+      fetchSolanaBalance(fromToken.address, fromToken.decimals, fromToken.symbol, 'from')
+    }
+  }, [fromChain, fromToken, solanaAddress])
+
+  // Fetch Solana balance for to chain
+  useEffect(() => {
+    if (toChain && toToken && toChain.vmType === 'svm' && solanaAddress) {
+      fetchSolanaBalance(toToken.address, toToken.decimals, toToken.symbol, 'to')
+    }
+  }, [toChain, toToken, solanaAddress])
+
   // Handle transaction confirmation and indexing
   useEffect(() => {
     const handleTransactionConfirmation = async () => {
@@ -243,6 +317,85 @@ export default function RelaySwap() {
     
     handleTransactionConfirmation()
   }, [isTxSuccess, txHash, currentSwapRequestId, currentSwapChainId])
+
+  const fetchSolanaBalance = async (tokenAddress: string, decimals: number, symbol: string, type: 'from' | 'to') => {
+    if (!solanaAddress) {
+      console.log('No Solana address available')
+      return
+    }
+
+    try {
+      // Use Solana RPC to fetch balance
+      const solanaRpcUrl = 'https://api.mainnet-beta.solana.com'
+      
+      // For native SOL
+      if (tokenAddress === '0x0000000000000000000000000000000000000000' || tokenAddress.toLowerCase() === 'sol') {
+        const response = await fetch(solanaRpcUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            id: 1,
+            method: 'getBalance',
+            params: [solanaAddress]
+          })
+        })
+        
+        const data = await response.json()
+        if (data.result && data.result.value !== undefined) {
+          const balance = BigInt(data.result.value)
+          setCustomBalances(prev => ({
+            ...prev,
+            [type]: { value: balance, decimals: 9, symbol: 'SOL' }
+          }))
+          console.log(`Solana ${type} balance:`, balance.toString())
+        }
+      } else {
+        // For SPL tokens, we need to get token account balance
+        // This requires the token account address, which we can derive
+        const response = await fetch(solanaRpcUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            id: 1,
+            method: 'getTokenAccountsByOwner',
+            params: [
+              solanaAddress,
+              { mint: tokenAddress },
+              { encoding: 'jsonParsed' }
+            ]
+          })
+        })
+        
+        const data = await response.json()
+        if (data.result && data.result.value && data.result.value.length > 0) {
+          const tokenAccount = data.result.value[0]
+          const balance = BigInt(tokenAccount.account.data.parsed.info.tokenAmount.amount)
+          const tokenDecimals = tokenAccount.account.data.parsed.info.tokenAmount.decimals
+          
+          setCustomBalances(prev => ({
+            ...prev,
+            [type]: { value: balance, decimals: tokenDecimals, symbol }
+          }))
+          console.log(`Solana ${type} token balance:`, balance.toString())
+        } else {
+          // No token account found, balance is 0
+          setCustomBalances(prev => ({
+            ...prev,
+            [type]: { value: 0n, decimals, symbol }
+          }))
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching Solana balance:', error)
+      // Set balance to undefined on error
+      setCustomBalances(prev => ({
+        ...prev,
+        [type]: undefined
+      }))
+    }
+  }
 
   const loadChains = async () => {
     try {
@@ -543,8 +696,17 @@ export default function RelaySwap() {
       const toVMType = toChain.vmType || 'evm'
       const isCrossVM = fromVMType !== toVMType
       
+      // Use the appropriate address based on the origin chain type
+      const userAddress = fromVMType === 'svm' ? solanaAddress : address
+      
+      if (!userAddress) {
+        toast.error(`Please connect your ${fromVMType === 'svm' ? 'Solana' : 'EVM'} wallet`)
+        setIsLoadingQuote(false)
+        return
+      }
+      
       const quoteParams = {
-        user: address,
+        user: userAddress,
         originChainId: fromChain.id,
         destinationChainId: toChain.id,
         originCurrency: fromToken.address,
@@ -638,8 +800,18 @@ export default function RelaySwap() {
         .filter(([_, enabled]) => enabled)
         .map(([source]) => source)
       
+      // Use the appropriate address based on the origin chain type
+      const fromVMType = fromChain.vmType || 'evm'
+      const userAddress = fromVMType === 'svm' ? solanaAddress : address
+      
+      if (!userAddress) {
+        toast.error(`Please connect your ${fromVMType === 'svm' ? 'Solana' : 'EVM'} wallet`)
+        setIsSwapping(false)
+        return
+      }
+      
       const quoteParams = {
-        user: address,
+        user: userAddress,
         originChainId: fromChain.id,
         destinationChainId: toChain.id,
         originCurrency: fromToken.address,

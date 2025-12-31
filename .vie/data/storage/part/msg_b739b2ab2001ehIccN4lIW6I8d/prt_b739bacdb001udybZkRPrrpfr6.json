@@ -1,0 +1,11 @@
+{
+  "id": "prt_b739bacdb001udybZkRPrrpfr6",
+  "messageID": "msg_b739b2ab2001ehIccN4lIW6I8d",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "The issue is clear: `useAccount` from wagmi only provides EVM addresses. For Solana, we need to detect the Solana wallet separately. Let me check if there's a Solana wallet provider available:",
+  "time": {
+    "start": 1767171144513,
+    "end": 1767171144513
+  }
+}

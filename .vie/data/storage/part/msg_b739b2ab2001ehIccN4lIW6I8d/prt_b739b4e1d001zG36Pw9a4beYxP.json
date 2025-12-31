@@ -1,0 +1,25 @@
+{
+  "id": "prt_b739b4e1d001zG36Pw9a4beYxP",
+  "messageID": "msg_b739b2ab2001ehIccN4lIW6I8d",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01AmwERPNrTB9XePH52xjszR",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 115,
+      "limit": 30
+    },
+    "output": "<file>\n00116| \n00117|   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n00118|   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n00119| \n00120|   const { data: fromBalance } = useBalance({\n00121|     address,\n00122|     chainId: fromChain?.id,\n00123|     token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n00124|   })\n00125| \n00126|   const { data: toBalance } = useBalance({\n00127|     address,\n00128|     chainId: toChain?.id,\n00129|     token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n00130|   })\n00131| \n00132|   useEffect(() => {\n00133|     sdk.actions.ready().catch(() => {})\n00134|   }, [])\n00135| \n00136|   useEffect(() => {\n00137|     loadChains()\n00138|     loadUserData()\n00139|     loadTrendingTokens()\n00140|     loadSwapSources()\n00141|   }, [])\n00142| \n00143|   useEffect(() => {\n00144|     if (chains.length > 0 && !batchChain) {\n00145|       const baseChain = chains.find(c => c.id === 8453) || chains[0]\n\n(File has more lines. Use 'offset' parameter to read beyond line 145)\n</file>",
+    "metadata": {
+      "preview": "\n  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n  const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n\n  const { data: fromBalance } = useBalance({\n    address,\n    chainId: fromChain?.id,\n    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n  })\n\n  const { data: toBalance } = useBalance({\n    address,\n    chainId: toChain?.id,\n    token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n  })\n\n  useEffect(() => {\n    sdk.actions.ready().catch(() => {})\n  }, [])\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767171117952,
+      "end": 1767171117960
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b739b63700017QoB9wT990ulJn",
+  "messageID": "msg_b739b2ab2001ehIccN4lIW6I8d",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I found the issue! The `useBalance` hook from wagmi is **EVM-only** and won't work for Solana chains. We need to implement a different balance fetching mechanism for non-EVM chains like Solana.",
+  "time": {
+    "start": 1767171126964,
+    "end": 1767171126964
+  }
+}

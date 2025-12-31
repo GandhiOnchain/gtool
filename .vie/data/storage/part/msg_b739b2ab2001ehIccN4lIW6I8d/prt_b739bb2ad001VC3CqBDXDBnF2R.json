@@ -1,0 +1,26 @@
+{
+  "id": "prt_b739bb2ad001VC3CqBDXDBnF2R",
+  "messageID": "msg_b739b2ab2001ehIccN4lIW6I8d",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Us8KuY9MqzLvmEZBye2nHx",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && cat package.json | grep -i solana",
+      "description": "Check for Solana packages"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 1,
+      "description": "Check for Solana packages"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && cat package.json | grep -i solana",
+    "time": {
+      "start": 1767171143288,
+      "end": 1767171143292
+    }
+  }
+}

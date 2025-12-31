@@ -1,0 +1,26 @@
+{
+  "id": "prt_b739b9a4e001DdIyyi388qc75q",
+  "messageID": "msg_b739b2ab2001ehIccN4lIW6I8d",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01MUQQpht5okb4k2rDHBsxx4",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"useAccount\" src/pages/RelaySwap.tsx -B 1 -A 3",
+      "description": "Check account hook usage"
+    },
+    "output": "import { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\nimport { parseUnits, formatUnits } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\n--\nexport default function RelaySwap() {\n  const { address, isConnected, chainId: connectedChainId } = useAccount()\n  const { connect, connectors } = useConnect()\n  const { disconnect } = useDisconnect()\n  const { switchChain } = useSwitchChain()\n",
+    "metadata": {
+      "output": "import { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\nimport { parseUnits, formatUnits } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\n--\nexport default function RelaySwap() {\n  const { address, isConnected, chainId: connectedChainId } = useAccount()\n  const { connect, connectors } = useConnect()\n  const { disconnect } = useDisconnect()\n  const { switchChain } = useSwitchChain()\n",
+      "exit": 0,
+      "description": "Check account hook usage"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"useAccount\" src/pages/RelaySwap.tsx -B 1 -A 3",
+    "time": {
+      "start": 1767171136994,
+      "end": 1767171137000
+    }
+  }
+}

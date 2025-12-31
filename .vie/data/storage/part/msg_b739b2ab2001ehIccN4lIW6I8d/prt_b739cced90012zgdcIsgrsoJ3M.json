@@ -1,0 +1,25 @@
+{
+  "id": "prt_b739cced90012zgdcIsgrsoJ3M",
+  "messageID": "msg_b739b2ab2001ehIccN4lIW6I8d",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01PxxQYzAptG37bHHNPuKWkH",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 700,
+      "limit": 20
+    },
+    "output": "<file>\n00701|         includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n00702|         useExternalLiquidity: isCrossVM ? true : undefined,\n00703|       }\n00704|       \n00705|       const quoteData = await relayAPI.getQuote(quoteParams)\n00706|       \n00707|       setQuote(quoteData)\n00708|       if (quoteData.details.currencyOut) {\n00709|         setToAmount(quoteData.details.currencyOut.amountFormatted)\n00710|       }\n00711|     } catch (error) {\n00712|       console.error('Failed to fetch quote:', error)\n00713|       const errorMessage = error instanceof Error ? error.message : 'Failed to get quote'\n00714|       toast.error(errorMessage)\n00715|       setQuote(null)\n00716|     } finally {\n00717|       setIsLoadingQuote(false)\n00718|     }\n00719|   }\n00720| \n\n(File has more lines. Use 'offset' parameter to read beyond line 720)\n</file>",
+    "metadata": {
+      "preview": "        includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n        useExternalLiquidity: isCrossVM ? true : undefined,\n      }\n      \n      const quoteData = await relayAPI.getQuote(quoteParams)\n      \n      setQuote(quoteData)\n      if (quoteData.details.currencyOut) {\n        setToAmount(quoteData.details.currencyOut.amountFormatted)\n      }\n    } catch (error) {\n      console.error('Failed to fetch quote:', error)\n      const errorMessage = error instanceof Error ? error.message : 'Failed to get quote'\n      toast.error(errorMessage)\n      setQuote(null)\n    } finally {\n      setIsLoadingQuote(false)\n    }\n  }\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767171215745,
+      "end": 1767171215747
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_b739cf3c8001rV9pIzUV9ck4aE",
+  "messageID": "msg_b739b2ab2001ehIccN4lIW6I8d",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01AYJLYXFZoYNiKGfDiPRUa2",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 685,
+      "limit": 20
+    },
+    "output": "<file>\n00686|       \n00687|       const fromVMType = fromChain.vmType || 'evm'\n00688|       const toVMType = toChain.vmType || 'evm'\n00689|       const isCrossVM = fromVMType !== toVMType\n00690|       \n00691|       const quoteParams = {\n00692|         user: address,\n00693|         originChainId: fromChain.id,\n00694|         destinationChainId: toChain.id,\n00695|         originCurrency: fromToken.address,\n00696|         destinationCurrency: toToken.address,\n00697|         amount: amountInWei.toString(),\n00698|         tradeType: 'EXACT_INPUT' as const,\n00699|         slippageTolerance: slippageBps,\n00700|         recipient: isCrossVM && recipientAddress ? recipientAddress : undefined,\n00701|         includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n00702|         useExternalLiquidity: isCrossVM ? true : undefined,\n00703|       }\n00704|       \n00705|       const quoteData = await relayAPI.getQuote(quoteParams)\n\n(File has more lines. Use 'offset' parameter to read beyond line 705)\n</file>",
+    "metadata": {
+      "preview": "      \n      const fromVMType = fromChain.vmType || 'evm'\n      const toVMType = toChain.vmType || 'evm'\n      const isCrossVM = fromVMType !== toVMType\n      \n      const quoteParams = {\n        user: address,\n        originChainId: fromChain.id,\n        destinationChainId: toChain.id,\n        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        amount: amountInWei.toString(),\n        tradeType: 'EXACT_INPUT' as const,\n        slippageTolerance: slippageBps,\n        recipient: isCrossVM && recipientAddress ? recipientAddress : undefined,\n        includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n        useExternalLiquidity: isCrossVM ? true : undefined,\n      }\n      \n      const quoteData = await relayAPI.getQuote(quoteParams)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767171225209,
+      "end": 1767171225212
+    }
+  }
+}

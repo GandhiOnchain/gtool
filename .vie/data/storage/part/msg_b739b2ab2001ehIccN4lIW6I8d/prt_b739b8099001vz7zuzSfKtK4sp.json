@@ -1,0 +1,26 @@
+{
+  "id": "prt_b739b8099001vz7zuzSfKtK4sp",
+  "messageID": "msg_b739b2ab2001ehIccN4lIW6I8d",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01BWrmH1x61iZ4XBBEVPW4kZ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"vmType\" src/pages/RelaySwap.tsx | head -20",
+      "description": "Check vmType usage"
+    },
+    "output": "    const isEVM = chain.vmType === 'evm' || !chain.vmType\n    const isEVM = chain.vmType === 'evm' || !chain.vmType\n      const fromVMType = fromChain.vmType || 'evm'\n      const toVMType = toChain.vmType || 'evm'\n    const fromVMType = fromChain.vmType || 'evm'\n    const toVMType = toChain.vmType || 'evm'\n      console.log('From Chain:', fromChain.displayName, 'ID:', fromChain.id, 'vmType:', fromChain.vmType)\n      console.log('To Chain:', toChain.displayName, 'ID:', toChain.id, 'vmType:', toChain.vmType)\n              const fromVMType = fromChain?.vmType || 'evm'\n              const toVMType = toChain?.vmType || 'evm'\n                  const fromVMType = fromChain.vmType || 'evm'\n                  const toVMType = toChain.vmType || 'evm'\n",
+    "metadata": {
+      "output": "    const isEVM = chain.vmType === 'evm' || !chain.vmType\n    const isEVM = chain.vmType === 'evm' || !chain.vmType\n      const fromVMType = fromChain.vmType || 'evm'\n      const toVMType = toChain.vmType || 'evm'\n    const fromVMType = fromChain.vmType || 'evm'\n    const toVMType = toChain.vmType || 'evm'\n      console.log('From Chain:', fromChain.displayName, 'ID:', fromChain.id, 'vmType:', fromChain.vmType)\n      console.log('To Chain:', toChain.displayName, 'ID:', toChain.id, 'vmType:', toChain.vmType)\n              const fromVMType = fromChain?.vmType || 'evm'\n              const toVMType = toChain?.vmType || 'evm'\n                  const fromVMType = fromChain.vmType || 'evm'\n                  const toVMType = toChain.vmType || 'evm'\n",
+      "exit": 0,
+      "description": "Check vmType usage"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"vmType\" src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1767171131018,
+      "end": 1767171131024
+    }
+  }
+}

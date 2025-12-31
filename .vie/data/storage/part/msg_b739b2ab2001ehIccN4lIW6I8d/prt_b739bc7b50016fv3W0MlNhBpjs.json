@@ -1,0 +1,11 @@
+{
+  "id": "prt_b739bc7b50016fv3W0MlNhBpjs",
+  "messageID": "msg_b739b2ab2001ehIccN4lIW6I8d",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "This documentation is about EVM wallet detection, not Solana. The core issue is that we're using wagmi's `useBalance` which only works for EVM chains. For Solana, we need a different approach. Let me check if we can detect Solana wallets and fetch balances:",
+  "time": {
+    "start": 1767171153734,
+    "end": 1767171153734
+  }
+}
