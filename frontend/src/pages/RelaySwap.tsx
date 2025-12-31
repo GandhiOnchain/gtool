@@ -156,6 +156,7 @@ export default function RelaySwap() {
     spenderName?: string
     allowance: string
     allowanceFormatted: string
+    riskLevel?: 'high' | 'medium' | 'low'
   }>>([])
   const [isLoadingApprovals, setIsLoadingApprovals] = useState(false)
   const [isRevoking, setIsRevoking] = useState(false)
@@ -2177,11 +2178,135 @@ export default function RelaySwap() {
     if (!address || !revokeChain) return
     
     setIsLoadingApprovals(true)
-    setDebugInfo('Starting approval scan...')
+    setDebugInfo('Fetching approvals from indexer...')
     
     try {
       console.log('🔍 Loading approvals for chain:', revokeChain.displayName, 'address:', address)
       console.log('Chain ID:', revokeChain.id)
+      
+      // Use Revoke.cash API to get approvals (like Smol Frame does)
+      const revokeCashChainName = getRevokeCashChainName(revokeChain.id)
+      
+      if (!revokeCashChainName) {
+        console.warn('Chain not supported by Revoke.cash API, falling back to on-chain scan')
+        setDebugInfo('Chain not supported by API, using on-chain scan...')
+        await loadApprovalsOnChain()
+        return
+      }
+      
+      console.log('Fetching from Revoke.cash API for chain:', revokeCashChainName)
+      setDebugInfo(`Fetching from Revoke.cash API...`)
+      
+      const apiUrl = `https://api.revoke.cash/v1/allowances/${revokeCashChainName}/${address}`
+      console.log('API URL:', apiUrl)
+      
+      const response = await fetch(apiUrl)
+      
+      if (!response.ok) {
+        console.error('Revoke.cash API failed:', response.status, response.statusText)
+        setDebugInfo('API failed, using on-chain scan...')
+        await loadApprovalsOnChain()
+        return
+      }
+      
+      const data = await response.json()
+      console.log('Revoke.cash API response:', data)
+      
+      if (!data || !Array.isArray(data)) {
+        console.warn('Invalid API response format')
+        setDebugInfo('Invalid API response, using on-chain scan...')
+        await loadApprovalsOnChain()
+        return
+      }
+      
+      console.log(`Found ${data.length} approvals from API`)
+      setDebugInfo(`Processing ${data.length} approvals...`)
+      
+      const foundApprovals: typeof approvals = []
+      
+      for (const approval of data) {
+        try {
+          // Skip if no allowance
+          if (!approval.allowance || approval.allowance === '0') continue
+          
+          const allowanceBigInt = BigInt(approval.allowance)
+          if (allowanceBigInt === 0n) continue
+          
+          const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
+          const isUnlimited = allowanceBigInt >= maxUint256 / 2n
+          
+          const token: RelayCurrency = {
+            address: approval.asset?.address || approval.token_address,
+            symbol: approval.asset?.symbol || 'UNKNOWN',
+            name: approval.asset?.name || 'Unknown Token',
+            decimals: approval.asset?.decimals || 18,
+            chainId: revokeChain.id,
+            metadata: approval.asset?.icon_url ? { logoURI: approval.asset.icon_url } : undefined,
+          }
+          
+          foundApprovals.push({
+            token,
+            spender: approval.spender?.address || approval.spender_address,
+            spenderName: approval.spender?.name || undefined,
+            allowance: approval.allowance,
+            allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(allowanceBigInt, token.decimals),
+            riskLevel: isUnlimited ? 'high' : 'low',
+          })
+          
+          console.log(`✅ Approval: ${token.symbol} → ${approval.spender?.name || approval.spender_address}`)
+        } catch (e) {
+          console.warn('Error processing approval:', e)
+        }
+      }
+      
+      console.log(`🎉 Found ${foundApprovals.length} active approvals`)
+      setApprovals(foundApprovals)
+      
+      if (foundApprovals.length === 0) {
+        toast.success('No active approvals found')
+      } else {
+        toast.success(`Found ${foundApprovals.length} active approval${foundApprovals.length > 1 ? 's' : ''}`)
+      }
+    } catch (error) {
+      const err = error as Error
+      console.error('❌ Failed to load approvals:', err)
+      console.error('Error details:', err.message, err.stack)
+      setDebugInfo('Error loading approvals, trying on-chain scan...')
+      
+      // Fallback to on-chain scanning
+      await loadApprovalsOnChain()
+    } finally {
+      setIsLoadingApprovals(false)
+    }
+  }
+  
+  // Helper function to map chain IDs to Revoke.cash chain names
+  const getRevokeCashChainName = (chainId: number): string | null => {
+    const chainMap: Record<number, string> = {
+      1: 'ethereum',
+      8453: 'base',
+      42161: 'arbitrum',
+      137: 'polygon',
+      10: 'optimism',
+      56: 'bsc',
+      43114: 'avalanche',
+      59144: 'linea',
+      534352: 'scroll',
+      5000: 'mantle',
+      324: 'zksync',
+      250: 'fantom',
+      100: 'gnosis',
+      42220: 'celo',
+    }
+    return chainMap[chainId] || null
+  }
+  
+  // Fallback: On-chain scanning (original method)
+  const loadApprovalsOnChain = async () => {
+    if (!address || !revokeChain) return
+    
+    try {
+      console.log('🔗 Starting on-chain approval scan...')
       console.log('RPC URL:', revokeChain.httpRpcUrl)
       
       const chainConfig = defineChain({
@@ -2202,13 +2327,12 @@ export default function RelaySwap() {
         transport: http(revokeChain.httpRpcUrl),
       })
       
-      // Step 1: Collect all token addresses to check
+      // Collect all token addresses to check
       const tokenAddressSet = new Set<string>()
       const tokenMetadata = new Map<string, RelayCurrency>()
       
-      // Step 2: Get tokens from Alchemy SDK directly
+      // Get tokens from Alchemy SDK directly
       console.log('🔮 Fetching tokens from Alchemy...')
-      setDebugInfo('Fetching tokens from Alchemy...')
       
       try {
         const alchemyNetwork = getAlchemyNetwork(revokeChain.id) as unknown as AlchemyNetwork
@@ -2251,21 +2375,17 @@ export default function RelaySwap() {
             }
           })
           console.log(`✓ Found ${alchemyResponse.data.tokens.length} tokens from Alchemy`)
-          setDebugInfo(`Found ${alchemyResponse.data.tokens.length} tokens from Alchemy`)
         } else {
           console.warn('No tokens in Alchemy response')
-          setDebugInfo('No tokens found in Alchemy response')
         }
       } catch (alchemyError) {
         const err = alchemyError as Error
         console.error('⚠️ Alchemy fetch failed:', err)
         console.error('Error stack:', err.stack)
-        setDebugInfo(`Alchemy failed: ${err.message}`)
       }
       
-      // Step 3: Add popular tokens from Relay
+      // Add popular tokens from Relay
       console.log('📊 Fetching popular tokens from Relay...')
-      setDebugInfo(`Fetching popular tokens... (current: ${tokenAddressSet.size})`)
       
       try {
         const popularTokens = await relayAPI.getCurrencies({
@@ -2287,11 +2407,9 @@ export default function RelaySwap() {
         
         console.log(`✓ Total unique tokens to check: ${tokenAddressSet.size}`)
         console.log('First 10 tokens:', Array.from(tokenAddressSet).slice(0, 10))
-        setDebugInfo(`Total tokens to check: ${tokenAddressSet.size}`)
       } catch (popularError) {
         const err = popularError as Error
         console.error('❌ Popular tokens fetch failed:', err)
-        setDebugInfo(`Popular tokens failed: ${err.message}`)
       }
       
       // Comprehensive protocol spender addresses by chain (like Rabby/Revoke.cash)
@@ -2382,9 +2500,7 @@ export default function RelaySwap() {
       if (tokenAddressSet.size === 0) {
         console.log('⚠️ No tokens found to check')
         setApprovals([])
-        setDebugInfo('No tokens found in wallet')
         toast.info('No tokens found in wallet')
-        setIsLoadingApprovals(false)
         return
       }
       
@@ -2396,12 +2512,9 @@ export default function RelaySwap() {
       const totalChecks = tokenAddressSet.size * spendersToCheck.length
       
       console.log(`📊 Total checks to perform: ${totalChecks}`)
-      setDebugInfo(`Checking ${totalChecks} token-spender combinations...`)
       
-      // Step 4: Check each token against each spender
-      let tokenIndex = 0
+      // Check each token against each spender
       for (const tokenAddress of tokenAddressSet) {
-        tokenIndex++
         const metadata = tokenMetadata.get(tokenAddress)
         const tokenSymbol = metadata?.symbol || tokenAddress.slice(0, 8)
         
@@ -2409,17 +2522,8 @@ export default function RelaySwap() {
           try {
             checkedCount++
             
-            // Log progress every 50 checks
             if (checkedCount % 50 === 0) {
-              const progress = Math.round(checkedCount/totalChecks*100)
-              console.log(`⏳ Progress: ${checkedCount}/${totalChecks} checks (${progress}%)`)
-              setDebugInfo(`Checking... ${progress}% (${foundApprovals.length} found)`)
-            }
-            
-            // Log first few checks in detail
-            if (checkedCount <= 5) {
-              console.log(`Checking: ${tokenSymbol} (${tokenAddress}) → ${spender.name} (${spender.address})`)
-              console.log(`  Owner: ${address}`)
+              console.log(`⏳ Progress: ${checkedCount}/${totalChecks} checks`)
             }
             
             const currentAllowance = await publicClient.readContract({
@@ -2438,11 +2542,6 @@ export default function RelaySwap() {
               args: [address as `0x${string}`, spender.address as `0x${string}`],
             })
             
-            // Log first few results
-            if (checkedCount <= 5) {
-              console.log(`  Result: ${currentAllowance.toString()}`)
-            }
-            
             if (currentAllowance > 0n) {
               const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
               const isUnlimited = currentAllowance >= maxUint256 / 2n
@@ -2455,11 +2554,7 @@ export default function RelaySwap() {
                 chainId: revokeChain.id,
               }
               
-              console.log(`✅ APPROVAL FOUND: ${token.symbol} → ${spender.name}`)
-              console.log(`   Token: ${tokenAddress}`)
-              console.log(`   Spender: ${spender.address}`)
-              console.log(`   Allowance: ${currentAllowance.toString()}`)
-              console.log(`   Is Unlimited: ${isUnlimited}`)
+              console.log(`✅ Approval: ${token.symbol} → ${spender.name}`)
               
               foundApprovals.push({
                 token,
@@ -2467,31 +2562,20 @@ export default function RelaySwap() {
                 spenderName: spender.name,
                 allowance: currentAllowance.toString(),
                 allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(currentAllowance, token.decimals),
+                riskLevel: isUnlimited ? 'high' : 'low',
               })
-              
-              setDebugInfo(`Found ${foundApprovals.length} approval(s)...`)
             }
           } catch (e) {
-            // Log errors for debugging
-            if (checkedCount <= 10) {
-              const error = e as Error
-              console.error(`❌ Error checking ${tokenSymbol} for ${spender.name}:`, error.message)
-              console.error('   Full error:', error)
-            }
+            // Silently skip errors
           }
           
-          // Rate limiting: delay every 20 checks
           if (checkedCount % 20 === 0) {
             await new Promise(resolve => setTimeout(resolve, 100))
           }
         }
       }
       
-      console.log('🎉 Approval scan complete!')
-      console.log(`   Tokens checked: ${tokenAddressSet.size}`)
-      console.log(`   Protocols checked: ${spendersToCheck.length}`)
-      console.log(`   Total checks performed: ${checkedCount}`)
-      console.log(`   Active approvals found: ${foundApprovals.length}`)
+      console.log(`🎉 On-chain scan complete: ${foundApprovals.length} approvals found`)
       
       setApprovals(foundApprovals)
       
@@ -2502,11 +2586,8 @@ export default function RelaySwap() {
       }
     } catch (error) {
       const err = error as Error
-      console.error('❌ Failed to load approvals:', err)
-      console.error('Error details:', err.message, err.stack)
-      toast.error(`Failed to load approvals: ${err.message || 'Unknown error'}`)
-    } finally {
-      setIsLoadingApprovals(false)
+      console.error('❌ On-chain scan failed:', err)
+      toast.error(`Failed to scan approvals: ${err.message || 'Unknown error'}`)
     }
   }
 
@@ -3522,11 +3603,18 @@ export default function RelaySwap() {
                                 <div className="text-xs text-muted-foreground truncate">{approval.token.name}</div>
                               </div>
                             </div>
-                            {approval.allowanceFormatted === 'Unlimited' && (
-                              <Badge variant="destructive" className="text-xs flex-shrink-0">
-                                Unlimited
-                              </Badge>
-                            )}
+                            <div className="flex gap-1 flex-shrink-0">
+                              {approval.allowanceFormatted === 'Unlimited' && (
+                                <Badge variant="destructive" className="text-xs">
+                                  Unlimited
+                                </Badge>
+                              )}
+                              {approval.riskLevel === 'high' && (
+                                <Badge variant="destructive" className="text-xs">
+                                  High Risk
+                                </Badge>
+                              )}
+                            </div>
                           </div>
                           
                           <Separator />
