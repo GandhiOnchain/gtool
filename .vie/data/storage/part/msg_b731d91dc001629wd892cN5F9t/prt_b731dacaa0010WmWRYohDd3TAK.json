@@ -1,0 +1,25 @@
+{
+  "id": "prt_b731dacaa0010WmWRYohDd3TAK",
+  "messageID": "msg_b731d91dc001629wd892cN5F9t",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_016M9VkrzqX4JXvjyVanZCe9",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 455,
+      "limit": 50
+    },
+    "output": "<file>\n00456|         setContractAddressSearch('')\n00457|       } else {\n00458|         toast.error('Token not found on any supported chain')\n00459|       }\n00460|     } catch (error) {\n00461|       console.error('Failed to search token:', error)\n00462|       toast.error('Failed to search token')\n00463|     }\n00464|   }\n00465| \n00466|   const fetchQuote = async () => {\n00467|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return\n00468| \n00469|     setIsLoadingQuote(true)\n00470|     try {\n00471|       const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n00472|       const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()\n00473|       \n00474|       const includedSources = Object.entries(enabledSources)\n00475|         .filter(([_, enabled]) => enabled)\n00476|         .map(([source]) => source)\n00477|       \n00478|       const fromVMType = fromChain.vmType || 'evm'\n00479|       const toVMType = toChain.vmType || 'evm'\n00480|       const isCrossVM = fromVMType !== toVMType\n00481|       \n00482|       const quoteParams = {\n00483|         user: address,\n00484|         originChainId: fromChain.id,\n00485|         destinationChainId: toChain.id,\n00486|         originCurrency: fromToken.address,\n00487|         destinationCurrency: toToken.address,\n00488|         amount: amountInWei.toString(),\n00489|         tradeType: 'EXACT_INPUT' as const,\n00490|         slippageTolerance: slippageBps,\n00491|         recipient: isCrossVM && recipientAddress ? recipientAddress : undefined,\n00492|         includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n00493|         useExternalLiquidity: isCrossVM ? true : undefined,\n00494|       }\n00495|       \n00496|       const quoteData = await relayAPI.getQuote(quoteParams)\n00497|       \n00498|       setQuote(quoteData)\n00499|       if (quoteData.details.currencyOut) {\n00500|         setToAmount(quoteData.details.currencyOut.amountFormatted)\n00501|       }\n00502|     } catch (error) {\n00503|       console.error('Failed to fetch quote:', error)\n00504|       const errorMessage = error instanceof Error ? error.message : 'Failed to get quote'\n00505|       toast.error(errorMessage)\n\n(File has more lines. Use 'offset' parameter to read beyond line 505)\n</file>",
+    "metadata": {
+      "preview": "        setContractAddressSearch('')\n      } else {\n        toast.error('Token not found on any supported chain')\n      }\n    } catch (error) {\n      console.error('Failed to search token:', error)\n      toast.error('Failed to search token')\n    }\n  }\n\n  const fetchQuote = async () => {\n    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return\n\n    setIsLoadingQuote(true)\n    try {\n      const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n      const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()\n      \n      const includedSources = Object.entries(enabledSources)\n        .filter(([_, enabled]) => enabled)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767162884133,
+      "end": 1767162884135
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b731db641001wkNJD9XyP0E1O3",
+  "messageID": "msg_b731d91dc001629wd892cN5F9t",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "I see the issue. For cross-VM swaps, the recipient address field is shown but it's checking the wrong condition. Let me check what chains are non-EVM and fix the logic:",
+  "time": {
+    "start": 1767162888968,
+    "end": 1767162888968
+  }
+}

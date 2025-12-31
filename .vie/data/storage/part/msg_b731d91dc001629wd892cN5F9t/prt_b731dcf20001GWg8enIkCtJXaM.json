@@ -1,0 +1,25 @@
+{
+  "id": "prt_b731dcf20001GWg8enIkCtJXaM",
+  "messageID": "msg_b731d91dc001629wd892cN5F9t",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01FGwE59CFZEUS3ZxRSj6u8r",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1088,
+      "limit": 20
+    },
+    "output": "<file>\n01089|                     </Button>\n01090|                     <Button\n01091|                       variant=\"outline\"\n01092|                       size=\"sm\"\n01093|                       onClick={() => setPercentageAmount(100)}\n01094|                       className=\"flex-1 h-6 text-xs\"\n01095|                       disabled={!fromBalance}\n01096|                     >\n01097|                       MAX\n01098|                     </Button>\n01099|                   </div>\n01100|                 </div>\n01101|               </div>\n01102|             </Card>\n01103| \n01104|             <div className=\"flex justify-center -my-1\">\n01105|               <Button\n01106|                 variant=\"ghost\"\n01107|                 size=\"sm\"\n01108|                 onClick={switchChains}\n\n(File has more lines. Use 'offset' parameter to read beyond line 1108)\n</file>",
+    "metadata": {
+      "preview": "                    </Button>\n                    <Button\n                      variant=\"outline\"\n                      size=\"sm\"\n                      onClick={() => setPercentageAmount(100)}\n                      className=\"flex-1 h-6 text-xs\"\n                      disabled={!fromBalance}\n                    >\n                      MAX\n                    </Button>\n                  </div>\n                </div>\n              </div>\n            </Card>\n\n            <div className=\"flex justify-center -my-1\">\n              <Button\n                variant=\"ghost\"\n                size=\"sm\"\n                onClick={switchChains}"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767162893242,
+      "end": 1767162893244
+    }
+  }
+}

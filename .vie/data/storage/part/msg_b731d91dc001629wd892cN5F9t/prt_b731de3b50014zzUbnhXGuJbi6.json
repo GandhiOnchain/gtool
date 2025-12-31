@@ -1,0 +1,11 @@
+{
+  "id": "prt_b731de3b50014zzUbnhXGuJbi6",
+  "messageID": "msg_b731d91dc001629wd892cN5F9t",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "I see the issue. The recipient address field condition is wrong - it's checking if the destination chain is non-EVM, but it should check if it's a cross-VM swap (different VM types). Also, the field needs to be required for cross-VM swaps. Let me fix this:",
+  "time": {
+    "start": 1767162905019,
+    "end": 1767162905019
+  }
+}

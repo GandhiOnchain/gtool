@@ -1,0 +1,11 @@
+{
+  "id": "prt_b731e079e001YGOZFqThyImD5L",
+  "messageID": "msg_b731d91dc001629wd892cN5F9t",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Now let me add validation to prevent swapping without a recipient address for cross-VM swaps:",
+  "time": {
+    "start": 1767162922652,
+    "end": 1767162922652
+  }
+}

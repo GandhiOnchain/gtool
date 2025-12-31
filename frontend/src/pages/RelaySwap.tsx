@@ -520,6 +520,18 @@ export default function RelaySwap() {
       return
     }
 
+    // Check for cross-VM swap recipient requirement
+    if (fromChain && toChain) {
+      const fromVMType = fromChain.vmType || 'evm'
+      const toVMType = toChain.vmType || 'evm'
+      const isCrossVM = fromVMType !== toVMType
+      
+      if (isCrossVM && !recipientAddress) {
+        toast.error(`Recipient address required for ${toChain.displayName}`)
+        return
+      }
+    }
+
     try {
       const depositStep = quote.steps.find(s => s.id === 'deposit')
       if (!depositStep || !depositStep.items || depositStep.items.length === 0) {
@@ -533,6 +545,7 @@ export default function RelaySwap() {
         value: txData.value,
         chainId: txData.chainId,
         connectedChainId,
+        recipientAddress,
       })
 
       // Check if we need to switch chains
@@ -1179,22 +1192,30 @@ export default function RelaySwap() {
               </div>
             </Card>
 
-            {toChain && fromChain && toChain.id !== fromChain.id && (toChain.vmType && toChain.vmType !== 'evm') && (
-              <Card className="p-3 bg-muted/50">
-                <div className="space-y-2">
-                  <div className="text-xs font-medium">Recipient Address ({toChain.displayName})</div>
-                  <Input
-                    placeholder={`Enter ${toChain.displayName} address`}
-                    value={recipientAddress}
-                    onChange={(e) => setRecipientAddress(e.target.value)}
-                    className="h-8 text-xs"
-                  />
-                  <div className="text-xs text-muted-foreground">
-                    Required for swaps to {toChain.displayName}
+            {(() => {
+              const fromVMType = fromChain?.vmType || 'evm'
+              const toVMType = toChain?.vmType || 'evm'
+              const isCrossVM = fromVMType !== toVMType
+              
+              return isCrossVM && toChain && fromChain && (
+                <Card className="p-3 bg-muted/50 border-accent">
+                  <div className="space-y-2">
+                    <div className="text-xs font-medium">
+                      Recipient Address ({toChain.displayName}) <span className="text-destructive">*</span>
+                    </div>
+                    <Input
+                      placeholder={`Enter ${toChain.displayName} address (required for cross-VM swap)`}
+                      value={recipientAddress}
+                      onChange={(e) => setRecipientAddress(e.target.value)}
+                      className="h-8 text-xs"
+                    />
+                    <div className="text-xs text-muted-foreground">
+                      Cross-VM swap detected: {fromChain.displayName} ({fromVMType}) → {toChain.displayName} ({toVMType})
+                    </div>
                   </div>
-                </div>
-              </Card>
-            )}
+                </Card>
+              )
+            })()}
 
             {quote && (
               <Card className="p-3 bg-card">
@@ -1229,7 +1250,20 @@ export default function RelaySwap() {
 
             <Button
               onClick={executeSwap}
-              disabled={!quote || isSwapping || !isConnected}
+              disabled={(() => {
+                if (!quote || isSwapping || !isConnected) return true
+                
+                // Check if cross-VM swap requires recipient address
+                if (fromChain && toChain) {
+                  const fromVMType = fromChain.vmType || 'evm'
+                  const toVMType = toChain.vmType || 'evm'
+                  const isCrossVM = fromVMType !== toVMType
+                  
+                  if (isCrossVM && !recipientAddress) return true
+                }
+                
+                return false
+              })()}
               className="w-full h-10"
             >
               {isSwapping ? 'Swapping...' : isLoadingQuote ? 'Loading...' : 'Swap'}

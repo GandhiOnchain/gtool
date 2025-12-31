@@ -1,0 +1,11 @@
+{
+  "id": "prt_b731eabe7001fTr2YytKVhLqUq",
+  "messageID": "msg_b731d91dc001629wd892cN5F9t",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! I've fixed the cross-VM swap issues:\n\n**Changes made:**\n\n1. **Fixed recipient address field visibility** - Now correctly detects cross-VM swaps by comparing VM types (e.g., EVM to Solana, EVM to Bitcoin) instead of just checking if destination is non-EVM\n\n2. **Added visual indicator** - Shows which VM types are being swapped between (e.g., \"Cross-VM swap detected: Base (evm) → Solana (svm)\")\n\n3. **Required field validation** - Recipient address is now marked as required (*) for cross-VM swaps\n\n4. **Swap button validation** - The swap button is disabled until you enter a recipient address for cross-VM swaps\n\n5. **Runtime validation** - Added a check before executing the swap to ensure recipient address is provided for cross-VM swaps\n\nNow when you try to swap between different VM types (like EVM to Solana):\n- The recipient address field will appear with a clear indicator\n- The swap button will be disabled until you enter the destination address\n- You'll see which VM types you're swapping between\n- The quote will include `useExternalLiquidity: true` for cross-VM swaps\n\nTry a cross-VM swap now - it should work properly with the recipient address field.",
+  "time": {
+    "start": 1767162954988,
+    "end": 1767162954988
+  }
+}
