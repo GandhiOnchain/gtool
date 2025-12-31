@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73d351de00134UDUJsoTTyvKf",
+  "messageID": "msg_b73d34206001zxICZmFGaessKK",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "I can see the issue! The batch swap shows \"2 tokens detected with balance\" (DAI: 0.122453 and USDC: 0.080718) but when you click \"Execute Batch Swap\", it says \"No transactions to execute\".\n\nThe problem is in the filtering logic. Let me check:",
+  "time": {
+    "start": 1767174791867,
+    "end": 1767174791867
+  }
+}

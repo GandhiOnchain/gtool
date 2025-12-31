@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73d38bd9001XeY9EE7j2fxLAd",
+  "messageID": "msg_b73d34206001zxICZmFGaessKK",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "The logic looks correct. The issue might be that the multi-input quote doesn't have a 'deposit' step, or it might have a different step ID. Let me add logging to see what steps are returned:",
+  "time": {
+    "start": 1767174815596,
+    "end": 1767174815596
+  }
+}

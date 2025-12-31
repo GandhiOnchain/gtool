@@ -1219,7 +1219,8 @@ export default function RelaySwap() {
         tradeType: 'EXACT_INPUT',
       })
 
-      console.log('Batch quote received, executing transactions...')
+      console.log('Batch quote received:', multiQuote)
+      console.log('Steps in quote:', multiQuote.steps.map(s => ({ id: s.id, itemCount: s.items?.length })))
 
       // Collect all transactions to execute
       const transactions: Array<{
@@ -1232,9 +1233,18 @@ export default function RelaySwap() {
       }> = []
       
       for (const step of multiQuote.steps) {
-        if (step.id === 'deposit' && step.items) {
+        console.log('Processing step:', step.id, 'items:', step.items?.length)
+        
+        // Multi-input quotes might use different step IDs
+        if ((step.id === 'deposit' || step.id === 'swap' || step.kind === 'transaction') && step.items) {
           for (const item of step.items) {
             const txData = item.data
+            console.log('Adding transaction:', {
+              to: txData.to,
+              value: txData.value,
+              stepId: step.id,
+            })
+            
             transactions.push({
               to: txData.to as `0x${string}`,
               data: txData.data as `0x${string}`,
@@ -1247,8 +1257,11 @@ export default function RelaySwap() {
         }
       }
 
+      console.log('Total transactions to execute:', transactions.length)
+
       if (transactions.length === 0) {
-        toast.error('No transactions to execute')
+        console.error('No transactions found in quote steps')
+        toast.error('No transactions to execute. The quote may not have generated valid transactions.')
         setIsSwapping(false)
         return
       }

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73d419b3001wk3Pf90Y5evXAI",
+  "messageID": "msg_b73d34206001zxICZmFGaessKK",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Good! Now the code will log what steps are in the quote and check for multiple step types. The issue is likely that multi-input quotes use different step IDs than regular quotes. The fix I added will:\n\n1. **Log all steps** in the quote so we can see what's being returned\n2. **Check multiple step types**: `deposit`, `swap`, or any step with `kind === 'transaction'`\n3. **Show detailed error** if no transactions are found\n\nThis should now properly detect and execute the batch swap transactions. The console logs will show exactly what steps are in the quote, which will help us understand if there's a different step structure for multi-input swaps.",
+  "time": {
+    "start": 1767174843308,
+    "end": 1767174843308
+  }
+}
