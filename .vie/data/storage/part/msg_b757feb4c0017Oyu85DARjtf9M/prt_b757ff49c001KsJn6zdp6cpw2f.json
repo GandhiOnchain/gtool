@@ -1,0 +1,11 @@
+{
+  "id": "prt_b757ff49c001KsJn6zdp6cpw2f",
+  "messageID": "msg_b757feb4c0017Oyu85DARjtf9M",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "I understand your frustration. The issue is that the Revoke.cash API is failing and falling back to on-chain scanning. Let me check the browser console to see the exact error and fix it properly.\n\nThe problem is likely:\n1. CORS blocking the API call\n2. Wrong API endpoint format\n3. API authentication needed\n\nLet me implement a proper solution using a CORS proxy or alternative approach:",
+  "time": {
+    "start": 1767202883882,
+    "end": 1767202883882
+  }
+}

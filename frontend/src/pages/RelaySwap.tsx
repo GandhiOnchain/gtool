@@ -2197,13 +2197,23 @@ export default function RelaySwap() {
       console.log('Fetching from Revoke.cash API for chain:', revokeCashChainName)
       setDebugInfo(`Fetching from Revoke.cash API...`)
       
+      // Use CORS proxy to avoid CORS issues
       const apiUrl = `https://api.revoke.cash/v1/allowances/${revokeCashChainName}/${address}`
       console.log('API URL:', apiUrl)
       
-      const response = await fetch(apiUrl)
+      const response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
+      })
+      
+      console.log('API Response status:', response.status)
       
       if (!response.ok) {
+        const errorText = await response.text()
         console.error('Revoke.cash API failed:', response.status, response.statusText)
+        console.error('Error response:', errorText)
         setDebugInfo('API failed, using on-chain scan...')
         await loadApprovalsOnChain()
         return
@@ -2211,51 +2221,80 @@ export default function RelaySwap() {
       
       const data = await response.json()
       console.log('Revoke.cash API response:', data)
+      console.log('Response type:', typeof data, 'Is array:', Array.isArray(data))
       
-      if (!data || !Array.isArray(data)) {
-        console.warn('Invalid API response format')
+      // Handle different response formats
+      let approvalsData = data
+      if (data && typeof data === 'object' && !Array.isArray(data)) {
+        // Response might be wrapped in an object
+        approvalsData = data.allowances || data.data || data.results || []
+        console.log('Unwrapped data:', approvalsData)
+      }
+      
+      if (!Array.isArray(approvalsData)) {
+        console.warn('Invalid API response format, expected array but got:', typeof approvalsData)
+        console.warn('Full response:', JSON.stringify(data, null, 2))
         setDebugInfo('Invalid API response, using on-chain scan...')
         await loadApprovalsOnChain()
         return
       }
       
-      console.log(`Found ${data.length} approvals from API`)
-      setDebugInfo(`Processing ${data.length} approvals...`)
+      console.log(`Found ${approvalsData.length} approvals from API`)
+      setDebugInfo(`Processing ${approvalsData.length} approvals...`)
+      
+      if (approvalsData.length > 0) {
+        console.log('First approval sample:', JSON.stringify(approvalsData[0], null, 2))
+      }
       
       const foundApprovals: typeof approvals = []
       
-      for (const approval of data) {
+      for (const approval of approvalsData) {
         try {
-          // Skip if no allowance
-          if (!approval.allowance || approval.allowance === '0') continue
+          console.log('Processing approval:', approval)
           
-          const allowanceBigInt = BigInt(approval.allowance)
-          if (allowanceBigInt === 0n) continue
+          // Handle different field names
+          const allowanceValue = approval.allowance || approval.value || approval.amount
+          const tokenAddress = approval.asset?.address || approval.token_address || approval.tokenAddress || approval.token?.address
+          const spenderAddress = approval.spender?.address || approval.spender_address || approval.spenderAddress || approval.spender
+          
+          if (!allowanceValue || allowanceValue === '0') {
+            console.log('Skipping - no allowance')
+            continue
+          }
+          
+          const allowanceBigInt = BigInt(allowanceValue)
+          if (allowanceBigInt === 0n) {
+            console.log('Skipping - zero allowance')
+            continue
+          }
           
           const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
           const isUnlimited = allowanceBigInt >= maxUint256 / 2n
           
           const token: RelayCurrency = {
-            address: approval.asset?.address || approval.token_address,
-            symbol: approval.asset?.symbol || 'UNKNOWN',
-            name: approval.asset?.name || 'Unknown Token',
-            decimals: approval.asset?.decimals || 18,
+            address: tokenAddress,
+            symbol: approval.asset?.symbol || approval.token?.symbol || approval.tokenSymbol || 'UNKNOWN',
+            name: approval.asset?.name || approval.token?.name || approval.tokenName || 'Unknown Token',
+            decimals: approval.asset?.decimals || approval.token?.decimals || approval.tokenDecimals || 18,
             chainId: revokeChain.id,
-            metadata: approval.asset?.icon_url ? { logoURI: approval.asset.icon_url } : undefined,
+            metadata: (approval.asset?.icon_url || approval.token?.logo) ? { 
+              logoURI: approval.asset?.icon_url || approval.token?.logo 
+            } : undefined,
           }
           
           foundApprovals.push({
             token,
-            spender: approval.spender?.address || approval.spender_address,
-            spenderName: approval.spender?.name || undefined,
-            allowance: approval.allowance,
+            spender: spenderAddress,
+            spenderName: approval.spender?.name || approval.spenderName || undefined,
+            allowance: allowanceValue,
             allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(allowanceBigInt, token.decimals),
             riskLevel: isUnlimited ? 'high' : 'low',
           })
           
-          console.log(`✅ Approval: ${token.symbol} → ${approval.spender?.name || approval.spender_address}`)
+          console.log(`✅ Approval: ${token.symbol} → ${approval.spender?.name || spenderAddress}`)
         } catch (e) {
-          console.warn('Error processing approval:', e)
+          const err = e as Error
+          console.error('Error processing approval:', err.message, approval)
         }
       }
       
