@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7416230a00135NCIhWtKTmFvt",
+  "messageID": "msg_b74160c1a0014KBLjDR9Udfkn9",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "I see the issue. For batch swaps, we're only looking at the `currency` field which is a single token address, but batch swaps involve multiple different tokens. We need to decode each transaction's data to find out which token is being swapped. Let me fix this:",
+  "time": {
+    "start": 1767179183498,
+    "end": 1767179183498
+  }
+}

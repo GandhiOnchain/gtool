@@ -1590,40 +1590,77 @@ export default function RelaySwap() {
         // For batch swaps, collect all input tokens
         let batchTokens: Array<{ symbol: string; amount: string; logo?: string; address: string }> = []
         if (transactionType === 'batch' && req.data.inTxs && req.data.inTxs.length > 1) {
+          console.log('Processing batch swap with', req.data.inTxs.length, 'input transactions')
+          
           for (const inTx of req.data.inTxs) {
             try {
-              const rawAmount = inTx.data?.value || '0'
-              let tokenCurrency: RelayCurrency | null = null
+              let rawAmount = inTx.data?.value || '0'
+              let tokenAddress = currencyAddress // Default to the main currency
               
-              // Try to fetch currency for this specific transaction
-              if (currencyAddress && inTx.chainId) {
-                const currencies = await relayAPI.getCurrencies({
-                  address: currencyAddress,
-                  chainIds: [inTx.chainId],
-                  limit: 1,
-                })
-                tokenCurrency = currencies[0] || null
+              // Check if this is an ERC-20 transaction by looking at the data field
+              if (inTx.data?.data && inTx.data.data.length > 10) {
+                const txData = inTx.data.data
+                
+                // For ERC-20 transfers, the token address is the 'to' field
+                // and the amount is encoded in the data
+                if (txData.startsWith('0xa9059cbb') || txData.startsWith('0x095ea7b3')) {
+                  // This is an ERC-20 transfer/approve
+                  tokenAddress = inTx.data.to // The contract being called is the token
+                  
+                  // Decode amount from the last 64 characters
+                  try {
+                    const amountHex = '0x' + txData.slice(-64)
+                    rawAmount = BigInt(amountHex).toString()
+                    console.log('Decoded batch ERC-20 amount:', rawAmount, 'for token:', tokenAddress)
+                  } catch (e) {
+                    console.error('Error decoding batch ERC-20 amount:', e)
+                  }
+                } else {
+                  // Might be a native token transfer
+                  tokenAddress = '0x0000000000000000000000000000000000000000'
+                }
+              }
+              
+              // Fetch currency details for this specific token
+              let tokenCurrency: RelayCurrency | null = null
+              try {
+                if (tokenAddress && inTx.chainId) {
+                  const currencies = await relayAPI.getCurrencies({
+                    address: tokenAddress,
+                    chainIds: [inTx.chainId],
+                    limit: 1,
+                  })
+                  tokenCurrency = currencies[0] || null
+                  console.log('Fetched batch token currency:', tokenCurrency?.symbol, tokenCurrency?.address)
+                }
+              } catch (e) {
+                console.error('Failed to fetch batch token currency:', e)
               }
               
               const decimals = tokenCurrency?.decimals || 18
               const symbol = tokenCurrency?.symbol || 'Unknown'
               const logo = tokenCurrency?.metadata?.logoURI
-              const address = tokenCurrency?.address || currencyAddress || '0x0'
+              const address = tokenCurrency?.address || tokenAddress || '0x0'
               
               let amount = '0'
               if (rawAmount && rawAmount !== '0') {
                 try {
                   amount = parseFloat(formatUnits(BigInt(rawAmount), decimals)).toFixed(6)
+                  console.log('Formatted batch token amount:', amount, symbol)
                 } catch (e) {
                   console.error('Error formatting batch token amount:', e)
                 }
               }
               
-              batchTokens.push({ symbol, amount, logo, address })
+              if (parseFloat(amount) > 0) {
+                batchTokens.push({ symbol, amount, logo, address })
+              }
             } catch (e) {
               console.error('Error processing batch token:', e)
             }
           }
+          
+          console.log('Final batch tokens:', batchTokens)
         }
         
         // Process input transaction
@@ -1657,8 +1694,9 @@ export default function RelaySwap() {
               try {
                 const data = inTx.data.data
                 // Check if it's a transfer or approve function (0xa9059cbb or 0x095ea7b3)
-                if (data.startsWith('0xa9059cbb') || data.startsWith('0x095ea7b3')) {
-                  // Amount is the last 32 bytes (64 hex chars)
+                // Or any other function that might have an amount parameter
+                if (data.startsWith('0xa9059cbb') || data.startsWith('0x095ea7b3') || data.length >= 138) {
+                  // Amount is typically the last 32 bytes (64 hex chars)
                   const amountHex = '0x' + data.slice(-64)
                   rawAmount = BigInt(amountHex).toString()
                   console.log('Decoded ERC-20 amount from data:', rawAmount)
@@ -1666,6 +1704,9 @@ export default function RelaySwap() {
               } catch (e) {
                 console.error('Error decoding ERC-20 amount:', e)
               }
+            } else if (rawAmount === '0' && fromCurrency) {
+              // If we still have 0 and we know it's an ERC-20, there might be an issue
+              console.warn('ERC-20 token but amount is 0, data length:', inTx.data?.data?.length)
             }
           } else if (originChain) {
             fromDecimals = originChain.currency.decimals
@@ -1711,7 +1752,7 @@ export default function RelaySwap() {
             if (outTx.data?.data && outTx.data.data.length > 10 && rawAmount === '0') {
               try {
                 const data = outTx.data.data
-                if (data.startsWith('0xa9059cbb') || data.startsWith('0x095ea7b3')) {
+                if (data.startsWith('0xa9059cbb') || data.startsWith('0x095ea7b3') || data.length >= 138) {
                   const amountHex = '0x' + data.slice(-64)
                   rawAmount = BigInt(amountHex).toString()
                   console.log('Decoded ERC-20 amount from data:', rawAmount)
@@ -1719,6 +1760,8 @@ export default function RelaySwap() {
               } catch (e) {
                 console.error('Error decoding ERC-20 amount:', e)
               }
+            } else if (rawAmount === '0' && toCurrency) {
+              console.warn('ERC-20 token but to amount is 0, data length:', outTx.data?.data?.length)
             }
           } else if (destChain) {
             toDecimals = destChain.currency.decimals
