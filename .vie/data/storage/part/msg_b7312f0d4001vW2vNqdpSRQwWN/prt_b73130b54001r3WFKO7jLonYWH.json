@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73130b54001r3WFKO7jLonYWH",
+  "messageID": "msg_b7312f0d4001vW2vNqdpSRQwWN",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "The issue is that `sendTransaction` from wagmi returns a promise that resolves to a transaction hash, not the transaction itself. Let me check the actual wagmi hook usage:",
+  "time": {
+    "start": 1767162189449,
+    "end": 1767162189449
+  }
+}

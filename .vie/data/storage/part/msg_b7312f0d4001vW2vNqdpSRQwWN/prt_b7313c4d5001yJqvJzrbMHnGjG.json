@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7313c4d5001yJqvJzrbMHnGjG",
+  "messageID": "msg_b7312f0d4001vW2vNqdpSRQwWN",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "The issue was that `sendTransaction` from wagmi is not an async function - it's a mutation function that triggers the wallet modal immediately when called. I've fixed it to:\n\n1. Call `sendTransaction` synchronously (not with `await`)\n2. Use the callbacks (`onSuccess`, `onError`) to handle the result\n3. The wallet modal should now open immediately when you click swap\n\nThe key changes:\n- Removed `await` from `sendTransaction` calls\n- Added proper callbacks for success/error handling\n- The transaction will trigger the wallet modal right away instead of waiting\n\nTry it now - the wallet should open when you hit the swap button.",
+  "time": {
+    "start": 1767162237966,
+    "end": 1767162237966
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7312fa4c001OIFqJFjVjF9IMJ",
+  "messageID": "msg_b7312f0d4001vW2vNqdpSRQwWN",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Gj8BPSwfCzsTAXUVoP3MrY",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && npm list wagmi viem @farcaster/miniapp-sdk 2>/dev/null | grep -E \"wagmi|viem|@farcaster\"",
+      "description": "Check installed package versions"
+    },
+    "output": "+-- @farcaster/miniapp-sdk@0.2.1\n+-- @farcaster/miniapp-wagmi-connector@1.1.0\n| +-- @farcaster/miniapp-sdk@0.2.1 deduped\n| +-- @wagmi/core@2.21.1\n| | `-- viem@2.37.7 deduped\n| `-- viem@2.37.7 deduped\n| | `-- viem@2.37.6\n| | `-- viem@2.37.7 deduped\n| | `-- viem@2.37.7 deduped\n| | `-- viem@2.37.6\n| | | | `-- viem@2.37.6\n| | | | |   `-- viem@2.23.2\n| | | | `-- viem@2.37.6\n| | | | |   `-- viem@2.23.2\n| | | | `-- viem@2.37.6\n| | | |   `-- viem@2.23.2\n| | | `-- viem@2.37.6\n| |   `-- viem@2.31.0\n| `-- viem@2.37.6\n+-- @privy-io/wagmi@2.0.0\n| +-- viem@2.37.7 deduped\n| `-- wagmi@2.17.2 deduped\n+-- viem@2.37.7\n`-- wagmi@2.17.2\n  +-- @wagmi/connectors@5.10.2\n  | | `-- viem@2.37.6\n  | | `-- viem@2.37.7 deduped\n  | | `-- viem@2.37.6\n  | |   `-- viem@2.23.2\n  | `-- viem@2.37.7 deduped\n  `-- viem@2.37.7 deduped\n",
+    "metadata": {
+      "output": "+-- @farcaster/miniapp-sdk@0.2.1\n+-- @farcaster/miniapp-wagmi-connector@1.1.0\n| +-- @farcaster/miniapp-sdk@0.2.1 deduped\n| +-- @wagmi/core@2.21.1\n| | `-- viem@2.37.7 deduped\n| `-- viem@2.37.7 deduped\n| | `-- viem@2.37.6\n| | `-- viem@2.37.7 deduped\n| | `-- viem@2.37.7 deduped\n| | `-- viem@2.37.6\n| | | | `-- viem@2.37.6\n| | | | |   `-- viem@2.23.2\n| | | | `-- viem@2.37.6\n| | | | |   `-- viem@2.23.2\n| | | | `-- viem@2.37.6\n| | | |   `-- viem@2.23.2\n| | | `-- viem@2.37.6\n| |   `-- viem@2.31.0\n| `-- viem@2.37.6\n+-- @privy-io/wagmi@2.0.0\n| +-- viem@2.37.7 deduped\n| `-- wagmi@2.17.2 deduped\n+-- viem@2.37.7\n`-- wagmi@2.17.2\n  +-- @wagmi/connectors@5.10.2\n  | | `-- viem@2.37.6\n  | | `-- viem@2.37.7 deduped\n  | | `-- viem@2.37.6\n  | |   `-- viem@2.23.2\n  | `-- viem@2.37.7 deduped\n  `-- viem@2.37.7 deduped\n",
+      "exit": 0,
+      "description": "Check installed package versions"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && npm list wagmi viem @farcaster/miniapp-sdk 2>/dev/null | grep -E \"wagmi|viem|@farcaster\"",
+    "time": {
+      "start": 1767162183825,
+      "end": 1767162185211
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73131ba5001loVcPggmBXE1EH",
+  "messageID": "msg_b7312f0d4001vW2vNqdpSRQwWN",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "I see the issue! `sendTransaction` from wagmi is not async - it's a mutation function. The transaction hash is returned in the `data` field. Let me fix this properly:",
+  "time": {
+    "start": 1767162203449,
+    "end": 1767162203449
+  }
+}

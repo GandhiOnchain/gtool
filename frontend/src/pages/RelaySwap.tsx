@@ -111,7 +111,7 @@ export default function RelaySwap() {
   const [fromTokenPrice, setFromTokenPrice] = useState<number>(0)
   const [toTokenPrice, setToTokenPrice] = useState<number>(0)
 
-  const { sendTransaction, data: txHash } = useSendTransaction()
+  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
 
   const { data: fromBalance } = useBalance({
@@ -508,7 +508,7 @@ export default function RelaySwap() {
     }
   }
 
-  const executeSwap = async () => {
+  const executeSwap = () => {
     if (!quote || !quote.steps || quote.steps.length === 0) {
       toast.error('No quote available')
       return
@@ -519,7 +519,6 @@ export default function RelaySwap() {
       return
     }
 
-    setIsSwapping(true)
     try {
       const depositStep = quote.steps.find(s => s.id === 'deposit')
       if (!depositStep || !depositStep.items || depositStep.items.length === 0) {
@@ -534,16 +533,27 @@ export default function RelaySwap() {
         chainId: txData.chainId,
       })
 
-      await sendTransaction({
+      setIsSwapping(true)
+
+      sendTransaction({
         to: txData.to as `0x${string}`,
         data: txData.data as `0x${string}`,
         value: BigInt(txData.value),
         chainId: txData.chainId,
+      }, {
+        onSuccess: (hash) => {
+          console.log('Transaction submitted:', hash)
+          if (depositStep.requestId) {
+            monitorSwapStatus(depositStep.requestId)
+          }
+        },
+        onError: (error) => {
+          console.error('Swap failed:', error)
+          const errorMessage = error instanceof Error ? error.message : 'Swap failed'
+          toast.error(errorMessage)
+          setIsSwapping(false)
+        }
       })
-
-      if (depositStep.requestId) {
-        monitorSwapStatus(depositStep.requestId)
-      }
     } catch (error) {
       console.error('Swap failed:', error)
       const errorMessage = error instanceof Error ? error.message : 'Swap failed'
@@ -637,31 +647,28 @@ export default function RelaySwap() {
       for (const step of multiQuote.steps) {
         if (step.id === 'deposit' && step.items) {
           for (const item of step.items) {
-            try {
-              const txData = item.data
-              await sendTransaction({
-                to: txData.to as `0x${string}`,
-                data: txData.data as `0x${string}`,
-                value: BigInt(txData.value),
-                chainId: txData.chainId,
-              })
-              successCount++
-              await new Promise(resolve => setTimeout(resolve, 1000))
-            } catch (txError) {
-              console.error('Transaction failed:', txError)
-              // Continue with other transactions even if one fails
-            }
+            const txData = item.data
+            sendTransaction({
+              to: txData.to as `0x${string}`,
+              data: txData.data as `0x${string}`,
+              value: BigInt(txData.value),
+              chainId: txData.chainId,
+            }, {
+              onSuccess: () => {
+                successCount++
+              },
+              onError: (error) => {
+                console.error('Transaction failed:', error)
+              }
+            })
+            await new Promise(resolve => setTimeout(resolve, 1000))
           }
         }
       }
 
-      if (successCount > 0) {
-        toast.success(`Batch swap initiated: ${successCount} transactions submitted`)
-        updateUserStreak()
-        setBatchTokens([])
-      } else {
-        toast.error('All batch swap transactions failed')
-      }
+      toast.success(`Batch swap initiated`)
+      updateUserStreak()
+      setBatchTokens([])
     } catch (error) {
       console.error('Batch swap failed:', error)
       const errorMessage = error instanceof Error ? error.message : 'Batch swap failed'
