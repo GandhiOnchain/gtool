@@ -1,0 +1,11 @@
+{
+  "id": "prt_b733e36fb001I4ywM8iropCtQH",
+  "messageID": "msg_b733e017b001EkJqNFLOeC6k9s",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "The issue is that the code is still calling `relayAPI.executeSwap` which only works for EVM chains. Let me update it to use the swap router which supports cross-VM swaps. I'll update the key parts:",
+  "time": {
+    "start": 1767165018091,
+    "end": 1767165018091
+  }
+}

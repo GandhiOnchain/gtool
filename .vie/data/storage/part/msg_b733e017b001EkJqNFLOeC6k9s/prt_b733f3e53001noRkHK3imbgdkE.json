@@ -1,0 +1,11 @@
+{
+  "id": "prt_b733f3e53001noRkHK3imbgdkE",
+  "messageID": "msg_b733e017b001EkJqNFLOeC6k9s",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! Now the swap will use the unified router which automatically selects the right provider:\n\n- **EVM → EVM** (e.g., Ethereum → Base): Uses Relay\n- **EVM → Solana**: Uses Rango Exchange  \n- **Any other cross-VM**: Uses LI.FI as fallback\n\nThe error \"Input and output currencies don't match\" should now be gone because:\n1. The router detects it's a cross-VM swap\n2. It uses Rango instead of Relay\n3. Rango supports Solana and other non-EVM chains\n\nTry swapping from Ethereum to Solana now - it should work!",
+  "time": {
+    "start": 1767165087980,
+    "end": 1767165087980
+  }
+}

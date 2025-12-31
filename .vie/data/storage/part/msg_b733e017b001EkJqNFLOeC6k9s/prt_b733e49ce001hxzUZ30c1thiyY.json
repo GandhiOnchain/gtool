@@ -1,0 +1,26 @@
+{
+  "id": "prt_b733e49ce001hxzUZ30c1thiyY",
+  "messageID": "msg_b733e017b001EkJqNFLOeC6k9s",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "edit",
+  "callID": "toolu_vrtx_01Moa9iF7ZbauChoY7YHrFvZ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "oldString": "import { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'",
+      "newString": "import { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\nimport { swapRouter } from '@/lib/swap-router/router'\nimport type { UnifiedQuote } from '@/lib/swap-router/types'"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "diff": "Index: /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n===================================================================\n--- /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n+++ /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n@@ -3,8 +3,10 @@\n import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\n import { parseUnits, formatUnits } from 'viem'\n import { relayAPI } from '@/lib/relay/api'\n import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\n+import { swapRouter } from '@/lib/swap-router/router'\n+import type { UnifiedQuote } from '@/lib/swap-router/types'\n import { Button } from '@/components/ui/button'\n import { Input } from '@/components/ui/input'\n import { Card } from '@/components/ui/card'\n import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767165022860,
+      "end": 1767165022869
+    }
+  }
+}

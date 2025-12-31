@@ -1,0 +1,25 @@
+{
+  "id": "prt_b733e3bd40017FVToCYWZN8NC0",
+  "messageID": "msg_b733e017b001EkJqNFLOeC6k9s",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01D1s99JgNgvk42Ze7pcw3hT",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1,
+      "limit": 10
+    },
+    "output": "<file>\n00002| import { sdk } from '@farcaster/miniapp-sdk'\n00003| import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\n00004| import { parseUnits, formatUnits } from 'viem'\n00005| import { relayAPI } from '@/lib/relay/api'\n00006| import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\n00007| import { Button } from '@/components/ui/button'\n00008| import { Input } from '@/components/ui/input'\n00009| import { Card } from '@/components/ui/card'\n00010| import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\n00011| import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'\n\n(File has more lines. Use 'offset' parameter to read beyond line 11)\n</file>",
+    "metadata": {
+      "preview": "import { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\nimport { parseUnits, formatUnits } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\nimport { Button } from '@/components/ui/button'\nimport { Input } from '@/components/ui/input'\nimport { Card } from '@/components/ui/card'\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\nimport { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767165017921,
+      "end": 1767165017923
+    }
+  }
+}
