@@ -1,0 +1,11 @@
+{
+  "id": "prt_b739951860013ligkA17ynoNc4",
+  "messageID": "msg_b7399477c001f1PnIdADedS6Uv",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Excellent! The swap is now working successfully. \n\n## Summary of What Fixed It\n\nThe issue was a combination of critical problems in the Relay integration:\n\n1. **Missing Transaction Confirmation Wait**: We were trying to index the transaction with Relay immediately after submission, before it was confirmed on-chain. Relay needs the transaction to be mined before it can process it.\n\n2. **Address Validation**: Added validation to ensure the wallet address executing the transaction matches the address that requested the quote, which is a requirement from Relay.\n\n3. **Proper Gas Parameters**: Included all gas parameters (`maxFeePerGas`, `maxPriorityFeePerGas`) from the quote in the transaction.\n\n4. **Correct Flow**: Implemented the proper Relay flow:\n   - Get fresh quote → Submit transaction → Wait for confirmation → Index with Relay → Monitor status\n\nThe swap now follows Relay's documented best practices and should work reliably without refunds.",
+  "time": {
+    "start": 1767170991195,
+    "end": 1767170991195
+  }
+}
