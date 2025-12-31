@@ -1,0 +1,24 @@
+{
+  "id": "prt_b758a4d52001whDnHc2M5tTtRI",
+  "messageID": "msg_b758a22ef001Yxfg0YPPcZ5cjy",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "list",
+  "callID": "toolu_vrtx_01Nf98jWLBUfJAR2knLjno7A",
+  "state": {
+    "status": "completed",
+    "input": {
+      "path": "/home/user/sandbox/workspace"
+    },
+    "output": "/home/user/sandbox/workspace/\n  .attachments/\n    image.png\n  .logs/\n    frontend.log\n  frontend/\n    output/\n      .well-known/\n        farcaster.json\n      assets/\n        add-CaP1fC85.js\n        alchemy-provider-0b2e9f09-Cysq2Mfi.js\n        alchemy-provider-0b2e9f09-Nu0zr1Rd.js\n        alchemy-websocket-provider-2f8b1006-89zEKKeR.js\n        all-wallets-DLYmufHm.js\n        app-store-aE06RjhH.js\n        apple-DDT7QRgo.js\n        arrow-bottom-Cn8oQUiU.js\n        arrow-bottom-circle-9TZveKfU.js\n        arrow-left-7288B9Rk.js\n        arrow-right-CN2fMMhV.js\n        arrow-top-2osYk4ZV.js\n        bank-6z1eu_tz.js\n        basic-gG6yY1s6.js\n        browser-DoNV-9Ym.js\n        bundle-BcfXFWFw.js\n        card-D9MsknRS.js\n        ccip-BOibA80o.js\n        ccip-C33aOWLo.js\n        ccip-DRyQc5IH.js\n        checkmark-BN9e04bk.js\n        checkmark-bold-CyumzhNM.js\n        chevron-bottom-dMxHJQsn.js\n        chevron-left-DNLc5c3g.js\n        chevron-right-CWr0D5BJ.js\n        chevron-top-D99d8qvM.js\n        chrome-store-_zGmXKAS.js\n        clock-BJrIR_dG.js\n        close-CToYsfWN.js\n        coinPlaceholder-DBGwGSV-.js\n        compass-B_ILSHwO.js\n        copy-Esir0xuJ.js\n        core-DQi-zRDy.js\n        cursor-CNIQib3O.js\n        cursor-transparent-CHnoZhTl.js\n        desktop-ByRxWlml.js\n        disconnect-CJ7-Oedo.js\n        discord-DumEE46o.js\n        dist-CfLl0OBD.js\n        etherscan-BSbjAL0s.js\n        exclamation-triangle-BXQ0jwGp.js\n        extension-CGWVT0oF.js\n        external-link-DPuwukSs.js\n        facebook-vs-OFnSc.js\n        farcaster-Cj3Ji3Jy.js\n        filters-C16Pq9zr.js\n        github-Cv4dj40T.js\n        google-DRJhixOh.js\n        help-circle-DIz0a5qU.js\n        id-DEtTw3E0.js\n        image-fDWBwVBb.js\n        index-C8isLxo-.css\n        info-BwCRn4M8.js\n        info-circle-D254pVFT.js\n        lightbulb-D_J_RjLM.js\n        lit-BcV0c7HI.js\n        localBatchGatewayRequest-Bxd-E87-.js\n        mail-Baxw8Xbs.js\n        mobile-BVAaZjnF.js\n        more-CoY44TNN.js\n        network-placeholder-DRawzVTT.js\n        nftPlaceholder-XJeDFBOV.js\n        off-DMG9I3nz.js\n        play-store-D3P_v1Ja.js\n        plus-DdckW_T6.js\n        qr-code-Bg3phuY_.js\n        recycle-horizontal-1XeUsV-p.js\n        refresh-Blt4TahB.js\n        reown-logo-BjEek35S.js\n        search-BS8DdaF5.js\n        secp256k1-DQ6Slbn4.js\n        secp256k1-DRUDxu3I.js\n        secp256k1-aOueXpP3.js\n        send-DfezmdCN.js\n        swapHorizontal-BKLGAtYi.js\n        swapHorizontalBold-BZ9HShZ_.js\n        swapHorizontalMedium-BH11_KTf.js\n        swapHorizontalRoundedBold-c5td9c7b.js\n        swapVertical-DXiLWBI6.js\n        telegram-B9bgt7rz.js\n        three-dots-zfI2LeIJ.js\n        twitch-VP3DgBts.js\n        twitterIcon-B68x9Q1y.js\n        utils-Cr04HZMM.js\n        verify-W5Q43Ywi.js\n        verify-filled-Cu-uLXDv.js\n        w3m-modal-Bj00cW8S.js\n        wallet-DJ43568g.js\n        wallet-placeholder-D4yEJk9T.js\n        walletconnect-G9C6dItl.js\n        warning-circle-O5KiazeV.js\n        wui-text-CFmAZuC5.js\n        x-rJY4drWQ.js\n      favicon.ico\n      index.html\n      placeholder.svg\n      robots.txt\n",
+    "metadata": {
+      "count": 100,
+      "truncated": true
+    },
+    "title": "",
+    "time": {
+      "start": 1767203557114,
+      "end": 1767203557120
+    }
+  }
+}

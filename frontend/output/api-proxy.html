@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Proxy</title>
+</head>
+<body>
+    <script>
+        // Simple CORS proxy using postMessage
+        window.addEventListener('message', async (event) => {
+            if (event.data.type === 'FETCH_APPROVALS') {
+                const { address, chainId } = event.data;
+                try {
+                    const response = await fetch(`https://api.revoke.cash/v1/allowances/${chainId}/${address}`);
+                    const data = await response.json();
+                    event.source.postMessage({ type: 'APPROVALS_RESPONSE', data }, '*');
+                } catch (error) {
+                    event.source.postMessage({ type: 'APPROVALS_ERROR', error: error.message }, '*');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b758ac7480019FgfEz4hf65wNp",
+  "messageID": "msg_b758a22ef001Yxfg0YPPcZ5cjy",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Vite doesn't have built-in API routes like Next.js. Let me use a simpler approach - create a Cloudflare Worker-style function or use Vite's proxy feature. Actually, the best solution is to use a public serverless function. Let me create it using Vercel's edge functions format and update the frontend to call it:",
+  "time": {
+    "start": 1767203594535,
+    "end": 1767203594535
+  }
+}
