@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73f7d57d001dmUegaOlSnAvh3",
+  "messageID": "msg_b73f78909001QixAygXRlE1REF",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01SHywvPoresF8tttQui6npW",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 260,
+      "limit": 30
+    },
+    "output": "<file>\n00261|     }\n00262|   }, [fromToken, toToken, fromAmount, fromChain, toChain, address])\n00263| \n00264|   useEffect(() => {\n00265|     if (address && chains.length > 0) {\n00266|       loadSwapHistory()\n00267|       loadUserStreak()\n00268|     }\n00269|   }, [address, chains])\n00270| \n00271|   useEffect(() => {\n00272|     loadLeaderboard()\n00273|   }, [])\n00274| \n00275|   useEffect(() => {\n00276|     if (address && fromChain && isConnected) {\n00277|       loadWalletTokens()\n00278|     }\n00279|   }, [address, fromChain, isConnected])\n00280| \n00281|   useEffect(() => {\n00282|     if (batchChain) {\n00283|       const vmType = batchChain.vmType || 'evm'\n00284|       // For EVM chains, need EVM wallet connected\n00285|       // For Solana chains, need Solana wallet connected\n00286|       const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n00287|                                 ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)\n00288|       \n00289|       if (hasRequiredWallet) {\n00290|         loadBatchWalletTokens()\n\n(File has more lines. Use 'offset' parameter to read beyond line 290)\n</file>",
+    "metadata": {
+      "preview": "    }\n  }, [fromToken, toToken, fromAmount, fromChain, toChain, address])\n\n  useEffect(() => {\n    if (address && chains.length > 0) {\n      loadSwapHistory()\n      loadUserStreak()\n    }\n  }, [address, chains])\n\n  useEffect(() => {\n    loadLeaderboard()\n  }, [])\n\n  useEffect(() => {\n    if (address && fromChain && isConnected) {\n      loadWalletTokens()\n    }\n  }, [address, fromChain, isConnected])\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767177181381,
+      "end": 1767177181382
+    }
+  }
+}

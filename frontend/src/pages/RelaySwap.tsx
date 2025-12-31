@@ -120,6 +120,8 @@ export default function RelaySwap() {
   }>({})
   const [inputMode, setInputMode] = useState<'token' | 'usd'>('token')
   const [usdAmount, setUsdAmount] = useState('')
+  const [batchQuote, setBatchQuote] = useState<RelayQuote | null>(null)
+  const [isLoadingBatchQuote, setIsLoadingBatchQuote] = useState(false)
 
   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
@@ -289,6 +291,18 @@ export default function RelaySwap() {
       }
     }
   }, [address, batchChain, isConnected, solanaAddress])
+
+  // Fetch batch quote when batch tokens or destination changes
+  useEffect(() => {
+    if (batchTokens.length > 0 && toToken && toChain && batchChain && address) {
+      const debounce = setTimeout(() => {
+        fetchBatchQuote()
+      }, 500)
+      return () => clearTimeout(debounce)
+    } else {
+      setBatchQuote(null)
+    }
+  }, [batchTokens, toToken, toChain, batchChain, address])
 
   // Fetch Solana balance for from chain
   useEffect(() => {
@@ -1188,6 +1202,47 @@ export default function RelaySwap() {
     checkStatus()
   }
 
+  const fetchBatchQuote = async () => {
+    if (!toToken || !toChain || !address || batchTokens.length === 0 || !batchChain) {
+      return
+    }
+
+    setIsLoadingBatchQuote(true)
+    try {
+      const origins = batchTokens
+        .filter(bt => parseFloat(bt.balanceFormatted) > 0)
+        .map(bt => ({
+          chainId: batchChain.id,
+          currency: bt.token.address,
+          amount: bt.balance,
+        }))
+
+      if (origins.length === 0) {
+        setBatchQuote(null)
+        setIsLoadingBatchQuote(false)
+        return
+      }
+
+      console.log('Getting batch swap quote for', origins.length, 'tokens')
+
+      const multiQuote = await relayAPI.getMultiInputQuote({
+        user: address,
+        origins,
+        destinationCurrency: toToken.address,
+        destinationChainId: toChain.id,
+        tradeType: 'EXACT_INPUT',
+      })
+
+      console.log('Batch quote received:', multiQuote)
+      setBatchQuote(multiQuote)
+    } catch (error) {
+      console.error('Failed to fetch batch quote:', error)
+      setBatchQuote(null)
+    } finally {
+      setIsLoadingBatchQuote(false)
+    }
+  }
+
   const executeBatchSwap = async () => {
     if (!toToken || !toChain || !address || batchTokens.length === 0 || !batchChain) {
       toast.error('Please select chain and tokens to swap')
@@ -1215,6 +1270,7 @@ export default function RelaySwap() {
 
     setIsSwapping(true)
     try {
+      // Get a fresh quote for execution
       const origins = batchTokens
         .filter(bt => parseFloat(bt.balanceFormatted) > 0)
         .map(bt => ({
@@ -1229,7 +1285,7 @@ export default function RelaySwap() {
         return
       }
 
-      console.log('Getting batch swap quote for', origins.length, 'tokens')
+      console.log('Getting fresh batch swap quote for execution:', origins.length, 'tokens')
 
       const multiQuote = await relayAPI.getMultiInputQuote({
         user: address,
@@ -1239,7 +1295,7 @@ export default function RelaySwap() {
         tradeType: 'EXACT_INPUT',
       })
 
-      console.log('Batch quote received:', multiQuote)
+      console.log('Fresh batch quote received:', multiQuote)
       console.log('Steps in quote:', multiQuote.steps.map(s => ({ id: s.id, itemCount: s.items?.length })))
 
       // Collect all transactions to execute
@@ -1331,6 +1387,7 @@ export default function RelaySwap() {
         updateLeaderboard()
         loadSwapHistory()
         setBatchTokens([])
+        setBatchQuote(null)
       } else {
         toast.error('All batch swap transactions failed')
       }
@@ -2139,12 +2196,86 @@ export default function RelaySwap() {
                   </div>
                 </div>
 
+                {batchQuote && (
+                  <Card className="p-3 bg-card">
+                    <div className="space-y-1.5 text-xs">
+                      <div className="font-medium mb-2">Batch Swap Summary</div>
+                      
+                      <div className="flex justify-between items-center">
+                        <span className="text-muted-foreground">Total Input</span>
+                        <span className="font-mono">
+                          {batchTokens.length} token{batchTokens.length > 1 ? 's' : ''}
+                        </span>
+                      </div>
+                      
+                      {batchQuote.details.currencyOut && (
+                        <div className="flex justify-between items-center">
+                          <span className="text-muted-foreground">You Receive</span>
+                          <span className="font-mono font-medium">
+                            {parseFloat(batchQuote.details.currencyOut.amountFormatted).toFixed(6)} {toToken?.symbol}
+                          </span>
+                        </div>
+                      )}
+                      
+                      {batchQuote.details.currencyOut?.amountUsd && (
+                        <div className="flex justify-between items-center">
+                          <span className="text-muted-foreground">Value (USD)</span>
+                          <span className="font-mono">
+                            ${parseFloat(batchQuote.details.currencyOut.amountUsd).toFixed(2)}
+                          </span>
+                        </div>
+                      )}
+                      
+                      <Separator className="my-2" />
+                      
+                      <div className="flex justify-between items-center">
+                        <span className="text-muted-foreground">Total Gas</span>
+                        <span className="font-mono">
+                          ${batchQuote.fees.gas?.amountUsd || '0'}
+                        </span>
+                      </div>
+                      
+                      {batchQuote.fees.relayer && (
+                        <div className="flex justify-between items-center">
+                          <span className="text-muted-foreground">Relayer Fee</span>
+                          <span className="font-mono">
+                            ${batchQuote.fees.relayer.amountUsd || '0'}
+                          </span>
+                        </div>
+                      )}
+                      
+                      <div className="flex justify-between items-center">
+                        <span className="text-muted-foreground">Transactions</span>
+                        <span className="font-mono">
+                          {batchQuote.steps.reduce((acc, step) => acc + (step.items?.length || 0), 0)}
+                        </span>
+                      </div>
+                      
+                      <div className="flex justify-between items-center">
+                        <span className="text-muted-foreground">Est. Time</span>
+                        <span className="font-mono">
+                          {batchQuote.details.timeEstimate || 0}s
+                        </span>
+                      </div>
+                      
+                      {batchQuote.details.totalImpact && (
+                        <div className="flex justify-between items-center">
+                          <span className="text-muted-foreground">Price Impact</span>
+                          <span className={`font-mono ${parseFloat(batchQuote.details.totalImpact.percent) < 0 ? 'text-destructive' : ''}`}>
+                            {batchQuote.details.totalImpact.percent}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </Card>
+                )}
+
                 <Button
                   onClick={executeBatchSwap}
-                  disabled={batchTokens.length === 0 || isSwapping || !isConnected}
+                  disabled={batchTokens.length === 0 || isSwapping || !isConnected || !batchQuote}
                   className="w-full h-8 text-xs"
                 >
-                  {isSwapping ? 'Swapping...' : 'Execute Batch Swap'}
+                  {isSwapping ? 'Swapping...' : isLoadingBatchQuote ? 'Loading Quote...' : 'Execute Batch Swap'}
                 </Button>
               </div>
             </Card>

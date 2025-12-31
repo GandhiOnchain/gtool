@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73f8c4eb002DQ3i7ZsK0BsvmU",
+  "messageID": "msg_b73f78909001QixAygXRlE1REF",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Perfect! I've successfully added detailed batch swap information. Here's what I implemented:\n\n## Changes Made\n\n### 1. **New State Variables**\n- `batchQuote`: Stores the batch swap quote with all details\n- `isLoadingBatchQuote`: Tracks loading state for the quote\n\n### 2. **Auto-fetch Batch Quote**\nAdded a `useEffect` that automatically fetches a quote whenever:\n- Batch tokens change\n- Destination token/chain changes\n- User address is available\n\nThe quote updates with a 500ms debounce to avoid excessive API calls.\n\n### 3. **fetchBatchQuote Function**\nNew function that:\n- Filters tokens with balance > 0\n- Calls the multi-input quote API\n- Stores the quote for display\n\n### 4. **Batch Swap Summary Card**\nShows comprehensive details before executing:\n\n**Input Details:**\n- Total number of tokens being swapped\n\n**Output Details:**\n- Exact amount you'll receive (with token symbol)\n- USD value of received tokens\n\n**Fee Breakdown:**\n- Total gas cost in USD\n- Relayer fee (if applicable)\n\n**Transaction Info:**\n- Number of transactions required\n- Estimated completion time\n- Price impact percentage (highlighted in red if negative)\n\n### 5. **Smart Button State**\nThe \"Execute Batch Swap\" button now:\n- Shows \"Loading Quote...\" while fetching\n- Is disabled until a valid quote is available\n- Ensures users see costs before executing\n\n### 6. **Quote Cleanup**\nThe batch quote is cleared when:\n- Swap completes successfully\n- Tokens are removed/changed\n- Destination changes\n\nThis gives users full transparency on gas costs, fees, and expected output before executing their batch swap, making it much easier to make informed decisions.",
+  "time": {
+    "start": 1767177251234,
+    "end": 1767177251234
+  }
+}

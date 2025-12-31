@@ -1,0 +1,21 @@
+{
+  "id": "prt_b73f7bcf8001ZlgVu1gHh8nn1R",
+  "messageID": "msg_b73f78909001QixAygXRlE1REF",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "edit",
+  "callID": "toolu_vrtx_011jSXfjRn8bKQfb94CVeQ8k",
+  "state": {
+    "status": "error",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "oldString": "  useEffect(() => {\n    if (address && batchChain && isConnected) {\n      loadWalletTokens()\n    }\n  }, [address, fromChain, isConnected])",
+      "newString": "  useEffect(() => {\n    if (address && fromChain && isConnected) {\n      loadWalletTokens()\n    }\n  }, [address, fromChain, isConnected])\n\n  // Fetch batch quote when batch tokens or destination changes\n  useEffect(() => {\n    if (batchTokens.length > 0 && toToken && toChain && batchChain && address) {\n      const debounce = setTimeout(() => {\n        fetchBatchQuote()\n      }, 500)\n      return () => clearTimeout(debounce)\n    } else {\n      setBatchQuote(null)\n    }\n  }, [batchTokens, toToken, toChain, batchChain, address])"
+    },
+    "error": "Error: oldString not found in content",
+    "time": {
+      "start": 1767177178395,
+      "end": 1767177178415
+    }
+  }
+}
