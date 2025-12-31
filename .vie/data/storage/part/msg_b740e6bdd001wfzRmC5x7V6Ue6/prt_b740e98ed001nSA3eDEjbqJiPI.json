@@ -1,0 +1,11 @@
+{
+  "id": "prt_b740e98ed001nSA3eDEjbqJiPI",
+  "messageID": "msg_b740e6bdd001wfzRmC5x7V6Ue6",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Now let's update the loadSwapHistory function to determine the type and extract batch token information:",
+  "time": {
+    "start": 1767178688080,
+    "end": 1767178688080
+  }
+}

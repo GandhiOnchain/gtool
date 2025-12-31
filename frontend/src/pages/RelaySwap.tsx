@@ -28,12 +28,15 @@ interface TrendingToken {
 
 interface SwapHistory {
   id: string
+  type: 'swap' | 'bridge' | 'batch'
   fromToken: string
   fromTokenSymbol: string
   fromTokenDecimals: number
+  fromTokenLogo?: string
   toToken: string
   toTokenSymbol: string
   toTokenDecimals: number
+  toTokenLogo?: string
   fromAmount: string
   toAmount: string
   fromChain: string
@@ -47,6 +50,12 @@ interface SwapHistory {
   completedAt?: number
   txHash?: string
   inTxHash?: string
+  batchTokens?: Array<{
+    symbol: string
+    amount: string
+    logo?: string
+    address: string
+  }>
 }
 
 interface UserStreak {
@@ -1511,6 +1520,21 @@ export default function RelaySwap() {
         let toSymbol = 'Unknown'
         let fromTokenAddress = '0x0'
         let toTokenAddress = '0x0'
+        let fromTokenLogo: string | undefined
+        let toTokenLogo: string | undefined
+        
+        // Determine transaction type
+        const isSameChain = originChainId === destChainId
+        const hasMultipleInputs = req.data.inTxs && req.data.inTxs.length > 1
+        
+        let transactionType: 'swap' | 'bridge' | 'batch' = 'swap'
+        if (hasMultipleInputs) {
+          transactionType = 'batch'
+        } else if (!isSameChain) {
+          transactionType = 'bridge'
+        }
+        
+        console.log('Transaction type:', transactionType, { isSameChain, hasMultipleInputs, inTxsCount: req.data.inTxs?.length })
         
         // The currency field in req.data contains the token address
         const currencyAddress = req.data.currency
@@ -1545,6 +1569,45 @@ export default function RelaySwap() {
           console.error('Failed to fetch to currency:', e)
         }
         
+        // For batch swaps, collect all input tokens
+        let batchTokens: Array<{ symbol: string; amount: string; logo?: string; address: string }> = []
+        if (transactionType === 'batch' && req.data.inTxs && req.data.inTxs.length > 1) {
+          for (const inTx of req.data.inTxs) {
+            try {
+              const rawAmount = inTx.data?.value || '0'
+              let tokenCurrency: RelayCurrency | null = null
+              
+              // Try to fetch currency for this specific transaction
+              if (currencyAddress && inTx.chainId) {
+                const currencies = await relayAPI.getCurrencies({
+                  address: currencyAddress,
+                  chainIds: [inTx.chainId],
+                  limit: 1,
+                })
+                tokenCurrency = currencies[0] || null
+              }
+              
+              const decimals = tokenCurrency?.decimals || 18
+              const symbol = tokenCurrency?.symbol || 'Unknown'
+              const logo = tokenCurrency?.metadata?.logoURI
+              const address = tokenCurrency?.address || currencyAddress || '0x0'
+              
+              let amount = '0'
+              if (rawAmount && rawAmount !== '0') {
+                try {
+                  amount = parseFloat(formatUnits(BigInt(rawAmount), decimals)).toFixed(6)
+                } catch (e) {
+                  console.error('Error formatting batch token amount:', e)
+                }
+              }
+              
+              batchTokens.push({ symbol, amount, logo, address })
+            } catch (e) {
+              console.error('Error processing batch token:', e)
+            }
+          }
+        }
+        
         // Process input transaction
         if (req.data.inTxs?.[0]) {
           const inTx = req.data.inTxs[0]
@@ -1555,6 +1618,7 @@ export default function RelaySwap() {
             fromDecimals = fromCurrency.decimals
             fromSymbol = fromCurrency.symbol
             fromTokenAddress = fromCurrency.address
+            fromTokenLogo = fromCurrency.metadata?.logoURI
           } else if (originChain) {
             fromDecimals = originChain.currency.decimals
             fromSymbol = originChain.currency.symbol
@@ -1581,6 +1645,7 @@ export default function RelaySwap() {
             toDecimals = toCurrency.decimals
             toSymbol = toCurrency.symbol
             toTokenAddress = toCurrency.address
+            toTokenLogo = toCurrency.metadata?.logoURI
           } else if (destChain) {
             toDecimals = destChain.currency.decimals
             toSymbol = destChain.currency.symbol
@@ -1604,12 +1669,15 @@ export default function RelaySwap() {
         
         return {
           id: req.id,
+          type: transactionType,
           fromToken: fromTokenAddress,
           fromTokenSymbol: fromSymbol,
           fromTokenDecimals: fromDecimals,
+          fromTokenLogo,
           toToken: toTokenAddress,
           toTokenSymbol: toSymbol,
           toTokenDecimals: toDecimals,
+          toTokenLogo,
           fromAmount,
           toAmount,
           fromChain: originChain?.displayName || originChain?.name || 'Unknown',
@@ -1623,6 +1691,7 @@ export default function RelaySwap() {
           completedAt,
           txHash: req.data.outTxs?.[0]?.hash,
           inTxHash: req.data.inTxs?.[0]?.hash,
+          batchTokens: transactionType === 'batch' ? batchTokens : undefined,
         }
       }))
       
@@ -2466,15 +2535,23 @@ export default function RelaySwap() {
                       ? Math.round((swap.completedAt - swap.timestamp) / 1000)
                       : null
                     
+                    const typeLabel = swap.type === 'batch' ? 'Batch Swap' : swap.type === 'bridge' ? 'Bridge' : 'Swap'
+                    const typeColor = swap.type === 'batch' ? 'bg-purple-500/10 text-purple-500' : swap.type === 'bridge' ? 'bg-blue-500/10 text-blue-500' : 'bg-green-500/10 text-green-500'
+                    
                     return (
                       <Card key={swap.id} className="p-3">
                         <div className="space-y-2">
                           {/* Header with status */}
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <div className="text-xs font-medium">
-                                {swap.fromTokenSymbol} → {swap.toTokenSymbol}
-                              </div>
+                              <Badge className={`text-xs ${typeColor}`}>
+                                {typeLabel}
+                              </Badge>
+                              {swap.type !== 'batch' && (
+                                <div className="text-xs font-medium">
+                                  {swap.fromTokenSymbol} → {swap.toTokenSymbol}
+                                </div>
+                              )}
                               {timeTaken && (
                                 <span className="text-xs text-muted-foreground">
                                   ({timeTaken}s)
@@ -2499,31 +2576,64 @@ export default function RelaySwap() {
                           </div>
 
                           {/* From details */}
-                          <div className="flex items-center gap-2 p-2 bg-muted/50 rounded">
-                            <div className="flex items-center gap-1.5 flex-1">
-                              {swap.fromChainIcon && (
-                                <img src={swap.fromChainIcon} alt="" className="h-4 w-4 rounded-full" />
-                              )}
-                              <div className="flex-1">
-                                <div className="text-xs font-medium">
-                                  {swap.fromAmount} {swap.fromTokenSymbol}
-                                </div>
+                          {swap.type === 'batch' && swap.batchTokens && swap.batchTokens.length > 0 ? (
+                            <div className="p-2 bg-muted/50 rounded space-y-2">
+                              <div className="text-xs font-medium text-muted-foreground">
+                                Swapping {swap.batchTokens.length} tokens:
+                              </div>
+                              <div className="grid grid-cols-2 gap-2">
+                                {swap.batchTokens.map((token, idx) => (
+                                  <div key={idx} className="flex items-center gap-1.5 p-1.5 bg-background rounded">
+                                    {token.logo && (
+                                      <img src={token.logo} alt="" className="h-4 w-4 rounded-full" />
+                                    )}
+                                    <div className="flex-1 min-w-0">
+                                      <div className="text-xs font-medium truncate">
+                                        {token.amount} {token.symbol}
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="flex items-center gap-1.5 pt-1 border-t border-border">
+                                {swap.fromChainIcon && (
+                                  <img src={swap.fromChainIcon} alt="" className="h-4 w-4 rounded-full" />
+                                )}
                                 <div className="text-xs text-muted-foreground">
                                   {swap.fromChain}
                                 </div>
                               </div>
                             </div>
-                            {swap.inTxHash && (
-                              <a
-                                href={`https://relay.link/tx/${swap.inTxHash}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-xs text-primary hover:underline"
-                              >
-                                View
-                              </a>
-                            )}
-                          </div>
+                          ) : (
+                            <div className="flex items-center gap-2 p-2 bg-muted/50 rounded">
+                              <div className="flex items-center gap-1.5 flex-1">
+                                {swap.fromTokenLogo && (
+                                  <img src={swap.fromTokenLogo} alt="" className="h-5 w-5 rounded-full" />
+                                )}
+                                {swap.fromChainIcon && (
+                                  <img src={swap.fromChainIcon} alt="" className="h-4 w-4 rounded-full" />
+                                )}
+                                <div className="flex-1">
+                                  <div className="text-xs font-medium">
+                                    {swap.fromAmount} {swap.fromTokenSymbol}
+                                  </div>
+                                  <div className="text-xs text-muted-foreground">
+                                    {swap.fromChain}
+                                  </div>
+                                </div>
+                              </div>
+                              {swap.inTxHash && (
+                                <a
+                                  href={`https://relay.link/tx/${swap.inTxHash}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-xs text-primary hover:underline"
+                                >
+                                  View
+                                </a>
+                              )}
+                            </div>
+                          )}
 
                           {/* Arrow */}
                           <div className="flex justify-center">
@@ -2533,6 +2643,9 @@ export default function RelaySwap() {
                           {/* To details */}
                           <div className="flex items-center gap-2 p-2 bg-muted/50 rounded">
                             <div className="flex items-center gap-1.5 flex-1">
+                              {swap.toTokenLogo && (
+                                <img src={swap.toTokenLogo} alt="" className="h-5 w-5 rounded-full" />
+                              )}
                               {swap.toChainIcon && (
                                 <img src={swap.toChainIcon} alt="" className="h-4 w-4 rounded-full" />
                               )}

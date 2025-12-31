@@ -1,0 +1,25 @@
+{
+  "id": "prt_b740e74a9001mAkQPifr9W1aWL",
+  "messageID": "msg_b740e6bdd001wfzRmC5x7V6Ue6",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01HoVEu6zcXQFLbs6NJSX5PQ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 29,
+      "limit": 25
+    },
+    "output": "<file>\n00030|   id: string\n00031|   fromToken: string\n00032|   fromTokenSymbol: string\n00033|   fromTokenDecimals: number\n00034|   toToken: string\n00035|   toTokenSymbol: string\n00036|   toTokenDecimals: number\n00037|   fromAmount: string\n00038|   toAmount: string\n00039|   fromChain: string\n00040|   fromChainId: number\n00041|   fromChainIcon?: string\n00042|   toChain: string\n00043|   toChainId: number\n00044|   toChainIcon?: string\n00045|   status: string\n00046|   timestamp: number\n00047|   completedAt?: number\n00048|   txHash?: string\n00049|   inTxHash?: string\n00050| }\n00051| \n00052| interface UserStreak {\n00053|   currentStreak: number\n00054|   lastSwapTimestamp: number\n\n(File has more lines. Use 'offset' parameter to read beyond line 54)\n</file>",
+    "metadata": {
+      "preview": "  id: string\n  fromToken: string\n  fromTokenSymbol: string\n  fromTokenDecimals: number\n  toToken: string\n  toTokenSymbol: string\n  toTokenDecimals: number\n  fromAmount: string\n  toAmount: string\n  fromChain: string\n  fromChainId: number\n  fromChainIcon?: string\n  toChain: string\n  toChainId: number\n  toChainIcon?: string\n  status: string\n  timestamp: number\n  completedAt?: number\n  txHash?: string\n  inTxHash?: string"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767178664140,
+      "end": 1767178664141
+    }
+  }
+}
