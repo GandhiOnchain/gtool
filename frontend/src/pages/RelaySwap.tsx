@@ -206,38 +206,48 @@ export default function RelaySwap() {
 
   const loadChains = async () => {
     try {
-      // Load chains from both Relay and Rango
-      const [relayResponse, rangoBlockchains] = await Promise.all([
-        relayAPI.getChains(),
-        rangoAPI.getBlockchains(),
-      ])
+      console.log('Loading chains from Relay and Rango...')
       
+      // Load Relay chains first (always works)
+      const relayResponse = await relayAPI.getChains()
       const relayChains = relayResponse.chains.filter(c => !c.disabled)
+      console.log('Loaded Relay chains:', relayChains.length)
       
-      // Convert Rango blockchains to RelayChain format
-      const rangoChains: RelayChain[] = rangoBlockchains
-        .filter(b => b.enabled && (b.type === 'SOLANA' || b.type === 'COSMOS'))
-        .map(b => ({
-          id: b.chainId ? parseInt(b.chainId) : b.name.toLowerCase().charCodeAt(0) * 1000,
-          name: b.name.toLowerCase(),
-          displayName: b.displayName,
-          httpRpcUrl: '',
-          explorerUrl: '',
-          explorerName: '',
-          depositEnabled: true,
-          tokenSupport: 'All',
-          disabled: false,
-          currency: {
-            id: b.shortName.toLowerCase(),
-            symbol: b.shortName,
-            name: b.displayName,
-            address: '0x0000000000000000000000000000000000000000',
-            decimals: 9,
-            supportsBridging: true,
-          },
-          iconUrl: b.logo,
-          vmType: b.type.toLowerCase() as 'evm' | 'svm' | 'cosmos',
-        }))
+      // Try to load Rango chains, but don't fail if it errors
+      let rangoChains: RelayChain[] = []
+      try {
+        console.log('Loading Rango blockchains...')
+        const rangoBlockchains = await rangoAPI.getBlockchains()
+        console.log('Rango blockchains response:', rangoBlockchains.length)
+        
+        // Convert Rango blockchains to RelayChain format
+        rangoChains = rangoBlockchains
+          .filter(b => b.enabled && (b.type === 'SOLANA' || b.type === 'COSMOS'))
+          .map(b => ({
+            id: b.chainId ? parseInt(b.chainId) : b.name.toLowerCase().charCodeAt(0) * 1000,
+            name: b.name.toLowerCase(),
+            displayName: b.displayName,
+            httpRpcUrl: '',
+            explorerUrl: '',
+            explorerName: '',
+            depositEnabled: true,
+            tokenSupport: 'All',
+            disabled: false,
+            currency: {
+              id: b.shortName.toLowerCase(),
+              symbol: b.shortName,
+              name: b.displayName,
+              address: '0x0000000000000000000000000000000000000000',
+              decimals: 9,
+              supportsBridging: true,
+            },
+            iconUrl: b.logo,
+            vmType: b.type.toLowerCase() as 'evm' | 'svm' | 'cosmos',
+          }))
+        console.log('Converted Rango chains:', rangoChains.length)
+      } catch (rangoError) {
+        console.error('Failed to load Rango chains (continuing with Relay only):', rangoError)
+      }
       
       // Combine both chain lists
       const allChains = [...relayChains, ...rangoChains]
@@ -249,7 +259,7 @@ export default function RelaySwap() {
         setToChain(allChains.find(c => c.id !== baseChain.id) || allChains[1])
       }
       
-      console.log('Loaded chains:', {
+      console.log('Total chains loaded:', {
         relay: relayChains.length,
         rango: rangoChains.length,
         total: allChains.length,

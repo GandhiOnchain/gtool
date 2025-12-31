@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7344980f001PHio48oFPfZ9qO",
+  "messageID": "msg_b7343e0d3001166p2EToomCMuu",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Good! Now check the browser console - you should see logs like:\n- \"Loading chains from Relay and Rango...\"\n- \"Loaded Relay chains: X\"\n- \"Loading Rango blockchains...\"\n- \"Total chains loaded: ...\"\n\nIf Rango fails to load, at least the Relay chains will still show up. Can you check the browser console and tell me what you see? That will help me debug why the chains aren't appearing.",
+  "time": {
+    "start": 1767165436298,
+    "end": 1767165436298
+  }
+}

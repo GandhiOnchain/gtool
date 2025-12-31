@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7343f077001NodK5jPDluvc72",
+  "messageID": "msg_b7343e0d3001166p2EToomCMuu",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01CkxDNiwtQP3K3zCVmF4q9t",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://api.rango.exchange/basic/meta\" -H \"API-KEY: c6381a79-2817-4602-83bf-6a641a409e32\" 2>&1 | head -100",
+      "description": "Test Rango API connection"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Test Rango API connection"
+    },
+    "title": "curl -s \"https://api.rango.exchange/basic/meta\" -H \"API-KEY: c6381a79-2817-4602-83bf-6a641a409e32\" 2>&1 | head -100",
+    "time": {
+      "start": 1767165393069,
+      "end": 1767165393462
+    }
+  }
+}
