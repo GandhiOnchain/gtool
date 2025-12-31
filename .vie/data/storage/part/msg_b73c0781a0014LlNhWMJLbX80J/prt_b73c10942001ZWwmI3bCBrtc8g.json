@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73c10942001ZWwmI3bCBrtc8g",
+  "messageID": "msg_b73c0781a0014LlNhWMJLbX80J",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Perfect! Relay supports these VM types:\n- `evm` - Ethereum Virtual Machine (most chains)\n- `svm` - Solana Virtual Machine\n- `bvm` - Bitcoin Virtual Machine\n- `hypevm` - Hyperliquid EVM\n- `tvm` - Tron Virtual Machine\n\nNow let me rewrite the `loadBatchWalletTokens` function to support all VM types:",
+  "time": {
+    "start": 1767173595296,
+    "end": 1767173595296
+  }
+}

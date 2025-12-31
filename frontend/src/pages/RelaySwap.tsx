@@ -266,10 +266,18 @@ export default function RelaySwap() {
   }, [address, fromChain, isConnected])
 
   useEffect(() => {
-    if (address && batchChain && isConnected) {
-      loadBatchWalletTokens()
+    if (batchChain) {
+      const vmType = batchChain.vmType || 'evm'
+      // For EVM chains, need EVM wallet connected
+      // For Solana chains, need Solana wallet connected
+      const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || 
+                                ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)
+      
+      if (hasRequiredWallet) {
+        loadBatchWalletTokens()
+      }
     }
-  }, [address, batchChain, isConnected])
+  }, [address, batchChain, isConnected, solanaAddress])
 
   // Fetch Solana balance for from chain
   useEffect(() => {
@@ -504,21 +512,28 @@ export default function RelaySwap() {
   const loadBatchWalletTokens = async () => {
     console.log('=== loadBatchWalletTokens called ===')
     console.log('address:', address)
+    console.log('solanaAddress:', solanaAddress)
     console.log('batchChain:', batchChain)
     console.log('isConnected:', isConnected)
     
-    if (!address || !batchChain) {
-      console.log('Missing address or batchChain, returning early')
+    if (!batchChain) {
+      console.log('Missing batchChain, returning early')
       return
     }
     
     const chain = batchChain
-    const isEVM = chain.vmType === 'evm' || !chain.vmType
+    const vmType = chain.vmType || 'evm'
     
-    console.log('Loading batch tokens for chain:', chain.displayName, 'isEVM:', isEVM)
+    console.log('Loading batch tokens for chain:', chain.displayName, 'vmType:', vmType)
     
-    if (!isEVM) {
-      toast.error('Batch swap only supports EVM chains')
+    // Check if we have the appropriate wallet for this VM type
+    if (vmType === 'svm' && !solanaAddress) {
+      toast.error('Please connect your Solana wallet to detect tokens')
+      return
+    }
+    
+    if ((vmType === 'evm' || vmType === 'hypevm') && !address) {
+      toast.error('Please connect your wallet to detect tokens')
       return
     }
     
@@ -542,59 +557,43 @@ export default function RelaySwap() {
       
       const tokensWithBalances: WalletToken[] = []
       
-      // Use viem's publicClient for more reliable RPC calls
-      console.log('Importing viem...')
-      const { createPublicClient, http, defineChain } = await import('viem')
-      
-      console.log('Creating chain config for:', chain.displayName, 'chainId:', chain.id)
-      
-      // Dynamically create chain config from Relay chain data
-      const chainConfig = defineChain({
-        id: chain.id,
-        name: chain.displayName,
-        nativeCurrency: {
-          name: chain.currency.name,
-          symbol: chain.currency.symbol,
-          decimals: chain.currency.decimals,
-        },
-        rpcUrls: {
-          default: { http: [chain.httpRpcUrl] },
-        },
-      })
-      
-      console.log('Creating public client with RPC:', chain.httpRpcUrl)
-      const publicClient = createPublicClient({
-        chain: chainConfig,
-        transport: http(chain.httpRpcUrl),
-      })
-      
-      console.log('Public client created successfully')
-      
-      // Process tokens in smaller batches to avoid overwhelming the RPC
-      const batchSize = 5
-      for (let i = 0; i < fetchedCurrencies.length; i += batchSize) {
-        const batch = fetchedCurrencies.slice(i, i + batchSize)
+      // Handle different VM types
+      if (vmType === 'evm' || vmType === 'hypevm') {
+        // EVM-based chains
+        console.log('Fetching EVM token balances...')
+        const { createPublicClient, http, defineChain } = await import('viem')
         
-        const balancePromises = batch.map(async (currency) => {
-          try {
-            let balance = BigInt(0)
-            
-            console.log(`Fetching balance for ${currency.symbol} (${currency.address})`)
-            
-            if (currency.metadata?.isNative) {
-              // Fetch native token balance
-              try {
+        const chainConfig = defineChain({
+          id: chain.id,
+          name: chain.displayName,
+          nativeCurrency: {
+            name: chain.currency.name,
+            symbol: chain.currency.symbol,
+            decimals: chain.currency.decimals,
+          },
+          rpcUrls: {
+            default: { http: [chain.httpRpcUrl] },
+          },
+        })
+        
+        const publicClient = createPublicClient({
+          chain: chainConfig,
+          transport: http(chain.httpRpcUrl),
+        })
+        
+        const batchSize = 5
+        for (let i = 0; i < fetchedCurrencies.length; i += batchSize) {
+          const batch = fetchedCurrencies.slice(i, i + batchSize)
+          
+          const balancePromises = batch.map(async (currency) => {
+            try {
+              let balance = BigInt(0)
+              
+              if (currency.metadata?.isNative) {
                 balance = await publicClient.getBalance({
                   address: address as `0x${string}`,
                 })
-                console.log(`Native balance for ${currency.symbol}:`, balance.toString())
-              } catch (nativeError) {
-                console.error(`Failed to fetch native balance for ${currency.symbol}:`, nativeError)
-                return null
-              }
-            } else {
-              // Fetch ERC20 token balance
-              try {
+              } else {
                 balance = await publicClient.readContract({
                   address: currency.address as `0x${string}`,
                   abi: [{
@@ -607,43 +606,113 @@ export default function RelaySwap() {
                   functionName: 'balanceOf',
                   args: [address as `0x${string}`],
                 })
-                console.log(`Token balance for ${currency.symbol}:`, balance.toString())
-              } catch (tokenError) {
-                // Token might not exist or contract might not be valid
-                // This is expected for some tokens, so we skip silently
-                return null
+              }
+              
+              const balanceFormatted = formatUnits(balance, currency.decimals)
+              
+              if (parseFloat(balanceFormatted) > 0.00000001) {
+                return {
+                  token: currency,
+                  balance: balance.toString(),
+                  balanceFormatted,
+                }
+              }
+              return null
+            } catch (e) {
+              return null
+            }
+          })
+          
+          const batchResults = await Promise.all(balancePromises)
+          const validTokens = batchResults.filter((t): t is WalletToken => t !== null)
+          tokensWithBalances.push(...validTokens)
+          
+          if (tokensWithBalances.length > 0) {
+            const sorted = [...tokensWithBalances].sort((a, b) => parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted))
+            setWalletTokens(sorted)
+            setBatchTokens(sorted.slice(0, 10))
+          }
+        }
+      } else if (vmType === 'svm') {
+        // Solana-based chains
+        console.log('Fetching Solana token balances for address:', solanaAddress)
+        
+        if (!solanaAddress) {
+          throw new Error('Solana wallet not connected')
+        }
+        
+        const solanaRpcUrl = chain.httpRpcUrl
+        
+        for (const currency of fetchedCurrencies) {
+          try {
+            let balance = BigInt(0)
+            
+            if (currency.metadata?.isNative || currency.address === '0x0000000000000000000000000000000000000000') {
+              // Native SOL balance
+              const response = await fetch(solanaRpcUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  jsonrpc: '2.0',
+                  id: 1,
+                  method: 'getBalance',
+                  params: [solanaAddress]
+                })
+              })
+              
+              const data = await response.json()
+              if (data.result && data.result.value !== undefined) {
+                balance = BigInt(data.result.value)
+              }
+            } else {
+              // SPL token balance
+              const response = await fetch(solanaRpcUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  jsonrpc: '2.0',
+                  id: 1,
+                  method: 'getTokenAccountsByOwner',
+                  params: [
+                    solanaAddress,
+                    { mint: currency.address },
+                    { encoding: 'jsonParsed' }
+                  ]
+                })
+              })
+              
+              const data = await response.json()
+              if (data.result && data.result.value && data.result.value.length > 0) {
+                const tokenAccount = data.result.value[0]
+                balance = BigInt(tokenAccount.account.data.parsed.info.tokenAmount.amount)
               }
             }
             
             const balanceFormatted = formatUnits(balance, currency.decimals)
             
-            // Only include tokens with non-zero balance
             if (parseFloat(balanceFormatted) > 0.00000001) {
-              console.log(`✓ ${currency.symbol} has balance:`, balanceFormatted)
-              return {
+              tokensWithBalances.push({
                 token: currency,
                 balance: balance.toString(),
                 balanceFormatted,
-              }
+              })
             }
-            return null
           } catch (e) {
-            console.error(`Unexpected error fetching balance for ${currency.symbol}:`, e)
-            return null
+            console.error(`Failed to fetch Solana balance for ${currency.symbol}:`, e)
           }
-        })
+        }
         
-        const batchResults = await Promise.all(balancePromises)
-        const validTokens = batchResults.filter((t): t is WalletToken => t !== null)
-        
-        tokensWithBalances.push(...validTokens)
-        
-        // Update UI progressively as we find tokens
         if (tokensWithBalances.length > 0) {
-          const sorted = [...tokensWithBalances].sort((a, b) => parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted))
+          const sorted = tokensWithBalances.sort((a, b) => parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted))
           setWalletTokens(sorted)
           setBatchTokens(sorted.slice(0, 10))
         }
+      } else {
+        // Unsupported VM type (bvm, tvm, etc.)
+        console.log(`VM type ${vmType} not yet supported for batch token detection`)
+        toast.info(`Batch swap for ${chain.displayName} (${vmType}) requires manual token selection`)
+        setIsLoadingBatchTokens(false)
+        return
       }
       
       console.log('Tokens with balances found:', tokensWithBalances.length)

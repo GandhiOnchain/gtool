@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73c0d02d001qMK3Idoso4GN7M",
+  "messageID": "msg_b73c0781a0014LlNhWMJLbX80J",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "The documentation doesn't show the VM types clearly. Let me check what chains Relay actually returns and their VM types:",
+  "time": {
+    "start": 1767173577661,
+    "end": 1767173577661
+  }
+}
