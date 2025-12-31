@@ -1,0 +1,11 @@
+{
+  "id": "prt_b738d2b34001XFZEgAsjGk2ugT",
+  "messageID": "msg_b738c8d2d001YjGJQ0JGkp4Kb8",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "Good! Now the swap should work. The key changes:\n\n1. **Fresh Quote**: We now get a fresh quote right before executing the swap using `/quote/v2` endpoint\n2. **Current Transaction Data**: This ensures the transaction data (gas prices, routes, etc.) is up-to-date\n3. **Proper Parameters**: We're passing all the same parameters that were used in the preview quote\n\nThe refund was likely happening because:\n- The quote was stale (gas prices changed, routes changed, etc.)\n- The transaction data in the old quote was no longer valid\n- Relay's backend couldn't match the transaction to the expected parameters\n\nWith a fresh quote, the transaction should execute successfully.",
+  "time": {
+    "start": 1767170194586,
+    "end": 1767170194586
+  }
+}

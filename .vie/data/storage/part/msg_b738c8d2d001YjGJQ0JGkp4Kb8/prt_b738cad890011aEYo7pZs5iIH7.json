@@ -1,0 +1,11 @@
+{
+  "id": "prt_b738cad890011aEYo7pZs5iIH7",
+  "messageID": "msg_b738c8d2d001YjGJQ0JGkp4Kb8",
+  "sessionID": "ses_48c9c8cdaffeLgqTwrkPyV2iQU",
+  "type": "text",
+  "text": "The issue is that we're using a stale quote. The quote from `fetchQuote` might be old or might not have the correct transaction data for execution. According to Relay's documentation, we should get a fresh quote right before executing. Let me fix this by getting a fresh quote when the user clicks the swap button:",
+  "time": {
+    "start": 1767170173469,
+    "end": 1767170173469
+  }
+}
