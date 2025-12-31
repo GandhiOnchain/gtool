@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7323637a0019WnILHXjK6deHk",
+  "messageID": "msg_b73231796001xtpajxmmqx1p0X",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01QtFExhNk9qXXhUECJtgJLP",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"execute\" src/lib/relay/api.ts -B 2 -A 5",
+      "description": "Check execute endpoints"
+    },
+    "output": "    slippageTolerance?: string\n  }): Promise<MultiInputQuote> {\n    const response = await fetch(`${this.baseUrl}/execute/swap/multi-input`, {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n      },\n      body: JSON.stringify(params),\n",
+    "metadata": {
+      "output": "    slippageTolerance?: string\n  }): Promise<MultiInputQuote> {\n    const response = await fetch(`${this.baseUrl}/execute/swap/multi-input`, {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n      },\n      body: JSON.stringify(params),\n",
+      "exit": 0,
+      "description": "Check execute endpoints"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"execute\" src/lib/relay/api.ts -B 2 -A 5",
+    "time": {
+      "start": 1767163258935,
+      "end": 1767163258941
+    }
+  }
+}

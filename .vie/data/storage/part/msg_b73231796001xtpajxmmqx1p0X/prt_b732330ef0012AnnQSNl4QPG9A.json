@@ -1,0 +1,11 @@
+{
+  "id": "prt_b732330ef0012AnnQSNl4QPG9A",
+  "messageID": "msg_b73231796001xtpajxmmqx1p0X",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "I see the issue! After the transaction is submitted, we need to **index the transaction** with Relay so they know to process it. This is a critical step that's missing. Let me add it:",
+  "time": {
+    "start": 1767163254847,
+    "end": 1767163254847
+  }
+}

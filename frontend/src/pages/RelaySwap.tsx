@@ -538,8 +538,8 @@ export default function RelaySwap() {
     setIsSwapping(true)
 
     try {
-      // Get a fresh quote right before executing
-      console.log('Fetching fresh quote before execution...')
+      // Use execute endpoint to get fresh transaction data
+      console.log('Executing swap via Relay API...')
       const amountInWei = parseUnits(fromAmount, fromToken.decimals)
       const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()
       
@@ -547,7 +547,7 @@ export default function RelaySwap() {
         .filter(([_, enabled]) => enabled)
         .map(([source]) => source)
       
-      const quoteParams = {
+      const executeParams = {
         user: address,
         originChainId: fromChain.id,
         destinationChainId: toChain.id,
@@ -561,7 +561,7 @@ export default function RelaySwap() {
         useExternalLiquidity: isCrossVM ? true : undefined,
       }
       
-      const freshQuote = await relayAPI.getQuote(quoteParams)
+      const freshQuote = await relayAPI.executeSwap(executeParams)
       
       console.log('Fresh quote received:', {
         steps: freshQuote.steps.length,
@@ -607,9 +607,22 @@ export default function RelaySwap() {
         value: BigInt(txData.value),
         chainId: txData.chainId,
       }, {
-        onSuccess: (hash) => {
+        onSuccess: async (hash) => {
           console.log('Transaction submitted successfully:', hash)
           toast.success('Transaction submitted')
+          
+          // Index the transaction with Relay
+          try {
+            console.log('Indexing transaction with Relay:', hash, 'on chain', txData.chainId)
+            await relayAPI.indexSingleTransaction({
+              txHash: hash,
+              chainId: txData.chainId,
+            })
+            console.log('Transaction indexed successfully')
+          } catch (indexError) {
+            console.error('Failed to index transaction:', indexError)
+            // Continue anyway - the transaction is still submitted
+          }
           
           if (depositStep.requestId) {
             console.log('Monitoring swap status with requestId:', depositStep.requestId)

@@ -219,6 +219,33 @@ export class RelayAPI {
     return response.json()
   }
 
+  async executeSwap(params: {
+    user: string
+    originChainId: number
+    destinationChainId: number
+    originCurrency: string
+    destinationCurrency: string
+    amount: string
+    tradeType: 'EXACT_INPUT' | 'EXACT_OUTPUT' | 'EXPECTED_OUTPUT'
+    recipient?: string
+    slippageTolerance?: string
+    useExternalLiquidity?: boolean
+    includedSwapSources?: string[]
+  }): Promise<RelayQuote> {
+    const response = await fetch(`${this.baseUrl}/execute/swap`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    })
+    if (!response.ok) {
+      const error = await response.text()
+      throw new Error(`Failed to execute swap: ${error}`)
+    }
+    return response.json()
+  }
+
   async getSwapSources(): Promise<string[]> {
     const response = await fetch(`${this.baseUrl}/swap-sources`)
     if (!response.ok) {

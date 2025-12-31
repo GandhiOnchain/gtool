@@ -1,0 +1,11 @@
+{
+  "id": "prt_b732322c5001tVdk6YaXOrqoTb",
+  "messageID": "msg_b73231796001xtpajxmmqx1p0X",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Let me check the Relay API implementation to see if there's an issue with how we're calling it:",
+  "time": {
+    "start": 1767163242749,
+    "end": 1767163242749
+  }
+}

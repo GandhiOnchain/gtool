@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73237dd7001ADY7pFMrAM9ldl",
+  "messageID": "msg_b73231796001xtpajxmmqx1p0X",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Let me check the actual usage - the issue might be that we need to use `/execute/swap` instead of `/quote/v2`. Let me add an execute method:",
+  "time": {
+    "start": 1767163271494,
+    "end": 1767163271494
+  }
+}

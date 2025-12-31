@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7323fdb20010U77AL0l19FoOP",
+  "messageID": "msg_b73231796001xtpajxmmqx1p0X",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! I've made two critical fixes that should prevent refunds:\n\n**1. Added transaction indexing** - After the transaction is submitted, we now call `relayAPI.indexSingleTransaction()` to tell Relay about the transaction. This is crucial - without it, Relay doesn't know to process your swap.\n\n**2. Using `/execute/swap` endpoint** - Changed from using `/quote/v2` to `/execute/swap` endpoint. The execute endpoint is specifically designed for getting transaction data that will be executed, while quote is just for previewing.\n\nThe flow is now:\n1. User clicks \"Swap\"\n2. Call `/execute/swap` to get fresh transaction data\n3. Submit transaction to blockchain\n4. **Index the transaction with Relay** (this was missing!)\n5. Monitor status using the requestId\n\nTry swapping again. You should see in the console:\n- \"Executing swap via Relay API...\"\n- \"Transaction submitted successfully: 0x...\"\n- \"Indexing transaction with Relay...\"\n- \"Transaction indexed successfully\"\n- Status updates as the swap processes\n\nThis should fix the refund issue!",
+  "time": {
+    "start": 1767163303682,
+    "end": 1767163303682
+  }
+}
