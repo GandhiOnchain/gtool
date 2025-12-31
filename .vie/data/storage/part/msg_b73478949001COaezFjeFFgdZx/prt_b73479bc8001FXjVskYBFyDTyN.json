@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73479bc8001FXjVskYBFyDTyN",
+  "messageID": "msg_b73478949001COaezFjeFFgdZx",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01L3apTMycq8nigLJSdjmcZm",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/rango/api.ts",
+      "offset": 40,
+      "limit": 20
+    },
+    "output": "<file>\n00041|   async getBlockchains(): Promise<RangoBlockchain[]> {\n00042|     const data = await this.request<{ blockchains: RangoBlockchain[] }>('/basic/meta')\n00043|     return data.blockchains\n00044|   }\n00045| \n00046|   async getTokens(blockchain?: string): Promise<RangoToken[]> {\n00047|     const params = new URLSearchParams()\n00048|     if (blockchain) {\n00049|       params.append('blockchain', blockchain)\n00050|     }\n00051|     \n00052|     const data = await this.request<{ tokens: RangoToken[] }>(`/basic/meta?${params}`)\n00053|     return data.tokens\n00054|   }\n00055| \n00056|   async getQuote(request: RangoQuoteRequest): Promise<RangoQuote> {\n00057|     console.log('Rango quote request:', request)\n00058|     \n00059|     const response = await this.request<{ result: RangoQuote }>('/basic/quote', {\n00060|       method: 'POST',\n\n(File has more lines. Use 'offset' parameter to read beyond line 60)\n</file>",
+    "metadata": {
+      "preview": "  async getBlockchains(): Promise<RangoBlockchain[]> {\n    const data = await this.request<{ blockchains: RangoBlockchain[] }>('/basic/meta')\n    return data.blockchains\n  }\n\n  async getTokens(blockchain?: string): Promise<RangoToken[]> {\n    const params = new URLSearchParams()\n    if (blockchain) {\n      params.append('blockchain', blockchain)\n    }\n    \n    const data = await this.request<{ tokens: RangoToken[] }>(`/basic/meta?${params}`)\n    return data.tokens\n  }\n\n  async getQuote(request: RangoQuoteRequest): Promise<RangoQuote> {\n    console.log('Rango quote request:', request)\n    \n    const response = await this.request<{ result: RangoQuote }>('/basic/quote', {\n      method: 'POST',"
+    },
+    "title": "frontend/src/lib/rango/api.ts",
+    "time": {
+      "start": 1767165632716,
+      "end": 1767165632718
+    }
+  }
+}

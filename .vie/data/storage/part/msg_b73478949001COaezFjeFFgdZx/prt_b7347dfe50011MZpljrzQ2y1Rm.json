@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7347dfe50011MZpljrzQ2y1Rm",
+  "messageID": "msg_b73478949001COaezFjeFFgdZx",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "The issue is that we're using `chain?.name.toUpperCase()` but Rango uses specific blockchain names. Let me check what the actual blockchain names are and fix the mapping:",
+  "time": {
+    "start": 1767165664769,
+    "end": 1767165664769
+  }
+}

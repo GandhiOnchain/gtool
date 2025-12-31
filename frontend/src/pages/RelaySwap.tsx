@@ -288,12 +288,19 @@ export default function RelaySwap() {
       console.log('Loading currencies for chain:', chainId, 'type:', type)
       
       const chain = chains.find(c => c.id === chainId)
-      const vmType = chain?.vmType || 'evm'
+      if (!chain) {
+        console.error('Chain not found:', chainId)
+        return
+      }
+      
+      const vmType = chain.vmType || 'evm'
+      console.log('Chain vmType:', vmType, 'name:', chain.name)
       
       let fetchedCurrencies: RelayCurrency[] = []
       
       // For EVM chains, use Relay API
       if (vmType === 'evm') {
+        console.log('Fetching EVM tokens from Relay...')
         fetchedCurrencies = await relayAPI.getCurrencies({
           chainIds: [chainId],
           defaultList: true,
@@ -301,22 +308,36 @@ export default function RelaySwap() {
         })
       } else {
         // For non-EVM chains, use Rango API
-        const rangoTokens = await rangoAPI.getTokens(chain?.name.toUpperCase())
-        fetchedCurrencies = rangoTokens.map(t => ({
-          chainId: chainId,
-          address: t.address || '0x0000000000000000000000000000000000000000',
-          symbol: t.symbol,
-          name: t.name,
-          decimals: t.decimals,
-          metadata: {
-            logoURI: t.image,
-            isNative: !t.address,
-          },
-        }))
+        // Rango uses uppercase blockchain names like "SOLANA", "COSMOS"
+        const blockchainName = chain.name.toUpperCase()
+        console.log('Fetching non-EVM tokens from Rango for blockchain:', blockchainName)
+        
+        try {
+          const rangoTokens = await rangoAPI.getTokens(blockchainName)
+          console.log('Rango returned', rangoTokens.length, 'tokens for', blockchainName)
+          
+          fetchedCurrencies = rangoTokens.map(t => ({
+            chainId: chainId,
+            address: t.address || '0x0000000000000000000000000000000000000000',
+            symbol: t.symbol,
+            name: t.name,
+            decimals: t.decimals,
+            metadata: {
+              logoURI: t.image,
+              isNative: !t.address,
+            },
+          }))
+        } catch (rangoError) {
+          console.error('Failed to fetch Rango tokens:', rangoError)
+          toast.error(`Failed to load tokens for ${chain.displayName}`)
+          return
+        }
       }
       
       console.log('Fetched currencies:', fetchedCurrencies.length, 'for chain', chainId)
-      console.log('First few tokens:', fetchedCurrencies.slice(0, 5).map(c => c.symbol))
+      if (fetchedCurrencies.length > 0) {
+        console.log('First few tokens:', fetchedCurrencies.slice(0, 5).map(c => c.symbol))
+      }
       
       if (type === 'from') {
         setFromCurrencies(fetchedCurrencies)

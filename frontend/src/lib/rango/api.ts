@@ -44,12 +44,13 @@ export class RangoAPI {
   }
 
   async getTokens(blockchain?: string): Promise<RangoToken[]> {
-    const params = new URLSearchParams()
+    // Rango API returns all data in /basic/meta, we need to filter
+    const data = await this.request<{ tokens: RangoToken[] }>('/basic/meta')
+    
     if (blockchain) {
-      params.append('blockchain', blockchain)
+      return data.tokens.filter(t => t.blockchain.toUpperCase() === blockchain.toUpperCase())
     }
     
-    const data = await this.request<{ tokens: RangoToken[] }>(`/basic/meta?${params}`)
     return data.tokens
   }
 

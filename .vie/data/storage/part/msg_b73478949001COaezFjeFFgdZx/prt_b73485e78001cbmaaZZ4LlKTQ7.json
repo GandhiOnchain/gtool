@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73485e78001cbmaaZZ4LlKTQ7",
+  "messageID": "msg_b73478949001COaezFjeFFgdZx",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! Now the token loading should work correctly:\n\n1. **For EVM chains** (Ethereum, Base, etc.): Loads tokens from Relay API\n2. **For non-EVM chains** (Solana, Cosmos, etc.): Loads tokens from Rango API\n\nThe console logs will now show:\n- \"Chain vmType: svm name: solana\" (or similar)\n- \"Fetching non-EVM tokens from Rango for blockchain: SOLANA\"\n- \"Rango returned X tokens for SOLANA\"\n- \"First few tokens: SOL, USDC, ...\"\n\nCheck the browser console to see what's happening. If you see errors, let me know what they say and I can fix them!",
+  "time": {
+    "start": 1767165684788,
+    "end": 1767165684788
+  }
+}

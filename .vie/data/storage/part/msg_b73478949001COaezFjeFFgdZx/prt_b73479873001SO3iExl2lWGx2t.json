@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73479873001SO3iExl2lWGx2t",
+  "messageID": "msg_b73478949001COaezFjeFFgdZx",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Let me check the token loading logic. The issue is likely in how we're fetching tokens for different chains:",
+  "time": {
+    "start": 1767165632906,
+    "end": 1767165632906
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7347acff001nV7sGzkCOcfMNp",
+  "messageID": "msg_b73478949001COaezFjeFFgdZx",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "The issue is that `getTokens` needs to fetch all metadata and then filter. Let me fix this:",
+  "time": {
+    "start": 1767165639883,
+    "end": 1767165639883
+  }
+}
