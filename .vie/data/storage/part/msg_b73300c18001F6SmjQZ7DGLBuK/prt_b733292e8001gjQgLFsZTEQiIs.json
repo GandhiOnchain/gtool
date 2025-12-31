@@ -1,0 +1,48 @@
+{
+  "id": "prt_b733292e8001gjQgLFsZTEQiIs",
+  "messageID": "msg_b73300c18001F6SmjQZ7DGLBuK",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_019LmvQU9MGfHYU8MBnYSDZK",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "✅ All checked files are clean!\n\nChecked 21 file(s):\n  - frontend/output/index.html\n  - frontend/output/assets/SIWXUtil-bqgeOSJN.js\n  - frontend/output/assets/basic-BsUCLihf.js\n  - frontend/output/assets/ccip-BgcPZdXU.js\n  - frontend/output/assets/ccip-DBeD8KGO.js\n  - frontend/output/assets/ccip-a0EAUPiO.js\n  - frontend/output/assets/core-CFSfPD5A.js\n  - frontend/output/assets/dist-DRJmmJfF.js\n  - frontend/output/assets/index-GTyb_14t.js\n  - frontend/output/assets/localBatchGatewayRequest-DTO7OwJP.js\n  - frontend/output/assets/secp256k1-BYoXKx9b.js\n  - frontend/output/assets/secp256k1-DFTPQuJw.js\n  - frontend/output/assets/secp256k1-TCVu5BC4.js\n  - frontend/output/assets/w3m-modal-G-jHaZoU.js\n  - frontend/output/assets/wui-text-C5zvVys9.js\n  - frontend/src/lib/lifi/api.ts\n  - frontend/src/lib/lifi/types.ts\n  - frontend/src/lib/rango/api.ts\n  - frontend/src/lib/rango/types.ts\n  - frontend/src/lib/swap-router/router.ts\n  - frontend/src/lib/swap-router/types.ts",
+    "metadata": {
+      "filesChecked": 21,
+      "filesWithIssues": 0,
+      "totalIssues": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/output/index.html",
+        "frontend/output/assets/SIWXUtil-bqgeOSJN.js",
+        "frontend/output/assets/basic-BsUCLihf.js",
+        "frontend/output/assets/ccip-BgcPZdXU.js",
+        "frontend/output/assets/ccip-DBeD8KGO.js",
+        "frontend/output/assets/ccip-a0EAUPiO.js",
+        "frontend/output/assets/core-CFSfPD5A.js",
+        "frontend/output/assets/dist-DRJmmJfF.js",
+        "frontend/output/assets/index-GTyb_14t.js",
+        "frontend/output/assets/localBatchGatewayRequest-DTO7OwJP.js",
+        "frontend/output/assets/secp256k1-BYoXKx9b.js",
+        "frontend/output/assets/secp256k1-DFTPQuJw.js",
+        "frontend/output/assets/secp256k1-TCVu5BC4.js",
+        "frontend/output/assets/w3m-modal-G-jHaZoU.js",
+        "frontend/output/assets/wui-text-C5zvVys9.js",
+        "frontend/src/lib/lifi/api.ts",
+        "frontend/src/lib/lifi/types.ts",
+        "frontend/src/lib/rango/api.ts",
+        "frontend/src/lib/rango/types.ts",
+        "frontend/src/lib/swap-router/router.ts",
+        "frontend/src/lib/swap-router/types.ts"
+      ]
+    },
+    "title": "Diagnostics: 0 issue(s) in 0 file(s)",
+    "time": {
+      "start": 1767164253025,
+      "end": 1767164258159
+    }
+  }
+}

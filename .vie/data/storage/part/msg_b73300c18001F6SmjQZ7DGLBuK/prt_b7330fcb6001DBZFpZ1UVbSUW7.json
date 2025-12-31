@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7330fcb6001DBZFpZ1UVbSUW7",
+  "messageID": "msg_b73300c18001F6SmjQZ7DGLBuK",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "write",
+  "callID": "toolu_vrtx_01SYZ1RTSUnUbuNtcfWYShfK",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/lifi/api.ts",
+      "content": "import type {\n  LiFiChain,\n  LiFiToken,\n  LiFiQuoteRequest,\n  LiFiRoute,\n  LiFiStatus,\n} from './types'\n\nconst LIFI_API_BASE = 'https://li.quest/v1'\n\nexport class LiFiAPI {\n  private baseUrl: string\n\n  constructor(baseUrl: string = LIFI_API_BASE) {\n    this.baseUrl = baseUrl\n  }\n\n  private async request<T>(endpoint: string, options?: RequestInit): Promise<T> {\n    const response = await fetch(`${this.baseUrl}${endpoint}`, {\n      ...options,\n      headers: {\n        'Content-Type': 'application/json',\n        ...options?.headers,\n      },\n    })\n\n    if (!response.ok) {\n      const error = await response.text()\n      throw new Error(`LI.FI API error: ${error}`)\n    }\n\n    return response.json()\n  }\n\n  async getChains(): Promise<LiFiChain[]> {\n    const data = await this.request<{ chains: LiFiChain[] }>('/chains')\n    return data.chains\n  }\n\n  async getTokens(params?: { chains?: number[] }): Promise<{ tokens: Record<string, LiFiToken[]> }> {\n    const queryParams = new URLSearchParams()\n    if (params?.chains) {\n      queryParams.append('chains', params.chains.join(','))\n    }\n    \n    return this.request<{ tokens: Record<string, LiFiToken[]> }>(`/tokens?${queryParams}`)\n  }\n\n  async getQuote(request: LiFiQuoteRequest): Promise<LiFiRoute> {\n    console.log('LI.FI quote request:', request)\n    \n    const params = new URLSearchParams({\n      fromChain: request.fromChain.toString(),\n      toChain: request.toChain.toString(),\n      fromToken: request.fromToken,\n      toToken: request.toToken,\n      fromAmount: request.fromAmount,\n      fromAddress: request.fromAddress,\n      integrator: request.integrator || 'vie-swap',\n    })\n\n    if (request.toAddress) {\n      params.append('toAddress', request.toAddress)\n    }\n    if (request.slippage) {\n      params.append('slippage', (request.slippage / 100).toString())\n    }\n    if (request.allowBridges) {\n      params.append('allowBridges', request.allowBridges.join(','))\n    }\n    if (request.allowExchanges) {\n      params.append('allowExchanges', request.allowExchanges.join(','))\n    }\n\n    const response = await this.request<LiFiRoute>(`/quote?${params}`)\n    console.log('LI.FI quote response:', response)\n    return response\n  }\n\n  async getRoutes(request: LiFiQuoteRequest): Promise<{ routes: LiFiRoute[] }> {\n    console.log('LI.FI routes request:', request)\n    \n    const response = await this.request<{ routes: LiFiRoute[] }>('/advanced/routes', {\n      method: 'POST',\n      body: JSON.stringify({\n        ...request,\n        options: {\n          slippage: request.slippage ? request.slippage / 100 : 0.03,\n          integrator: request.integrator || 'vie-swap',\n          allowBridges: request.allowBridges,\n          allowExchanges: request.allowExchanges,\n        },\n      }),\n    })\n\n    console.log('LI.FI routes response:', response)\n    return response\n  }\n\n  async getStatus(params: { txHash: string; bridge: string; fromChain: number; toChain: number }): Promise<LiFiStatus> {\n    const queryParams = new URLSearchParams({\n      txHash: params.txHash,\n      bridge: params.bridge,\n      fromChain: params.fromChain.toString(),\n      toChain: params.toChain.toString(),\n    })\n\n    return this.request<LiFiStatus>(`/status?${queryParams}`)\n  }\n}\n\nexport const lifiAPI = new LiFiAPI()\n"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "filepath": "/home/user/sandbox/workspace/frontend/src/lib/lifi/api.ts",
+      "exists": false
+    },
+    "title": "frontend/src/lib/lifi/api.ts",
+    "time": {
+      "start": 1767164162111,
+      "end": 1767164162112
+    }
+  }
+}

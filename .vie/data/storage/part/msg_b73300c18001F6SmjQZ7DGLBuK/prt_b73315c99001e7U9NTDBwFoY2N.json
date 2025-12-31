@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73315c99001e7U9NTDBwFoY2N",
+  "messageID": "msg_b73300c18001F6SmjQZ7DGLBuK",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "write",
+  "callID": "toolu_vrtx_01Wr4BoPMpXjreGECs5bPfy7",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/swap-router/types.ts",
+      "content": "export type SwapProvider = 'relay' | 'rango' | 'lifi'\n\nexport interface UnifiedChain {\n  id: number | string\n  name: string\n  displayName: string\n  vmType: 'evm' | 'svm' | 'cosmos' | 'utxo' | 'tron' | 'starknet'\n  iconUrl?: string\n  nativeCurrency: {\n    symbol: string\n    decimals: number\n  }\n}\n\nexport interface UnifiedToken {\n  address: string\n  symbol: string\n  name: string\n  decimals: number\n  chainId: number | string\n  logoURI?: string\n  priceUSD?: number\n}\n\nexport interface UnifiedQuoteRequest {\n  fromChain: UnifiedChain\n  toChain: UnifiedChain\n  fromToken: UnifiedToken\n  toToken: UnifiedToken\n  fromAmount: string\n  fromAddress: string\n  toAddress?: string\n  slippage?: number\n}\n\nexport interface UnifiedQuote {\n  provider: SwapProvider\n  fromAmount: string\n  toAmount: string\n  toAmountMin: string\n  estimatedGas: string\n  estimatedTime: number\n  route: {\n    steps: Array<{\n      tool: string\n      fromChain: string\n      toChain: string\n      fromToken: string\n      toToken: string\n    }>\n  }\n  fees: {\n    gas?: string\n    protocol?: string\n    total?: string\n  }\n  rawQuote: unknown\n}\n\nexport interface UnifiedSwapTransaction {\n  provider: SwapProvider\n  chainId: number\n  to: string\n  data: string\n  value: string\n  from: string\n  gasLimit?: string\n  gasPrice?: string\n  maxFeePerGas?: string\n  maxPriorityFeePerGas?: string\n}\n"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "filepath": "/home/user/sandbox/workspace/frontend/src/lib/swap-router/types.ts",
+      "exists": false
+    },
+    "title": "frontend/src/lib/swap-router/types.ts",
+    "time": {
+      "start": 1767164181054,
+      "end": 1767164181056
+    }
+  }
+}

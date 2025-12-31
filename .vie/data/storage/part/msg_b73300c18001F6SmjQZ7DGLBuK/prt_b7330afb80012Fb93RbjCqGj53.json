@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7330afb80012Fb93RbjCqGj53",
+  "messageID": "msg_b73300c18001F6SmjQZ7DGLBuK",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "write",
+  "callID": "toolu_vrtx_01JBaTJPbenCe5eYSdqNg8y6",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/lifi/types.ts",
+      "content": "export interface LiFiChain {\n  id: number\n  key: string\n  name: string\n  coin: string\n  mainnet: boolean\n  logoURI: string\n  tokenlistUrl: string\n  multicallAddress: string\n  metamask: {\n    chainId: string\n    blockExplorerUrls: string[]\n    chainName: string\n    nativeCurrency: {\n      name: string\n      symbol: string\n      decimals: number\n    }\n    rpcUrls: string[]\n  }\n}\n\nexport interface LiFiToken {\n  address: string\n  chainId: number\n  symbol: string\n  decimals: number\n  name: string\n  coinKey: string\n  logoURI: string\n  priceUSD: string\n}\n\nexport interface LiFiQuoteRequest {\n  fromChain: number\n  toChain: number\n  fromToken: string\n  toToken: string\n  fromAmount: string\n  fromAddress: string\n  toAddress?: string\n  slippage?: number\n  integrator?: string\n  allowBridges?: string[]\n  allowExchanges?: string[]\n}\n\nexport interface LiFiRoute {\n  id: string\n  fromChainId: number\n  fromAmountUSD: string\n  fromAmount: string\n  fromToken: LiFiToken\n  fromAddress: string\n  toChainId: number\n  toAmountUSD: string\n  toAmount: string\n  toAmountMin: string\n  toToken: LiFiToken\n  toAddress: string\n  gasCostUSD: string\n  steps: Array<{\n    id: string\n    type: 'lifi' | 'swap' | 'cross'\n    tool: string\n    toolDetails: {\n      key: string\n      name: string\n      logoURI: string\n    }\n    action: {\n      fromChainId: number\n      toChainId: number\n      fromToken: LiFiToken\n      toToken: LiFiToken\n      fromAmount: string\n      toAmount: string\n      slippage: number\n      fromAddress: string\n      toAddress: string\n    }\n    estimate: {\n      tool: string\n      fromAmount: string\n      toAmount: string\n      toAmountMin: string\n      approvalAddress: string\n      executionDuration: number\n      feeCosts: Array<{\n        name: string\n        description: string\n        token: LiFiToken\n        amount: string\n        amountUSD: string\n        percentage: string\n        included: boolean\n      }>\n      gasCosts: Array<{\n        type: string\n        price: string\n        estimate: string\n        limit: string\n        amount: string\n        amountUSD: string\n        token: LiFiToken\n      }>\n    }\n    includedSteps?: Array<{\n      id: string\n      type: string\n      action: unknown\n      estimate: unknown\n    }>\n    transactionRequest?: {\n      from: string\n      to: string\n      chainId: number\n      data: string\n      value: string\n      gasPrice?: string\n      gasLimit?: string\n    }\n  }>\n  insurance: {\n    state: string\n    feeAmountUsd: string\n  }\n  tags: string[]\n}\n\nexport interface LiFiStatus {\n  status: 'NOT_FOUND' | 'INVALID' | 'PENDING' | 'DONE' | 'FAILED'\n  substatus?: string\n  substatusMessage?: string\n  sending: {\n    txHash: string\n    txLink: string\n    amount: string\n    token: LiFiToken\n    chainId: number\n    gasPrice: string\n    gasUsed: string\n    gasToken: LiFiToken\n    gasAmount: string\n    gasAmountUSD: string\n    amountUSD: string\n    value: string\n    timestamp: number\n  }\n  receiving?: {\n    txHash: string\n    txLink: string\n    amount: string\n    token: LiFiToken\n    chainId: number\n    gasPrice: string\n    gasUsed: string\n    gasToken: LiFiToken\n    gasAmount: string\n    gasAmountUSD: string\n    amountUSD: string\n    value: string\n    timestamp: number\n  }\n  lifiExplorerLink: string\n  fromAddress: string\n  toAddress: string\n  tool: string\n  metadata?: {\n    integrator: string\n  }\n}\n"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "filepath": "/home/user/sandbox/workspace/frontend/src/lib/lifi/types.ts",
+      "exists": false
+    },
+    "title": "frontend/src/lib/lifi/types.ts",
+    "time": {
+      "start": 1767164145724,
+      "end": 1767164145725
+    }
+  }
+}

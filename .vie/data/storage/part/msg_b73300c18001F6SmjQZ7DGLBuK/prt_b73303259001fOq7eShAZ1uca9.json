@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73303259001fOq7eShAZ1uca9",
+  "messageID": "msg_b73300c18001F6SmjQZ7DGLBuK",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "write",
+  "callID": "toolu_vrtx_01RGGtpRTf6f3mCu756ihUZU",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/rango/types.ts",
+      "content": "export interface RangoBlockchain {\n  name: string\n  displayName: string\n  shortName: string\n  type: 'EVM' | 'SOLANA' | 'COSMOS' | 'UTXO' | 'TRON' | 'STARKNET'\n  chainId?: string\n  enabled: boolean\n  logo: string\n}\n\nexport interface RangoToken {\n  blockchain: string\n  symbol: string\n  name: string\n  address: string | null\n  decimals: number\n  image: string\n  blockchainImage: string\n  usdPrice: number | null\n  isPopular?: boolean\n}\n\nexport interface RangoQuoteRequest {\n  from: {\n    blockchain: string\n    symbol: string\n    address: string | null\n  }\n  to: {\n    blockchain: string\n    symbol: string\n    address: string | null\n  }\n  amount: string\n  fromAddress: string\n  toAddress?: string\n  slippage?: number\n  disableEstimate?: boolean\n}\n\nexport interface RangoQuote {\n  requestId: string\n  route: {\n    from: RangoToken\n    to: RangoToken\n    outputAmount: string\n    outputAmountUsd: string | null\n    swapper: {\n      id: string\n      title: string\n      logo: string\n    }\n    path: Array<{\n      from: RangoToken\n      to: RangoToken\n      swapper: {\n        id: string\n        title: string\n      }\n      expectedOutput: string\n    }>\n  }\n  fee: Array<{\n    name: string\n    token: RangoToken\n    amount: string\n    expenseType: string\n  }>\n  estimatedTimeInSeconds: number\n}\n\nexport interface RangoSwapRequest {\n  requestId: string\n  step: number\n  userSettings: {\n    slippage: string\n    infiniteApprove: boolean\n  }\n  validations?: {\n    balance: boolean\n    fee: boolean\n  }\n}\n\nexport interface RangoSwapResponse {\n  transaction: {\n    type: 'EVM' | 'SOLANA' | 'COSMOS' | 'TRANSFER'\n    blockChain: string\n    from: string\n    to: string\n    data?: string\n    value?: string\n    gasLimit?: string\n    gasPrice?: string\n    maxFeePerGas?: string\n    maxPriorityFeePerGas?: string\n  } | null\n  ok: boolean\n  error?: string\n}\n\nexport interface RangoStatus {\n  status: 'running' | 'success' | 'failed'\n  timestamp: number\n  explorerUrl: Array<{\n    url: string\n    description: string\n  }>\n  bridgeData?: {\n    srcChainId: string\n    destChainId: string\n    srcTxHash: string\n    destTxHash?: string\n  }\n}\n"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "filepath": "/home/user/sandbox/workspace/frontend/src/lib/rango/types.ts",
+      "exists": false
+    },
+    "title": "frontend/src/lib/rango/types.ts",
+    "time": {
+      "start": 1767164108391,
+      "end": 1767164108393
+    }
+  }
+}
