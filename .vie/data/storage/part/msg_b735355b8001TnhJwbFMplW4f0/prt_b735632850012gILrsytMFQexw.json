@@ -1,0 +1,11 @@
+{
+  "id": "prt_b735632850012gILrsytMFQexw",
+  "messageID": "msg_b735355b8001TnhJwbFMplW4f0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! Now the app is set up to:\n\n1. **Load Solana chain** alongside EVM chains\n2. **Use CORS proxy** to bypass browser restrictions when calling Rango API\n3. **Automatically route swaps**:\n   - EVM → EVM: Uses Relay\n   - EVM → Solana: Uses Rango (via CORS proxy)\n4. **Show provider badge** in the quote (RELAY, RANGO, or LIFI)\n5. **No extra tabs** - everything works in the main Swap tab\n\nNow try swapping from Ethereum to Solana:\n1. Select Ethereum as \"From\" chain\n2. Select Solana as \"To\" chain (it should now appear in the list)\n3. Select SOL, USDC, or USDT as the destination token\n4. Enter your Solana wallet address when the recipient field appears\n5. The quote will use Rango and show \"RANGO\" badge\n6. Click Swap\n\nThe CORS proxy should allow the Rango API calls to work!",
+  "time": {
+    "start": 1767166594597,
+    "end": 1767166594597
+  }
+}

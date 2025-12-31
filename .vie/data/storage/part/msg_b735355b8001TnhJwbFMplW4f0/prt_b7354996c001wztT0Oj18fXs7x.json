@@ -1,0 +1,30 @@
+{
+  "id": "prt_b7354996c001wztT0Oj18fXs7x",
+  "messageID": "msg_b735355b8001TnhJwbFMplW4f0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01AQMpng31CTeAdyotLCFXya",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ❌ ERROR [90:38] Cannot find name 'RelayQuote'. [typescript]\n\n──────────────────────────────────────────────────\nSummary: 1 issue(s) found\n  - 1 error(s)\n",
+    "metadata": {
+      "filesChecked": 3,
+      "filesWithIssues": 1,
+      "totalIssues": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/src/lib/rango/api.ts",
+        "frontend/src/pages/RelaySwap.tsx",
+        "frontend/src/lib/rango/proxy.ts"
+      ]
+    },
+    "title": "Diagnostics: 1 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1767166483167,
+      "end": 1767166493225
+    }
+  }
+}

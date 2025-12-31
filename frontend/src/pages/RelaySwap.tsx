@@ -3,7 +3,7 @@ import { sdk } from '@farcaster/miniapp-sdk'
 import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'
 import { parseUnits, formatUnits } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
-import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
+import type { RelayChain, RelayCurrency } from '@/lib/relay/types'
 import { swapRouter } from '@/lib/swap-router/router'
 import type { UnifiedQuote } from '@/lib/swap-router/types'
 import { rangoAPI } from '@/lib/rango/api'
@@ -87,7 +87,7 @@ export default function RelaySwap() {
   const [toToken, setToToken] = useState<RelayCurrency | null>(null)
   const [fromAmount, setFromAmount] = useState('')
   const [toAmount, setToAmount] = useState('')
-  const [quote, setQuote] = useState<RelayQuote | null>(null)
+  const [quote, setQuote] = useState<UnifiedQuote | null>(null)
   const [isLoadingQuote, setIsLoadingQuote] = useState(false)
   const [isSwapping, setIsSwapping] = useState(false)
   const [slippage, setSlippage] = useState('0.1')
@@ -206,21 +206,45 @@ export default function RelaySwap() {
 
   const loadChains = async () => {
     try {
-      console.log('Loading chains from Relay...')
+      console.log('Loading chains from Relay and Rango...')
       
       const relayResponse = await relayAPI.getChains()
       const relayChains = relayResponse.chains.filter(c => !c.disabled)
       console.log('Loaded Relay chains:', relayChains.length)
       
-      setChains(relayChains)
-      
-      if (relayChains.length > 0) {
-        const baseChain = relayChains.find(c => c.id === 8453) || relayChains[0]
-        setFromChain(baseChain)
-        setToChain(relayChains.find(c => c.id !== baseChain.id) || relayChains[1])
+      // Add Solana chain
+      const solanaChain: RelayChain = {
+        id: 900000,
+        name: 'solana',
+        displayName: 'Solana',
+        httpRpcUrl: 'https://api.mainnet-beta.solana.com',
+        explorerUrl: 'https://explorer.solana.com',
+        explorerName: 'Solana Explorer',
+        depositEnabled: true,
+        tokenSupport: 'All',
+        disabled: false,
+        currency: {
+          id: 'sol',
+          symbol: 'SOL',
+          name: 'Solana',
+          address: '0x0000000000000000000000000000000000000000',
+          decimals: 9,
+          supportsBridging: true,
+        },
+        iconUrl: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png',
+        vmType: 'svm',
       }
       
-      console.log('Total chains loaded:', relayChains.length)
+      const allChains = [...relayChains, solanaChain]
+      setChains(allChains)
+      
+      if (allChains.length > 0) {
+        const baseChain = allChains.find(c => c.id === 8453) || allChains[0]
+        setFromChain(baseChain)
+        setToChain(allChains.find(c => c.id !== baseChain.id) || allChains[1])
+      }
+      
+      console.log('Total chains loaded:', allChains.length)
     } catch (error) {
       console.error('Failed to load chains:', error)
       toast.error('Failed to load chains')
@@ -561,36 +585,62 @@ export default function RelaySwap() {
     setIsLoadingQuote(true)
     try {
       const amountInWei = parseUnits(fromAmount, fromToken.decimals)
-      const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()
-      
-      const includedSources = Object.entries(enabledSources)
-        .filter(([_, enabled]) => enabled)
-        .map(([source]) => source)
       
       const fromVMType = fromChain.vmType || 'evm'
       const toVMType = toChain.vmType || 'evm'
       const isCrossVM = fromVMType !== toVMType
       
-      const quoteParams = {
-        user: address,
-        originChainId: fromChain.id,
-        destinationChainId: toChain.id,
-        originCurrency: fromToken.address,
-        destinationCurrency: toToken.address,
-        amount: amountInWei.toString(),
-        tradeType: 'EXACT_INPUT' as const,
-        slippageTolerance: slippageBps,
-        recipient: isCrossVM && recipientAddress ? recipientAddress : undefined,
-        includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
-        useExternalLiquidity: isCrossVM ? true : undefined,
-      }
+      console.log('Fetching quote...', { fromVMType, toVMType, isCrossVM })
       
-      const quoteData = await relayAPI.getQuote(quoteParams)
+      const unifiedQuote = await swapRouter.getQuote({
+        fromChain: {
+          id: fromChain.id,
+          name: fromChain.name,
+          displayName: fromChain.displayName,
+          vmType: fromVMType as 'evm' | 'svm' | 'cosmos' | 'utxo' | 'tron' | 'starknet',
+          nativeCurrency: {
+            symbol: fromChain.currency.symbol,
+            decimals: fromChain.currency.decimals,
+          },
+          iconUrl: fromChain.iconUrl,
+        },
+        toChain: {
+          id: toChain.id,
+          name: toChain.name,
+          displayName: toChain.displayName,
+          vmType: toVMType as 'evm' | 'svm' | 'cosmos' | 'utxo' | 'tron' | 'starknet',
+          nativeCurrency: {
+            symbol: toChain.currency.symbol,
+            decimals: toChain.currency.decimals,
+          },
+          iconUrl: toChain.iconUrl,
+        },
+        fromToken: {
+          address: fromToken.address,
+          symbol: fromToken.symbol,
+          name: fromToken.name,
+          decimals: fromToken.decimals,
+          chainId: fromChain.id,
+          logoURI: fromToken.metadata?.logoURI,
+        },
+        toToken: {
+          address: toToken.address,
+          symbol: toToken.symbol,
+          name: toToken.name,
+          decimals: toToken.decimals,
+          chainId: toChain.id,
+          logoURI: toToken.metadata?.logoURI,
+        },
+        fromAmount: amountInWei.toString(),
+        fromAddress: address,
+        toAddress: isCrossVM && recipientAddress ? recipientAddress : address,
+        slippage: parseFloat(slippage),
+      })
       
-      setQuote(quoteData)
-      if (quoteData.details.currencyOut) {
-        setToAmount(quoteData.details.currencyOut.amountFormatted)
-      }
+      console.log('Quote received from', unifiedQuote.provider, ':', unifiedQuote)
+      
+      setQuote(unifiedQuote)
+      setToAmount(unifiedQuote.toAmount)
     } catch (error) {
       console.error('Failed to fetch quote:', error)
       const errorMessage = error instanceof Error ? error.message : 'Failed to get quote'
@@ -602,7 +652,7 @@ export default function RelaySwap() {
   }
 
   const executeSwap = async () => {
-    if (!quote || !quote.steps || quote.steps.length === 0) {
+    if (!quote) {
       toast.error('No quote available')
       return
     }
@@ -1250,9 +1300,8 @@ export default function RelaySwap() {
         )}
 
         <Tabs defaultValue="swap" className="w-full">
-          <TabsList className="grid w-full grid-cols-5 h-8">
+          <TabsList className="grid w-full grid-cols-4 h-8">
             <TabsTrigger value="swap" className="text-xs">Swap</TabsTrigger>
-            <TabsTrigger value="crossvm" className="text-xs">Cross-VM</TabsTrigger>
             <TabsTrigger value="batch" className="text-xs">Batch</TabsTrigger>
             <TabsTrigger value="history" className="text-xs">History</TabsTrigger>
             <TabsTrigger value="settings" className="text-xs">Settings</TabsTrigger>
@@ -1464,29 +1513,27 @@ export default function RelaySwap() {
               <Card className="p-3 bg-card">
                 <div className="space-y-1.5 text-xs">
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Rate</span>
-                    <span className="font-mono">{quote.details.rate || '0'}</span>
+                    <span className="text-muted-foreground">Provider</span>
+                    <Badge variant="secondary" className="text-xs">{quote.provider.toUpperCase()}</Badge>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">You get</span>
+                    <span className="font-mono">{parseFloat(quote.toAmount).toFixed(6)}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">Gas</span>
-                    <span className="font-mono">${quote.fees.gas?.amountUsd || '0'}</span>
+                    <span className="font-mono">${quote.estimatedGas}</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Relayer</span>
-                    <span className="font-mono">${quote.fees.relayer?.amountUsd || '0'}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Time</span>
-                    <span className="font-mono">{quote.details.timeEstimate || 0}s</span>
-                  </div>
-                  {quote.details.totalImpact && (
+                  {quote.fees.protocol && (
                     <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Impact</span>
-                      <span className={`font-mono ${parseFloat(quote.details.totalImpact.percent) < 0 ? 'text-destructive' : ''}`}>
-                        {quote.details.totalImpact.percent}
-                      </span>
+                      <span className="text-muted-foreground">Protocol Fee</span>
+                      <span className="font-mono">${quote.fees.protocol}</span>
                     </div>
                   )}
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Time</span>
+                    <span className="font-mono">{quote.estimatedTime}s</span>
+                  </div>
                 </div>
               </Card>
             )}
@@ -1557,22 +1604,6 @@ export default function RelaySwap() {
                 </ScrollArea>
               </div>
             )}
-          </TabsContent>
-
-          <TabsContent value="crossvm" className="space-y-2 mt-2">
-            <Card className="p-4">
-              <div className="space-y-3">
-                <div className="text-sm font-medium">Cross-Chain Swap (Powered by Rango)</div>
-                <div className="text-xs text-muted-foreground">
-                  Swap between any chains: Ethereum, Solana, Cosmos, Bitcoin, and more
-                </div>
-                <iframe
-                  src={`https://widget.rango.exchange/?apiKey=c6381a79-2817-4602-83bf-6a641a409e32&theme=dark&fromBlockchain=ETH&toBlockchain=SOLANA${address ? `&fromAddress=${address}` : ''}`}
-                  className="w-full h-[600px] border-0 rounded-lg"
-                  allow="clipboard-read; clipboard-write"
-                />
-              </div>
-            </Card>
           </TabsContent>
 
           <TabsContent value="batch" className="space-y-2 mt-2">

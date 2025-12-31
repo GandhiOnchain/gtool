@@ -1,0 +1,45 @@
+{
+  "id": "prt_b73560689001Pkg3V9NimPZvCc",
+  "messageID": "msg_b735355b8001TnhJwbFMplW4f0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01LsXyn1EPpFPUVFKLQ4Fozj",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "✅ All checked files are clean!\n\nChecked 18 file(s):\n  - frontend/output/index.html\n  - frontend/src/lib/rango/api.ts\n  - frontend/src/pages/RelaySwap.tsx\n  - frontend/output/assets/SIWXUtil-rCPXRVgs.js\n  - frontend/output/assets/basic-JMiRh4HX.js\n  - frontend/output/assets/ccip-BAkmBY5x.js\n  - frontend/output/assets/ccip-BMyvx4qS.js\n  - frontend/output/assets/ccip-BTEKo6zI.js\n  - frontend/output/assets/core-Dxpb-bMj.js\n  - frontend/output/assets/dist-D-EyHAfL.js\n  - frontend/output/assets/index-De6CnRXj.js\n  - frontend/output/assets/localBatchGatewayRequest-Bo6jYIcO.js\n  - frontend/output/assets/secp256k1-CZxjGF6E.js\n  - frontend/output/assets/secp256k1-D8C1eZul.js\n  - frontend/output/assets/secp256k1-DQzXb-vo.js\n  - frontend/output/assets/w3m-modal-BOXePfbo.js\n  - frontend/output/assets/wui-text-BERvvQ8g.js\n  - frontend/src/lib/rango/proxy.ts",
+    "metadata": {
+      "filesChecked": 18,
+      "filesWithIssues": 0,
+      "totalIssues": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/output/index.html",
+        "frontend/src/lib/rango/api.ts",
+        "frontend/src/pages/RelaySwap.tsx",
+        "frontend/output/assets/SIWXUtil-rCPXRVgs.js",
+        "frontend/output/assets/basic-JMiRh4HX.js",
+        "frontend/output/assets/ccip-BAkmBY5x.js",
+        "frontend/output/assets/ccip-BMyvx4qS.js",
+        "frontend/output/assets/ccip-BTEKo6zI.js",
+        "frontend/output/assets/core-Dxpb-bMj.js",
+        "frontend/output/assets/dist-D-EyHAfL.js",
+        "frontend/output/assets/index-De6CnRXj.js",
+        "frontend/output/assets/localBatchGatewayRequest-Bo6jYIcO.js",
+        "frontend/output/assets/secp256k1-CZxjGF6E.js",
+        "frontend/output/assets/secp256k1-D8C1eZul.js",
+        "frontend/output/assets/secp256k1-DQzXb-vo.js",
+        "frontend/output/assets/w3m-modal-BOXePfbo.js",
+        "frontend/output/assets/wui-text-BERvvQ8g.js",
+        "frontend/src/lib/rango/proxy.ts"
+      ]
+    },
+    "title": "Diagnostics: 0 issue(s) in 0 file(s)",
+    "time": {
+      "start": 1767166576605,
+      "end": 1767166581766
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7354d412001a1JoksX5P9f12b",
+  "messageID": "msg_b735355b8001TnhJwbFMplW4f0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01JA3KaWc3Ye9kKef27ebDKV",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"const \\[quote\" src/pages/RelaySwap.tsx -B 1 -A 1",
+      "description": "Find quote state declaration"
+    },
+    "output": "  const [toAmount, setToAmount] = useState('')\n  const [quote, setQuote] = useState<RelayQuote | null>(null)\n  const [isLoadingQuote, setIsLoadingQuote] = useState(false)\n",
+    "metadata": {
+      "output": "  const [toAmount, setToAmount] = useState('')\n  const [quote, setQuote] = useState<RelayQuote | null>(null)\n  const [isLoadingQuote, setIsLoadingQuote] = useState(false)\n",
+      "exit": 0,
+      "description": "Find quote state declaration"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"const \\[quote\" src/pages/RelaySwap.tsx -B 1 -A 1",
+    "time": {
+      "start": 1767166499286,
+      "end": 1767166499293
+    }
+  }
+}

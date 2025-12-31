@@ -7,6 +7,7 @@ import type {
   RangoSwapResponse,
   RangoStatus,
 } from './types'
+import { rangoProxyFetch } from './proxy'
 
 const RANGO_API_BASE = 'https://api.rango.exchange'
 const RANGO_API_KEY = 'c6381a79-2817-4602-83bf-6a641a409e32'
@@ -71,7 +72,10 @@ export class RangoAPI {
   }
 
   private async request<T>(endpoint: string, options?: RequestInit): Promise<T> {
-    const response = await fetch(`${this.baseUrl}${endpoint}`, {
+    const url = `${this.baseUrl}${endpoint}`
+    
+    // Use CORS proxy to bypass browser restrictions
+    const response = await rangoProxyFetch(url, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
@@ -90,25 +94,31 @@ export class RangoAPI {
 
   async getBlockchains(): Promise<RangoBlockchain[]> {
     try {
+      console.log('Fetching Rango blockchains via proxy...')
       const data = await this.request<{ blockchains: RangoBlockchain[] }>('/basic/meta')
+      console.log('Rango blockchains loaded:', data.blockchains?.length)
       return data.blockchains
     } catch (error) {
-      console.warn('Rango API blocked by CORS, using hardcoded data')
+      console.warn('Rango API failed, using hardcoded data:', error)
       return HARDCODED_BLOCKCHAINS
     }
   }
 
   async getTokens(blockchain?: string): Promise<RangoToken[]> {
     try {
+      console.log('Fetching Rango tokens via proxy for blockchain:', blockchain)
       const data = await this.request<{ tokens: RangoToken[] }>('/basic/meta')
+      console.log('Rango tokens loaded:', data.tokens?.length)
       
       if (blockchain) {
-        return data.tokens.filter(t => t.blockchain.toUpperCase() === blockchain.toUpperCase())
+        const filtered = data.tokens.filter(t => t.blockchain.toUpperCase() === blockchain.toUpperCase())
+        console.log('Filtered tokens for', blockchain, ':', filtered.length)
+        return filtered
       }
       
       return data.tokens
     } catch (error) {
-      console.warn('Rango API blocked by CORS, using hardcoded tokens')
+      console.warn('Rango API failed, using hardcoded tokens:', error)
       
       if (blockchain && HARDCODED_TOKENS[blockchain.toUpperCase()]) {
         return HARDCODED_TOKENS[blockchain.toUpperCase()]
