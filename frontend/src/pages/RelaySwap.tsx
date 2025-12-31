@@ -520,22 +520,58 @@ export default function RelaySwap() {
       return
     }
 
-    // Check for cross-VM swap recipient requirement
-    if (fromChain && toChain) {
-      const fromVMType = fromChain.vmType || 'evm'
-      const toVMType = toChain.vmType || 'evm'
-      const isCrossVM = fromVMType !== toVMType
-      
-      if (isCrossVM && !recipientAddress) {
-        toast.error(`Recipient address required for ${toChain.displayName}`)
-        return
-      }
+    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {
+      toast.error('Missing swap parameters')
+      return
     }
 
+    // Check for cross-VM swap recipient requirement
+    const fromVMType = fromChain.vmType || 'evm'
+    const toVMType = toChain.vmType || 'evm'
+    const isCrossVM = fromVMType !== toVMType
+    
+    if (isCrossVM && !recipientAddress) {
+      toast.error(`Recipient address required for ${toChain.displayName}`)
+      return
+    }
+
+    setIsSwapping(true)
+
     try {
-      const depositStep = quote.steps.find(s => s.id === 'deposit')
+      // Get a fresh quote right before executing
+      console.log('Fetching fresh quote before execution...')
+      const amountInWei = parseUnits(fromAmount, fromToken.decimals)
+      const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()
+      
+      const includedSources = Object.entries(enabledSources)
+        .filter(([_, enabled]) => enabled)
+        .map(([source]) => source)
+      
+      const quoteParams = {
+        user: address,
+        originChainId: fromChain.id,
+        destinationChainId: toChain.id,
+        originCurrency: fromToken.address,
+        destinationCurrency: toToken.address,
+        amount: amountInWei.toString(),
+        tradeType: 'EXACT_INPUT' as const,
+        slippageTolerance: slippageBps,
+        recipient: isCrossVM && recipientAddress ? recipientAddress : undefined,
+        includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
+        useExternalLiquidity: isCrossVM ? true : undefined,
+      }
+      
+      const freshQuote = await relayAPI.getQuote(quoteParams)
+      
+      console.log('Fresh quote received:', {
+        steps: freshQuote.steps.length,
+        fees: freshQuote.fees,
+        details: freshQuote.details,
+      })
+
+      const depositStep = freshQuote.steps.find(s => s.id === 'deposit')
       if (!depositStep || !depositStep.items || depositStep.items.length === 0) {
-        throw new Error('No deposit step found')
+        throw new Error('No deposit step found in fresh quote')
       }
 
       const txData = depositStep.items[0].data
@@ -543,9 +579,11 @@ export default function RelaySwap() {
       console.log('Executing swap transaction:', {
         to: txData.to,
         value: txData.value,
+        data: txData.data?.slice(0, 20) + '...',
         chainId: txData.chainId,
         connectedChainId,
         recipientAddress,
+        requestId: depositStep.requestId,
       })
 
       // Check if we need to switch chains
@@ -554,16 +592,14 @@ export default function RelaySwap() {
         try {
           await switchChain({ chainId: txData.chainId })
           toast.success('Chain switched successfully')
-          // Wait a bit for the chain switch to complete
           await new Promise(resolve => setTimeout(resolve, 500))
         } catch (switchError) {
           console.error('Failed to switch chain:', switchError)
           toast.error('Please switch to the correct network in your wallet')
+          setIsSwapping(false)
           return
         }
       }
-
-      setIsSwapping(true)
 
       sendTransaction({
         to: txData.to as `0x${string}`,
@@ -572,21 +608,27 @@ export default function RelaySwap() {
         chainId: txData.chainId,
       }, {
         onSuccess: (hash) => {
-          console.log('Transaction submitted:', hash)
+          console.log('Transaction submitted successfully:', hash)
+          toast.success('Transaction submitted')
+          
           if (depositStep.requestId) {
+            console.log('Monitoring swap status with requestId:', depositStep.requestId)
             monitorSwapStatus(depositStep.requestId)
+          } else {
+            console.warn('No requestId found, cannot monitor status')
+            setIsSwapping(false)
           }
         },
         onError: (error) => {
-          console.error('Swap failed:', error)
-          const errorMessage = error instanceof Error ? error.message : 'Swap failed'
+          console.error('Transaction failed:', error)
+          const errorMessage = error instanceof Error ? error.message : 'Transaction failed'
           toast.error(errorMessage)
           setIsSwapping(false)
         }
       })
     } catch (error) {
-      console.error('Swap failed:', error)
-      const errorMessage = error instanceof Error ? error.message : 'Swap failed'
+      console.error('Swap execution failed:', error)
+      const errorMessage = error instanceof Error ? error.message : 'Failed to execute swap'
       toast.error(errorMessage)
       setIsSwapping(false)
     }
@@ -595,20 +637,51 @@ export default function RelaySwap() {
   const monitorSwapStatus = async (requestId: string) => {
     const maxAttempts = 60
     let attempts = 0
+    let lastStatus = ''
 
     const checkStatus = async () => {
       try {
         const status = await relayAPI.getStatus(requestId)
         
+        console.log(`Swap status check ${attempts + 1}/${maxAttempts}:`, {
+          status: status.status,
+          details: status.details,
+          inTxHashes: status.inTxHashes,
+          txHashes: status.txHashes,
+        })
+
+        // Show status updates to user
+        if (status.status !== lastStatus) {
+          lastStatus = status.status
+          
+          if (status.status === 'waiting') {
+            toast.info('Waiting for transaction confirmation...')
+          } else if (status.status === 'pending') {
+            toast.info('Processing swap...')
+          } else if (status.status === 'submitted') {
+            toast.info('Swap submitted to destination chain...')
+          } else if (status.status === 'delayed') {
+            toast.warning('Swap is taking longer than expected...')
+          }
+        }
+        
         if (status.status === 'success') {
-          toast.success('Swap completed successfully')
+          toast.success('Swap completed successfully!')
           setIsSwapping(false)
           loadSwapHistory()
           updateUserStreak()
           updateLeaderboard()
+          setFromAmount('')
+          setToAmount('')
           return
-        } else if (status.status === 'failure' || status.status === 'refunded') {
-          toast.error(`Swap ${status.status}`)
+        } else if (status.status === 'failure') {
+          toast.error(`Swap failed: ${status.details || 'Unknown error'}`)
+          console.error('Swap failure details:', status)
+          setIsSwapping(false)
+          return
+        } else if (status.status === 'refunded') {
+          toast.error(`Swap was refunded: ${status.details || 'Transaction could not be completed'}`)
+          console.error('Swap refund details:', status)
           setIsSwapping(false)
           return
         }
@@ -617,7 +690,7 @@ export default function RelaySwap() {
         if (attempts < maxAttempts) {
           setTimeout(checkStatus, 2000)
         } else {
-          toast.error('Swap status check timeout')
+          toast.error('Swap status check timeout - please check your transaction history')
           setIsSwapping(false)
         }
       } catch (error) {
@@ -626,6 +699,7 @@ export default function RelaySwap() {
         if (attempts < maxAttempts) {
           setTimeout(checkStatus, 2000)
         } else {
+          toast.error('Failed to monitor swap status')
           setIsSwapping(false)
         }
       }

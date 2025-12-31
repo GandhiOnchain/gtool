@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73201c3f001t3QURgdUtRfC7w",
+  "messageID": "msg_b732015cb001KW7zbLqQrX5GXM",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "The swap is being refunded, which usually means there's an issue with the transaction data or the quote has expired. Let me investigate and add better debugging:",
+  "time": {
+    "start": 1767163045150,
+    "end": 1767163045150
+  }
+}

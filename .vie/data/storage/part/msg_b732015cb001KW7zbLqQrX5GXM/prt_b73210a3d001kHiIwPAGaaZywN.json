@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73210a3d001kHiIwPAGaaZywN",
+  "messageID": "msg_b732015cb001KW7zbLqQrX5GXM",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! I've made critical fixes to prevent refunds:\n\n**Key changes:**\n\n1. **Fresh quote before execution** - Now fetches a brand new quote right before executing the swap. Stale quotes often get refunded because the price/route has changed.\n\n2. **Better logging** - Added comprehensive console logs to debug what's happening:\n   - Shows the fresh quote details\n   - Logs the transaction data being sent\n   - Tracks the requestId for monitoring\n\n3. **Improved status monitoring** - Now shows detailed status updates:\n   - \"Waiting for transaction confirmation...\"\n   - \"Processing swap...\"\n   - \"Swap submitted to destination chain...\"\n   - Shows specific refund/failure reasons\n\n4. **Clear inputs on success** - Clears the amount fields after successful swap\n\n5. **Better error messages** - Shows the actual reason for refunds/failures from the API\n\nThe main issue was likely that the quote was getting stale between when you got it and when you executed. Now it fetches a fresh quote immediately before sending the transaction, which should prevent refunds.\n\nTry swapping again - you should see:\n1. Console logs showing \"Fetching fresh quote before execution...\"\n2. The transaction being submitted\n3. Status updates as the swap progresses\n4. Either success or a specific error message if it fails",
+  "time": {
+    "start": 1767163110921,
+    "end": 1767163110921
+  }
+}

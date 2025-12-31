@@ -1,0 +1,26 @@
+{
+  "id": "prt_b73203433001l52z40JwOWoBKQ",
+  "messageID": "msg_b732015cb001KW7zbLqQrX5GXM",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01D9xuaQCeyEcZZBeqRgz88e",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"monitorSwapStatus\" src/pages/RelaySwap.tsx -B 5 -A 15",
+      "description": "Check monitorSwapStatus function"
+    },
+    "output": "        chainId: txData.chainId,\n      }, {\n        onSuccess: (hash) => {\n          console.log('Transaction submitted:', hash)\n          if (depositStep.requestId) {\n            monitorSwapStatus(depositStep.requestId)\n          }\n        },\n        onError: (error) => {\n          console.error('Swap failed:', error)\n          const errorMessage = error instanceof Error ? error.message : 'Swap failed'\n          toast.error(errorMessage)\n          setIsSwapping(false)\n        }\n      })\n    } catch (error) {\n      console.error('Swap failed:', error)\n      const errorMessage = error instanceof Error ? error.message : 'Swap failed'\n      toast.error(errorMessage)\n      setIsSwapping(false)\n    }\n  }\n\n  const monitorSwapStatus = async (requestId: string) => {\n    const maxAttempts = 60\n    let attempts = 0\n\n    const checkStatus = async () => {\n      try {\n        const status = await relayAPI.getStatus(requestId)\n        \n        if (status.status === 'success') {\n          toast.success('Swap completed successfully')\n          setIsSwapping(false)\n          loadSwapHistory()\n          updateUserStreak()\n          updateLeaderboard()\n          return\n        } else if (status.status === 'failure' || status.status === 'refunded') {\n",
+    "metadata": {
+      "output": "        chainId: txData.chainId,\n      }, {\n        onSuccess: (hash) => {\n          console.log('Transaction submitted:', hash)\n          if (depositStep.requestId) {\n            monitorSwapStatus(depositStep.requestId)\n          }\n        },\n        onError: (error) => {\n          console.error('Swap failed:', error)\n          const errorMessage = error instanceof Error ? error.message : 'Swap failed'\n          toast.error(errorMessage)\n          setIsSwapping(false)\n        }\n      })\n    } catch (error) {\n      console.error('Swap failed:', error)\n      const errorMessage = error instanceof Error ? error.message : 'Swap failed'\n      toast.error(errorMessage)\n      setIsSwapping(false)\n    }\n  }\n\n  const monitorSwapStatus = async (requestId: string) => {\n    const maxAttempts = 60\n    let attempts = 0\n\n    const checkStatus = async () => {\n      try {\n        const status = await relayAPI.getStatus(requestId)\n        \n        if (status.status === 'success') {\n          toast.success('Swap completed successfully')\n          setIsSwapping(false)\n          loadSwapHistory()\n          updateUserStreak()\n          updateLeaderboard()\n          return\n        } else if (status.status === 'failure' || status.status === 'refunded') {\n",
+      "exit": 0,
+      "description": "Check monitorSwapStatus function"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"monitorSwapStatus\" src/pages/RelaySwap.tsx -B 5 -A 15",
+    "time": {
+      "start": 1767163049916,
+      "end": 1767163049927
+    }
+  }
+}
