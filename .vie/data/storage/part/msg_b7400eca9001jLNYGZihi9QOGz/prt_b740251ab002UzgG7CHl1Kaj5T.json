@@ -1,0 +1,11 @@
+{
+  "id": "prt_b740251ab002UzgG7CHl1Kaj5T",
+  "messageID": "msg_b7400eca9001jLNYGZihi9QOGz",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Now I can see the actual structure. The RelayRequest doesn't have `details`, `currency` on transactions, or `completedAt`. Let me fix the loadSwapHistory function:",
+  "time": {
+    "start": 1767177895344,
+    "end": 1767177895344
+  }
+}

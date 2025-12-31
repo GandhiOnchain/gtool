@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7401351e001cxmHagd1pTmVbf",
+  "messageID": "msg_b7400eca9001jLNYGZihi9QOGz",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "edit",
+  "callID": "toolu_vrtx_01SMjV1M2scRYdZUyhnFmTXe",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "oldString": "interface SwapHistory {\n  id: string\n  fromToken: string\n  toToken: string\n  fromAmount: string\n  toAmount: string\n  fromChain: string\n  toChain: string\n  status: string\n  timestamp: number\n  txHash?: string\n}",
+      "newString": "interface SwapHistory {\n  id: string\n  fromToken: string\n  fromTokenSymbol: string\n  fromTokenDecimals: number\n  toToken: string\n  toTokenSymbol: string\n  toTokenDecimals: number\n  fromAmount: string\n  toAmount: string\n  fromChain: string\n  fromChainId: number\n  fromChainIcon?: string\n  toChain: string\n  toChainId: number\n  toChainIcon?: string\n  status: string\n  timestamp: number\n  completedAt?: number\n  txHash?: string\n  inTxHash?: string\n}"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "diff": "Index: /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n===================================================================\n--- /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n+++ /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n@@ -28,16 +28,26 @@\n \n interface SwapHistory {\n   id: string\n   fromToken: string\n+  fromTokenSymbol: string\n+  fromTokenDecimals: number\n   toToken: string\n+  toTokenSymbol: string\n+  toTokenDecimals: number\n   fromAmount: string\n   toAmount: string\n   fromChain: string\n+  fromChainId: number\n+  fromChainIcon?: string\n   toChain: string\n+  toChainId: number\n+  toChainIcon?: string\n   status: string\n   timestamp: number\n+  completedAt?: number\n   txHash?: string\n+  inTxHash?: string\n }\n \n interface UserStreak {\n   currentStreak: number\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767177798226,
+      "end": 1767177798233
+    }
+  }
+}

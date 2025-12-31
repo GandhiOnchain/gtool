@@ -1,0 +1,7 @@
+{
+  "id": "prt_b7400ebf50015TtL89Th8JhDbL",
+  "type": "text",
+  "text": "the swap and batch swap work good. now lets focus on history tab.\n\ni want the history tab to show the chains with their logos. the values in some transactions are inaccurate and show as zero. make the transactions clear with from, to, token details, accurate amount, time taken, status etc",
+  "messageID": "msg_b7400ec96001uM6IrDbj19Ud2v",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5"
+}

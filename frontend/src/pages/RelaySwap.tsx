@@ -29,14 +29,24 @@ interface TrendingToken {
 interface SwapHistory {
   id: string
   fromToken: string
+  fromTokenSymbol: string
+  fromTokenDecimals: number
   toToken: string
+  toTokenSymbol: string
+  toTokenDecimals: number
   fromAmount: string
   toAmount: string
   fromChain: string
+  fromChainId: number
+  fromChainIcon?: string
   toChain: string
+  toChainId: number
+  toChainIcon?: string
   status: string
   timestamp: number
+  completedAt?: number
   txHash?: string
+  inTxHash?: string
 }
 
 interface UserStreak {
@@ -1471,33 +1481,95 @@ export default function RelaySwap() {
       })
       
       const history: SwapHistory[] = requests.map(req => {
-        const originChainId = req.data.inTxs[0]?.chainId
-        const destChainId = req.data.outTxs[0]?.chainId
+        console.log('Processing request:', req.id, req)
+        
+        // Get chain IDs from transactions
+        const originChainId = req.data.inTxs?.[0]?.chainId
+        const destChainId = req.data.outTxs?.[0]?.chainId
         
         const originChain = chains.find(c => c.id === originChainId)
         const destChain = chains.find(c => c.id === destChainId)
         
-        const fromValue = req.data.inTxs[0]?.data?.value || '0'
-        const toValue = req.data.outTxs[0]?.data?.value || '0'
+        // Get amounts from transaction data
+        let fromAmount = '0'
+        let toAmount = '0'
+        let fromDecimals = 18
+        let toDecimals = 18
+        let fromSymbol = 'Unknown'
+        let toSymbol = 'Unknown'
+        let fromTokenAddress = '0x0'
+        let toTokenAddress = '0x0'
         
-        const fromAmountFormatted = fromValue.length > 10 
-          ? parseFloat(formatUnits(BigInt(fromValue), 18)).toFixed(6)
-          : fromValue
-        const toAmountFormatted = toValue.length > 10
-          ? parseFloat(formatUnits(BigInt(toValue), 18)).toFixed(6)
-          : toValue
+        // Process input transaction
+        if (req.data.inTxs?.[0]) {
+          const inTx = req.data.inTxs[0]
+          const rawAmount = inTx.data?.value || '0'
+          
+          // Try to determine token from chain's native currency or use defaults
+          if (originChain) {
+            fromDecimals = originChain.currency.decimals
+            fromSymbol = originChain.currency.symbol
+            fromTokenAddress = originChain.currency.address
+          }
+          
+          if (rawAmount && rawAmount !== '0') {
+            try {
+              fromAmount = parseFloat(formatUnits(BigInt(rawAmount), fromDecimals)).toFixed(6)
+            } catch (e) {
+              console.error('Error formatting from amount:', e)
+              fromAmount = '0'
+            }
+          }
+        }
+        
+        // Process output transaction
+        if (req.data.outTxs?.[0]) {
+          const outTx = req.data.outTxs[0]
+          const rawAmount = outTx.data?.value || '0'
+          
+          // Try to determine token from chain's native currency or use defaults
+          if (destChain) {
+            toDecimals = destChain.currency.decimals
+            toSymbol = destChain.currency.symbol
+            toTokenAddress = destChain.currency.address
+          }
+          
+          if (rawAmount && rawAmount !== '0') {
+            try {
+              toAmount = parseFloat(formatUnits(BigInt(rawAmount), toDecimals)).toFixed(6)
+            } catch (e) {
+              console.error('Error formatting to amount:', e)
+              toAmount = '0'
+            }
+          }
+        }
+        
+        // Calculate time taken
+        const createdTime = new Date(req.createdAt).getTime()
+        const updatedTime = new Date(req.updatedAt).getTime()
+        const completedAt = req.status === 'success' ? updatedTime : undefined
         
         return {
           id: req.id,
-          fromToken: originChain?.currency?.symbol || req.data.currency || 'ETH',
-          toToken: destChain?.currency?.symbol || req.data.currency || 'ETH',
-          fromAmount: fromAmountFormatted,
-          toAmount: toAmountFormatted,
+          fromToken: fromTokenAddress,
+          fromTokenSymbol: fromSymbol,
+          fromTokenDecimals: fromDecimals,
+          toToken: toTokenAddress,
+          toTokenSymbol: toSymbol,
+          toTokenDecimals: toDecimals,
+          fromAmount,
+          toAmount,
           fromChain: originChain?.displayName || originChain?.name || 'Unknown',
+          fromChainId: originChainId || 0,
+          fromChainIcon: originChain?.iconUrl,
           toChain: destChain?.displayName || destChain?.name || 'Unknown',
+          toChainId: destChainId || 0,
+          toChainIcon: destChain?.iconUrl,
           status: req.status,
-          timestamp: new Date(req.createdAt).getTime(),
-          txHash: req.data.outTxs[0]?.hash,
+          timestamp: createdTime,
+          completedAt,
+          txHash: req.data.outTxs?.[0]?.hash,
+          inTxHash: req.data.inTxs?.[0]?.hash,
         }
       })
       
@@ -1651,7 +1723,7 @@ export default function RelaySwap() {
   }
 
   const shareSwapReceipt = (swap: SwapHistory) => {
-    const text = `Just swapped ${swap.fromAmount} ${swap.fromToken} to ${swap.toAmount} ${swap.toToken} on Relay!`
+    const text = `Just swapped ${swap.fromAmount} ${swap.fromTokenSymbol} (${swap.fromChain}) to ${swap.toAmount} ${swap.toTokenSymbol} (${swap.toChain}) on Relay!`
     const url = `https://warpcast.com/~/compose?text=${encodeURIComponent(text)}`
     window.open(url, '_blank')
   }
@@ -2330,39 +2402,118 @@ export default function RelaySwap() {
                     No swap history yet
                   </Card>
                 ) : (
-                  swapHistory.map((swap) => (
-                    <Card key={swap.id} className="p-3">
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <div className="text-xs font-medium">
-                            {swap.fromToken} → {swap.toToken}
+                  swapHistory.map((swap) => {
+                    const timeTaken = swap.completedAt && swap.timestamp 
+                      ? Math.round((swap.completedAt - swap.timestamp) / 1000)
+                      : null
+                    
+                    return (
+                      <Card key={swap.id} className="p-3">
+                        <div className="space-y-2">
+                          {/* Header with status */}
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <div className="text-xs font-medium">
+                                {swap.fromTokenSymbol} → {swap.toTokenSymbol}
+                              </div>
+                              {timeTaken && (
+                                <span className="text-xs text-muted-foreground">
+                                  ({timeTaken}s)
+                                </span>
+                              )}
+                            </div>
+                            <Badge 
+                              variant={
+                                swap.status === 'success' ? 'default' : 
+                                swap.status === 'pending' || swap.status === 'waiting' ? 'secondary' : 
+                                'destructive'
+                              } 
+                              className="text-xs"
+                            >
+                              {swap.status}
+                            </Badge>
                           </div>
-                          <Badge variant={swap.status === 'success' ? 'default' : 'secondary'} className="text-xs">
-                            {swap.status}
-                          </Badge>
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          {new Date(swap.timestamp).toLocaleString()}
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <div className="text-xs">
-                            {swap.fromAmount} {swap.fromToken} on {swap.fromChain}
+
+                          {/* Timestamp */}
+                          <div className="text-xs text-muted-foreground">
+                            {new Date(swap.timestamp).toLocaleString()}
                           </div>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => shareSwapReceipt(swap)}
-                            className="h-6 w-6 p-0"
-                          >
-                            <Share2 className="h-3 w-3" />
-                          </Button>
+
+                          {/* From details */}
+                          <div className="flex items-center gap-2 p-2 bg-muted/50 rounded">
+                            <div className="flex items-center gap-1.5 flex-1">
+                              {swap.fromChainIcon && (
+                                <img src={swap.fromChainIcon} alt="" className="h-4 w-4 rounded-full" />
+                              )}
+                              <div className="flex-1">
+                                <div className="text-xs font-medium">
+                                  {swap.fromAmount} {swap.fromTokenSymbol}
+                                </div>
+                                <div className="text-xs text-muted-foreground">
+                                  {swap.fromChain}
+                                </div>
+                              </div>
+                            </div>
+                            {swap.inTxHash && (
+                              <a
+                                href={`https://relay.link/tx/${swap.inTxHash}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xs text-primary hover:underline"
+                              >
+                                View
+                              </a>
+                            )}
+                          </div>
+
+                          {/* Arrow */}
+                          <div className="flex justify-center">
+                            <ArrowDownUp className="h-3 w-3 text-muted-foreground" />
+                          </div>
+
+                          {/* To details */}
+                          <div className="flex items-center gap-2 p-2 bg-muted/50 rounded">
+                            <div className="flex items-center gap-1.5 flex-1">
+                              {swap.toChainIcon && (
+                                <img src={swap.toChainIcon} alt="" className="h-4 w-4 rounded-full" />
+                              )}
+                              <div className="flex-1">
+                                <div className="text-xs font-medium">
+                                  {swap.toAmount} {swap.toTokenSymbol}
+                                </div>
+                                <div className="text-xs text-muted-foreground">
+                                  {swap.toChain}
+                                </div>
+                              </div>
+                            </div>
+                            {swap.txHash && (
+                              <a
+                                href={`https://relay.link/tx/${swap.txHash}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xs text-primary hover:underline"
+                              >
+                                View
+                              </a>
+                            )}
+                          </div>
+
+                          {/* Share button */}
+                          <div className="flex justify-end">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => shareSwapReceipt(swap)}
+                              className="h-7 px-2 text-xs"
+                            >
+                              <Share2 className="h-3 w-3 mr-1" />
+                              Share
+                            </Button>
+                          </div>
                         </div>
-                        <div className="text-xs text-muted-foreground">
-                          → {swap.toAmount} {swap.toToken} on {swap.toChain}
-                        </div>
-                      </div>
-                    </Card>
-                  ))
+                      </Card>
+                    )
+                  })
                 )}
               </div>
             </ScrollArea>

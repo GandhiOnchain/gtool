@@ -1,0 +1,28 @@
+{
+  "id": "prt_b74021051001iEp6WmHhODXeDy",
+  "messageID": "msg_b7400eca9001jLNYGZihi9QOGz",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01TeEtnjka3WQyf3EzLTJjBC",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ❌ ERROR [1494:32] Property 'details' does not exist on type 'RelayRequest'. [typescript]\n  ❌ ERROR [1495:33] Property 'details' does not exist on type 'RelayRequest'. [typescript]\n  ❌ ERROR [1512:54] Property 'value' does not exist on type '{ fee: string; data: { to: string; data: string; from: string; value: string; }; hash: string; type: string; chainId: number; timestamp: number; }'. [typescript]\n  ❌ ERROR [1513:31] Property 'currency' does not exist on type '{ fee: string; data: { to: string; data: string; from: string; value: string; }; hash: string; type: string; chainId: number; timestamp: number; }'. [typescript]\n  ❌ ERROR [1514:29] Property 'currency' does not exist on type '{ fee: string; data: { to: string; data: string; from: string; value: string; }; hash: string; type: string; chainId: number; timestamp: number; }'. [typescript]\n  ❌ ERROR [1532:56] Property 'value' does not exist on type '{ fee: string; data: { to: string; data: string; from: string; value: string; }; hash: string; type: string; chainId: number; timestamp: number; }'. [typescript]\n  ❌ ERROR [1533:30] Property 'currency' does not exist on type '{ fee: string; data: { to: string; data: string; from: string; value: string; }; hash: string; type: string; chainId: number; timestamp: number; }'. [typescript]\n  ❌ ERROR [1534:28] Property 'currency' does not exist on type '{ fee: string; data: { to: string; data: string; from: string; value: string; }; hash: string; type: string; chainId: number; timestamp: number; }'. [typescript]\n  ❌ ERROR [1547:76] Property 'currency' does not exist on type '{ fee: string; data: { to: string; data: string; from: string; value: string; }; hash: string; type: string; chainId: number; timestamp: number; }'. [typescript]\n  ❌ ERROR [1550:76] Property 'currency' does not exist on type '{ fee: string; data: { to: string; data: string; from: string; value: string; }; hash: string; type: string; chainId: number; timestamp: number; }'. [typescript]\n  ❌ ERROR [1563:28] Property 'completedAt' does not exist on type 'RelayRequest'. [typescript]\n  ❌ ERROR [1563:55] Property 'completedAt' does not exist on type 'RelayRequest'. [typescript]\n\n──────────────────────────────────────────────────\nSummary: 12 issue(s) found\n  - 12 error(s)\n",
+    "metadata": {
+      "filesChecked": 1,
+      "filesWithIssues": 1,
+      "totalIssues": 12,
+      "errorCount": 12,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "title": "Diagnostics: 12 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1767177851083,
+      "end": 1767177860139
+    }
+  }
+}

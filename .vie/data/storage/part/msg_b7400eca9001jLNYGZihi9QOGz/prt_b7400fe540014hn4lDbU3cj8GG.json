@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7400fe540014hn4lDbU3cj8GG",
+  "messageID": "msg_b7400eca9001jLNYGZihi9QOGz",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01Fo2Aod53uGR6k3xBfGtjgA",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1462,
+      "limit": 80
+    },
+    "output": "<file>\n01463|     if (!address) return\n01464|     \n01465|     try {\n01466|       const { requests } = await relayAPI.getRequests({\n01467|         user: address,\n01468|         limit: 20,\n01469|         sortBy: 'createdAt',\n01470|         sortDirection: 'desc',\n01471|       })\n01472|       \n01473|       const history: SwapHistory[] = requests.map(req => {\n01474|         const originChainId = req.data.inTxs[0]?.chainId\n01475|         const destChainId = req.data.outTxs[0]?.chainId\n01476|         \n01477|         const originChain = chains.find(c => c.id === originChainId)\n01478|         const destChain = chains.find(c => c.id === destChainId)\n01479|         \n01480|         const fromValue = req.data.inTxs[0]?.data?.value || '0'\n01481|         const toValue = req.data.outTxs[0]?.data?.value || '0'\n01482|         \n01483|         const fromAmountFormatted = fromValue.length > 10 \n01484|           ? parseFloat(formatUnits(BigInt(fromValue), 18)).toFixed(6)\n01485|           : fromValue\n01486|         const toAmountFormatted = toValue.length > 10\n01487|           ? parseFloat(formatUnits(BigInt(toValue), 18)).toFixed(6)\n01488|           : toValue\n01489|         \n01490|         return {\n01491|           id: req.id,\n01492|           fromToken: originChain?.currency?.symbol || req.data.currency || 'ETH',\n01493|           toToken: destChain?.currency?.symbol || req.data.currency || 'ETH',\n01494|           fromAmount: fromAmountFormatted,\n01495|           toAmount: toAmountFormatted,\n01496|           fromChain: originChain?.displayName || originChain?.name || 'Unknown',\n01497|           toChain: destChain?.displayName || destChain?.name || 'Unknown',\n01498|           status: req.status,\n01499|           timestamp: new Date(req.createdAt).getTime(),\n01500|           txHash: req.data.outTxs[0]?.hash,\n01501|         }\n01502|       })\n01503|       \n01504|       setSwapHistory(history)\n01505|     } catch (error) {\n01506|       console.error('Failed to load swap history:', error)\n01507|     }\n01508|   }\n01509| \n01510|   const loadUserStreak = () => {\n01511|     if (!address) return\n01512|     \n01513|     const stored = localStorage.getItem(`streak_${address}`)\n01514|     if (stored) {\n01515|       const streak = JSON.parse(stored)\n01516|       const now = Date.now()\n01517|       const timeSinceLastSwap = now - streak.lastSwapTimestamp\n01518|       const twentyFourHours = 24 * 60 * 60 * 1000\n01519|       \n01520|       // Reset streak if more than 24 hours have passed since last swap\n01521|       if (timeSinceLastSwap > twentyFourHours) {\n01522|         const updated = {\n01523|           ...streak,\n01524|           currentStreak: 0,\n01525|         }\n01526|         localStorage.setItem(`streak_${address}`, JSON.stringify(updated))\n01527|         setUserStreak(updated)\n01528|       } else {\n01529|         setUserStreak(streak)\n01530|       }\n01531|     }\n01532|   }\n01533| \n01534|   const updateUserStreak = () => {\n01535|     if (!address) return\n01536|     \n01537|     const now = Date.now()\n01538|     const stored = localStorage.getItem(`streak_${address}`)\n01539|     const current = stored ? JSON.parse(stored) : { currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 }\n01540|     \n01541|     const timeSinceLastSwap = now - current.lastSwapTimestamp\n01542|     const twentyFourHours = 24 * 60 * 60 * 1000\n\n(File has more lines. Use 'offset' parameter to read beyond line 1542)\n</file>",
+    "metadata": {
+      "preview": "    if (!address) return\n    \n    try {\n      const { requests } = await relayAPI.getRequests({\n        user: address,\n        limit: 20,\n        sortBy: 'createdAt',\n        sortDirection: 'desc',\n      })\n      \n      const history: SwapHistory[] = requests.map(req => {\n        const originChainId = req.data.inTxs[0]?.chainId\n        const destChainId = req.data.outTxs[0]?.chainId\n        \n        const originChain = chains.find(c => c.id === originChainId)\n        const destChain = chains.find(c => c.id === destChainId)\n        \n        const fromValue = req.data.inTxs[0]?.data?.value || '0'\n        const toValue = req.data.outTxs[0]?.data?.value || '0'\n        "
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767177782179,
+      "end": 1767177782180
+    }
+  }
+}

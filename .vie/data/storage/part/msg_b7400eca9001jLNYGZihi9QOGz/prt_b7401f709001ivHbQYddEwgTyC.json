@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7401f709001ivHbQYddEwgTyC",
+  "messageID": "msg_b7400eca9001jLNYGZihi9QOGz",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Now let's update the shareSwapReceipt function to use the new data structure:",
+  "time": {
+    "start": 1767177848900,
+    "end": 1767177848900
+  }
+}

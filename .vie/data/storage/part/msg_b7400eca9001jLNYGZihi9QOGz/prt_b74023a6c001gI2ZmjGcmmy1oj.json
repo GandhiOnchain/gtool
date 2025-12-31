@@ -1,0 +1,11 @@
+{
+  "id": "prt_b74023a6c001gI2ZmjGcmmy1oj",
+  "messageID": "msg_b7400eca9001jLNYGZihi9QOGz",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "I need to check the RelayRequest type to understand the correct structure. Let me look at the types file:",
+  "time": {
+    "start": 1767177863790,
+    "end": 1767177863790
+  }
+}

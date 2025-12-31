@@ -1,0 +1,25 @@
+{
+  "id": "prt_b74011e03002K8tksl73HeRq1Z",
+  "messageID": "msg_b7400eca9001jLNYGZihi9QOGz",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_017EcDaESbaB1Rtuh8ChKEv4",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2190,
+      "limit": 60
+    },
+    "output": "<file>\n02191|                     setSelectingFor('batch')\n02192|                     setIsTokenSelectOpen(true)\n02193|                   }}\n02194|                   className=\"w-full h-8 text-xs\"\n02195|                 >\n02196|                   Add Token\n02197|                 </Button>\n02198| \n02199|                 <Separator />\n02200| \n02201|                 <div className=\"space-y-2\">\n02202|                   <div className=\"text-xs text-muted-foreground\">Swap to</div>\n02203|                   <div className=\"flex gap-2\">\n02204|                     <Button\n02205|                       variant=\"outline\"\n02206|                       onClick={() => {\n02207|                         setSelectingFor('to')\n02208|                         setIsChainSelectOpen(true)\n02209|                       }}\n02210|                       className=\"flex-1 justify-between h-8 text-xs\"\n02211|                     >\n02212|                       <div className=\"flex items-center gap-1.5\">\n02213|                         {toChain?.iconUrl && (\n02214|                           <img src={toChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n02215|                         )}\n02216|                         <span>{toChain?.displayName || 'Select'}</span>\n02217|                       </div>\n02218|                       <ChevronDown className=\"h-3 w-3\" />\n02219|                     </Button>\n02220|                     \n02221|                     <Button\n02222|                       variant=\"outline\"\n02223|                       onClick={() => {\n02224|                         setSelectingFor('to')\n02225|                         setIsTokenSelectOpen(true)\n02226|                       }}\n02227|                       className=\"flex-1 justify-between h-8 text-xs\"\n02228|                     >\n02229|                       <div className=\"flex items-center gap-1.5\">\n02230|                         {toToken?.metadata?.logoURI && (\n02231|                           <img src={toToken.metadata.logoURI} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n02232|                         )}\n02233|                         <span>{toToken?.symbol || 'Select'}</span>\n02234|                       </div>\n02235|                       <ChevronDown className=\"h-3 w-3\" />\n02236|                     </Button>\n02237|                   </div>\n02238|                 </div>\n02239| \n02240|                 {batchQuote && (\n02241|                   <Card className=\"p-3 bg-card\">\n02242|                     <div className=\"space-y-1.5 text-xs\">\n02243|                       <div className=\"font-medium mb-2\">Batch Swap Summary</div>\n02244|                       \n02245|                       <div className=\"flex justify-between items-center\">\n02246|                         <span className=\"text-muted-foreground\">Total Input</span>\n02247|                         <span className=\"font-mono\">\n02248|                           {batchTokens.length} token{batchTokens.length > 1 ? 's' : ''}\n02249|                         </span>\n02250|                       </div>\n\n(File has more lines. Use 'offset' parameter to read beyond line 2250)\n</file>",
+    "metadata": {
+      "preview": "                    setSelectingFor('batch')\n                    setIsTokenSelectOpen(true)\n                  }}\n                  className=\"w-full h-8 text-xs\"\n                >\n                  Add Token\n                </Button>\n\n                <Separator />\n\n                <div className=\"space-y-2\">\n                  <div className=\"text-xs text-muted-foreground\">Swap to</div>\n                  <div className=\"flex gap-2\">\n                    <Button\n                      variant=\"outline\"\n                      onClick={() => {\n                        setSelectingFor('to')\n                        setIsChainSelectOpen(true)\n                      }}\n                      className=\"flex-1 justify-between h-8 text-xs\""
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767177789674,
+      "end": 1767177789675
+    }
+  }
+}

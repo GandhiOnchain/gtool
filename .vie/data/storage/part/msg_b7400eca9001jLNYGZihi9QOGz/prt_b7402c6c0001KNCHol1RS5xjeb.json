@@ -1,0 +1,45 @@
+{
+  "id": "prt_b7402c6c0001KNCHol1RS5xjeb",
+  "messageID": "msg_b7400eca9001jLNYGZihi9QOGz",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01U8sjp6FhURpJwU9y7ETQfP",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "✅ All checked files are clean!\n\nChecked 18 file(s):\n  - frontend/output/index.html\n  - frontend/src/pages/RelaySwap.tsx\n  - frontend/output/assets/SIWXUtil-CpobcB5K.js\n  - frontend/output/assets/_esm-BmEuROUd.js\n  - frontend/output/assets/basic-DvBuGytM.js\n  - frontend/output/assets/ccip-MO-NnFGy.js\n  - frontend/output/assets/ccip-TNK39L3O.js\n  - frontend/output/assets/ccip-_bcKqczN.js\n  - frontend/output/assets/core-BVzRBkmW.js\n  - frontend/output/assets/dist-HqWgyo9c.js\n  - frontend/output/assets/index-Cjt1ZJnR.js\n  - frontend/output/assets/index-DwCnsI3a.css\n  - frontend/output/assets/localBatchGatewayRequest-dATkks8a.js\n  - frontend/output/assets/secp256k1-B_z54jMK.js\n  - frontend/output/assets/secp256k1-Cmqj18y-.js\n  - frontend/output/assets/secp256k1-skKd7kKx.js\n  - frontend/output/assets/w3m-modal-DwFuLSkC.js\n  - frontend/output/assets/wui-text-BRB23wUu.js",
+    "metadata": {
+      "filesChecked": 18,
+      "filesWithIssues": 0,
+      "totalIssues": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/output/index.html",
+        "frontend/src/pages/RelaySwap.tsx",
+        "frontend/output/assets/SIWXUtil-CpobcB5K.js",
+        "frontend/output/assets/_esm-BmEuROUd.js",
+        "frontend/output/assets/basic-DvBuGytM.js",
+        "frontend/output/assets/ccip-MO-NnFGy.js",
+        "frontend/output/assets/ccip-TNK39L3O.js",
+        "frontend/output/assets/ccip-_bcKqczN.js",
+        "frontend/output/assets/core-BVzRBkmW.js",
+        "frontend/output/assets/dist-HqWgyo9c.js",
+        "frontend/output/assets/index-Cjt1ZJnR.js",
+        "frontend/output/assets/index-DwCnsI3a.css",
+        "frontend/output/assets/localBatchGatewayRequest-dATkks8a.js",
+        "frontend/output/assets/secp256k1-B_z54jMK.js",
+        "frontend/output/assets/secp256k1-Cmqj18y-.js",
+        "frontend/output/assets/secp256k1-skKd7kKx.js",
+        "frontend/output/assets/w3m-modal-DwFuLSkC.js",
+        "frontend/output/assets/wui-text-BRB23wUu.js"
+      ]
+    },
+    "title": "Diagnostics: 0 issue(s) in 0 file(s)",
+    "time": {
+      "start": 1767177897811,
+      "end": 1767177902197
+    }
+  }
+}

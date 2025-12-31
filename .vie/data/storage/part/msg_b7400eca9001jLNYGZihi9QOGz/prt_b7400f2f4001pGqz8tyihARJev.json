@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7400f2f4001pGqz8tyihARJev",
+  "messageID": "msg_b7400eca9001jLNYGZihi9QOGz",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01CrhkGGdWpnaMwAD1pgPmpc",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1390,
+      "limit": 80
+    },
+    "output": "<file>\n01391|                 console.log(`Transaction ${i + 1} submitted:`, hash)\n01392|                 successCount++\n01393|                 toast.success(`Transaction ${i + 1}/${transactions.length} submitted`)\n01394|                 resolve()\n01395|               },\n01396|               onError: (error) => {\n01397|                 console.error(`Transaction ${i + 1} failed:`, error)\n01398|                 failedTxs.push(`Transaction ${i + 1}`)\n01399|                 reject(error)\n01400|               }\n01401|             })\n01402|           })\n01403|           \n01404|           // Wait a bit between transactions\n01405|           if (i < transactions.length - 1) {\n01406|             await new Promise(resolve => setTimeout(resolve, 2000))\n01407|           }\n01408|         } catch (error) {\n01409|           console.error(`Failed to execute transaction ${i + 1}:`, error)\n01410|           // Continue with next transaction even if one fails\n01411|         }\n01412|       }\n01413| \n01414|       // Only update streak and clear tokens if at least one transaction succeeded\n01415|       if (successCount > 0) {\n01416|         toast.success(`Batch swap completed: ${successCount}/${transactions.length} transactions successful`)\n01417|         updateUserStreak()\n01418|         updateLeaderboard()\n01419|         loadSwapHistory()\n01420|         setBatchTokens([])\n01421|         setBatchQuote(null)\n01422|         \n01423|         // Refetch balances to show updated amounts\n01424|         refetchBalances()\n01425|         \n01426|         // Reload batch wallet tokens to update the list\n01427|         if (batchChain) {\n01428|           setTimeout(() => {\n01429|             loadBatchWalletTokens()\n01430|           }, 2000) // Wait 2 seconds for blockchain to update\n01431|         }\n01432|       } else {\n01433|         toast.error('All batch swap transactions failed')\n01434|       }\n01435|       \n01436|       if (failedTxs.length > 0) {\n01437|         toast.warning(`${failedTxs.length} transaction(s) failed`)\n01438|       }\n01439|     } catch (error) {\n01440|       console.error('Batch swap failed:', error)\n01441|       const errorMessage = error instanceof Error ? error.message : 'Batch swap failed'\n01442|       toast.error(errorMessage)\n01443|     } finally {\n01444|       setIsSwapping(false)\n01445|     }\n01446|   }\n01447| \n01448|   const loadTrendingTokens = async () => {\n01449|     try {\n01450|       const response = await fetch('https://api.warpcast.com/v2/trending-tokens')\n01451|       if (response.ok) {\n01452|         const data = await response.json()\n01453|         if (data.result?.tokens) {\n01454|           setTrendingTokens(data.result.tokens.slice(0, 10))\n01455|         }\n01456|       }\n01457|     } catch (error) {\n01458|       console.error('Failed to load trending tokens:', error)\n01459|     }\n01460|   }\n01461| \n01462|   const loadSwapHistory = async () => {\n01463|     if (!address) return\n01464|     \n01465|     try {\n01466|       const { requests } = await relayAPI.getRequests({\n01467|         user: address,\n01468|         limit: 20,\n01469|         sortBy: 'createdAt',\n01470|         sortDirection: 'desc',\n\n(File has more lines. Use 'offset' parameter to read beyond line 1470)\n</file>",
+    "metadata": {
+      "preview": "                console.log(`Transaction ${i + 1} submitted:`, hash)\n                successCount++\n                toast.success(`Transaction ${i + 1}/${transactions.length} submitted`)\n                resolve()\n              },\n              onError: (error) => {\n                console.error(`Transaction ${i + 1} failed:`, error)\n                failedTxs.push(`Transaction ${i + 1}`)\n                reject(error)\n              }\n            })\n          })\n          \n          // Wait a bit between transactions\n          if (i < transactions.length - 1) {\n            await new Promise(resolve => setTimeout(resolve, 2000))\n          }\n        } catch (error) {\n          console.error(`Failed to execute transaction ${i + 1}:`, error)\n          // Continue with next transaction even if one fails"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767177779043,
+      "end": 1767177779044
+    }
+  }
+}

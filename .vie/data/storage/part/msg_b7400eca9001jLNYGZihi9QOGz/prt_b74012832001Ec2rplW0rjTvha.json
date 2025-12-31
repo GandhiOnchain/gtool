@@ -1,0 +1,25 @@
+{
+  "id": "prt_b74012832001Ec2rplW0rjTvha",
+  "messageID": "msg_b7400eca9001jLNYGZihi9QOGz",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01VviV3dy5KCTrXfHCLDXn3r",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2310,
+      "limit": 60
+    },
+    "output": "<file>\n02311|                   </Card>\n02312|                 )}\n02313| \n02314|                 <Button\n02315|                   onClick={executeBatchSwap}\n02316|                   disabled={batchTokens.length === 0 || isSwapping || !isConnected || !batchQuote}\n02317|                   className=\"w-full h-8 text-xs\"\n02318|                 >\n02319|                   {isSwapping ? 'Swapping...' : isLoadingBatchQuote ? 'Loading Quote...' : 'Execute Batch Swap'}\n02320|                 </Button>\n02321|               </div>\n02322|             </Card>\n02323|           </TabsContent>\n02324| \n02325|           <TabsContent value=\"history\" className=\"mt-2\">\n02326|             <ScrollArea className=\"h-[500px]\">\n02327|               <div className=\"space-y-2\">\n02328|                 {swapHistory.length === 0 ? (\n02329|                   <Card className=\"p-4 text-center text-sm text-muted-foreground\">\n02330|                     No swap history yet\n02331|                   </Card>\n02332|                 ) : (\n02333|                   swapHistory.map((swap) => (\n02334|                     <Card key={swap.id} className=\"p-3\">\n02335|                       <div className=\"space-y-2\">\n02336|                         <div className=\"flex items-center justify-between\">\n02337|                           <div className=\"text-xs font-medium\">\n02338|                             {swap.fromToken} → {swap.toToken}\n02339|                           </div>\n02340|                           <Badge variant={swap.status === 'success' ? 'default' : 'secondary'} className=\"text-xs\">\n02341|                             {swap.status}\n02342|                           </Badge>\n02343|                         </div>\n02344|                         <div className=\"text-xs text-muted-foreground\">\n02345|                           {new Date(swap.timestamp).toLocaleString()}\n02346|                         </div>\n02347|                         <div className=\"flex items-center justify-between\">\n02348|                           <div className=\"text-xs\">\n02349|                             {swap.fromAmount} {swap.fromToken} on {swap.fromChain}\n02350|                           </div>\n02351|                           <Button\n02352|                             variant=\"ghost\"\n02353|                             size=\"sm\"\n02354|                             onClick={() => shareSwapReceipt(swap)}\n02355|                             className=\"h-6 w-6 p-0\"\n02356|                           >\n02357|                             <Share2 className=\"h-3 w-3\" />\n02358|                           </Button>\n02359|                         </div>\n02360|                         <div className=\"text-xs text-muted-foreground\">\n02361|                           → {swap.toAmount} {swap.toToken} on {swap.toChain}\n02362|                         </div>\n02363|                       </div>\n02364|                     </Card>\n02365|                   ))\n02366|                 )}\n02367|               </div>\n02368|             </ScrollArea>\n02369|           </TabsContent>\n02370| \n\n(File has more lines. Use 'offset' parameter to read beyond line 2370)\n</file>",
+    "metadata": {
+      "preview": "                  </Card>\n                )}\n\n                <Button\n                  onClick={executeBatchSwap}\n                  disabled={batchTokens.length === 0 || isSwapping || !isConnected || !batchQuote}\n                  className=\"w-full h-8 text-xs\"\n                >\n                  {isSwapping ? 'Swapping...' : isLoadingBatchQuote ? 'Loading Quote...' : 'Execute Batch Swap'}\n                </Button>\n              </div>\n            </Card>\n          </TabsContent>\n\n          <TabsContent value=\"history\" className=\"mt-2\">\n            <ScrollArea className=\"h-[500px]\">\n              <div className=\"space-y-2\">\n                {swapHistory.length === 0 ? (\n                  <Card className=\"p-4 text-center text-sm text-muted-foreground\">\n                    No swap history yet"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767177792171,
+      "end": 1767177792172
+    }
+  }
+}

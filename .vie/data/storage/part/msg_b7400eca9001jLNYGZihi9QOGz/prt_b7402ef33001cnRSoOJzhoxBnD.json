@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7402ef33001cnRSoOJzhoxBnD",
+  "messageID": "msg_b7400eca9001jLNYGZihi9QOGz",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Good, ArrowDownUp is already imported. Now let's create a summary of what we've improved:\n\n## Summary of History Tab Improvements\n\nI've successfully enhanced the history tab with the following improvements:\n\n### 1. **Enhanced Data Structure**\nUpdated `SwapHistory` interface to include:\n- Separate token symbols and decimals for accurate display\n- Chain IDs and icons for both source and destination\n- Completion timestamp to calculate time taken\n- Both input and output transaction hashes\n\n### 2. **Improved Data Extraction**\nThe `loadSwapHistory` function now:\n- Properly extracts chain information with logos\n- Correctly formats amounts using the right decimals\n- Handles edge cases where data might be missing\n- Uses chain native currency info as fallback\n- Calculates completion time from createdAt/updatedAt\n\n### 3. **Redesigned History Card UI**\nEach transaction now shows:\n\n**Header:**\n- Token symbols (e.g., \"ETH → USDC\")\n- Time taken in seconds (if completed)\n- Status badge with color coding (success=green, pending=gray, failed=red)\n\n**From Section:**\n- Chain logo\n- Amount with token symbol\n- Chain name\n- \"View\" link to transaction on Relay explorer\n\n**To Section:**\n- Chain logo\n- Amount with token symbol\n- Chain name\n- \"View\" link to transaction on Relay explorer\n\n**Footer:**\n- Share button to post on Farcaster\n\n### 4. **Better Status Indicators**\n- Success: Green badge\n- Pending/Waiting: Gray badge\n- Failed/Refunded: Red badge\n\n### 5. **Transaction Links**\n- Links to Relay explorer for both input and output transactions\n- Opens in new tab for easy verification\n\n### 6. **Improved Share Function**\nUpdated to include chain names in the shared message for better context.\n\nThe history tab now provides a clear, comprehensive view of all swap transactions with accurate amounts, chain logos, timing information, and easy access to transaction details.",
+  "time": {
+    "start": 1767177918850,
+    "end": 1767177918850
+  }
+}
