@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73f23e660010n3x80EjgYX0PA",
+  "messageID": "msg_b73f1aea60019tSUTjpEMVC122",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Now let's add an effect to update the USD amount when the token price changes:",
+  "time": {
+    "start": 1767176818159,
+    "end": 1767176818159
+  }
+}

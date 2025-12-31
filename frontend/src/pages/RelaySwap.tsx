@@ -118,6 +118,8 @@ export default function RelaySwap() {
     from?: { value: bigint; decimals: number; symbol: string }
     to?: { value: bigint; decimals: number; symbol: string }
   }>({})
+  const [inputMode, setInputMode] = useState<'token' | 'usd'>('token')
+  const [usdAmount, setUsdAmount] = useState('')
 
   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
@@ -212,6 +214,15 @@ export default function RelaySwap() {
       fetchTokenPrice(fromToken.address, fromChain.id, 'from')
     }
   }, [fromToken, fromChain])
+
+  // Update USD amount when price changes
+  useEffect(() => {
+    if (inputMode === 'usd' && usdAmount && fromTokenPrice > 0) {
+      setFromAmount((parseFloat(usdAmount) / fromTokenPrice).toString())
+    } else if (inputMode === 'token' && fromAmount && fromTokenPrice > 0) {
+      setUsdAmount((parseFloat(fromAmount) * fromTokenPrice).toFixed(2))
+    }
+  }, [fromTokenPrice])
 
   useEffect(() => {
     if (toToken && toChain) {
@@ -1141,6 +1152,7 @@ export default function RelaySwap() {
           updateLeaderboard()
           setFromAmount('')
           setToAmount('')
+          setUsdAmount('')
           return
         } else if (status.status === 'failure') {
           toast.error(`Swap failed: ${status.details || 'Unknown error'}`)
@@ -1558,6 +1570,11 @@ export default function RelaySwap() {
     const tempAmount = fromAmount
     setFromAmount(toAmount)
     setToAmount(tempAmount)
+    
+    // Recalculate USD amount after switching
+    if (inputMode === 'usd' && toAmount && toTokenPrice > 0) {
+      setUsdAmount((parseFloat(toAmount) * toTokenPrice).toFixed(2))
+    }
   }
 
   const handleConnect = async () => {
@@ -1579,6 +1596,11 @@ export default function RelaySwap() {
     const balance = parseFloat(formatUnits(fromBalance.value, fromBalance.decimals))
     const amount = (balance * percentage / 100).toString()
     setFromAmount(amount)
+    
+    // Update USD amount if in USD mode
+    if (inputMode === 'usd' && fromTokenPrice > 0) {
+      setUsdAmount((parseFloat(amount) * fromTokenPrice).toFixed(2))
+    }
   }
 
   const filteredChains = chains.filter(chain =>
@@ -1710,16 +1732,49 @@ export default function RelaySwap() {
                 </div>
 
                 <div className="space-y-1">
-                  <Input
-                    type="number"
-                    placeholder="0.0"
-                    value={fromAmount}
-                    onChange={(e) => setFromAmount(e.target.value)}
-                    className="text-lg h-10"
-                  />
-                  {fromAmount && fromTokenPrice > 0 && (
+                  <div className="relative">
+                    <Input
+                      type="number"
+                      placeholder={inputMode === 'token' ? '0.0' : '$0.00'}
+                      value={inputMode === 'token' ? fromAmount : usdAmount}
+                      onChange={(e) => {
+                        const value = e.target.value
+                        if (inputMode === 'token') {
+                          setFromAmount(value)
+                          if (value && fromTokenPrice > 0) {
+                            setUsdAmount((parseFloat(value) * fromTokenPrice).toFixed(2))
+                          } else {
+                            setUsdAmount('')
+                          }
+                        } else {
+                          setUsdAmount(value)
+                          if (value && fromTokenPrice > 0) {
+                            setFromAmount((parseFloat(value) / fromTokenPrice).toString())
+                          } else {
+                            setFromAmount('')
+                          }
+                        }
+                      }}
+                      className="text-lg h-10 pr-16"
+                    />
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setInputMode(inputMode === 'token' ? 'usd' : 'token')}
+                      className="absolute right-1 top-1 h-8 px-2 text-xs"
+                      disabled={!fromTokenPrice}
+                    >
+                      {inputMode === 'token' ? fromToken?.symbol || 'TOKEN' : 'USD'}
+                    </Button>
+                  </div>
+                  {fromAmount && fromTokenPrice > 0 && inputMode === 'token' && (
                     <div className="text-xs text-muted-foreground px-1">
                       ≈ ${(parseFloat(fromAmount) * fromTokenPrice).toFixed(2)}
+                    </div>
+                  )}
+                  {usdAmount && fromTokenPrice > 0 && inputMode === 'usd' && (
+                    <div className="text-xs text-muted-foreground px-1">
+                      ≈ {(parseFloat(usdAmount) / fromTokenPrice).toFixed(6)} {fromToken?.symbol}
                     </div>
                   )}
                   <div className="flex gap-1">

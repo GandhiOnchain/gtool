@@ -1,0 +1,25 @@
+{
+  "id": "prt_b73f256dc001HlK2khehdlwcDU",
+  "messageID": "msg_b73f1aea60019tSUTjpEMVC122",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01YEmBGd2BGe79SSj5wg2KCe",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1125,
+      "limit": 20
+    },
+    "output": "<file>\n01126|           status: status.status,\n01127|           details: status.details,\n01128|           inTxHashes: status.inTxHashes,\n01129|           txHashes: status.txHashes,\n01130|         })\n01131| \n01132|         // Show status updates to user\n01133|         if (status.status !== lastStatus) {\n01134|           lastStatus = status.status\n01135|           \n01136|           if (status.status === 'waiting') {\n01137|             toast.info('Waiting for transaction confirmation...')\n01138|           } else if (status.status === 'pending') {\n01139|             toast.info('Processing swap...')\n01140|           } else if (status.status === 'submitted') {\n01141|             toast.info('Swap submitted to destination chain...')\n01142|           } else if (status.status === 'delayed') {\n01143|             toast.warning('Swap is taking longer than expected...')\n01144|           }\n01145|         }\n\n(File has more lines. Use 'offset' parameter to read beyond line 1145)\n</file>",
+    "metadata": {
+      "preview": "          status: status.status,\n          details: status.details,\n          inTxHashes: status.inTxHashes,\n          txHashes: status.txHashes,\n        })\n\n        // Show status updates to user\n        if (status.status !== lastStatus) {\n          lastStatus = status.status\n          \n          if (status.status === 'waiting') {\n            toast.info('Waiting for transaction confirmation...')\n          } else if (status.status === 'pending') {\n            toast.info('Processing swap...')\n          } else if (status.status === 'submitted') {\n            toast.info('Swap submitted to destination chain...')\n          } else if (status.status === 'delayed') {\n            toast.warning('Swap is taking longer than expected...')\n          }\n        }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767176821280,
+      "end": 1767176821281
+    }
+  }
+}

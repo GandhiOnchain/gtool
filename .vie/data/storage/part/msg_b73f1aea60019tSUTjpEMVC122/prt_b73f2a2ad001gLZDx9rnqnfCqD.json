@@ -1,0 +1,11 @@
+{
+  "id": "prt_b73f2a2ad001gLZDx9rnqnfCqD",
+  "messageID": "msg_b73f1aea60019tSUTjpEMVC122",
+  "sessionID": "ses_48c2723c4ffemhO1dVP9NSYRB5",
+  "type": "text",
+  "text": "Perfect! I've successfully added USD input functionality to your swap interface. Here's what I implemented:\n\n## Changes Made\n\n### 1. **New State Variables**\n- `inputMode`: Tracks whether user is inputting in 'token' or 'usd' mode\n- `usdAmount`: Stores the USD value\n\n### 2. **Toggle Button**\nAdded a button inside the input field that allows users to switch between token and USD input modes. The button shows the current mode (token symbol or \"USD\").\n\n### 3. **Bidirectional Conversion**\n- When in **token mode**: Shows USD equivalent below the input\n- When in **USD mode**: Shows token equivalent below the input\n- Automatically converts between token and USD amounts as you type\n\n### 4. **Smart Updates**\n- Percentage buttons (25%, 50%, MAX) now update both token and USD amounts\n- When switching chains, USD amount is recalculated\n- When token price loads/changes, amounts are automatically updated\n- USD amount is cleared when swap completes successfully\n\n### 5. **Price Requirement**\nThe toggle button is disabled until the token price is loaded, ensuring accurate conversions.\n\n## How It Works\n\n1. **Default**: Input is in token mode\n2. **Click the button** (shows token symbol) to switch to USD mode\n3. **Type amount** in either mode - the other value updates automatically\n4. **See conversion** displayed below the input field\n5. **Use percentage buttons** - they work in both modes\n\nThe feature seamlessly integrates with your existing swap flow and provides a better UX for users who think in USD terms.",
+  "time": {
+    "start": 1767176848359,
+    "end": 1767176848359
+  }
+}
