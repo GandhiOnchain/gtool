@@ -1,0 +1,11 @@
+{
+  "id": "prt_b732d58de0017ZJA1R02Er1b65",
+  "messageID": "msg_b732d0e8c001tDYdtEWu3KNVI0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "**Solana is not supported by Relay**. All the chains I see in the API response have `\"vmType\":\"evm\"` - they're all EVM chains. Relay doesn't currently support Solana (SVM) chains.\n\nYou can only swap between EVM chains like:\n- Ethereum ↔ Base\n- Ethereum ↔ Optimism  \n- Ethereum ↔ Arbitrum\n- Base ↔ Polygon\n- etc.\n\nThe error \"Input and output currencies don't match\" is Relay's way of saying it doesn't recognize one of the chains/tokens you selected. If you selected Solana, that's why it's failing - **Solana is not in Relay's supported chains list**.\n\nTry swapping ETH from Ethereum to Base instead - that should work fine!",
+  "time": {
+    "start": 1767163915835,
+    "end": 1767163915835
+  }
+}

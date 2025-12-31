@@ -1,0 +1,11 @@
+{
+  "id": "prt_b732d1a5f00117ioL6Bmxt4U7F",
+  "messageID": "msg_b732d0e8c001tDYdtEWu3KNVI0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Ah! That's a cross-VM swap (EVM to Solana). The issue is that you need to provide a **Solana recipient address** for cross-VM swaps. Let me check if the recipient address field is showing up and if we're passing it correctly:",
+  "time": {
+    "start": 1767163897891,
+    "end": 1767163897891
+  }
+}

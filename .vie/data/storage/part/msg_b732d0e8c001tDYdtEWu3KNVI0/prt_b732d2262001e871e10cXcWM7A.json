@@ -1,0 +1,26 @@
+{
+  "id": "prt_b732d2262001e871e10cXcWM7A",
+  "messageID": "msg_b732d0e8c001tDYdtEWu3KNVI0",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_013fLRcrXdK1kRqpQrgwahRv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"Solana|solana|svm\" src/lib/relay/ -i",
+      "description": "Check for Solana references"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 1,
+      "description": "Check for Solana references"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"Solana|solana|svm\" src/lib/relay/ -i",
+    "time": {
+      "start": 1767163897769,
+      "end": 1767163897779
+    }
+  }
+}
