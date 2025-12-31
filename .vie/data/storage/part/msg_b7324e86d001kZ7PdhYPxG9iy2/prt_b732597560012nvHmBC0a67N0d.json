@@ -1,0 +1,11 @@
+{
+  "id": "prt_b732597560012nvHmBC0a67N0d",
+  "messageID": "msg_b7324e86d001kZ7PdhYPxG9iy2",
+  "sessionID": "ses_48cf32a1affeXt2RTrb5q31RrA",
+  "type": "text",
+  "text": "Perfect! I've added validation to prevent swapping the same token to itself:\n\n**Changes made:**\n\n1. **Validation in executeSwap** - Checks if you're trying to swap the same token on the same chain and shows an error\n\n2. **Validation in fetchQuote** - Prevents fetching a quote when the same token is selected (clears the quote and amount)\n\n3. **Visual warning** - Shows a red warning card when you select the same token: \"Cannot swap the same token to itself. Please select a different token.\"\n\n4. **Disabled swap button** - The swap button is now disabled when the same token is selected\n\nNow when you select the same token on both sides:\n- No quote will be fetched\n- A warning message appears\n- The swap button is disabled\n- If you somehow try to swap anyway, it will show an error\n\nMake sure you select **different tokens** or **different chains** for your swap to work!",
+  "time": {
+    "start": 1767163406318,
+    "end": 1767163406318
+  }
+}
