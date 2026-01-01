@@ -1,0 +1,11 @@
+{
+  "id": "prt_b77ffa83e002RIL9aM8USYx01A",
+  "messageID": "msg_b77ff5956001bH4EjpprNo4wgI",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "The most reliable way is to fetch the actual transaction receipt and parse the Transfer events. Let me implement this:",
+  "time": {
+    "start": 1767244832218,
+    "end": 1767244832218
+  }
+}

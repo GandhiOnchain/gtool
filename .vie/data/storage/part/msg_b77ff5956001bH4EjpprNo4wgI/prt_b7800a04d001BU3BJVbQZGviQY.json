@@ -1,0 +1,85 @@
+{
+  "id": "prt_b7800a04d001BU3BJVbQZGviQY",
+  "messageID": "msg_b77ff5956001bH4EjpprNo4wgI",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_016X1Uh3vQ3KGqkDEf6wP7Rh",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Analyze why some transactions show amounts and others don't",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fetch transaction receipts to get actual transfer amounts",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Parse Transfer events from receipts for accurate amounts",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Add caching to avoid re-fetching",
+          "status": "completed",
+          "priority": "medium",
+          "id": "4"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "5"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Analyze why some transactions show amounts and others don't\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Fetch transaction receipts to get actual transfer amounts\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Parse Transfer events from receipts for accurate amounts\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Add caching to avoid re-fetching\",\n    \"status\": \"completed\",\n    \"priority\": \"medium\",\n    \"id\": \"4\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"5\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Analyze why some transactions show amounts and others don't",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fetch transaction receipts to get actual transfer amounts",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Parse Transfer events from receipts for accurate amounts",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Add caching to avoid re-fetching",
+          "status": "completed",
+          "priority": "medium",
+          "id": "4"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "5"
+        }
+      ]
+    },
+    "title": "1 todos",
+    "time": {
+      "start": 1767244869037,
+      "end": 1767244869037
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b77ff6d2c001OJ8XUqwc96XLrh",
+  "messageID": "msg_b77ff5956001bH4EjpprNo4wgI",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "I can see the issue clearly now! The history shows:\n\n**Batch Swap:**\n- \"0.000000 ETH\" on Optimism (should show actual amount)\n- \"0.000059 ETH\" on Base (this one is correct!)\n\n**Regular Swap:**\n- \"0.000034 ETH\" on Optimism (correct)\n- \"0 ETH\" on Optimism (incorrect - should show amount)\n\nThe problem is inconsistent - some show correctly, some show 0. This means the amount decoding is hit-or-miss. Let me check the console logs to see what's happening. But first, let me add a more robust solution - use the transaction hash to fetch the actual transaction receipt and get the real amounts:",
+  "time": {
+    "start": 1767244795772,
+    "end": 1767244795772
+  }
+}

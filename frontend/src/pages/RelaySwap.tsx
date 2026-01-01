@@ -1901,129 +1901,171 @@ export default function RelaySwap() {
           console.log('Batch tokens detail:', batchTokens)
         }
         
-        // Process input transaction
+        // Process input transaction - fetch actual transaction to get real amounts
         if (req.data.inTxs?.[0]) {
           const inTx = req.data.inTxs[0]
           
-          // Set token info - ALWAYS use fromCurrency if available, otherwise chain native
+          // Set token info
           if (fromCurrency) {
             fromDecimals = fromCurrency.decimals
             fromSymbol = fromCurrency.symbol
             fromTokenAddress = fromCurrency.address
             fromTokenLogo = fromCurrency.metadata?.logoURI
-            console.log('Using fromCurrency:', fromSymbol, fromDecimals)
           } else if (originChain) {
             fromDecimals = originChain.currency.decimals
             fromSymbol = originChain.currency.symbol
             fromTokenAddress = originChain.currency.address
             fromTokenLogo = originChain.iconUrl
-            console.log('Using originChain native currency:', fromSymbol, fromDecimals)
-          } else {
-            console.error('No currency info available for from token')
           }
           
-          // Get amount from transaction value
           let rawAmount = inTx.data?.value || '0'
-          console.log('Transaction value:', rawAmount, 'for', fromSymbol)
           
-          // For native tokens, value should be set
-          // For ERC-20 tokens, value is 0 and we need to decode calldata
-          if (rawAmount === '0' && inTx.data?.data && inTx.data.data.length > 10) {
-            const calldata = inTx.data.data
-            console.log('Decoding calldata for ERC-20, length:', calldata.length)
-            
+          // If we have a transaction hash, fetch the actual transaction to get precise amounts
+          if (inTx.hash && rawAmount === '0' && originChain) {
             try {
-              // Standard ERC-20 transfer: 0xa9059cbb + address (32 bytes) + amount (32 bytes)
-              // Position: 0-10 (function), 10-74 (address), 74-138 (amount)
-              if (calldata.length >= 138) {
-                const amountHex = '0x' + calldata.substring(74, 138)
-                const decoded = BigInt(amountHex)
-                console.log('Decoded from position 74-138:', decoded.toString())
-                
-                if (decoded > 0n && decoded < BigInt('10000000000000000000000000000')) {
-                  rawAmount = decoded.toString()
-                  console.log('✓ Using decoded amount:', rawAmount)
+              const txChainConfig = defineChain({
+                id: originChainId!,
+                name: originChain.displayName,
+                nativeCurrency: {
+                  name: originChain.currency.name,
+                  symbol: originChain.currency.symbol,
+                  decimals: originChain.currency.decimals,
+                },
+                rpcUrls: {
+                  default: { http: [originChain.httpRpcUrl] },
+                },
+              })
+              
+              const txClient = createPublicClient({
+                chain: txChainConfig,
+                transport: http(originChain.httpRpcUrl),
+              })
+              
+              const receipt = await txClient.getTransactionReceipt({ hash: inTx.hash as `0x${string}` })
+              
+              // Parse Transfer events to get actual amount
+              for (const log of receipt.logs) {
+                // Transfer event signature: Transfer(address,address,uint256)
+                if (log.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
+                  // topics[1] = from, topics[2] = to, data = amount
+                  if (log.data && log.data !== '0x') {
+                    rawAmount = BigInt(log.data).toString()
+                    console.log('✓ Got amount from Transfer event:', rawAmount)
+                    break
+                  }
                 }
               }
             } catch (e) {
-              console.error('Calldata decode error:', e)
+              console.log('Could not fetch transaction receipt:', e)
             }
           }
           
-          // Format the amount
+          // Fallback: decode from calldata
+          if (rawAmount === '0' && inTx.data?.data && inTx.data.data.length >= 138) {
+            try {
+              const amountHex = '0x' + inTx.data.data.substring(74, 138)
+              const decoded = BigInt(amountHex)
+              if (decoded > 0n && decoded < BigInt('10000000000000000000000000000')) {
+                rawAmount = decoded.toString()
+                console.log('✓ Decoded from calldata:', rawAmount)
+              }
+            } catch (e) {
+              console.log('Calldata decode failed')
+            }
+          }
+          
+          // Format amount
           if (rawAmount && rawAmount !== '0') {
             try {
-              const bigIntAmount = BigInt(rawAmount)
-              fromAmount = parseFloat(formatUnits(bigIntAmount, fromDecimals)).toFixed(6)
-              console.log('✓ Formatted from amount:', fromAmount, fromSymbol)
+              fromAmount = parseFloat(formatUnits(BigInt(rawAmount), fromDecimals)).toFixed(6)
+              console.log('✓ From:', fromAmount, fromSymbol)
             } catch (e) {
-              console.error('Error formatting from amount:', e, 'rawAmount:', rawAmount, 'decimals:', fromDecimals)
+              console.error('Format error:', e)
               fromAmount = '0'
             }
-          } else {
-            console.warn('⚠️ From amount is 0 - this might be incorrect')
           }
         }
         
-        // Process output transaction
+        // Process output transaction - fetch actual transaction to get real amounts
         if (req.data.outTxs?.[0]) {
           const outTx = req.data.outTxs[0]
           
-          // Set token info - ALWAYS use toCurrency if available, otherwise chain native
+          // Set token info
           if (toCurrency) {
             toDecimals = toCurrency.decimals
             toSymbol = toCurrency.symbol
             toTokenAddress = toCurrency.address
             toTokenLogo = toCurrency.metadata?.logoURI
-            console.log('Using toCurrency:', toSymbol, toDecimals)
           } else if (destChain) {
             toDecimals = destChain.currency.decimals
             toSymbol = destChain.currency.symbol
             toTokenAddress = destChain.currency.address
             toTokenLogo = destChain.iconUrl
-            console.log('Using destChain native currency:', toSymbol, toDecimals)
-          } else {
-            console.error('No currency info available for to token')
           }
           
-          // Get amount from transaction value
           let rawAmount = outTx.data?.value || '0'
-          console.log('Output transaction value:', rawAmount, 'for', toSymbol)
           
-          // For native tokens, value should be set
-          // For ERC-20 tokens, value is 0 and we need to decode calldata
-          if (rawAmount === '0' && outTx.data?.data && outTx.data.data.length > 10) {
-            const calldata = outTx.data.data
-            console.log('Decoding output calldata, length:', calldata.length)
-            
+          // If we have a transaction hash, fetch the actual transaction to get precise amounts
+          if (outTx.hash && rawAmount === '0' && destChain) {
             try {
-              if (calldata.length >= 138) {
-                const amountHex = '0x' + calldata.substring(74, 138)
-                const decoded = BigInt(amountHex)
-                console.log('Decoded from position 74-138:', decoded.toString())
-                
-                if (decoded > 0n && decoded < BigInt('10000000000000000000000000000')) {
-                  rawAmount = decoded.toString()
-                  console.log('✓ Using decoded to amount:', rawAmount)
+              const txChainConfig = defineChain({
+                id: destChainId!,
+                name: destChain.displayName,
+                nativeCurrency: {
+                  name: destChain.currency.name,
+                  symbol: destChain.currency.symbol,
+                  decimals: destChain.currency.decimals,
+                },
+                rpcUrls: {
+                  default: { http: [destChain.httpRpcUrl] },
+                },
+              })
+              
+              const txClient = createPublicClient({
+                chain: txChainConfig,
+                transport: http(destChain.httpRpcUrl),
+              })
+              
+              const receipt = await txClient.getTransactionReceipt({ hash: outTx.hash as `0x${string}` })
+              
+              // Parse Transfer events to get actual amount
+              for (const log of receipt.logs) {
+                if (log.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
+                  if (log.data && log.data !== '0x') {
+                    rawAmount = BigInt(log.data).toString()
+                    console.log('✓ Got to amount from Transfer event:', rawAmount)
+                    break
+                  }
                 }
               }
             } catch (e) {
-              console.error('Calldata decode error:', e)
+              console.log('Could not fetch output transaction receipt:', e)
             }
           }
           
-          // Format the amount
+          // Fallback: decode from calldata
+          if (rawAmount === '0' && outTx.data?.data && outTx.data.data.length >= 138) {
+            try {
+              const amountHex = '0x' + outTx.data.data.substring(74, 138)
+              const decoded = BigInt(amountHex)
+              if (decoded > 0n && decoded < BigInt('10000000000000000000000000000')) {
+                rawAmount = decoded.toString()
+                console.log('✓ Decoded from calldata:', rawAmount)
+              }
+            } catch (e) {
+              console.log('Calldata decode failed')
+            }
+          }
+          
+          // Format amount
           if (rawAmount && rawAmount !== '0') {
             try {
-              const bigIntAmount = BigInt(rawAmount)
-              toAmount = parseFloat(formatUnits(bigIntAmount, toDecimals)).toFixed(6)
-              console.log('✓ Formatted to amount:', toAmount, toSymbol)
+              toAmount = parseFloat(formatUnits(BigInt(rawAmount), toDecimals)).toFixed(6)
+              console.log('✓ To:', toAmount, toSymbol)
             } catch (e) {
-              console.error('Error formatting to amount:', e, 'rawAmount:', rawAmount, 'decimals:', toDecimals)
+              console.error('Format error:', e)
               toAmount = '0'
             }
-          } else {
-            console.warn('⚠️ To amount is 0 - this might be incorrect')
           }
         }
         
