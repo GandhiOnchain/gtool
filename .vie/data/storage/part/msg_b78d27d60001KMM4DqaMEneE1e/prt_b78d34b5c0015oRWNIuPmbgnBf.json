@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78d34b5c0015oRWNIuPmbgnBf",
+  "messageID": "msg_b78d27d60001KMM4DqaMEneE1e",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "Now I understand the issue! The `tokenPrices` is an array of `TokenPrice` objects, not a single object with `usdPrice`. Let me fix the loadPortfolio function with the correct structure:",
+  "time": {
+    "start": 1767258694759,
+    "end": 1767258694759
+  }
+}

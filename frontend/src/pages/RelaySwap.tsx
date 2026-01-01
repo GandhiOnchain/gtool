@@ -2651,21 +2651,51 @@ export default function RelaySwap() {
       }>()
       let totalValue = 0
       
-      if (response?.data?.tokens) {
-        for (const token of response.data.tokens) {
-          const tokenData = token as unknown as { 
-            tokenAddress: string
+      const tokens = response?.data?.tokens || []
+      console.log('Tokens found:', tokens.length)
+      
+      if (tokens && tokens.length > 0) {
+        for (const token of tokens) {
+          const tokenData = token as {
+            tokenAddress?: string | null
             network: string
             tokenBalance: string
-            tokenMetadata?: { symbol?: string; name?: string; logo?: string; decimals?: number }
-            tokenPrices?: { usdPrice?: number }
+            tokenMetadata?: {
+              name?: string | null
+              symbol?: string | null
+              decimals?: number | null
+              logo?: string | null
+            }
+            tokenPrices?: Array<{
+              currency: string
+              value: string
+              lastUpdatedAt: string
+            }>
           }
           
-          const decimals = tokenData.tokenMetadata?.decimals || 18
-          const balance = parseFloat(tokenData.tokenBalance) / Math.pow(10, decimals)
+          // Convert hex balance to decimal if needed
+          let tokenBalance = tokenData.tokenBalance || '0'
+          if (tokenBalance.startsWith('0x')) {
+            tokenBalance = BigInt(tokenBalance).toString()
+          }
+          
+          const metadata = tokenData.tokenMetadata || {}
+          const decimals = metadata.decimals || 18
+          const balance = parseFloat(tokenBalance) / Math.pow(10, decimals)
+          
+          console.log('Token details:', {
+            symbol: metadata.symbol,
+            balance,
+            decimals,
+            rawBalance: tokenBalance,
+            network: tokenData.network
+          })
           
           // Skip tokens with zero balance
-          if (balance === 0) continue
+          if (balance === 0 || isNaN(balance)) {
+            console.log('Skipping token with zero/invalid balance')
+            continue
+          }
           
           const chainId = supportedChains.find(c => c.network === tokenData.network)?.id || 1
           
@@ -2679,24 +2709,41 @@ export default function RelaySwap() {
           }
           
           const chain = chainData.get(chainId)!
-          const priceUsd = tokenData.tokenPrices?.usdPrice || 0
+          
+          // tokenPrices is an array of TokenPrice objects
+          const pricesArray = tokenData.tokenPrices || []
+          const usdPrice = pricesArray.find((p) => p.currency === 'usd')
+          const priceUsd = usdPrice ? parseFloat(usdPrice.value) : 0
           const valueUsd = balance * priceUsd
           
+          console.log('Token value:', {
+            symbol: metadata.symbol,
+            balance,
+            priceUsd,
+            valueUsd,
+            pricesArray
+          })
+          
           chain.tokens.push({
-            address: tokenData.tokenAddress,
-            symbol: tokenData.tokenMetadata?.symbol || 'UNKNOWN',
-            name: tokenData.tokenMetadata?.name || 'Unknown',
-            balance: tokenData.tokenBalance,
+            address: tokenData.tokenAddress || 'native',
+            symbol: metadata.symbol || 'UNKNOWN',
+            name: metadata.name || 'Unknown',
+            balance: tokenBalance,
             balanceFormatted: balance.toFixed(6),
             valueUsd,
             priceUsd,
-            logo: tokenData.tokenMetadata?.logo,
+            logo: metadata.logo,
           })
           
           chain.valueUsd += valueUsd
           totalValue += valueUsd
         }
       }
+      
+      console.log('Final portfolio data:', {
+        totalValue,
+        chains: Array.from(chainData.values())
+      })
       
       const allTokens = Array.from(chainData.values()).flatMap(c => c.tokens.map(t => ({ ...t, chainId: c.chainId })))
       const pnl = calculatePnl(totalValue, allTokens)

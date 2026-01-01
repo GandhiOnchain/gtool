@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78d31451001F7tBSIvN3OVLO7",
+  "messageID": "msg_b78d27d60001KMM4DqaMEneE1e",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "I see! The issue is that we're using `getTokensByWallet` which includes metadata and prices, but we should be using `getTokenBalancesByWallet` for simpler data. However, let me check the actual hook that gets tokens with prices:",
+  "time": {
+    "start": 1767258661053,
+    "end": 1767258661053
+  }
+}

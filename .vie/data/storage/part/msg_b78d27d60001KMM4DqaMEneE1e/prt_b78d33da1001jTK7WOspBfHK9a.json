@@ -1,0 +1,26 @@
+{
+  "id": "prt_b78d33da1001jTK7WOspBfHK9a",
+  "messageID": "msg_b78d27d60001KMM4DqaMEneE1e",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01PJVE1K2NJRR5nxNgUiFLjs",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"export interface TokenPrice\" src/hooks/alchemy/types/price.types.ts -A 10",
+      "description": "Check TokenPrice type"
+    },
+    "output": "export interface TokenPrice {\n  /** The currency the price is denominated in (e.g. 'usd'). */\n  currency: string;\n  /** The price value as a string to preserve precision. */\n  value: string;\n  /** ISO timestamp of when the price was last updated. */\n  lastUpdatedAt: string;\n}\n\n// Token price error information\nexport interface TokenPriceError {\n  /** The error message describing why the request failed. */\n  message: string;\n}\n\n// Result for token price by address\nexport interface TokenPriceByAddressResult {\n  /** The network the token is on. */\n  network: Network;\n  /** The token's contract address. */\n  address: string;\n  /** Array of price data for the token. Empty if there was an error. */\n  prices: TokenPrice[];\n  /** Error information if the request failed, null otherwise. */\n  error: TokenPriceError | null;\n}\n\n--\nexport interface TokenPriceBySymbolResult {\n  /** The token symbol that was queried. */\n  symbol: string;\n  /** Array of price data for the token. Empty if there was an error. */\n  prices: TokenPrice[];\n  /** Error information if the request failed, null otherwise. */\n  error: TokenPriceError | null;\n}\n\n// Response types for token prices\nexport interface GetTokenPriceByAddressResponse {\n",
+    "metadata": {
+      "output": "export interface TokenPrice {\n  /** The currency the price is denominated in (e.g. 'usd'). */\n  currency: string;\n  /** The price value as a string to preserve precision. */\n  value: string;\n  /** ISO timestamp of when the price was last updated. */\n  lastUpdatedAt: string;\n}\n\n// Token price error information\nexport interface TokenPriceError {\n  /** The error message describing why the request failed. */\n  message: string;\n}\n\n// Result for token price by address\nexport interface TokenPriceByAddressResult {\n  /** The network the token is on. */\n  network: Network;\n  /** The token's contract address. */\n  address: string;\n  /** Array of price data for the token. Empty if there was an error. */\n  prices: TokenPrice[];\n  /** Error information if the request failed, null otherwise. */\n  error: TokenPriceError | null;\n}\n\n--\nexport interface TokenPriceBySymbolResult {\n  /** The token symbol that was queried. */\n  symbol: string;\n  /** Array of price data for the token. Empty if there was an error. */\n  prices: TokenPrice[];\n  /** Error information if the request failed, null otherwise. */\n  error: TokenPriceError | null;\n}\n\n// Response types for token prices\nexport interface GetTokenPriceByAddressResponse {\n",
+      "exit": 0,
+      "description": "Check TokenPrice type"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"export interface TokenPrice\" src/hooks/alchemy/types/price.types.ts -A 10",
+    "time": {
+      "start": 1767258669466,
+      "end": 1767258669474
+    }
+  }
+}

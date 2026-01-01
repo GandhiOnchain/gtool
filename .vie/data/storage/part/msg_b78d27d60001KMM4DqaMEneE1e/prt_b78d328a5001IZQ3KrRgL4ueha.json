@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78d328a5001IZQ3KrRgL4ueha",
+  "messageID": "msg_b78d27d60001KMM4DqaMEneE1e",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "Perfect! Now I can see the proper structure. The hook shows that `tokenBalance` might be in hex format and needs conversion. Let me also check the response types:",
+  "time": {
+    "start": 1767258665659,
+    "end": 1767258665659
+  }
+}
