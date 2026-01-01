@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7837e313001xlECkNAeh8Xx4Y",
+  "messageID": "msg_b7837da74001JBgQefk1OtiCHW",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Let me investigate the actual disconnect mechanism more carefully. The issue is that the disconnect isn't actually disconnecting the wallet. Let me check the wagmi disconnect implementation:",
+  "time": {
+    "start": 1767248488980,
+    "end": 1767248488980
+  }
+}

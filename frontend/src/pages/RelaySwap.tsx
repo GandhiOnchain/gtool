@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { sdk } from '@farcaster/miniapp-sdk'
-import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'
+import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useDisconnect } from 'wagmi'
 import { useWallet } from '@/hooks/useWallet'
 import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
@@ -101,13 +101,10 @@ const STREAK_MESSAGES = [
 ]
 
 export default function RelaySwap() {
-  const { address: accountAddress, isConnected: accountConnected, chainId: connectedChainId } = useAccount()
+  const { address, isConnected, chainId: connectedChainId } = useAccount()
   const { connect, connectors } = useConnect()
-  const { address: walletAddress, isConnected: walletConnected, disconnect } = useWallet()
+  const { disconnect: wagmiDisconnect } = useDisconnect()
   const { switchChain } = useSwitchChain()
-  
-  const address = walletAddress || accountAddress
-  const isConnected = walletConnected || accountConnected
   const [chains, setChains] = useState<RelayChain[]>([])
   const [fromChain, setFromChain] = useState<RelayChain | null>(null)
   const [toChain, setToChain] = useState<RelayChain | null>(null)
@@ -2963,7 +2960,8 @@ export default function RelaySwap() {
                 variant="ghost"
                 size="sm"
                 onClick={() => {
-                  disconnect()
+                  wagmiDisconnect()
+                  toast.success('Wallet disconnected')
                 }}
                 className="h-7 text-xs px-2"
               >

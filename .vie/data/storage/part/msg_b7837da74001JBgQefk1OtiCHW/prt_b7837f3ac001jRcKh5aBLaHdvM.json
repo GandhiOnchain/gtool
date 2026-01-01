@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7837f3ac001jRcKh5aBLaHdvM",
+  "messageID": "msg_b7837da74001JBgQefk1OtiCHW",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "The disconnect is calling `wagmiDisconnect.disconnect()` which should work. The problem might be that we're mixing state from different sources. Let me simplify and just use the wagmi hooks directly in the component:",
+  "time": {
+    "start": 1767248497177,
+    "end": 1767248497177
+  }
+}

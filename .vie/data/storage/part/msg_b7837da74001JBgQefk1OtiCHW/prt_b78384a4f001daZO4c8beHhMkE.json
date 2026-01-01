@@ -1,0 +1,25 @@
+{
+  "id": "prt_b78384a4f001daZO4c8beHhMkE",
+  "messageID": "msg_b7837da74001JBgQefk1OtiCHW",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01RuCiVXAcXrKwgWhHqNipg8",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2960,
+      "limit": 20
+    },
+    "output": "<file>\n02961|                 size=\"sm\"\n02962|                 onClick={() => {\n02963|                   disconnect()\n02964|                 }}\n02965|                 className=\"h-7 text-xs px-2\"\n02966|               >\n02967|                 {address?.slice(0, 6)}...{address?.slice(-4)}\n02968|               </Button>\n02969|             </div>\n02970|           </div>\n02971|         )}\n02972| \n02973|         <Tabs defaultValue=\"swap\" className=\"w-full\">\n02974|           <TabsList className=\"grid w-full grid-cols-5 h-8\">\n02975|             <TabsTrigger value=\"swap\" className=\"text-xs\">Swap</TabsTrigger>\n02976|             <TabsTrigger value=\"batch\" className=\"text-xs\">Batch</TabsTrigger>\n02977|             <TabsTrigger value=\"history\" className=\"text-xs\">History</TabsTrigger>\n02978|             <TabsTrigger value=\"revoke\" className=\"text-xs\">Revoke</TabsTrigger>\n02979|             <TabsTrigger value=\"settings\" className=\"text-xs\">Settings</TabsTrigger>\n02980|           </TabsList>\n\n(File has more lines. Use 'offset' parameter to read beyond line 2980)\n</file>",
+    "metadata": {
+      "preview": "                size=\"sm\"\n                onClick={() => {\n                  disconnect()\n                }}\n                className=\"h-7 text-xs px-2\"\n              >\n                {address?.slice(0, 6)}...{address?.slice(-4)}\n              </Button>\n            </div>\n          </div>\n        )}\n\n        <Tabs defaultValue=\"swap\" className=\"w-full\">\n          <TabsList className=\"grid w-full grid-cols-5 h-8\">\n            <TabsTrigger value=\"swap\" className=\"text-xs\">Swap</TabsTrigger>\n            <TabsTrigger value=\"batch\" className=\"text-xs\">Batch</TabsTrigger>\n            <TabsTrigger value=\"history\" className=\"text-xs\">History</TabsTrigger>\n            <TabsTrigger value=\"revoke\" className=\"text-xs\">Revoke</TabsTrigger>\n            <TabsTrigger value=\"settings\" className=\"text-xs\">Settings</TabsTrigger>\n          </TabsList>"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767248514541,
+      "end": 1767248514544
+    }
+  }
+}

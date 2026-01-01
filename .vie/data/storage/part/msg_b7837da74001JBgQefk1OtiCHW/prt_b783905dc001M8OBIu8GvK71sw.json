@@ -1,0 +1,11 @@
+{
+  "id": "prt_b783905dc001M8OBIu8GvK71sw",
+  "messageID": "msg_b7837da74001JBgQefk1OtiCHW",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Now the disconnect should work properly. I've:\n\n1. Imported `useDisconnect` directly from wagmi\n2. Used `wagmiDisconnect()` (which is the disconnect function from the hook)\n3. Kept the toast message \"Wallet disconnected\"\n4. Removed the mixed state from `useWallet` to avoid conflicts\n\nThe disconnect button will now properly disconnect the wallet and show the toast message. When disconnected, the UI will show the \"Connect Wallet\" button.",
+  "time": {
+    "start": 1767248565046,
+    "end": 1767248565046
+  }
+}

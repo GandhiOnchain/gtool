@@ -1,2 +1,0 @@
-import { A as bsc, B as supportedChains, D as base, E as avalanche, F as optimism, I as plume, L as polygon, M as hyperliquid, N as linea, O as baseSepolia, P as mantle, R as scroll, T as arbitrum, V as unichain, j as ethereum, k as berachain, w as wagmiConfig, z as shape } from "./index-DfEhQ8JI.js";
-export { arbitrum, avalanche, base, baseSepolia, berachain, bsc, ethereum, hyperliquid, linea, mantle, optimism, plume, polygon, scroll, shape, supportedChains, unichain, wagmiConfig };
