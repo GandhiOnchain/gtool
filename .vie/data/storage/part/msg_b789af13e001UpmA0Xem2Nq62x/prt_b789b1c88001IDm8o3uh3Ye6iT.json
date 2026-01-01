@@ -1,0 +1,11 @@
+{
+  "id": "prt_b789b1c88001IDm8o3uh3Ye6iT",
+  "messageID": "msg_b789af13e001UpmA0Xem2Nq62x",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "The Moralis API key is not configured in your `env.json` file. To fix this, you need to add your Moralis API key. Here's how:\n\n1. Get a Moralis API key from https://moralis.io (sign up for a free account if you don't have one)\n2. Add it to the `env.json` file",
+  "time": {
+    "start": 1767254993649,
+    "end": 1767254993649
+  }
+}
