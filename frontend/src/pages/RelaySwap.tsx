@@ -2661,6 +2661,12 @@ export default function RelaySwap() {
             tokenPrices?: { usdPrice?: number }
           }
           
+          const decimals = tokenData.tokenMetadata?.decimals || 18
+          const balance = parseFloat(tokenData.tokenBalance) / Math.pow(10, decimals)
+          
+          // Skip tokens with zero balance
+          if (balance === 0) continue
+          
           const chainId = supportedChains.find(c => c.network === tokenData.network)?.id || 1
           
           if (!chainData.has(chainId)) {
@@ -2673,8 +2679,6 @@ export default function RelaySwap() {
           }
           
           const chain = chainData.get(chainId)!
-          const decimals = tokenData.tokenMetadata?.decimals || 18
-          const balance = parseFloat(tokenData.tokenBalance) / Math.pow(10, decimals)
           const priceUsd = tokenData.tokenPrices?.usdPrice || 0
           const valueUsd = balance * priceUsd
           

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78d127be001ot0ot34flPjKqa",
+  "messageID": "msg_b78d0761b0013tr9ZA7ul6bEEH",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "Perfect! I've updated the portfolio loading logic to:\n\n1. **Skip tokens with zero balance** - Added a check `if (balance === 0) continue` before processing each token\n2. **Only show chains with tokens** - Since we skip zero-balance tokens, chains will only be added to the `chainData` map if they have at least one token with a non-zero balance\n\nThis means:\n- Chains with no tokens won't appear in the portfolio\n- Only tokens with actual balances will be displayed\n- The portfolio will be cleaner and more relevant to the user's actual holdings",
+  "time": {
+    "start": 1767258534453,
+    "end": 1767258534453
+  }
+}

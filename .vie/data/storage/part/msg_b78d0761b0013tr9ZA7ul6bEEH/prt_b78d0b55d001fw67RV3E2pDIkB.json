@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78d0b55d001fw67RV3E2pDIkB",
+  "messageID": "msg_b78d0761b0013tr9ZA7ul6bEEH",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "I can see the issue. The function is adding all chains to the chainData map even if they have no tokens. I need to modify it to only include chains that have tokens with balances. Let me update the loadPortfolio function:",
+  "time": {
+    "start": 1767258515279,
+    "end": 1767258515279
+  }
+}
