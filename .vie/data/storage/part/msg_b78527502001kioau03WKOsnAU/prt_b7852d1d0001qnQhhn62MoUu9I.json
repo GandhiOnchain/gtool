@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7852d1d0001qnQhhn62MoUu9I",
+  "messageID": "msg_b78527502001kioau03WKOsnAU",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01GtbS5UFPzMbrEemMy6wgea",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"10:.*Optimism\" RelaySwap.tsx -A 10 | head -20",
+      "description": "Check if Optimism has spenders configured"
+    },
+    "output": "        10: [ // Optimism\n          { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },\n          { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },\n          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },\n          { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap Router' },\n          { address: '0xBA12222222228d8Ba445958a75a0704d566BF2C8', name: 'Balancer V2 Vault' },\n        ],\n        56: [ // BNB Chain\n          { address: '0x10ED43C718714eb63d5aA57B78B54704E256024E', name: 'PancakeSwap Router' },\n          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },\n          { address: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', name: 'SushiSwap Router' },\n",
+    "metadata": {
+      "output": "        10: [ // Optimism\n          { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },\n          { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },\n          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },\n          { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap Router' },\n          { address: '0xBA12222222228d8Ba445958a75a0704d566BF2C8', name: 'Balancer V2 Vault' },\n        ],\n        56: [ // BNB Chain\n          { address: '0x10ED43C718714eb63d5aA57B78B54704E256024E', name: 'PancakeSwap Router' },\n          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },\n          { address: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', name: 'SushiSwap Router' },\n",
+      "exit": 0,
+      "description": "Check if Optimism has spenders configured"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"10:.*Optimism\" RelaySwap.tsx -A 10 | head -20",
+    "time": {
+      "start": 1767250253427,
+      "end": 1767250253445
+    }
+  }
+}

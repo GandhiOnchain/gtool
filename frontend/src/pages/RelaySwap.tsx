@@ -2550,6 +2550,12 @@ export default function RelaySwap() {
             { address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174', symbol: 'USDC', name: 'USD Coin', decimals: 6 },
             { address: '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063', symbol: 'DAI', name: 'Dai Stablecoin', decimals: 18 },
           ],
+          10: [ // Optimism
+            { address: '0x94b008aA00579c1307B0EF2c499aD98a8ce58e58', symbol: 'USDT', name: 'Tether USD', decimals: 6 },
+            { address: '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85', symbol: 'USDC', name: 'USD Coin', decimals: 6 },
+            { address: '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1', symbol: 'DAI', name: 'Dai Stablecoin', decimals: 18 },
+            { address: '0x4200000000000000000000000000000000000006', symbol: 'WETH', name: 'Wrapped Ether', decimals: 18 },
+          ],
         }
         
         const tokensForChain = commonTokens[revokeChain.id] || []
@@ -2665,7 +2671,8 @@ export default function RelaySwap() {
       if (tokenAddressSet.size === 0) {
         console.log('⚠️ No tokens found in your wallet')
         setApprovals([])
-        toast.info('No tokens found in your wallet')
+        toast.info('No tokens found to check for approvals')
+        setIsLoadingApprovals(false)
         return
       }
       

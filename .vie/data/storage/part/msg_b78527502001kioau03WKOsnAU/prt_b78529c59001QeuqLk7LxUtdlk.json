@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78529c59001QeuqLk7LxUtdlk",
+  "messageID": "msg_b78527502001kioau03WKOsnAU",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "The code looks correct - it should complete and set `isLoadingApprovals(false)` in the finally block. The issue might be that it's throwing an error before reaching the finally block. Let me check if the error is happening in the early return:",
+  "time": {
+    "start": 1767250241534,
+    "end": 1767250241534
+  }
+}

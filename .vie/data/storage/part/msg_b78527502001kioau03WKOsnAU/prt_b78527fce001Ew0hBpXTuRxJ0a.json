@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78527fce001Ew0hBpXTuRxJ0a",
+  "messageID": "msg_b78527502001kioau03WKOsnAU",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "I can see it's showing \"API failed, using on-chain scan...\" which is good - it's falling back to the on-chain method. But it seems to be stuck in the loading state. Let me check if there's an issue with the on-chain scanning completing. The problem might be that the on-chain scan is failing silently.\n\nLet me add better error handling and make sure the loading state completes:",
+  "time": {
+    "start": 1767250235975,
+    "end": 1767250235975
+  }
+}

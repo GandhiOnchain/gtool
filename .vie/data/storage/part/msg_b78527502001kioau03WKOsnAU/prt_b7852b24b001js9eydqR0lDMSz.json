@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7852b24b001js9eydqR0lDMSz",
+  "messageID": "msg_b78527502001kioau03WKOsnAU",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "I found the bug! On line 2669, there's an early return that doesn't set `setIsLoadingApprovals(false)`. This means if no tokens are found (even after adding common tokens), it will stay in the loading state forever.\n\nLet me fix this:",
+  "time": {
+    "start": 1767250248138,
+    "end": 1767250248138
+  }
+}
