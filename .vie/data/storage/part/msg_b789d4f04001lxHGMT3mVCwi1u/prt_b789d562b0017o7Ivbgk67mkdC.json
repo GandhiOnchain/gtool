@@ -1,0 +1,11 @@
+{
+  "id": "prt_b789d562b0017o7Ivbgk67mkdC",
+  "messageID": "msg_b789d4f04001lxHGMT3mVCwi1u",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "I can see the \"Scanning for approvals...\" section showing multiple messages. Let me find and update the code to show only the scanning message.",
+  "time": {
+    "start": 1767255138179,
+    "end": 1767255138179
+  }
+}

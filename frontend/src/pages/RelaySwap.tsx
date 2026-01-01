@@ -3849,17 +3849,9 @@ export default function RelaySwap() {
 
             {isLoadingApprovals ? (
               <Card className="p-4 text-center">
-                <div className="text-sm text-muted-foreground mb-2">
+                <div className="text-sm text-muted-foreground">
                   Scanning for approvals...
                 </div>
-                <div className="text-xs text-muted-foreground mb-2">
-                  Checking your tokens against known protocols
-                </div>
-                {debugInfo && (
-                  <div className="text-xs font-mono text-muted-foreground bg-muted/50 p-2 rounded mt-2">
-                    {debugInfo}
-                  </div>
-                )}
               </Card>
             ) : approvals.length === 0 && revokeChain ? (
               <Card className="p-4 text-center">

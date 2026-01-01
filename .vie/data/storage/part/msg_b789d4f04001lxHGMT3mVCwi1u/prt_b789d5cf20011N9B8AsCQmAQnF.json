@@ -1,0 +1,25 @@
+{
+  "id": "prt_b789d5cf20011N9B8AsCQmAQnF",
+  "messageID": "msg_b789d4f04001lxHGMT3mVCwi1u",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "grep",
+  "callID": "toolu_vrtx_016oBPcnbp4o5x1S7xfbN6WZ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "Scanning for approvals",
+      "include": "*.tsx"
+    },
+    "output": "Found 1 matches\n/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx:\n  Line 3853:                   Scanning for approvals...",
+    "metadata": {
+      "matches": 1,
+      "truncated": false
+    },
+    "title": "Scanning for approvals",
+    "time": {
+      "start": 1767255138135,
+      "end": 1767255138160
+    }
+  }
+}
