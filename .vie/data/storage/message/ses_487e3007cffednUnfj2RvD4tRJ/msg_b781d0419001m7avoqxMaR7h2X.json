@@ -1,0 +1,27 @@
+{
+  "id": "msg_b781d0419001m7avoqxMaR7h2X",
+  "role": "assistant",
+  "system": [],
+  "mode": "fork-initialize",
+  "path": {
+    "cwd": "/home/user/sandbox/workspace",
+    "root": "/home/user/sandbox/workspace"
+  },
+  "cost": 0,
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "reasoning": 0,
+    "cache": {
+      "read": 0,
+      "write": 0
+    }
+  },
+  "modelID": "anthropic/claude-sonnet-4.5",
+  "providerID": "openrouter",
+  "time": {
+    "created": 1767246726648,
+    "completed": 1767246726648
+  },
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ"
+}
