@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78178a8e001qXOQ8rE8dSgLBi",
+  "messageID": "msg_b7816ff8e001Troi7RkIdkBp3V",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Now let me verify the currency fetch is working properly for ERC-20 tokens. The key is that `fromCurrency.metadata?.logoURI` should have the logo. Let me add better logging:",
+  "time": {
+    "start": 1767246371896,
+    "end": 1767246371896
+  }
+}

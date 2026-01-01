@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7817408c0018gn2gZX2e6uHij",
+  "messageID": "msg_b7816ff8e001Troi7RkIdkBp3V",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "The logic looks good for ERC-20 tokens:\n1. **Line 1911**: Uses `fromCurrency.metadata?.logoURI` first (this is the actual token logo from Relay API)\n2. **Fallback**: Uses `getNativeTokenLogo()` only if metadata logo doesn't exist\n\nHowever, I notice the issue - when `fromCurrency` is fetched from Relay API, it should have the logo. But let me verify the currency fetch is working correctly. Let me also add more token logos to the helper:",
+  "time": {
+    "start": 1767246362216,
+    "end": 1767246362216
+  }
+}

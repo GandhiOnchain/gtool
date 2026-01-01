@@ -1708,7 +1708,13 @@ export default function RelaySwap() {
                 limit: 1,
               })
               fromCurrency = currencies[0] || null
-              console.log('From currency fetched:', fromCurrency?.symbol, fromCurrency?.address)
+              console.log('From currency fetched:', {
+                symbol: fromCurrency?.symbol,
+                address: fromCurrency?.address,
+                decimals: fromCurrency?.decimals,
+                hasLogo: !!fromCurrency?.metadata?.logoURI,
+                logo: fromCurrency?.metadata?.logoURI
+              })
             }
           } catch (e) {
             console.error('Failed to fetch from currency:', e)
@@ -1723,7 +1729,13 @@ export default function RelaySwap() {
                 limit: 1,
               })
               toCurrency = currencies[0] || null
-              console.log('To currency fetched:', toCurrency?.symbol, toCurrency?.address)
+              console.log('To currency fetched:', {
+                symbol: toCurrency?.symbol,
+                address: toCurrency?.address,
+                decimals: toCurrency?.decimals,
+                hasLogo: !!toCurrency?.metadata?.logoURI,
+                logo: toCurrency?.metadata?.logoURI
+              })
             }
           } catch (e) {
             console.error('Failed to fetch to currency:', e)
@@ -2745,19 +2757,27 @@ export default function RelaySwap() {
     return (explorers[chainId] || 'https://relay.link/tx/') + txHash
   }
 
-  // Helper to get native token logo URL
+  // Helper to get token logo URL (native tokens and common ERC-20s)
   const getNativeTokenLogo = (symbol: string): string | undefined => {
     const logos: Record<string, string> = {
+      // Native tokens
       'ETH': 'https://assets.relay.link/icons/currencies/eth.png',
       'MATIC': 'https://assets.relay.link/icons/currencies/matic.png',
+      'POL': 'https://assets.relay.link/icons/currencies/matic.png',
       'BNB': 'https://assets.relay.link/icons/currencies/bnb.png',
       'AVAX': 'https://assets.relay.link/icons/currencies/avax.png',
       'FTM': 'https://assets.relay.link/icons/currencies/ftm.png',
       'XDAI': 'https://assets.relay.link/icons/currencies/xdai.png',
       'CELO': 'https://assets.relay.link/icons/currencies/celo.png',
       'MNT': 'https://assets.relay.link/icons/currencies/mnt.png',
+      // Common stablecoins (fallback if metadata missing)
+      'USDC': 'https://assets.relay.link/icons/currencies/usdc.png',
+      'USDT': 'https://assets.relay.link/icons/currencies/usdt.png',
+      'DAI': 'https://assets.relay.link/icons/currencies/dai.png',
+      'WETH': 'https://assets.relay.link/icons/currencies/weth.png',
+      'WBTC': 'https://assets.relay.link/icons/currencies/wbtc.png',
     }
-    return logos[symbol]
+    return logos[symbol.toUpperCase()]
   }
 
   const revokeApproval = async (approval: typeof approvals[0]) => {
