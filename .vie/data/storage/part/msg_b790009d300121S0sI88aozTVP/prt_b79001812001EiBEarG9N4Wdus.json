@@ -1,0 +1,11 @@
+{
+  "id": "prt_b79001812001EiBEarG9N4Wdus",
+  "messageID": "msg_b790009d300121S0sI88aozTVP",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "I understand now - you want to send push notifications to users even when the app is closed. However, this requires backend infrastructure that the current frontend-only setup doesn't have.\n\nHere's what would be needed to implement this:\n\n## Required Infrastructure:\n\n### 1. **Backend Service**\n- Server that periodically checks airdrop eligibility for all users\n- Stores user wallet addresses and notification preferences\n- Runs scheduled jobs (e.g., every hour) to check for new airdrops\n\n### 2. **Notification System**\nYou'd need one of these:\n- **Farcaster Notifications API** - Send notifications through Farcaster\n- **Push Notifications** - Web Push API or mobile push notifications\n- **Email/SMS** - Alternative notification channels\n\n### 3. **Database**\n- Store user wallet addresses\n- Track which airdrops users have been notified about\n- Store notification preferences\n\n## Current Limitations:\n\nThe current implementation is **frontend-only** and can only:\n- Check airdrops when the user opens the app\n- Show in-app notifications\n- Periodically check while the app is open\n\n## What I Can Do Now:\n\nSince this is a Farcaster miniapp, I can add a feature to **request notification permissions** and prepare the app for when you add a backend. Would you like me to:\n\n1. Add a notification permission request UI\n2. Add placeholder code for backend integration\n3. Document the backend requirements\n\nOr do you have a backend service already set up that I should integrate with?",
+  "time": {
+    "start": 1767261616813,
+    "end": 1767261616813
+  }
+}
