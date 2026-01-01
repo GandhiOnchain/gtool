@@ -1,0 +1,26 @@
+{
+  "id": "prt_b786e1807001OPSSxaTETHYW9H",
+  "messageID": "msg_b786b0ae8001D99En23OAhB21H",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_018ooAfQmXfDQPmM6CA1N9YT",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"^import.*config\" RelaySwap.tsx",
+      "description": "Check if config is imported"
+    },
+    "output": "import { alchemy, getAlchemyNetwork } from '@/lib/alchemy/config'\n",
+    "metadata": {
+      "output": "import { alchemy, getAlchemyNetwork } from '@/lib/alchemy/config'\n",
+      "exit": 0,
+      "description": "Check if config is imported"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"^import.*config\" RelaySwap.tsx",
+    "time": {
+      "start": 1767252040695,
+      "end": 1767252040704
+    }
+  }
+}

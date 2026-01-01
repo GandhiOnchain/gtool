@@ -1,0 +1,26 @@
+{
+  "id": "prt_b786b33a6001ouvUnzKBuqv4yw",
+  "messageID": "msg_b786b0ae8001D99En23OAhB21H",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01D8jJw7HA9jkisVhaLV2aub",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://api.covalenthq.com/v1/137/approvals/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/?key=cqt_rQkTkg6BHVFXkjRGy9VJYJGJpWJd\" | head -100",
+      "description": "Test Covalent approvals API"
+    },
+    "output": "{\"data\":null,\"error\":true,\"error_message\":\"Unable to authenticate request.\",\"error_code\":401}",
+    "metadata": {
+      "output": "{\"data\":null,\"error\":true,\"error_message\":\"Unable to authenticate request.\",\"error_code\":401}",
+      "exit": 0,
+      "description": "Test Covalent approvals API"
+    },
+    "title": "curl -s \"https://api.covalenthq.com/v1/137/approvals/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/?key=cqt_rQkTkg6BHVFXkjRGy9VJYJGJpWJd\" | head -100",
+    "time": {
+      "start": 1767251853626,
+      "end": 1767251853750
+    }
+  }
+}

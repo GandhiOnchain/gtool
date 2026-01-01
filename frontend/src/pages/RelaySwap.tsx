@@ -5,7 +5,7 @@ import { useWallet } from '@/hooks/useWallet'
 import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
-import { alchemy, getAlchemyNetwork } from '@/lib/alchemy/config'
+import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
 import { Network as AlchemyNetwork } from 'alchemy-sdk'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -2445,146 +2445,66 @@ export default function RelaySwap() {
     if (!address || !revokeChain) return
     
     try {
-      console.log('🔗 Starting on-chain approval scan using event logs...')
-      console.log('RPC URL:', revokeChain.httpRpcUrl)
-      setDebugInfo('Scanning blockchain for Approval events...')
+      console.log('Starting approval scan...')
+      setDebugInfo('Querying Alchemy for approvals...')
       
-      const chainConfig = defineChain({
-        id: revokeChain.id,
-        name: revokeChain.displayName,
-        nativeCurrency: {
-          name: revokeChain.currency.name,
-          symbol: revokeChain.currency.symbol,
-          decimals: revokeChain.currency.decimals,
-        },
-        rpcUrls: {
-          default: { http: [revokeChain.httpRpcUrl] },
-        },
+      const alchemyRpcUrl = `https://${getAlchemyNetwork(revokeChain.id)}.g.alchemy.com/v2/${alchemySettings.apiKey}`
+      
+      const response = await fetch(alchemyRpcUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jsonrpc: '2.0',
+          id: 1,
+          method: 'alchemy_getTokenAllowances',
+          params: [{ owner: address }]
+        })
       })
       
-      const publicClient = createPublicClient({
-        chain: chainConfig,
-        transport: http(revokeChain.httpRpcUrl),
-      })
+      const data = await response.json()
+      console.log('Alchemy allowances response:', data)
       
-      const tokenAddressSet = new Set<string>()
-      const tokenMetadata = new Map<string, RelayCurrency>()
-      
-      // Get user's tokens from Alchemy
-      try {
-        const alchemyNetwork = getAlchemyNetwork(revokeChain.id) as unknown as AlchemyNetwork
-        const portfolioAddresses = [{ address: address, networks: [alchemyNetwork] }]
-        const alchemyResponse = await alchemy.portfolio.getTokensByWallet(portfolioAddresses, true, false, false)
+      if (data.result?.allowances) {
+        const foundApprovals: typeof approvals = []
         
-        if (alchemyResponse?.data?.tokens) {
-          alchemyResponse.data.tokens.forEach((token: unknown) => {
-            const tokenData = token as { tokenAddress?: string; tokenMetadata?: { symbol?: string; name?: string; decimals?: number; logo?: string } }
-            if (tokenData.tokenAddress && tokenData.tokenAddress !== '0x0000000000000000000000000000000000000000') {
-              const addr = tokenData.tokenAddress.toLowerCase()
-              tokenAddressSet.add(addr)
-              tokenMetadata.set(addr, {
-                address: tokenData.tokenAddress,
-                symbol: tokenData.tokenMetadata?.symbol || 'UNKNOWN',
-                name: tokenData.tokenMetadata?.name || 'Unknown Token',
-                decimals: tokenData.tokenMetadata?.decimals || 18,
-                chainId: revokeChain.id,
-                metadata: tokenData.tokenMetadata?.logo ? { logoURI: tokenData.tokenMetadata.logo } : undefined,
-              })
-            }
-          })
-        }
-      } catch (e) {
-        console.warn('Alchemy failed')
-      }
-      
-      if (tokenAddressSet.size === 0) {
-        setApprovals([])
-        toast.info('No tokens found')
-        setIsLoadingApprovals(false)
-        return
-      }
-      
-      console.log(`Checking ${tokenAddressSet.size} tokens`)
-      setDebugInfo(`Checking ${tokenAddressSet.size} tokens...`)
-      
-      // Known spenders to check
-      const spenders = [
-        { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },
-        { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },
-        { address: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', name: 'Uniswap V2' },
-        { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5' },
-        { address: '0xDef1C0ded9bec7F1a1670819833240f027b25EfF', name: '0x' },
-        { address: '0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F', name: 'SushiSwap' },
-        { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap' },
-        { address: '0xBA12222222228d8Ba445958a75a0704d566BF2C8', name: 'Balancer' },
-        { address: '0x881D40237659C251811CEC9c364ef91dC08D300C', name: 'MetaMask' },
-        { address: '0x1e0049783F008A0085193E00003D00cd54003c71', name: 'OpenSea' },
-      ]
-      
-      const foundApprovals: typeof approvals = []
-      
-      // Check each token against each spender
-      for (const tokenAddress of tokenAddressSet) {
-        const metadata = tokenMetadata.get(tokenAddress)
-        
-        for (const spender of spenders) {
-          try {
-            const allowance = await publicClient.readContract({
-              address: tokenAddress as `0x${string}`,
-              abi: [{
-                name: 'allowance',
-                type: 'function',
-                stateMutability: 'view',
-                inputs: [{ name: 'owner', type: 'address' }, { name: 'spender', type: 'address' }],
-                outputs: [{ name: 'remaining', type: 'uint256' }],
-              }],
-              functionName: 'allowance',
-              args: [address as `0x${string}`, spender.address as `0x${string}`],
-            })
+        for (const approval of data.result.allowances) {
+          if (approval.allowance && approval.allowance !== '0') {
+            const allowanceBigInt = BigInt(approval.allowance)
+            const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
+            const isUnlimited = allowanceBigInt >= maxUint256 / 2n
             
-            if (allowance > 0n) {
-              const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
-              const isUnlimited = allowance >= maxUint256 / 2n
-              
-              const token = metadata || {
-                address: tokenAddress,
-                symbol: 'UNKNOWN',
-                name: tokenAddress,
-                decimals: 18,
+            foundApprovals.push({
+              token: {
+                address: approval.tokenAddress,
+                symbol: approval.tokenSymbol || 'UNKNOWN',
+                name: approval.tokenName || 'Unknown',
+                decimals: approval.tokenDecimals || 18,
                 chainId: revokeChain.id,
-              }
-              
-              foundApprovals.push({
-                token,
-                spender: spender.address.toLowerCase(),
-                spenderName: spender.name,
-                allowance: allowance.toString(),
-                allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(allowance, token.decimals),
-                riskLevel: isUnlimited ? 'high' : 'low',
-              })
-            }
-          } catch (e) {
-            // Skip
+              },
+              spender: approval.spender,
+              spenderName: approval.spenderName,
+              allowance: approval.allowance,
+              allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(allowanceBigInt, approval.tokenDecimals || 18),
+              riskLevel: isUnlimited ? 'high' : 'low',
+            })
           }
         }
-      }
-      
-      console.log(`Found ${foundApprovals.length} approvals`)
-      setApprovals(foundApprovals)
-      
-      if (foundApprovals.length === 0) {
-        toast.success('No active approvals found')
+        
+        setApprovals(foundApprovals)
+        toast.success(foundApprovals.length > 0 ? `Found ${foundApprovals.length} approval${foundApprovals.length > 1 ? 's' : ''}` : 'No active approvals')
       } else {
-        toast.success(`Found ${foundApprovals.length} approval${foundApprovals.length > 1 ? 's' : ''}`)
+        setApprovals([])
+        toast.info('No approvals found')
       }
     } catch (error) {
       const err = error as Error
-      console.error('Scan failed:', err)
+      console.error('Failed:', err)
       toast.error(`Failed: ${err.message}`)
     } finally {
       setIsLoadingApprovals(false)
     }
   }
+
   const getBlockExplorerUrl = (chainId: number, txHash: string): string => {
     const explorers: Record<number, string> = {
       1: 'https://etherscan.io/tx/',

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b786b6d92001nQv426yDMQzilX",
+  "messageID": "msg_b786b0ae8001D99En23OAhB21H",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Alchemy doesn't have a direct approvals API. Let me use Alchemy's enhanced APIs to make direct RPC calls. Alchemy supports `alchemy_getTokenAllowances` method:",
+  "time": {
+    "start": 1767251934862,
+    "end": 1767251934862
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b786b2ca4001xuUx4t2Z0FSDob",
+  "messageID": "msg_b786b0ae8001D99En23OAhB21H",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "You're right. I need to use an indexing service API like Covalent or Moralis to get ALL approvals comprehensively. Let me implement this properly using Covalent's API which provides a dedicated endpoint for token approvals.",
+  "time": {
+    "start": 1767251853752,
+    "end": 1767251853752
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b786cfc99001P6TQsY3dp6spYG",
+  "messageID": "msg_b786b0ae8001D99En23OAhB21H",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "There are special characters (emojis). Let me match without them:",
+  "time": {
+    "start": 1767251969873,
+    "end": 1767251969873
+  }
+}

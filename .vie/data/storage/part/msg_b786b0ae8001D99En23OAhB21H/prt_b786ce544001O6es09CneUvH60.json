@@ -1,0 +1,26 @@
+{
+  "id": "prt_b786ce544001O6es09CneUvH60",
+  "messageID": "msg_b786b0ae8001D99En23OAhB21H",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01LQyArTFg54pVTR3g1zR3Hz",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && sed -n '2447,2450p' RelaySwap.tsx | cat -A",
+      "description": "Check exact text with special chars"
+    },
+    "output": "    try {$\n      console.log('M-pM-^_M-^TM-^W Starting on-chain approval scan using event logs...')$\n      console.log('RPC URL:', revokeChain.httpRpcUrl)$\n      setDebugInfo('Scanning blockchain for Approval events...')$\n",
+    "metadata": {
+      "output": "    try {$\n      console.log('M-pM-^_M-^TM-^W Starting on-chain approval scan using event logs...')$\n      console.log('RPC URL:', revokeChain.httpRpcUrl)$\n      setDebugInfo('Scanning blockchain for Approval events...')$\n",
+      "exit": 0,
+      "description": "Check exact text with special chars"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && sed -n '2447,2450p' RelaySwap.tsx | cat -A",
+    "time": {
+      "start": 1767251962465,
+      "end": 1767251962470
+    }
+  }
+}
