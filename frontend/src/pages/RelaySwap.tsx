@@ -101,7 +101,7 @@ const STREAK_MESSAGES = [
 ]
 
 export default function RelaySwap() {
-  const { address, isConnected, chainId: connectedChainId } = useAccount()
+  const { address, isConnected, chainId: connectedChainId, connector } = useAccount()
   const { connect, connectors } = useConnect()
   const { disconnect: wagmiDisconnect } = useDisconnect()
   const { switchChain } = useSwitchChain()
@@ -2959,7 +2959,15 @@ export default function RelaySwap() {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => {
+                onClick={async () => {
+                  const connectorName = connector?.name || 'Unknown'
+                  console.log('Disconnect clicked:', { connectorName, isConnected, address })
+                  
+                  if (connectorName === 'Farcaster Miniapp') {
+                    toast.info('Farcaster wallet cannot be disconnected. Refresh to reconnect.')
+                    return
+                  }
+                  
                   wagmiDisconnect()
                   toast.success('Wallet disconnected')
                 }}

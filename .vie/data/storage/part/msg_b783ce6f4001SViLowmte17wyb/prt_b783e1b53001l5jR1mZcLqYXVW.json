@@ -1,0 +1,26 @@
+{
+  "id": "prt_b783e1b53001l5jR1mZcLqYXVW",
+  "messageID": "msg_b783ce6f4001SViLowmte17wyb",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01WiQotH9bop9BLwCiDXmQiA",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"farcaster|miniapp\" -g \"*.tsx\" -g \"*.ts\" -B 2 -A 2 | head -60",
+      "description": "Check Farcaster miniapp usage"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": null,
+      "description": "Check Farcaster miniapp usage"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"farcaster|miniapp\" -g \"*.tsx\" -g \"*.ts\" -B 2 -A 2 | head -60",
+    "time": {
+      "start": 1767248896270,
+      "end": 1767248956276
+    }
+  }
+}

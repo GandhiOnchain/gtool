@@ -1,0 +1,11 @@
+{
+  "id": "prt_b783e01bc001ICcYWGL1FSK0RH",
+  "messageID": "msg_b783ce6f4001SViLowmte17wyb",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "I see the issue - you're using Farcaster miniapp connector which might be auto-reconnecting. Let me check the wagmi config:",
+  "time": {
+    "start": 1767248890188,
+    "end": 1767248890188
+  }
+}

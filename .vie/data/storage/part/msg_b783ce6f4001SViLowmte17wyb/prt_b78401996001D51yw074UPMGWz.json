@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78401996001D51yw074UPMGWz",
+  "messageID": "msg_b783ce6f4001SViLowmte17wyb",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Perfect! Now I've implemented a proper solution:\n\n1. **Detects the connector type** - Gets the current connector name from `useAccount()`\n2. **Handles Farcaster miniapp specially** - If it's the Farcaster Miniapp connector, it shows a message that the wallet cannot be disconnected (because Farcaster manages it)\n3. **Normal disconnect for other wallets** - For MetaMask, Coinbase, etc., it properly disconnects and shows success toast\n\nThe issue was that the Farcaster miniapp connector auto-reconnects immediately after disconnect because it's managed by the Farcaster frame context. This is expected behavior for frame-based wallets.\n\nWhen you click the wallet address now:\n- **In Farcaster frame**: Shows \"Farcaster wallet cannot be disconnected. Refresh to reconnect.\"\n- **With MetaMask/other wallets**: Properly disconnects and shows \"Wallet disconnected\"",
+  "time": {
+    "start": 1767249030380,
+    "end": 1767249030380
+  }
+}

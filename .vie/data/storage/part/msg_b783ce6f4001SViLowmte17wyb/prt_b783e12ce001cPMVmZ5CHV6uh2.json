@@ -1,0 +1,11 @@
+{
+  "id": "prt_b783e12ce001cPMVmZ5CHV6uh2",
+  "messageID": "msg_b783ce6f4001SViLowmte17wyb",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Found it! The issue is that you have `miniAppConnector()` which is the Farcaster miniapp connector. This connector auto-reconnects and can't be disconnected in the traditional way because it's managed by the Farcaster frame context. Let me check how the connector behaves:",
+  "time": {
+    "start": 1767248896324,
+    "end": 1767248896324
+  }
+}

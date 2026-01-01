@@ -1,0 +1,25 @@
+{
+  "id": "prt_b783f18890019jdOBwC9w5Fgvt",
+  "messageID": "msg_b783ce6f4001SViLowmte17wyb",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01VQoHtDSqHsQNaXZEQYPy7U",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2955,
+      "limit": 30
+    },
+    "output": "<file>\n02956|               >\n02957|                 <Trophy className=\"h-4 w-4\" />\n02958|               </Button>\n02959|               <Button\n02960|                 variant=\"ghost\"\n02961|                 size=\"sm\"\n02962|                 onClick={() => {\n02963|                   wagmiDisconnect()\n02964|                   toast.success('Wallet disconnected')\n02965|                 }}\n02966|                 className=\"h-7 text-xs px-2\"\n02967|               >\n02968|                 {address?.slice(0, 6)}...{address?.slice(-4)}\n02969|               </Button>\n02970|             </div>\n02971|           </div>\n02972|         )}\n02973| \n02974|         <Tabs defaultValue=\"swap\" className=\"w-full\">\n02975|           <TabsList className=\"grid w-full grid-cols-5 h-8\">\n02976|             <TabsTrigger value=\"swap\" className=\"text-xs\">Swap</TabsTrigger>\n02977|             <TabsTrigger value=\"batch\" className=\"text-xs\">Batch</TabsTrigger>\n02978|             <TabsTrigger value=\"history\" className=\"text-xs\">History</TabsTrigger>\n02979|             <TabsTrigger value=\"revoke\" className=\"text-xs\">Revoke</TabsTrigger>\n02980|             <TabsTrigger value=\"settings\" className=\"text-xs\">Settings</TabsTrigger>\n02981|           </TabsList>\n02982| \n02983|           <TabsContent value=\"swap\" className=\"space-y-2 mt-2\">\n02984|             <Card className=\"p-3\">\n02985|               <div className=\"space-y-2\">\n\n(File has more lines. Use 'offset' parameter to read beyond line 2985)\n</file>",
+    "metadata": {
+      "preview": "              >\n                <Trophy className=\"h-4 w-4\" />\n              </Button>\n              <Button\n                variant=\"ghost\"\n                size=\"sm\"\n                onClick={() => {\n                  wagmiDisconnect()\n                  toast.success('Wallet disconnected')\n                }}\n                className=\"h-7 text-xs px-2\"\n              >\n                {address?.slice(0, 6)}...{address?.slice(-4)}\n              </Button>\n            </div>\n          </div>\n        )}\n\n        <Tabs defaultValue=\"swap\" className=\"w-full\">\n          <TabsList className=\"grid w-full grid-cols-5 h-8\">"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767248960682,
+      "end": 1767248960685
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b783deec6001WktvRmptC8O4Dh",
+  "messageID": "msg_b783ce6f4001SViLowmte17wyb",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_013ajorgPBqWrpVgBes63E9e",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && npm list wagmi viem 2>/dev/null | grep -E \"wagmi|viem\"",
+      "description": "Check wagmi and viem versions"
+    },
+    "output": "+-- @farcaster/miniapp-wagmi-connector@1.1.0\n| +-- @wagmi/core@2.21.1\n| | `-- viem@2.37.7 deduped\n| `-- viem@2.37.7 deduped\n| | `-- viem@2.37.6\n| | `-- viem@2.37.7 deduped\n| | `-- viem@2.37.7 deduped\n| | `-- viem@2.37.6\n| | | | `-- viem@2.37.6\n| | | | |   `-- viem@2.23.2\n| | | | `-- viem@2.37.6\n| | | | |   `-- viem@2.23.2\n| | | | `-- viem@2.37.6\n| | | |   `-- viem@2.23.2\n| | | `-- viem@2.37.6\n| |   `-- viem@2.31.0\n| `-- viem@2.37.6\n+-- @privy-io/wagmi@2.0.0\n| +-- viem@2.37.7 deduped\n| `-- wagmi@2.17.2 deduped\n+-- viem@2.37.7\n`-- wagmi@2.17.2\n  +-- @wagmi/connectors@5.10.2\n  | | `-- viem@2.37.6\n  | | `-- viem@2.37.7 deduped\n  | | `-- viem@2.37.6\n  | |   `-- viem@2.23.2\n  | `-- viem@2.37.7 deduped\n  `-- viem@2.37.7 deduped\n",
+    "metadata": {
+      "output": "+-- @farcaster/miniapp-wagmi-connector@1.1.0\n| +-- @wagmi/core@2.21.1\n| | `-- viem@2.37.7 deduped\n| `-- viem@2.37.7 deduped\n| | `-- viem@2.37.6\n| | `-- viem@2.37.7 deduped\n| | `-- viem@2.37.7 deduped\n| | `-- viem@2.37.6\n| | | | `-- viem@2.37.6\n| | | | |   `-- viem@2.23.2\n| | | | `-- viem@2.37.6\n| | | | |   `-- viem@2.23.2\n| | | | `-- viem@2.37.6\n| | | |   `-- viem@2.23.2\n| | | `-- viem@2.37.6\n| |   `-- viem@2.31.0\n| `-- viem@2.37.6\n+-- @privy-io/wagmi@2.0.0\n| +-- viem@2.37.7 deduped\n| `-- wagmi@2.17.2 deduped\n+-- viem@2.37.7\n`-- wagmi@2.17.2\n  +-- @wagmi/connectors@5.10.2\n  | | `-- viem@2.37.6\n  | | `-- viem@2.37.7 deduped\n  | | `-- viem@2.37.6\n  | |   `-- viem@2.23.2\n  | `-- viem@2.37.7 deduped\n  `-- viem@2.37.7 deduped\n",
+      "exit": 0,
+      "description": "Check wagmi and viem versions"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && npm list wagmi viem 2>/dev/null | grep -E \"wagmi|viem\"",
+    "time": {
+      "start": 1767248884349,
+      "end": 1767248885942
+    }
+  }
+}

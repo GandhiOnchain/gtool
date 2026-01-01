@@ -1,0 +1,25 @@
+{
+  "id": "prt_b783f904a001aoWLGa2w81tFLy",
+  "messageID": "msg_b783ce6f4001SViLowmte17wyb",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01YExvFySFK2G4f8EEYjHmtx",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 103,
+      "limit": 10
+    },
+    "output": "<file>\n00104|   const { address, isConnected, chainId: connectedChainId } = useAccount()\n00105|   const { connect, connectors } = useConnect()\n00106|   const { disconnect: wagmiDisconnect } = useDisconnect()\n00107|   const { switchChain } = useSwitchChain()\n00108|   const [chains, setChains] = useState<RelayChain[]>([])\n00109|   const [fromChain, setFromChain] = useState<RelayChain | null>(null)\n00110|   const [toChain, setToChain] = useState<RelayChain | null>(null)\n00111|   const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n00112|   const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n00113|   const [fromAmount, setFromAmount] = useState('')\n\n(File has more lines. Use 'offset' parameter to read beyond line 113)\n</file>",
+    "metadata": {
+      "preview": "  const { address, isConnected, chainId: connectedChainId } = useAccount()\n  const { connect, connectors } = useConnect()\n  const { disconnect: wagmiDisconnect } = useDisconnect()\n  const { switchChain } = useSwitchChain()\n  const [chains, setChains] = useState<RelayChain[]>([])\n  const [fromChain, setFromChain] = useState<RelayChain | null>(null)\n  const [toChain, setToChain] = useState<RelayChain | null>(null)\n  const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n  const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n  const [fromAmount, setFromAmount] = useState('')"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767248991093,
+      "end": 1767248991095
+    }
+  }
+}

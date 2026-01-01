@@ -1,0 +1,11 @@
+{
+  "id": "prt_b783f897c001xyTMFw8Di47gSJ",
+  "messageID": "msg_b783ce6f4001SViLowmte17wyb",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Now let me check the actual connector being used and add better disconnect logic. The real issue is that the Farcaster miniapp connector doesn't support traditional disconnect. Let me create a proper solution:",
+  "time": {
+    "start": 1767248991177,
+    "end": 1767248991177
+  }
+}

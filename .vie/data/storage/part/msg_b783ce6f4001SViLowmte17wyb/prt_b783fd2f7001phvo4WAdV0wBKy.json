@@ -1,0 +1,32 @@
+{
+  "id": "prt_b783fd2f7001phvo4WAdV0wBKy",
+  "messageID": "msg_b783ce6f4001SViLowmte17wyb",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01J34AQ6PvyYFoy2X18jPuQi",
+  "state": {
+    "status": "completed",
+    "input": {
+      "files": [
+        "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "output": "✅ All checked files are clean!\n\nChecked 1 file(s):\n  - frontend/src/pages/RelaySwap.tsx",
+    "metadata": {
+      "filesChecked": 1,
+      "filesWithIssues": 0,
+      "totalIssues": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "title": "Diagnostics: 0 issue(s) in 0 file(s)",
+    "time": {
+      "start": 1767249007940,
+      "end": 1767249022527
+    }
+  }
+}
