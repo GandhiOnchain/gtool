@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7831718d0013nTxqLFG5uxyJe",
+  "messageID": "msg_b7830cbbd001rMK48Xy1SelIQF",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "The disconnect button should now work. I've simplified it to just call `disconnect()` directly and show a success toast. The function will properly disconnect the wallet through wagmi's disconnect mechanism. Try clicking the wallet address button again to disconnect.",
+  "time": {
+    "start": 1767248066843,
+    "end": 1767248066843
+  }
+}

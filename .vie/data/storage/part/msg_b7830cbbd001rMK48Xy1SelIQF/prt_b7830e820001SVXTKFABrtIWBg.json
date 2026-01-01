@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7830e820001SVXTKFABrtIWBg",
+  "messageID": "msg_b7830cbbd001rMK48Xy1SelIQF",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "The disconnect button looks correct. The issue is that we're using the `disconnect` function from `useWallet`, but we need to verify it's being called properly. Let me check if there's a console error and add some debugging:",
+  "time": {
+    "start": 1767248034736,
+    "end": 1767248034736
+  }
+}

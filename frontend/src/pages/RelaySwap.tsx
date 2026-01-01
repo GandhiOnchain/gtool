@@ -2960,12 +2960,9 @@ export default function RelaySwap() {
                 variant="ghost"
                 size="sm"
                 onClick={() => {
-                  try {
-                    disconnect()
-                  } catch (error) {
-                    console.error('Disconnect error:', error)
-                    toast.error('Failed to disconnect wallet')
-                  }
+                  console.log('Disconnect button clicked')
+                  disconnect()
+                  toast.success('Wallet disconnected')
                 }}
                 className="h-7 text-xs px-2"
               >

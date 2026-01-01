@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7830db1c001Slj6bSmPV05kQo",
+  "messageID": "msg_b7830cbbd001rMK48Xy1SelIQF",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_011C2WcjaC1dqwuajNzFG5fi",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2960,
+      "limit": 20
+    },
+    "output": "<file>\n02961|                 size=\"sm\"\n02962|                 onClick={() => {\n02963|                   try {\n02964|                     disconnect()\n02965|                   } catch (error) {\n02966|                     console.error('Disconnect error:', error)\n02967|                     toast.error('Failed to disconnect wallet')\n02968|                   }\n02969|                 }}\n02970|                 className=\"h-7 text-xs px-2\"\n02971|               >\n02972|                 {address?.slice(0, 6)}...{address?.slice(-4)}\n02973|               </Button>\n02974|             </div>\n02975|           </div>\n02976|         )}\n02977| \n02978|         <Tabs defaultValue=\"swap\" className=\"w-full\">\n02979|           <TabsList className=\"grid w-full grid-cols-5 h-8\">\n02980|             <TabsTrigger value=\"swap\" className=\"text-xs\">Swap</TabsTrigger>\n\n(File has more lines. Use 'offset' parameter to read beyond line 2980)\n</file>",
+    "metadata": {
+      "preview": "                size=\"sm\"\n                onClick={() => {\n                  try {\n                    disconnect()\n                  } catch (error) {\n                    console.error('Disconnect error:', error)\n                    toast.error('Failed to disconnect wallet')\n                  }\n                }}\n                className=\"h-7 text-xs px-2\"\n              >\n                {address?.slice(0, 6)}...{address?.slice(-4)}\n              </Button>\n            </div>\n          </div>\n        )}\n\n        <Tabs defaultValue=\"swap\" className=\"w-full\">\n          <TabsList className=\"grid w-full grid-cols-5 h-8\">\n            <TabsTrigger value=\"swap\" className=\"text-xs\">Swap</TabsTrigger>"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767248027782,
+      "end": 1767248027784
+    }
+  }
+}

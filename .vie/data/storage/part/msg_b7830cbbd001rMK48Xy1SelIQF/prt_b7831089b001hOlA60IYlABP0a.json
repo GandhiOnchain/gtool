@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7831089b001hOlA60IYlABP0a",
+  "messageID": "msg_b7830cbbd001rMK48Xy1SelIQF",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_013NPG5GSHbjGiFFggniqVyP",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/hooks/useWallet.ts",
+      "offset": 95,
+      "limit": 15
+    },
+    "output": "<file>\n00096|     // Use standard Wagmi\n00097|     return {\n00098|       address: wagmiAccount.address,\n00099|       isConnected: wagmiAccount.isConnected,\n00100|       connect: () => {\n00101|         // Connect with first available connector\n00102|         if (wagmiConnect.connectors?.length) {\n00103|           connectStandardWagmiWithFallback(wagmiConnect)\n00104|         }\n00105|       },\n00106|       disconnect: () => wagmiDisconnect.disconnect(),\n00107|       connectors: wagmiConnect.connectors,\n00108|     }\n00109|   }\n00110| } \n\n(File has more lines. Use 'offset' parameter to read beyond line 110)\n</file>",
+    "metadata": {
+      "preview": "    // Use standard Wagmi\n    return {\n      address: wagmiAccount.address,\n      isConnected: wagmiAccount.isConnected,\n      connect: () => {\n        // Connect with first available connector\n        if (wagmiConnect.connectors?.length) {\n          connectStandardWagmiWithFallback(wagmiConnect)\n        }\n      },\n      disconnect: () => wagmiDisconnect.disconnect(),\n      connectors: wagmiConnect.connectors,\n    }\n  }\n} "
+    },
+    "title": "frontend/src/hooks/useWallet.ts",
+    "time": {
+      "start": 1767248038696,
+      "end": 1767248038699
+    }
+  }
+}

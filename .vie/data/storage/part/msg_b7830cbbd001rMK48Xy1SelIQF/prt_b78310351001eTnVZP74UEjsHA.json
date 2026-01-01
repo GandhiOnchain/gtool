@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78310351001eTnVZP74UEjsHA",
+  "messageID": "msg_b7830cbbd001rMK48Xy1SelIQF",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Wait, I see the issue now. The `disconnect` function from `useWallet` returns `void`, not a promise. But the underlying wagmi `disconnect` might need to be handled differently. Let me check the actual implementation:",
+  "time": {
+    "start": 1767248038751,
+    "end": 1767248038751
+  }
+}
