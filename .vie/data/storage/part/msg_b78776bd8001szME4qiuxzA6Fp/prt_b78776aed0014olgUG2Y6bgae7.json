@@ -1,0 +1,7 @@
+{
+  "id": "prt_b78776aed0014olgUG2Y6bgae7",
+  "type": "text",
+  "text": "I encountered an error in the development preview that needs to be fixed:\n\n**Error Details:**\n- File: Unknown\n- Error: approval.spender.slice is not a function\n\n**Stack Trace:**\n```\nTypeError: approval.spender.slice is not a function at https://5174-2d44e19c-a02c-498e-91b3-c1f18e11f09c.proxy.daytona.works/assets/index-D44twWg-.js:172736:71 at Array.map (<anonymous>) at RelaySwap (https://5174-2d44e19c-a02c-498e-91b3-c1f18e11f09c.proxy.daytona.works/assets/index-D44twWg-.js:172641:30) at renderWithHooks (https://5174-2d44e19c-a02c-498e-91b3-c1f18e11f09c.proxy.daytona.works/assets/index-D44twWg-.js:10456:19) at updateFunctionComponent (https://5174-2d44e19c-a02c-498e-91b3-c1f18e11f09c.proxy.daytona.works/assets/index-D44twWg-.js:12959:19) at beginWork (https://5174-2d44e19c-a02c-498e-91b3-c1f18e11f09c.proxy.daytona.works/assets/index-D44twWg-.js:13949:13) at beginWork$1 (https://5174-2d44e19c-a02c-498e-91b3-c1f18e11f09c.proxy.daytona.works/assets/index-D44twWg-.js:16843:12) at performUnitOfWork (https://5174-2d44e19c-a02c-498e-91b3-c1f18e11f09c.proxy.daytona.works/assets/index-D44twWg-.js:16428:20) at...\n```\n\nPlease help me fix this error. Look at the relevant files.",
+  "messageID": "msg_b78776bd8001szME4qiuxzA6Fp",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ"
+}

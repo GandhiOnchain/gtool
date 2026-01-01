@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"executeSwap|Swap.*Button\" RelaySwap.tsx -B 3 -A 3 | head -50",
     "time": {
       "start": 1767247873088,
-      "end": 1767247873093
+      "end": 1767247873093,
+      "compacted": 1767252631744
     }
   }
 }

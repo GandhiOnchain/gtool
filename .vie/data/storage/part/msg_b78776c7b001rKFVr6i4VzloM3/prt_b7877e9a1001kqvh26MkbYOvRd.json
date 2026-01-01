@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7877e9a1001kqvh26MkbYOvRd",
+  "messageID": "msg_b78776c7b001rKFVr6i4VzloM3",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01TYqkyiGoGx8jkKd2i1w2Tb",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2460,
+      "limit": 50
+    },
+    "output": "<file>\n02461|       \n02462|       const chainSlug = chainMap[revokeChain.id]\n02463|       \n02464|       if (!chainSlug) {\n02465|         toast.error('Chain not supported')\n02466|         setIsLoadingApprovals(false)\n02467|         return\n02468|       }\n02469|       \n02470|       if (!config.moralis.apiKey) {\n02471|         toast.error('Moralis API key not configured')\n02472|         setIsLoadingApprovals(false)\n02473|         return\n02474|       }\n02475|       \n02476|       const response = await fetch(\n02477|         `https://deep-index.moralis.io/api/v2.2/wallets/${address}/approvals?chain=${chainSlug}`,\n02478|         {\n02479|           method: 'GET',\n02480|           headers: {\n02481|             'accept': 'application/json',\n02482|             'X-API-Key': config.moralis.apiKey\n02483|           }\n02484|         }\n02485|       )\n02486|       \n02487|       const data = await response.json()\n02488|       console.log('Moralis response:', data)\n02489|       \n02490|       if (data.result && Array.isArray(data.result)) {\n02491|         const foundApprovals: typeof approvals = []\n02492|         \n02493|         for (const approval of data.result) {\n02494|           const allowanceValue = approval.value || approval.allowance\n02495|           \n02496|           if (allowanceValue && allowanceValue !== '0') {\n02497|             const allowanceBigInt = BigInt(allowanceValue)\n02498|             const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')\n02499|             const isUnlimited = allowanceBigInt >= maxUint256 / 2n\n02500|             \n02501|             const token: RelayCurrency = {\n02502|               address: approval.token_address || approval.tokenAddress,\n02503|               symbol: approval.token_symbol || approval.tokenSymbol || 'UNKNOWN',\n02504|               name: approval.token_name || approval.tokenName || 'Unknown',\n02505|               decimals: approval.token_decimals || approval.tokenDecimals || 18,\n02506|               chainId: revokeChain.id,\n02507|               metadata: approval.token_logo ? { logoURI: approval.token_logo } : undefined,\n02508|             }\n02509|             \n02510|             foundApprovals.push({\n\n(File has more lines. Use 'offset' parameter to read beyond line 2510)\n</file>",
+    "metadata": {
+      "preview": "      \n      const chainSlug = chainMap[revokeChain.id]\n      \n      if (!chainSlug) {\n        toast.error('Chain not supported')\n        setIsLoadingApprovals(false)\n        return\n      }\n      \n      if (!config.moralis.apiKey) {\n        toast.error('Moralis API key not configured')\n        setIsLoadingApprovals(false)\n        return\n      }\n      \n      const response = await fetch(\n        `https://deep-index.moralis.io/api/v2.2/wallets/${address}/approvals?chain=${chainSlug}`,\n        {\n          method: 'GET',\n          headers: {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767252684686,
+      "end": 1767252684689
+    }
+  }
+}

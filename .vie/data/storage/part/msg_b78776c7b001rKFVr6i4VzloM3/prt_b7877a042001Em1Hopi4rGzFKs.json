@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7877a042001Em1Hopi4rGzFKs",
+  "messageID": "msg_b78776c7b001rKFVr6i4VzloM3",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Found it. The issue is that `approval.spender` from Moralis API might be an object, not a string. Let me check the Moralis API response structure and fix it:",
+  "time": {
+    "start": 1767252677342,
+    "end": 1767252677342
+  }
+}

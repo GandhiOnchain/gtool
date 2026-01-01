@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"setFromAmount|setSlippage\" RelaySwap.tsx -B 2 -A 2 | head -50",
     "time": {
       "start": 1767247815174,
-      "end": 1767247815182
+      "end": 1767247815182,
+      "compacted": 1767252631747
     }
   }
 }

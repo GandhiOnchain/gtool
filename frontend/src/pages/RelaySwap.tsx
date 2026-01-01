@@ -2499,18 +2499,21 @@ export default function RelaySwap() {
             const isUnlimited = allowanceBigInt >= maxUint256 / 2n
             
             const token: RelayCurrency = {
-              address: approval.token_address || approval.tokenAddress,
-              symbol: approval.token_symbol || approval.tokenSymbol || 'UNKNOWN',
-              name: approval.token_name || approval.tokenName || 'Unknown',
-              decimals: approval.token_decimals || approval.tokenDecimals || 18,
+              address: approval.token?.address || approval.token_address,
+              symbol: approval.token?.symbol || approval.token_symbol || 'UNKNOWN',
+              name: approval.token?.name || approval.token_name || 'Unknown',
+              decimals: approval.token?.decimals || approval.token_decimals || 18,
               chainId: revokeChain.id,
-              metadata: approval.token_logo ? { logoURI: approval.token_logo } : undefined,
+              metadata: approval.token?.logo ? { logoURI: approval.token.logo } : undefined,
             }
+            
+            const spenderAddress = approval.spender?.address || approval.spender_address
+            const spenderName = approval.spender?.address_label || approval.spender?.entity || approval.spender_name
             
             foundApprovals.push({
               token,
-              spender: approval.spender_address || approval.spender,
-              spenderName: approval.spender_name || approval.spenderName,
+              spender: spenderAddress,
+              spenderName: spenderName,
               allowance: allowanceValue,
               allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(allowanceBigInt, token.decimals),
               riskLevel: isUnlimited ? 'high' : 'low',

@@ -20,7 +20,8 @@
     "title": "frontend/src/lib/security/rateLimit.ts",
     "time": {
       "start": 1767247733543,
-      "end": 1767247733544
+      "end": 1767247733544,
+      "compacted": 1767252631749
     }
   }
 }

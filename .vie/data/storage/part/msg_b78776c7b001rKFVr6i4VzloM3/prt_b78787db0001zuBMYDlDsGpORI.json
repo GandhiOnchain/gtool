@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78787db0001zuBMYDlDsGpORI",
+  "messageID": "msg_b78776c7b001rKFVr6i4VzloM3",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Fixed. The issue was that Moralis returns `spender` as an object with properties like:\n- `spender.address` - the spender address\n- `spender.address_label` - human-readable name (e.g., \"Uniswap: Router v2\")\n- `spender.entity` - protocol name (e.g., \"Uniswap\")\n\nI've updated the code to properly extract the address string and use the label/entity for the display name. The revoke function will now work correctly with all approvals detected by Moralis.",
+  "time": {
+    "start": 1767252724711,
+    "end": 1767252724711
+  }
+}

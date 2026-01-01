@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend/src && rg \"localStorage|sessionStorage\" -g \"*.tsx\" -g \"*.ts\" -B 2 -A 2 | head -100",
     "time": {
       "start": 1767247638316,
-      "end": 1767247698322
+      "end": 1767247698322,
+      "compacted": 1767252631750
     }
   }
 }

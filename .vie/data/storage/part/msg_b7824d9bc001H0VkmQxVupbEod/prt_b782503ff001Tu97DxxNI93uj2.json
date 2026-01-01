@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && rg \"onClick.*disconnect\" -g \"*.tsx\" -A 2 -B 2",
     "time": {
       "start": 1767247251495,
-      "end": 1767247311501
+      "end": 1767247311501,
+      "compacted": 1767252631751
     }
   }
 }

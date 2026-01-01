@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && rg \"localStorage|sessionStorage|cookie|analytics|tracking|gtag|mixpanel|segment\" -g \"*.tsx\" -g \"*.ts\" -l",
     "time": {
       "start": 1767247574473,
-      "end": 1767247634480
+      "end": 1767247634480,
+      "compacted": 1767252631750
     }
   }
 }
