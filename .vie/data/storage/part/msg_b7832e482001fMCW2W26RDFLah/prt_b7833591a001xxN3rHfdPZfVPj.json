@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7833591a001xxN3rHfdPZfVPj",
+  "messageID": "msg_b7832e482001fMCW2W26RDFLah",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_011qqwFPcY8giuTh4QEhJxWb",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"handleConnect\" RelaySwap.tsx -B 5 -A 15",
+      "description": "Find handleConnect function"
+    },
+    "output": "    if (inputMode === 'usd' && toAmount && toTokenPrice > 0) {\n      setUsdAmount((parseFloat(toAmount) * toTokenPrice).toFixed(2))\n    }\n  }\n\n  const handleConnect = async () => {\n    try {\n      const connector = connectors.find(c => c.id === 'io.metamask' || c.id === 'injected') || connectors[0]\n      if (connector) {\n        await connect({ connector })\n      } else {\n        toast.error('No wallet connector found. Please install MetaMask or another Web3 wallet.')\n      }\n    } catch (error) {\n      console.error('Failed to connect wallet:', error)\n      toast.error('Failed to connect wallet')\n    }\n  }\n\n  const setPercentageAmount = (percentage: number) => {\n    if (!fromBalance) return\n--\n  return (\n    <div className=\"min-h-screen bg-background p-2 max-w-[424px] mx-auto\">\n      <div className=\"space-y-2\">\n        {!isConnected ? (\n          <Button\n            onClick={handleConnect}\n            className=\"w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90\"\n          >\n            <Wallet className=\"h-4 w-4 mr-2\" />\n            Connect Wallet\n          </Button>\n        ) : (\n          <div className=\"flex items-center justify-between mb-2\">\n            <div className=\"flex items-center gap-2\">\n              <h1 className=\"text-lg font-bold\">RELAY</h1>\n              {userStreak.currentStreak > 0 && (\n                <Badge variant=\"secondary\" className=\"gap-1 text-xs px-2 py-0.5\">\n                  <Flame className=\"h-3 w-3\" />\n                  {userStreak.currentStreak}\n                </Badge>\n              )}\n",
+    "metadata": {
+      "output": "    if (inputMode === 'usd' && toAmount && toTokenPrice > 0) {\n      setUsdAmount((parseFloat(toAmount) * toTokenPrice).toFixed(2))\n    }\n  }\n\n  const handleConnect = async () => {\n    try {\n      const connector = connectors.find(c => c.id === 'io.metamask' || c.id === 'injected') || connectors[0]\n      if (connector) {\n        await connect({ connector })\n      } else {\n        toast.error('No wallet connector found. Please install MetaMask or another Web3 wallet.')\n      }\n    } catch (error) {\n      console.error('Failed to connect wallet:', error)\n      toast.error('Failed to connect wallet')\n    }\n  }\n\n  const setPercentageAmount = (percentage: number) => {\n    if (!fromBalance) return\n--\n  return (\n    <div className=\"min-h-screen bg-background p-2 max-w-[424px] mx-auto\">\n      <div className=\"space-y-2\">\n        {!isConnected ? (\n          <Button\n            onClick={handleConnect}\n            className=\"w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90\"\n          >\n            <Wallet className=\"h-4 w-4 mr-2\" />\n            Connect Wallet\n          </Button>\n        ) : (\n          <div className=\"flex items-center justify-between mb-2\">\n            <div className=\"flex items-center gap-2\">\n              <h1 className=\"text-lg font-bold\">RELAY</h1>\n              {userStreak.currentStreak > 0 && (\n                <Badge variant=\"secondary\" className=\"gap-1 text-xs px-2 py-0.5\">\n                  <Flame className=\"h-3 w-3\" />\n                  {userStreak.currentStreak}\n                </Badge>\n              )}\n",
+      "exit": 0,
+      "description": "Find handleConnect function"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"handleConnect\" RelaySwap.tsx -B 5 -A 15",
+    "time": {
+      "start": 1767248190385,
+      "end": 1767248190389
+    }
+  }
+}

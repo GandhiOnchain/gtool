@@ -1,0 +1,25 @@
+{
+  "id": "prt_b78341f60001dGOdSjBKxvfc7b",
+  "messageID": "msg_b7832e482001fMCW2W26RDFLah",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01CmjpQEdKGbH1brg9XUM6uj",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 175,
+      "limit": 15
+    },
+    "output": "<file>\n00176|   const { data: evmFromBalance, refetch: refetchFromBalance } = useBalance({\n00177|     address,\n00178|     chainId: fromChain?.id,\n00179|     token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n00180|     query: {\n00181|       enabled: fromChain?.vmType === 'evm' || !fromChain?.vmType,\n00182|     },\n00183|   })\n00184| \n00185|   const { data: evmToBalance, refetch: refetchToBalance } = useBalance({\n00186|     address,\n00187|     chainId: toChain?.id,\n00188|     token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n00189|     query: {\n00190|       enabled: toChain?.vmType === 'evm' || !toChain?.vmType,\n\n(File has more lines. Use 'offset' parameter to read beyond line 190)\n</file>",
+    "metadata": {
+      "preview": "  const { data: evmFromBalance, refetch: refetchFromBalance } = useBalance({\n    address,\n    chainId: fromChain?.id,\n    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n    query: {\n      enabled: fromChain?.vmType === 'evm' || !fromChain?.vmType,\n    },\n  })\n\n  const { data: evmToBalance, refetch: refetchToBalance } = useBalance({\n    address,\n    chainId: toChain?.id,\n    token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n    query: {\n      enabled: toChain?.vmType === 'evm' || !toChain?.vmType,"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767248241399,
+      "end": 1767248241402
+    }
+  }
+}

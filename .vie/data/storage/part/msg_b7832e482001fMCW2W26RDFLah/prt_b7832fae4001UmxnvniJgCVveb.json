@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7832fae4001UmxnvniJgCVveb",
+  "messageID": "msg_b7832e482001fMCW2W26RDFLah",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01JNvNnLNc4jAvSv8oxTXGwu",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"sdk\\.|farcaster|miniapp\" RelaySwap.tsx -B 2 -A 2 | head -40",
+      "description": "Check Farcaster SDK usage"
+    },
+    "output": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'\nimport { useWallet } from '@/hooks/useWallet'\n--\n\n  useEffect(() => {\n    sdk.actions.ready().catch(() => {})\n  }, [])\n\n",
+    "metadata": {
+      "output": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'\nimport { useWallet } from '@/hooks/useWallet'\n--\n\n  useEffect(() => {\n    sdk.actions.ready().catch(() => {})\n  }, [])\n\n",
+      "exit": 0,
+      "description": "Check Farcaster SDK usage"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"sdk\\.|farcaster|miniapp\" RelaySwap.tsx -B 2 -A 2 | head -40",
+    "time": {
+      "start": 1767248167637,
+      "end": 1767248167645
+    }
+  }
+}

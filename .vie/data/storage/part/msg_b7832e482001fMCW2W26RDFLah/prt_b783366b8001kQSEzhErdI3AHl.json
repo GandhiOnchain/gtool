@@ -1,0 +1,11 @@
+{
+  "id": "prt_b783366b8001kQSEzhErdI3AHl",
+  "messageID": "msg_b7832e482001fMCW2W26RDFLah",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Now I understand the issue. The app shows a \"Connect Wallet\" button when `!isConnected`, but after clicking disconnect, the `isConnected` state isn't updating properly. The issue is that in a Farcaster miniapp environment, the wallet might be auto-connected and can't be truly disconnected. Let me update the disconnect logic to handle this properly:",
+  "time": {
+    "start": 1767248201425,
+    "end": 1767248201425
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78330bd4001wuvpjYwDlQ0xmK",
+  "messageID": "msg_b7832e482001fMCW2W26RDFLah",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "The issue is that in a Farcaster miniapp, the wallet is provided by the Farcaster context and can't be disconnected in the traditional way. The disconnect button shouldn't show a success message if the wallet is still connected. Let me fix this properly:",
+  "time": {
+    "start": 1767248172550,
+    "end": 1767248172550
+  }
+}

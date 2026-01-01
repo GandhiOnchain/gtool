@@ -101,10 +101,13 @@ const STREAK_MESSAGES = [
 ]
 
 export default function RelaySwap() {
-  const { address, isConnected, chainId: connectedChainId } = useAccount()
+  const { address: accountAddress, isConnected: accountConnected, chainId: connectedChainId } = useAccount()
   const { connect, connectors } = useConnect()
-  const { disconnect } = useWallet()
+  const { address: walletAddress, isConnected: walletConnected, disconnect } = useWallet()
   const { switchChain } = useSwitchChain()
+  
+  const address = walletAddress || accountAddress
+  const isConnected = walletConnected || accountConnected
   const [chains, setChains] = useState<RelayChain[]>([])
   const [fromChain, setFromChain] = useState<RelayChain | null>(null)
   const [toChain, setToChain] = useState<RelayChain | null>(null)
@@ -171,7 +174,7 @@ export default function RelaySwap() {
 
   // EVM balance hooks - only used for EVM chains
   const { data: evmFromBalance, refetch: refetchFromBalance } = useBalance({
-    address,
+    address: address as `0x${string}` | undefined,
     chainId: fromChain?.id,
     token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,
     query: {
@@ -180,7 +183,7 @@ export default function RelaySwap() {
   })
 
   const { data: evmToBalance, refetch: refetchToBalance } = useBalance({
-    address,
+    address: address as `0x${string}` | undefined,
     chainId: toChain?.id,
     token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,
     query: {
@@ -2960,9 +2963,7 @@ export default function RelaySwap() {
                 variant="ghost"
                 size="sm"
                 onClick={() => {
-                  console.log('Disconnect button clicked')
                   disconnect()
-                  toast.success('Wallet disconnected')
                 }}
                 className="h-7 text-xs px-2"
               >

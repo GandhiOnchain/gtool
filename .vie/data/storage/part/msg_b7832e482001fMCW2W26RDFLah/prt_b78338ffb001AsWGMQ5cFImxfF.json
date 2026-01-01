@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78338ffb001AsWGMQ5cFImxfF",
+  "messageID": "msg_b7832e482001fMCW2W26RDFLah",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Actually, that's not the right approach. The real issue is that the disconnect isn't working at all. Let me check if we're using the right disconnect from wagmi:",
+  "time": {
+    "start": 1767248205799,
+    "end": 1767248205799
+  }
+}

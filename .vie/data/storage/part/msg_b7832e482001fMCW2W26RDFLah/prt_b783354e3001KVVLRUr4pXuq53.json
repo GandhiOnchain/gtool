@@ -1,0 +1,11 @@
+{
+  "id": "prt_b783354e3001KVVLRUr4pXuq53",
+  "messageID": "msg_b7832e482001fMCW2W26RDFLah",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Perfect! I found it. There's a `handleConnect` function that shows a connect button when `!isConnected`. Let me find that function:",
+  "time": {
+    "start": 1767248190445,
+    "end": 1767248190445
+  }
+}

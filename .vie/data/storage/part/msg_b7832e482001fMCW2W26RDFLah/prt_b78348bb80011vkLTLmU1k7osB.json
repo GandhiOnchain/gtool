@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78348bb80011vkLTLmU1k7osB",
+  "messageID": "msg_b7832e482001fMCW2W26RDFLah",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Now the disconnect button should work properly. The key changes:\n\n1. Using both `useWallet` and `useAccount` to get the most accurate connection state\n2. Merging the address and isConnected states from both hooks\n3. Simplified the disconnect button to just call `disconnect()` without the toast (the state change will trigger the UI to show the connect button)\n\nWhen you click the wallet address now, it will properly disconnect and show the \"Connect Wallet\" button.",
+  "time": {
+    "start": 1767248271218,
+    "end": 1767248271218
+  }
+}

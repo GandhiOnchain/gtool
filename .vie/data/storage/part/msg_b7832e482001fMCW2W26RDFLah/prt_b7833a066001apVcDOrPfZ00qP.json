@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7833a066001apVcDOrPfZ00qP",
+  "messageID": "msg_b7832e482001fMCW2W26RDFLah",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "The problem is we're getting `disconnect` from `useWallet()` but `isConnected` from `useAccount()`. These might not be in sync. Let me fix this by using the disconnect from useWallet and also getting isConnected from there:",
+  "time": {
+    "start": 1767248212414,
+    "end": 1767248212414
+  }
+}

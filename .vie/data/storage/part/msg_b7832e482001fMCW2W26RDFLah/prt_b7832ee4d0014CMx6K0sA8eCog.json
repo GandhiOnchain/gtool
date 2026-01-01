@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7832ee4d0014CMx6K0sA8eCog",
+  "messageID": "msg_b7832e482001fMCW2W26RDFLah",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "I see the issue - the toast shows \"Wallet disconnected\" but the wallet is still connected (you can still see the address 0xf7b0...643b). This is because we're in a Farcaster miniapp environment where the wallet connection is managed differently. Let me check how the wallet connection works in this context:",
+  "time": {
+    "start": 1767248167699,
+    "end": 1767248167699
+  }
+}
