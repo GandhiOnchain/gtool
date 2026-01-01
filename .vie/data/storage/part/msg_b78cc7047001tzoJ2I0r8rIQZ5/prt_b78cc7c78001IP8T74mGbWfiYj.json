@@ -1,0 +1,26 @@
+{
+  "id": "prt_b78cc7c78001IP8T74mGbWfiYj",
+  "messageID": "msg_b78cc7047001tzoJ2I0r8rIQZ5",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01VcZwuYV1AoNn7ooGs4vDNr",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"TabsList\" src/pages/RelaySwap.tsx | head -5",
+      "description": "Find TabsList location"
+    },
+    "output": "14:import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\n3052:          <TabsList className=\"grid w-full grid-cols-6 h-8\">\n3059:          </TabsList>\n",
+    "metadata": {
+      "output": "14:import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\n3052:          <TabsList className=\"grid w-full grid-cols-6 h-8\">\n3059:          </TabsList>\n",
+      "exit": 0,
+      "description": "Find TabsList location"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"TabsList\" src/pages/RelaySwap.tsx | head -5",
+    "time": {
+      "start": 1767258227232,
+      "end": 1767258227246
+    }
+  }
+}

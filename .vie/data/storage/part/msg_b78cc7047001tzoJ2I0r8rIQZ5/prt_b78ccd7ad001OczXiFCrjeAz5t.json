@@ -1,0 +1,26 @@
+{
+  "id": "prt_b78ccd7ad001OczXiFCrjeAz5t",
+  "messageID": "msg_b78cc7047001tzoJ2I0r8rIQZ5",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Atx8jGY8YHKZctdbGcSkY5",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"const \\[showLeaderboard\" src/pages/RelaySwap.tsx",
+      "description": "Find showLeaderboard state"
+    },
+    "output": "133:  const [showLeaderboard, setShowLeaderboard] = useState(false)\n",
+    "metadata": {
+      "output": "133:  const [showLeaderboard, setShowLeaderboard] = useState(false)\n",
+      "exit": 0,
+      "description": "Find showLeaderboard state"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"const \\[showLeaderboard\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767258250320,
+      "end": 1767258250323
+    }
+  }
+}

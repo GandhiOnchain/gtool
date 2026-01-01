@@ -1,0 +1,25 @@
+{
+  "id": "prt_b78cce398001sq0JfpKHd12Fcn",
+  "messageID": "msg_b78cc7047001tzoJ2I0r8rIQZ5",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01Jwwsw8Le3WcVgo3EFmMqQN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 130,
+      "limit": 10
+    },
+    "output": "<file>\n00131|   const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 })\n00132|   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([])\n00133|   const [showLeaderboard, setShowLeaderboard] = useState(false)\n00134|   const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])\n00135|   const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])\n00136|   const [contractAddressSearch, setContractAddressSearch] = useState('')\n00137|   const [swapSources, setSwapSources] = useState<string[]>([])\n00138|   const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})\n00139|   const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)\n00140|   const [batchChain, setBatchChain] = useState<RelayChain | null>(null)\n\n(File has more lines. Use 'offset' parameter to read beyond line 140)\n</file>",
+    "metadata": {
+      "preview": "  const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 })\n  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([])\n  const [showLeaderboard, setShowLeaderboard] = useState(false)\n  const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])\n  const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])\n  const [contractAddressSearch, setContractAddressSearch] = useState('')\n  const [swapSources, setSwapSources] = useState<string[]>([])\n  const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})\n  const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)\n  const [batchChain, setBatchChain] = useState<RelayChain | null>(null)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767258253077,
+      "end": 1767258253089
+    }
+  }
+}

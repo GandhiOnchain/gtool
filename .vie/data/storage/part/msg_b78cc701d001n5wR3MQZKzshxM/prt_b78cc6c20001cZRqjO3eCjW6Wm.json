@@ -1,0 +1,7 @@
+{
+  "id": "prt_b78cc6c20001cZRqjO3eCjW6Wm",
+  "type": "text",
+  "text": "the order of tabs should be\n\n- portfolio\n- swap\n- batch\n- revoke\n- history\n\nremove settings as a tab and replace it as a settings button with the top swappers button",
+  "messageID": "msg_b78cc701d001n5wR3MQZKzshxM",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI"
+}

@@ -19,7 +19,7 @@ import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { Checkbox } from '@/components/ui/checkbox'
 import { toast } from 'sonner'
-import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'
+import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet, Settings } from 'lucide-react'
 import { secureStorage } from '@/lib/security/storage'
 import { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'
 import { quoteRateLimiter } from '@/lib/security/rateLimit'
@@ -131,6 +131,7 @@ export default function RelaySwap() {
   const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 })
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([])
   const [showLeaderboard, setShowLeaderboard] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
   const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])
   const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])
   const [contractAddressSearch, setContractAddressSearch] = useState('')
@@ -3028,6 +3029,14 @@ export default function RelaySwap() {
               <Button
                 variant="ghost"
                 size="sm"
+                onClick={() => setShowSettings(true)}
+                className="h-7 w-7 p-0"
+              >
+                <Settings className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={async () => {
                   const connectorName = connector?.name || 'Unknown'
                   console.log('Disconnect clicked:', { connectorName, isConnected, address })
@@ -3048,14 +3057,13 @@ export default function RelaySwap() {
           </div>
         )}
 
-        <Tabs defaultValue="swap" value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-6 h-8">
+        <Tabs defaultValue="portfolio" value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-5 h-8">
+            <TabsTrigger value="portfolio" className="text-xs">Portfolio</TabsTrigger>
             <TabsTrigger value="swap" className="text-xs">Swap</TabsTrigger>
             <TabsTrigger value="batch" className="text-xs">Batch</TabsTrigger>
-            <TabsTrigger value="portfolio" className="text-xs">Portfolio</TabsTrigger>
-            <TabsTrigger value="history" className="text-xs">History</TabsTrigger>
             <TabsTrigger value="revoke" className="text-xs">Revoke</TabsTrigger>
-            <TabsTrigger value="settings" className="text-xs">Settings</TabsTrigger>
+            <TabsTrigger value="history" className="text-xs">History</TabsTrigger>
           </TabsList>
 
           <TabsContent value="swap" className="space-y-2 mt-2">
@@ -4051,68 +4059,6 @@ export default function RelaySwap() {
             ) : null}
           </TabsContent>
 
-          <TabsContent value="settings" className="space-y-3 mt-2">
-            <Card className="p-3">
-              <div className="space-y-3">
-                <div>
-                  <label className="text-sm font-medium">Slippage Tolerance</label>
-                  <div className="grid grid-cols-4 gap-2 mt-2">
-                    {['0.1', '0.5', '1.0', '3.0'].map((val) => (
-                      <Button
-                        key={val}
-                        variant={slippage === val ? 'default' : 'outline'}
-                        onClick={() => setSlippage(val)}
-                        className="h-9 text-xs"
-                      >
-                        {val}%
-                      </Button>
-                    ))}
-                  </div>
-                  <div className="flex items-center gap-2 mt-2">
-                    <Input
-                      type="number"
-                      value={slippage}
-                      onChange={(e) => {
-                        const value = sanitizeInput(e.target.value)
-                        if (!value || validateSlippage(value)) {
-                          setSlippage(value)
-                        }
-                      }}
-                      className="h-9 text-xs"
-                      step="0.1"
-                      max="50"
-                    />
-                    <span className="text-xs text-muted-foreground">%</span>
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-1">
-                    Transaction reverts if price changes unfavorably by more than this
-                  </div>
-                </div>
-
-                <Separator />
-
-                <div>
-                  <div className="text-sm font-medium mb-1">Swap Sources</div>
-                  <div className="text-xs text-muted-foreground mb-2">
-                    Select DEXs to include in routing
-                  </div>
-                  <div className="space-y-2">
-                    {swapSources.map((source) => (
-                      <div key={source} className="flex items-center justify-between p-2 rounded bg-muted">
-                        <span className="text-xs">{source}</span>
-                        <Switch
-                          checked={enabledSources[source] || false}
-                          onCheckedChange={(checked) => {
-                            setEnabledSources(prev => ({ ...prev, [source]: checked }))
-                          }}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </TabsContent>
         </Tabs>
 
         <Dialog open={isChainSelectOpen} onOpenChange={setIsChainSelectOpen}>
@@ -4332,6 +4278,74 @@ export default function RelaySwap() {
                 ))}
               </div>
             </ScrollArea>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={showSettings} onOpenChange={setShowSettings}>
+          <DialogContent className="max-w-[380px]">
+            <DialogHeader>
+              <DialogTitle className="text-sm">Settings</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-3">
+              <div>
+                <label className="text-sm font-medium">Slippage Tolerance</label>
+                <div className="grid grid-cols-4 gap-2 mt-2">
+                  {['0.1', '0.5', '1.0', '3.0'].map((val) => (
+                    <Button
+                      key={val}
+                      variant={slippage === val ? 'default' : 'outline'}
+                      onClick={() => setSlippage(val)}
+                      className="h-9 text-xs"
+                    >
+                      {val}%
+                    </Button>
+                  ))}
+                </div>
+                <div className="flex items-center gap-2 mt-2">
+                  <Input
+                    type="number"
+                    value={slippage}
+                    onChange={(e) => {
+                      const value = sanitizeInput(e.target.value)
+                      if (!value || validateSlippage(value)) {
+                        setSlippage(value)
+                      }
+                    }}
+                    className="h-9 text-xs"
+                    step="0.1"
+                    max="50"
+                  />
+                  <span className="text-xs text-muted-foreground">%</span>
+                </div>
+                <div className="text-xs text-muted-foreground mt-1">
+                  Transaction reverts if price changes unfavorably by more than this
+                </div>
+              </div>
+
+              <Separator />
+
+              <div>
+                <div className="text-sm font-medium mb-1">Swap Sources</div>
+                <div className="text-xs text-muted-foreground mb-2">
+                  Select DEXs to include in routing
+                </div>
+                <ScrollArea className="h-[200px]">
+                  <div className="space-y-2">
+                    {swapSources.map((source) => (
+                      <div key={source} className="flex items-center justify-between p-2 rounded bg-muted">
+                        <span className="text-xs">{source}</span>
+                        <Switch
+                          checked={enabledSources[source] || false}
+                          onCheckedChange={(checked) => {
+                            setEnabledSources(prev => ({ ...prev, [source]: checked }))
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </div>
+            </div>
           </DialogContent>
         </Dialog>
       </div>
