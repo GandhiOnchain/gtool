@@ -1,0 +1,25 @@
+{
+  "id": "prt_b780c3ecb001PpoXODKs5bZuQX",
+  "messageID": "msg_b780a36ad001c7fo7fm5epsnDP",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01W5rDpy3hHxa1jF5NsdRZTM",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1995,
+      "limit": 15
+    },
+    "output": "<file>\n01996|           } else if (destChain) {\n01997|             toDecimals = destChain.currency.decimals\n01998|             toSymbol = destChain.currency.symbol\n01999|             toTokenAddress = destChain.currency.address\n02000|             toTokenLogo = destChain.iconUrl\n02001|           }\n02002|           \n02003|           let rawAmount = outTx.data?.value || '0'\n02004|           \n02005|           // If we have a transaction hash, fetch the actual transaction to get precise amounts\n02006|           if (outTx.hash && rawAmount === '0' && destChain) {\n02007|             try {\n02008|               const txChainConfig = defineChain({\n02009|                 id: destChainId!,\n02010|                 name: destChain.displayName,\n\n(File has more lines. Use 'offset' parameter to read beyond line 2010)\n</file>",
+    "metadata": {
+      "preview": "          } else if (destChain) {\n            toDecimals = destChain.currency.decimals\n            toSymbol = destChain.currency.symbol\n            toTokenAddress = destChain.currency.address\n            toTokenLogo = destChain.iconUrl\n          }\n          \n          let rawAmount = outTx.data?.value || '0'\n          \n          // If we have a transaction hash, fetch the actual transaction to get precise amounts\n          if (outTx.hash && rawAmount === '0' && destChain) {\n            try {\n              const txChainConfig = defineChain({\n                id: destChainId!,\n                name: destChain.displayName,"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767245628052,
+      "end": 1767245628054
+    }
+  }
+}

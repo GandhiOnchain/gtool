@@ -1,0 +1,26 @@
+{
+  "id": "prt_b780afd08001i2BGutBllIPTms",
+  "messageID": "msg_b780a36ad001c7fo7fm5epsnDP",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01JvVdtgGWrmRrv6NfyQAV9j",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"relay.link/tx\" src/pages/RelaySwap.tsx",
+      "description": "Find relay.link links"
+    },
+    "output": "3594:                                  href={`https://relay.link/tx/${swap.inTxHash}`}\n3631:                                href={`https://relay.link/tx/${swap.txHash}`}\n",
+    "metadata": {
+      "output": "3594:                                  href={`https://relay.link/tx/${swap.inTxHash}`}\n3631:                                href={`https://relay.link/tx/${swap.txHash}`}\n",
+      "exit": 0,
+      "description": "Find relay.link links"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"relay.link/tx\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767245546003,
+      "end": 1767245546008
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b780c2535001gl1yg4ZSfQkxlt",
+  "messageID": "msg_b780a36ad001c7fo7fm5epsnDP",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_013LH4SYM3q77wxsmcZ2wiGa",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"toTokenLogo = destChain.iconUrl\" src/pages/RelaySwap.tsx",
+      "description": "Find toTokenLogo chain icon usage"
+    },
+    "output": "2000:            toTokenLogo = destChain.iconUrl\n",
+    "metadata": {
+      "output": "2000:            toTokenLogo = destChain.iconUrl\n",
+      "exit": 0,
+      "description": "Find toTokenLogo chain icon usage"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"toTokenLogo = destChain.iconUrl\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767245621680,
+      "end": 1767245621684
+    }
+  }
+}

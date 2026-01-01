@@ -1,0 +1,73 @@
+{
+  "id": "prt_b780a60dc001iMhgKj7CZQ6stU",
+  "messageID": "msg_b780a36ad001c7fo7fm5epsnDP",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01PX2oC5Wo2gBg3DhqP4irCx",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Fix token logos - don't use chain icon for native tokens",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix View links to go to block explorers instead of relay.link",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Add proper block explorer URLs for each chain",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Fix token logos - don't use chain icon for native tokens\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Fix View links to go to block explorers instead of relay.link\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Add proper block explorer URLs for each chain\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"4\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Fix token logos - don't use chain icon for native tokens",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix View links to go to block explorers instead of relay.link",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Add proper block explorer URLs for each chain",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        }
+      ]
+    },
+    "title": "4 todos",
+    "time": {
+      "start": 1767245507730,
+      "end": 1767245507731
+    }
+  }
+}

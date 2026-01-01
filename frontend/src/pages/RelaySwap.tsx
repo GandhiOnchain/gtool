@@ -1685,7 +1685,6 @@ export default function RelaySwap() {
               name: originChain.currency.name,
               decimals: originChain.currency.decimals,
               chainId: originChainId!,
-              metadata: { logoURI: originChain.iconUrl },
             }
           }
           
@@ -1696,7 +1695,6 @@ export default function RelaySwap() {
               name: destChain.currency.name,
               decimals: destChain.currency.decimals,
               chainId: destChainId!,
-              metadata: { logoURI: destChain.iconUrl },
             }
           }
         } else {
@@ -1915,7 +1913,6 @@ export default function RelaySwap() {
             fromDecimals = originChain.currency.decimals
             fromSymbol = originChain.currency.symbol
             fromTokenAddress = originChain.currency.address
-            fromTokenLogo = originChain.iconUrl
           }
           
           let rawAmount = inTx.data?.value || '0'
@@ -2000,7 +1997,6 @@ export default function RelaySwap() {
             toDecimals = destChain.currency.decimals
             toSymbol = destChain.currency.symbol
             toTokenAddress = destChain.currency.address
-            toTokenLogo = destChain.iconUrl
           }
           
           let rawAmount = outTx.data?.value || '0'
@@ -2721,6 +2717,30 @@ export default function RelaySwap() {
     } finally {
       setIsLoadingApprovals(false)
     }
+  }
+
+  // Helper to get block explorer URL for a transaction
+  const getBlockExplorerUrl = (chainId: number, txHash: string): string => {
+    const explorers: Record<number, string> = {
+      1: 'https://etherscan.io/tx/',
+      8453: 'https://basescan.org/tx/',
+      84532: 'https://sepolia.basescan.org/tx/',
+      42161: 'https://arbiscan.io/tx/',
+      137: 'https://polygonscan.com/tx/',
+      10: 'https://optimistic.etherscan.io/tx/',
+      56: 'https://bscscan.com/tx/',
+      43114: 'https://snowtrace.io/tx/',
+      59144: 'https://lineascan.build/tx/',
+      534352: 'https://scrollscan.com/tx/',
+      5000: 'https://explorer.mantle.xyz/tx/',
+      324: 'https://explorer.zksync.io/tx/',
+      250: 'https://ftmscan.com/tx/',
+      100: 'https://gnosisscan.io/tx/',
+      42220: 'https://celoscan.io/tx/',
+      130: 'https://uniscan.xyz/tx/',
+      360: 'https://shapescan.xyz/tx/',
+    }
+    return (explorers[chainId] || 'https://relay.link/tx/') + txHash
   }
 
   const revokeApproval = async (approval: typeof approvals[0]) => {
@@ -3593,7 +3613,7 @@ export default function RelaySwap() {
                               </div>
                               {swap.inTxHash && (
                                 <a
-                                  href={`https://relay.link/tx/${swap.inTxHash}`}
+                                  href={getBlockExplorerUrl(swap.fromChainId, swap.inTxHash)}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="text-xs text-primary hover:underline"
@@ -3630,7 +3650,7 @@ export default function RelaySwap() {
                             </div>
                             {swap.txHash && (
                               <a
-                                href={`https://relay.link/tx/${swap.txHash}`}
+                                href={getBlockExplorerUrl(swap.toChainId, swap.txHash)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-xs text-primary hover:underline"
