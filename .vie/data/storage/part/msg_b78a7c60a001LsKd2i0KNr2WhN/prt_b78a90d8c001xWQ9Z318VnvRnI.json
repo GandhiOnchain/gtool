@@ -1,0 +1,26 @@
+{
+  "id": "prt_b78a90d8c001xWQ9Z318VnvRnI",
+  "messageID": "msg_b78a7c60a001LsKd2i0KNr2WhN",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Q4quaHv34cwckuqtumzYAT",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"import.*Checkbox\" src/pages/RelaySwap.tsx",
+      "description": "Check if Checkbox is imported"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 1,
+      "description": "Check if Checkbox is imported"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"import.*Checkbox\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767255904761,
+      "end": 1767255904769
+    }
+  }
+}

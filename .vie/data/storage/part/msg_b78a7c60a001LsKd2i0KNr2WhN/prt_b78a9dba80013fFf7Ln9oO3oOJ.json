@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78a9dba80013fFf7Ln9oO3oOJ",
+  "messageID": "msg_b78a7c60a001LsKd2i0KNr2WhN",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "Perfect! I've successfully added batch revoke functionality to the token approvals section. Here's what I implemented:\n\n1. **Added state management** for selected approvals\n2. **Created batch revoke function** that processes multiple approvals sequentially\n3. **Added helper functions** for toggling individual selections and select all/deselect all\n4. **Updated the UI** with:\n   - Checkboxes next to each approval for selection\n   - \"Select All\" / \"Deselect All\" button\n   - \"Revoke X\" button that shows the count of selected approvals and only appears when approvals are selected\n   - The batch revoke button is disabled while revoking is in progress\n\nThe batch revoke feature will:\n- Switch to the correct chain if needed\n- Process each selected approval sequentially with a 1-second delay between transactions\n- Show success/failure counts in toast notifications\n- Reload the approvals list after completion\n- Clear the selection after revoking",
+  "time": {
+    "start": 1767255961495,
+    "end": 1767255961495
+  }
+}

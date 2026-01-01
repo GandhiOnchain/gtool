@@ -1,0 +1,26 @@
+{
+  "id": "prt_b78a84f33001JclCAliAATLA6v",
+  "messageID": "msg_b78a7c60a001LsKd2i0KNr2WhN",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_017hvUNKJ4cq4u55qTXMANAs",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"const \\[isRevoking, setIsRevoking\\]\" src/pages/RelaySwap.tsx",
+      "description": "Get line number for isRevoking state"
+    },
+    "output": "168:  const [isRevoking, setIsRevoking] = useState(false)\n",
+    "metadata": {
+      "output": "168:  const [isRevoking, setIsRevoking] = useState(false)\n",
+      "exit": 0,
+      "description": "Get line number for isRevoking state"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"const \\[isRevoking, setIsRevoking\\]\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767255856218,
+      "end": 1767255856250
+    }
+  }
+}

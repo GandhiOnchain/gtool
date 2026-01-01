@@ -1,0 +1,26 @@
+{
+  "id": "prt_b78a81fb1001PS1zf3K29z1YVI",
+  "messageID": "msg_b78a7c60a001LsKd2i0KNr2WhN",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_017guCW3f67HfgAquaQfMxLq",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"const \\[approvals, setApprovals\\]\" src/pages/RelaySwap.tsx -A 15",
+      "description": "Find approvals state definition"
+    },
+    "output": "  const [approvals, setApprovals] = useState<Array<{\n    token: RelayCurrency\n    spender: string\n    spenderName?: string\n    allowance: string\n    allowanceFormatted: string\n    riskLevel?: 'high' | 'medium' | 'low'\n  }>>([])\n  const [isLoadingApprovals, setIsLoadingApprovals] = useState(false)\n  const [isRevoking, setIsRevoking] = useState(false)\n  const [debugInfo, setDebugInfo] = useState<string>('')\n  const [portfolioData, setPortfolioData] = useState<{\n    totalValueUsd: number\n    chains: Array<{\n      chainId: number\n      chainName: string\n",
+    "metadata": {
+      "output": "  const [approvals, setApprovals] = useState<Array<{\n    token: RelayCurrency\n    spender: string\n    spenderName?: string\n    allowance: string\n    allowanceFormatted: string\n    riskLevel?: 'high' | 'medium' | 'low'\n  }>>([])\n  const [isLoadingApprovals, setIsLoadingApprovals] = useState(false)\n  const [isRevoking, setIsRevoking] = useState(false)\n  const [debugInfo, setDebugInfo] = useState<string>('')\n  const [portfolioData, setPortfolioData] = useState<{\n    totalValueUsd: number\n    chains: Array<{\n      chainId: number\n      chainName: string\n",
+      "exit": 0,
+      "description": "Find approvals state definition"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"const \\[approvals, setApprovals\\]\" src/pages/RelaySwap.tsx -A 15",
+    "time": {
+      "start": 1767255844324,
+      "end": 1767255844328
+    }
+  }
+}

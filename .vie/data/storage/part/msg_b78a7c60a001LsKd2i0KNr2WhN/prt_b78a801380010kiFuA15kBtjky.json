@@ -1,0 +1,26 @@
+{
+  "id": "prt_b78a801380010kiFuA15kBtjky",
+  "messageID": "msg_b78a7c60a001LsKd2i0KNr2WhN",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01MPXr5VJnLhUZEbgD7z9gpN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"useState.*approvals|const \\[approvals\" src/pages/RelaySwap.tsx | head -5",
+      "description": "Find approvals state"
+    },
+    "output": "  const [approvals, setApprovals] = useState<Array<{\n",
+    "metadata": {
+      "output": "  const [approvals, setApprovals] = useState<Array<{\n",
+      "exit": 0,
+      "description": "Find approvals state"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"useState.*approvals|const \\[approvals\" src/pages/RelaySwap.tsx | head -5",
+    "time": {
+      "start": 1767255836093,
+      "end": 1767255836100
+    }
+  }
+}

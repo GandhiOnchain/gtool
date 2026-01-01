@@ -17,6 +17,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
+import { Checkbox } from '@/components/ui/checkbox'
 import { toast } from 'sonner'
 import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'
 import { secureStorage } from '@/lib/security/storage'
@@ -166,6 +167,7 @@ export default function RelaySwap() {
   }>>([])
   const [isLoadingApprovals, setIsLoadingApprovals] = useState(false)
   const [isRevoking, setIsRevoking] = useState(false)
+  const [selectedApprovals, setSelectedApprovals] = useState<Set<number>>(new Set())
   const [debugInfo, setDebugInfo] = useState<string>('')
   const [portfolioData, setPortfolioData] = useState<{
     totalValueUsd: number
@@ -2805,6 +2807,92 @@ export default function RelaySwap() {
     }
   }
 
+  const batchRevokeApprovals = async () => {
+    if (!address || !revokeChain || selectedApprovals.size === 0) return
+    
+    setIsRevoking(true)
+    try {
+      // Check if we need to switch chains
+      if (connectedChainId !== revokeChain.id) {
+        console.log('Switching chain to', revokeChain.displayName)
+        try {
+          await switchChain({ chainId: revokeChain.id })
+          toast.success('Chain switched')
+          await new Promise(resolve => setTimeout(resolve, 500))
+        } catch (switchError) {
+          console.error('Failed to switch chain:', switchError)
+          toast.error('Please switch to the correct network')
+          setIsRevoking(false)
+          return
+        }
+      }
+      
+      const selectedApprovalsArray = Array.from(selectedApprovals).map(idx => approvals[idx])
+      let successCount = 0
+      let failCount = 0
+      
+      for (const approval of selectedApprovalsArray) {
+        try {
+          await new Promise<void>((resolve, reject) => {
+            sendTransaction({
+              to: approval.token.address as `0x${string}`,
+              data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,
+            }, {
+              onSuccess: () => {
+                successCount++
+                resolve()
+              },
+              onError: (error) => {
+                console.error('Revoke failed:', error)
+                failCount++
+                reject(error)
+              }
+            })
+          })
+          await new Promise(resolve => setTimeout(resolve, 1000))
+        } catch (error) {
+          console.error('Failed to revoke approval:', error)
+        }
+      }
+      
+      if (successCount > 0) {
+        toast.success(`Successfully revoked ${successCount} approval${successCount > 1 ? 's' : ''}`)
+      }
+      if (failCount > 0) {
+        toast.error(`Failed to revoke ${failCount} approval${failCount > 1 ? 's' : ''}`)
+      }
+      
+      setSelectedApprovals(new Set())
+      setTimeout(() => {
+        loadApprovals()
+      }, 2000)
+      
+      setIsRevoking(false)
+    } catch (error) {
+      console.error('Batch revoke failed:', error)
+      toast.error('Failed to revoke approvals')
+      setIsRevoking(false)
+    }
+  }
+
+  const toggleApprovalSelection = (idx: number) => {
+    const newSelected = new Set(selectedApprovals)
+    if (newSelected.has(idx)) {
+      newSelected.delete(idx)
+    } else {
+      newSelected.add(idx)
+    }
+    setSelectedApprovals(newSelected)
+  }
+
+  const toggleSelectAll = () => {
+    if (selectedApprovals.size === approvals.length) {
+      setSelectedApprovals(new Set())
+    } else {
+      setSelectedApprovals(new Set(approvals.map((_, idx) => idx)))
+    }
+  }
+
   const loadSwapSources = async () => {
     try {
       const sources = await relayAPI.getSwapSources()
@@ -3862,8 +3950,31 @@ export default function RelaySwap() {
             ) : approvals.length > 0 ? (
               <>
                 <Card className="p-3 bg-muted/50">
-                  <div className="text-xs text-muted-foreground">
-                    Found {approvals.length} active approval{approvals.length > 1 ? 's' : ''} • Review and revoke unused approvals to improve security
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="text-xs text-muted-foreground">
+                      Found {approvals.length} active approval{approvals.length > 1 ? 's' : ''}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={toggleSelectAll}
+                        className="h-7 text-xs"
+                      >
+                        {selectedApprovals.size === approvals.length ? 'Deselect All' : 'Select All'}
+                      </Button>
+                      {selectedApprovals.size > 0 && (
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={batchRevokeApprovals}
+                          disabled={isRevoking}
+                          className="h-7 text-xs"
+                        >
+                          {isRevoking ? 'Revoking...' : `Revoke ${selectedApprovals.size}`}
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </Card>
                 <ScrollArea className="h-[400px]">
@@ -3871,67 +3982,66 @@ export default function RelaySwap() {
                     {approvals.map((approval, idx) => (
                       <Card key={idx} className="p-3 hover:bg-muted/50 transition-colors">
                         <div className="space-y-2.5">
-                          <div className="flex items-start justify-between gap-2">
-                            <div className="flex items-center gap-2 flex-1 min-w-0">
-                              {approval.token.metadata?.logoURI ? (
-                                <img src={approval.token.metadata.logoURI} alt="" className="h-6 w-6 rounded-full flex-shrink-0" />
-                              ) : (
-                                <div className="h-6 w-6 rounded-full bg-muted flex-shrink-0" />
-                              )}
-                              <div className="min-w-0 flex-1">
-                                <div className="text-sm font-medium">{approval.token.symbol}</div>
-                                <div className="text-xs text-muted-foreground truncate">{approval.token.name}</div>
+                          <div className="flex items-start gap-2">
+                            <Checkbox
+                              checked={selectedApprovals.has(idx)}
+                              onCheckedChange={() => toggleApprovalSelection(idx)}
+                              className="mt-1"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between gap-2">
+                                <div className="flex items-center gap-2 flex-1 min-w-0">
+                                  {approval.token.metadata?.logoURI ? (
+                                    <img src={approval.token.metadata.logoURI} alt="" className="h-6 w-6 rounded-full flex-shrink-0" />
+                                  ) : (
+                                    <div className="h-6 w-6 rounded-full bg-muted flex-shrink-0" />
+                                  )}
+                                  <div className="min-w-0 flex-1">
+                                    <div className="text-sm font-medium">{approval.token.symbol}</div>
+                                    <div className="text-xs text-muted-foreground truncate">{approval.token.name}</div>
+                                  </div>
+                                </div>
+                                <div className="flex gap-1 flex-shrink-0">
+                                  {approval.allowanceFormatted === 'Unlimited' && (
+                                    <Badge variant="destructive" className="text-xs">
+                                      Unlimited
+                                    </Badge>
+                                  )}
+                                  {approval.riskLevel === 'high' && (
+                                    <Badge variant="destructive" className="text-xs">
+                                      High Risk
+                                    </Badge>
+                                  )}
+                                </div>
+                              </div>
+                              
+                              <Separator className="my-2" />
+                              
+                              <div className="space-y-1.5">
+                                <div className="flex justify-between text-xs gap-2">
+                                  <span className="text-muted-foreground">Protocol</span>
+                                  <span className="font-medium text-right">
+                                    {approval.spenderName || `${approval.spender.slice(0, 6)}...${approval.spender.slice(-4)}`}
+                                  </span>
+                                </div>
+                                <div className="flex justify-between text-xs gap-2">
+                                  <span className="text-muted-foreground">Allowance</span>
+                                  <span className="font-mono text-right">
+                                    {approval.allowanceFormatted === 'Unlimited' 
+                                      ? '∞' 
+                                      : `${parseFloat(approval.allowanceFormatted).toFixed(4)} ${approval.token.symbol}`
+                                    }
+                                  </span>
+                                </div>
+                                <div className="flex justify-between text-xs gap-2">
+                                  <span className="text-muted-foreground">Spender Address</span>
+                                  <span className="font-mono text-right text-muted-foreground">
+                                    {approval.spender.slice(0, 6)}...{approval.spender.slice(-4)}
+                                  </span>
+                                </div>
                               </div>
                             </div>
-                            <div className="flex gap-1 flex-shrink-0">
-                              {approval.allowanceFormatted === 'Unlimited' && (
-                                <Badge variant="destructive" className="text-xs">
-                                  Unlimited
-                                </Badge>
-                              )}
-                              {approval.riskLevel === 'high' && (
-                                <Badge variant="destructive" className="text-xs">
-                                  High Risk
-                                </Badge>
-                              )}
-                            </div>
                           </div>
-                          
-                          <Separator />
-                          
-                          <div className="space-y-1.5">
-                            <div className="flex justify-between text-xs gap-2">
-                              <span className="text-muted-foreground">Protocol</span>
-                              <span className="font-medium text-right">
-                                {approval.spenderName || `${approval.spender.slice(0, 6)}...${approval.spender.slice(-4)}`}
-                              </span>
-                            </div>
-                            <div className="flex justify-between text-xs gap-2">
-                              <span className="text-muted-foreground">Allowance</span>
-                              <span className="font-mono text-right">
-                                {approval.allowanceFormatted === 'Unlimited' 
-                                  ? '∞' 
-                                  : `${parseFloat(approval.allowanceFormatted).toFixed(4)} ${approval.token.symbol}`
-                                }
-                              </span>
-                            </div>
-                            <div className="flex justify-between text-xs gap-2">
-                              <span className="text-muted-foreground">Spender Address</span>
-                              <span className="font-mono text-right text-muted-foreground">
-                                {approval.spender.slice(0, 6)}...{approval.spender.slice(-4)}
-                              </span>
-                            </div>
-                          </div>
-                          
-                          <Button
-                            onClick={() => revokeApproval(approval)}
-                            disabled={isRevoking}
-                            variant="destructive"
-                            size="sm"
-                            className="w-full h-8 text-xs"
-                          >
-                            {isRevoking ? 'Revoking...' : 'Revoke Approval'}
-                          </Button>
                         </div>
                       </Card>
                     ))}

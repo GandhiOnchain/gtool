@@ -1,0 +1,25 @@
+{
+  "id": "prt_b78a83f2d001n1tKc1TljryFKN",
+  "messageID": "msg_b78a7c60a001LsKd2i0KNr2WhN",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01QZzyXFe12rTEh6kWt6PnoE",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 200,
+      "limit": 50
+    },
+    "output": "<file>\n00201|     chainId: fromChain?.id,\n00202|     token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n00203|     query: {\n00204|       enabled: fromChain?.vmType === 'evm' || !fromChain?.vmType,\n00205|     },\n00206|   })\n00207| \n00208|   const { data: evmToBalance, refetch: refetchToBalance } = useBalance({\n00209|     address: address as `0x${string}` | undefined,\n00210|     chainId: toChain?.id,\n00211|     token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n00212|     query: {\n00213|       enabled: toChain?.vmType === 'evm' || !toChain?.vmType,\n00214|     },\n00215|   })\n00216| \n00217|   // Use EVM balance or custom balance based on chain type\n00218|   const fromBalance = (fromChain?.vmType === 'evm' || !fromChain?.vmType) ? evmFromBalance : customBalances.from\n00219|   const toBalance = (toChain?.vmType === 'evm' || !toChain?.vmType) ? evmToBalance : customBalances.to\n00220| \n00221|   useEffect(() => {\n00222|     sdk.actions.ready().catch(() => {})\n00223|   }, [])\n00224| \n00225|   // Detect Solana wallet\n00226|   useEffect(() => {\n00227|     const detectSolanaWallet = async () => {\n00228|       try {\n00229|         // Check if window.solana exists (Phantom, Solflare, etc.)\n00230|         interface SolanaWindow extends Window {\n00231|           solana?: {\n00232|             isConnected: boolean\n00233|             publicKey?: { toString: () => string }\n00234|             connect: (options?: { onlyIfTrusted?: boolean }) => Promise<{ publicKey: { toString: () => string } }>\n00235|           }\n00236|         }\n00237|         \n00238|         const solanaWallet = (window as SolanaWindow).solana\n00239|         \n00240|         if (solanaWallet) {\n00241|           // Check if already connected\n00242|           if (solanaWallet.isConnected && solanaWallet.publicKey) {\n00243|             const pubKey = solanaWallet.publicKey.toString()\n00244|             console.log('Solana wallet detected:', pubKey)\n00245|             setSolanaAddress(pubKey)\n00246|           } else {\n00247|             // Try to connect silently\n00248|             try {\n00249|               const response = await solanaWallet.connect({ onlyIfTrusted: true })\n00250|               if (response.publicKey) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 250)\n</file>",
+    "metadata": {
+      "preview": "    chainId: fromChain?.id,\n    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n    query: {\n      enabled: fromChain?.vmType === 'evm' || !fromChain?.vmType,\n    },\n  })\n\n  const { data: evmToBalance, refetch: refetchToBalance } = useBalance({\n    address: address as `0x${string}` | undefined,\n    chainId: toChain?.id,\n    token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n    query: {\n      enabled: toChain?.vmType === 'evm' || !toChain?.vmType,\n    },\n  })\n\n  // Use EVM balance or custom balance based on chain type\n  const fromBalance = (fromChain?.vmType === 'evm' || !fromChain?.vmType) ? evmFromBalance : customBalances.from\n  const toBalance = (toChain?.vmType === 'evm' || !toChain?.vmType) ? evmToBalance : customBalances.to\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767255851749,
+      "end": 1767255851751
+    }
+  }
+}
