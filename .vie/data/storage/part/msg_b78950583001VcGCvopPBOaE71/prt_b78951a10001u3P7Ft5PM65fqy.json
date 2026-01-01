@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78951a10001u3P7Ft5PM65fqy",
+  "messageID": "msg_b78950583001VcGCvopPBOaE71",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "I can see \"Failed to load portfolio\" error at the bottom. Let me check the console to see what's failing and add better error handling:",
+  "time": {
+    "start": 1767254599097,
+    "end": 1767254599097
+  }
+}

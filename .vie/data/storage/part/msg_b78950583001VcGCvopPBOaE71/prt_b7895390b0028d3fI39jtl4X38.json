@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7895390b0028d3fI39jtl4X38",
+  "messageID": "msg_b78950583001VcGCvopPBOaE71",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "The issue is that `alchemy.portfolio.getTokensByWallet` expects a specific format. Let me fix the API call:",
+  "time": {
+    "start": 1767254611868,
+    "end": 1767254611868
+  }
+}

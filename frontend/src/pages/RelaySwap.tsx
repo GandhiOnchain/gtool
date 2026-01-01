@@ -2617,12 +2617,19 @@ export default function RelaySwap() {
         { id: 10, name: 'Optimism', network: AlchemyNetwork.OPT_MAINNET },
       ]
       
-      const portfolioAddresses = supportedChains.map(chain => ({
+      const portfolioAddresses = [{
         address: address,
-        networks: [chain.network as unknown as AlchemyNetwork]
-      }))
+        networks: supportedChains.map(c => c.network as unknown as AlchemyNetwork)
+      }]
       
-      const response = await alchemy.portfolio.getTokensByWallet(portfolioAddresses, true, true, true)
+      console.log('Fetching portfolio for:', address)
+      const response = await alchemy.portfolio.getTokensByWallet(
+        portfolioAddresses,
+        true,
+        true,
+        true
+      )
+      console.log('Portfolio response:', response)
       
       const chainData = new Map<number, {
         chainId: number
@@ -2643,14 +2650,14 @@ export default function RelaySwap() {
       
       if (response?.data?.tokens) {
         for (const token of response.data.tokens) {
-          const tokenData = token as { 
+          const tokenData = token as unknown as { 
             tokenAddress: string
             network: string
-            balance: number
-            balanceFormatted: string
-            tokenMetadata?: { symbol?: string; name?: string; logo?: string }
-            price?: { usdPrice?: number }
+            tokenBalance: string
+            tokenMetadata?: { symbol?: string; name?: string; logo?: string; decimals?: number }
+            tokenPrices?: { usdPrice?: number }
           }
+          
           const chainId = supportedChains.find(c => c.network === tokenData.network)?.id || 1
           
           if (!chainData.has(chainId)) {
@@ -2663,16 +2670,19 @@ export default function RelaySwap() {
           }
           
           const chain = chainData.get(chainId)!
-          const valueUsd = (tokenData.balance || 0) * (tokenData.price?.usdPrice || 0)
+          const decimals = tokenData.tokenMetadata?.decimals || 18
+          const balance = parseFloat(tokenData.tokenBalance) / Math.pow(10, decimals)
+          const priceUsd = tokenData.tokenPrices?.usdPrice || 0
+          const valueUsd = balance * priceUsd
           
           chain.tokens.push({
             address: tokenData.tokenAddress,
             symbol: tokenData.tokenMetadata?.symbol || 'UNKNOWN',
             name: tokenData.tokenMetadata?.name || 'Unknown',
-            balance: tokenData.balance?.toString() || '0',
-            balanceFormatted: tokenData.balanceFormatted || '0',
+            balance: tokenData.tokenBalance,
+            balanceFormatted: balance.toFixed(6),
             valueUsd,
-            priceUsd: tokenData.price?.usdPrice || 0,
+            priceUsd,
             logo: tokenData.tokenMetadata?.logo,
           })
           
@@ -2690,8 +2700,11 @@ export default function RelaySwap() {
       })
       setPortfolioPnl(pnl)
     } catch (error) {
-      console.error('Failed to load portfolio:', error)
-      toast.error('Failed to load portfolio')
+      const err = error as Error
+      console.error('Failed to load portfolio:', err)
+      console.error('Error details:', err.message, err.stack)
+      toast.error(`Failed to load portfolio: ${err.message}`)
+      setPortfolioData(null)
     } finally {
       setIsLoadingPortfolio(false)
     }

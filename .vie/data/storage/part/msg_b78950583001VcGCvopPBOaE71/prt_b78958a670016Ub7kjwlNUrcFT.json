@@ -1,0 +1,32 @@
+{
+  "id": "prt_b78958a670016Ub7kjwlNUrcFT",
+  "messageID": "msg_b78950583001VcGCvopPBOaE71",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_019rFkNrPsKKY24UdsKRo3oi",
+  "state": {
+    "status": "completed",
+    "input": {
+      "files": [
+        "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ❌ ERROR [2653:29] Conversion of type '{ network: Network; address: string; tokenBalance: string; tokenMetadata?: TokenMetadataResponse | undefined; tokenPrices?: TokenPriceByAddressResult | undefined; }' to type '{ tokenAddress: string; network: string; balance: number; balanceFormatted: string; tokenMetadata?: { symbol?: string | undefined; name?: string | undefined; logo?: string | undefined; } | undefined; price?: { ...; } | undefined; }' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first. [typescript]\n\n──────────────────────────────────────────────────\nSummary: 1 issue(s) found\n  - 1 error(s)\n",
+    "metadata": {
+      "filesChecked": 1,
+      "filesWithIssues": 1,
+      "totalIssues": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "title": "Diagnostics: 1 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1767254625541,
+      "end": 1767254640026
+    }
+  }
+}

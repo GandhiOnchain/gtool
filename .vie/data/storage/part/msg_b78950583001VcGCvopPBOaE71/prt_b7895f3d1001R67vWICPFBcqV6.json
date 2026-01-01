@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7895f3d1001R67vWICPFBcqV6",
+  "messageID": "msg_b78950583001VcGCvopPBOaE71",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "I see the issue. The response structure has `tokenBalance` not `balance`, and `tokenAddress` not `address`. Let me fix the mapping:",
+  "time": {
+    "start": 1767254666148,
+    "end": 1767254666148
+  }
+}
