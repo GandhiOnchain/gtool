@@ -1,0 +1,25 @@
+{
+  "id": "prt_b788f2e940012WHQAreo0VzMiX",
+  "messageID": "msg_b788efb05001JpEcQXtkmub8jS",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_011GMTw537ZGqsXGEN6cE1NW",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2975,
+      "limit": 20
+    },
+    "output": "<file>\n02976|                     <div className=\"flex items-center gap-1.5\">\n02977|                       {toChain?.iconUrl && (\n02978|                         <img src={toChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n02979|                       )}\n02980|                       <span>{toChain?.displayName || 'Select'}</span>\n02981|                     </div>\n02982|                     <ChevronDown className=\"h-3 w-3\" />\n02983|                   </Button>\n02984|                   \n02985|                   <Button\n02986|                     variant=\"outline\"\n02987|                     onClick={() => {\n02988|                       setSelectingFor('to')\n02989|                       setIsTokenSelectOpen(true)\n02990|                     }}\n02991|                     className=\"flex-1 justify-between h-10 text-xs\"\n02992|                   >\n02993|                     <div className=\"flex items-center gap-1.5\">\n02994|                       {toToken?.metadata?.logoURI && (\n02995|                         <img src={toToken.metadata.logoURI} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n\n(File has more lines. Use 'offset' parameter to read beyond line 2995)\n</file>",
+    "metadata": {
+      "preview": "                    <div className=\"flex items-center gap-1.5\">\n                      {toChain?.iconUrl && (\n                        <img src={toChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n                      )}\n                      <span>{toChain?.displayName || 'Select'}</span>\n                    </div>\n                    <ChevronDown className=\"h-3 w-3\" />\n                  </Button>\n                  \n                  <Button\n                    variant=\"outline\"\n                    onClick={() => {\n                      setSelectingFor('to')\n                      setIsTokenSelectOpen(true)\n                    }}\n                    className=\"flex-1 justify-between h-10 text-xs\"\n                  >\n                    <div className=\"flex items-center gap-1.5\">\n                      {toToken?.metadata?.logoURI && (\n                        <img src={toToken.metadata.logoURI} alt=\"\" className=\"h-4 w-4 rounded-full\" />"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767254209859,
+      "end": 1767254209862
+    }
+  }
+}

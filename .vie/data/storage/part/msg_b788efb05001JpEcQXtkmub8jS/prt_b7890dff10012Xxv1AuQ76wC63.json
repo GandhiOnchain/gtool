@@ -1,0 +1,121 @@
+{
+  "id": "prt_b7890dff10012Xxv1AuQ76wC63",
+  "messageID": "msg_b788efb05001JpEcQXtkmub8jS",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_012HT1HS5FiCBCqG37cqaZts",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Create portfolio data fetching with Alchemy",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Build portfolio UI with balances across chains",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Add PNL tracking and calculations",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Implement transaction history display",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Add token price displays with charts",
+          "status": "completed",
+          "priority": "medium",
+          "id": "5"
+        },
+        {
+          "content": "Create portfolio snapshot sharing for Farcaster",
+          "status": "completed",
+          "priority": "medium",
+          "id": "6"
+        },
+        {
+          "content": "Add portfolio comparison feature",
+          "status": "pending",
+          "priority": "low",
+          "id": "7"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "8"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Create portfolio data fetching with Alchemy\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Build portfolio UI with balances across chains\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Add PNL tracking and calculations\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Implement transaction history display\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"4\"\n  },\n  {\n    \"content\": \"Add token price displays with charts\",\n    \"status\": \"completed\",\n    \"priority\": \"medium\",\n    \"id\": \"5\"\n  },\n  {\n    \"content\": \"Create portfolio snapshot sharing for Farcaster\",\n    \"status\": \"completed\",\n    \"priority\": \"medium\",\n    \"id\": \"6\"\n  },\n  {\n    \"content\": \"Add portfolio comparison feature\",\n    \"status\": \"pending\",\n    \"priority\": \"low\",\n    \"id\": \"7\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"8\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Create portfolio data fetching with Alchemy",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Build portfolio UI with balances across chains",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Add PNL tracking and calculations",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Implement transaction history display",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Add token price displays with charts",
+          "status": "completed",
+          "priority": "medium",
+          "id": "5"
+        },
+        {
+          "content": "Create portfolio snapshot sharing for Farcaster",
+          "status": "completed",
+          "priority": "medium",
+          "id": "6"
+        },
+        {
+          "content": "Add portfolio comparison feature",
+          "status": "pending",
+          "priority": "low",
+          "id": "7"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "8"
+        }
+      ]
+    },
+    "title": "4 todos",
+    "time": {
+      "start": 1767254324129,
+      "end": 1767254324130
+    }
+  }
+}

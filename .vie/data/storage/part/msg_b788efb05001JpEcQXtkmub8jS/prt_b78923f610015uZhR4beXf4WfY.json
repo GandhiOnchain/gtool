@@ -1,0 +1,50 @@
+{
+  "id": "prt_b78923f610015uZhR4beXf4WfY",
+  "messageID": "msg_b788efb05001JpEcQXtkmub8jS",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01WvyzLztGyTUAerHEktq5q8",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ❌ ERROR [1:1] Unexpected any. Specify a different type. [oxlint]\n\n──────────────────────────────────────────────────\nSummary: 1 issue(s) found\n  - 1 error(s)\n",
+    "metadata": {
+      "filesChecked": 23,
+      "filesWithIssues": 1,
+      "totalIssues": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/output/index.html",
+        "frontend/src/pages/RelaySwap.tsx",
+        "frontend/output/assets/SIWXUtil-B2_-HZEB.js",
+        "frontend/output/assets/_esm-DV93D4Fw.js",
+        "frontend/output/assets/actions-Cg1aj-nx.js",
+        "frontend/output/assets/alchemy-provider-0b2e9f09-C_FinZ1U.js",
+        "frontend/output/assets/alchemy-provider-0b2e9f09-c1XXv-Zl.js",
+        "frontend/output/assets/alchemy-websocket-provider-2f8b1006-C_vN6PoR.js",
+        "frontend/output/assets/basic-Cv7nGpE8.js",
+        "frontend/output/assets/ccip-BMZkIPFi.js",
+        "frontend/output/assets/ccip-BVU-ilMh.js",
+        "frontend/output/assets/ccip-Bn3l9Ze3.js",
+        "frontend/output/assets/core-DHoWfMwe.js",
+        "frontend/output/assets/dist-9QXqnpti.js",
+        "frontend/output/assets/index-Xy5nBVvY.css",
+        "frontend/output/assets/index-pwpiWGiY.js",
+        "frontend/output/assets/localBatchGatewayRequest-CHGWX0jM.js",
+        "frontend/output/assets/secp256k1-BE5ork-t.js",
+        "frontend/output/assets/secp256k1-BohIA9SP.js",
+        "frontend/output/assets/secp256k1-P0kWkSmF.js",
+        "frontend/output/assets/w3m-modal-BVU5K6q_.js",
+        "frontend/output/assets/wagmi-Csg9t1Gj.js",
+        "frontend/output/assets/wui-text-D5d3XG2W.js"
+      ]
+    },
+    "title": "Diagnostics: 1 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1767254409323,
+      "end": 1767254415759
+    }
+  }
+}

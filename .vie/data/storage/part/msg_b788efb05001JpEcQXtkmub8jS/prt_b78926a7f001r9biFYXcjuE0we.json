@@ -1,0 +1,26 @@
+{
+  "id": "prt_b78926a7f001r9biFYXcjuE0we",
+  "messageID": "msg_b788efb05001JpEcQXtkmub8jS",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_019s4qtfaNgRnRrUJweTjpS7",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \": any\" RelaySwap.tsx -n | head -5",
+      "description": "Find any type"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Find any type"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \": any\" RelaySwap.tsx -n | head -5",
+    "time": {
+      "start": 1767254421115,
+      "end": 1767254421127
+    }
+  }
+}

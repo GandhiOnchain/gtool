@@ -167,6 +167,30 @@ export default function RelaySwap() {
   const [isLoadingApprovals, setIsLoadingApprovals] = useState(false)
   const [isRevoking, setIsRevoking] = useState(false)
   const [debugInfo, setDebugInfo] = useState<string>('')
+  const [portfolioData, setPortfolioData] = useState<{
+    totalValueUsd: number
+    chains: Array<{
+      chainId: number
+      chainName: string
+      valueUsd: number
+      tokens: Array<{
+        address: string
+        symbol: string
+        name: string
+        balance: string
+        balanceFormatted: string
+        valueUsd: number
+        priceUsd: number
+        logo?: string
+      }>
+    }>
+  } | null>(null)
+  const [isLoadingPortfolio, setIsLoadingPortfolio] = useState(false)
+  const [portfolioPnl, setPortfolioPnl] = useState<{
+    total: number
+    percentage: number
+    tokens: Array<{ symbol: string; pnl: number; percentage: number }>
+  } | null>(null)
 
   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
@@ -357,6 +381,13 @@ export default function RelaySwap() {
       setApprovals([])
     }
   }, [revokeChain, address, isConnected])
+
+  // Load portfolio when tab changes to portfolio
+  useEffect(() => {
+    if (activeTab === 'portfolio' && address && isConnected) {
+      loadPortfolio()
+    }
+  }, [activeTab, address, isConnected])
 
   // External token search when contract address is pasted
   useEffect(() => {
@@ -2542,6 +2573,130 @@ export default function RelaySwap() {
     }
   }
 
+  const calculatePnl = (currentValue: number, tokens: Array<{ symbol: string; valueUsd: number; address: string; chainId: number }>) => {
+    const storedCosts = secureStorage.getItem<Record<string, number>>(`token_costs_${address}`) || {}
+    
+    let totalCost = 0
+    const tokenPnls: Array<{ symbol: string; pnl: number; percentage: number }> = []
+    
+    for (const token of tokens) {
+      const key = `${token.chainId}_${token.address}`
+      const cost = storedCosts[key] || token.valueUsd
+      totalCost += cost
+      
+      const pnl = token.valueUsd - cost
+      const percentage = cost > 0 ? (pnl / cost) * 100 : 0
+      
+      tokenPnls.push({
+        symbol: token.symbol,
+        pnl,
+        percentage
+      })
+    }
+    
+    const totalPnl = currentValue - totalCost
+    const totalPercentage = totalCost > 0 ? (totalPnl / totalCost) * 100 : 0
+    
+    return {
+      total: totalPnl,
+      percentage: totalPercentage,
+      tokens: tokenPnls.sort((a, b) => Math.abs(b.pnl) - Math.abs(a.pnl)).slice(0, 5)
+    }
+  }
+
+  const loadPortfolio = async () => {
+    if (!address) return
+    
+    setIsLoadingPortfolio(true)
+    try {
+      const supportedChains = [
+        { id: 1, name: 'Ethereum', network: AlchemyNetwork.ETH_MAINNET },
+        { id: 8453, name: 'Base', network: AlchemyNetwork.BASE_MAINNET },
+        { id: 42161, name: 'Arbitrum', network: AlchemyNetwork.ARB_MAINNET },
+        { id: 137, name: 'Polygon', network: AlchemyNetwork.MATIC_MAINNET },
+        { id: 10, name: 'Optimism', network: AlchemyNetwork.OPT_MAINNET },
+      ]
+      
+      const portfolioAddresses = supportedChains.map(chain => ({
+        address: address,
+        networks: [chain.network as unknown as AlchemyNetwork]
+      }))
+      
+      const response = await alchemy.portfolio.getTokensByWallet(portfolioAddresses, true, true, true)
+      
+      const chainData = new Map<number, {
+        chainId: number
+        chainName: string
+        valueUsd: number
+        tokens: Array<{
+          address: string
+          symbol: string
+          name: string
+          balance: string
+          balanceFormatted: string
+          valueUsd: number
+          priceUsd: number
+          logo?: string
+        }>
+      }>()
+      let totalValue = 0
+      
+      if (response?.data?.tokens) {
+        for (const token of response.data.tokens) {
+          const tokenData = token as { 
+            tokenAddress: string
+            network: string
+            balance: number
+            balanceFormatted: string
+            tokenMetadata?: { symbol?: string; name?: string; logo?: string }
+            price?: { usdPrice?: number }
+          }
+          const chainId = supportedChains.find(c => c.network === tokenData.network)?.id || 1
+          
+          if (!chainData.has(chainId)) {
+            chainData.set(chainId, {
+              chainId,
+              chainName: supportedChains.find(c => c.id === chainId)?.name || 'Unknown',
+              valueUsd: 0,
+              tokens: []
+            })
+          }
+          
+          const chain = chainData.get(chainId)!
+          const valueUsd = (tokenData.balance || 0) * (tokenData.price?.usdPrice || 0)
+          
+          chain.tokens.push({
+            address: tokenData.tokenAddress,
+            symbol: tokenData.tokenMetadata?.symbol || 'UNKNOWN',
+            name: tokenData.tokenMetadata?.name || 'Unknown',
+            balance: tokenData.balance?.toString() || '0',
+            balanceFormatted: tokenData.balanceFormatted || '0',
+            valueUsd,
+            priceUsd: tokenData.price?.usdPrice || 0,
+            logo: tokenData.tokenMetadata?.logo,
+          })
+          
+          chain.valueUsd += valueUsd
+          totalValue += valueUsd
+        }
+      }
+      
+      const allTokens = Array.from(chainData.values()).flatMap(c => c.tokens.map(t => ({ ...t, chainId: c.chainId })))
+      const pnl = calculatePnl(totalValue, allTokens)
+      
+      setPortfolioData({
+        totalValueUsd: totalValue,
+        chains: Array.from(chainData.values()).sort((a, b) => b.valueUsd - a.valueUsd)
+      })
+      setPortfolioPnl(pnl)
+    } catch (error) {
+      console.error('Failed to load portfolio:', error)
+      toast.error('Failed to load portfolio')
+    } finally {
+      setIsLoadingPortfolio(false)
+    }
+  }
+
   const getBlockExplorerUrl = (chainId: number, txHash: string): string => {
     const explorers: Record<number, string> = {
       1: 'https://etherscan.io/tx/',
@@ -2793,9 +2948,10 @@ export default function RelaySwap() {
         )}
 
         <Tabs defaultValue="swap" value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5 h-8">
+          <TabsList className="grid w-full grid-cols-6 h-8">
             <TabsTrigger value="swap" className="text-xs">Swap</TabsTrigger>
             <TabsTrigger value="batch" className="text-xs">Batch</TabsTrigger>
+            <TabsTrigger value="portfolio" className="text-xs">Portfolio</TabsTrigger>
             <TabsTrigger value="history" className="text-xs">History</TabsTrigger>
             <TabsTrigger value="revoke" className="text-xs">Revoke</TabsTrigger>
             <TabsTrigger value="settings" className="text-xs">Settings</TabsTrigger>
@@ -3359,6 +3515,106 @@ export default function RelaySwap() {
                 </Button>
               </div>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="portfolio" className="space-y-2 mt-2">
+            {isLoadingPortfolio ? (
+              <Card className="p-4 text-center">
+                <div className="text-sm text-muted-foreground">Loading portfolio...</div>
+              </Card>
+            ) : portfolioData ? (
+              <>
+                <Card className="p-4 bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20">
+                  <div className="space-y-1">
+                    <div className="text-xs text-muted-foreground">Total Portfolio Value</div>
+                    <div className="text-3xl font-bold">${portfolioData.totalValueUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                    {portfolioPnl && (
+                      <div className={`text-sm font-medium ${portfolioPnl.percentage >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                        {portfolioPnl.percentage >= 0 ? '+' : ''}{portfolioPnl.percentage.toFixed(2)}% (${portfolioPnl.total >= 0 ? '+' : ''}{portfolioPnl.total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })})
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex gap-2 mt-3">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        const snapshot = `My Portfolio: $${portfolioData.totalValueUsd.toLocaleString()} across ${portfolioData.chains.length} chains\n\nTop holdings:\n${portfolioData.chains[0]?.tokens.slice(0, 3).map(t => `${t.symbol}: $${t.valueUsd.toFixed(2)}`).join('\n')}\n\nvia Relay Swap`
+                        navigator.clipboard.writeText(snapshot)
+                        toast.success('Portfolio snapshot copied')
+                      }}
+                      className="flex-1 h-8 text-xs"
+                    >
+                      <Share2 className="h-3 w-3 mr-1" />
+                      Share
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => loadPortfolio()}
+                      className="h-8 text-xs px-2"
+                    >
+                      Refresh
+                    </Button>
+                  </div>
+                </Card>
+
+                <ScrollArea className="h-[400px]">
+                  <div className="space-y-2">
+                    {portfolioData.chains.map(chain => (
+                      <Card key={chain.chainId} className="p-3">
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <div className="text-sm font-medium">{chain.chainName}</div>
+                              <Badge variant="outline" className="text-xs">
+                                {chain.tokens.length} tokens
+                              </Badge>
+                            </div>
+                            <div className="text-sm font-medium">
+                              ${chain.valueUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                            </div>
+                          </div>
+                          
+                          <Separator />
+                          
+                          <div className="space-y-1.5">
+                            {chain.tokens.slice(0, 5).map(token => (
+                              <div key={token.address} className="flex items-center justify-between text-xs">
+                                <div className="flex items-center gap-2 flex-1 min-w-0">
+                                  {token.logo ? (
+                                    <img src={token.logo} alt="" className="h-5 w-5 rounded-full flex-shrink-0" />
+                                  ) : (
+                                    <div className="h-5 w-5 rounded-full bg-muted flex-shrink-0" />
+                                  )}
+                                  <div className="min-w-0 flex-1">
+                                    <div className="font-medium">{token.symbol}</div>
+                                    <div className="text-muted-foreground truncate">{token.balanceFormatted}</div>
+                                  </div>
+                                </div>
+                                <div className="text-right flex-shrink-0">
+                                  <div className="font-medium">${token.valueUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                                  <div className="text-muted-foreground">${token.priceUsd.toFixed(4)}</div>
+                                </div>
+                              </div>
+                            ))}
+                            {chain.tokens.length > 5 && (
+                              <div className="text-xs text-muted-foreground text-center pt-1">
+                                +{chain.tokens.length - 5} more tokens
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </>
+            ) : (
+              <Card className="p-4 text-center">
+                <div className="text-sm text-muted-foreground">Connect wallet to view portfolio</div>
+              </Card>
+            )}
           </TabsContent>
 
           <TabsContent value="history" className="mt-2">

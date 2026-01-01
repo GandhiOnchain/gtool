@@ -1,0 +1,26 @@
+{
+  "id": "prt_b78927ff4001r2z5h0Rf28pUfT",
+  "messageID": "msg_b788efb05001JpEcQXtkmub8jS",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01QjFzkN9pbZ2qY91vbMvqB9",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"as any\" RelaySwap.tsx -n",
+      "description": "Find as any cast"
+    },
+    "output": "2646:          const tokenData = token as any\n",
+    "metadata": {
+      "output": "2646:          const tokenData = token as any\n",
+      "exit": 0,
+      "description": "Find as any cast"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"as any\" RelaySwap.tsx -n",
+    "time": {
+      "start": 1767254426449,
+      "end": 1767254426456
+    }
+  }
+}

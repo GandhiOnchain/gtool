@@ -1,0 +1,25 @@
+{
+  "id": "prt_b788fbdf7001LXtW4YLoCXaO42",
+  "messageID": "msg_b788efb05001JpEcQXtkmub8jS",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_012HH2JdxVwK1YHdev1VxT4f",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2540,
+      "limit": 30
+    },
+    "output": "<file>\n02541|               allowance: allowanceValue,\n02542|               allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(allowanceBigInt, token.decimals),\n02543|               riskLevel: isUnlimited ? 'high' : 'low',\n02544|             })\n02545|           }\n02546|         }\n02547|         \n02548|         console.log(`Found ${foundApprovals.length} approvals`)\n02549|         setApprovals(foundApprovals)\n02550|         \n02551|         if (foundApprovals.length === 0) {\n02552|           toast.success('No active approvals found')\n02553|         } else {\n02554|           toast.success(`Found ${foundApprovals.length} approval${foundApprovals.length > 1 ? 's' : ''}`)\n02555|         }\n02556|       } else {\n02557|         setApprovals([])\n02558|         toast.info('No approvals found')\n02559|       }\n02560|     } catch (error) {\n02561|       const err = error as Error\n02562|       console.error('Moralis failed:', err)\n02563|       toast.error(`Failed: ${err.message}`)\n02564|     } finally {\n02565|       setIsLoadingApprovals(false)\n02566|     }\n02567|   }\n02568| \n02569|   const getBlockExplorerUrl = (chainId: number, txHash: string): string => {\n02570|     const explorers: Record<number, string> = {\n\n(File has more lines. Use 'offset' parameter to read beyond line 2570)\n</file>",
+    "metadata": {
+      "preview": "              allowance: allowanceValue,\n              allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(allowanceBigInt, token.decimals),\n              riskLevel: isUnlimited ? 'high' : 'low',\n            })\n          }\n        }\n        \n        console.log(`Found ${foundApprovals.length} approvals`)\n        setApprovals(foundApprovals)\n        \n        if (foundApprovals.length === 0) {\n          toast.success('No active approvals found')\n        } else {\n          toast.success(`Found ${foundApprovals.length} approval${foundApprovals.length > 1 ? 's' : ''}`)\n        }\n      } else {\n        setApprovals([])\n        toast.info('No approvals found')\n      }\n    } catch (error) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767254245842,
+      "end": 1767254245844
+    }
+  }
+}
