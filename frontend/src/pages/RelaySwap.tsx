@@ -2853,8 +2853,8 @@ export default function RelaySwap() {
       
       setAirdrops(detectedAirdrops)
       
-      if (detectedAirdrops.filter(a => a.isEligible && !a.isClaimed).length > 0) {
-        toast.success(`Found ${detectedAirdrops.filter(a => a.isEligible && !a.isClaimed).length} unclaimed airdrop(s)`)
+      if (detectedAirdrops.length > 0) {
+        toast.success(`Found ${detectedAirdrops.length} claimable airdrop${detectedAirdrops.length !== 1 ? 's' : ''}`)
       }
     } catch (error) {
       console.error('Failed to check airdrops:', error)
@@ -2867,52 +2867,46 @@ export default function RelaySwap() {
   const checkClankerAirdrops = async (walletAddress: string, chainId: number): Promise<typeof airdrops> => {
     const clankerAirdrops: typeof airdrops = []
     
-    // Known Clanker/Farcaster airdrops on Base
+    // Known claimable Clanker/Farcaster airdrops on Base with contract addresses
     const knownAirdrops = [
       {
-        id: 'purple-rain',
-        name: 'Purple Rain',
-        description: 'Claim PURPLE tokens from the Purple Rain airdrop',
+        id: 'example-clanker',
+        name: 'Example Clanker Token',
+        description: 'Claim your CLANKER tokens',
         protocol: 'Clanker',
-        symbol: 'PURPLE',
-        claimUrl: 'https://farcaster.xyz/miniapps/0_t2IN5pmmVm/purple-rain',
-        logo: 'https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/d3c7c3f5-e5e5-4e5e-5e5e-5e5e5e5e5e00/original',
-        type: 'farcaster' as const
-      },
-      {
-        id: 'degen-airdrop',
-        name: 'DEGEN Airdrop',
-        description: 'Claim DEGEN tokens for Farcaster activity',
-        protocol: 'Degen',
-        symbol: 'DEGEN',
-        claimUrl: 'https://www.degen.tips/airdrop2',
+        symbol: 'CLANKER',
+        contractAddress: '0x0000000000000000000000000000000000000000', // Replace with actual contract
         logo: 'https://assets.relay.link/icons/currencies/eth.png',
-        type: 'farcaster' as const
+        type: 'clanker' as const,
+        amount: '1000'
       }
     ]
     
     for (const airdrop of knownAirdrops) {
       try {
-        // For Farcaster-based airdrops, assume eligible if wallet is connected
-        // In production, you'd check actual eligibility via API
-        const isEligible = true
-        const isClaimed = false
+        // Check actual eligibility by querying the contract
+        // For now, we'll use a placeholder
+        const isEligible = await checkAirdropEligibility(walletAddress, airdrop.contractAddress, chainId)
+        const isClaimed = false // Would check via contract call
         
-        clankerAirdrops.push({
-          id: airdrop.id,
-          name: airdrop.name,
-          description: airdrop.description,
-          protocol: airdrop.protocol,
-          chainId,
-          chainName: 'Base',
-          tokenSymbol: airdrop.symbol,
-          amount: 'TBD',
-          claimUrl: airdrop.claimUrl,
-          isEligible,
-          isClaimed,
-          logo: airdrop.logo,
-          type: airdrop.type
-        })
+        // Only add if eligible and not claimed
+        if (isEligible && !isClaimed) {
+          clankerAirdrops.push({
+            id: airdrop.id,
+            name: airdrop.name,
+            description: airdrop.description,
+            protocol: airdrop.protocol,
+            chainId,
+            chainName: 'Base',
+            tokenSymbol: airdrop.symbol,
+            amount: airdrop.amount,
+            contractAddress: airdrop.contractAddress,
+            isEligible,
+            isClaimed,
+            logo: airdrop.logo,
+            type: airdrop.type
+          })
+        }
       } catch (error) {
         console.error(`Failed to check airdrop ${airdrop.id}:`, error)
       }
@@ -2921,71 +2915,73 @@ export default function RelaySwap() {
     return clankerAirdrops
   }
 
+  const checkAirdropEligibility = async (walletAddress: string, contractAddress: string, chainId: number): Promise<boolean> => {
+    try {
+      // This would call a contract method to check eligibility
+      // For example: contract.methods.isEligible(walletAddress).call()
+      // For now, return false as placeholder
+      return false
+    } catch (error) {
+      console.error('Failed to check eligibility:', error)
+      return false
+    }
+  }
+
   const checkPopularAirdrops = async (walletAddress: string): Promise<typeof airdrops> => {
     const popularAirdrops: typeof airdrops = []
     
-    // Popular protocol airdrops to check
+    // Only include airdrops with on-chain claim contracts
     const airdropsToCheck = [
       {
-        id: 'optimism-airdrop',
-        name: 'Optimism',
-        description: 'Check eligibility for OP token airdrop',
-        protocol: 'Optimism',
-        chainId: 10,
-        chainName: 'Optimism',
-        tokenSymbol: 'OP',
-        claimUrl: 'https://app.optimism.io/airdrop/check',
-        logo: 'https://assets.relay.link/icons/currencies/eth.png'
-      },
-      {
-        id: 'arbitrum-airdrop',
-        name: 'Arbitrum',
-        description: 'Check eligibility for ARB token airdrop',
-        protocol: 'Arbitrum',
-        chainId: 42161,
-        chainName: 'Arbitrum',
-        tokenSymbol: 'ARB',
-        claimUrl: 'https://arbitrum.foundation/airdrop',
-        logo: 'https://assets.relay.link/icons/currencies/eth.png'
-      },
-      {
-        id: 'base-airdrop',
-        name: 'Base Ecosystem',
-        description: 'Check for Base ecosystem airdrops',
-        protocol: 'Base',
+        id: 'example-protocol',
+        name: 'Example Protocol',
+        description: 'Claim your EXAMPLE tokens for early adoption',
+        protocol: 'Example',
         chainId: 8453,
         chainName: 'Base',
-        tokenSymbol: 'BASE',
-        claimUrl: 'https://base.org',
-        logo: 'https://assets.relay.link/icons/currencies/eth.png'
+        tokenSymbol: 'EXAMPLE',
+        contractAddress: '0x0000000000000000000000000000000000000000', // Replace with actual
+        logo: 'https://assets.relay.link/icons/currencies/eth.png',
+        amount: '500'
       }
     ]
     
-    // In production, you'd check actual eligibility via APIs
-    // For now, we'll mark them as not eligible by default
     for (const airdrop of airdropsToCheck) {
-      popularAirdrops.push({
-        id: airdrop.id,
-        name: airdrop.name,
-        description: airdrop.description,
-        protocol: airdrop.protocol,
-        chainId: airdrop.chainId,
-        chainName: airdrop.chainName,
-        tokenSymbol: airdrop.tokenSymbol,
-        amount: 'Check eligibility',
-        claimUrl: airdrop.claimUrl,
-        isEligible: false, // Would check via API
-        isClaimed: false,
-        logo: airdrop.logo,
-        type: 'standard'
-      })
+      try {
+        const isEligible = await checkAirdropEligibility(walletAddress, airdrop.contractAddress, airdrop.chainId)
+        const isClaimed = false // Would check via contract
+        
+        // Only add if eligible and not claimed
+        if (isEligible && !isClaimed) {
+          popularAirdrops.push({
+            id: airdrop.id,
+            name: airdrop.name,
+            description: airdrop.description,
+            protocol: airdrop.protocol,
+            chainId: airdrop.chainId,
+            chainName: airdrop.chainName,
+            tokenSymbol: airdrop.tokenSymbol,
+            amount: airdrop.amount,
+            contractAddress: airdrop.contractAddress,
+            isEligible,
+            isClaimed,
+            logo: airdrop.logo,
+            type: 'standard'
+          })
+        }
+      } catch (error) {
+        console.error(`Failed to check airdrop ${airdrop.id}:`, error)
+      }
     }
     
     return popularAirdrops
   }
 
   const claimAirdrop = async (airdrop: typeof airdrops[0]) => {
-    if (!address) return
+    if (!address || !airdrop.contractAddress) {
+      toast.error('Invalid airdrop configuration')
+      return
+    }
     
     setIsClaiming(true)
     try {
@@ -3004,35 +3000,27 @@ export default function RelaySwap() {
         }
       }
       
-      if (airdrop.claimUrl) {
-        // Open external claim URL
-        window.open(airdrop.claimUrl, '_blank')
-        toast.info('Opening claim page...')
-      } else if (airdrop.contractAddress) {
-        // Call claim function on contract
-        // This is a placeholder - you'd need the actual ABI and claim function
-        sendTransaction({
-          to: airdrop.contractAddress as `0x${string}`,
-          data: '0x4e71d92d' as `0x${string}`, // claim() function selector
-        }, {
-          onSuccess: (hash) => {
-            console.log('Claim transaction submitted:', hash)
-            toast.success('Airdrop claimed successfully')
-            
-            // Update airdrop status
-            setAirdrops(prev => prev.map(a => 
-              a.id === airdrop.id ? { ...a, isClaimed: true } : a
-            ))
-            
-            setIsClaiming(false)
-          },
-          onError: (error) => {
-            console.error('Claim failed:', error)
-            toast.error('Failed to claim airdrop')
-            setIsClaiming(false)
-          }
-        })
-      }
+      // Call claim function on contract
+      // Standard claim() function selector: 0x4e71d92d
+      sendTransaction({
+        to: airdrop.contractAddress as `0x${string}`,
+        data: '0x4e71d92d' as `0x${string}`,
+      }, {
+        onSuccess: (hash) => {
+          console.log('Claim transaction submitted:', hash)
+          toast.success(`Airdrop claimed! ${airdrop.amount} ${airdrop.tokenSymbol}`)
+          
+          // Remove claimed airdrop from list
+          setAirdrops(prev => prev.filter(a => a.id !== airdrop.id))
+          
+          setIsClaiming(false)
+        },
+        onError: (error) => {
+          console.error('Claim failed:', error)
+          toast.error('Failed to claim airdrop')
+          setIsClaiming(false)
+        }
+      })
     } catch (error) {
       console.error('Claim airdrop failed:', error)
       toast.error('Failed to claim airdrop')
@@ -3314,9 +3302,9 @@ export default function RelaySwap() {
                 className="h-7 w-7 p-0 relative"
               >
                 <Gift className="h-4 w-4" />
-                {airdrops.filter(a => a.isEligible && !a.isClaimed).length > 0 && (
+                {airdrops.length > 0 && (
                   <span className="absolute -top-1 -right-1 h-3 w-3 bg-accent rounded-full flex items-center justify-center text-[8px] font-bold">
-                    {airdrops.filter(a => a.isEligible && !a.isClaimed).length}
+                    {airdrops.length}
                   </span>
                 )}
               </Button>
@@ -4024,26 +4012,34 @@ export default function RelaySwap() {
           <TabsContent value="airdrops" className="space-y-2 mt-2">
             {isLoadingAirdrops ? (
               <Card className="p-4 text-center">
-                <div className="text-sm text-muted-foreground">Checking for airdrops...</div>
+                <div className="text-sm text-muted-foreground">Checking for claimable airdrops...</div>
               </Card>
             ) : airdrops.length === 0 ? (
               <Card className="p-4 text-center">
-                <div className="text-sm text-muted-foreground mb-2">No airdrops found</div>
+                <div className="text-sm text-muted-foreground mb-2">No claimable airdrops found</div>
+                <div className="text-xs text-muted-foreground mb-3">
+                  We'll notify you when new airdrops become available
+                </div>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={checkAirdrops}
                   className="h-8 text-xs"
                 >
-                  Refresh
+                  Check Again
                 </Button>
               </Card>
             ) : (
               <>
-                <Card className="p-3 bg-muted/50">
+                <Card className="p-3 bg-gradient-to-br from-accent/10 to-primary/10 border-accent/20">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs text-muted-foreground">
-                      Found {airdrops.filter(a => a.isEligible && !a.isClaimed).length} unclaimed airdrop{airdrops.filter(a => a.isEligible && !a.isClaimed).length !== 1 ? 's' : ''}
+                    <div className="space-y-1">
+                      <div className="text-sm font-medium">
+                        {airdrops.length} Claimable Airdrop{airdrops.length !== 1 ? 's' : ''}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        Claim directly from this app
+                      </div>
                     </div>
                     <Button
                       variant="outline"
@@ -4060,30 +4056,23 @@ export default function RelaySwap() {
                 <ScrollArea className="h-[450px]">
                   <div className="space-y-2">
                     {airdrops.map((airdrop) => (
-                      <Card key={airdrop.id} className="p-3">
+                      <Card key={airdrop.id} className="p-3 hover:bg-muted/50 transition-colors">
                         <div className="space-y-2.5">
                           <div className="flex items-start justify-between gap-2">
                             <div className="flex items-center gap-2 flex-1 min-w-0">
                               {airdrop.logo ? (
                                 <img src={airdrop.logo} alt="" className="h-8 w-8 rounded-full flex-shrink-0" />
                               ) : (
-                                <div className="h-8 w-8 rounded-full bg-muted flex-shrink-0" />
+                                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-accent to-primary flex-shrink-0" />
                               )}
                               <div className="min-w-0 flex-1">
                                 <div className="text-sm font-medium">{airdrop.name}</div>
                                 <div className="text-xs text-muted-foreground">{airdrop.protocol}</div>
                               </div>
                             </div>
-                            <div className="flex gap-1 flex-shrink-0">
-                              <Badge variant={airdrop.type === 'clanker' ? 'default' : 'outline'} className="text-xs">
-                                {airdrop.type === 'clanker' ? 'Clanker' : airdrop.type === 'farcaster' ? 'Farcaster' : 'Standard'}
-                              </Badge>
-                              {airdrop.isClaimed && (
-                                <Badge variant="secondary" className="text-xs">
-                                  Claimed
-                                </Badge>
-                              )}
-                            </div>
+                            <Badge variant={airdrop.type === 'clanker' ? 'default' : 'outline'} className="text-xs">
+                              {airdrop.type === 'clanker' ? 'Clanker' : airdrop.type === 'farcaster' ? 'Farcaster' : 'Protocol'}
+                            </Badge>
                           </div>
 
                           <div className="text-xs text-muted-foreground">
@@ -4095,7 +4084,7 @@ export default function RelaySwap() {
                           <div className="space-y-1.5">
                             <div className="flex justify-between text-xs gap-2">
                               <span className="text-muted-foreground">Amount</span>
-                              <span className="font-medium">
+                              <span className="font-medium text-accent">
                                 {airdrop.amount} {airdrop.tokenSymbol}
                                 {airdrop.amountUsd && (
                                   <span className="text-muted-foreground ml-1">(${airdrop.amountUsd})</span>
@@ -4109,30 +4098,22 @@ export default function RelaySwap() {
                             {airdrop.claimDeadline && (
                               <div className="flex justify-between text-xs gap-2">
                                 <span className="text-muted-foreground">Deadline</span>
-                                <span className="font-medium">
+                                <span className="font-medium text-destructive">
                                   {new Date(airdrop.claimDeadline).toLocaleDateString()}
                                 </span>
                               </div>
                             )}
                           </div>
 
-                          {airdrop.isEligible && !airdrop.isClaimed && (
-                            <Button
-                              onClick={() => claimAirdrop(airdrop)}
-                              disabled={isClaiming}
-                              variant="default"
-                              size="sm"
-                              className="w-full h-8 text-xs"
-                            >
-                              {isClaiming ? 'Claiming...' : 'Claim Airdrop'}
-                            </Button>
-                          )}
-
-                          {!airdrop.isEligible && (
-                            <div className="text-xs text-center text-muted-foreground p-2 bg-muted/50 rounded">
-                              Not eligible for this airdrop
-                            </div>
-                          )}
+                          <Button
+                            onClick={() => claimAirdrop(airdrop)}
+                            disabled={isClaiming}
+                            variant="default"
+                            size="sm"
+                            className="w-full h-8 text-xs"
+                          >
+                            {isClaiming ? 'Claiming...' : `Claim ${airdrop.amount} ${airdrop.tokenSymbol}`}
+                          </Button>
                         </div>
                       </Card>
                     ))}

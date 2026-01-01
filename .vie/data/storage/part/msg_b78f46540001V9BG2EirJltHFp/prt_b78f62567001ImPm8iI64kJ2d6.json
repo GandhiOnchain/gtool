@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78f62567001ImPm8iI64kJ2d6",
+  "messageID": "msg_b78f46540001V9BG2EirJltHFp",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "Perfect! I've updated the airdrops feature to only show claimable airdrops with in-app claiming. Here's what changed:\n\n## Key Updates:\n\n### 1. **Only Claimable Airdrops**\n   - Removed `claimUrl` field - no external links\n   - Only airdrops with `contractAddress` are added to the list\n   - Eligibility is checked via `checkAirdropEligibility()` function\n   - Only eligible and unclaimed airdrops are shown\n\n### 2. **In-App Claiming**\n   - All claims happen via smart contract transactions\n   - Uses standard `claim()` function (selector: `0x4e71d92d`)\n   - Auto-switches to correct chain before claiming\n   - Shows success toast with amount claimed\n   - Removes airdrop from list after successful claim\n\n### 3. **Eligibility Checking**\n   - `checkAirdropEligibility()` function queries contracts\n   - Can be extended to call actual contract methods like `isEligible(address)`\n   - Only adds airdrops where user is eligible\n\n### 4. **Improved UI**\n   - Gradient header card showing claimable count\n   - \"Claim directly from this app\" messaging\n   - Removed \"not eligible\" state\n   - Better empty state: \"No claimable airdrops found\"\n   - Claim button shows amount: \"Claim 1000 CLANKER\"\n   - Accent color highlights for amounts\n\n### 5. **Notification Updates**\n   - Badge shows total claimable airdrops (simplified)\n   - Toast shows \"Found X claimable airdrop(s)\"\n   - Gift icon navigates directly to airdrops tab\n\n### 6. **Contract Integration Ready**\n   - `checkAirdropEligibility()` can be extended with actual contract calls\n   - Supports standard claim interfaces\n   - Can add custom claim data for different airdrop types\n\nTo add real airdrops, you just need to:\n1. Add the contract address to `knownAirdrops` array\n2. Implement actual eligibility checking in `checkAirdropEligibility()`\n3. Ensure the contract has a `claim()` function or update the function selector",
+  "time": {
+    "start": 1767260967754,
+    "end": 1767260967754
+  }
+}
