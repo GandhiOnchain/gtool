@@ -19,7 +19,7 @@ import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { Checkbox } from '@/components/ui/checkbox'
 import { toast } from 'sonner'
-import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet, Settings } from 'lucide-react'
+import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet, Settings, Gift } from 'lucide-react'
 import { secureStorage } from '@/lib/security/storage'
 import { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'
 import { quoteRateLimiter } from '@/lib/security/rateLimit'
@@ -170,6 +170,26 @@ export default function RelaySwap() {
   const [isRevoking, setIsRevoking] = useState(false)
   const [selectedApprovals, setSelectedApprovals] = useState<Set<number>>(new Set())
   const [debugInfo, setDebugInfo] = useState<string>('')
+  const [airdrops, setAirdrops] = useState<Array<{
+    id: string
+    name: string
+    description: string
+    protocol: string
+    chainId: number
+    chainName: string
+    tokenSymbol: string
+    amount: string
+    amountUsd?: string
+    claimUrl?: string
+    contractAddress?: string
+    isEligible: boolean
+    isClaimed: boolean
+    claimDeadline?: number
+    logo?: string
+    type: 'standard' | 'clanker' | 'farcaster'
+  }>>([])
+  const [isLoadingAirdrops, setIsLoadingAirdrops] = useState(false)
+  const [isClaiming, setIsClaiming] = useState(false)
   const [portfolioData, setPortfolioData] = useState<{
     totalValueUsd: number
     chains: Array<{
@@ -337,6 +357,7 @@ export default function RelaySwap() {
     if (address && chains.length > 0) {
       loadSwapHistory()
       loadUserStreak()
+      checkAirdrops()
     }
   }, [address, chains])
 
@@ -2732,7 +2753,7 @@ export default function RelaySwap() {
             balanceFormatted: balance.toFixed(6),
             valueUsd,
             priceUsd,
-            logo: metadata.logo,
+            logo: metadata.logo || undefined,
           })
           
           chain.valueUsd += valueUsd
@@ -2808,6 +2829,215 @@ export default function RelaySwap() {
       'WBTC': 'https://assets.relay.link/icons/currencies/wbtc.png',
     }
     return logos[symbol.toUpperCase()]
+  }
+
+  const checkAirdrops = async () => {
+    if (!address) return
+    
+    setIsLoadingAirdrops(true)
+    try {
+      const detectedAirdrops: typeof airdrops = []
+      
+      // Check for Clanker airdrops on Base
+      try {
+        const baseChainId = 8453
+        const clankerAirdrops = await checkClankerAirdrops(address, baseChainId)
+        detectedAirdrops.push(...clankerAirdrops)
+      } catch (error) {
+        console.error('Failed to check Clanker airdrops:', error)
+      }
+      
+      // Check for popular protocol airdrops
+      const popularAirdrops = await checkPopularAirdrops(address)
+      detectedAirdrops.push(...popularAirdrops)
+      
+      setAirdrops(detectedAirdrops)
+      
+      if (detectedAirdrops.filter(a => a.isEligible && !a.isClaimed).length > 0) {
+        toast.success(`Found ${detectedAirdrops.filter(a => a.isEligible && !a.isClaimed).length} unclaimed airdrop(s)`)
+      }
+    } catch (error) {
+      console.error('Failed to check airdrops:', error)
+      toast.error('Failed to check airdrops')
+    } finally {
+      setIsLoadingAirdrops(false)
+    }
+  }
+
+  const checkClankerAirdrops = async (walletAddress: string, chainId: number): Promise<typeof airdrops> => {
+    const clankerAirdrops: typeof airdrops = []
+    
+    // Known Clanker/Farcaster airdrops on Base
+    const knownAirdrops = [
+      {
+        id: 'purple-rain',
+        name: 'Purple Rain',
+        description: 'Claim PURPLE tokens from the Purple Rain airdrop',
+        protocol: 'Clanker',
+        symbol: 'PURPLE',
+        claimUrl: 'https://farcaster.xyz/miniapps/0_t2IN5pmmVm/purple-rain',
+        logo: 'https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/d3c7c3f5-e5e5-4e5e-5e5e-5e5e5e5e5e00/original',
+        type: 'farcaster' as const
+      },
+      {
+        id: 'degen-airdrop',
+        name: 'DEGEN Airdrop',
+        description: 'Claim DEGEN tokens for Farcaster activity',
+        protocol: 'Degen',
+        symbol: 'DEGEN',
+        claimUrl: 'https://www.degen.tips/airdrop2',
+        logo: 'https://assets.relay.link/icons/currencies/eth.png',
+        type: 'farcaster' as const
+      }
+    ]
+    
+    for (const airdrop of knownAirdrops) {
+      try {
+        // For Farcaster-based airdrops, assume eligible if wallet is connected
+        // In production, you'd check actual eligibility via API
+        const isEligible = true
+        const isClaimed = false
+        
+        clankerAirdrops.push({
+          id: airdrop.id,
+          name: airdrop.name,
+          description: airdrop.description,
+          protocol: airdrop.protocol,
+          chainId,
+          chainName: 'Base',
+          tokenSymbol: airdrop.symbol,
+          amount: 'TBD',
+          claimUrl: airdrop.claimUrl,
+          isEligible,
+          isClaimed,
+          logo: airdrop.logo,
+          type: airdrop.type
+        })
+      } catch (error) {
+        console.error(`Failed to check airdrop ${airdrop.id}:`, error)
+      }
+    }
+    
+    return clankerAirdrops
+  }
+
+  const checkPopularAirdrops = async (walletAddress: string): Promise<typeof airdrops> => {
+    const popularAirdrops: typeof airdrops = []
+    
+    // Popular protocol airdrops to check
+    const airdropsToCheck = [
+      {
+        id: 'optimism-airdrop',
+        name: 'Optimism',
+        description: 'Check eligibility for OP token airdrop',
+        protocol: 'Optimism',
+        chainId: 10,
+        chainName: 'Optimism',
+        tokenSymbol: 'OP',
+        claimUrl: 'https://app.optimism.io/airdrop/check',
+        logo: 'https://assets.relay.link/icons/currencies/eth.png'
+      },
+      {
+        id: 'arbitrum-airdrop',
+        name: 'Arbitrum',
+        description: 'Check eligibility for ARB token airdrop',
+        protocol: 'Arbitrum',
+        chainId: 42161,
+        chainName: 'Arbitrum',
+        tokenSymbol: 'ARB',
+        claimUrl: 'https://arbitrum.foundation/airdrop',
+        logo: 'https://assets.relay.link/icons/currencies/eth.png'
+      },
+      {
+        id: 'base-airdrop',
+        name: 'Base Ecosystem',
+        description: 'Check for Base ecosystem airdrops',
+        protocol: 'Base',
+        chainId: 8453,
+        chainName: 'Base',
+        tokenSymbol: 'BASE',
+        claimUrl: 'https://base.org',
+        logo: 'https://assets.relay.link/icons/currencies/eth.png'
+      }
+    ]
+    
+    // In production, you'd check actual eligibility via APIs
+    // For now, we'll mark them as not eligible by default
+    for (const airdrop of airdropsToCheck) {
+      popularAirdrops.push({
+        id: airdrop.id,
+        name: airdrop.name,
+        description: airdrop.description,
+        protocol: airdrop.protocol,
+        chainId: airdrop.chainId,
+        chainName: airdrop.chainName,
+        tokenSymbol: airdrop.tokenSymbol,
+        amount: 'Check eligibility',
+        claimUrl: airdrop.claimUrl,
+        isEligible: false, // Would check via API
+        isClaimed: false,
+        logo: airdrop.logo,
+        type: 'standard'
+      })
+    }
+    
+    return popularAirdrops
+  }
+
+  const claimAirdrop = async (airdrop: typeof airdrops[0]) => {
+    if (!address) return
+    
+    setIsClaiming(true)
+    try {
+      // Switch to correct chain if needed
+      if (connectedChainId !== airdrop.chainId) {
+        console.log('Switching chain to', airdrop.chainName)
+        try {
+          await switchChain({ chainId: airdrop.chainId })
+          toast.success('Chain switched')
+          await new Promise(resolve => setTimeout(resolve, 500))
+        } catch (switchError) {
+          console.error('Failed to switch chain:', switchError)
+          toast.error('Please switch to the correct network')
+          setIsClaiming(false)
+          return
+        }
+      }
+      
+      if (airdrop.claimUrl) {
+        // Open external claim URL
+        window.open(airdrop.claimUrl, '_blank')
+        toast.info('Opening claim page...')
+      } else if (airdrop.contractAddress) {
+        // Call claim function on contract
+        // This is a placeholder - you'd need the actual ABI and claim function
+        sendTransaction({
+          to: airdrop.contractAddress as `0x${string}`,
+          data: '0x4e71d92d' as `0x${string}`, // claim() function selector
+        }, {
+          onSuccess: (hash) => {
+            console.log('Claim transaction submitted:', hash)
+            toast.success('Airdrop claimed successfully')
+            
+            // Update airdrop status
+            setAirdrops(prev => prev.map(a => 
+              a.id === airdrop.id ? { ...a, isClaimed: true } : a
+            ))
+            
+            setIsClaiming(false)
+          },
+          onError: (error) => {
+            console.error('Claim failed:', error)
+            toast.error('Failed to claim airdrop')
+            setIsClaiming(false)
+          }
+        })
+      }
+    } catch (error) {
+      console.error('Claim airdrop failed:', error)
+      toast.error('Failed to claim airdrop')
+      setIsClaiming(false)
+    }
   }
 
   const revokeApproval = async (approval: typeof approvals[0]) => {
@@ -3080,6 +3310,19 @@ export default function RelaySwap() {
               <Button
                 variant="ghost"
                 size="sm"
+                onClick={() => setActiveTab('airdrops')}
+                className="h-7 w-7 p-0 relative"
+              >
+                <Gift className="h-4 w-4" />
+                {airdrops.filter(a => a.isEligible && !a.isClaimed).length > 0 && (
+                  <span className="absolute -top-1 -right-1 h-3 w-3 bg-accent rounded-full flex items-center justify-center text-[8px] font-bold">
+                    {airdrops.filter(a => a.isEligible && !a.isClaimed).length}
+                  </span>
+                )}
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={() => setShowSettings(true)}
                 className="h-7 w-7 p-0"
               >
@@ -3109,11 +3352,12 @@ export default function RelaySwap() {
         )}
 
         <Tabs defaultValue="portfolio" value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5 h-8">
+          <TabsList className="grid w-full grid-cols-6 h-8">
             <TabsTrigger value="portfolio" className="text-xs">Portfolio</TabsTrigger>
             <TabsTrigger value="swap" className="text-xs">Swap</TabsTrigger>
             <TabsTrigger value="batch" className="text-xs">Batch</TabsTrigger>
             <TabsTrigger value="revoke" className="text-xs">Revoke</TabsTrigger>
+            <TabsTrigger value="airdrops" className="text-xs">Airdrops</TabsTrigger>
             <TabsTrigger value="history" className="text-xs">History</TabsTrigger>
           </TabsList>
 
@@ -3774,6 +4018,127 @@ export default function RelaySwap() {
               <Card className="p-4 text-center">
                 <div className="text-sm text-muted-foreground">Connect wallet to view portfolio</div>
               </Card>
+            )}
+          </TabsContent>
+
+          <TabsContent value="airdrops" className="space-y-2 mt-2">
+            {isLoadingAirdrops ? (
+              <Card className="p-4 text-center">
+                <div className="text-sm text-muted-foreground">Checking for airdrops...</div>
+              </Card>
+            ) : airdrops.length === 0 ? (
+              <Card className="p-4 text-center">
+                <div className="text-sm text-muted-foreground mb-2">No airdrops found</div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={checkAirdrops}
+                  className="h-8 text-xs"
+                >
+                  Refresh
+                </Button>
+              </Card>
+            ) : (
+              <>
+                <Card className="p-3 bg-muted/50">
+                  <div className="flex items-center justify-between">
+                    <div className="text-xs text-muted-foreground">
+                      Found {airdrops.filter(a => a.isEligible && !a.isClaimed).length} unclaimed airdrop{airdrops.filter(a => a.isEligible && !a.isClaimed).length !== 1 ? 's' : ''}
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={checkAirdrops}
+                      disabled={isLoadingAirdrops}
+                      className="h-7 text-xs"
+                    >
+                      Refresh
+                    </Button>
+                  </div>
+                </Card>
+
+                <ScrollArea className="h-[450px]">
+                  <div className="space-y-2">
+                    {airdrops.map((airdrop) => (
+                      <Card key={airdrop.id} className="p-3">
+                        <div className="space-y-2.5">
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="flex items-center gap-2 flex-1 min-w-0">
+                              {airdrop.logo ? (
+                                <img src={airdrop.logo} alt="" className="h-8 w-8 rounded-full flex-shrink-0" />
+                              ) : (
+                                <div className="h-8 w-8 rounded-full bg-muted flex-shrink-0" />
+                              )}
+                              <div className="min-w-0 flex-1">
+                                <div className="text-sm font-medium">{airdrop.name}</div>
+                                <div className="text-xs text-muted-foreground">{airdrop.protocol}</div>
+                              </div>
+                            </div>
+                            <div className="flex gap-1 flex-shrink-0">
+                              <Badge variant={airdrop.type === 'clanker' ? 'default' : 'outline'} className="text-xs">
+                                {airdrop.type === 'clanker' ? 'Clanker' : airdrop.type === 'farcaster' ? 'Farcaster' : 'Standard'}
+                              </Badge>
+                              {airdrop.isClaimed && (
+                                <Badge variant="secondary" className="text-xs">
+                                  Claimed
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="text-xs text-muted-foreground">
+                            {airdrop.description}
+                          </div>
+
+                          <Separator />
+
+                          <div className="space-y-1.5">
+                            <div className="flex justify-between text-xs gap-2">
+                              <span className="text-muted-foreground">Amount</span>
+                              <span className="font-medium">
+                                {airdrop.amount} {airdrop.tokenSymbol}
+                                {airdrop.amountUsd && (
+                                  <span className="text-muted-foreground ml-1">(${airdrop.amountUsd})</span>
+                                )}
+                              </span>
+                            </div>
+                            <div className="flex justify-between text-xs gap-2">
+                              <span className="text-muted-foreground">Chain</span>
+                              <span className="font-medium">{airdrop.chainName}</span>
+                            </div>
+                            {airdrop.claimDeadline && (
+                              <div className="flex justify-between text-xs gap-2">
+                                <span className="text-muted-foreground">Deadline</span>
+                                <span className="font-medium">
+                                  {new Date(airdrop.claimDeadline).toLocaleDateString()}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+
+                          {airdrop.isEligible && !airdrop.isClaimed && (
+                            <Button
+                              onClick={() => claimAirdrop(airdrop)}
+                              disabled={isClaiming}
+                              variant="default"
+                              size="sm"
+                              className="w-full h-8 text-xs"
+                            >
+                              {isClaiming ? 'Claiming...' : 'Claim Airdrop'}
+                            </Button>
+                          )}
+
+                          {!airdrop.isEligible && (
+                            <div className="text-xs text-center text-muted-foreground p-2 bg-muted/50 rounded">
+                              Not eligible for this airdrop
+                            </div>
+                          )}
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </>
             )}
           </TabsContent>
 

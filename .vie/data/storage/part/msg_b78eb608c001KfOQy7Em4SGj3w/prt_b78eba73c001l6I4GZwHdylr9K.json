@@ -1,0 +1,25 @@
+{
+  "id": "prt_b78eba73c001l6I4GZwHdylr9K",
+  "messageID": "msg_b78eb608c001KfOQy7Em4SGj3w",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01GcgJgAPykTNXh33oMLtHGj",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 165,
+      "limit": 20
+    },
+    "output": "<file>\n00166|     allowanceFormatted: string\n00167|     riskLevel?: 'high' | 'medium' | 'low'\n00168|   }>>([])\n00169|   const [isLoadingApprovals, setIsLoadingApprovals] = useState(false)\n00170|   const [isRevoking, setIsRevoking] = useState(false)\n00171|   const [selectedApprovals, setSelectedApprovals] = useState<Set<number>>(new Set())\n00172|   const [debugInfo, setDebugInfo] = useState<string>('')\n00173|   const [portfolioData, setPortfolioData] = useState<{\n00174|     totalValueUsd: number\n00175|     chains: Array<{\n00176|       chainId: number\n00177|       chainName: string\n00178|       valueUsd: number\n00179|       tokens: Array<{\n00180|         address: string\n00181|         symbol: string\n00182|         name: string\n00183|         balance: string\n00184|         balanceFormatted: string\n00185|         valueUsd: number\n\n(File has more lines. Use 'offset' parameter to read beyond line 185)\n</file>",
+    "metadata": {
+      "preview": "    allowanceFormatted: string\n    riskLevel?: 'high' | 'medium' | 'low'\n  }>>([])\n  const [isLoadingApprovals, setIsLoadingApprovals] = useState(false)\n  const [isRevoking, setIsRevoking] = useState(false)\n  const [selectedApprovals, setSelectedApprovals] = useState<Set<number>>(new Set())\n  const [debugInfo, setDebugInfo] = useState<string>('')\n  const [portfolioData, setPortfolioData] = useState<{\n    totalValueUsd: number\n    chains: Array<{\n      chainId: number\n      chainName: string\n      valueUsd: number\n      tokens: Array<{\n        address: string\n        symbol: string\n        name: string\n        balance: string\n        balanceFormatted: string\n        valueUsd: number"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767260269167,
+      "end": 1767260269168
+    }
+  }
+}

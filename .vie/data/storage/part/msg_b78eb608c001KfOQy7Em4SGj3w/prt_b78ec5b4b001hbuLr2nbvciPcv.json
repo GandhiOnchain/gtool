@@ -1,0 +1,26 @@
+{
+  "id": "prt_b78ec5b4b001hbuLr2nbvciPcv",
+  "messageID": "msg_b78eb608c001KfOQy7Em4SGj3w",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01G3uHt3dqwvwkceVvkj4fyH",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"useEffect.*\\(\\(\\) => \\{\" src/pages/RelaySwap.tsx | head -10",
+      "description": "Find useEffect hooks"
+    },
+    "output": "244:  useEffect(() => {\n249:  useEffect(() => {\n292:  useEffect(() => {\n299:  useEffect(() => {\n306:  useEffect(() => {\n313:  useEffect(() => {\n321:  useEffect(() => {\n327:  useEffect(() => {\n337:  useEffect(() => {\n347:  useEffect(() => {\n",
+    "metadata": {
+      "output": "244:  useEffect(() => {\n249:  useEffect(() => {\n292:  useEffect(() => {\n299:  useEffect(() => {\n306:  useEffect(() => {\n313:  useEffect(() => {\n321:  useEffect(() => {\n327:  useEffect(() => {\n337:  useEffect(() => {\n347:  useEffect(() => {\n",
+      "exit": 0,
+      "description": "Find useEffect hooks"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"useEffect.*\\(\\(\\) => \\{\" src/pages/RelaySwap.tsx | head -10",
+    "time": {
+      "start": 1767260315409,
+      "end": 1767260315413
+    }
+  }
+}

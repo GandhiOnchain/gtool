@@ -1,0 +1,25 @@
+{
+  "id": "prt_b78ed2667001LYLjhjUcoMBCkG",
+  "messageID": "msg_b78eb608c001KfOQy7Em4SGj3w",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_0126TPrqw6kGhnJiHHLeE1Cv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3250,
+      "limit": 30
+    },
+    "output": "<file>\n03251|               <Button\n03252|                 variant=\"ghost\"\n03253|                 size=\"sm\"\n03254|                 onClick={() => setShowLeaderboard(true)}\n03255|                 className=\"h-7 w-7 p-0\"\n03256|               >\n03257|                 <Trophy className=\"h-4 w-4\" />\n03258|               </Button>\n03259|               <Button\n03260|                 variant=\"ghost\"\n03261|                 size=\"sm\"\n03262|                 onClick={() => setShowSettings(true)}\n03263|                 className=\"h-7 w-7 p-0\"\n03264|               >\n03265|                 <Settings className=\"h-4 w-4\" />\n03266|               </Button>\n03267|               <Button\n03268|                 variant=\"ghost\"\n03269|                 size=\"sm\"\n03270|                 onClick={async () => {\n03271|                   const connectorName = connector?.name || 'Unknown'\n03272|                   console.log('Disconnect clicked:', { connectorName, isConnected, address })\n03273|                   \n03274|                   if (connectorName === 'Farcaster Miniapp') {\n03275|                     toast.info('Farcaster wallet cannot be disconnected. Refresh to reconnect.')\n03276|                     return\n03277|                   }\n03278|                   \n03279|                   wagmiDisconnect()\n03280|                   toast.success('Wallet disconnected')\n\n(File has more lines. Use 'offset' parameter to read beyond line 3280)\n</file>",
+    "metadata": {
+      "preview": "              <Button\n                variant=\"ghost\"\n                size=\"sm\"\n                onClick={() => setShowLeaderboard(true)}\n                className=\"h-7 w-7 p-0\"\n              >\n                <Trophy className=\"h-4 w-4\" />\n              </Button>\n              <Button\n                variant=\"ghost\"\n                size=\"sm\"\n                onClick={() => setShowSettings(true)}\n                className=\"h-7 w-7 p-0\"\n              >\n                <Settings className=\"h-4 w-4\" />\n              </Button>\n              <Button\n                variant=\"ghost\"\n                size=\"sm\"\n                onClick={async () => {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767260367361,
+      "end": 1767260367362
+    }
+  }
+}

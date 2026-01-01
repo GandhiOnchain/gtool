@@ -1,0 +1,25 @@
+{
+  "id": "prt_b78ec6863001YWuPuRfqC18KrL",
+  "messageID": "msg_b78eb608c001KfOQy7Em4SGj3w",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01UNMtttoqYo8cDjX4aeuJhR",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 337,
+      "limit": 20
+    },
+    "output": "<file>\n00338|     if (toChain) {\n00339|       // Clear toToken if it doesn't belong to the new chain\n00340|       if (toToken && toToken.chainId !== toChain.id) {\n00341|         setToToken(null)\n00342|       }\n00343|       loadCurrencies(toChain.id, 'to')\n00344|     }\n00345|   }, [toChain])\n00346| \n00347|   useEffect(() => {\n00348|     if (fromToken && toToken && fromAmount && fromChain && toChain && address) {\n00349|       const debounce = setTimeout(() => {\n00350|         fetchQuote()\n00351|       }, 500)\n00352|       return () => clearTimeout(debounce)\n00353|     }\n00354|   }, [fromToken, toToken, fromAmount, fromChain, toChain, address])\n00355| \n00356|   useEffect(() => {\n00357|     if (address && chains.length > 0) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 357)\n</file>",
+    "metadata": {
+      "preview": "    if (toChain) {\n      // Clear toToken if it doesn't belong to the new chain\n      if (toToken && toToken.chainId !== toChain.id) {\n        setToToken(null)\n      }\n      loadCurrencies(toChain.id, 'to')\n    }\n  }, [toChain])\n\n  useEffect(() => {\n    if (fromToken && toToken && fromAmount && fromChain && toChain && address) {\n      const debounce = setTimeout(() => {\n        fetchQuote()\n      }, 500)\n      return () => clearTimeout(debounce)\n    }\n  }, [fromToken, toToken, fromAmount, fromChain, toChain, address])\n\n  useEffect(() => {\n    if (address && chains.length > 0) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767260318703,
+      "end": 1767260318705
+    }
+  }
+}

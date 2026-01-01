@@ -1,0 +1,25 @@
+{
+  "id": "prt_b78ec75550016mOJIogGyRk5AR",
+  "messageID": "msg_b78eb608c001KfOQy7Em4SGj3w",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01RWHJVQvwvDxUihbXrv7Do1",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 356,
+      "limit": 30
+    },
+    "output": "<file>\n00357|     if (address && chains.length > 0) {\n00358|       loadSwapHistory()\n00359|       loadUserStreak()\n00360|     }\n00361|   }, [address, chains])\n00362| \n00363|   useEffect(() => {\n00364|     loadLeaderboard()\n00365|   }, [])\n00366| \n00367|   useEffect(() => {\n00368|     if (address && fromChain && isConnected) {\n00369|       loadWalletTokens()\n00370|     }\n00371|   }, [address, fromChain, isConnected])\n00372| \n00373|   useEffect(() => {\n00374|     if (batchChain) {\n00375|       const vmType = batchChain.vmType || 'evm'\n00376|       // For EVM chains, need EVM wallet connected\n00377|       // For Solana chains, need Solana wallet connected\n00378|       const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n00379|                                 ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)\n00380|       \n00381|       if (hasRequiredWallet) {\n00382|         loadBatchWalletTokens()\n00383|       }\n00384|     }\n00385|   }, [address, batchChain, isConnected, solanaAddress])\n00386| \n\n(File has more lines. Use 'offset' parameter to read beyond line 386)\n</file>",
+    "metadata": {
+      "preview": "    if (address && chains.length > 0) {\n      loadSwapHistory()\n      loadUserStreak()\n    }\n  }, [address, chains])\n\n  useEffect(() => {\n    loadLeaderboard()\n  }, [])\n\n  useEffect(() => {\n    if (address && fromChain && isConnected) {\n      loadWalletTokens()\n    }\n  }, [address, fromChain, isConnected])\n\n  useEffect(() => {\n    if (batchChain) {\n      const vmType = batchChain.vmType || 'evm'\n      // For EVM chains, need EVM wallet connected"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767260321788,
+      "end": 1767260321791
+    }
+  }
+}

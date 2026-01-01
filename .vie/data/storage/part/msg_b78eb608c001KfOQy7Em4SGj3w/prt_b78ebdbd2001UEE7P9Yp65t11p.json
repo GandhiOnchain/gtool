@@ -1,0 +1,25 @@
+{
+  "id": "prt_b78ebdbd2001UEE7P9Yp65t11p",
+  "messageID": "msg_b78eb608c001KfOQy7Em4SGj3w",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01MEVad8WCRvFj46EkJm1gWP",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2830,
+      "limit": 30
+    },
+    "output": "<file>\n02831|   }\n02832| \n02833|   const revokeApproval = async (approval: typeof approvals[0]) => {\n02834|     if (!address || !revokeChain) return\n02835|     \n02836|     setIsRevoking(true)\n02837|     try {\n02838|       // Check if we need to switch chains\n02839|       if (connectedChainId !== revokeChain.id) {\n02840|         console.log('Switching chain to', revokeChain.displayName)\n02841|         try {\n02842|           await switchChain({ chainId: revokeChain.id })\n02843|           toast.success('Chain switched')\n02844|           await new Promise(resolve => setTimeout(resolve, 500))\n02845|         } catch (switchError) {\n02846|           console.error('Failed to switch chain:', switchError)\n02847|           toast.error('Please switch to the correct network')\n02848|           setIsRevoking(false)\n02849|           return\n02850|         }\n02851|       }\n02852|       \n02853|       // Send approval transaction with 0 allowance\n02854|       sendTransaction({\n02855|         to: approval.token.address as `0x${string}`,\n02856|         data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,\n02857|       }, {\n02858|         onSuccess: (hash) => {\n02859|           console.log('Revoke transaction submitted:', hash)\n02860|           toast.success('Approval revoked successfully')\n\n(File has more lines. Use 'offset' parameter to read beyond line 2860)\n</file>",
+    "metadata": {
+      "preview": "  }\n\n  const revokeApproval = async (approval: typeof approvals[0]) => {\n    if (!address || !revokeChain) return\n    \n    setIsRevoking(true)\n    try {\n      // Check if we need to switch chains\n      if (connectedChainId !== revokeChain.id) {\n        console.log('Switching chain to', revokeChain.displayName)\n        try {\n          await switchChain({ chainId: revokeChain.id })\n          toast.success('Chain switched')\n          await new Promise(resolve => setTimeout(resolve, 500))\n        } catch (switchError) {\n          console.error('Failed to switch chain:', switchError)\n          toast.error('Please switch to the correct network')\n          setIsRevoking(false)\n          return\n        }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767260282705,
+      "end": 1767260282708
+    }
+  }
+}
