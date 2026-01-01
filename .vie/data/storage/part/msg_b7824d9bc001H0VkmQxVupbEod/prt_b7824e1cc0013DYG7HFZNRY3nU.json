@@ -1,0 +1,23 @@
+{
+  "id": "prt_b7824e1cc0013DYG7HFZNRY3nU",
+  "messageID": "msg_b7824d9bc001H0VkmQxVupbEod",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01DQnNxqmWU9MNquMm9Xtjxr",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/App.tsx"
+    },
+    "output": "<file>\n00001| import { Toaster } from \"@/components/ui/toaster\";\n00002| import { Toaster as Sonner } from \"@/components/ui/sonner\";\n00003| import { TooltipProvider } from \"@/components/ui/tooltip\";\n00004| import { BrowserRouter, Routes, Route } from \"react-router-dom\";\n00005| import { AuthProvider } from \"./lib/providers/AuthProvider\";\n00006| import { ThemeProvider } from \"./lib/providers/ThemeProvider\";\n00007| import { Layout } from \"./components/Layout\";\n00008| import RelaySwap from \"./pages/RelaySwap\";\n00009| import NotFound from \"./pages/NotFound\";\n00010| import { RouteSync } from \"./components/RouteSync\";\n00011| import { ThemeSync } from \"./components/ThemeSync\";\n00012| \n00013| const basename = \"/\";\n00014| \n00015| const App = () => (\n00016|     <ThemeProvider defaultTheme=\"dark\" storageKey=\"app-theme\">\n00017|         <AuthProvider>\n00018|             <TooltipProvider>\n00019|                 <Toaster />\n00020|                 <Sonner />\n00021|                 <BrowserRouter basename={basename}>\n00022|                     <Layout appName=\"Relay Swap\" showHeader={false}>\n00023|                     \t<RouteSync />\n00024|                     \t<ThemeSync />\n00025|                         <Routes>\n00026|                             <Route path=\"/\" element={<RelaySwap />} />\n00027|                             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL \"*\" ROUTE */}\n00028|                             <Route path=\"*\" element={<NotFound />} />\n00029|                         </Routes>\n00030|                     </Layout>\n00031|                 </BrowserRouter>\n00032|             </TooltipProvider>\n00033|         </AuthProvider>\n00034|     </ThemeProvider>\n00035| );\n00036| \n00037| export default App;\n00038| \n</file>",
+    "metadata": {
+      "preview": "import { Toaster } from \"@/components/ui/toaster\";\nimport { Toaster as Sonner } from \"@/components/ui/sonner\";\nimport { TooltipProvider } from \"@/components/ui/tooltip\";\nimport { BrowserRouter, Routes, Route } from \"react-router-dom\";\nimport { AuthProvider } from \"./lib/providers/AuthProvider\";\nimport { ThemeProvider } from \"./lib/providers/ThemeProvider\";\nimport { Layout } from \"./components/Layout\";\nimport RelaySwap from \"./pages/RelaySwap\";\nimport NotFound from \"./pages/NotFound\";\nimport { RouteSync } from \"./components/RouteSync\";\nimport { ThemeSync } from \"./components/ThemeSync\";\n\nconst basename = \"/\";\n\nconst App = () => (\n    <ThemeProvider defaultTheme=\"dark\" storageKey=\"app-theme\">\n        <AuthProvider>\n            <TooltipProvider>\n                <Toaster />\n                <Sonner />"
+    },
+    "title": "frontend/src/App.tsx",
+    "time": {
+      "start": 1767247242338,
+      "end": 1767247242340
+    }
+  }
+}

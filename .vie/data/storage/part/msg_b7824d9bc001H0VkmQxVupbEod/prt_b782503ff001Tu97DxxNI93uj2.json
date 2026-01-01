@@ -1,0 +1,26 @@
+{
+  "id": "prt_b782503ff001Tu97DxxNI93uj2",
+  "messageID": "msg_b7824d9bc001H0VkmQxVupbEod",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01HefuWksTGwqzraA8by7AUX",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"onClick.*disconnect\" -g \"*.tsx\" -A 2 -B 2",
+      "description": "Find disconnect button implementations"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": null,
+      "description": "Find disconnect button implementations"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"onClick.*disconnect\" -g \"*.tsx\" -A 2 -B 2",
+    "time": {
+      "start": 1767247251495,
+      "end": 1767247311501
+    }
+  }
+}

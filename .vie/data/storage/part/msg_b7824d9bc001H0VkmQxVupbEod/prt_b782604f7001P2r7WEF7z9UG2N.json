@@ -1,0 +1,11 @@
+{
+  "id": "prt_b782604f7001P2r7WEF7z9UG2N",
+  "messageID": "msg_b7824d9bc001H0VkmQxVupbEod",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "The disconnect button looks correct. The issue might be that in the Vie iframe environment, the wallet connection state isn't being properly cleared. Let me check if there's a console error or if we need to add error handling:",
+  "time": {
+    "start": 1767247320097,
+    "end": 1767247320097
+  }
+}

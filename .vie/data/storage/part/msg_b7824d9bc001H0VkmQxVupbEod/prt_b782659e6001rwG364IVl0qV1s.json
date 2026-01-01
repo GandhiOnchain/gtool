@@ -1,0 +1,11 @@
+{
+  "id": "prt_b782659e6001rwG364IVl0qV1s",
+  "messageID": "msg_b7824d9bc001H0VkmQxVupbEod",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "I've updated the disconnect button to use the unified `useWallet` hook and added error handling. The disconnect should now work in both the Vie environment and external tabs. The changes ensure:\n\n1. Uses `disconnect` from `useWallet` hook instead of directly from wagmi's `useDisconnect`\n2. Added try-catch error handling with toast notification\n3. Properly handles both Privy and standard Wagmi modes\n\nTry disconnecting your wallet now.",
+  "time": {
+    "start": 1767247340917,
+    "end": 1767247340917
+  }
+}

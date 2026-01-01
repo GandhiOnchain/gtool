@@ -1,0 +1,23 @@
+{
+  "id": "prt_b7824f6c9001f11sZ2kL5o32hs",
+  "messageID": "msg_b7824d9bc001H0VkmQxVupbEod",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01Di7XPRFBnvu34cU4U6W1Lb",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/env.json"
+    },
+    "output": "<file>\n00001| {\n00002|   \"VITE_PRIVY_APP_ID\": \"\",\n00003|   \"VITE_PRIVY_CLIENT_ID\": \"\",\n00004|   \"VITE_ALCHEMY_API_KEY\": \"\"\n00005| }\n</file>",
+    "metadata": {
+      "preview": "{\n  \"VITE_PRIVY_APP_ID\": \"\",\n  \"VITE_PRIVY_CLIENT_ID\": \"\",\n  \"VITE_ALCHEMY_API_KEY\": \"\"\n}"
+    },
+    "title": "frontend/src/env.json",
+    "time": {
+      "start": 1767247247499,
+      "end": 1767247247501
+    }
+  }
+}

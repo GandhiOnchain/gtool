@@ -2965,7 +2965,14 @@ export default function RelaySwap() {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => disconnect()}
+                onClick={() => {
+                  try {
+                    disconnect()
+                  } catch (error) {
+                    console.error('Disconnect error:', error)
+                    toast.error('Failed to disconnect wallet')
+                  }
+                }}
                 className="h-7 text-xs px-2"
               >
                 {address?.slice(0, 6)}...{address?.slice(-4)}
