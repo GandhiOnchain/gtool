@@ -359,6 +359,7 @@ export default function RelaySwap() {
       loadSwapHistory()
       loadUserStreak()
       checkAirdrops()
+      registerForNotifications()
       
       // Check for new airdrops every 5 minutes
       const airdropInterval = setInterval(() => {
@@ -368,6 +369,39 @@ export default function RelaySwap() {
       return () => clearInterval(airdropInterval)
     }
   }, [address, chains])
+
+  const registerForNotifications = async () => {
+    if (!address) return
+    
+    try {
+      // Get Farcaster FID if available
+      let fid: string | undefined
+      try {
+        const context = await sdk.context
+        fid = context?.user?.fid?.toString()
+      } catch (error) {
+        console.log('Not in Farcaster context')
+      }
+      
+      // Register user for airdrop notifications
+      const response = await fetch('/api/register-user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          address,
+          fid,
+        }),
+      })
+      
+      if (response.ok) {
+        console.log('Registered for airdrop notifications')
+      }
+    } catch (error) {
+      console.error('Failed to register for notifications:', error)
+    }
+  }
 
   useEffect(() => {
     loadLeaderboard()
