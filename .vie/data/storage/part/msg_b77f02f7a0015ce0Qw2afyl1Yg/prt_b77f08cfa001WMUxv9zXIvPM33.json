@@ -1,0 +1,11 @@
+{
+  "id": "prt_b77f08cfa001WMUxv9zXIvPM33",
+  "messageID": "msg_b77f02f7a0015ce0Qw2afyl1Yg",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "I can see the issue! The code is trying to decode amounts from transaction data, but it's complex. Let me check how the history is being displayed:",
+  "time": {
+    "start": 1767243814661,
+    "end": 1767243814661
+  }
+}

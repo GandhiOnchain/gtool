@@ -1,0 +1,11 @@
+{
+  "id": "prt_b77f127370012CBlpjFkPIFR3F",
+  "messageID": "msg_b77f02f7a0015ce0Qw2afyl1Yg",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "The quote has `details.currencyIn` and `details.currencyOut` with amounts! Let me use those instead of trying to decode transaction data:",
+  "time": {
+    "start": 1767243875028,
+    "end": 1767243875028
+  }
+}

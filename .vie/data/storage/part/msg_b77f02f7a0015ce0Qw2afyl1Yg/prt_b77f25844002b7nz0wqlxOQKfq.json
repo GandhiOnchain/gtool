@@ -1,0 +1,26 @@
+{
+  "id": "prt_b77f25844002b7nz0wqlxOQKfq",
+  "messageID": "msg_b77f02f7a0015ce0Qw2afyl1Yg",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_011x9nJdH4q76ncGXfCamqBf",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -A 20 \"export interface RelayRequest\" src/lib/relay/types.ts",
+      "description": "Check RelayRequest type"
+    },
+    "output": "export interface RelayRequest {\n  id: string\n  status: string\n  user: string\n  recipient: string\n  data: {\n    subsidizedRequest: boolean\n    fees: {\n      gas: string\n      fixed: string\n      price: string\n    }\n    feesUsd: {\n      gas: string\n      fixed: string\n      price: string\n    }\n    inTxs: Array<{\n      fee: string\n      data: {\n        to: string\n",
+    "metadata": {
+      "output": "export interface RelayRequest {\n  id: string\n  status: string\n  user: string\n  recipient: string\n  data: {\n    subsidizedRequest: boolean\n    fees: {\n      gas: string\n      fixed: string\n      price: string\n    }\n    feesUsd: {\n      gas: string\n      fixed: string\n      price: string\n    }\n    inTxs: Array<{\n      fee: string\n      data: {\n        to: string\n",
+      "exit": 0,
+      "description": "Check RelayRequest type"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -A 20 \"export interface RelayRequest\" src/lib/relay/types.ts",
+    "time": {
+      "start": 1767243930716,
+      "end": 1767243930717
+    }
+  }
+}

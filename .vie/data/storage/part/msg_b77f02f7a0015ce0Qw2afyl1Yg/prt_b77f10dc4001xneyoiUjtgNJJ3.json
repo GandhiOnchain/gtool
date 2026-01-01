@@ -1,0 +1,26 @@
+{
+  "id": "prt_b77f10dc4001xneyoiUjtgNJJ3",
+  "messageID": "msg_b77f02f7a0015ce0Qw2afyl1Yg",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01WnAw2zgonpeNuXb7AWXVK1",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"details.currencyIn\\|details.currencyOut\" src/pages/RelaySwap.tsx | head -10",
+      "description": "Find currency details usage"
+    },
+    "output": "1021:      if (quoteData.details.currencyOut) {\n1022:        setToAmount(quoteData.details.currencyOut.amountFormatted)\n3326:                      {batchQuote.details.currencyOut && (\n3330:                            {parseFloat(batchQuote.details.currencyOut.amountFormatted).toFixed(6)} {toToken?.symbol}\n3335:                      {batchQuote.details.currencyOut?.amountUsd && (\n3339:                            ${parseFloat(batchQuote.details.currencyOut.amountUsd).toFixed(2)}\n",
+    "metadata": {
+      "output": "1021:      if (quoteData.details.currencyOut) {\n1022:        setToAmount(quoteData.details.currencyOut.amountFormatted)\n3326:                      {batchQuote.details.currencyOut && (\n3330:                            {parseFloat(batchQuote.details.currencyOut.amountFormatted).toFixed(6)} {toToken?.symbol}\n3335:                      {batchQuote.details.currencyOut?.amountUsd && (\n3339:                            ${parseFloat(batchQuote.details.currencyOut.amountUsd).toFixed(2)}\n",
+      "exit": 0,
+      "description": "Find currency details usage"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"details.currencyIn\\|details.currencyOut\" src/pages/RelaySwap.tsx | head -10",
+    "time": {
+      "start": 1767243846942,
+      "end": 1767243846947
+    }
+  }
+}

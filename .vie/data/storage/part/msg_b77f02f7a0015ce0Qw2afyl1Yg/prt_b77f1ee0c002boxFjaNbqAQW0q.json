@@ -1,0 +1,29 @@
+{
+  "id": "prt_b77f1ee0c002boxFjaNbqAQW0q",
+  "messageID": "msg_b77f02f7a0015ce0Qw2afyl1Yg",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01AxNfC8p45fnZXLP8xJnh4b",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ❌ ERROR [1877:17] Property 'details' does not exist on type 'RelayRequest'. [typescript]\n  ❌ ERROR [1878:28] Property 'details' does not exist on type 'RelayRequest'. [typescript]\n  ❌ ERROR [1879:28] Property 'details' does not exist on type 'RelayRequest'. [typescript]\n  ❌ ERROR [1880:30] Property 'details' does not exist on type 'RelayRequest'. [typescript]\n  ❌ ERROR [1881:34] Property 'details' does not exist on type 'RelayRequest'. [typescript]\n  ❌ ERROR [1882:31] Property 'details' does not exist on type 'RelayRequest'. [typescript]\n  ❌ ERROR [1924:17] Property 'details' does not exist on type 'RelayRequest'. [typescript]\n  ❌ ERROR [1925:26] Property 'details' does not exist on type 'RelayRequest'. [typescript]\n  ❌ ERROR [1926:26] Property 'details' does not exist on type 'RelayRequest'. [typescript]\n  ❌ ERROR [1927:28] Property 'details' does not exist on type 'RelayRequest'. [typescript]\n  ❌ ERROR [1928:32] Property 'details' does not exist on type 'RelayRequest'. [typescript]\n  ❌ ERROR [1929:29] Property 'details' does not exist on type 'RelayRequest'. [typescript]\n\n──────────────────────────────────────────────────\nSummary: 12 issue(s) found\n  - 12 error(s)\n",
+    "metadata": {
+      "filesChecked": 2,
+      "filesWithIssues": 1,
+      "totalIssues": 12,
+      "errorCount": 12,
+      "warningCount": 0,
+      "checkedFiles": [
+        ".attachments/image.png",
+        "frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "title": "Diagnostics: 12 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1767243902784,
+      "end": 1767243917522
+    }
+  }
+}

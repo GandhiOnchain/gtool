@@ -1,0 +1,11 @@
+{
+  "id": "prt_b77f03d4d0013D0fcITbp1dVIh",
+  "messageID": "msg_b77f02f7a0015ce0Qw2afyl1Yg",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "I can see the issues in the transaction history:\n\n1. **Batch Swap shows \"0 ETH\" and \"Base → $0.18\"** - Should show actual token amounts\n2. **Regular Swap shows \"ETH → ETH Ø\"** - Should show the actual tokens being swapped\n3. **Missing token symbols and amounts** - Not displaying correctly\n\nLet me find and fix the transaction history code:",
+  "time": {
+    "start": 1767243797103,
+    "end": 1767243797103
+  }
+}

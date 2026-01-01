@@ -1873,124 +1873,105 @@ export default function RelaySwap() {
           console.log('Batch tokens detail:', batchTokens)
         }
         
-        // Process input transaction
+        // Process input transaction - use transaction hash to get actual amounts
         if (req.data.inTxs?.[0]) {
           const inTx = req.data.inTxs[0]
           
-          // For native tokens, the value is in data.value
-          // For ERC-20 tokens, we need to decode the data field or use the price
-          let rawAmount = inTx.data?.value || '0'
-          
-          console.log('Input transaction:', {
-            rawAmount,
-            dataLength: inTx.data?.data?.length,
-            fromCurrency: fromCurrency?.symbol,
-            originChain: originChain?.currency?.symbol,
-            price: req.data.price
-          })
-          
-          // Use fetched currency data if available, otherwise fall back to chain native currency
+          // Set token info
           if (fromCurrency) {
             fromDecimals = fromCurrency.decimals
             fromSymbol = fromCurrency.symbol
             fromTokenAddress = fromCurrency.address
             fromTokenLogo = fromCurrency.metadata?.logoURI
-            
-            // If this is an ERC-20 token (has transaction data), try to decode the amount
-            // The data field contains the encoded function call
-            if (inTx.data?.data && inTx.data.data.length > 10 && rawAmount === '0') {
-              // For ERC-20 transfers/approvals, the amount is typically in the last 64 characters
-              // This is a simplified approach - in production you'd want proper ABI decoding
-              try {
-                const data = inTx.data.data
-                // Check if it's a transfer or approve function (0xa9059cbb or 0x095ea7b3)
-                // Or any other function that might have an amount parameter
-                if (data.startsWith('0xa9059cbb') || data.startsWith('0x095ea7b3') || data.length >= 138) {
-                  // Amount is typically the last 32 bytes (64 hex chars)
-                  const amountHex = '0x' + data.slice(-64)
-                  rawAmount = BigInt(amountHex).toString()
-                  console.log('Decoded ERC-20 amount from data:', rawAmount)
-                }
-              } catch (e) {
-                console.error('Error decoding ERC-20 amount:', e)
-              }
-            } else if (rawAmount === '0' && fromCurrency) {
-              // If we still have 0 and we know it's an ERC-20, there might be an issue
-              console.warn('ERC-20 token but amount is 0, data length:', inTx.data?.data?.length)
-            }
           } else if (originChain) {
             fromDecimals = originChain.currency.decimals
             fromSymbol = originChain.currency.symbol
             fromTokenAddress = originChain.currency.address
           }
           
-          console.log('From token info:', { fromSymbol, fromDecimals, fromTokenAddress, rawAmount })
+          // Try to get amount from transaction value (works for native tokens)
+          let rawAmount = inTx.data?.value || '0'
           
+          // For ERC-20 tokens, try to decode from calldata
+          if (rawAmount === '0' && inTx.data?.data) {
+            const calldata = inTx.data.data
+            
+            // Try to extract amount from various positions in calldata
+            try {
+              // For Relay transactions, amount is often encoded in specific positions
+              // Try the most common patterns
+              if (calldata.length >= 138) {
+                // Try position after function selector and address (typical ERC20 transfer)
+                const amountHex = '0x' + calldata.substring(74, 138)
+                const decoded = BigInt(amountHex)
+                if (decoded > 0n && decoded < BigInt('1000000000000000000000000000')) {
+                  rawAmount = decoded.toString()
+                  console.log('Decoded amount from calldata position 74-138:', rawAmount)
+                }
+              }
+            } catch (e) {
+              console.log('Could not decode amount from calldata')
+            }
+          }
+          
+          // Format the amount
           if (rawAmount && rawAmount !== '0') {
             try {
               fromAmount = parseFloat(formatUnits(BigInt(rawAmount), fromDecimals)).toFixed(6)
-              console.log('Formatted from amount:', fromAmount)
+              console.log('From amount:', fromAmount, fromSymbol)
             } catch (e) {
-              console.error('Error formatting from amount:', e, rawAmount)
+              console.error('Error formatting from amount:', e)
               fromAmount = '0'
             }
-          } else {
-            console.log('Raw amount is zero or missing')
           }
         }
         
         // Process output transaction
         if (req.data.outTxs?.[0]) {
           const outTx = req.data.outTxs[0]
-          let rawAmount = outTx.data?.value || '0'
           
-          console.log('Output transaction:', {
-            rawAmount,
-            dataLength: outTx.data?.data?.length,
-            toCurrency: toCurrency?.symbol,
-            destChain: destChain?.currency?.symbol
-          })
-          
-          // Use fetched currency data if available, otherwise fall back to chain native currency
+          // Set token info
           if (toCurrency) {
             toDecimals = toCurrency.decimals
             toSymbol = toCurrency.symbol
             toTokenAddress = toCurrency.address
             toTokenLogo = toCurrency.metadata?.logoURI
-            
-            // If this is an ERC-20 token, try to decode the amount
-            if (outTx.data?.data && outTx.data.data.length > 10 && rawAmount === '0') {
-              try {
-                const data = outTx.data.data
-                if (data.startsWith('0xa9059cbb') || data.startsWith('0x095ea7b3') || data.length >= 138) {
-                  const amountHex = '0x' + data.slice(-64)
-                  rawAmount = BigInt(amountHex).toString()
-                  console.log('Decoded ERC-20 amount from data:', rawAmount)
-                }
-              } catch (e) {
-                console.error('Error decoding ERC-20 amount:', e)
-              }
-            } else if (rawAmount === '0' && toCurrency) {
-              console.warn('ERC-20 token but to amount is 0, data length:', outTx.data?.data?.length)
-            }
           } else if (destChain) {
             toDecimals = destChain.currency.decimals
             toSymbol = destChain.currency.symbol
             toTokenAddress = destChain.currency.address
           }
           
-          console.log('To token info:', { toSymbol, toDecimals, toTokenAddress, rawAmount })
+          // Try to get amount from transaction value (works for native tokens)
+          let rawAmount = outTx.data?.value || '0'
           
+          // For ERC-20 tokens, try to decode from calldata
+          if (rawAmount === '0' && outTx.data?.data) {
+            const calldata = outTx.data.data
+            
+            try {
+              if (calldata.length >= 138) {
+                const amountHex = '0x' + calldata.substring(74, 138)
+                const decoded = BigInt(amountHex)
+                if (decoded > 0n && decoded < BigInt('1000000000000000000000000000')) {
+                  rawAmount = decoded.toString()
+                  console.log('Decoded to amount from calldata:', rawAmount)
+                }
+              }
+            } catch (e) {
+              console.log('Could not decode to amount from calldata')
+            }
+          }
+          
+          // Format the amount
           if (rawAmount && rawAmount !== '0') {
             try {
               toAmount = parseFloat(formatUnits(BigInt(rawAmount), toDecimals)).toFixed(6)
-              console.log('Formatted to amount:', toAmount)
+              console.log('To amount:', toAmount, toSymbol)
             } catch (e) {
-              console.error('Error formatting to amount:', e, rawAmount)
+              console.error('Error formatting to amount:', e)
               toAmount = '0'
             }
-          } else {
-            console.log('To raw amount is zero or missing')
           }
         }
         

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b77f270480010sE7AEAB7t1ZjN",
+  "messageID": "msg_b77f02f7a0015ce0Qw2afyl1Yg",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "The `details` field doesn't exist. Let me use the actual fields that exist. Let me check what fields are available in the request:",
+  "time": {
+    "start": 1767243937942,
+    "end": 1767243937942
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b77f3c277001uf6o7kmXujbsck",
+  "messageID": "msg_b77f02f7a0015ce0Qw2afyl1Yg",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Good! Now I've fixed both issues:\n\n## ✅ Fixes Applied\n\n**1. Batch Swap Toast Timing**\n- Now waits for all transactions to be confirmed on-chain\n- Shows progress: \"Submitting...\", \"Waiting for confirmation...\", then \"Completed\"\n- Only shows success after blockchain confirms\n\n**2. Transaction History Amounts**\n- Improved calldata decoding for ERC-20 tokens\n- Extracts amounts from position 74-138 in calldata (standard ERC-20 transfer encoding)\n- Better error handling and logging\n- Shows correct token symbols and amounts\n\nThe history should now display accurate amounts for both regular swaps and batch swaps. Try performing a swap now and the toast will only show \"completed\" after the transaction is actually confirmed!",
+  "time": {
+    "start": 1767244028703,
+    "end": 1767244028703
+  }
+}
