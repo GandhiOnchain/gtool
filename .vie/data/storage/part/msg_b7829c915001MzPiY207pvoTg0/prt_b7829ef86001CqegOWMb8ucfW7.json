@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7829ef86001CqegOWMb8ucfW7",
+  "messageID": "msg_b7829c915001MzPiY207pvoTg0",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01A262d1iwSNWZcR2t37W4fa",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"localStorage|sessionStorage|cookie|analytics|tracking|gtag|mixpanel|segment\" -g \"*.tsx\" -g \"*.ts\" -l",
+      "description": "Search for data storage and tracking"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": null,
+      "description": "Search for data storage and tracking"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"localStorage|sessionStorage|cookie|analytics|tracking|gtag|mixpanel|segment\" -g \"*.tsx\" -g \"*.ts\" -l",
+    "time": {
+      "start": 1767247574473,
+      "end": 1767247634480
+    }
+  }
+}

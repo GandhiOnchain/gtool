@@ -1,0 +1,26 @@
+{
+  "id": "prt_b782d997e001aXBQ3eY4pXeZRA",
+  "messageID": "msg_b7829c915001MzPiY207pvoTg0",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_019SRnYgSLYjX34k3G2zhgw5",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"setFromAmount|setSlippage\" RelaySwap.tsx -B 2 -A 2 | head -50",
+      "description": "Find amount and slippage input handlers"
+    },
+    "output": "  const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n  const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n  const [fromAmount, setFromAmount] = useState('')\n  const [toAmount, setToAmount] = useState('')\n  const [quote, setQuote] = useState<RelayQuote | null>(null)\n  const [isLoadingQuote, setIsLoadingQuote] = useState(false)\n  const [isSwapping, setIsSwapping] = useState(false)\n  const [slippage, setSlippage] = useState('0.1')\n  const [searchTerm, setSearchTerm] = useState('')\n  const [tokenSearchTerm, setTokenSearchTerm] = useState('')\n--\n  useEffect(() => {\n    if (inputMode === 'usd' && usdAmount && fromTokenPrice > 0) {\n      setFromAmount((parseFloat(usdAmount) / fromTokenPrice).toString())\n    } else if (inputMode === 'token' && fromAmount && fromTokenPrice > 0) {\n      setUsdAmount((parseFloat(fromAmount) * fromTokenPrice).toFixed(2))\n--\n          updateUserStreak()\n          updateLeaderboard()\n          setFromAmount('')\n          setToAmount('')\n          setUsdAmount('')\n--\n    \n    const tempAmount = fromAmount\n    setFromAmount(toAmount)\n    setToAmount(tempAmount)\n    \n--\n    const balance = parseFloat(formatUnits(fromBalance.value, fromBalance.decimals))\n    const amount = (balance * percentage / 100).toString()\n    setFromAmount(amount)\n    \n    // Update USD amount if in USD mode\n--\n                        const value = e.target.value\n                        if (inputMode === 'token') {\n                          setFromAmount(value)\n                          if (value && fromTokenPrice > 0) {\n                            setUsdAmount((parseFloat(value) * fromTokenPrice).toFixed(2))\n--\n                          setUsdAmount(value)\n                          if (value && fromTokenPrice > 0) {\n                            setFromAmount((parseFloat(value) / fromTokenPrice).toString())\n                          } else {\n                            setFromAmount('')\n                          }\n                        }\n--\n                        key={val}\n",
+    "metadata": {
+      "output": "  const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n  const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n  const [fromAmount, setFromAmount] = useState('')\n  const [toAmount, setToAmount] = useState('')\n  const [quote, setQuote] = useState<RelayQuote | null>(null)\n  const [isLoadingQuote, setIsLoadingQuote] = useState(false)\n  const [isSwapping, setIsSwapping] = useState(false)\n  const [slippage, setSlippage] = useState('0.1')\n  const [searchTerm, setSearchTerm] = useState('')\n  const [tokenSearchTerm, setTokenSearchTerm] = useState('')\n--\n  useEffect(() => {\n    if (inputMode === 'usd' && usdAmount && fromTokenPrice > 0) {\n      setFromAmount((parseFloat(usdAmount) / fromTokenPrice).toString())\n    } else if (inputMode === 'token' && fromAmount && fromTokenPrice > 0) {\n      setUsdAmount((parseFloat(fromAmount) * fromTokenPrice).toFixed(2))\n--\n          updateUserStreak()\n          updateLeaderboard()\n          setFromAmount('')\n          setToAmount('')\n          setUsdAmount('')\n--\n    \n    const tempAmount = fromAmount\n    setFromAmount(toAmount)\n    setToAmount(tempAmount)\n    \n--\n    const balance = parseFloat(formatUnits(fromBalance.value, fromBalance.decimals))\n    const amount = (balance * percentage / 100).toString()\n    setFromAmount(amount)\n    \n    // Update USD amount if in USD mode\n--\n                        const value = e.target.value\n                        if (inputMode === 'token') {\n                          setFromAmount(value)\n                          if (value && fromTokenPrice > 0) {\n                            setUsdAmount((parseFloat(value) * fromTokenPrice).toFixed(2))\n--\n                          setUsdAmount(value)\n                          if (value && fromTokenPrice > 0) {\n                            setFromAmount((parseFloat(value) / fromTokenPrice).toString())\n                          } else {\n                            setFromAmount('')\n                          }\n                        }\n--\n                        key={val}\n",
+      "exit": 0,
+      "description": "Find amount and slippage input handlers"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"setFromAmount|setSlippage\" RelaySwap.tsx -B 2 -A 2 | head -50",
+    "time": {
+      "start": 1767247815174,
+      "end": 1767247815182
+    }
+  }
+}

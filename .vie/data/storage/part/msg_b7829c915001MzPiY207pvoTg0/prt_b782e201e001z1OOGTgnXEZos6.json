@@ -1,0 +1,25 @@
+{
+  "id": "prt_b782e201e001z1OOGTgnXEZos6",
+  "messageID": "msg_b7829c915001MzPiY207pvoTg0",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01EM5xeqEYX9AtFiPdKWZhaV",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 900,
+      "limit": 80
+    },
+    "output": "<file>\n00901|         toast.info('No tokens with balance found. Try a different chain or add tokens manually.')\n00902|       }\n00903|     } catch (error) {\n00904|       console.error('=== Failed to load wallet tokens ===')\n00905|       console.error('Error details:', error)\n00906|       console.error('Error message:', error instanceof Error ? error.message : 'Unknown error')\n00907|       console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace')\n00908|       console.error('Chain:', chain.displayName, 'ID:', chain.id)\n00909|       console.error('Address:', address)\n00910|       console.error('====================================')\n00911|       \n00912|       const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'\n00913|       toast.error(`Failed to load wallet tokens: ${errorMessage}`)\n00914|     } finally {\n00915|       setIsLoadingBatchTokens(false)\n00916|     }\n00917|   }\n00918| \n00919|   const searchTokenByContract = async (contractAddress: string) => {\n00920|     if (!contractAddress) {\n00921|       toast.error('Please enter a contract address')\n00922|       return\n00923|     }\n00924|     \n00925|     if (!batchChain) {\n00926|       toast.error('Please select a chain first')\n00927|       return\n00928|     }\n00929|     \n00930|     try {\n00931|       console.log('Searching for token:', contractAddress, 'on chain:', batchChain.id)\n00932|       \n00933|       const results = await relayAPI.getCurrencies({\n00934|         address: contractAddress,\n00935|         chainIds: [batchChain.id],\n00936|         useExternalSearch: true,\n00937|         limit: 10,\n00938|       })\n00939|       \n00940|       console.log('Search results:', results)\n00941|       \n00942|       if (results.length > 0) {\n00943|         const foundToken = results[0]\n00944|         \n00945|         // Check if already added\n00946|         const alreadyAdded = batchTokens.some(\n00947|           wt => wt.token.address.toLowerCase() === foundToken.address.toLowerCase() &&\n00948|                 wt.token.chainId === foundToken.chainId\n00949|         )\n00950|         \n00951|         if (alreadyAdded) {\n00952|           toast.info(`${foundToken.symbol} already added to batch`)\n00953|           setContractAddressSearch('')\n00954|           return\n00955|         }\n00956|         \n00957|         // Add token to batch with balance of 0 (will be fetched when executing)\n00958|         const newToken: WalletToken = {\n00959|           token: foundToken,\n00960|           balance: '0',\n00961|           balanceFormatted: '0',\n00962|         }\n00963|         \n00964|         setBatchTokens([...batchTokens, newToken])\n00965|         toast.success(`Added ${foundToken.symbol} to batch swap`)\n00966|         setContractAddressSearch('')\n00967|       } else {\n00968|         toast.error(`Token not found on ${batchChain.displayName}`)\n00969|       }\n00970|     } catch (error) {\n00971|       console.error('Failed to search token:', error)\n00972|       toast.error('Failed to search token')\n00973|     }\n00974|   }\n00975| \n00976|   const fetchQuote = async () => {\n00977|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return\n00978| \n00979|     // Don't fetch quote if trying to swap same token on same chain\n00980|     if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 980)\n</file>",
+    "metadata": {
+      "preview": "        toast.info('No tokens with balance found. Try a different chain or add tokens manually.')\n      }\n    } catch (error) {\n      console.error('=== Failed to load wallet tokens ===')\n      console.error('Error details:', error)\n      console.error('Error message:', error instanceof Error ? error.message : 'Unknown error')\n      console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace')\n      console.error('Chain:', chain.displayName, 'ID:', chain.id)\n      console.error('Address:', address)\n      console.error('====================================')\n      \n      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'\n      toast.error(`Failed to load wallet tokens: ${errorMessage}`)\n    } finally {\n      setIsLoadingBatchTokens(false)\n    }\n  }\n\n  const searchTokenByContract = async (contractAddress: string) => {\n    if (!contractAddress) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767247848716,
+      "end": 1767247848717
+    }
+  }
+}

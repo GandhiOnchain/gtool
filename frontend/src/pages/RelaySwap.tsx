@@ -18,6 +18,9 @@ import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { toast } from 'sonner'
 import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'
+import { secureStorage } from '@/lib/security/storage'
+import { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'
+import { quoteRateLimiter } from '@/lib/security/rateLimit'
 
 interface TrendingToken {
   address: string
@@ -973,10 +976,14 @@ export default function RelaySwap() {
   const fetchQuote = async () => {
     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return
 
-    // Don't fetch quote if trying to swap same token on same chain
     if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {
       setQuote(null)
       setToAmount('')
+      return
+    }
+
+    if (!quoteRateLimiter.check('quote')) {
+      toast.error('Too many quote requests. Please wait a moment.')
       return
     }
 
@@ -2170,20 +2177,18 @@ export default function RelaySwap() {
   const loadUserStreak = () => {
     if (!address) return
     
-    const stored = localStorage.getItem(`streak_${address}`)
-    if (stored) {
-      const streak = JSON.parse(stored)
+    const streak = secureStorage.getItem<UserStreak>(`streak_${address}`)
+    if (streak) {
       const now = Date.now()
       const timeSinceLastSwap = now - streak.lastSwapTimestamp
       const twentyFourHours = 24 * 60 * 60 * 1000
       
-      // Reset streak if more than 24 hours have passed since last swap
       if (timeSinceLastSwap > twentyFourHours) {
         const updated = {
           ...streak,
           currentStreak: 0,
         }
-        localStorage.setItem(`streak_${address}`, JSON.stringify(updated))
+        secureStorage.setItem(`streak_${address}`, updated)
         setUserStreak(updated)
       } else {
         setUserStreak(streak)
@@ -2195,13 +2200,11 @@ export default function RelaySwap() {
     if (!address) return
     
     const now = Date.now()
-    const stored = localStorage.getItem(`streak_${address}`)
-    const current = stored ? JSON.parse(stored) : { currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 }
+    const current = secureStorage.getItem<UserStreak>(`streak_${address}`) || { currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 }
     
     const timeSinceLastSwap = now - current.lastSwapTimestamp
     const twentyFourHours = 24 * 60 * 60 * 1000
     
-    // Check if this is a swap on a new day (not just within 24 hours)
     const lastSwapDate = new Date(current.lastSwapTimestamp)
     const currentDate = new Date(now)
     const isSameDay = lastSwapDate.getFullYear() === currentDate.getFullYear() &&
@@ -2212,19 +2215,15 @@ export default function RelaySwap() {
     let showStreakMessage = false
     
     if (current.lastSwapTimestamp === 0) {
-      // First swap ever
       newStreak = 1
       showStreakMessage = true
     } else if (isSameDay) {
-      // Same day - don't increment streak, just update total swaps
       newStreak = current.currentStreak
       showStreakMessage = false
     } else if (timeSinceLastSwap <= twentyFourHours) {
-      // Next day within 24 hours - extend streak
       newStreak = current.currentStreak + 1
       showStreakMessage = true
     } else {
-      // More than 24 hours - reset streak
       newStreak = 1
       showStreakMessage = true
     }
@@ -2235,7 +2234,7 @@ export default function RelaySwap() {
       totalSwaps: current.totalSwaps + 1,
     }
     
-    localStorage.setItem(`streak_${address}`, JSON.stringify(updated))
+    secureStorage.setItem(`streak_${address}`, updated)
     setUserStreak(updated)
     
     if (showStreakMessage && newStreak > 1) {
@@ -2247,19 +2246,14 @@ export default function RelaySwap() {
   }
 
   const loadLeaderboard = () => {
-    const stored = localStorage.getItem('leaderboard')
-    if (stored) {
-      setLeaderboard(JSON.parse(stored))
-    } else {
-      setLeaderboard([])
-    }
+    const stored = secureStorage.getItem<LeaderboardEntry[]>('leaderboard')
+    setLeaderboard(stored || [])
   }
 
   const updateLeaderboard = () => {
     if (!address) return
     
-    const stored = localStorage.getItem('leaderboard')
-    const current: LeaderboardEntry[] = stored ? JSON.parse(stored) : []
+    const current: LeaderboardEntry[] = secureStorage.getItem<LeaderboardEntry[]>('leaderboard') || []
     
     const userIndex = current.findIndex(e => e.address === address)
     if (userIndex >= 0) {
@@ -2278,7 +2272,7 @@ export default function RelaySwap() {
       entry.rank = index + 1
     })
     
-    localStorage.setItem('leaderboard', JSON.stringify(current))
+    secureStorage.setItem('leaderboard', current)
     setLeaderboard(current)
   }
 
@@ -3050,20 +3044,24 @@ export default function RelaySwap() {
                       placeholder={inputMode === 'token' ? '0.0' : '$0.00'}
                       value={inputMode === 'token' ? fromAmount : usdAmount}
                       onChange={(e) => {
-                        const value = e.target.value
+                        const value = sanitizeInput(e.target.value)
                         if (inputMode === 'token') {
-                          setFromAmount(value)
-                          if (value && fromTokenPrice > 0) {
-                            setUsdAmount((parseFloat(value) * fromTokenPrice).toFixed(2))
-                          } else {
-                            setUsdAmount('')
+                          if (!value || validateAmount(value, fromToken?.decimals || 18)) {
+                            setFromAmount(value)
+                            if (value && fromTokenPrice > 0) {
+                              setUsdAmount((parseFloat(value) * fromTokenPrice).toFixed(2))
+                            } else {
+                              setUsdAmount('')
+                            }
                           }
                         } else {
-                          setUsdAmount(value)
-                          if (value && fromTokenPrice > 0) {
-                            setFromAmount((parseFloat(value) / fromTokenPrice).toString())
-                          } else {
-                            setFromAmount('')
+                          if (!value || validateAmount(value, 2)) {
+                            setUsdAmount(value)
+                            if (value && fromTokenPrice > 0) {
+                              setFromAmount((parseFloat(value) / fromTokenPrice).toString())
+                            } else {
+                              setFromAmount('')
+                            }
                           }
                         }
                       }}
@@ -3253,6 +3251,16 @@ export default function RelaySwap() {
                     </div>
                   )}
                 </div>
+                {quote.details.totalImpact && Math.abs(parseFloat(quote.details.totalImpact.percent)) > 5 && (
+                  <div className="mt-2 p-2 bg-destructive/10 border border-destructive/20 rounded text-xs text-destructive">
+                    High price impact detected. You may receive significantly less than expected.
+                  </div>
+                )}
+                {parseFloat(slippage) > 1 && (
+                  <div className="mt-2 p-2 bg-destructive/10 border border-destructive/20 rounded text-xs text-destructive">
+                    High slippage tolerance set. Transaction may execute at unfavorable rates.
+                  </div>
+                )}
               </Card>
             )}
 
@@ -3879,9 +3887,15 @@ export default function RelaySwap() {
                     <Input
                       type="number"
                       value={slippage}
-                      onChange={(e) => setSlippage(e.target.value)}
+                      onChange={(e) => {
+                        const value = sanitizeInput(e.target.value)
+                        if (!value || validateSlippage(value)) {
+                          setSlippage(value)
+                        }
+                      }}
                       className="h-9 text-xs"
                       step="0.1"
+                      max="50"
                     />
                     <span className="text-xs text-muted-foreground">%</span>
                   </div>

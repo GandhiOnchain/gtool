@@ -1,0 +1,25 @@
+{
+  "id": "prt_b782be1aa001eWQytQfTSO088j",
+  "messageID": "msg_b7829c915001MzPiY207pvoTg0",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "grep",
+  "callID": "toolu_vrtx_011cdQ2sYQUKmmbaUNKgEevK",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "localStorage",
+      "include": "*.tsx"
+    },
+    "output": "Found 9 matches\n/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx:\n  Line 2173:     const stored = localStorage.getItem(`streak_${address}`)\n  Line 2186:         localStorage.setItem(`streak_${address}`, JSON.stringify(updated))\n  Line 2198:     const stored = localStorage.getItem(`streak_${address}`)\n  Line 2238:     localStorage.setItem(`streak_${address}`, JSON.stringify(updated))\n  Line 2250:     const stored = localStorage.getItem('leaderboard')\n  Line 2261:     const stored = localStorage.getItem('leaderboard')\n  Line 2281:     localStorage.setItem('leaderboard', JSON.stringify(current))\n\n/home/user/sandbox/workspace/frontend/src/lib/providers/ThemeProvider.tsx:\n  Line 32:     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme\n  Line 79:       localStorage.setItem(storageKey, theme);",
+    "metadata": {
+      "matches": 9,
+      "truncated": false
+    },
+    "title": "localStorage",
+    "time": {
+      "start": 1767247700893,
+      "end": 1767247700909
+    }
+  }
+}

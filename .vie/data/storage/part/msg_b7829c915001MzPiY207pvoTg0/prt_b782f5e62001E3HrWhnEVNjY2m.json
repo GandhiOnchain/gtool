@@ -1,0 +1,55 @@
+{
+  "id": "prt_b782f5e62001E3HrWhnEVNjY2m",
+  "messageID": "msg_b7829c915001MzPiY207pvoTg0",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01Wntx89PFrozKcJXwnZKd52",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "✅ All checked files are clean!\n\nChecked 28 file(s):\n  - frontend/index.html\n  - frontend/output/index.html\n  - frontend/src/pages/RelaySwap.tsx\n  - frontend/output/assets/SIWXUtil-D6Tg1ypk.js\n  - frontend/output/assets/_esm-QXcdeFq7.js\n  - frontend/output/assets/actions-BdDOuuGf.js\n  - frontend/output/assets/alchemy-provider-0b2e9f09-BLbSRs3J.js\n  - frontend/output/assets/alchemy-provider-0b2e9f09-DadKt3aH.js\n  - frontend/output/assets/alchemy-websocket-provider-2f8b1006-Bkb7-2jT.js\n  - frontend/output/assets/basic-n0QwfCxd.js\n  - frontend/output/assets/ccip-C7rCP-7R.js\n  - frontend/output/assets/ccip-DqYMq0y7.js\n  - frontend/output/assets/ccip-a_McclrR.js\n  - frontend/output/assets/core-Boim-gkv.js\n  - frontend/output/assets/dist-DOobau13.js\n  - frontend/output/assets/index-BZ8Zb8J7.css\n  - frontend/output/assets/index-DV2YN-rD.js\n  - frontend/output/assets/localBatchGatewayRequest-Duuu61rm.js\n  - frontend/output/assets/secp256k1-BsA9NGn3.js\n  - frontend/output/assets/secp256k1-CFupe_Dt.js\n  - frontend/output/assets/secp256k1-oUCxGXkm.js\n  - frontend/output/assets/w3m-modal-BIhcyE9W.js\n  - frontend/output/assets/wagmi-ClI1FaVL.js\n  - frontend/output/assets/wui-text-CkmzAe21.js\n  - frontend/src/components/TransactionPreview.tsx\n  - frontend/src/lib/security/rateLimit.ts\n  - frontend/src/lib/security/storage.ts\n  - frontend/src/lib/security/validation.ts",
+    "metadata": {
+      "filesChecked": 28,
+      "filesWithIssues": 0,
+      "totalIssues": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/index.html",
+        "frontend/output/index.html",
+        "frontend/src/pages/RelaySwap.tsx",
+        "frontend/output/assets/SIWXUtil-D6Tg1ypk.js",
+        "frontend/output/assets/_esm-QXcdeFq7.js",
+        "frontend/output/assets/actions-BdDOuuGf.js",
+        "frontend/output/assets/alchemy-provider-0b2e9f09-BLbSRs3J.js",
+        "frontend/output/assets/alchemy-provider-0b2e9f09-DadKt3aH.js",
+        "frontend/output/assets/alchemy-websocket-provider-2f8b1006-Bkb7-2jT.js",
+        "frontend/output/assets/basic-n0QwfCxd.js",
+        "frontend/output/assets/ccip-C7rCP-7R.js",
+        "frontend/output/assets/ccip-DqYMq0y7.js",
+        "frontend/output/assets/ccip-a_McclrR.js",
+        "frontend/output/assets/core-Boim-gkv.js",
+        "frontend/output/assets/dist-DOobau13.js",
+        "frontend/output/assets/index-BZ8Zb8J7.css",
+        "frontend/output/assets/index-DV2YN-rD.js",
+        "frontend/output/assets/localBatchGatewayRequest-Duuu61rm.js",
+        "frontend/output/assets/secp256k1-BsA9NGn3.js",
+        "frontend/output/assets/secp256k1-CFupe_Dt.js",
+        "frontend/output/assets/secp256k1-oUCxGXkm.js",
+        "frontend/output/assets/w3m-modal-BIhcyE9W.js",
+        "frontend/output/assets/wagmi-ClI1FaVL.js",
+        "frontend/output/assets/wui-text-CkmzAe21.js",
+        "frontend/src/components/TransactionPreview.tsx",
+        "frontend/src/lib/security/rateLimit.ts",
+        "frontend/src/lib/security/storage.ts",
+        "frontend/src/lib/security/validation.ts"
+      ]
+    },
+    "title": "Diagnostics: 0 issue(s) in 0 file(s)",
+    "time": {
+      "start": 1767247929036,
+      "end": 1767247935423
+    }
+  }
+}

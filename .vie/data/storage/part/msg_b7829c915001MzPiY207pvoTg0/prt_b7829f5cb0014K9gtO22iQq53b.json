@@ -1,0 +1,23 @@
+{
+  "id": "prt_b7829f5cb0014K9gtO22iQq53b",
+  "messageID": "msg_b7829c915001MzPiY207pvoTg0",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_014bbYz6drZSw1J8imUiDXni",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/index.html"
+    },
+    "output": "<file>\n00001| <!DOCTYPE html>\n00002| <html lang=\"en\" class=\"dark\">\n00003|   <head>\n00004|     <meta charset=\"UTF-8\" />\n00005|     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n00006|     <title>Relay Swap</title>\n00007|     <meta name=\"description\" content=\"Swap any token across 85+ chains instantly\" />\n00008|     <meta name=\"author\" content=\"VIE\" />\n00009| \n00010|     <meta property=\"og:title\" content=\"Relay Swap\" />\n00011|     <meta property=\"og:description\" content=\"Swap any token across 85+ chains instantly\" />\n00012|     <meta property=\"og:type\" content=\"website\" />\n00013| \n00014|     <meta name=\"twitter:card\" content=\"summary_large_image\" />\n00015|     <meta name=\"twitter:site\" content=\"@vie_xyz\" />\n00016| \n00017|     <meta name=\"fc:miniapp\" content='{\n00018|       \"version\": \"1\",\n00019|       \"imageUrl\": \"__IMAGE_URL__\",\n00020|       \"button\": {\n00021|         \"title\": \"Swap Tokens\",\n00022|         \"action\": {\n00023|           \"type\": \"launch_miniapp\",\n00024|           \"name\": \"Relay Swap\",\n00025|           \"url\": \"__HOME_URL__\"\n00026|         }\n00027|       }\n00028|     }' />\n00029|   </head>\n00030| \n00031|   <body>\n00032|     <div id=\"root\"></div>\n00033|     <script type=\"module\" src=\"/src/main.tsx\"></script>\n00034|   </body>\n00035| </html>\n00036| \n</file>",
+    "metadata": {
+      "preview": "<!DOCTYPE html>\n<html lang=\"en\" class=\"dark\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>Relay Swap</title>\n    <meta name=\"description\" content=\"Swap any token across 85+ chains instantly\" />\n    <meta name=\"author\" content=\"VIE\" />\n\n    <meta property=\"og:title\" content=\"Relay Swap\" />\n    <meta property=\"og:description\" content=\"Swap any token across 85+ chains instantly\" />\n    <meta property=\"og:type\" content=\"website\" />\n\n    <meta name=\"twitter:card\" content=\"summary_large_image\" />\n    <meta name=\"twitter:site\" content=\"@vie_xyz\" />\n\n    <meta name=\"fc:miniapp\" content='{\n      \"version\": \"1\",\n      \"imageUrl\": \"__IMAGE_URL__\",\n      \"button\": {"
+    },
+    "title": "frontend/index.html",
+    "time": {
+      "start": 1767247574794,
+      "end": 1767247574803
+    }
+  }
+}

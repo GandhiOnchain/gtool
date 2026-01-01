@@ -1,0 +1,26 @@
+{
+  "id": "prt_b782d1046001xRH8zqVN74Y5t6",
+  "messageID": "msg_b7829c915001MzPiY207pvoTg0",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "edit",
+  "callID": "toolu_vrtx_01PNGKfUPNfVptsSWLH88Rjp",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "oldString": "  const loadUserStreak = () => {\n    if (!address) return\n    \n    const stored = localStorage.getItem(`streak_${address}`)\n    if (stored) {\n      const streak = JSON.parse(stored)\n      const now = Date.now()\n      const timeSinceLastSwap = now - streak.lastSwapTimestamp\n      const twentyFourHours = 24 * 60 * 60 * 1000\n      \n      // Reset streak if more than 24 hours have passed since last swap\n      if (timeSinceLastSwap > twentyFourHours) {\n        const updated = {\n          ...streak,\n          currentStreak: 0,\n        }\n        localStorage.setItem(`streak_${address}`, JSON.stringify(updated))\n        setUserStreak(updated)\n      } else {\n        setUserStreak(streak)\n      }\n    }\n  }",
+      "newString": "  const loadUserStreak = () => {\n    if (!address) return\n    \n    const streak = secureStorage.getItem<UserStreak>(`streak_${address}`)\n    if (streak) {\n      const now = Date.now()\n      const timeSinceLastSwap = now - streak.lastSwapTimestamp\n      const twentyFourHours = 24 * 60 * 60 * 1000\n      \n      if (timeSinceLastSwap > twentyFourHours) {\n        const updated = {\n          ...streak,\n          currentStreak: 0,\n        }\n        secureStorage.setItem(`streak_${address}`, updated)\n        setUserStreak(updated)\n      } else {\n        setUserStreak(streak)\n      }\n    }\n  }"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder><system-reminder>CRITICAL: Make sure you hook the wallet properly with the connect button.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "diff": "Index: /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n===================================================================\n--- /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n+++ /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n@@ -2172,22 +2172,20 @@\n \n const loadUserStreak = () => {\n   if (!address) return\n   \n-  const stored = localStorage.getItem(`streak_${address}`)\n-  if (stored) {\n-    const streak = JSON.parse(stored)\n+  const streak = secureStorage.getItem<UserStreak>(`streak_${address}`)\n+  if (streak) {\n     const now = Date.now()\n     const timeSinceLastSwap = now - streak.lastSwapTimestamp\n     const twentyFourHours = 24 * 60 * 60 * 1000\n     \n-    // Reset streak if more than 24 hours have passed since last swap\n     if (timeSinceLastSwap > twentyFourHours) {\n       const updated = {\n         ...streak,\n         currentStreak: 0,\n       }\n-      localStorage.setItem(`streak_${address}`, JSON.stringify(updated))\n+      secureStorage.setItem(`streak_${address}`, updated)\n       setUserStreak(updated)\n     } else {\n       setUserStreak(streak)\n     }\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767247783796,
+      "end": 1767247783816
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_b782d75c3001HdxmZBgIo6bwVI",
+  "messageID": "msg_b7829c915001MzPiY207pvoTg0",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01SHnL1jMukefFGA9PjJChAc",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2270,
+      "limit": 30
+    },
+    "output": "<file>\n02271|     localStorage.setItem('leaderboard', JSON.stringify(current))\n02272|     setLeaderboard(current)\n02273|   }\n02274| \n02275|   const loadUserData = () => {\n02276|     if (address) {\n02277|       loadUserStreak()\n02278|       loadSwapHistory()\n02279|     }\n02280|   }\n02281| \n02282|   const loadApprovals = async () => {\n02283|     if (!address || !revokeChain) return\n02284|     \n02285|     setIsLoadingApprovals(true)\n02286|     setDebugInfo('Fetching approvals from API...')\n02287|     \n02288|     try {\n02289|       console.log('🔍 Loading approvals for:', revokeChain.displayName, address)\n02290|       \n02291|       // Try multiple methods to fetch approvals\n02292|       const chainId = revokeChain.id\n02293|       let data = null\n02294|       \n02295|       // Method 1: Try direct API call (might work in some environments)\n02296|       try {\n02297|         console.log('Method 1: Trying direct API call...')\n02298|         const directUrl = `https://api.revoke.cash/v1/allowances/${chainId}/${address}`\n02299|         const directResponse = await fetch(directUrl)\n02300|         if (directResponse.ok) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 2300)\n</file>",
+    "metadata": {
+      "preview": "    localStorage.setItem('leaderboard', JSON.stringify(current))\n    setLeaderboard(current)\n  }\n\n  const loadUserData = () => {\n    if (address) {\n      loadUserStreak()\n      loadSwapHistory()\n    }\n  }\n\n  const loadApprovals = async () => {\n    if (!address || !revokeChain) return\n    \n    setIsLoadingApprovals(true)\n    setDebugInfo('Fetching approvals from API...')\n    \n    try {\n      console.log('🔍 Loading approvals for:', revokeChain.displayName, address)\n      "
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767247804731,
+      "end": 1767247804733
+    }
+  }
+}
