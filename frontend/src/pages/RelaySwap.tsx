@@ -359,6 +359,13 @@ export default function RelaySwap() {
       loadSwapHistory()
       loadUserStreak()
       checkAirdrops()
+      
+      // Check for new airdrops every 5 minutes
+      const airdropInterval = setInterval(() => {
+        checkAirdrops()
+      }, 5 * 60 * 1000)
+      
+      return () => clearInterval(airdropInterval)
     }
   }, [address, chains])
 
@@ -2852,10 +2859,68 @@ export default function RelaySwap() {
       const popularAirdrops = await checkPopularAirdrops(address)
       detectedAirdrops.push(...popularAirdrops)
       
+      // Check if there are new airdrops (not previously shown)
+      const previousAirdropIds = new Set(airdrops.map(a => a.id))
+      const newAirdrops = detectedAirdrops.filter(a => !previousAirdropIds.has(a.id))
+      
       setAirdrops(detectedAirdrops)
       
-      if (detectedAirdrops.length > 0) {
-        toast.success(`Found ${detectedAirdrops.length} claimable airdrop${detectedAirdrops.length !== 1 ? 's' : ''}`)
+      // Notify user about new airdrops
+      if (newAirdrops.length > 0) {
+        const totalAmount = newAirdrops.reduce((sum, a) => {
+          const amount = parseFloat(a.amount) || 0
+          return sum + amount
+        }, 0)
+        
+        // Show notification with details
+        if (newAirdrops.length === 1) {
+          const airdrop = newAirdrops[0]
+          toast.success(
+            `New airdrop available: ${airdrop.amount} ${airdrop.tokenSymbol} from ${airdrop.protocol}`,
+            {
+              duration: 8000,
+              action: {
+                label: 'Claim',
+                onClick: () => setShowAirdrops(true)
+              }
+            }
+          )
+        } else {
+          toast.success(
+            `${newAirdrops.length} new airdrops available! Click to claim.`,
+            {
+              duration: 8000,
+              action: {
+                label: 'View',
+                onClick: () => setShowAirdrops(true)
+              }
+            }
+          )
+        }
+        
+        // Auto-open airdrops dialog if user has new airdrops
+        setTimeout(() => {
+          if (newAirdrops.length > 0) {
+            setShowAirdrops(true)
+          }
+        }, 2000)
+      } else if (detectedAirdrops.length > 0 && previousAirdropIds.size === 0) {
+        // First time checking and found airdrops
+        toast.success(
+          `Found ${detectedAirdrops.length} claimable airdrop${detectedAirdrops.length !== 1 ? 's' : ''}`,
+          {
+            duration: 6000,
+            action: {
+              label: 'Claim',
+              onClick: () => setShowAirdrops(true)
+            }
+          }
+        )
+        
+        // Auto-open dialog for first-time airdrops
+        setTimeout(() => {
+          setShowAirdrops(true)
+        }, 2000)
       }
     } catch (error) {
       console.error('Failed to check airdrops:', error)
@@ -3302,11 +3367,14 @@ export default function RelaySwap() {
                 onClick={() => setShowAirdrops(true)}
                 className="h-7 w-7 p-0 relative"
               >
-                <Gift className="h-4 w-4" />
+                <Gift className={`h-4 w-4 ${airdrops.length > 0 ? 'animate-pulse' : ''}`} />
                 {airdrops.length > 0 && (
-                  <span className="absolute -top-1 -right-1 h-3 w-3 bg-accent rounded-full flex items-center justify-center text-[8px] font-bold">
-                    {airdrops.length}
-                  </span>
+                  <>
+                    <span className="absolute -top-1 -right-1 h-3 w-3 bg-accent rounded-full flex items-center justify-center text-[8px] font-bold animate-pulse">
+                      {airdrops.length}
+                    </span>
+                    <span className="absolute -top-1 -right-1 h-3 w-3 bg-accent rounded-full animate-ping" />
+                  </>
                 )}
               </Button>
               <Button
