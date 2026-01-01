@@ -148,6 +148,7 @@ export default function RelaySwap() {
   }>({})
   const [inputMode, setInputMode] = useState<'token' | 'usd'>('token')
   const [usdAmount, setUsdAmount] = useState('')
+  const [activeTab, setActiveTab] = useState('swap')
   const [batchQuote, setBatchQuote] = useState<RelayQuote | null>(null)
   const [isLoadingBatchQuote, setIsLoadingBatchQuote] = useState(false)
   const [isLoadingHistory, setIsLoadingHistory] = useState(false)
@@ -895,10 +896,12 @@ export default function RelaySwap() {
       setWalletTokens(sorted)
       setBatchTokens(sorted.slice(0, 10))
       
-      if (tokensWithBalances.length > 0) {
-        toast.success(`Found ${tokensWithBalances.length} tokens with balance`)
-      } else {
-        toast.info('No tokens with balance found. Try a different chain or add tokens manually.')
+      if (activeTab === 'batch') {
+        if (tokensWithBalances.length > 0) {
+          toast.success(`Found ${tokensWithBalances.length} tokens with balance`)
+        } else {
+          toast.info('No tokens with balance found. Try a different chain or add tokens manually.')
+        }
       }
     } catch (error) {
       console.error('=== Failed to load wallet tokens ===')
@@ -2979,7 +2982,7 @@ export default function RelaySwap() {
           </div>
         )}
 
-        <Tabs defaultValue="swap" className="w-full">
+        <Tabs defaultValue="swap" value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-5 h-8">
             <TabsTrigger value="swap" className="text-xs">Swap</TabsTrigger>
             <TabsTrigger value="batch" className="text-xs">Batch</TabsTrigger>

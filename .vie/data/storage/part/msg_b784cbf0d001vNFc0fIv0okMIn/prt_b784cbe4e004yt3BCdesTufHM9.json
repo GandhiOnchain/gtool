@@ -1,0 +1,7 @@
+{
+  "id": "prt_b784cbe4e004yt3BCdesTufHM9",
+  "type": "text",
+  "text": "no tokens with balance found toast is false and unnecessary when connecting a wallet. it should only appear in batch swap only if the wallet really doesnt have tokens with balances",
+  "messageID": "msg_b784cbf0d001vNFc0fIv0okMIn",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ"
+}

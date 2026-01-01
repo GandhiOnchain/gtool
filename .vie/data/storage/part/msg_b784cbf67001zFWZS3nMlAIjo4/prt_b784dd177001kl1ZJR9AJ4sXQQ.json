@@ -1,0 +1,25 @@
+{
+  "id": "prt_b784dd177001kl1ZJR9AJ4sXQQ",
+  "messageID": "msg_b784cbf67001zFWZS3nMlAIjo4",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01KEvXdzKdrVqr5wNQpBYfRw",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2973,
+      "limit": 15
+    },
+    "output": "<file>\n02974|                   wagmiDisconnect()\n02975|                   toast.success('Wallet disconnected')\n02976|                 }}\n02977|                 className=\"h-7 text-xs px-2\"\n02978|               >\n02979|                 {address?.slice(0, 6)}...{address?.slice(-4)}\n02980|               </Button>\n02981|             </div>\n02982|           </div>\n02983|         )}\n02984| \n02985|         <Tabs defaultValue=\"swap\" className=\"w-full\">\n02986|           <TabsList className=\"grid w-full grid-cols-5 h-8\">\n02987|             <TabsTrigger value=\"swap\" className=\"text-xs\">Swap</TabsTrigger>\n02988|             <TabsTrigger value=\"batch\" className=\"text-xs\">Batch</TabsTrigger>\n\n(File has more lines. Use 'offset' parameter to read beyond line 2988)\n</file>",
+    "metadata": {
+      "preview": "                  wagmiDisconnect()\n                  toast.success('Wallet disconnected')\n                }}\n                className=\"h-7 text-xs px-2\"\n              >\n                {address?.slice(0, 6)}...{address?.slice(-4)}\n              </Button>\n            </div>\n          </div>\n        )}\n\n        <Tabs defaultValue=\"swap\" className=\"w-full\">\n          <TabsList className=\"grid w-full grid-cols-5 h-8\">\n            <TabsTrigger value=\"swap\" className=\"text-xs\">Swap</TabsTrigger>\n            <TabsTrigger value=\"batch\" className=\"text-xs\">Batch</TabsTrigger>"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767249925270,
+      "end": 1767249925275
+    }
+  }
+}

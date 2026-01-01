@@ -1,0 +1,11 @@
+{
+  "id": "prt_b784d76950011qmgiIMUSHigsb",
+  "messageID": "msg_b784cbf67001zFWZS3nMlAIjo4",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Found it! The issue is on line 324-336. The `loadBatchWalletTokens()` is being called whenever `address`, `batchChain`, `isConnected`, or `solanaAddress` changes. This means when you connect a wallet, it triggers this useEffect even if you're not on the Batch tab.\n\nThe toast should only show when the user is actively on the Batch Swap tab. Let me check if there's a way to detect which tab is active:",
+  "time": {
+    "start": 1767249906148,
+    "end": 1767249906148
+  }
+}

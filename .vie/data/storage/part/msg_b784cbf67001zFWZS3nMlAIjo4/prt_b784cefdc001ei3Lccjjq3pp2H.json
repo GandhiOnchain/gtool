@@ -1,0 +1,25 @@
+{
+  "id": "prt_b784cefdc001ei3Lccjjq3pp2H",
+  "messageID": "msg_b784cbf67001zFWZS3nMlAIjo4",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01H8vrWyuCsw8yjfHsWPiV7C",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 660,
+      "limit": 30
+    },
+    "output": "<file>\n00661| \n00662|   const loadWalletTokens = async () => {\n00663|     if (!address || !fromChain) return\n00664|     \n00665|     const chain = fromChain\n00666|     const isEVM = chain.vmType === 'evm' || !chain.vmType\n00667|     \n00668|     if (!isEVM) {\n00669|       return\n00670|     }\n00671| \n00672|     try {\n00673|       const fetchedCurrencies = await relayAPI.getCurrencies({\n00674|         chainIds: [chain.id],\n00675|         defaultList: true,\n00676|         limit: 50,\n00677|       })\n00678|       \n00679|       setCurrencies(fetchedCurrencies)\n00680|     } catch (error) {\n00681|       console.error('Failed to load wallet tokens:', error)\n00682|     }\n00683|   }\n00684| \n00685|   const loadBatchWalletTokens = async () => {\n00686|     console.log('=== loadBatchWalletTokens called ===')\n00687|     console.log('address:', address)\n00688|     console.log('solanaAddress:', solanaAddress)\n00689|     console.log('batchChain:', batchChain)\n00690|     console.log('isConnected:', isConnected)\n\n(File has more lines. Use 'offset' parameter to read beyond line 690)\n</file>",
+    "metadata": {
+      "preview": "\n  const loadWalletTokens = async () => {\n    if (!address || !fromChain) return\n    \n    const chain = fromChain\n    const isEVM = chain.vmType === 'evm' || !chain.vmType\n    \n    if (!isEVM) {\n      return\n    }\n\n    try {\n      const fetchedCurrencies = await relayAPI.getCurrencies({\n        chainIds: [chain.id],\n        defaultList: true,\n        limit: 50,\n      })\n      \n      setCurrencies(fetchedCurrencies)\n    } catch (error) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767249867578,
+      "end": 1767249867585
+    }
+  }
+}

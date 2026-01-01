@@ -1,0 +1,11 @@
+{
+  "id": "prt_b784db60a001gfCS7g4L7WNYqc",
+  "messageID": "msg_b784cbf67001zFWZS3nMlAIjo4",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Now update the loadBatchWalletTokens function to only show toast when on batch tab:",
+  "time": {
+    "start": 1767249921344,
+    "end": 1767249921344
+  }
+}

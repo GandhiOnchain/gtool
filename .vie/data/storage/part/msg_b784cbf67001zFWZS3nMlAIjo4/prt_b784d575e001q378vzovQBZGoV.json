@@ -1,0 +1,25 @@
+{
+  "id": "prt_b784d575e001q378vzovQBZGoV",
+  "messageID": "msg_b784cbf67001zFWZS3nMlAIjo4",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01EVgbfwDy4VeKEVXtXB8sqe",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 260,
+      "limit": 50
+    },
+    "output": "<file>\n00261|   }, [fromToken, fromChain])\n00262| \n00263|   // Update USD amount when price changes\n00264|   useEffect(() => {\n00265|     if (inputMode === 'usd' && usdAmount && fromTokenPrice > 0) {\n00266|       setFromAmount((parseFloat(usdAmount) / fromTokenPrice).toString())\n00267|     } else if (inputMode === 'token' && fromAmount && fromTokenPrice > 0) {\n00268|       setUsdAmount((parseFloat(fromAmount) * fromTokenPrice).toFixed(2))\n00269|     }\n00270|   }, [fromTokenPrice])\n00271| \n00272|   useEffect(() => {\n00273|     if (toToken && toChain) {\n00274|       fetchTokenPrice(toToken.address, toChain.id, 'to')\n00275|     }\n00276|   }, [toToken, toChain])\n00277| \n00278|   useEffect(() => {\n00279|     if (fromChain) {\n00280|       // Clear fromToken if it doesn't belong to the new chain\n00281|       if (fromToken && fromToken.chainId !== fromChain.id) {\n00282|         setFromToken(null)\n00283|       }\n00284|       loadCurrencies(fromChain.id, 'from')\n00285|     }\n00286|   }, [fromChain])\n00287| \n00288|   useEffect(() => {\n00289|     if (toChain) {\n00290|       // Clear toToken if it doesn't belong to the new chain\n00291|       if (toToken && toToken.chainId !== toChain.id) {\n00292|         setToToken(null)\n00293|       }\n00294|       loadCurrencies(toChain.id, 'to')\n00295|     }\n00296|   }, [toChain])\n00297| \n00298|   useEffect(() => {\n00299|     if (fromToken && toToken && fromAmount && fromChain && toChain && address) {\n00300|       const debounce = setTimeout(() => {\n00301|         fetchQuote()\n00302|       }, 500)\n00303|       return () => clearTimeout(debounce)\n00304|     }\n00305|   }, [fromToken, toToken, fromAmount, fromChain, toChain, address])\n00306| \n00307|   useEffect(() => {\n00308|     if (address && chains.length > 0) {\n00309|       loadSwapHistory()\n00310|       loadUserStreak()\n\n(File has more lines. Use 'offset' parameter to read beyond line 310)\n</file>",
+    "metadata": {
+      "preview": "  }, [fromToken, fromChain])\n\n  // Update USD amount when price changes\n  useEffect(() => {\n    if (inputMode === 'usd' && usdAmount && fromTokenPrice > 0) {\n      setFromAmount((parseFloat(usdAmount) / fromTokenPrice).toString())\n    } else if (inputMode === 'token' && fromAmount && fromTokenPrice > 0) {\n      setUsdAmount((parseFloat(fromAmount) * fromTokenPrice).toFixed(2))\n    }\n  }, [fromTokenPrice])\n\n  useEffect(() => {\n    if (toToken && toChain) {\n      fetchTokenPrice(toToken.address, toChain.id, 'to')\n    }\n  }, [toToken, toChain])\n\n  useEffect(() => {\n    if (fromChain) {\n      // Clear fromToken if it doesn't belong to the new chain"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767249893841,
+      "end": 1767249893844
+    }
+  }
+}

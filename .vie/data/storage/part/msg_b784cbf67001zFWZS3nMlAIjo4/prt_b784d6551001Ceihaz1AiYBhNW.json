@@ -1,0 +1,25 @@
+{
+  "id": "prt_b784d6551001Ceihaz1AiYBhNW",
+  "messageID": "msg_b784cbf67001zFWZS3nMlAIjo4",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01Fg1TDJSwsFYqQ1PoHqwkku",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 310,
+      "limit": 50
+    },
+    "output": "<file>\n00311|     }\n00312|   }, [address, chains])\n00313| \n00314|   useEffect(() => {\n00315|     loadLeaderboard()\n00316|   }, [])\n00317| \n00318|   useEffect(() => {\n00319|     if (address && fromChain && isConnected) {\n00320|       loadWalletTokens()\n00321|     }\n00322|   }, [address, fromChain, isConnected])\n00323| \n00324|   useEffect(() => {\n00325|     if (batchChain) {\n00326|       const vmType = batchChain.vmType || 'evm'\n00327|       // For EVM chains, need EVM wallet connected\n00328|       // For Solana chains, need Solana wallet connected\n00329|       const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n00330|                                 ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)\n00331|       \n00332|       if (hasRequiredWallet) {\n00333|         loadBatchWalletTokens()\n00334|       }\n00335|     }\n00336|   }, [address, batchChain, isConnected, solanaAddress])\n00337| \n00338|   // Fetch batch quote when batch tokens or destination changes\n00339|   useEffect(() => {\n00340|     if (batchTokens.length > 0 && toToken && toChain && batchChain && address) {\n00341|       const debounce = setTimeout(() => {\n00342|         fetchBatchQuote()\n00343|       }, 500)\n00344|       return () => clearTimeout(debounce)\n00345|     } else {\n00346|       setBatchQuote(null)\n00347|     }\n00348|   }, [batchTokens, toToken, toChain, batchChain, address])\n00349| \n00350|   // Load approvals when revoke chain changes\n00351|   useEffect(() => {\n00352|     if (revokeChain && address && isConnected) {\n00353|       loadApprovals()\n00354|     } else {\n00355|       setApprovals([])\n00356|     }\n00357|   }, [revokeChain, address, isConnected])\n00358| \n00359|   // External token search when contract address is pasted\n00360|   useEffect(() => {\n\n(File has more lines. Use 'offset' parameter to read beyond line 360)\n</file>",
+    "metadata": {
+      "preview": "    }\n  }, [address, chains])\n\n  useEffect(() => {\n    loadLeaderboard()\n  }, [])\n\n  useEffect(() => {\n    if (address && fromChain && isConnected) {\n      loadWalletTokens()\n    }\n  }, [address, fromChain, isConnected])\n\n  useEffect(() => {\n    if (batchChain) {\n      const vmType = batchChain.vmType || 'evm'\n      // For EVM chains, need EVM wallet connected\n      // For Solana chains, need Solana wallet connected\n      const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n                                ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767249897444,
+      "end": 1767249897447
+    }
+  }
+}

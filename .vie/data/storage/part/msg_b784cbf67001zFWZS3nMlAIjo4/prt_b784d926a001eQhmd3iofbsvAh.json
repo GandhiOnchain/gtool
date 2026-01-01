@@ -1,0 +1,11 @@
+{
+  "id": "prt_b784d926a001eQhmd3iofbsvAh",
+  "messageID": "msg_b784cbf67001zFWZS3nMlAIjo4",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "The solution is to only show the toast when the user is actually on the Batch tab. Let me add a state to track the active tab and conditionally show the toast:",
+  "time": {
+    "start": 1767249910071,
+    "end": 1767249910071
+  }
+}

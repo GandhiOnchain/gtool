@@ -1,0 +1,11 @@
+{
+  "id": "prt_b784cea38001kjlAoqC3oiZ2rG",
+  "messageID": "msg_b784cbf67001zFWZS3nMlAIjo4",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "I found the issue. The `loadWalletTokens()` function is being called when connecting a wallet (in the useEffect), but it's showing the toast even though it's not in the batch swap context. Let me check both functions:",
+  "time": {
+    "start": 1767249867688,
+    "end": 1767249867688
+  }
+}

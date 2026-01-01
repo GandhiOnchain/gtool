@@ -1,0 +1,11 @@
+{
+  "id": "prt_b784e36e800168v1azy2XKGVBH",
+  "messageID": "msg_b784cbf67001zFWZS3nMlAIjo4",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Perfect! Now the toast will only appear when:\n\n1. The user is actively on the **Batch** tab (`activeTab === 'batch'`)\n2. The wallet actually has tokens with balances (success toast) OR has no tokens (info toast)\n\nWhen connecting a wallet on the Swap tab, the `loadBatchWalletTokens()` function will still run in the background to prepare the data, but it won't show any toast messages. The toast will only appear when the user switches to the Batch tab and the function runs again, or if they're already on the Batch tab when connecting.",
+  "time": {
+    "start": 1767249954485,
+    "end": 1767249954485
+  }
+}
