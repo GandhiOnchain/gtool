@@ -2522,6 +2522,49 @@ export default function RelaySwap() {
         const err = alchemyError as Error
         console.error('⚠️ Alchemy fetch failed:', err)
         console.error('Error stack:', err.stack)
+        console.log('Will check common tokens as fallback')
+      }
+      
+      // If Alchemy failed or returned no tokens, add common tokens as fallback
+      if (tokenAddressSet.size === 0) {
+        console.log('⚠️ No tokens from Alchemy, adding common tokens for this chain...')
+        const commonTokens: Record<number, Array<{ address: string; symbol: string; name: string; decimals: number }>> = {
+          1: [ // Ethereum
+            { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', symbol: 'USDT', name: 'Tether USD', decimals: 6 },
+            { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', symbol: 'USDC', name: 'USD Coin', decimals: 6 },
+            { address: '0x6B175474E89094C44Da98b954EedeAC495271d0F', symbol: 'DAI', name: 'Dai Stablecoin', decimals: 18 },
+            { address: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599', symbol: 'WBTC', name: 'Wrapped BTC', decimals: 8 },
+          ],
+          8453: [ // Base
+            { address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', symbol: 'USDC', name: 'USD Coin', decimals: 6 },
+            { address: '0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb', symbol: 'DAI', name: 'Dai Stablecoin', decimals: 18 },
+            { address: '0x4200000000000000000000000000000000000006', symbol: 'WETH', name: 'Wrapped Ether', decimals: 18 },
+          ],
+          42161: [ // Arbitrum
+            { address: '0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9', symbol: 'USDT', name: 'Tether USD', decimals: 6 },
+            { address: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831', symbol: 'USDC', name: 'USD Coin', decimals: 6 },
+            { address: '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1', symbol: 'DAI', name: 'Dai Stablecoin', decimals: 18 },
+          ],
+          137: [ // Polygon
+            { address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F', symbol: 'USDT', name: 'Tether USD', decimals: 6 },
+            { address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174', symbol: 'USDC', name: 'USD Coin', decimals: 6 },
+            { address: '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063', symbol: 'DAI', name: 'Dai Stablecoin', decimals: 18 },
+          ],
+        }
+        
+        const tokensForChain = commonTokens[revokeChain.id] || []
+        tokensForChain.forEach(token => {
+          const addr = token.address.toLowerCase()
+          tokenAddressSet.add(addr)
+          tokenMetadata.set(addr, {
+            address: token.address,
+            symbol: token.symbol,
+            name: token.name,
+            decimals: token.decimals,
+            chainId: revokeChain.id,
+          })
+        })
+        console.log(`Added ${tokensForChain.length} common tokens for fallback check`)
       }
       
       // Comprehensive protocol spender addresses by chain (like Rabby/Revoke.cash)

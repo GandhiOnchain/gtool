@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7850926c001Vg2ClVvKBUOcZQ",
+  "messageID": "msg_b784fe9c6001Qvjnno2K1W6J3L",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "I found the issue! The problem is that the Alchemy API call might be failing or returning no tokens, and then the code checks if `tokenAddressSet.size === 0` and returns early with \"No tokens found in your wallet\".\n\nBut the real issue is that even if you have approvals, if Alchemy doesn't return your tokens (maybe due to API limits, network issues, or unsupported chains), the revoke function won't work.\n\nLet me add a fallback to check common tokens even if Alchemy fails:",
+  "time": {
+    "start": 1767250125147,
+    "end": 1767250125147
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b78502de6001vMsZGBJrBdpaed",
+  "messageID": "msg_b784fe9c6001Qvjnno2K1W6J3L",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01LpRBBDv9t4ECDnHm8tziU2",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"setRevokeChain\" RelaySwap.tsx -B 3 -A 3",
+      "description": "Find where revokeChain is set"
+    },
+    "output": "  const [isLoadingHistory, setIsLoadingHistory] = useState(false)\n  const [externalSearchResults, setExternalSearchResults] = useState<RelayCurrency[]>([])\n  const [isSearchingExternal, setIsSearchingExternal] = useState(false)\n  const [revokeChain, setRevokeChain] = useState<RelayChain | null>(null)\n  const [approvals, setApprovals] = useState<Array<{\n    token: RelayCurrency\n    spender: string\n--\n                        } else if (selectingFor === 'batch') {\n                          setBatchChain(chain)\n                        } else if (selectingFor === 'revoke') {\n                          setRevokeChain(chain)\n                        }\n                        setIsChainSelectOpen(false)\n                        setSearchTerm('')\n",
+    "metadata": {
+      "output": "  const [isLoadingHistory, setIsLoadingHistory] = useState(false)\n  const [externalSearchResults, setExternalSearchResults] = useState<RelayCurrency[]>([])\n  const [isSearchingExternal, setIsSearchingExternal] = useState(false)\n  const [revokeChain, setRevokeChain] = useState<RelayChain | null>(null)\n  const [approvals, setApprovals] = useState<Array<{\n    token: RelayCurrency\n    spender: string\n--\n                        } else if (selectingFor === 'batch') {\n                          setBatchChain(chain)\n                        } else if (selectingFor === 'revoke') {\n                          setRevokeChain(chain)\n                        }\n                        setIsChainSelectOpen(false)\n                        setSearchTerm('')\n",
+      "exit": 0,
+      "description": "Find where revokeChain is set"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"setRevokeChain\" RelaySwap.tsx -B 3 -A 3",
+    "time": {
+      "start": 1767250081025,
+      "end": 1767250081030
+    }
+  }
+}

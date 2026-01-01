@@ -1,0 +1,11 @@
+{
+  "id": "prt_b785068b4001FzXFOWGu0ieh5o",
+  "messageID": "msg_b784fe9c6001Qvjnno2K1W6J3L",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "The code looks correct. The issue is likely that:\n1. All CORS proxies are failing\n2. The fallback `loadApprovalsOnChain()` is being called but might also be failing\n\nLet me check if there's proper error handling in the on-chain fallback:",
+  "time": {
+    "start": 1767250096670,
+    "end": 1767250096670
+  }
+}
