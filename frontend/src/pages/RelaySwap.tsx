@@ -1469,24 +1469,26 @@ export default function RelaySwap() {
       }
 
       console.log(`Executing ${transactions.length} batch swap transactions...`)
+      toast.info(`Submitting ${transactions.length} transaction(s)...`)
       
       // Execute transactions sequentially and wait for each to complete
       let successCount = 0
+      let confirmedCount = 0
       const failedTxs: string[] = []
+      const submittedHashes: string[] = []
       
       for (let i = 0; i < transactions.length; i++) {
         const tx = transactions[i]
         console.log(`Executing transaction ${i + 1}/${transactions.length}`)
         
         try {
-          // Create a promise that resolves when the transaction succeeds or fails
-          await new Promise<void>((resolve, reject) => {
+          // Submit transaction and get hash
+          const hash = await new Promise<string>((resolve, reject) => {
             sendTransaction(tx, {
               onSuccess: (hash) => {
                 console.log(`Transaction ${i + 1} submitted:`, hash)
                 successCount++
-                toast.success(`Transaction ${i + 1}/${transactions.length} submitted`)
-                resolve()
+                resolve(hash)
               },
               onError: (error) => {
                 console.error(`Transaction ${i + 1} failed:`, error)
@@ -1495,6 +1497,9 @@ export default function RelaySwap() {
               }
             })
           })
+          
+          submittedHashes.push(hash)
+          toast.info(`Transaction ${i + 1}/${transactions.length} submitted, waiting for confirmation...`)
           
           // Wait a bit between transactions
           if (i < transactions.length - 1) {
@@ -1506,9 +1511,31 @@ export default function RelaySwap() {
         }
       }
 
-      // Only update streak and clear tokens if at least one transaction succeeded
-      if (successCount > 0) {
-        toast.success(`Batch swap completed: ${successCount}/${transactions.length} transactions successful`)
+      // Wait for all submitted transactions to be confirmed
+      if (submittedHashes.length > 0) {
+        toast.info(`Waiting for ${submittedHashes.length} transaction(s) to confirm...`)
+        
+        for (let i = 0; i < submittedHashes.length; i++) {
+          try {
+            // Wait for transaction receipt
+            const { waitForTransactionReceipt } = await import('wagmi/actions')
+            const { wagmiConfig } = await import('@/lib/blockchain/wagmi')
+            
+            await waitForTransactionReceipt(wagmiConfig, {
+              hash: submittedHashes[i] as `0x${string}`,
+            })
+            
+            confirmedCount++
+            console.log(`Transaction ${i + 1} confirmed`)
+          } catch (error) {
+            console.error(`Transaction ${i + 1} confirmation failed:`, error)
+          }
+        }
+      }
+
+      // Only update streak and clear tokens if at least one transaction confirmed
+      if (confirmedCount > 0) {
+        toast.success(`Batch swap completed: ${confirmedCount}/${transactions.length} transaction(s) confirmed`)
         updateUserStreak()
         updateLeaderboard()
         loadSwapHistory()
@@ -1522,14 +1549,16 @@ export default function RelaySwap() {
         if (batchChain) {
           setTimeout(() => {
             loadBatchWalletTokens()
-          }, 2000) // Wait 2 seconds for blockchain to update
+          }, 2000)
         }
+      } else if (successCount > 0) {
+        toast.warning(`${successCount} transaction(s) submitted but none confirmed yet`)
       } else {
         toast.error('All batch swap transactions failed')
       }
       
       if (failedTxs.length > 0) {
-        toast.warning(`${failedTxs.length} transaction(s) failed`)
+        toast.warning(`${failedTxs.length} transaction(s) failed to submit`)
       }
     } catch (error) {
       console.error('Batch swap failed:', error)

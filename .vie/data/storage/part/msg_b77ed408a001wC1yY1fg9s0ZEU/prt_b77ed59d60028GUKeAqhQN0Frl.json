@@ -1,0 +1,11 @@
+{
+  "id": "prt_b77ed59d60028GUKeAqhQN0Frl",
+  "messageID": "msg_b77ed408a001wC1yY1fg9s0ZEU",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Good catch! The toast is showing too early. Let me fix the batch swap to only show success after the transaction is actually confirmed:",
+  "time": {
+    "start": 1767243604826,
+    "end": 1767243604826
+  }
+}

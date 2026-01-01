@@ -1,0 +1,11 @@
+{
+  "id": "prt_b77ed8218001Lr7a21RBlsATIZ",
+  "messageID": "msg_b77ed408a001wC1yY1fg9s0ZEU",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "I see the issue. The code shows \"Transaction submitted\" but then immediately shows \"Batch swap completed\" without waiting for confirmation. Let me fix this to wait for transaction receipts:",
+  "time": {
+    "start": 1767243629647,
+    "end": 1767243629647
+  }
+}

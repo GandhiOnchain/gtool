@@ -1,0 +1,11 @@
+{
+  "id": "prt_b77ee75b1001ei09Io4WHNqva2",
+  "messageID": "msg_b77ed408a001wC1yY1fg9s0ZEU",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Perfect! I've fixed the batch swap to properly wait for transaction confirmations. Here's what changed:\n\n## ✅ Batch Swap Fix\n\n**Before:**\n- Showed \"Batch swap completed\" immediately after submitting transactions\n- Didn't wait for blockchain confirmation\n\n**Now:**\n1. **Submits all transactions** → Shows \"Transaction X/Y submitted, waiting for confirmation...\"\n2. **Waits for each transaction to be confirmed** → Uses `waitForTransactionReceipt`\n3. **Only shows success after confirmation** → \"Batch swap completed: X/Y transaction(s) confirmed\"\n\n**User Experience:**\n- `Submitting X transaction(s)...` (initial)\n- `Transaction 1/3 submitted, waiting for confirmation...`\n- `Transaction 2/3 submitted, waiting for confirmation...`\n- `Waiting for 3 transaction(s) to confirm...`\n- `Batch swap completed: 3/3 transaction(s) confirmed` ✅ (only after blockchain confirms)\n\nNow the toast will only show \"completed\" after the transactions are actually confirmed on-chain, matching what the history shows!",
+  "time": {
+    "start": 1767243682059,
+    "end": 1767243682059
+  }
+}

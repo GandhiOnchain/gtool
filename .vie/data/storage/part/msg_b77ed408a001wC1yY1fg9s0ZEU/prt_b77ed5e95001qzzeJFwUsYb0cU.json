@@ -1,0 +1,26 @@
+{
+  "id": "prt_b77ed5e95001qzzeJFwUsYb0cU",
+  "messageID": "msg_b77ed408a001wC1yY1fg9s0ZEU",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_014VLTUUKvcWc6b1yEs9MTeG",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"Batch swap completed\" src/pages/RelaySwap.tsx",
+      "description": "Find batch swap success message"
+    },
+    "output": "1511:        toast.success(`Batch swap completed: ${successCount}/${transactions.length} transactions successful`)\n",
+    "metadata": {
+      "output": "1511:        toast.success(`Batch swap completed: ${successCount}/${transactions.length} transactions successful`)\n",
+      "exit": 0,
+      "description": "Find batch swap success message"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"Batch swap completed\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767243604709,
+      "end": 1767243604714
+    }
+  }
+}

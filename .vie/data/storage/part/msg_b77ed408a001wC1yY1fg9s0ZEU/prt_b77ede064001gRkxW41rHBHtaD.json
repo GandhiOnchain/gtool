@@ -1,0 +1,28 @@
+{
+  "id": "prt_b77ede064001gRkxW41rHBHtaD",
+  "messageID": "msg_b77ed408a001wC1yY1fg9s0ZEU",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01RmnB76v6jFuqjbBxddguGw",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ❌ ERROR [1522:21] Property 'config' does not exist on type 'typeof import(\"/home/user/sandbox/workspace/frontend/src/lib/blockchain/wagmi\")'. [typescript]\n\n──────────────────────────────────────────────────\nSummary: 1 issue(s) found\n  - 1 error(s)\n",
+    "metadata": {
+      "filesChecked": 1,
+      "filesWithIssues": 1,
+      "totalIssues": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "title": "Diagnostics: 1 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1767243637094,
+      "end": 1767243648199
+    }
+  }
+}
