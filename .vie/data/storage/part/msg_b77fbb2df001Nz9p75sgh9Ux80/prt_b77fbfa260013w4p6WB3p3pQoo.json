@@ -1,0 +1,11 @@
+{
+  "id": "prt_b77fbfa260013w4p6WB3p3pQoo",
+  "messageID": "msg_b77fbb2df001Nz9p75sgh9Ux80",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "The key insight is that when currency lookup fails, we should use the native chain currency (ETH for Ethereum/Optimism/Base). Let me fix this:",
+  "time": {
+    "start": 1767244578412,
+    "end": 1767244578412
+  }
+}

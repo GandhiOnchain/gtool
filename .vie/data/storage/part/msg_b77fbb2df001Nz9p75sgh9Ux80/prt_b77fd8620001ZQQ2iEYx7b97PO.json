@@ -1,0 +1,85 @@
+{
+  "id": "prt_b77fd8620001ZQQ2iEYx7b97PO",
+  "messageID": "msg_b77fbb2df001Nz9p75sgh9Ux80",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01HNNrdPE54NAmTj4cWgsfap",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Debug why currency lookup fails for some wallets",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add better fallback when currency is not found",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Use transaction hash to fetch actual amounts",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Improve amount decoding from calldata",
+          "status": "completed",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "completed",
+          "priority": "high",
+          "id": "5"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Debug why currency lookup fails for some wallets\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Add better fallback when currency is not found\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Use transaction hash to fetch actual amounts\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Improve amount decoding from calldata\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"4\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"5\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Debug why currency lookup fails for some wallets",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add better fallback when currency is not found",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Use transaction hash to fetch actual amounts",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Improve amount decoding from calldata",
+          "status": "completed",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "completed",
+          "priority": "high",
+          "id": "5"
+        }
+      ]
+    },
+    "title": "0 todos",
+    "time": {
+      "start": 1767244664363,
+      "end": 1767244664363
+    }
+  }
+}

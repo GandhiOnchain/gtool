@@ -1,0 +1,11 @@
+{
+  "id": "prt_b77fbc5f30025bBacNqdnuFf6a",
+  "messageID": "msg_b77fbb2df001Nz9p75sgh9Ux80",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "I can see the issue! When you connect a different wallet, it shows accurate details (0.000781 ETH, 0.000777 ETH, etc.) but with your current wallet it shows \"0 ETH\". This suggests the issue is **wallet-specific** or **chain-specific**.\n\nLooking at the history, I see:\n- **Working wallet**: Shows \"Bridge ETH → ETH\" with amounts like \"0.000781 ETH\" on Optimism and Base\n- **Your wallet**: Shows \"0 ETH\" \n\nThis means the currency lookup is failing for your wallet's transactions. Let me add better fallback logic and debugging:",
+  "time": {
+    "start": 1767244555959,
+    "end": 1767244555959
+  }
+}

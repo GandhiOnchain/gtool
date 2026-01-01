@@ -1,0 +1,11 @@
+{
+  "id": "prt_b77fda0ea0014WikiR4Uu8bqJe",
+  "messageID": "msg_b77fbb2df001Nz9p75sgh9Ux80",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Perfect! I've fixed the transaction history display issues:\n\n## ✅ Fixes Applied\n\n**1. Native Currency Detection**\n- Now properly detects when currency is native (ETH, not an ERC-20)\n- Uses chain's native currency info (symbol, decimals, logo) when currency address is `0x0000...`\n- This fixes the \"0 ETH\" issue\n\n**2. Better Fallback Logic**\n- If currency lookup fails → Uses chain's native currency as fallback\n- Always shows chain icon for native tokens\n- Comprehensive logging to debug issues\n\n**3. Improved Amount Decoding**\n- Better calldata parsing for ERC-20 tokens\n- Validates decoded amounts are reasonable\n- More detailed error logging\n\n**4. Enhanced Console Logging**\n- Shows which currency source is being used (fromCurrency vs chain native)\n- Logs decoded amounts at each step\n- Warns when amounts are 0\n\nThe history should now show accurate details for all transactions, including:\n- Correct token symbols (ETH, USDC, etc.)\n- Accurate amounts (0.000781 ETH instead of 0 ETH)\n- Proper chain icons\n- USD values\n\nTry refreshing the history now - it should display correctly!",
+  "time": {
+    "start": 1767244676963,
+    "end": 1767244676963
+  }
+}
