@@ -1,0 +1,26 @@
+{
+  "id": "prt_b78fabd940012XZI7wckNwFOXW",
+  "messageID": "msg_b78f9fda4001lZIlwjZVKgBcGj",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01TD1MhB7tT4QxBWTDGVDsDM",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"Dialog open=.showSettings\" src/pages/RelaySwap.tsx",
+      "description": "Find settings dialog"
+    },
+    "output": "4567:        <Dialog open={showSettings} onOpenChange={setShowSettings}>\n",
+    "metadata": {
+      "output": "4567:        <Dialog open={showSettings} onOpenChange={setShowSettings}>\n",
+      "exit": 0,
+      "description": "Find settings dialog"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"Dialog open=.showSettings\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767261258701,
+      "end": 1767261258705
+    }
+  }
+}

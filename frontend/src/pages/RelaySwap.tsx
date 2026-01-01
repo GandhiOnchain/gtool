@@ -132,6 +132,7 @@ export default function RelaySwap() {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([])
   const [showLeaderboard, setShowLeaderboard] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
+  const [showAirdrops, setShowAirdrops] = useState(false)
   const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])
   const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])
   const [contractAddressSearch, setContractAddressSearch] = useState('')
@@ -3298,7 +3299,7 @@ export default function RelaySwap() {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setActiveTab('airdrops')}
+                onClick={() => setShowAirdrops(true)}
                 className="h-7 w-7 p-0 relative"
               >
                 <Gift className="h-4 w-4" />
@@ -3340,12 +3341,11 @@ export default function RelaySwap() {
         )}
 
         <Tabs defaultValue="portfolio" value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-6 h-8">
+          <TabsList className="grid w-full grid-cols-5 h-8">
             <TabsTrigger value="portfolio" className="text-xs">Portfolio</TabsTrigger>
             <TabsTrigger value="swap" className="text-xs">Swap</TabsTrigger>
             <TabsTrigger value="batch" className="text-xs">Batch</TabsTrigger>
             <TabsTrigger value="revoke" className="text-xs">Revoke</TabsTrigger>
-            <TabsTrigger value="airdrops" className="text-xs">Airdrops</TabsTrigger>
             <TabsTrigger value="history" className="text-xs">History</TabsTrigger>
           </TabsList>
 
@@ -4009,120 +4009,6 @@ export default function RelaySwap() {
             )}
           </TabsContent>
 
-          <TabsContent value="airdrops" className="space-y-2 mt-2">
-            {isLoadingAirdrops ? (
-              <Card className="p-4 text-center">
-                <div className="text-sm text-muted-foreground">Checking for claimable airdrops...</div>
-              </Card>
-            ) : airdrops.length === 0 ? (
-              <Card className="p-4 text-center">
-                <div className="text-sm text-muted-foreground mb-2">No claimable airdrops found</div>
-                <div className="text-xs text-muted-foreground mb-3">
-                  We'll notify you when new airdrops become available
-                </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={checkAirdrops}
-                  className="h-8 text-xs"
-                >
-                  Check Again
-                </Button>
-              </Card>
-            ) : (
-              <>
-                <Card className="p-3 bg-gradient-to-br from-accent/10 to-primary/10 border-accent/20">
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-1">
-                      <div className="text-sm font-medium">
-                        {airdrops.length} Claimable Airdrop{airdrops.length !== 1 ? 's' : ''}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        Claim directly from this app
-                      </div>
-                    </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={checkAirdrops}
-                      disabled={isLoadingAirdrops}
-                      className="h-7 text-xs"
-                    >
-                      Refresh
-                    </Button>
-                  </div>
-                </Card>
-
-                <ScrollArea className="h-[450px]">
-                  <div className="space-y-2">
-                    {airdrops.map((airdrop) => (
-                      <Card key={airdrop.id} className="p-3 hover:bg-muted/50 transition-colors">
-                        <div className="space-y-2.5">
-                          <div className="flex items-start justify-between gap-2">
-                            <div className="flex items-center gap-2 flex-1 min-w-0">
-                              {airdrop.logo ? (
-                                <img src={airdrop.logo} alt="" className="h-8 w-8 rounded-full flex-shrink-0" />
-                              ) : (
-                                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-accent to-primary flex-shrink-0" />
-                              )}
-                              <div className="min-w-0 flex-1">
-                                <div className="text-sm font-medium">{airdrop.name}</div>
-                                <div className="text-xs text-muted-foreground">{airdrop.protocol}</div>
-                              </div>
-                            </div>
-                            <Badge variant={airdrop.type === 'clanker' ? 'default' : 'outline'} className="text-xs">
-                              {airdrop.type === 'clanker' ? 'Clanker' : airdrop.type === 'farcaster' ? 'Farcaster' : 'Protocol'}
-                            </Badge>
-                          </div>
-
-                          <div className="text-xs text-muted-foreground">
-                            {airdrop.description}
-                          </div>
-
-                          <Separator />
-
-                          <div className="space-y-1.5">
-                            <div className="flex justify-between text-xs gap-2">
-                              <span className="text-muted-foreground">Amount</span>
-                              <span className="font-medium text-accent">
-                                {airdrop.amount} {airdrop.tokenSymbol}
-                                {airdrop.amountUsd && (
-                                  <span className="text-muted-foreground ml-1">(${airdrop.amountUsd})</span>
-                                )}
-                              </span>
-                            </div>
-                            <div className="flex justify-between text-xs gap-2">
-                              <span className="text-muted-foreground">Chain</span>
-                              <span className="font-medium">{airdrop.chainName}</span>
-                            </div>
-                            {airdrop.claimDeadline && (
-                              <div className="flex justify-between text-xs gap-2">
-                                <span className="text-muted-foreground">Deadline</span>
-                                <span className="font-medium text-destructive">
-                                  {new Date(airdrop.claimDeadline).toLocaleDateString()}
-                                </span>
-                              </div>
-                            )}
-                          </div>
-
-                          <Button
-                            onClick={() => claimAirdrop(airdrop)}
-                            disabled={isClaiming}
-                            variant="default"
-                            size="sm"
-                            className="w-full h-8 text-xs"
-                          >
-                            {isClaiming ? 'Claiming...' : `Claim ${airdrop.amount} ${airdrop.tokenSymbol}`}
-                          </Button>
-                        </div>
-                      </Card>
-                    ))}
-                  </div>
-                </ScrollArea>
-              </>
-            )}
-          </TabsContent>
-
           <TabsContent value="history" className="mt-2">
             <ScrollArea className="h-[500px]">
               <div className="space-y-2">
@@ -4743,6 +4629,126 @@ export default function RelaySwap() {
                 </ScrollArea>
               </div>
             </div>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={showAirdrops} onOpenChange={setShowAirdrops}>
+          <DialogContent className="max-w-[380px]">
+            <DialogHeader>
+              <DialogTitle className="text-sm flex items-center gap-2">
+                <Gift className="h-4 w-4" />
+                Claimable Airdrops
+              </DialogTitle>
+            </DialogHeader>
+            {isLoadingAirdrops ? (
+              <div className="p-8 text-center">
+                <div className="text-sm text-muted-foreground">Checking for claimable airdrops...</div>
+              </div>
+            ) : airdrops.length === 0 ? (
+              <div className="p-8 text-center space-y-3">
+                <div className="text-sm text-muted-foreground">No claimable airdrops found</div>
+                <div className="text-xs text-muted-foreground">
+                  We'll notify you when new airdrops become available
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={checkAirdrops}
+                  className="h-8 text-xs"
+                >
+                  Check Again
+                </Button>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-3 bg-gradient-to-br from-accent/10 to-primary/10 border border-accent/20 rounded">
+                  <div className="space-y-1">
+                    <div className="text-sm font-medium">
+                      {airdrops.length} Airdrop{airdrops.length !== 1 ? 's' : ''} Available
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      Claim directly from this app
+                    </div>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={checkAirdrops}
+                    disabled={isLoadingAirdrops}
+                    className="h-7 text-xs"
+                  >
+                    Refresh
+                  </Button>
+                </div>
+
+                <ScrollArea className="h-[400px]">
+                  <div className="space-y-2">
+                    {airdrops.map((airdrop) => (
+                      <div key={airdrop.id} className="p-3 border rounded hover:bg-muted/50 transition-colors">
+                        <div className="space-y-2.5">
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="flex items-center gap-2 flex-1 min-w-0">
+                              {airdrop.logo ? (
+                                <img src={airdrop.logo} alt="" className="h-8 w-8 rounded-full flex-shrink-0" />
+                              ) : (
+                                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-accent to-primary flex-shrink-0" />
+                              )}
+                              <div className="min-w-0 flex-1">
+                                <div className="text-sm font-medium">{airdrop.name}</div>
+                                <div className="text-xs text-muted-foreground">{airdrop.protocol}</div>
+                              </div>
+                            </div>
+                            <Badge variant={airdrop.type === 'clanker' ? 'default' : 'outline'} className="text-xs">
+                              {airdrop.type === 'clanker' ? 'Clanker' : airdrop.type === 'farcaster' ? 'Farcaster' : 'Protocol'}
+                            </Badge>
+                          </div>
+
+                          <div className="text-xs text-muted-foreground">
+                            {airdrop.description}
+                          </div>
+
+                          <Separator />
+
+                          <div className="space-y-1.5">
+                            <div className="flex justify-between text-xs gap-2">
+                              <span className="text-muted-foreground">Amount</span>
+                              <span className="font-medium text-accent">
+                                {airdrop.amount} {airdrop.tokenSymbol}
+                                {airdrop.amountUsd && (
+                                  <span className="text-muted-foreground ml-1">(${airdrop.amountUsd})</span>
+                                )}
+                              </span>
+                            </div>
+                            <div className="flex justify-between text-xs gap-2">
+                              <span className="text-muted-foreground">Chain</span>
+                              <span className="font-medium">{airdrop.chainName}</span>
+                            </div>
+                            {airdrop.claimDeadline && (
+                              <div className="flex justify-between text-xs gap-2">
+                                <span className="text-muted-foreground">Deadline</span>
+                                <span className="font-medium text-destructive">
+                                  {new Date(airdrop.claimDeadline).toLocaleDateString()}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+
+                          <Button
+                            onClick={() => claimAirdrop(airdrop)}
+                            disabled={isClaiming}
+                            variant="default"
+                            size="sm"
+                            className="w-full h-8 text-xs"
+                          >
+                            {isClaiming ? 'Claiming...' : `Claim ${airdrop.amount} ${airdrop.tokenSymbol}`}
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </div>
+            )}
           </DialogContent>
         </Dialog>
       </div>
