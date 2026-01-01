@@ -1,0 +1,32 @@
+{
+  "id": "prt_b7862d8da001hcf3LMj5Xev1mA",
+  "messageID": "msg_b785efca2001B5NnSASpf0Ewwx",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01C4FQzG5dt8dzsvwATCy3bn",
+  "state": {
+    "status": "completed",
+    "input": {
+      "files": [
+        "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ❌ ERROR [1:1] Unexpected any. Specify a different type. [oxlint]\n\n──────────────────────────────────────────────────\nSummary: 1 issue(s) found\n  - 1 error(s)\n",
+    "metadata": {
+      "filesChecked": 1,
+      "filesWithIssues": 1,
+      "totalIssues": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "title": "Diagnostics: 1 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1767251303167,
+      "end": 1767251317682
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_b785f58ce001C4okJ7uIenL3I8",
+  "messageID": "msg_b785efca2001B5NnSASpf0Ewwx",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01VUrwHmaTHG1KrTX5Cv83qQ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/config.ts",
+      "offset": 0,
+      "limit": 50
+    },
+    "output": "<file>\n00001| import { Alchemy, Network as AlchemyNetwork } from 'alchemy-sdk';\n00002| import { config } from '../../config';\n00003| \n00004| /**\n00005|  * Alchemy SDK Configuration\n00006|  * \n00007|  * Set up your Alchemy API key in env.json:\n00008|  * VITE_ALCHEMY_API_KEY=your_api_key_here\n00009|  * \n00010|  * You can get an API key from: https://dashboard.alchemy.com/\n00011|  */\n00012| \n00013| const alchemySettings = {\n00014|   apiKey: config.alchemy.apiKey || 'demo',\n00015| };\n00016| \n00017| // Validate API key\n00018| if (!alchemySettings.apiKey) {\n00019|   console.warn(\n00020|     'Alchemy API key not found. Please set VITE_ALCHEMY_API_KEY in your environment variables in env.json.'\n00021|   );\n00022| }\n00023| \n00024| // Create and export default Alchemy instance (ETH mainnet)\n00025| export const alchemy = new Alchemy({\n00026|   ...alchemySettings\n00027| });\n00028| \n00029| // Export settings for reference\n00030| export { alchemySettings };\n00031| \n00032| /**\n00033|  * Network details\n00034|  * @param name - The name of the network\n00035|  * @param nativeGasTokenSymbol - The symbol of the native gas token\n00036|  * @param nativeGasTokenName - The name of the native gas token\n00037|  */\n00038| export type NetworkDetails = {\n00039|   name: string;\n00040|   nativeGasTokenSymbol: string;\n00041|   nativeGasTokenName: string;\n00042| }\n00043| \n00044| // Redefine here for the AI to reference easier!\n00045| export enum Network {\n00046|   // Ethereum family\n00047|   ETH_MAINNET = \"eth-mainnet\",\n00048| \n00049|   // Optimism\n00050|   OPT_MAINNET = \"opt-mainnet\",\n\n(File has more lines. Use 'offset' parameter to read beyond line 50)\n</file>",
+    "metadata": {
+      "preview": "import { Alchemy, Network as AlchemyNetwork } from 'alchemy-sdk';\nimport { config } from '../../config';\n\n/**\n * Alchemy SDK Configuration\n * \n * Set up your Alchemy API key in env.json:\n * VITE_ALCHEMY_API_KEY=your_api_key_here\n * \n * You can get an API key from: https://dashboard.alchemy.com/\n */\n\nconst alchemySettings = {\n  apiKey: config.alchemy.apiKey || 'demo',\n};\n\n// Validate API key\nif (!alchemySettings.apiKey) {\n  console.warn(\n    'Alchemy API key not found. Please set VITE_ALCHEMY_API_KEY in your environment variables in env.json.'"
+    },
+    "title": "frontend/src/lib/alchemy/config.ts",
+    "time": {
+      "start": 1767251074514,
+      "end": 1767251074517
+    }
+  }
+}

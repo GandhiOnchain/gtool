@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7861a4bd0010SpGZaRdpW2WKy",
+  "messageID": "msg_b785efca2001B5NnSASpf0Ewwx",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01FVkfVwV67qCkxN98YNuvTD",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && rg -n \"const loadApprovalsOnChain\" RelaySwap.tsx",
+      "description": "Find function location"
+    },
+    "output": "2444:  const loadApprovalsOnChain = async () => {\n",
+    "metadata": {
+      "output": "2444:  const loadApprovalsOnChain = async () => {\n",
+      "exit": 0,
+      "description": "Find function location"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && rg -n \"const loadApprovalsOnChain\" RelaySwap.tsx",
+    "time": {
+      "start": 1767251224767,
+      "end": 1767251224777
+    }
+  }
+}

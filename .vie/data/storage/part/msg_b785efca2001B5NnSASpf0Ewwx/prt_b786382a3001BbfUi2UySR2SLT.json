@@ -1,0 +1,32 @@
+{
+  "id": "prt_b786382a3001BbfUi2UySR2SLT",
+  "messageID": "msg_b785efca2001B5NnSASpf0Ewwx",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_014Trrau3udcUKH5gBJ7cgRg",
+  "state": {
+    "status": "completed",
+    "input": {
+      "files": [
+        "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ❌ ERROR [2481:17] Cannot find name 'tokenData'. [typescript]\n  ❌ ERROR [2481:43] Cannot find name 'tokenData'. [typescript]\n  ❌ ERROR [2482:28] Cannot find name 'tokenData'. [typescript]\n  ❌ ERROR [2485:26] Cannot find name 'tokenData'. [typescript]\n  ❌ ERROR [2486:25] Cannot find name 'tokenData'. [typescript]\n  ❌ ERROR [2487:23] Cannot find name 'tokenData'. [typescript]\n  ❌ ERROR [2488:27] Cannot find name 'tokenData'. [typescript]\n  ❌ ERROR [2490:27] Cannot find name 'tokenData'. [typescript]\n  ❌ ERROR [2490:70] Cannot find name 'tokenData'. [typescript]\n\n──────────────────────────────────────────────────\nSummary: 9 issue(s) found\n  - 9 error(s)\n",
+    "metadata": {
+      "filesChecked": 1,
+      "filesWithIssues": 1,
+      "totalIssues": 9,
+      "errorCount": 9,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "title": "Diagnostics: 9 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1767251346483,
+      "end": 1767251361407
+    }
+  }
+}

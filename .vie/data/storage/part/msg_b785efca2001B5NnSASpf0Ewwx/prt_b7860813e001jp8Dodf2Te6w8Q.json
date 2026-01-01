@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7860813e001jp8Dodf2Te6w8Q",
+  "messageID": "msg_b785efca2001B5NnSASpf0Ewwx",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01QGLA4hNnmNro21q8ULwwLo",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2440,
+      "limit": 50
+    },
+    "output": "<file>\n02441|   }\n02442|   \n02443|   // Fallback: On-chain scanning using Approval event logs\n02444|   const loadApprovalsOnChain = async () => {\n02445|     if (!address || !revokeChain) return\n02446|     \n02447|     try {\n02448|       console.log('🔗 Starting on-chain approval scan using event logs...')\n02449|       console.log('RPC URL:', revokeChain.httpRpcUrl)\n02450|       setDebugInfo('Scanning blockchain for Approval events...')\n02451|       \n02452|       const chainConfig = defineChain({\n02453|         id: revokeChain.id,\n02454|         name: revokeChain.displayName,\n02455|         nativeCurrency: {\n02456|           name: revokeChain.currency.name,\n02457|           symbol: revokeChain.currency.symbol,\n02458|           decimals: revokeChain.currency.decimals,\n02459|         },\n02460|         rpcUrls: {\n02461|           default: { http: [revokeChain.httpRpcUrl] },\n02462|         },\n02463|       })\n02464|       \n02465|       const publicClient = createPublicClient({\n02466|         chain: chainConfig,\n02467|         transport: http(revokeChain.httpRpcUrl),\n02468|       })\n02469|       \n02470|       // Get current block number\n02471|       const currentBlock = await publicClient.getBlockNumber()\n02472|       console.log('Current block:', currentBlock)\n02473|       \n02474|       // Scan last 10000 blocks for Approval events (adjust based on chain)\n02475|       const blocksToScan = 10000n\n02476|       const fromBlock = currentBlock > blocksToScan ? currentBlock - blocksToScan : 0n\n02477|       \n02478|       console.log(`Scanning blocks ${fromBlock} to ${currentBlock} for Approval events...`)\n02479|       setDebugInfo(`Scanning last ${blocksToScan} blocks for approvals...`)\n02480|       \n02481|       // ERC20 Approval event signature: Approval(address indexed owner, address indexed spender, uint256 value)\n02482|       const approvalEventSignature = '0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925'\n02483|       \n02484|       // Fetch all Approval events where owner is the user's address\n02485|       const logs = await publicClient.getLogs({\n02486|         fromBlock,\n02487|         toBlock: currentBlock,\n02488|         event: parseAbiItem('event Approval(address indexed owner, address indexed spender, uint256 value)'),\n02489|         args: {\n02490|           owner: address as `0x${string}`\n\n(File has more lines. Use 'offset' parameter to read beyond line 2490)\n</file>",
+    "metadata": {
+      "preview": "  }\n  \n  // Fallback: On-chain scanning using Approval event logs\n  const loadApprovalsOnChain = async () => {\n    if (!address || !revokeChain) return\n    \n    try {\n      console.log('🔗 Starting on-chain approval scan using event logs...')\n      console.log('RPC URL:', revokeChain.httpRpcUrl)\n      setDebugInfo('Scanning blockchain for Approval events...')\n      \n      const chainConfig = defineChain({\n        id: revokeChain.id,\n        name: revokeChain.displayName,\n        nativeCurrency: {\n          name: revokeChain.currency.name,\n          symbol: revokeChain.currency.symbol,\n          decimals: revokeChain.currency.decimals,\n        },\n        rpcUrls: {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767251150063,
+      "end": 1767251150067
+    }
+  }
+}

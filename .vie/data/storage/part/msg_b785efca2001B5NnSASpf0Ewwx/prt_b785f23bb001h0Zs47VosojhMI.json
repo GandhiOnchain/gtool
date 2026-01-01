@@ -1,0 +1,26 @@
+{
+  "id": "prt_b785f23bb001h0Zs47VosojhMI",
+  "messageID": "msg_b785efca2001B5NnSASpf0Ewwx",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01B3BcrQhdGNimrbRSXhPpB7",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://api.revoke.cash/v1/allowances/137/0xf7b0643b6b4c0e0e4c5e643b6b4c0e0e4c5e643b\" 2>&1 | head -20",
+      "description": "Test Revoke.cash API directly"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Test Revoke.cash API directly"
+    },
+    "title": "curl -s \"https://api.revoke.cash/v1/allowances/137/0xf7b0643b6b4c0e0e4c5e643b6b4c0e0e4c5e643b\" 2>&1 | head -20",
+    "time": {
+      "start": 1767251062054,
+      "end": 1767251062073
+    }
+  }
+}

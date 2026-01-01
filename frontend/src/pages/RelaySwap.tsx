@@ -2467,141 +2467,84 @@ export default function RelaySwap() {
         transport: http(revokeChain.httpRpcUrl),
       })
       
-      // Get current block number
-      const currentBlock = await publicClient.getBlockNumber()
-      console.log('Current block:', currentBlock)
-      
-      // Scan last 10000 blocks for Approval events (adjust based on chain)
-      const blocksToScan = 10000n
-      const fromBlock = currentBlock > blocksToScan ? currentBlock - blocksToScan : 0n
-      
-      console.log(`Scanning blocks ${fromBlock} to ${currentBlock} for Approval events...`)
-      setDebugInfo(`Scanning last ${blocksToScan} blocks for approvals...`)
-      
-      // ERC20 Approval event signature: Approval(address indexed owner, address indexed spender, uint256 value)
-      const approvalEventSignature = '0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925'
-      
-      // Fetch all Approval events where owner is the user's address
-      const logs = await publicClient.getLogs({
-        fromBlock,
-        toBlock: currentBlock,
-        event: parseAbiItem('event Approval(address indexed owner, address indexed spender, uint256 value)'),
-        args: {
-          owner: address as `0x${string}`
-        }
-      })
-      
-      console.log(`Found ${logs.length} Approval events`)
-      setDebugInfo(`Found ${logs.length} approval events, checking current allowances...`)
-      
-      // Collect unique token-spender pairs
       const tokenAddressSet = new Set<string>()
       const tokenMetadata = new Map<string, RelayCurrency>()
-      const tokenSpenderPairs = new Map<string, Set<string>>()
       
-      // Process approval events to extract token-spender pairs
-      for (const log of logs) {
-        const tokenAddress = log.address.toLowerCase()
-        const spenderAddress = log.args.spender?.toLowerCase()
+      // Get user's tokens from Alchemy
+      try {
+        const alchemyNetwork = getAlchemyNetwork(revokeChain.id) as unknown as AlchemyNetwork
+        const portfolioAddresses = [{ address: address, networks: [alchemyNetwork] }]
+        const alchemyResponse = await alchemy.portfolio.getTokensByWallet(portfolioAddresses, true, false, false)
         
-        if (!spenderAddress) continue
-        
-        tokenAddressSet.add(tokenAddress)
-        
-        if (!tokenSpenderPairs.has(tokenAddress)) {
-          tokenSpenderPairs.set(tokenAddress, new Set())
+        if (alchemyResponse?.data?.tokens) {
+          alchemyResponse.data.tokens.forEach((token: unknown) => {
+            const tokenData = token as { tokenAddress?: string; tokenMetadata?: { symbol?: string; name?: string; decimals?: number; logo?: string } }
+            if (tokenData.tokenAddress && tokenData.tokenAddress !== '0x0000000000000000000000000000000000000000') {
+              const addr = tokenData.tokenAddress.toLowerCase()
+              tokenAddressSet.add(addr)
+              tokenMetadata.set(addr, {
+                address: tokenData.tokenAddress,
+                symbol: tokenData.tokenMetadata?.symbol || 'UNKNOWN',
+                name: tokenData.tokenMetadata?.name || 'Unknown Token',
+                decimals: tokenData.tokenMetadata?.decimals || 18,
+                chainId: revokeChain.id,
+                metadata: tokenData.tokenMetadata?.logo ? { logoURI: tokenData.tokenMetadata.logo } : undefined,
+              })
+            }
+          })
         }
-        tokenSpenderPairs.get(tokenAddress)!.add(spenderAddress)
+      } catch (e) {
+        console.warn('Alchemy failed')
       }
       
-      console.log(`Found ${tokenAddressSet.size} unique tokens with approvals`)
-      
       if (tokenAddressSet.size === 0) {
-        console.log('No approval events found in recent blocks')
         setApprovals([])
-        toast.info('No token approvals found in recent transactions')
+        toast.info('No tokens found')
         setIsLoadingApprovals(false)
         return
       }
       
-      // Fetch token metadata for all tokens
-      setDebugInfo(`Fetching metadata for ${tokenAddressSet.size} tokens...`)
+      console.log(`Checking ${tokenAddressSet.size} tokens`)
+      setDebugInfo(`Checking ${tokenAddressSet.size} tokens...`)
       
-      for (const tokenAddress of tokenAddressSet) {
-        try {
-          const [symbol, name, decimals] = await Promise.all([
-            publicClient.readContract({
-              address: tokenAddress as `0x${string}`,
-              abi: [{ name: 'symbol', type: 'function', stateMutability: 'view', inputs: [], outputs: [{ type: 'string' }] }],
-              functionName: 'symbol',
-            }).catch(() => 'UNKNOWN'),
-            publicClient.readContract({
-              address: tokenAddress as `0x${string}`,
-              abi: [{ name: 'name', type: 'function', stateMutability: 'view', inputs: [], outputs: [{ type: 'string' }] }],
-              functionName: 'name',
-            }).catch(() => 'Unknown Token'),
-            publicClient.readContract({
-              address: tokenAddress as `0x${string}`,
-              abi: [{ name: 'decimals', type: 'function', stateMutability: 'view', inputs: [], outputs: [{ type: 'uint8' }] }],
-              functionName: 'decimals',
-            }).catch(() => 18),
-          ])
-          
-          tokenMetadata.set(tokenAddress, {
-            address: tokenAddress,
-            symbol: symbol as string,
-            name: name as string,
-            decimals: decimals as number,
-            chainId: revokeChain.id,
-          })
-        } catch (e) {
-          console.warn(`Failed to fetch metadata for ${tokenAddress}`)
-        }
-      }
-      
-      // Check current allowances for all token-spender pairs found in events
-      setDebugInfo(`Checking current allowances...`)
+      // Known spenders to check
+      const spenders = [
+        { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },
+        { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },
+        { address: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', name: 'Uniswap V2' },
+        { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5' },
+        { address: '0xDef1C0ded9bec7F1a1670819833240f027b25EfF', name: '0x' },
+        { address: '0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F', name: 'SushiSwap' },
+        { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap' },
+        { address: '0xBA12222222228d8Ba445958a75a0704d566BF2C8', name: 'Balancer' },
+        { address: '0x881D40237659C251811CEC9c364ef91dC08D300C', name: 'MetaMask' },
+        { address: '0x1e0049783F008A0085193E00003D00cd54003c71', name: 'OpenSea' },
+      ]
       
       const foundApprovals: typeof approvals = []
       
-      // Known protocol names
-      const knownSpenders: Record<string, string> = {
-        '0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45': 'Uniswap V3 Router 2',
-        '0xe592427a0aece92de3edee1f18e0157c05861564': 'Uniswap V3 Router',
-        '0x7a250d5630b4cf539739df2c5dacb4c659f2488d': 'Uniswap V2 Router',
-        '0x1111111254eeb25477b68fb85ed929f73a960582': '1inch V5 Router',
-        '0xdef1c0ded9bec7f1a1670819833240f027b25eff': '0x Exchange',
-        '0xd9e1ce17f2641f24ae83637ab66a2cca9c378b9f': 'SushiSwap',
-        '0xdef171fe48cf0115b1d80b88dc8eab59176fee57': 'ParaSwap',
-        '0xba12222222228d8ba445958a75a0704d566bf2c8': 'Balancer V2',
-      }
-      
-      // Check allowances for each token-spender pair
-      for (const [tokenAddress, spenders] of tokenSpenderPairs.entries()) {
+      // Check each token against each spender
+      for (const tokenAddress of tokenAddressSet) {
         const metadata = tokenMetadata.get(tokenAddress)
         
-        for (const spenderAddress of spenders) {
+        for (const spender of spenders) {
           try {
-            const currentAllowance = await publicClient.readContract({
+            const allowance = await publicClient.readContract({
               address: tokenAddress as `0x${string}`,
               abi: [{
                 name: 'allowance',
                 type: 'function',
                 stateMutability: 'view',
-                inputs: [
-                  { name: 'owner', type: 'address' },
-                  { name: 'spender', type: 'address' }
-                ],
+                inputs: [{ name: 'owner', type: 'address' }, { name: 'spender', type: 'address' }],
                 outputs: [{ name: 'remaining', type: 'uint256' }],
               }],
               functionName: 'allowance',
-              args: [address as `0x${string}`, spenderAddress as `0x${string}`],
+              args: [address as `0x${string}`, spender.address as `0x${string}`],
             })
             
-            // Only include if allowance is still active
-            if (currentAllowance > 0n) {
+            if (allowance > 0n) {
               const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
-              const isUnlimited = currentAllowance >= maxUint256 / 2n
+              const isUnlimited = allowance >= maxUint256 / 2n
               
               const token = metadata || {
                 address: tokenAddress,
@@ -2611,38 +2554,33 @@ export default function RelaySwap() {
                 chainId: revokeChain.id,
               }
               
-              const spenderName = knownSpenders[spenderAddress] || `${spenderAddress.slice(0, 6)}...${spenderAddress.slice(-4)}`
-              
-              console.log(`✅ Active approval: ${token.symbol} → ${spenderName}`)
-              
               foundApprovals.push({
                 token,
-                spender: spenderAddress,
-                spenderName,
-                allowance: currentAllowance.toString(),
-                allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(currentAllowance, token.decimals),
+                spender: spender.address.toLowerCase(),
+                spenderName: spender.name,
+                allowance: allowance.toString(),
+                allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(allowance, token.decimals),
                 riskLevel: isUnlimited ? 'high' : 'low',
               })
             }
           } catch (e) {
-            console.warn(`Failed to check allowance for ${tokenAddress} -> ${spenderAddress}`)
+            // Skip
           }
         }
       }
       
-      console.log(`🎉 Found ${foundApprovals.length} active approvals`)
-      
+      console.log(`Found ${foundApprovals.length} approvals`)
       setApprovals(foundApprovals)
       
       if (foundApprovals.length === 0) {
         toast.success('No active approvals found')
       } else {
-        toast.success(`Found ${foundApprovals.length} active approval${foundApprovals.length > 1 ? 's' : ''}`)
+        toast.success(`Found ${foundApprovals.length} approval${foundApprovals.length > 1 ? 's' : ''}`)
       }
     } catch (error) {
       const err = error as Error
-      console.error('❌ Scan failed:', err)
-      toast.error(`Failed to scan approvals: ${err.message || 'Unknown error'}`)
+      console.error('Scan failed:', err)
+      toast.error(`Failed: ${err.message}`)
     } finally {
       setIsLoadingApprovals(false)
     }

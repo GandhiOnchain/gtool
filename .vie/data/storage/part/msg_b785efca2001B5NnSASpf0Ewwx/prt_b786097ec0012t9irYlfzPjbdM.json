@@ -1,0 +1,26 @@
+{
+  "id": "prt_b786097ec0012t9irYlfzPjbdM",
+  "messageID": "msg_b785efca2001B5NnSASpf0Ewwx",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_012v6cVo91qqL4G3u8znqZEJ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && awk '/^  \\/\\/ Fallback: On-chain scanning using Approval event logs$/,/^  }$/ {if (/^  }$/ && !found) {found=1; print; next}} !found' RelaySwap.tsx > RelaySwap.tsx.tmp && mv RelaySwap.tsx.tmp RelaySwap.tsx",
+      "description": "Remove old loadApprovalsOnChain function"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Remove old loadApprovalsOnChain function"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && awk '/^  \\/\\/ Fallback: On-chain scanning using Approval event logs$/,/^  }$/ {if (/^  }$/ && !found) {found=1; print; next}} !found' RelaySwap.tsx > RelaySwap.tsx.tmp && mv RelaySwap.tsx.tmp RelaySwap.tsx",
+    "time": {
+      "start": 1767251156953,
+      "end": 1767251156967
+    }
+  }
+}

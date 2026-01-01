@@ -1,0 +1,26 @@
+{
+  "id": "prt_b786190490016wz2gRvjoLI4OJ",
+  "messageID": "msg_b785efca2001B5NnSASpf0Ewwx",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01VZiqvqfQxSJsFHN6Sceua2",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && git checkout src/pages/RelaySwap.tsx",
+      "description": "Restore file from git"
+    },
+    "output": "Updated 1 path from the index\n",
+    "metadata": {
+      "output": "Updated 1 path from the index\n",
+      "exit": 0,
+      "description": "Restore file from git"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && git checkout src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767251218962,
+      "end": 1767251219015
+    }
+  }
+}
