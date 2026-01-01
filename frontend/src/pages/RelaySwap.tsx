@@ -1908,11 +1908,12 @@ export default function RelaySwap() {
             fromDecimals = fromCurrency.decimals
             fromSymbol = fromCurrency.symbol
             fromTokenAddress = fromCurrency.address
-            fromTokenLogo = fromCurrency.metadata?.logoURI
+            fromTokenLogo = fromCurrency.metadata?.logoURI || getNativeTokenLogo(fromCurrency.symbol)
           } else if (originChain) {
             fromDecimals = originChain.currency.decimals
             fromSymbol = originChain.currency.symbol
             fromTokenAddress = originChain.currency.address
+            fromTokenLogo = getNativeTokenLogo(originChain.currency.symbol)
           }
           
           let rawAmount = inTx.data?.value || '0'
@@ -1992,11 +1993,12 @@ export default function RelaySwap() {
             toDecimals = toCurrency.decimals
             toSymbol = toCurrency.symbol
             toTokenAddress = toCurrency.address
-            toTokenLogo = toCurrency.metadata?.logoURI
+            toTokenLogo = toCurrency.metadata?.logoURI || getNativeTokenLogo(toCurrency.symbol)
           } else if (destChain) {
             toDecimals = destChain.currency.decimals
             toSymbol = destChain.currency.symbol
             toTokenAddress = destChain.currency.address
+            toTokenLogo = getNativeTokenLogo(destChain.currency.symbol)
           }
           
           let rawAmount = outTx.data?.value || '0'
@@ -2741,6 +2743,21 @@ export default function RelaySwap() {
       360: 'https://shapescan.xyz/tx/',
     }
     return (explorers[chainId] || 'https://relay.link/tx/') + txHash
+  }
+
+  // Helper to get native token logo URL
+  const getNativeTokenLogo = (symbol: string): string | undefined => {
+    const logos: Record<string, string> = {
+      'ETH': 'https://assets.relay.link/icons/currencies/eth.png',
+      'MATIC': 'https://assets.relay.link/icons/currencies/matic.png',
+      'BNB': 'https://assets.relay.link/icons/currencies/bnb.png',
+      'AVAX': 'https://assets.relay.link/icons/currencies/avax.png',
+      'FTM': 'https://assets.relay.link/icons/currencies/ftm.png',
+      'XDAI': 'https://assets.relay.link/icons/currencies/xdai.png',
+      'CELO': 'https://assets.relay.link/icons/currencies/celo.png',
+      'MNT': 'https://assets.relay.link/icons/currencies/mnt.png',
+    }
+    return logos[symbol]
   }
 
   const revokeApproval = async (approval: typeof approvals[0]) => {

@@ -1,0 +1,61 @@
+{
+  "id": "prt_b781046eb001eH3E07cbZ7g9tu",
+  "messageID": "msg_b780f0376001bACn4LUm22e709",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01GrD18ffaBhvhC7MZMAty3k",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Add proper token logos for native tokens (ETH, MATIC, etc.)",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Keep ERC-20 token logos from metadata",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Add proper token logos for native tokens (ETH, MATIC, etc.)\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Keep ERC-20 token logos from metadata\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Add proper token logos for native tokens (ETH, MATIC, etc.)",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Keep ERC-20 token logos from metadata",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        }
+      ]
+    },
+    "title": "0 todos",
+    "time": {
+      "start": 1767245892632,
+      "end": 1767245892633
+    }
+  }
+}

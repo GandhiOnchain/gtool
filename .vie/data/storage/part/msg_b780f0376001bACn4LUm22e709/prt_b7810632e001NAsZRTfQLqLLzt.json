@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7810632e001NAsZRTfQLqLLzt",
+  "messageID": "msg_b780f0376001bACn4LUm22e709",
+  "sessionID": "ses_48a9d01e3ffe3FgEr5llZ4EBUP",
+  "type": "text",
+  "text": "Perfect! I've fixed the token logos properly:\n\n## ✅ Token Logo Fix\n\n**Added `getNativeTokenLogo()` helper function:**\n- Maps native token symbols to their proper logos\n- ETH → ETH logo (not Base/Optimism logo)\n- MATIC → MATIC logo\n- BNB → BNB logo\n- AVAX → AVAX logo\n- And more...\n\n**Logo Priority:**\n1. **ERC-20 tokens** → Uses token metadata logo\n2. **Native tokens** → Uses proper native token logo (ETH logo for ETH)\n3. **Fallback** → No logo if not found\n\n**Result:**\n- ETH transactions now show ETH logo (not chain logo)\n- Chain icons still show separately next to chain name\n- ERC-20 tokens show their own logos\n- \"View\" links open proper block explorers\n\nTry refreshing the history - ETH should now show the ETH logo, not the Base/Optimism logo!",
+  "time": {
+    "start": 1767245904330,
+    "end": 1767245904330
+  }
+}
