@@ -1,0 +1,26 @@
+{
+  "id": "prt_b782163d0001owKQV27aKejMaM",
+  "messageID": "msg_b78213d4b001K3RpqUJYnryjaY",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01DnQAH5bx6Vgq95S7ALaQHG",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"disconnect\" -g \"*.tsx\" -g \"*.ts\" -l | head -20",
+      "description": "Search for files using disconnect"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": null,
+      "description": "Search for files using disconnect"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"disconnect\" -g \"*.tsx\" -g \"*.ts\" -l | head -20",
+    "time": {
+      "start": 1767247013614,
+      "end": 1767247073622
+    }
+  }
+}

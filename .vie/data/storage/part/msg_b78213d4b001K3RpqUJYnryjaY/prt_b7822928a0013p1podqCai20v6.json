@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7822928a0013p1podqCai20v6",
+  "messageID": "msg_b78213d4b001K3RpqUJYnryjaY",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_016kphQuo9zW9uRvQxiMmjr7",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 0,
+      "limit": 50
+    },
+    "output": "<file>\n00001| import { useEffect, useState } from 'react'\n00002| import { sdk } from '@farcaster/miniapp-sdk'\n00003| import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\n00004| import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem } from 'viem'\n00005| import { relayAPI } from '@/lib/relay/api'\n00006| import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\n00007| import { alchemy, getAlchemyNetwork } from '@/lib/alchemy/config'\n00008| import { Network as AlchemyNetwork } from 'alchemy-sdk'\n00009| import { Button } from '@/components/ui/button'\n00010| import { Input } from '@/components/ui/input'\n00011| import { Card } from '@/components/ui/card'\n00012| import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\n00013| import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'\n00014| import { ScrollArea } from '@/components/ui/scroll-area'\n00015| import { Badge } from '@/components/ui/badge'\n00016| import { Separator } from '@/components/ui/separator'\n00017| import { Switch } from '@/components/ui/switch'\n00018| import { toast } from 'sonner'\n00019| import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'\n00020| \n00021| interface TrendingToken {\n00022|   address: string\n00023|   chainId: number\n00024|   symbol: string\n00025|   name: string\n00026|   logoURI?: string\n00027|   volume24h?: number\n00028|   priceChange24h?: number\n00029| }\n00030| \n00031| interface SwapHistory {\n00032|   id: string\n00033|   type: 'swap' | 'bridge' | 'batch'\n00034|   fromToken: string\n00035|   fromTokenSymbol: string\n00036|   fromTokenDecimals: number\n00037|   fromTokenLogo?: string\n00038|   toToken: string\n00039|   toTokenSymbol: string\n00040|   toTokenDecimals: number\n00041|   toTokenLogo?: string\n00042|   fromAmount: string\n00043|   toAmount: string\n00044|   fromChain: string\n00045|   fromChainId: number\n00046|   fromChainIcon?: string\n00047|   toChain: string\n00048|   toChainId: number\n00049|   toChainIcon?: string\n00050|   status: string\n\n(File has more lines. Use 'offset' parameter to read beyond line 50)\n</file>",
+    "metadata": {
+      "preview": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'\nimport { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\nimport { alchemy, getAlchemyNetwork } from '@/lib/alchemy/config'\nimport { Network as AlchemyNetwork } from 'alchemy-sdk'\nimport { Button } from '@/components/ui/button'\nimport { Input } from '@/components/ui/input'\nimport { Card } from '@/components/ui/card'\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\nimport { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'\nimport { ScrollArea } from '@/components/ui/scroll-area'\nimport { Badge } from '@/components/ui/badge'\nimport { Separator } from '@/components/ui/separator'\nimport { Switch } from '@/components/ui/switch'\nimport { toast } from 'sonner'\nimport { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet } from 'lucide-react'\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767247091078,
+      "end": 1767247091085
+    }
+  }
+}

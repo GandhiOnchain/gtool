@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { sdk } from '@farcaster/miniapp-sdk'
-import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect, useSwitchChain } from 'wagmi'
+import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'
+import { useWallet } from '@/hooks/useWallet'
 import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
@@ -99,7 +100,7 @@ const STREAK_MESSAGES = [
 export default function RelaySwap() {
   const { address, isConnected, chainId: connectedChainId } = useAccount()
   const { connect, connectors } = useConnect()
-  const { disconnect } = useDisconnect()
+  const { disconnect } = useWallet()
   const { switchChain } = useSwitchChain()
   const [chains, setChains] = useState<RelayChain[]>([])
   const [fromChain, setFromChain] = useState<RelayChain | null>(null)

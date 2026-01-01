@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7821564f001SlwJ1MlfxHJVX5",
+  "messageID": "msg_b78213d4b001K3RpqUJYnryjaY",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_012VYbtjhV1GAfWcXXYrxYK3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"disconnect\" --type tsx --type ts -l | head -20",
+      "description": "Search for files using disconnect"
+    },
+    "output": "rg: unrecognized file type: tsx\n",
+    "metadata": {
+      "output": "rg: unrecognized file type: tsx\n",
+      "exit": 0,
+      "description": "Search for files using disconnect"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"disconnect\" --type tsx --type ts -l | head -20",
+    "time": {
+      "start": 1767247010967,
+      "end": 1767247010976
+    }
+  }
+}

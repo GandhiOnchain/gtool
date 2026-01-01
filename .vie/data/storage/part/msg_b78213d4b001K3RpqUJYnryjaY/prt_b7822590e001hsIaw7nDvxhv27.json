@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7822590e001hsIaw7nDvxhv27",
+  "messageID": "msg_b78213d4b001K3RpqUJYnryjaY",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "grep",
+  "callID": "toolu_vrtx_01Mpt1BrH2zr8HKY9hssmWxP",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "disconnect",
+      "include": "*.tsx"
+    },
+    "output": "Found 4 matches\n/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx:\n  Line 102:   const { disconnect } = useDisconnect()\n  Line 2967:                 onClick={() => disconnect()}\n\n/home/user/sandbox/workspace/frontend/src/components/examples/AlchemyExample.tsx:\n  Line 230:     const { address, isConnected, connect, disconnect } = useWallet()\n  Line 244:             onClick={disconnect}",
+    "metadata": {
+      "matches": 4,
+      "truncated": false
+    },
+    "title": "disconnect",
+    "time": {
+      "start": 1767247076954,
+      "end": 1767247076975
+    }
+  }
+}

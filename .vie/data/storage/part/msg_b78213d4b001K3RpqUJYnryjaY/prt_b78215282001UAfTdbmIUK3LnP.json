@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78215282001UAfTdbmIUK3LnP",
+  "messageID": "msg_b78213d4b001K3RpqUJYnryjaY",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Now let me check where the wallet is being used in the UI to see how disconnect is implemented:",
+  "time": {
+    "start": 1767247011004,
+    "end": 1767247011004
+  }
+}

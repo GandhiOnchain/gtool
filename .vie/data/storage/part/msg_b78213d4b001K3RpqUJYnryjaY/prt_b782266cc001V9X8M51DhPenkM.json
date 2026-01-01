@@ -1,0 +1,25 @@
+{
+  "id": "prt_b782266cc001V9X8M51DhPenkM",
+  "messageID": "msg_b78213d4b001K3RpqUJYnryjaY",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01XGPCKJYchrkZmJFUNT54Af",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 95,
+      "limit": 30
+    },
+    "output": "<file>\n00096|   \"✨ Brilliant! Your streak shines!\",\n00097| ]\n00098| \n00099| export default function RelaySwap() {\n00100|   const { address, isConnected, chainId: connectedChainId } = useAccount()\n00101|   const { connect, connectors } = useConnect()\n00102|   const { disconnect } = useDisconnect()\n00103|   const { switchChain } = useSwitchChain()\n00104|   const [chains, setChains] = useState<RelayChain[]>([])\n00105|   const [fromChain, setFromChain] = useState<RelayChain | null>(null)\n00106|   const [toChain, setToChain] = useState<RelayChain | null>(null)\n00107|   const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n00108|   const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n00109|   const [fromAmount, setFromAmount] = useState('')\n00110|   const [toAmount, setToAmount] = useState('')\n00111|   const [quote, setQuote] = useState<RelayQuote | null>(null)\n00112|   const [isLoadingQuote, setIsLoadingQuote] = useState(false)\n00113|   const [isSwapping, setIsSwapping] = useState(false)\n00114|   const [slippage, setSlippage] = useState('0.1')\n00115|   const [searchTerm, setSearchTerm] = useState('')\n00116|   const [tokenSearchTerm, setTokenSearchTerm] = useState('')\n00117|   const [isChainSelectOpen, setIsChainSelectOpen] = useState(false)\n00118|   const [isTokenSelectOpen, setIsTokenSelectOpen] = useState(false)\n00119|   const [selectingFor, setSelectingFor] = useState<'from' | 'to' | 'batch' | 'revoke'>('from')\n00120|   const [currencies, setCurrencies] = useState<RelayCurrency[]>([])\n00121|   const [fromCurrencies, setFromCurrencies] = useState<RelayCurrency[]>([])\n00122|   const [toCurrencies, setToCurrencies] = useState<RelayCurrency[]>([])\n00123|   const [trendingTokens, setTrendingTokens] = useState<TrendingToken[]>([])\n00124|   const [swapHistory, setSwapHistory] = useState<SwapHistory[]>([])\n00125|   const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 })\n\n(File has more lines. Use 'offset' parameter to read beyond line 125)\n</file>",
+    "metadata": {
+      "preview": "  \"✨ Brilliant! Your streak shines!\",\n]\n\nexport default function RelaySwap() {\n  const { address, isConnected, chainId: connectedChainId } = useAccount()\n  const { connect, connectors } = useConnect()\n  const { disconnect } = useDisconnect()\n  const { switchChain } = useSwitchChain()\n  const [chains, setChains] = useState<RelayChain[]>([])\n  const [fromChain, setFromChain] = useState<RelayChain | null>(null)\n  const [toChain, setToChain] = useState<RelayChain | null>(null)\n  const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n  const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n  const [fromAmount, setFromAmount] = useState('')\n  const [toAmount, setToAmount] = useState('')\n  const [quote, setQuote] = useState<RelayQuote | null>(null)\n  const [isLoadingQuote, setIsLoadingQuote] = useState(false)\n  const [isSwapping, setIsSwapping] = useState(false)\n  const [slippage, setSlippage] = useState('0.1')\n  const [searchTerm, setSearchTerm] = useState('')"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767247079981,
+      "end": 1767247079986
+    }
+  }
+}

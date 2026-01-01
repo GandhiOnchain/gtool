@@ -1,0 +1,25 @@
+{
+  "id": "prt_b78227132001Rv508hcqHPdnmG",
+  "messageID": "msg_b78213d4b001K3RpqUJYnryjaY",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01XVedxPFPR62PLDqdypfHB3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2960,
+      "limit": 30
+    },
+    "output": "<file>\n02961|               >\n02962|                 <Trophy className=\"h-4 w-4\" />\n02963|               </Button>\n02964|               <Button\n02965|                 variant=\"ghost\"\n02966|                 size=\"sm\"\n02967|                 onClick={() => disconnect()}\n02968|                 className=\"h-7 text-xs px-2\"\n02969|               >\n02970|                 {address?.slice(0, 6)}...{address?.slice(-4)}\n02971|               </Button>\n02972|             </div>\n02973|           </div>\n02974|         )}\n02975| \n02976|         <Tabs defaultValue=\"swap\" className=\"w-full\">\n02977|           <TabsList className=\"grid w-full grid-cols-5 h-8\">\n02978|             <TabsTrigger value=\"swap\" className=\"text-xs\">Swap</TabsTrigger>\n02979|             <TabsTrigger value=\"batch\" className=\"text-xs\">Batch</TabsTrigger>\n02980|             <TabsTrigger value=\"history\" className=\"text-xs\">History</TabsTrigger>\n02981|             <TabsTrigger value=\"revoke\" className=\"text-xs\">Revoke</TabsTrigger>\n02982|             <TabsTrigger value=\"settings\" className=\"text-xs\">Settings</TabsTrigger>\n02983|           </TabsList>\n02984| \n02985|           <TabsContent value=\"swap\" className=\"space-y-2 mt-2\">\n02986|             <Card className=\"p-3\">\n02987|               <div className=\"space-y-2\">\n02988|                 <div className=\"flex items-center justify-between text-xs\">\n02989|                   <span className=\"text-muted-foreground\">From</span>\n02990|                   {fromBalance && (\n\n(File has more lines. Use 'offset' parameter to read beyond line 2990)\n</file>",
+    "metadata": {
+      "preview": "              >\n                <Trophy className=\"h-4 w-4\" />\n              </Button>\n              <Button\n                variant=\"ghost\"\n                size=\"sm\"\n                onClick={() => disconnect()}\n                className=\"h-7 text-xs px-2\"\n              >\n                {address?.slice(0, 6)}...{address?.slice(-4)}\n              </Button>\n            </div>\n          </div>\n        )}\n\n        <Tabs defaultValue=\"swap\" className=\"w-full\">\n          <TabsList className=\"grid w-full grid-cols-5 h-8\">\n            <TabsTrigger value=\"swap\" className=\"text-xs\">Swap</TabsTrigger>\n            <TabsTrigger value=\"batch\" className=\"text-xs\">Batch</TabsTrigger>\n            <TabsTrigger value=\"history\" className=\"text-xs\">History</TabsTrigger>"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767247082476,
+      "end": 1767247082479
+    }
+  }
+}
