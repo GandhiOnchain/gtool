@@ -6,6 +6,7 @@ import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAb
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
 import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
+import { config } from '@/config'
 import { Network as AlchemyNetwork } from 'alchemy-sdk'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -2445,60 +2446,93 @@ export default function RelaySwap() {
     if (!address || !revokeChain) return
     
     try {
-      console.log('Starting approval scan...')
-      setDebugInfo('Querying Alchemy for approvals...')
+      console.log('Fetching approvals from Moralis...')
+      setDebugInfo('Querying Moralis indexer...')
       
-      const alchemyRpcUrl = `https://${getAlchemyNetwork(revokeChain.id)}.g.alchemy.com/v2/${alchemySettings.apiKey}`
+      const chainMap: Record<number, string> = {
+        1: 'eth',
+        8453: 'base',
+        42161: 'arbitrum',
+        137: 'polygon',
+        10: 'optimism',
+        56: 'bsc',
+        43114: 'avalanche',
+      }
       
-      const response = await fetch(alchemyRpcUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          jsonrpc: '2.0',
-          id: 1,
-          method: 'alchemy_getTokenAllowances',
-          params: [{ owner: address }]
-        })
-      })
+      const chainSlug = chainMap[revokeChain.id]
+      
+      if (!chainSlug) {
+        toast.error('Chain not supported')
+        setIsLoadingApprovals(false)
+        return
+      }
+      
+      if (!config.moralis.apiKey) {
+        toast.error('Moralis API key not configured')
+        setIsLoadingApprovals(false)
+        return
+      }
+      
+      const response = await fetch(
+        `https://deep-index.moralis.io/api/v2.2/wallets/${address}/approvals?chain=${chainSlug}`,
+        {
+          method: 'GET',
+          headers: {
+            'accept': 'application/json',
+            'X-API-Key': config.moralis.apiKey
+          }
+        }
+      )
       
       const data = await response.json()
-      console.log('Alchemy allowances response:', data)
+      console.log('Moralis response:', data)
       
-      if (data.result?.allowances) {
+      if (data.result && Array.isArray(data.result)) {
         const foundApprovals: typeof approvals = []
         
-        for (const approval of data.result.allowances) {
-          if (approval.allowance && approval.allowance !== '0') {
-            const allowanceBigInt = BigInt(approval.allowance)
+        for (const approval of data.result) {
+          const allowanceValue = approval.value || approval.allowance
+          
+          if (allowanceValue && allowanceValue !== '0') {
+            const allowanceBigInt = BigInt(allowanceValue)
             const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
             const isUnlimited = allowanceBigInt >= maxUint256 / 2n
             
+            const token: RelayCurrency = {
+              address: approval.token_address || approval.tokenAddress,
+              symbol: approval.token_symbol || approval.tokenSymbol || 'UNKNOWN',
+              name: approval.token_name || approval.tokenName || 'Unknown',
+              decimals: approval.token_decimals || approval.tokenDecimals || 18,
+              chainId: revokeChain.id,
+              metadata: approval.token_logo ? { logoURI: approval.token_logo } : undefined,
+            }
+            
             foundApprovals.push({
-              token: {
-                address: approval.tokenAddress,
-                symbol: approval.tokenSymbol || 'UNKNOWN',
-                name: approval.tokenName || 'Unknown',
-                decimals: approval.tokenDecimals || 18,
-                chainId: revokeChain.id,
-              },
-              spender: approval.spender,
-              spenderName: approval.spenderName,
-              allowance: approval.allowance,
-              allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(allowanceBigInt, approval.tokenDecimals || 18),
+              token,
+              spender: approval.spender_address || approval.spender,
+              spenderName: approval.spender_name || approval.spenderName,
+              allowance: allowanceValue,
+              allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(allowanceBigInt, token.decimals),
               riskLevel: isUnlimited ? 'high' : 'low',
             })
           }
         }
         
+        console.log(`Found ${foundApprovals.length} approvals`)
         setApprovals(foundApprovals)
-        toast.success(foundApprovals.length > 0 ? `Found ${foundApprovals.length} approval${foundApprovals.length > 1 ? 's' : ''}` : 'No active approvals')
+        
+        if (foundApprovals.length === 0) {
+          toast.success('No active approvals found')
+        } else {
+          toast.success(`Found ${foundApprovals.length} approval${foundApprovals.length > 1 ? 's' : ''}`)
+        }
       } else {
         setApprovals([])
         toast.info('No approvals found')
       }
     } catch (error) {
       const err = error as Error
-      console.error('Failed:', err)
+      console.error('Moralis failed:', err)
       toast.error(`Failed: ${err.message}`)
     } finally {
       setIsLoadingApprovals(false)

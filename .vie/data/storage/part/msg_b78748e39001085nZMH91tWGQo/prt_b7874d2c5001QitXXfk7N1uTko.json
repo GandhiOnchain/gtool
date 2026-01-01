@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7874d2c5001QitXXfk7N1uTko",
+  "messageID": "msg_b78748e39001085nZMH91tWGQo",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01YPc54p3pKGnBi1rCfS5qHG",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s -X GET \"https://deep-index.moralis.io/api/v2.2/wallets/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/approvals?chain=polygon\" -H \"accept: application/json\" -H \"X-API-Key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjFiMTdmNDY2LWQwYjktNDQ0Yy04YzAzLWVmODA2MDU3NjczYyIsIm9yZ0lkIjoiNDg4MjM1IiwidXNlcklkIjoiNTAyMzM4IiwidHlwZUlkIjoiMzdlM2YyYTMtNTc1MC00ZjA0LTgxODUtNTMyY2E1YzRlN2JhIiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE3NjcyNTIyNzEsImV4cCI6NDkyMzAxMjI3MX0.lg0mnYAneuqLxnvM2QiE3lJIa6qkOgAeFCZpXs5c1hw\"",
+      "description": "Test Moralis approvals API raw"
+    },
+    "output": "{\"limit\":100,\"page_size\":0,\"cursor\":null,\"result\":[]}",
+    "metadata": {
+      "output": "{\"limit\":100,\"page_size\":0,\"cursor\":null,\"result\":[]}",
+      "exit": 0,
+      "description": "Test Moralis approvals API raw"
+    },
+    "title": "curl -s -X GET \"https://deep-index.moralis.io/api/v2.2/wallets/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/approvals?chain=polygon\" -H \"accept: application/json\" -H \"X-API-Key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjFiMTdmNDY2LWQwYjktNDQ0Yy04YzAzLWVmODA2MDU3NjczYyIsIm9yZ0lkIjoiNDg4MjM1IiwidXNlcklkIjoiNTAyMzM4IiwidHlwZUlkIjoiMzdlM2YyYTMtNTc1MC00ZjA0LTgxODUtNTMyY2E1YzRlN2JhIiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE3NjcyNTIyNzEsImV4cCI6NDkyMzAxMjI3MX0.lg0mnYAneuqLxnvM2QiE3lJIa6qkOgAeFCZpXs5c1hw\"",
+    "time": {
+      "start": 1767252484832,
+      "end": 1767252484957
+    }
+  }
+}

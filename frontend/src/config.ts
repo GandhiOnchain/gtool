@@ -21,6 +21,9 @@ export const config = {
   alchemy: {
     apiKey: alchemyApiKey,
   },
+  moralis: {
+    apiKey: getEnv('VITE_MORALIS_API_KEY', false),
+  },
   networks: {
     // Base
     8453: {
