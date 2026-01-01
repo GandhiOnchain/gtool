@@ -1,0 +1,11 @@
+{
+  "id": "prt_b785bcc8800118mBh1D5gC7si2",
+  "messageID": "msg_b7858ac21001R6Raif8PimKw8O",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "That's inside the `loadApprovalsOnChain` function which should be async. Let me verify:",
+  "time": {
+    "start": 1767250842672,
+    "end": 1767250842672
+  }
+}

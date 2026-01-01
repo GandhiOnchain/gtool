@@ -1,0 +1,11 @@
+{
+  "id": "prt_b785b10ae001XUryG5wgG0ld0N",
+  "messageID": "msg_b7858ac21001R6Raif8PimKw8O",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Wait, that's the end of `loadApprovalsOnChain`. Let me just remove the dummy function I created:",
+  "time": {
+    "start": 1767250794821,
+    "end": 1767250794821
+  }
+}

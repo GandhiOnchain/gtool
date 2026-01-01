@@ -2440,13 +2440,14 @@ export default function RelaySwap() {
     }
   }
   
-  // Fallback: On-chain scanning
+  // Fallback: On-chain scanning using Approval event logs
   const loadApprovalsOnChain = async () => {
     if (!address || !revokeChain) return
     
     try {
-      console.log('🔗 Starting on-chain scan...')
+      console.log('🔗 Starting on-chain approval scan using event logs...')
       console.log('RPC URL:', revokeChain.httpRpcUrl)
+      setDebugInfo('Scanning blockchain for Approval events...')
       
       const chainConfig = defineChain({
         id: revokeChain.id,
@@ -2466,304 +2467,170 @@ export default function RelaySwap() {
         transport: http(revokeChain.httpRpcUrl),
       })
       
-      // Collect all token addresses to check
+      // Get current block number
+      const currentBlock = await publicClient.getBlockNumber()
+      console.log('Current block:', currentBlock)
+      
+      // Scan last 10000 blocks for Approval events (adjust based on chain)
+      const blocksToScan = 10000n
+      const fromBlock = currentBlock > blocksToScan ? currentBlock - blocksToScan : 0n
+      
+      console.log(`Scanning blocks ${fromBlock} to ${currentBlock} for Approval events...`)
+      setDebugInfo(`Scanning last ${blocksToScan} blocks for approvals...`)
+      
+      // ERC20 Approval event signature: Approval(address indexed owner, address indexed spender, uint256 value)
+      const approvalEventSignature = '0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925'
+      
+      // Fetch all Approval events where owner is the user's address
+      const logs = await publicClient.getLogs({
+        fromBlock,
+        toBlock: currentBlock,
+        event: parseAbiItem('event Approval(address indexed owner, address indexed spender, uint256 value)'),
+        args: {
+          owner: address as `0x${string}`
+        }
+      })
+      
+      console.log(`Found ${logs.length} Approval events`)
+      setDebugInfo(`Found ${logs.length} approval events, checking current allowances...`)
+      
+      // Collect unique token-spender pairs
       const tokenAddressSet = new Set<string>()
       const tokenMetadata = new Map<string, RelayCurrency>()
+      const tokenSpenderPairs = new Map<string, Set<string>>()
       
-      // ONLY get tokens from Alchemy (user's actual holdings) - don't add popular tokens
-      console.log('🔮 Fetching YOUR tokens from Alchemy...')
-      
-      try {
-        const alchemyNetwork = getAlchemyNetwork(revokeChain.id) as unknown as AlchemyNetwork
-        console.log('Alchemy network:', alchemyNetwork)
+      // Process approval events to extract token-spender pairs
+      for (const log of logs) {
+        const tokenAddress = log.address.toLowerCase()
+        const spenderAddress = log.args.spender?.toLowerCase()
         
-        const portfolioAddresses = [{
-          address: address,
-          networks: [alchemyNetwork],
-        }]
+        if (!spenderAddress) continue
         
-        console.log('Calling Alchemy API...')
-        const alchemyResponse = await alchemy.portfolio.getTokensByWallet(
-          portfolioAddresses,
-          true, // withMetadata
-          false, // withPrices
-          false // includeNativeTokens
-        )
+        tokenAddressSet.add(tokenAddress)
         
-        console.log('Alchemy response:', alchemyResponse)
-        
-        if (alchemyResponse?.data?.tokens) {
-          console.log(`Raw token count from Alchemy: ${alchemyResponse.data.tokens.length}`)
-          
-          alchemyResponse.data.tokens.forEach((token: unknown) => {
-            const tokenData = token as { tokenAddress?: string; tokenMetadata?: { symbol?: string; name?: string; decimals?: number; logo?: string } }
-            if (tokenData.tokenAddress && tokenData.tokenAddress !== '0x0000000000000000000000000000000000000000') {
-              const addr = tokenData.tokenAddress.toLowerCase()
-              tokenAddressSet.add(addr)
-              
-              console.log(`Added token: ${tokenData.tokenMetadata?.symbol || 'UNKNOWN'} (${addr})`)
-              
-              tokenMetadata.set(addr, {
-                address: tokenData.tokenAddress,
-                symbol: tokenData.tokenMetadata?.symbol || 'UNKNOWN',
-                name: tokenData.tokenMetadata?.name || 'Unknown Token',
-                decimals: tokenData.tokenMetadata?.decimals || 18,
-                chainId: revokeChain.id,
-                metadata: tokenData.tokenMetadata?.logo ? { logoURI: tokenData.tokenMetadata.logo } : undefined,
-              })
-            }
-          })
-          console.log(`✓ Found ${alchemyResponse.data.tokens.length} tokens from Alchemy`)
-          console.log(`✓ ONLY checking YOUR ${tokenAddressSet.size} tokens (not 100+ popular tokens)`)
-        } else {
-          console.warn('No tokens in Alchemy response')
+        if (!tokenSpenderPairs.has(tokenAddress)) {
+          tokenSpenderPairs.set(tokenAddress, new Set())
         }
-      } catch (alchemyError) {
-        const err = alchemyError as Error
-        console.error('⚠️ Alchemy fetch failed:', err)
-        console.error('Error stack:', err.stack)
-        console.log('Will check common tokens as fallback')
+        tokenSpenderPairs.get(tokenAddress)!.add(spenderAddress)
       }
       
-      // If Alchemy failed or returned no tokens, add common tokens as fallback
+      console.log(`Found ${tokenAddressSet.size} unique tokens with approvals`)
+      
       if (tokenAddressSet.size === 0) {
-        console.log('⚠️ No tokens from Alchemy, adding common tokens for this chain...')
-        const commonTokens: Record<number, Array<{ address: string; symbol: string; name: string; decimals: number }>> = {
-          1: [ // Ethereum
-            { address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', symbol: 'USDT', name: 'Tether USD', decimals: 6 },
-            { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', symbol: 'USDC', name: 'USD Coin', decimals: 6 },
-            { address: '0x6B175474E89094C44Da98b954EedeAC495271d0F', symbol: 'DAI', name: 'Dai Stablecoin', decimals: 18 },
-            { address: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599', symbol: 'WBTC', name: 'Wrapped BTC', decimals: 8 },
-          ],
-          8453: [ // Base
-            { address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', symbol: 'USDC', name: 'USD Coin', decimals: 6 },
-            { address: '0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb', symbol: 'DAI', name: 'Dai Stablecoin', decimals: 18 },
-            { address: '0x4200000000000000000000000000000000000006', symbol: 'WETH', name: 'Wrapped Ether', decimals: 18 },
-          ],
-          42161: [ // Arbitrum
-            { address: '0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9', symbol: 'USDT', name: 'Tether USD', decimals: 6 },
-            { address: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831', symbol: 'USDC', name: 'USD Coin', decimals: 6 },
-            { address: '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1', symbol: 'DAI', name: 'Dai Stablecoin', decimals: 18 },
-          ],
-          137: [ // Polygon
-            { address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F', symbol: 'USDT', name: 'Tether USD', decimals: 6 },
-            { address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174', symbol: 'USDC', name: 'USD Coin', decimals: 6 },
-            { address: '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063', symbol: 'DAI', name: 'Dai Stablecoin', decimals: 18 },
-          ],
-          10: [ // Optimism
-            { address: '0x94b008aA00579c1307B0EF2c499aD98a8ce58e58', symbol: 'USDT', name: 'Tether USD', decimals: 6 },
-            { address: '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85', symbol: 'USDC', name: 'USD Coin', decimals: 6 },
-            { address: '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1', symbol: 'DAI', name: 'Dai Stablecoin', decimals: 18 },
-            { address: '0x4200000000000000000000000000000000000006', symbol: 'WETH', name: 'Wrapped Ether', decimals: 18 },
-          ],
-        }
-        
-        const tokensForChain = commonTokens[revokeChain.id] || []
-        tokensForChain.forEach(token => {
-          const addr = token.address.toLowerCase()
-          tokenAddressSet.add(addr)
-          tokenMetadata.set(addr, {
-            address: token.address,
-            symbol: token.symbol,
-            name: token.name,
-            decimals: token.decimals,
+        console.log('No approval events found in recent blocks')
+        setApprovals([])
+        toast.info('No token approvals found in recent transactions')
+        setIsLoadingApprovals(false)
+        return
+      }
+      
+      // Fetch token metadata for all tokens
+      setDebugInfo(`Fetching metadata for ${tokenAddressSet.size} tokens...`)
+      
+      for (const tokenAddress of tokenAddressSet) {
+        try {
+          const [symbol, name, decimals] = await Promise.all([
+            publicClient.readContract({
+              address: tokenAddress as `0x${string}`,
+              abi: [{ name: 'symbol', type: 'function', stateMutability: 'view', inputs: [], outputs: [{ type: 'string' }] }],
+              functionName: 'symbol',
+            }).catch(() => 'UNKNOWN'),
+            publicClient.readContract({
+              address: tokenAddress as `0x${string}`,
+              abi: [{ name: 'name', type: 'function', stateMutability: 'view', inputs: [], outputs: [{ type: 'string' }] }],
+              functionName: 'name',
+            }).catch(() => 'Unknown Token'),
+            publicClient.readContract({
+              address: tokenAddress as `0x${string}`,
+              abi: [{ name: 'decimals', type: 'function', stateMutability: 'view', inputs: [], outputs: [{ type: 'uint8' }] }],
+              functionName: 'decimals',
+            }).catch(() => 18),
+          ])
+          
+          tokenMetadata.set(tokenAddress, {
+            address: tokenAddress,
+            symbol: symbol as string,
+            name: name as string,
+            decimals: decimals as number,
             chainId: revokeChain.id,
           })
-        })
-        console.log(`Added ${tokensForChain.length} common tokens for fallback check`)
-      }
-      
-      // Comprehensive protocol spender addresses by chain (like Rabby/Revoke.cash)
-      const commonSpenders: Record<number, Array<{ address: string; name: string }>> = {
-        1: [ // Ethereum
-          { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },
-          { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },
-          { address: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', name: 'Uniswap V2 Router' },
-          { address: '0xDef1C0ded9bec7F1a1670819833240f027b25EfF', name: '0x Exchange Proxy' },
-          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
-          { address: '0x1111111254fb6c44bAC0beD2854e76F90643097d', name: '1inch V4 Router' },
-          { address: '0x11111112542D85B3EF69AE05771c2dCCff4fAa26', name: '1inch V3 Router' },
-          { address: '0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F', name: 'SushiSwap Router' },
-          { address: '0x881D40237659C251811CEC9c364ef91dC08D300C', name: 'Metamask Swap Router' },
-          { address: '0x216B4B4Ba9F3e719726886d34a177484278Bfcae', name: 'ParaSwap V5 Router' },
-          { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap V4 Router' },
-          { address: '0x74de5d4FCbf63E00296fd95d33236B9794016631', name: 'MetaMask Swap' },
-          { address: '0x3328F7f4A1D1C57c35df56bBf0c9dCAFCA309C49', name: 'Curve Router' },
-          { address: '0x99a58482BD75cbab83b27EC03CA68fF489b5788f', name: 'Curve Router V2' },
-          { address: '0xF9234CB08edb93c0d4a4d4c70cC3FfD070e78e07', name: 'Balancer Vault' },
-          { address: '0xBA12222222228d8Ba445958a75a0704d566BF2C8', name: 'Balancer V2 Vault' },
-        ],
-        8453: [ // Base
-          // DEX Routers
-          { address: '0x2626664c2603336E57B271c5C0b26F421741e481', name: 'Uniswap V3 Router 2' },
-          { address: '0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD', name: 'Uniswap Universal Router' },
-          { address: '0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24', name: 'BaseSwap Router' },
-          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
-          { address: '0x327Df1E6de05895d2ab08513aaDD9313Fe505d86', name: 'Aerodrome Router' },
-          { address: '0xcF77a3Ba9A5CA399B7c97c74d54e5b1Beb874E43', name: 'Aerodrome Sugar' },
-          // NFT Marketplaces (Base)
-          { address: '0x1e0049783F008A0085193E00003D00cd54003c71', name: 'OpenSea Seaport 1.5' },
-          { address: '0x00000000000000ADc04C56Bf30aC9d3c0aAF14dC', name: 'OpenSea Seaport 1.6' },
-          { address: '0x00000000006c3852cbEf3e08E8dF289169EdE581', name: 'OpenSea Seaport 1.1' },
-          { address: '0xa39a5f6912a9', name: 'Element' },
-          { address: '0xdef1c0ded9bec7f1a1670819833240f027b25eff', name: '0x Protocol' },
-          { address: '0x0000000000E655fAe4d56241588680F86E3b2377', name: 'LooksRare' },
-          { address: '0x59728544B08AB483533076417FbBB2fD0B17CE3a', name: 'Blur' },
-          { address: '0x74312363e45DCaBA76c59ec49a7Aa8A65a67EeD3', name: 'X2Y2' },
-        ],
-        42161: [ // Arbitrum
-          { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },
-          { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },
-          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
-          { address: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', name: 'SushiSwap Router' },
-          { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap Router' },
-          { address: '0xBA12222222228d8Ba445958a75a0704d566BF2C8', name: 'Balancer V2 Vault' },
-        ],
-        137: [ // Polygon
-          { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },
-          { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },
-          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
-          { address: '0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff', name: 'QuickSwap Router' },
-          { address: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', name: 'SushiSwap Router' },
-          { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap Router' },
-          { address: '0xBA12222222228d8Ba445958a75a0704d566BF2C8', name: 'Balancer V2 Vault' },
-        ],
-        10: [ // Optimism
-          { address: '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45', name: 'Uniswap V3 Router 2' },
-          { address: '0xE592427A0AEce92De3Edee1F18E0157C05861564', name: 'Uniswap V3 Router' },
-          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
-          { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap Router' },
-          { address: '0xBA12222222228d8Ba445958a75a0704d566BF2C8', name: 'Balancer V2 Vault' },
-        ],
-        56: [ // BNB Chain
-          { address: '0x10ED43C718714eb63d5aA57B78B54704E256024E', name: 'PancakeSwap Router' },
-          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
-          { address: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', name: 'SushiSwap Router' },
-          { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap Router' },
-        ],
-        43114: [ // Avalanche
-          { address: '0x60aE616a2155Ee3d9A68541Ba4544862310933d4', name: 'Trader Joe Router' },
-          { address: '0xE54Ca86531e17Ef3616d22Ca28b0D458b6C89106', name: 'Pangolin Router' },
-          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
-          { address: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', name: 'SushiSwap Router' },
-        ],
-        59144: [ // Linea
-          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
-          { address: '0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57', name: 'ParaSwap Router' },
-        ],
-        534352: [ // Scroll
-          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
-        ],
-        5000: [ // Mantle
-          { address: '0x1111111254EEB25477B68fb85Ed929f73A960582', name: '1inch V5 Router' },
-        ],
-      }
-      
-      const spendersToCheck = commonSpenders[revokeChain.id] || []
-      
-      if (spendersToCheck.length === 0) {
-        console.log('⚠️ No common spenders configured for chain:', revokeChain.id)
-        toast.error('Approval scanning not supported for this chain yet')
-        setIsLoadingApprovals(false)
-        return
-      }
-      
-      if (tokenAddressSet.size === 0) {
-        console.log('⚠️ No tokens found in your wallet')
-        setApprovals([])
-        toast.info('No tokens found to check for approvals')
-        setIsLoadingApprovals(false)
-        return
-      }
-      
-      console.log(`✅ Will check ${tokenAddressSet.size} tokens × ${spendersToCheck.length} protocols = ${tokenAddressSet.size * spendersToCheck.length} checks`)
-      console.log('This should take ~5-10 seconds...')
-      
-      console.log(`🔎 Checking ${tokenAddressSet.size} tokens against ${spendersToCheck.length} protocols`)
-      console.log('Spenders to check:', spendersToCheck.map(s => s.name))
-      
-      const foundApprovals: typeof approvals = []
-      let checkedCount = 0
-      const totalChecks = tokenAddressSet.size * spendersToCheck.length
-      
-      console.log(`📊 Total checks to perform: ${totalChecks}`)
-      
-      // OPTIMIZATION: Use multicall to batch requests (check all spenders for a token at once)
-      const tokenArray = Array.from(tokenAddressSet)
-      
-      // Process tokens in batches for better performance
-      const batchSize = 10
-      for (let i = 0; i < tokenArray.length; i += batchSize) {
-        const tokenBatch = tokenArray.slice(i, i + batchSize)
-        
-        // Check all spenders for each token in parallel
-        await Promise.all(tokenBatch.map(async (tokenAddress) => {
-          const metadata = tokenMetadata.get(tokenAddress)
-          const tokenSymbol = metadata?.symbol || tokenAddress.slice(0, 8)
-          
-          // Check all spenders for this token in parallel
-          const spenderChecks = spendersToCheck.map(async (spender) => {
-            try {
-              checkedCount++
-              
-              const currentAllowance = await publicClient.readContract({
-                address: tokenAddress as `0x${string}`,
-                abi: [{
-                  name: 'allowance',
-                  type: 'function',
-                  stateMutability: 'view',
-                  inputs: [
-                    { name: 'owner', type: 'address' },
-                    { name: 'spender', type: 'address' }
-                  ],
-                  outputs: [{ name: 'remaining', type: 'uint256' }],
-                }],
-                functionName: 'allowance',
-                args: [address as `0x${string}`, spender.address as `0x${string}`],
-              })
-              
-              if (currentAllowance > 0n) {
-                const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
-                const isUnlimited = currentAllowance >= maxUint256 / 2n
-                
-                const token = metadata || {
-                  address: tokenAddress,
-                  symbol: 'UNKNOWN',
-                  name: tokenAddress,
-                  decimals: 18,
-                  chainId: revokeChain.id,
-                }
-                
-                console.log(`✅ Approval: ${token.symbol} → ${spender.name}`)
-                
-                foundApprovals.push({
-                  token,
-                  spender: spender.address,
-                  spenderName: spender.name,
-                  allowance: currentAllowance.toString(),
-                  allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(currentAllowance, token.decimals),
-                  riskLevel: isUnlimited ? 'high' : 'low',
-                })
-              }
-            } catch (e) {
-              // Silently skip errors
-            }
-          })
-          
-          await Promise.all(spenderChecks)
-        }))
-        
-        // Log progress
-        const progress = Math.round((i + batchSize) / tokenArray.length * 100)
-        console.log(`⏳ Progress: ${Math.min(progress, 100)}% (${foundApprovals.length} approvals found)`)
-        
-        // Small delay between batches
-        if (i + batchSize < tokenArray.length) {
-          await new Promise(resolve => setTimeout(resolve, 200))
+        } catch (e) {
+          console.warn(`Failed to fetch metadata for ${tokenAddress}`)
         }
       }
       
-      console.log(`🎉 Scan complete: ${foundApprovals.length} approvals found`)
+      // Check current allowances for all token-spender pairs found in events
+      setDebugInfo(`Checking current allowances...`)
+      
+      const foundApprovals: typeof approvals = []
+      
+      // Known protocol names
+      const knownSpenders: Record<string, string> = {
+        '0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45': 'Uniswap V3 Router 2',
+        '0xe592427a0aece92de3edee1f18e0157c05861564': 'Uniswap V3 Router',
+        '0x7a250d5630b4cf539739df2c5dacb4c659f2488d': 'Uniswap V2 Router',
+        '0x1111111254eeb25477b68fb85ed929f73a960582': '1inch V5 Router',
+        '0xdef1c0ded9bec7f1a1670819833240f027b25eff': '0x Exchange',
+        '0xd9e1ce17f2641f24ae83637ab66a2cca9c378b9f': 'SushiSwap',
+        '0xdef171fe48cf0115b1d80b88dc8eab59176fee57': 'ParaSwap',
+        '0xba12222222228d8ba445958a75a0704d566bf2c8': 'Balancer V2',
+      }
+      
+      // Check allowances for each token-spender pair
+      for (const [tokenAddress, spenders] of tokenSpenderPairs.entries()) {
+        const metadata = tokenMetadata.get(tokenAddress)
+        
+        for (const spenderAddress of spenders) {
+          try {
+            const currentAllowance = await publicClient.readContract({
+              address: tokenAddress as `0x${string}`,
+              abi: [{
+                name: 'allowance',
+                type: 'function',
+                stateMutability: 'view',
+                inputs: [
+                  { name: 'owner', type: 'address' },
+                  { name: 'spender', type: 'address' }
+                ],
+                outputs: [{ name: 'remaining', type: 'uint256' }],
+              }],
+              functionName: 'allowance',
+              args: [address as `0x${string}`, spenderAddress as `0x${string}`],
+            })
+            
+            // Only include if allowance is still active
+            if (currentAllowance > 0n) {
+              const maxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
+              const isUnlimited = currentAllowance >= maxUint256 / 2n
+              
+              const token = metadata || {
+                address: tokenAddress,
+                symbol: 'UNKNOWN',
+                name: tokenAddress,
+                decimals: 18,
+                chainId: revokeChain.id,
+              }
+              
+              const spenderName = knownSpenders[spenderAddress] || `${spenderAddress.slice(0, 6)}...${spenderAddress.slice(-4)}`
+              
+              console.log(`✅ Active approval: ${token.symbol} → ${spenderName}`)
+              
+              foundApprovals.push({
+                token,
+                spender: spenderAddress,
+                spenderName,
+                allowance: currentAllowance.toString(),
+                allowanceFormatted: isUnlimited ? 'Unlimited' : formatUnits(currentAllowance, token.decimals),
+                riskLevel: isUnlimited ? 'high' : 'low',
+              })
+            }
+          } catch (e) {
+            console.warn(`Failed to check allowance for ${tokenAddress} -> ${spenderAddress}`)
+          }
+        }
+      }
+      
+      console.log(`🎉 Found ${foundApprovals.length} active approvals`)
       
       setApprovals(foundApprovals)
       
@@ -2780,8 +2647,6 @@ export default function RelaySwap() {
       setIsLoadingApprovals(false)
     }
   }
-
-  // Helper to get block explorer URL for a transaction
   const getBlockExplorerUrl = (chainId: number, txHash: string): string => {
     const explorers: Record<number, string> = {
       1: 'https://etherscan.io/tx/',

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b785a7783001wQKhuAgN76x4uJ",
+  "messageID": "msg_b7858ac21001R6Raif8PimKw8O",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_016AFieuRiV2AwLedBHrSs7G",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"const oldLoadApprovalsOnChainCode\" RelaySwap.tsx -A 300 | tail -50",
+      "description": "Find end of old function"
+    },
+    "output": "      'WBTC': 'https://assets.relay.link/icons/currencies/wbtc.png',\n    }\n    return logos[symbol.toUpperCase()]\n  }\n\n  const revokeApproval = async (approval: typeof approvals[0]) => {\n    if (!address || !revokeChain) return\n    \n    setIsRevoking(true)\n    try {\n      // Check if we need to switch chains\n      if (connectedChainId !== revokeChain.id) {\n        console.log('Switching chain to', revokeChain.displayName)\n        try {\n          await switchChain({ chainId: revokeChain.id })\n          toast.success('Chain switched')\n          await new Promise(resolve => setTimeout(resolve, 500))\n        } catch (switchError) {\n          console.error('Failed to switch chain:', switchError)\n          toast.error('Please switch to the correct network')\n          setIsRevoking(false)\n          return\n        }\n      }\n      \n      // Send approval transaction with 0 allowance\n      sendTransaction({\n        to: approval.token.address as `0x${string}`,\n        data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,\n      }, {\n        onSuccess: (hash) => {\n          console.log('Revoke transaction submitted:', hash)\n          toast.success('Approval revoked successfully')\n          \n          // Reload approvals after a delay\n          setTimeout(() => {\n            loadApprovals()\n          }, 2000)\n          \n          setIsRevoking(false)\n        },\n        onError: (error) => {\n          console.error('Revoke failed:', error)\n          toast.error('Failed to revoke approval')\n          setIsRevoking(false)\n        }\n      })\n    } catch (error) {\n      console.error('Revoke approval failed:', error)\n      toast.error('Failed to revoke approval')\n",
+    "metadata": {
+      "output": "      'WBTC': 'https://assets.relay.link/icons/currencies/wbtc.png',\n    }\n    return logos[symbol.toUpperCase()]\n  }\n\n  const revokeApproval = async (approval: typeof approvals[0]) => {\n    if (!address || !revokeChain) return\n    \n    setIsRevoking(true)\n    try {\n      // Check if we need to switch chains\n      if (connectedChainId !== revokeChain.id) {\n        console.log('Switching chain to', revokeChain.displayName)\n        try {\n          await switchChain({ chainId: revokeChain.id })\n          toast.success('Chain switched')\n          await new Promise(resolve => setTimeout(resolve, 500))\n        } catch (switchError) {\n          console.error('Failed to switch chain:', switchError)\n          toast.error('Please switch to the correct network')\n          setIsRevoking(false)\n          return\n        }\n      }\n      \n      // Send approval transaction with 0 allowance\n      sendTransaction({\n        to: approval.token.address as `0x${string}`,\n        data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,\n      }, {\n        onSuccess: (hash) => {\n          console.log('Revoke transaction submitted:', hash)\n          toast.success('Approval revoked successfully')\n          \n          // Reload approvals after a delay\n          setTimeout(() => {\n            loadApprovals()\n          }, 2000)\n          \n          setIsRevoking(false)\n        },\n        onError: (error) => {\n          console.error('Revoke failed:', error)\n          toast.error('Failed to revoke approval')\n          setIsRevoking(false)\n        }\n      })\n    } catch (error) {\n      console.error('Revoke approval failed:', error)\n      toast.error('Failed to revoke approval')\n",
+      "exit": 0,
+      "description": "Find end of old function"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"const oldLoadApprovalsOnChainCode\" RelaySwap.tsx -A 300 | tail -50",
+    "time": {
+      "start": 1767250755269,
+      "end": 1767250755275
+    }
+  }
+}

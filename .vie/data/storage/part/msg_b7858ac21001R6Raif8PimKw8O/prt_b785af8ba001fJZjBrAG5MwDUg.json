@@ -1,0 +1,26 @@
+{
+  "id": "prt_b785af8ba001fJZjBrAG5MwDUg",
+  "messageID": "msg_b7858ac21001R6Raif8PimKw8O",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_017hBgFX6hmAYoJxvzGrqgu4",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && rg -n \"const oldLoadApprovalsOnChainCode\" RelaySwap.tsx -A 500 | rg \"^[0-9]+-  }\" | head -1",
+      "description": "Find where old function ends"
+    },
+    "output": "2859-  }\n",
+    "metadata": {
+      "output": "2859-  }\n",
+      "exit": 0,
+      "description": "Find where old function ends"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && rg -n \"const oldLoadApprovalsOnChainCode\" RelaySwap.tsx -A 500 | rg \"^[0-9]+-  }\" | head -1",
+    "time": {
+      "start": 1767250789305,
+      "end": 1767250789311
+    }
+  }
+}

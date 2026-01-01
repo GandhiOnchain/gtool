@@ -1,0 +1,22 @@
+{
+  "id": "prt_b7858c56a001EWY3wInUqxslWG",
+  "messageID": "msg_b7858ac21001R6Raif8PimKw8O",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "webfetch",
+  "callID": "toolu_vrtx_013f6JtXVmK9rYy1FWcWRFGk",
+  "state": {
+    "status": "completed",
+    "input": {
+      "url": "https://farcaster.xyz/miniapps/bzs-XgtfmjIw/smol-frame",
+      "format": "html"
+    },
+    "output": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <link rel=\"icon\" href=\"/favicon-v3.png\" />\n    <meta\n      name=\"viewport\"\n      content=\"width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no\"\n    />\n    <meta\n      name=\"theme-color\"\n      content=\"#101010\"\n      media=\"(prefers-color-scheme: dark)\"\n    />\n    <meta\n      name=\"theme-color\"\n      content=\"#ffffff\"\n      media=\"(prefers-color-scheme: light)\"\n    />\n    <meta name=\"mobile-web-app-capable\" content=\"yes\" />\n    <meta\n      name=\"apple-mobile-web-app-status-bar-style\"\n      content=\"black-translucent\"\n    />\n    <link rel=\"apple-touch-icon\" href=\"/og-logo-v3.png\" />\n    <link rel=\"manifest\" href=\"/manifest.json\" />\n    <title>Farcaster</title>\n    <!-- Preconnect to image CDN for faster LCP -->\n    <link rel=\"preconnect\" href=\"https://wrpcd.net\" crossorigin />\n    <!-- Fonts -->\n    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />\n    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />\n    <link\n      href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap\"\n      rel=\"stylesheet\"\n      media=\"print\"\n      onload=\"this.media='all'\"\n    />\n    <script>\n      (function() {\n        const STORAGE_KEY = 'user-saved-theme';\n        const DEFAULT_THEME = 'system';\n        \n        try {\n          const stored = localStorage.getItem(STORAGE_KEY);\n          const userSavedTheme = stored || DEFAULT_THEME;\n          \n          let effective = userSavedTheme;\n          if (userSavedTheme === 'system') {\n            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;\n            effective = prefersDark ? 'dark' : 'light';\n          }\n          \n          const root = document.documentElement;\n          root.classList.toggle('dark', effective === 'dark');\n          root.classList.toggle('light', effective === 'light');\n          root.setAttribute('data-theme', userSavedTheme);\n        } catch (e) {\n          // Fallback if localStorage is unavailable\n          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;\n          const root = document.documentElement;\n          root.classList.toggle('dark', prefersDark);\n          root.classList.toggle('light', !prefersDark);\n        }\n      })();\n    </script>\n    <style>\n      html.dark {\n        background-color: #101010;\n        color-scheme: dark;\n      }\n      html.light {\n        background-color: #ffffff;\n        color-scheme: light;\n      }\n      body {\n        background-color: inherit;\n      }\n    </style>\n    <script type=\"module\" crossorigin src=\"/assets/index-DpS8Bbnm.js\"></script>\n    <link rel=\"modulepreload\" crossorigin href=\"/assets/vendor-viem-CJxPAdzp.js\">\n    <link rel=\"modulepreload\" crossorigin href=\"/assets/vendor-wagmi-B_22ByD3.js\">\n    <link rel=\"modulepreload\" crossorigin href=\"/assets/vendor-solana-D8bFsTD9.js\">\n    <link rel=\"modulepreload\" crossorigin href=\"/assets/vendor-privy-B51phBGe.js\">\n    <link rel=\"modulepreload\" crossorigin href=\"/assets/vendor-draftjs-XP7jpNAg.js\">\n    <link rel=\"modulepreload\" crossorigin href=\"/assets/vendor-charts-BIHzY1Bg.js\">\n    <link rel=\"modulepreload\" crossorigin href=\"/assets/vendor-emoji-DEQEzdnJ.js\">\n    <link rel=\"stylesheet\" crossorigin href=\"/assets/index-CtBv4B9N.css\">\n  </head>\n  <body>\n    <noscript>You need to enable JavaScript to run this app.</noscript>\n    <div id=\"root\"></div>\n    <div id=\"modal-root\"></div>\n    <div id=\"popover-root\"></div>\n    <div id=\"hover-popover-root\"></div>\n  </body>\n</html>\n",
+    "metadata": {},
+    "title": "https://farcaster.xyz/miniapps/bzs-XgtfmjIw/smol-frame (text/html; charset=utf-8)",
+    "time": {
+      "start": 1767250642766,
+      "end": 1767250643030
+    }
+  }
+}

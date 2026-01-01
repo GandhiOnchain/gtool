@@ -1,0 +1,26 @@
+{
+  "id": "prt_b785ad00e001Gdlmna7l6KPXCu",
+  "messageID": "msg_b7858ac21001R6Raif8PimKw8O",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01BxN3JznoyGG8ukvq9neVGf",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"const oldLoadApprovalsOnChainCode\" RelaySwap.tsx -n",
+      "description": "Find line number of old code"
+    },
+    "output": "2652:  const oldLoadApprovalsOnChainCode = () => {\n",
+    "metadata": {
+      "output": "2652:  const oldLoadApprovalsOnChainCode = () => {\n",
+      "exit": 0,
+      "description": "Find line number of old code"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && rg \"const oldLoadApprovalsOnChainCode\" RelaySwap.tsx -n",
+    "time": {
+      "start": 1767250777547,
+      "end": 1767250777553
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b78590cd800164YwlbY50OhQ8x",
+  "messageID": "msg_b7858ac21001R6Raif8PimKw8O",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "Now let me completely replace the on-chain scanning logic with an event-based approach that scans for ALL Approval events from the user's address:",
+  "time": {
+    "start": 1767250671908,
+    "end": 1767250671908
+  }
+}

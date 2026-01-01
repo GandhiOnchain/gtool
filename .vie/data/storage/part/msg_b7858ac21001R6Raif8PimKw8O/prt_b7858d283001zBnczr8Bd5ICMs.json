@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7858d283001zBnczr8Bd5ICMs",
+  "messageID": "msg_b7858ac21001R6Raif8PimKw8O",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "The HTML doesn't show the implementation. Let me check what APIs are commonly used for detecting token approvals. The key insight is that they likely use event logs to detect `Approval` events rather than checking each token individually.\n\nLet me implement a proper approval detection system using event logs:",
+  "time": {
+    "start": 1767250652724,
+    "end": 1767250652724
+  }
+}

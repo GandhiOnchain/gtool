@@ -1,0 +1,26 @@
+{
+  "id": "prt_b785bd094001ocYs3Lgwyhy63D",
+  "messageID": "msg_b7858ac21001R6Raif8PimKw8O",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01JhDRd9vUE317o7boMKjs7r",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend/src/pages && sed -n '2443,2448p' RelaySwap.tsx",
+      "description": "Check function declaration"
+    },
+    "output": "  // Fallback: On-chain scanning using Approval event logs\n  const loadApprovalsOnChain = async () => {\n    if (!address || !revokeChain) return\n    \n    try {\n      console.log('🔗 Starting on-chain approval scan using event logs...')\n",
+    "metadata": {
+      "output": "  // Fallback: On-chain scanning using Approval event logs\n  const loadApprovalsOnChain = async () => {\n    if (!address || !revokeChain) return\n    \n    try {\n      console.log('🔗 Starting on-chain approval scan using event logs...')\n",
+      "exit": 0,
+      "description": "Check function declaration"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend/src/pages && sed -n '2443,2448p' RelaySwap.tsx",
+    "time": {
+      "start": 1767250842544,
+      "end": 1767250842550
+    }
+  }
+}

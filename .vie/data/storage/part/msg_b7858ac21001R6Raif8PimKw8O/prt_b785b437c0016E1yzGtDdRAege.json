@@ -1,0 +1,11 @@
+{
+  "id": "prt_b785b437c0016E1yzGtDdRAege",
+  "messageID": "msg_b7858ac21001R6Raif8PimKw8O",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "That's the end of `loadApprovalsOnChain`, not the dummy function. The dummy function must have all the old code. Let me just delete it entirely:",
+  "time": {
+    "start": 1767250809481,
+    "end": 1767250809481
+  }
+}

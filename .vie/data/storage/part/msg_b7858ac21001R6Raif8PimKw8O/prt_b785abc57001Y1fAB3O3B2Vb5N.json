@@ -1,0 +1,25 @@
+{
+  "id": "prt_b785abc57001Y1fAB3O3B2Vb5N",
+  "messageID": "msg_b7858ac21001R6Raif8PimKw8O",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01H59QCBQKeaskosvdYGo1WK",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2845,
+      "limit": 20
+    },
+    "output": "<file>\n02846|       \n02847|       if (foundApprovals.length === 0) {\n02848|         toast.success('No active approvals found')\n02849|       } else {\n02850|         toast.success(`Found ${foundApprovals.length} active approval${foundApprovals.length > 1 ? 's' : ''}`)\n02851|       }\n02852|     } catch (error) {\n02853|       const err = error as Error\n02854|       console.error('❌ Scan failed:', err)\n02855|       toast.error(`Failed to scan approvals: ${err.message || 'Unknown error'}`)\n02856|     } finally {\n02857|       setIsLoadingApprovals(false)\n02858|     }\n02859|   }\n02860| \n02861|   // Helper to get block explorer URL for a transaction\n02862|   const getBlockExplorerUrl = (chainId: number, txHash: string): string => {\n02863|     const explorers: Record<number, string> = {\n02864|       1: 'https://etherscan.io/tx/',\n02865|       8453: 'https://basescan.org/tx/',\n\n(File has more lines. Use 'offset' parameter to read beyond line 2865)\n</file>",
+    "metadata": {
+      "preview": "      \n      if (foundApprovals.length === 0) {\n        toast.success('No active approvals found')\n      } else {\n        toast.success(`Found ${foundApprovals.length} active approval${foundApprovals.length > 1 ? 's' : ''}`)\n      }\n    } catch (error) {\n      const err = error as Error\n      console.error('❌ Scan failed:', err)\n      toast.error(`Failed to scan approvals: ${err.message || 'Unknown error'}`)\n    } finally {\n      setIsLoadingApprovals(false)\n    }\n  }\n\n  // Helper to get block explorer URL for a transaction\n  const getBlockExplorerUrl = (chainId: number, txHash: string): string => {\n    const explorers: Record<number, string> = {\n      1: 'https://etherscan.io/tx/',\n      8453: 'https://basescan.org/tx/',"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767250771839,
+      "end": 1767250771842
+    }
+  }
+}

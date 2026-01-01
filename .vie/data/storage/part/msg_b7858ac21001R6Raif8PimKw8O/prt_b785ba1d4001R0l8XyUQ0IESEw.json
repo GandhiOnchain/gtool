@@ -1,0 +1,26 @@
+{
+  "id": "prt_b785ba1d4001R0l8XyUQ0IESEw",
+  "messageID": "msg_b7858ac21001R6Raif8PimKw8O",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01F63ka9soCXEno3CfJnzj7x",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && head -5 src/pages/RelaySwap.tsx",
+      "description": "Check first lines of file"
+    },
+    "output": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useDisconnect } from 'wagmi'\nimport { useWallet } from '@/hooks/useWallet'\nimport { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem } from 'viem'\n",
+    "metadata": {
+      "output": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useDisconnect } from 'wagmi'\nimport { useWallet } from '@/hooks/useWallet'\nimport { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem } from 'viem'\n",
+      "exit": 0,
+      "description": "Check first lines of file"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && head -5 src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767250830641,
+      "end": 1767250830642
+    }
+  }
+}

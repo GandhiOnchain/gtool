@@ -1,0 +1,11 @@
+{
+  "id": "prt_b785c29d70019gYZpJH4ejKbzs",
+  "messageID": "msg_b7858ac21001R6Raif8PimKw8O",
+  "sessionID": "ses_487e3007cffednUnfj2RvD4tRJ",
+  "type": "text",
+  "text": "So line 2859 starts `getBlockExplorerUrl`. The orphaned code is between 2650-2858. Let me delete it:",
+  "time": {
+    "start": 1767250866746,
+    "end": 1767250866746
+  }
+}
