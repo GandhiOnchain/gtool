@@ -3855,11 +3855,8 @@ export default function RelaySwap() {
               </Card>
             ) : approvals.length === 0 && revokeChain ? (
               <Card className="p-4 text-center">
-                <div className="text-sm text-muted-foreground mb-2">
-                  No active approvals found
-                </div>
-                <div className="text-xs text-muted-foreground">
-                  You haven't approved any tokens for common protocols on {revokeChain.displayName}.
+                <div className="text-sm text-muted-foreground">
+                  You haven't approved any tokens on {revokeChain.displayName} yet
                 </div>
               </Card>
             ) : approvals.length > 0 ? (

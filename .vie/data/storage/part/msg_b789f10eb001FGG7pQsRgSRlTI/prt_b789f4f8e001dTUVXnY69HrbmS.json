@@ -1,0 +1,11 @@
+{
+  "id": "prt_b789f4f8e001dTUVXnY69HrbmS",
+  "messageID": "msg_b789f10eb001FGG7pQsRgSRlTI",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "Done. The no active approvals section now shows only \"You haven't approved any tokens on [chain name] yet\".",
+  "time": {
+    "start": 1767255265937,
+    "end": 1767255265937
+  }
+}
