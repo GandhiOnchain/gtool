@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7f8718cf001SMEVSKFjyX4giJ",
+  "messageID": "msg_b7f86fe26001vsYZ97QUl0EsFG",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01686jkYjAnD3xX5VLQL1xxK",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3080,
+      "limit": 50
+    },
+    "output": "<file>\n03081|       }\n03082|       \n03083|       const selectedApprovalsArray = Array.from(selectedApprovals).map(idx => approvals[idx])\n03084|       let successCount = 0\n03085|       let failCount = 0\n03086|       \n03087|       for (const approval of selectedApprovalsArray) {\n03088|         try {\n03089|           const txHash = await new Promise<string>((resolve, reject) => {\n03090|             sendTransaction({\n03091|               to: approval.token.address as `0x${string}`,\n03092|               data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,\n03093|             }, {\n03094|               onSuccess: (hash) => {\n03095|                 successCount++\n03096|                 \n03097|                 // Save revoke transaction to local storage\n03098|                 const revokeHistory: SwapHistory = {\n03099|                   id: hash,\n03100|                   type: 'revoke',\n03101|                   fromToken: approval.token.address,\n03102|                   fromTokenSymbol: approval.token.symbol,\n03103|                   fromTokenDecimals: approval.token.decimals,\n03104|                   fromTokenLogo: approval.token.metadata?.logoURI,\n03105|                   toToken: approval.spender,\n03106|                   toTokenSymbol: approval.spenderName || 'Unknown',\n03107|                   toTokenDecimals: 0,\n03108|                   fromAmount: '0',\n03109|                   toAmount: '0',\n03110|                   fromChain: revokeChain.displayName,\n03111|                   fromChainId: revokeChain.id,\n03112|                   fromChainIcon: revokeChain.iconUrl,\n03113|                   toChain: revokeChain.displayName,\n03114|                   toChainId: revokeChain.id,\n03115|                   toChainIcon: revokeChain.iconUrl,\n03116|                   status: 'success',\n03117|                   timestamp: Date.now(),\n03118|                   completedAt: Date.now(),\n03119|                   txHash: hash,\n03120|                 }\n03121|                 \n03122|                 // Get existing revoke history from local storage\n03123|                 const existingHistory = localStorage.getItem('revokeHistory')\n03124|                 const revokeHistoryArray = existingHistory ? JSON.parse(existingHistory) : []\n03125|                 revokeHistoryArray.unshift(revokeHistory)\n03126|                 \n03127|                 // Keep only last 50 revoke transactions\n03128|                 if (revokeHistoryArray.length > 50) {\n03129|                   revokeHistoryArray.splice(50)\n03130|                 }\n\n(File has more lines. Use 'offset' parameter to read beyond line 3130)\n</file>",
+    "metadata": {
+      "preview": "      }\n      \n      const selectedApprovalsArray = Array.from(selectedApprovals).map(idx => approvals[idx])\n      let successCount = 0\n      let failCount = 0\n      \n      for (const approval of selectedApprovalsArray) {\n        try {\n          const txHash = await new Promise<string>((resolve, reject) => {\n            sendTransaction({\n              to: approval.token.address as `0x${string}`,\n              data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,\n            }, {\n              onSuccess: (hash) => {\n                successCount++\n                \n                // Save revoke transaction to local storage\n                const revokeHistory: SwapHistory = {\n                  id: hash,\n                  type: 'revoke',"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767371120032,
+      "end": 1767371120035
+    }
+  }
+}

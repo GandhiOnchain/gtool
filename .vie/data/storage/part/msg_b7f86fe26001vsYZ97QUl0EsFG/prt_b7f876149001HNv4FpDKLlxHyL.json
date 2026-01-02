@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7f876149001HNv4FpDKLlxHyL",
+  "messageID": "msg_b7f86fe26001vsYZ97QUl0EsFG",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01TgKaKSmkG5qwUrk1VoFebP",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3145,
+      "limit": 25
+    },
+    "output": "<file>\n03146|           console.error('Failed to revoke approval:', error)\n03147|         }\n03148|       }\n03149|       \n03150|       if (successCount > 0) {\n03151|         toast.success(`Successfully revoked ${successCount} approval${successCount > 1 ? 's' : ''}`)\n03152|       }\n03153|       if (failCount > 0) {\n03154|         toast.error(`Failed to revoke ${failCount} approval${failCount > 1 ? 's' : ''}`)\n03155|       }\n03156|       \n03157|       setSelectedApprovals(new Set())\n03158|       setTimeout(() => {\n03159|         loadApprovals()\n03160|       }, 2000)\n03161|       \n03162|       setIsRevoking(false)\n03163|     } catch (error) {\n03164|       console.error('Batch revoke failed:', error)\n03165|       toast.error('Failed to revoke approvals')\n03166|       setIsRevoking(false)\n03167|     }\n03168|   }\n03169| \n03170|   const toggleApprovalSelection = (idx: number) => {\n\n(File has more lines. Use 'offset' parameter to read beyond line 3170)\n</file>",
+    "metadata": {
+      "preview": "          console.error('Failed to revoke approval:', error)\n        }\n      }\n      \n      if (successCount > 0) {\n        toast.success(`Successfully revoked ${successCount} approval${successCount > 1 ? 's' : ''}`)\n      }\n      if (failCount > 0) {\n        toast.error(`Failed to revoke ${failCount} approval${failCount > 1 ? 's' : ''}`)\n      }\n      \n      setSelectedApprovals(new Set())\n      setTimeout(() => {\n        loadApprovals()\n      }, 2000)\n      \n      setIsRevoking(false)\n    } catch (error) {\n      console.error('Batch revoke failed:', error)\n      toast.error('Failed to revoke approvals')"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767371138139,
+      "end": 1767371138141
+    }
+  }
+}

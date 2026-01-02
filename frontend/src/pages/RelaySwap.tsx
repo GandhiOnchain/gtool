@@ -2402,8 +2402,13 @@ export default function RelaySwap() {
       const revokeHistoryJson = localStorage.getItem('revokeHistory')
       const revokeHistory: SwapHistory[] = revokeHistoryJson ? JSON.parse(revokeHistoryJson) : []
       
+      console.log('Loaded revoke history from localStorage:', revokeHistory.length, 'transactions')
+      console.log('Relay history:', history.length, 'transactions')
+      
       // Combine and sort by timestamp
       const combinedHistory = [...history, ...revokeHistory].sort((a, b) => b.timestamp - a.timestamp)
+      
+      console.log('Combined history:', combinedHistory.length, 'transactions')
       
       setSwapHistory(combinedHistory)
     } catch (error) {
@@ -3130,6 +3135,7 @@ export default function RelaySwap() {
                 }
                 
                 localStorage.setItem('revokeHistory', JSON.stringify(revokeHistoryArray))
+                console.log('Saved revoke transaction to localStorage:', hash)
                 
                 resolve(hash)
               },
@@ -3148,6 +3154,8 @@ export default function RelaySwap() {
       
       if (successCount > 0) {
         toast.success(`Successfully revoked ${successCount} approval${successCount > 1 ? 's' : ''}`)
+        // Reload history to show revoke transactions
+        loadSwapHistory()
       }
       if (failCount > 0) {
         toast.error(`Failed to revoke ${failCount} approval${failCount > 1 ? 's' : ''}`)
