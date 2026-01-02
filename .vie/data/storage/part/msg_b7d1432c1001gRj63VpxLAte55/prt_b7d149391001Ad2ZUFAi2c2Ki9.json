@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d149391001Ad2ZUFAi2c2Ki9",
+  "messageID": "msg_b7d1432c1001gRj63VpxLAte55",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "Perfect! The airdrops tab has already been removed. Here's the current state:\n\n✅ **Airdrops Tab Removed:**\n- No \"Airdrops\" tab trigger\n- No airdrops TabsContent\n- Tabs are now 5 columns (Portfolio, Swap, Batch, Revoke, History)\n\n✅ **Airdrops Accessible Via:**\n- Gift icon button in the header (with notification badge)\n- Opens a dialog when clicked\n- Shows all claimable airdrops in the dialog\n\nThe airdrops feature is now exclusively accessible through the gift icon 🎁 button, not as a tab. This was done earlier when you requested to remove the tab and show airdrops only after clicking the gift icon.",
+  "time": {
+    "start": 1767330063779,
+    "end": 1767330063779
+  }
+}
