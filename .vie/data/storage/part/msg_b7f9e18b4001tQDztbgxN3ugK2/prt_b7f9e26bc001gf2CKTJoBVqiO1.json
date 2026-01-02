@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7f9e26bc001gf2CKTJoBVqiO1",
+  "messageID": "msg_b7f9e18b4001tQDztbgxN3ugK2",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "Let me check what the actual response structure looks like. I'll look at the Alchemy hook to understand the correct data structure:",
+  "time": {
+    "start": 1767372632262,
+    "end": 1767372632262
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7f9e8305001LQjAeVFGdwq0dY",
+  "messageID": "msg_b7f9e18b4001tQDztbgxN3ugK2",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01VpTC3T6pEg95X3RwrfbgGJ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"const.*=.*RelaySwap\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -1",
+      "description": "Find RelaySwap component declaration"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Find RelaySwap component declaration"
+    },
+    "title": "grep -n \"const.*=.*RelaySwap\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -1",
+    "time": {
+      "start": 1767372654415,
+      "end": 1767372654420
+    }
+  }
+}

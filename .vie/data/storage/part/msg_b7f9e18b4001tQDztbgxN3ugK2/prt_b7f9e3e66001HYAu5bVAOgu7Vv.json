@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7f9e3e66001HYAu5bVAOgu7Vv",
+  "messageID": "msg_b7f9e18b4001tQDztbgxN3ugK2",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "I see the issue. The hook already handles native tokens properly and formats the metadata. Let me check what's actually being logged and use the Alchemy hook instead of calling the API directly:",
+  "time": {
+    "start": 1767372638470,
+    "end": 1767372638470
+  }
+}

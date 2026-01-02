@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7f9e8cbf002L3JqILxcNzArt7",
+  "messageID": "msg_b7f9e18b4001tQDztbgxN3ugK2",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01URBieMkKT4dRXuSQCXsAq6",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"^export default\\|^const RelaySwap\\|^function RelaySwap\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -3",
+      "description": "Find component declaration"
+    },
+    "output": "106:export default function RelaySwap() {\n",
+    "metadata": {
+      "output": "106:export default function RelaySwap() {\n",
+      "exit": 0,
+      "description": "Find component declaration"
+    },
+    "title": "grep -n \"^export default\\|^const RelaySwap\\|^function RelaySwap\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -3",
+    "time": {
+      "start": 1767372656988,
+      "end": 1767372656994
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "prt_b7f9e35b5001wDm2Ux82uqV5Ed",
+  "messageID": "msg_b7f9e18b4001tQDztbgxN3ugK2",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_018gXKBUtXBKxvVXwUYvJRNj",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/hooks/alchemy/types/portfolio.types.ts"
+    },
+    "output": "<file>\n00001| import { Network } from '../../../lib/alchemy/config';\n00002| import { TokenPrice } from './price.types';\n00003| \n00004| // Token metadata response\n00005| export interface TokenMetadataResponse {\n00006|   /** The token's name. Is null if not defined. */\n00007|   name: string | null;\n00008|   /** The token's symbol. Is null if not defined. */\n00009|   symbol: string | null;\n00010|   /** The number of decimals of the token. Is null if not defined. */\n00011|   decimals: number | null;\n00012|   /** URL link to the token's logo. Is null if not available. */\n00013|   logo: string | null;\n00014| }\n00015| \n00016| // Portfolio address for multi-chain queries\n00017| export interface PortfolioAddress {\n00018|   /** Array of network identifiers (e.g., eth-mainnet). */\n00019|   networks: Network[];\n00020|   /** Wallet address. */\n00021|   address: string;\n00022| }\n00023| \n00024| // Response for tokens by wallet\n00025| export interface GetTokensByWalletResponse {\n00026|   data: {\n00027|     tokens: Array<{\n00028|       /** The token contract address. If undefined or null, the token is a native token! */\n00029|       tokenAddress?: string | null;\n00030|       /** The blockchain network where the token is located. */\n00031|       network: Network;\n00032|       /** The wallet address for which the token data applies. */\n00033|       address: string;\n00034|       /** The quantity of the token held, represented as a raw string (e.g., in wei). */\n00035|       tokenBalance: string;\n00036|       /** Optional metadata about the token. */\n00037|       tokenMetadata?: TokenMetadataResponse;\n00038|       /** Optional pricing data for the token. */\n00039|       tokenPrices?: TokenPrice[];\n00040|     }>;\n00041|     /** A string used for pagination to retrieve additional results if available. */\n00042|     pageKey: string;\n00043|   };\n00044| }\n00045| \n00046| // Response for token balances by wallet (simplified)\n00047| export interface GetTokenBalancesByWalletResponse {\n00048|   data: {\n00049|     tokens: Array<{\n00050|       /** The network where the token resides. */\n00051|       network: Network;\n00052|       /** The wallet address associated with the token balance. */\n00053|       address: string;\n00054|       /** The contract address of the token. If undefined or null, the token is a native token! */\n00055|       tokenAddress?: string | null;\n00056|       /** The balance of the token, represented as a raw string value. */\n00057|       tokenBalance: string;\n00058|     }>;\n00059|     /** A string used for pagination. */\n00060|     pageKey: string;\n00061|   };\n00062| }\n</file>",
+    "metadata": {
+      "preview": "import { Network } from '../../../lib/alchemy/config';\nimport { TokenPrice } from './price.types';\n\n// Token metadata response\nexport interface TokenMetadataResponse {\n  /** The token's name. Is null if not defined. */\n  name: string | null;\n  /** The token's symbol. Is null if not defined. */\n  symbol: string | null;\n  /** The number of decimals of the token. Is null if not defined. */\n  decimals: number | null;\n  /** URL link to the token's logo. Is null if not available. */\n  logo: string | null;\n}\n\n// Portfolio address for multi-chain queries\nexport interface PortfolioAddress {\n  /** Array of network identifiers (e.g., eth-mainnet). */\n  networks: Network[];\n  /** Wallet address. */"
+    },
+    "title": "frontend/src/hooks/alchemy/types/portfolio.types.ts",
+    "time": {
+      "start": 1767372634610,
+      "end": 1767372634611
+    }
+  }
+}

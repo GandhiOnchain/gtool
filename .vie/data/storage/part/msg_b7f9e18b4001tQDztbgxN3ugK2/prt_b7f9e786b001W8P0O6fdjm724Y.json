@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7f9e786b001W8P0O6fdjm724Y",
+  "messageID": "msg_b7f9e18b4001tQDztbgxN3ugK2",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01GYd2Y6eVikxDe4FHcoZeDq",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 130,
+      "limit": 20
+    },
+    "output": "<file>\n00131|   const [swapHistory, setSwapHistory] = useState<SwapHistory[]>([])\n00132|   const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 })\n00133|   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([])\n00134|   const [showLeaderboard, setShowLeaderboard] = useState(false)\n00135|   const [showSettings, setShowSettings] = useState(false)\n00136|   const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])\n00137|   const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])\n00138|   const [contractAddressSearch, setContractAddressSearch] = useState('')\n00139|   const [swapSources, setSwapSources] = useState<string[]>([])\n00140|   const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})\n00141|   const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)\n00142|   const [batchChain, setBatchChain] = useState<RelayChain | null>(null)\n00143|   const [recipientAddress, setRecipientAddress] = useState('')\n00144|   const [fromTokenPrice, setFromTokenPrice] = useState<number>(0)\n00145|   const [toTokenPrice, setToTokenPrice] = useState<number>(0)\n00146|   const [currentSwapRequestId, setCurrentSwapRequestId] = useState<string | null>(null)\n00147|   const [currentSwapChainId, setCurrentSwapChainId] = useState<number | null>(null)\n00148|   const [solanaAddress, setSolanaAddress] = useState<string | null>(null)\n00149|   const [customBalances, setCustomBalances] = useState<{\n00150|     from?: { value: bigint; decimals: number; symbol: string }\n\n(File has more lines. Use 'offset' parameter to read beyond line 150)\n</file>",
+    "metadata": {
+      "preview": "  const [swapHistory, setSwapHistory] = useState<SwapHistory[]>([])\n  const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 })\n  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([])\n  const [showLeaderboard, setShowLeaderboard] = useState(false)\n  const [showSettings, setShowSettings] = useState(false)\n  const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])\n  const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])\n  const [contractAddressSearch, setContractAddressSearch] = useState('')\n  const [swapSources, setSwapSources] = useState<string[]>([])\n  const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})\n  const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)\n  const [batchChain, setBatchChain] = useState<RelayChain | null>(null)\n  const [recipientAddress, setRecipientAddress] = useState('')\n  const [fromTokenPrice, setFromTokenPrice] = useState<number>(0)\n  const [toTokenPrice, setToTokenPrice] = useState<number>(0)\n  const [currentSwapRequestId, setCurrentSwapRequestId] = useState<string | null>(null)\n  const [currentSwapChainId, setCurrentSwapChainId] = useState<number | null>(null)\n  const [solanaAddress, setSolanaAddress] = useState<string | null>(null)\n  const [customBalances, setCustomBalances] = useState<{\n    from?: { value: bigint; decimals: number; symbol: string }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767372651959,
+      "end": 1767372651962
+    }
+  }
+}
