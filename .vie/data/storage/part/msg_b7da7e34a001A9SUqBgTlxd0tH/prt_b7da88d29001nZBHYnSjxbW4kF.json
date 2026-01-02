@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7da88d29001nZBHYnSjxbW4kF",
+  "messageID": "msg_b7da7e34a001A9SUqBgTlxd0tH",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Fixed. Changed the parent container from `min-w-0` to `overflow-hidden` and removed `flex-shrink-0` from the badge container, replacing it with `items-end` to align badges to the right. This should allow the badges to display fully without being cut off.",
+  "time": {
+    "start": 1767339758643,
+    "end": 1767339758643
+  }
+}

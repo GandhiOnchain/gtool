@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7da80725001Q43V2vG5U78vse",
+  "messageID": "msg_b7da7e34a001A9SUqBgTlxd0tH",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "The issue is the `min-w-0` on the parent div. Let me restructure this to ensure badges have enough space:",
+  "time": {
+    "start": 1767339733522,
+    "end": 1767339733522
+  }
+}
