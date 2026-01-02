@@ -1794,8 +1794,8 @@ export default function RelaySwap() {
         // Note: For batch swaps, all tokens are typically the same (currencyAddress)
         // but with different amounts per transaction
         let batchTokens: Array<{ symbol: string; amount: string; logo?: string; address: string; usdValue?: string }> = []
-        if (transactionType === 'batch' && req.data.inTxs && req.data.inTxs.length > 1) {
-          console.log('Processing batch swap with', req.data.inTxs.length, 'input transactions')
+        if ((transactionType === 'batch' || transactionType === 'batch-bridge') && req.data.inTxs && req.data.inTxs.length > 1) {
+          console.log('Processing batch transaction with', req.data.inTxs.length, 'input transactions, type:', transactionType)
           console.log('Currency address:', currencyAddress)
           
           // Fetch the token info once for all batch transactions (they're all the same token)

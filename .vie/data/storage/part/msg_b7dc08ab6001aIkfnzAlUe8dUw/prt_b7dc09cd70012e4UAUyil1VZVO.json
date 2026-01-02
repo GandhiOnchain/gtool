@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dc09cd70012e4UAUyil1VZVO",
+  "messageID": "msg_b7dc08ab6001aIkfnzAlUe8dUw",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I can see from the screenshot that some transactions are showing \"0.000000 ETH\" which is incorrect. Let me investigate the history loading logic to identify where the values are not being calculated correctly:",
+  "time": {
+    "start": 1767341337126,
+    "end": 1767341337126
+  }
+}

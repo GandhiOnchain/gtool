@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dc0f103001Re2jkX5KI5k6OR",
+  "messageID": "msg_b7dc08ab6001aIkfnzAlUe8dUw",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I found the issue! The batch token processing only happens when `transactionType === 'batch'`, but we now have `'batch-bridge'` as well. Let me fix this:",
+  "time": {
+    "start": 1767341360746,
+    "end": 1767341360746
+  }
+}

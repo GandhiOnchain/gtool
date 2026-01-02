@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dc1637c001PBYtjIw2Zclx2Y",
+  "messageID": "msg_b7dc08ab6001aIkfnzAlUe8dUw",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Perfect! I found and fixed the issue. The problem was that the batch token processing logic only checked for `transactionType === 'batch'`, but didn't include `'batch-bridge'`. This meant that batch bridge transactions weren't having their token amounts properly decoded and displayed.\n\nThe fix ensures that both `'batch'` and `'batch-bridge'` transaction types will have their batch tokens properly processed, which should resolve the \"0.000000 ETH\" display issue for batch bridge transactions.",
+  "time": {
+    "start": 1767341387557,
+    "end": 1767341387557
+  }
+}
