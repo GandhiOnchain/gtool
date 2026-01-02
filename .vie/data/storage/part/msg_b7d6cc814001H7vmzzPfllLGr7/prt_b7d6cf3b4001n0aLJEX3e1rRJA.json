@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d6cf3b4001n0aLJEX3e1rRJA",
+  "messageID": "msg_b7d6cc814001H7vmzzPfllLGr7",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I can see the issue. The spender address is using `break-all` which should work, but the container might be cutting it off. Let me look at the full card structure:",
+  "time": {
+    "start": 1767335853151,
+    "end": 1767335853151
+  }
+}

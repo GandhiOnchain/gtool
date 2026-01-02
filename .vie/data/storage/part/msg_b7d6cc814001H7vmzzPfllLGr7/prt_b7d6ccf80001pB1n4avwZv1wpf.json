@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d6ccf80001pB1n4avwZv1wpf",
+  "messageID": "msg_b7d6cc814001H7vmzzPfllLGr7",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "grep",
+  "callID": "toolu_vrtx_01Qw23adyHWPEbtXMEHDquiM",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "Spender Address|allowance.*details|Protocol.*Allowance",
+      "include": "*.tsx"
+    },
+    "output": "Found 1 matches\n/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx:\n  Line 4096:                                   <div className=\"text-xs text-muted-foreground\">Spender Address</div>",
+    "metadata": {
+      "matches": 1,
+      "truncated": false
+    },
+    "title": "Spender Address|allowance.*details|Protocol.*Allowance",
+    "time": {
+      "start": 1767335843124,
+      "end": 1767335843139
+    }
+  }
+}

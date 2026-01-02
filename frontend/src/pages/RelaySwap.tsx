@@ -4076,16 +4076,16 @@ export default function RelaySwap() {
                               
                               <Separator className="my-2" />
                               
-                              <div className="space-y-2">
+                              <div className="space-y-2 w-full">
                                 <div className="space-y-1">
                                   <div className="text-xs text-muted-foreground">Protocol</div>
-                                  <div className="text-xs font-medium break-all">
+                                  <div className="text-xs font-medium break-words">
                                     {approval.spenderName || `${approval.spender.slice(0, 6)}...${approval.spender.slice(-4)}`}
                                   </div>
                                 </div>
                                 <div className="space-y-1">
                                   <div className="text-xs text-muted-foreground">Allowance</div>
-                                  <div className="text-xs font-mono break-all">
+                                  <div className="text-xs font-mono break-words">
                                     {approval.allowanceFormatted === 'Unlimited' 
                                       ? '∞ Unlimited' 
                                       : `${parseFloat(approval.allowanceFormatted).toFixed(4)} ${approval.token.symbol}`
@@ -4094,7 +4094,7 @@ export default function RelaySwap() {
                                 </div>
                                 <div className="space-y-1">
                                   <div className="text-xs text-muted-foreground">Spender Address</div>
-                                  <div className="text-xs font-mono text-muted-foreground break-all">
+                                  <div className="text-xs font-mono text-muted-foreground break-words w-full">
                                     {approval.spender}
                                   </div>
                                 </div>

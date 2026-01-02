@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d6d7f61001CjImxBYbn3iKt5",
+  "messageID": "msg_b7d6cc814001H7vmzzPfllLGr7",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Fixed. Changed `break-all` to `break-words` and added `w-full` to ensure the spender address wraps properly and displays completely. The `break-words` class will break long addresses at appropriate points while maintaining readability.",
+  "time": {
+    "start": 1767335888558,
+    "end": 1767335888558
+  }
+}

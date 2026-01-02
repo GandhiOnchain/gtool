@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d6d030b001hN0E6KwZ1mM0cX",
+  "messageID": "msg_b7d6cc814001H7vmzzPfllLGr7",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I can see the issue. The spender address has `break-all` but it's inside a container with `min-w-0` which might be causing truncation. The address should wrap properly. Let me also add `word-break` to ensure it wraps correctly:",
+  "time": {
+    "start": 1767335859883,
+    "end": 1767335859883
+  }
+}
