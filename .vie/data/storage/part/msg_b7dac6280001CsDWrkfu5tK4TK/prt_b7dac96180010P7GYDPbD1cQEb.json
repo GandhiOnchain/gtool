@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7dac96180010P7GYDPbD1cQEb",
+  "messageID": "msg_b7dac6280001CsDWrkfu5tK4TK",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01Lwq2pUwEHehNAmb1p7TWde",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 37,
+      "limit": 35
+    },
+    "output": "<file>\n00038|   id: string\n00039|   type: 'swap' | 'bridge' | 'batch'\n00040|   fromToken: string\n00041|   fromTokenSymbol: string\n00042|   fromTokenDecimals: number\n00043|   fromTokenLogo?: string\n00044|   toToken: string\n00045|   toTokenSymbol: string\n00046|   toTokenDecimals: number\n00047|   toTokenLogo?: string\n00048|   fromAmount: string\n00049|   toAmount: string\n00050|   fromChain: string\n00051|   fromChainId: number\n00052|   fromChainIcon?: string\n00053|   toChain: string\n00054|   toChainId: number\n00055|   toChainIcon?: string\n00056|   status: string\n00057|   timestamp: number\n00058|   completedAt?: number\n00059|   txHash?: string\n00060|   inTxHash?: string\n00061|   batchTokens?: Array<{\n00062|     symbol: string\n00063|     amount: string\n00064|     logo?: string\n00065|     address: string\n00066|     usdValue?: string\n00067|   }>\n00068|   fromAmountUsd?: string\n00069|   toAmountUsd?: string\n00070| }\n00071| \n00072| interface UserStreak {\n\n(File has more lines. Use 'offset' parameter to read beyond line 72)\n</file>",
+    "metadata": {
+      "preview": "  id: string\n  type: 'swap' | 'bridge' | 'batch'\n  fromToken: string\n  fromTokenSymbol: string\n  fromTokenDecimals: number\n  fromTokenLogo?: string\n  toToken: string\n  toTokenSymbol: string\n  toTokenDecimals: number\n  toTokenLogo?: string\n  fromAmount: string\n  toAmount: string\n  fromChain: string\n  fromChainId: number\n  fromChainIcon?: string\n  toChain: string\n  toChainId: number\n  toChainIcon?: string\n  status: string\n  timestamp: number"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767340022444,
+      "end": 1767340022447
+    }
+  }
+}

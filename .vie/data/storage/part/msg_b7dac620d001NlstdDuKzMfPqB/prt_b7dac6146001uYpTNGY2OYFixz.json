@@ -1,0 +1,7 @@
+{
+  "id": "prt_b7dac6146001uYpTNGY2OYFixz",
+  "type": "text",
+  "text": "looks good. now in the history section, each transaacion should be labelled respective to its type\n\n- swap\n- bridge\n- batch swap\n- batch bridge\n\nonly transactions done using the app should be shown. not the entire wallet history",
+  "messageID": "msg_b7dac620d001NlstdDuKzMfPqB",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ"
+}

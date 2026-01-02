@@ -36,7 +36,7 @@ interface TrendingToken {
 
 interface SwapHistory {
   id: string
-  type: 'swap' | 'bridge' | 'batch'
+  type: 'swap' | 'bridge' | 'batch' | 'batch-bridge'
   fromToken: string
   fromTokenSymbol: string
   fromTokenDecimals: number
@@ -1698,8 +1698,10 @@ export default function RelaySwap() {
         const isSameChain = originChainId === destChainId
         const hasMultipleInputs = req.data.inTxs && req.data.inTxs.length > 1
         
-        let transactionType: 'swap' | 'bridge' | 'batch' = 'swap'
-        if (hasMultipleInputs) {
+        let transactionType: 'swap' | 'bridge' | 'batch' | 'batch-bridge' = 'swap'
+        if (hasMultipleInputs && !isSameChain) {
+          transactionType = 'batch-bridge'
+        } else if (hasMultipleInputs) {
           transactionType = 'batch'
         } else if (!isSameChain) {
           transactionType = 'bridge'
@@ -3794,13 +3796,22 @@ export default function RelaySwap() {
                       ? Math.round((swap.completedAt - swap.timestamp) / 1000)
                       : null
                     
-                    const typeLabel = swap.type === 'batch' ? 'Batch Swap' : swap.type === 'bridge' ? 'Bridge' : 'Swap'
-                    const typeColor = swap.type === 'batch' ? 'bg-purple-500/10 text-purple-500' : swap.type === 'bridge' ? 'bg-blue-500/10 text-blue-500' : 'bg-green-500/10 text-green-500'
+                    const typeLabel = 
+                      swap.type === 'batch-bridge' ? 'Batch Bridge' :
+                      swap.type === 'batch' ? 'Batch Swap' : 
+                      swap.type === 'bridge' ? 'Bridge' : 
+                      'Swap'
+                    const typeColor = 
+                      swap.type === 'batch-bridge' ? 'bg-orange-500/10 text-orange-500' :
+                      swap.type === 'batch' ? 'bg-purple-500/10 text-purple-500' : 
+                      swap.type === 'bridge' ? 'bg-blue-500/10 text-blue-500' : 
+                      'bg-green-500/10 text-green-500'
                     
                     // Debug batch tokens
-                    if (swap.type === 'batch') {
+                    if (swap.type === 'batch' || swap.type === 'batch-bridge') {
                       console.log('Rendering batch swap:', {
                         id: swap.id,
+                        type: swap.type,
                         hasBatchTokens: !!swap.batchTokens,
                         batchTokensLength: swap.batchTokens?.length,
                         batchTokens: swap.batchTokens
@@ -3816,7 +3827,7 @@ export default function RelaySwap() {
                               <Badge className={`text-xs ${typeColor}`}>
                                 {typeLabel}
                               </Badge>
-                              {swap.type !== 'batch' && (
+                              {swap.type !== 'batch' && swap.type !== 'batch-bridge' && (
                                 <div className="text-xs font-medium">
                                   {swap.fromTokenSymbol} → {swap.toTokenSymbol}
                                 </div>
@@ -3845,10 +3856,10 @@ export default function RelaySwap() {
                           </div>
 
                           {/* From details */}
-                          {swap.type === 'batch' && swap.batchTokens && swap.batchTokens.length > 0 ? (
+                          {(swap.type === 'batch' || swap.type === 'batch-bridge') && swap.batchTokens && swap.batchTokens.length > 0 ? (
                             <div className="p-2 bg-muted/50 rounded space-y-2">
                               <div className="text-xs font-medium text-muted-foreground">
-                                Swapping {swap.batchTokens.length} token{swap.batchTokens.length > 1 ? 's' : ''}:
+                                {swap.type === 'batch-bridge' ? 'Bridging' : 'Swapping'} {swap.batchTokens.length} token{swap.batchTokens.length > 1 ? 's' : ''}:
                               </div>
                               <div className="grid grid-cols-2 gap-2">
                                 {swap.batchTokens.map((token, idx) => (

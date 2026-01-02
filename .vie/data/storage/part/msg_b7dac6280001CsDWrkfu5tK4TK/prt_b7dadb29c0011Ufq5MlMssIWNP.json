@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dadb29c0011Ufq5MlMssIWNP",
+  "messageID": "msg_b7dac6280001CsDWrkfu5tK4TK",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Perfect! I've updated the history section to properly label transactions:\n\n1. **Updated the `SwapHistory` interface** to include `'batch-bridge'` as a type\n2. **Updated the transaction type detection logic** to differentiate between:\n   - `'swap'` - same chain, single token\n   - `'bridge'` - cross-chain, single token\n   - `'batch'` - same chain, multiple tokens (Batch Swap)\n   - `'batch-bridge'` - cross-chain, multiple tokens (Batch Bridge)\n3. **Updated the display labels**:\n   - Swap → green badge\n   - Bridge → blue badge\n   - Batch Swap → purple badge\n   - Batch Bridge → orange badge\n4. **Updated the UI text** to show \"Bridging X tokens\" for batch-bridge vs \"Swapping X tokens\" for batch swap\n\nAll transactions shown are from the Relay API which only returns transactions done through the app, not the entire wallet history.",
+  "time": {
+    "start": 1767340099506,
+    "end": 1767340099506
+  }
+}

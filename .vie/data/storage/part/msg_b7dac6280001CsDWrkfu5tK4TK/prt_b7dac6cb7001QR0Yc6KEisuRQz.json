@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7dac6cb7001QR0Yc6KEisuRQz",
+  "messageID": "msg_b7dac6280001CsDWrkfu5tK4TK",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "grep",
+  "callID": "toolu_vrtx_015vgjWFMJwkQN3muqS6ompD",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "History|history.*section|TabsContent.*history",
+      "path": "/home/user/sandbox/workspace/frontend/src/pages",
+      "include": "*.tsx"
+    },
+    "output": "Found 18 matches\n/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx:\n  Line 37: interface SwapHistory {\n  Line 130:   const [swapHistory, setSwapHistory] = useState<SwapHistory[]>([])\n  Line 157:   const [isLoadingHistory, setIsLoadingHistory] = useState(false)\n  Line 338:       loadSwapHistory()\n  Line 1332:           loadSwapHistory()\n  Line 1587:         loadSwapHistory()\n  Line 1632:   const loadSwapHistory = async () => {\n  Line 1640:     setIsLoadingHistory(true)\n  Line 1653:       const history: SwapHistory[] = await Promise.all(requests.map(async req => {\n  Line 2207:       setSwapHistory(history)\n  Line 2211:       setIsLoadingHistory(false)\n  Line 2320:       loadSwapHistory()\n  Line 2969:   const shareSwapReceipt = (swap: SwapHistory) => {\n  Line 3117:             <TabsTrigger value=\"history\" className=\"text-xs\">History</TabsTrigger>\n  Line 3780:           <TabsContent value=\"history\" className=\"mt-2\">\n  Line 3783:                 {isLoadingHistory ? (\n  Line 3787:                 ) : swapHistory.length === 0 ? (\n  Line 3792:                   swapHistory.map((swap) => {",
+    "metadata": {
+      "matches": 18,
+      "truncated": false
+    },
+    "title": "History|history.*section|TabsContent.*history",
+    "time": {
+      "start": 1767340012314,
+      "end": 1767340012327
+    }
+  }
+}

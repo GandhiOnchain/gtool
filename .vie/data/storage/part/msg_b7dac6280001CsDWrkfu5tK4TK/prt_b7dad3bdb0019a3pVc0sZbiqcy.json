@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7dad3bdb0019a3pVc0sZbiqcy",
+  "messageID": "msg_b7dac6280001CsDWrkfu5tK4TK",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01PgbsKwZFwdPRSrgbPNUnFD",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"swap.type === 'batch'\" src/pages/RelaySwap.tsx | head -20",
+      "description": "Find all batch type checks"
+    },
+    "output": "3801:                      swap.type === 'batch' ? 'Batch Swap' : \n3806:                      swap.type === 'batch' ? 'bg-purple-500/10 text-purple-500' : \n3811:                    if (swap.type === 'batch' || swap.type === 'batch-bridge') {\n3859:                          {swap.type === 'batch' && swap.batchTokens && swap.batchTokens.length > 0 ? (\n",
+    "metadata": {
+      "output": "3801:                      swap.type === 'batch' ? 'Batch Swap' : \n3806:                      swap.type === 'batch' ? 'bg-purple-500/10 text-purple-500' : \n3811:                    if (swap.type === 'batch' || swap.type === 'batch-bridge') {\n3859:                          {swap.type === 'batch' && swap.batchTokens && swap.batchTokens.length > 0 ? (\n",
+      "exit": 0,
+      "description": "Find all batch type checks"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"swap.type === 'batch'\" src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1767340064789,
+      "end": 1767340064798
+    }
+  }
+}

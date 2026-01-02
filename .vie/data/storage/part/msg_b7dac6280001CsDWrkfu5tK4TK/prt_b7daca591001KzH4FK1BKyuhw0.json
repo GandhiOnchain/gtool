@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7daca591001KzH4FK1BKyuhw0",
+  "messageID": "msg_b7dac6280001CsDWrkfu5tK4TK",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I see the issue. The type field only has 'swap', 'bridge', and 'batch', but we need to differentiate between 'batch swap' and 'batch bridge'. Let me check where the history is loaded and how the type is determined:",
+  "time": {
+    "start": 1767340027533,
+    "end": 1767340027533
+  }
+}

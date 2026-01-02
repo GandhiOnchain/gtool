@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dad07c7001G5ypxYnQ2e8Cn4",
+  "messageID": "msg_b7dac6280001CsDWrkfu5tK4TK",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Now let me also update the condition that checks for batch type to include batch-bridge:",
+  "time": {
+    "start": 1767340052070,
+    "end": 1767340052070
+  }
+}
