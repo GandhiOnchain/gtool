@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7fabbb95001fZsgr51PUm8g5P",
+  "messageID": "msg_b7faac11b001Sbcyldylyt5qgn",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "Now the logos should work. I've added console logging so you can see in the browser console which logos are failing and why. The key changes:\n\n1. **Added `crossOrigin=\"anonymous\"`** to the img tag - this is critical for loading images from external sources\n2. **Simplified the fallback logic** - uses Alchemy first, then TrustWallet\n3. **Added detailed console logging** - you'll see which tokens fail and what URL was attempted\n4. **Proper checksumming** - ensures TrustWallet URLs are correctly formatted\n\nCheck your browser console now and you should see either the logos displaying or console messages showing which URLs failed. This will help us debug further if needed.",
+  "time": {
+    "start": 1767373524564,
+    "end": 1767373524564
+  }
+}

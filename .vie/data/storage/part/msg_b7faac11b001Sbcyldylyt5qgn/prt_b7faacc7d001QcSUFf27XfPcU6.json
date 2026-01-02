@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7faacc7d001QcSUFf27XfPcU6",
+  "messageID": "msg_b7faac11b001Sbcyldylyt5qgn",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "I can see the logos still aren't showing - just the initials (ET, AL, CO, BR, GS). Let me check the browser console to see what errors are occurring. The issue is likely that the image URLs are failing. Let me test the actual token addresses and create a working solution.",
+  "time": {
+    "start": 1767373462326,
+    "end": 1767373462326
+  }
+}
