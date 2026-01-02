@@ -9,7 +9,7 @@ export const validateAddress = (address: string): boolean => {
 }
 
 export const validateAmount = (amount: string, decimals: number = 18): boolean => {
-  if (!amount || amount === '0' || amount === '') return false
+  if (!amount || amount === '') return true // Allow empty input
   
   const regex = /^\d*\.?\d*$/
   if (!regex.test(amount)) return false
@@ -20,7 +20,7 @@ export const validateAmount = (amount: string, decimals: number = 18): boolean =
   
   try {
     const num = parseFloat(amount)
-    return num > 0 && isFinite(num)
+    return num >= 0 && isFinite(num) // Allow 0 and positive numbers
   } catch {
     return false
   }

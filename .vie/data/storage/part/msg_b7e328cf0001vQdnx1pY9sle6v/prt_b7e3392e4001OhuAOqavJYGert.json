@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7e3392e4001OhuAOqavJYGert",
+  "messageID": "msg_b7e328cf0001vQdnx1pY9sle6v",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Fixed! The issue was in the `validateAmount` function which was rejecting \"0\" as invalid. I've updated it to:\n1. Allow empty input (return true instead of false)\n2. Allow 0 and positive numbers (changed `num > 0` to `num >= 0`)\n\nNow you can input \"0\" in the swap amount field.",
+  "time": {
+    "start": 1767348869581,
+    "end": 1767348869581
+  }
+}

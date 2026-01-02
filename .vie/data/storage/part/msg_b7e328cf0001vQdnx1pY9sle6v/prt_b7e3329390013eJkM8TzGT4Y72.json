@@ -1,0 +1,23 @@
+{
+  "id": "prt_b7e3329390013eJkM8TzGT4Y72",
+  "messageID": "msg_b7e328cf0001vQdnx1pY9sle6v",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01YEGuwYMi6n8yEyHgTWrSoM",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/security/validation.ts"
+    },
+    "output": "<file>\n00001| import { isAddress } from 'viem'\n00002| \n00003| export const sanitizeInput = (input: string): string => {\n00004|   return input.trim().replace(/[<>]/g, '')\n00005| }\n00006| \n00007| export const validateAddress = (address: string): boolean => {\n00008|   return isAddress(address)\n00009| }\n00010| \n00011| export const validateAmount = (amount: string, decimals: number = 18): boolean => {\n00012|   if (!amount || amount === '0' || amount === '') return false\n00013|   \n00014|   const regex = /^\\d*\\.?\\d*$/\n00015|   if (!regex.test(amount)) return false\n00016|   \n00017|   const parts = amount.split('.')\n00018|   if (parts.length > 2) return false\n00019|   if (parts[1] && parts[1].length > decimals) return false\n00020|   \n00021|   try {\n00022|     const num = parseFloat(amount)\n00023|     return num > 0 && isFinite(num)\n00024|   } catch {\n00025|     return false\n00026|   }\n00027| }\n00028| \n00029| export const validateChainId = (chainId: number): boolean => {\n00030|   return Number.isInteger(chainId) && chainId > 0\n00031| }\n00032| \n00033| export const sanitizeUrl = (url: string): string => {\n00034|   try {\n00035|     const parsed = new URL(url)\n00036|     if (!['http:', 'https:'].includes(parsed.protocol)) {\n00037|       return ''\n00038|     }\n00039|     return parsed.toString()\n00040|   } catch {\n00041|     return ''\n00042|   }\n00043| }\n00044| \n00045| export const validateSlippage = (slippage: string): boolean => {\n00046|   const num = parseFloat(slippage)\n00047|   return !isNaN(num) && num >= 0 && num <= 50\n00048| }\n00049| \n</file>",
+    "metadata": {
+      "preview": "import { isAddress } from 'viem'\n\nexport const sanitizeInput = (input: string): string => {\n  return input.trim().replace(/[<>]/g, '')\n}\n\nexport const validateAddress = (address: string): boolean => {\n  return isAddress(address)\n}\n\nexport const validateAmount = (amount: string, decimals: number = 18): boolean => {\n  if (!amount || amount === '0' || amount === '') return false\n  \n  const regex = /^\\d*\\.?\\d*$/\n  if (!regex.test(amount)) return false\n  \n  const parts = amount.split('.')\n  if (parts.length > 2) return false\n  if (parts[1] && parts[1].length > decimals) return false\n  "
+    },
+    "title": "frontend/src/lib/security/validation.ts",
+    "time": {
+      "start": 1767348841047,
+      "end": 1767348841051
+    }
+  }
+}
