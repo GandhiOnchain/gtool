@@ -24,6 +24,9 @@ export const config = {
   moralis: {
     apiKey: getEnv('VITE_MORALIS_API_KEY', false),
   },
+  drops: {
+    apiKey: getEnv('VITE_DROPS_API_KEY', false),
+  },
   networks: {
     // Base
     8453: {

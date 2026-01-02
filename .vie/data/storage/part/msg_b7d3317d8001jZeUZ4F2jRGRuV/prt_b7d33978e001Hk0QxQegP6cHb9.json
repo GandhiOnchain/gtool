@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7d33978e001Hk0QxQegP6cHb9",
+  "messageID": "msg_b7d3317d8001jZeUZ4F2jRGRuV",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "write",
+  "callID": "toolu_vrtx_01HjcEHFKWbdGfH95isGZ9qi",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/drops/api.ts",
+      "content": "import { config } from '@/config'\n\nconst DROPS_API_BASE = 'https://api.drops.bot/v1'\n\nexport interface DropsAirdrop {\n  id: string\n  name: string\n  symbol: string\n  amount: string\n  amountUsd?: string\n  network: string\n  chainId: number\n  status: 'claimable' | 'claimed' | 'expired' | 'missed'\n  claimUrl?: string\n  contractAddress?: string\n  expiresAt?: string\n  claimedAt?: string\n  logo?: string\n  protocol?: string\n}\n\nexport interface DropsApiResponse {\n  address: string\n  airdrops: DropsAirdrop[]\n  totalValue: number\n  claimableCount: number\n  claimedCount: number\n  missedCount: number\n}\n\n/**\n * Check airdrops for a wallet address using Drops.bot API\n */\nexport async function checkAirdropsWithDrops(\n  walletAddress: string\n): Promise<DropsApiResponse> {\n  const apiKey = config.drops.apiKey\n\n  if (!apiKey) {\n    throw new Error('Drops API key not configured')\n  }\n\n  try {\n    const response = await fetch(`${DROPS_API_BASE}/airdrops/${walletAddress}`, {\n      method: 'GET',\n      headers: {\n        'Authorization': `Bearer ${apiKey}`,\n        'Content-Type': 'application/json',\n      },\n    })\n\n    if (!response.ok) {\n      throw new Error(`Drops API error: ${response.status}`)\n    }\n\n    const data = await response.json()\n    return data\n  } catch (error) {\n    console.error('Failed to fetch airdrops from Drops.bot:', error)\n    throw error\n  }\n}\n\n/**\n * Map Drops.bot network names to chain IDs\n */\nexport function getChainIdFromNetwork(network: string): number {\n  const networkMap: Record<string, number> = {\n    'ethereum': 1,\n    'base': 8453,\n    'arbitrum': 42161,\n    'optimism': 10,\n    'polygon': 137,\n    'bnb': 56,\n    'avalanche': 43114,\n    'linea': 59144,\n    'scroll': 534352,\n    'mantle': 5000,\n    'solana': 0, // Non-EVM\n  }\n\n  return networkMap[network.toLowerCase()] || 1\n}\n\n/**\n * Get chain name from chain ID\n */\nexport function getChainName(chainId: number): string {\n  const chainNames: Record<number, string> = {\n    1: 'Ethereum',\n    8453: 'Base',\n    42161: 'Arbitrum',\n    10: 'Optimism',\n    137: 'Polygon',\n    56: 'BNB Chain',\n    43114: 'Avalanche',\n    59144: 'Linea',\n    534352: 'Scroll',\n    5000: 'Mantle',\n  }\n\n  return chainNames[chainId] || 'Unknown'\n}\n"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "filepath": "/home/user/sandbox/workspace/frontend/src/lib/drops/api.ts",
+      "exists": false
+    },
+    "title": "frontend/src/lib/drops/api.ts",
+    "time": {
+      "start": 1767332103664,
+      "end": 1767332103665
+    }
+  }
+}

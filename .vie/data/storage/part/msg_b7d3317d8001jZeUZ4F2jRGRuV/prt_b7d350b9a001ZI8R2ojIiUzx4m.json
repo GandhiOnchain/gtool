@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d350b9a001ZI8R2ojIiUzx4m",
+  "messageID": "msg_b7d3317d8001jZeUZ4F2jRGRuV",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "Perfect! I've integrated Drops.bot API. Here's what I implemented:\n\n## ✅ Drops.bot Integration Complete\n\n### **What It Does:**\n\n1. **Uses Drops.bot API** to check for claimable airdrops across all supported chains\n2. **Shows only claimable airdrops** (filters out claimed, expired, missed)\n3. **Displays USD value** if available from Drops.bot\n4. **Multi-chain support** - Ethereum, Base, Arbitrum, Optimism, Polygon, BNB, Avalanche, Linea, Scroll, Mantle\n5. **In-app claiming** - Execute claim transactions directly\n\n### **Files Created:**\n\n- `frontend/src/lib/drops/api.ts` - Drops.bot API integration\n- Updated `frontend/src/config.ts` - Added Drops API key config\n- Updated `frontend/src/env.json` - Added VITE_DROPS_API_KEY field\n\n### **How It Works:**\n\n1. User connects wallet\n2. App calls Drops.bot API with wallet address\n3. Drops.bot returns all airdrops (claimable, claimed, expired, missed)\n4. App filters to show only **claimable** airdrops\n5. User clicks \"Claim\" → executes transaction on correct chain\n6. Success → removes from list, refreshes portfolio\n\n### **To Get Started:**\n\n1. **Get Drops.bot API Key:**\n   - DM [@DropsBot](https://x.com/DropsBot) on X\n   - Or email: api@drops.bot\n   - Mention your project and expected volume\n\n2. **Add API Key:**\n   ```json\n   // frontend/src/env.json\n   {\n     \"VITE_DROPS_API_KEY\": \"your-drops-api-key-here\"\n   }\n   ```\n\n3. **Test:**\n   - Connect wallet\n   - Click gift icon\n   - Should show all claimable airdrops from Drops.bot\n\n### **Features:**\n\n- ✅ Real-time airdrop detection via Drops.bot\n- ✅ 348+ airdrops tracked automatically\n- ✅ Shows amount + USD value\n- ✅ Expiration dates displayed\n- ✅ Multi-chain support\n- ✅ In-app claiming (no redirects)\n- ✅ Error handling\n- ✅ Auto-notifications\n\nThe system now uses Drops.bot's proprietary database of airdrops instead of manual configuration!",
+  "time": {
+    "start": 1767332199162,
+    "end": 1767332199162
+  }
+}

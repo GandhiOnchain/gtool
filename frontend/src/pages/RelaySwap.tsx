@@ -23,6 +23,7 @@ import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet,
 import { secureStorage } from '@/lib/security/storage'
 import { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'
 import { quoteRateLimiter } from '@/lib/security/rateLimit'
+import { checkAirdropsWithDrops, getChainIdFromNetwork, getChainName } from '@/lib/drops/api'
 
 interface TrendingToken {
   address: string
@@ -2879,55 +2880,42 @@ export default function RelaySwap() {
     setIsLoadingAirdrops(true)
     
     try {
-      const detectedAirdrops: typeof airdrops = []
+      // Use Drops.bot API to check for claimable airdrops
+      const dropsResponse = await checkAirdropsWithDrops(address)
       
-      // Check for actual claimable airdrops across supported chains
-      // Add specific airdrop contract addresses here
-      const knownAirdropContracts: Array<{
-        id: string
-        name: string
-        description: string
-        protocol: string
-        chainId: number
-        chainName: string
-        tokenSymbol: string
-        contractAddress: string
-        logo?: string
-        type: 'standard' | 'clanker' | 'farcaster'
-      }> = [
-        // Add your airdrop contracts here
-      ]
+      console.log('Drops.bot response:', dropsResponse)
       
-      // Check each airdrop contract to see if user can claim
-      for (const airdrop of knownAirdropContracts) {
-        try {
-          // Check if user has already claimed
-          // This would call the contract's hasClaimed(address) function
-          const hasClaimed = false // Placeholder - implement contract call
-          
-          if (!hasClaimed) {
-            // Get claimable amount from contract
-            const amount = '0' // Placeholder - implement contract call
-            
-            if (parseFloat(amount) > 0) {
-              detectedAirdrops.push({
-                ...airdrop,
-                amount,
-                isEligible: true,
-                isClaimed: false
-              })
-            }
-          }
-        } catch (error) {
-          console.error(`Failed to check airdrop ${airdrop.id}:`, error)
-        }
-      }
+      // Filter only claimable airdrops
+      const claimableAirdrops = dropsResponse.airdrops
+        .filter(airdrop => airdrop.status === 'claimable')
+        .map(airdrop => ({
+          id: airdrop.id,
+          name: airdrop.name,
+          description: `Claim your ${airdrop.symbol} tokens`,
+          protocol: airdrop.protocol || airdrop.name,
+          chainId: airdrop.chainId || getChainIdFromNetwork(airdrop.network),
+          chainName: getChainName(airdrop.chainId || getChainIdFromNetwork(airdrop.network)),
+          tokenSymbol: airdrop.symbol,
+          amount: airdrop.amount,
+          amountUsd: airdrop.amountUsd,
+          contractAddress: airdrop.contractAddress,
+          claimUrl: airdrop.claimUrl,
+          logo: airdrop.logo,
+          isEligible: true,
+          isClaimed: false,
+          type: 'standard' as const,
+          claimDeadline: airdrop.expiresAt ? new Date(airdrop.expiresAt).getTime() : undefined
+        }))
       
-      setAirdrops(detectedAirdrops)
+      setAirdrops(claimableAirdrops)
       
-      if (detectedAirdrops.length > 0) {
+      if (claimableAirdrops.length > 0) {
+        const totalValue = dropsResponse.airdrops
+          .filter(a => a.status === 'claimable')
+          .reduce((sum, a) => sum + (parseFloat(a.amountUsd || '0')), 0)
+        
         toast.success(
-          `Found ${detectedAirdrops.length} claimable airdrop${detectedAirdrops.length !== 1 ? 's' : ''}`,
+          `Found ${claimableAirdrops.length} claimable airdrop${claimableAirdrops.length !== 1 ? 's' : ''} worth $${totalValue.toFixed(2)}`,
           {
             duration: 8000,
             action: {
@@ -2943,7 +2931,13 @@ export default function RelaySwap() {
       }
     } catch (error) {
       console.error('Failed to check airdrops:', error)
-      toast.error('Failed to check airdrops')
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+      
+      if (errorMessage.includes('API key not configured')) {
+        toast.error('Drops.bot API key not configured. Contact api@drops.bot to get access.')
+      } else {
+        toast.error('Failed to check airdrops')
+      }
     } finally {
       setIsLoadingAirdrops(false)
     }
@@ -4726,8 +4720,19 @@ export default function RelaySwap() {
                               <span className="text-muted-foreground">Amount</span>
                               <span className="font-medium text-accent">
                                 {airdrop.amount} {airdrop.tokenSymbol}
+                                {airdrop.amountUsd && (
+                                  <span className="text-muted-foreground ml-1">(${airdrop.amountUsd})</span>
+                                )}
                               </span>
                             </div>
+                            {airdrop.claimDeadline && (
+                              <div className="flex justify-between text-xs gap-2">
+                                <span className="text-muted-foreground">Expires</span>
+                                <span className="font-medium text-destructive">
+                                  {new Date(airdrop.claimDeadline).toLocaleDateString()}
+                                </span>
+                              </div>
+                            )}
                           </div>
 
                           <Button

@@ -1,0 +1,16 @@
+{
+  "id": "prt_b7d345a8a001Wv7133X0Jgsi2p",
+  "messageID": "msg_b7d3317d8001jZeUZ4F2jRGRuV",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "step-finish",
+  "tokens": {
+    "input": 200028,
+    "output": 121,
+    "reasoning": 0,
+    "cache": {
+      "write": 0,
+      "read": 198428
+    }
+  },
+  "cost": 0.1337793
+}
