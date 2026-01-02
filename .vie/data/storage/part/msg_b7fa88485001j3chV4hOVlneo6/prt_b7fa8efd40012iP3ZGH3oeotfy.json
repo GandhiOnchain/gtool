@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7fa8efd40012iP3ZGH3oeotfy",
+  "messageID": "msg_b7fa88485001j3chV4hOVlneo6",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "Now let me update the TokenRow component to use multiple logo sources with proper fallbacks:",
+  "time": {
+    "start": 1767373353136,
+    "end": 1767373353136
+  }
+}

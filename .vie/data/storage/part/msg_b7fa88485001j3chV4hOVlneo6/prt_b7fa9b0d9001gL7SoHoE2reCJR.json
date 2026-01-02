@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7fa9b0d9001gL7SoHoE2reCJR",
+  "messageID": "msg_b7fa88485001j3chV4hOVlneo6",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_014zReSTe66jsSwzKWJddZUZ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -I \"https://tokens.1inch.io/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.png\" 2>&1 | head -5",
+      "description": "Test 1inch logo URL for USDC"
+    },
+    "output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0HTTP/2 301 \r\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\ndate: Fri, 02 Jan 2026 17:03:07 GMT\r\n",
+    "metadata": {
+      "output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0HTTP/2 301 \r\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\ndate: Fri, 02 Jan 2026 17:03:07 GMT\r\n",
+      "exit": 0,
+      "description": "Test 1inch logo URL for USDC"
+    },
+    "title": "curl -I \"https://tokens.1inch.io/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.png\" 2>&1 | head -5",
+    "time": {
+      "start": 1767373387488,
+      "end": 1767373387536
+    }
+  }
+}

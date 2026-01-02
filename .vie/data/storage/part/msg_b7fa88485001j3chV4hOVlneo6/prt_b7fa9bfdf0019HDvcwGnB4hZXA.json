@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7fa9bfdf0019HDvcwGnB4hZXA",
+  "messageID": "msg_b7fa88485001j3chV4hOVlneo6",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01S2ZDssBFb1XKfWvhwyDSak",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -sI \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png\" 2>&1 | head -3",
+      "description": "Test TrustWallet logo URL for USDC"
+    },
+    "output": "HTTP/2 200 \r\ncache-control: max-age=300\r\ncontent-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox\r\n",
+    "metadata": {
+      "output": "HTTP/2 200 \r\ncache-control: max-age=300\r\ncontent-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox\r\n",
+      "exit": 0,
+      "description": "Test TrustWallet logo URL for USDC"
+    },
+    "title": "curl -sI \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png\" 2>&1 | head -3",
+    "time": {
+      "start": 1767373391572,
+      "end": 1767373391601
+    }
+  }
+}

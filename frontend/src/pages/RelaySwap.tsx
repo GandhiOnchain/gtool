@@ -104,17 +104,34 @@ const STREAK_MESSAGES = [
 ]
 
 function TokenRow({ token, chainId }: { token: { address: string; symbol: string; name: string; balanceFormatted: string; valueUsd: number; priceUsd: number; logo?: string }; chainId: number }) {
-  const [imageError, setImageError] = useState(false)
+  const [currentLogoIndex, setCurrentLogoIndex] = useState(0)
+  const [allFailed, setAllFailed] = useState(false)
+  
+  // Multiple logo sources as fallbacks
+  const logoSources = [
+    token.logo, // Alchemy logo first
+    token.address !== 'native' ? `https://tokens.1inch.io/${token.address.toLowerCase()}.png` : null,
+    token.address !== 'native' ? getTrustWalletUrl(token.address, chainId) : null,
+    token.address !== 'native' ? `https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/ethereum/assets/${token.address}/logo.png` : null,
+  ].filter(Boolean) as string[]
+  
+  const handleImageError = () => {
+    if (currentLogoIndex < logoSources.length - 1) {
+      setCurrentLogoIndex(currentLogoIndex + 1)
+    } else {
+      setAllFailed(true)
+    }
+  }
   
   return (
     <div className="flex items-center justify-between text-xs">
       <div className="flex items-center gap-2 flex-1 min-w-0">
-        {token.logo && !imageError ? (
+        {!allFailed && logoSources[currentLogoIndex] ? (
           <img 
-            src={token.logo} 
+            src={logoSources[currentLogoIndex]} 
             alt={token.symbol} 
             className="h-5 w-5 rounded-full flex-shrink-0 object-cover bg-muted"
-            onError={() => setImageError(true)}
+            onError={handleImageError}
           />
         ) : (
           <div className="h-5 w-5 rounded-full bg-muted flex-shrink-0 flex items-center justify-center text-[8px] font-bold">
@@ -132,6 +149,24 @@ function TokenRow({ token, chainId }: { token: { address: string; symbol: string
       </div>
     </div>
   )
+}
+
+function getTrustWalletUrl(address: string, chainId: number): string | null {
+  try {
+    const chainMap: Record<number, string> = {
+      1: 'ethereum',
+      8453: 'base',
+      42161: 'arbitrum',
+      137: 'polygon',
+      10: 'optimism',
+    }
+    const chain = chainMap[chainId]
+    if (!chain) return null
+    const checksummed = getAddress(address)
+    return `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${chain}/assets/${checksummed}/logo.png`
+  } catch {
+    return null
+  }
 }
 
 export default function RelaySwap() {
@@ -2938,39 +2973,9 @@ export default function RelaySwap() {
             valueUsd
           })
           
-          // Try Alchemy logo first, then fallback to TrustWallet assets
-          let logoUrl = token.tokenMetadata?.logo && token.tokenMetadata.logo.trim() !== '' 
+          const logoUrl = token.tokenMetadata?.logo && token.tokenMetadata.logo.trim() !== '' 
             ? token.tokenMetadata.logo 
             : undefined
-          
-          // If no logo from Alchemy and we have a token address, try TrustWallet
-          if (!logoUrl && token.tokenAddress) {
-            try {
-              const trustWalletChainMap: Record<number, string> = {
-                1: 'ethereum',
-                8453: 'base',
-                42161: 'arbitrum',
-                137: 'polygon',
-                10: 'optimism'
-              }
-              const trustChain = trustWalletChainMap[chainId]
-              if (trustChain) {
-                // Checksum the address for TrustWallet
-                const checksummedAddress = getAddress(token.tokenAddress)
-                logoUrl = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${trustChain}/assets/${checksummedAddress}/logo.png`
-              }
-            } catch (e) {
-              console.log('Failed to generate TrustWallet logo URL:', e)
-            }
-          }
-          
-          console.log('Adding token to chain:', {
-            symbol: token.tokenMetadata?.symbol,
-            alchemyLogo: token.tokenMetadata?.logo,
-            finalLogoUrl: logoUrl,
-            hasLogo: !!logoUrl,
-            tokenAddress: token.tokenAddress
-          })
           
           chain.tokens.push({
             address: token.tokenAddress || 'native',
