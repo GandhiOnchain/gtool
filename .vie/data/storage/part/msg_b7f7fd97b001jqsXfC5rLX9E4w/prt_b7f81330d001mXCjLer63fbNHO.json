@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7f81330d001mXCjLer63fbNHO",
+  "messageID": "msg_b7f7fd97b001jqsXfC5rLX9E4w",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_0182JUev7hy1KvgD93mPG6Wf",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2395,
+      "limit": 20
+    },
+    "output": "<file>\n02396|         console.log('===')\n02397|         \n02398|         return historyItem\n02399|       }))\n02400|       \n02401|       setSwapHistory(history)\n02402|     } catch (error) {\n02403|       console.error('Failed to load swap history:', error)\n02404|     } finally {\n02405|       setIsLoadingHistory(false)\n02406|     }\n02407|   }\n02408| \n02409|   const loadUserStreak = () => {\n02410|     if (!address) return\n02411|     \n02412|     const streak = secureStorage.getItem<UserStreak>(`streak_${address}`)\n02413|     if (streak) {\n02414|       const now = Date.now()\n02415|       const timeSinceLastSwap = now - streak.lastSwapTimestamp\n\n(File has more lines. Use 'offset' parameter to read beyond line 2415)\n</file>",
+    "metadata": {
+      "preview": "        console.log('===')\n        \n        return historyItem\n      }))\n      \n      setSwapHistory(history)\n    } catch (error) {\n      console.error('Failed to load swap history:', error)\n    } finally {\n      setIsLoadingHistory(false)\n    }\n  }\n\n  const loadUserStreak = () => {\n    if (!address) return\n    \n    const streak = secureStorage.getItem<UserStreak>(`streak_${address}`)\n    if (streak) {\n      const now = Date.now()\n      const timeSinceLastSwap = now - streak.lastSwapTimestamp"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767370732936,
+      "end": 1767370732937
+    }
+  }
+}

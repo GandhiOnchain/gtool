@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7f82acfe001VD0qgyTCFPwPbO",
+  "messageID": "msg_b7f7fd97b001jqsXfC5rLX9E4w",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01W9WYgyM9xiLdS6hwdGwKsG",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 4220,
+      "limit": 30
+    },
+    "output": "<file>\n04221|                               </div>\n04222|                             </div>\n04223|                             {swap.txHash && (\n04224|                               <a\n04225|                                 href={getBlockExplorerUrl(swap.toChainId, swap.txHash)}\n04226|                                 target=\"_blank\"\n04227|                                 rel=\"noopener noreferrer\"\n04228|                                 className=\"text-xs text-primary hover:underline\"\n04229|                               >\n04230|                                 View\n04231|                               </a>\n04232|                             )}\n04233|                           </div>\n04234| \n04235|                           {/* Share button */}\n04236|                           <div className=\"flex justify-end\">\n04237|                             <Button\n04238|                               variant=\"ghost\"\n04239|                               size=\"sm\"\n04240|                               onClick={() => shareSwapReceipt(swap)}\n04241|                               className=\"h-7 px-2 text-xs\"\n04242|                             >\n04243|                               <Share2 className=\"h-3 w-3 mr-1\" />\n04244|                               Share\n04245|                             </Button>\n04246|                           </div>\n04247|                         </div>\n04248|                       </Card>\n04249|                     )\n04250|                   })\n\n(File has more lines. Use 'offset' parameter to read beyond line 4250)\n</file>",
+    "metadata": {
+      "preview": "                              </div>\n                            </div>\n                            {swap.txHash && (\n                              <a\n                                href={getBlockExplorerUrl(swap.toChainId, swap.txHash)}\n                                target=\"_blank\"\n                                rel=\"noopener noreferrer\"\n                                className=\"text-xs text-primary hover:underline\"\n                              >\n                                View\n                              </a>\n                            )}\n                          </div>\n\n                          {/* Share button */}\n                          <div className=\"flex justify-end\">\n                            <Button\n                              variant=\"ghost\"\n                              size=\"sm\"\n                              onClick={() => shareSwapReceipt(swap)}"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767370829868,
+      "end": 1767370829870
+    }
+  }
+}

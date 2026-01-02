@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7f8038bf001Mxq30Pgh45Y0yb",
+  "messageID": "msg_b7f7fd97b001jqsXfC5rLX9E4w",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Vh1hexrLA5hp4zXnXhguc7",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"revokeApproval\\|Revoke.*approval\" src/pages/RelaySwap.tsx | head -10",
+      "description": "Find revoke approval function"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Find revoke approval function"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"revokeApproval\\|Revoke.*approval\" src/pages/RelaySwap.tsx | head -10",
+    "time": {
+      "start": 1767370669359,
+      "end": 1767370669366
+    }
+  }
+}

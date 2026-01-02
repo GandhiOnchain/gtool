@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7f805714001AyAH3CBuCLF22k",
+  "messageID": "msg_b7f7fd97b001jqsXfC5rLX9E4w",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01ND7NQmd7Pkg7pnDuAj5Z4y",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"writeContract.*approve\\|Revoke\" src/pages/RelaySwap.tsx | head -20",
+      "description": "Find revoke transaction execution"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Find revoke transaction execution"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"writeContract.*approve\\|Revoke\" src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1767370677172,
+      "end": 1767370677176
+    }
+  }
+}

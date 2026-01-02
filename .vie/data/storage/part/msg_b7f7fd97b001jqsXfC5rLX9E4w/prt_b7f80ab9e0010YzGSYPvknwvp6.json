@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7f80ab9e0010YzGSYPvknwvp6",
+  "messageID": "msg_b7f7fd97b001jqsXfC5rLX9E4w",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Now I need to save revoke transactions to local storage and load them in the history. Let me update the revoke function to save the transaction:",
+  "time": {
+    "start": 1767370709501,
+    "end": 1767370709501
+  }
+}

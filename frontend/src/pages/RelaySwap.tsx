@@ -36,7 +36,7 @@ interface TrendingToken {
 
 interface SwapHistory {
   id: string
-  type: 'swap' | 'bridge' | 'batch' | 'batch-bridge'
+  type: 'swap' | 'bridge' | 'batch' | 'batch-bridge' | 'revoke'
   fromToken: string
   fromTokenSymbol: string
   fromTokenDecimals: number
@@ -2398,7 +2398,14 @@ export default function RelaySwap() {
         return historyItem
       }))
       
-      setSwapHistory(history)
+      // Load revoke transactions from local storage
+      const revokeHistoryJson = localStorage.getItem('revokeHistory')
+      const revokeHistory: SwapHistory[] = revokeHistoryJson ? JSON.parse(revokeHistoryJson) : []
+      
+      // Combine and sort by timestamp
+      const combinedHistory = [...history, ...revokeHistory].sort((a, b) => b.timestamp - a.timestamp)
+      
+      setSwapHistory(combinedHistory)
     } catch (error) {
       console.error('Failed to load swap history:', error)
     } finally {
@@ -3079,14 +3086,52 @@ export default function RelaySwap() {
       
       for (const approval of selectedApprovalsArray) {
         try {
-          await new Promise<void>((resolve, reject) => {
+          const txHash = await new Promise<string>((resolve, reject) => {
             sendTransaction({
               to: approval.token.address as `0x${string}`,
               data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,
             }, {
-              onSuccess: () => {
+              onSuccess: (hash) => {
                 successCount++
-                resolve()
+                
+                // Save revoke transaction to local storage
+                const revokeHistory: SwapHistory = {
+                  id: hash,
+                  type: 'revoke',
+                  fromToken: approval.token.address,
+                  fromTokenSymbol: approval.token.symbol,
+                  fromTokenDecimals: approval.token.decimals,
+                  fromTokenLogo: approval.token.metadata?.logoURI,
+                  toToken: approval.spender,
+                  toTokenSymbol: approval.spenderName || 'Unknown',
+                  toTokenDecimals: 0,
+                  fromAmount: '0',
+                  toAmount: '0',
+                  fromChain: revokeChain.displayName,
+                  fromChainId: revokeChain.id,
+                  fromChainIcon: revokeChain.iconUrl,
+                  toChain: revokeChain.displayName,
+                  toChainId: revokeChain.id,
+                  toChainIcon: revokeChain.iconUrl,
+                  status: 'success',
+                  timestamp: Date.now(),
+                  completedAt: Date.now(),
+                  txHash: hash,
+                }
+                
+                // Get existing revoke history from local storage
+                const existingHistory = localStorage.getItem('revokeHistory')
+                const revokeHistoryArray = existingHistory ? JSON.parse(existingHistory) : []
+                revokeHistoryArray.unshift(revokeHistory)
+                
+                // Keep only last 50 revoke transactions
+                if (revokeHistoryArray.length > 50) {
+                  revokeHistoryArray.splice(50)
+                }
+                
+                localStorage.setItem('revokeHistory', JSON.stringify(revokeHistoryArray))
+                
+                resolve(hash)
               },
               onError: (error) => {
                 console.error('Revoke failed:', error)
@@ -3989,11 +4034,13 @@ export default function RelaySwap() {
                       : null
                     
                     const typeLabel = 
+                      swap.type === 'revoke' ? 'Revoke' :
                       swap.type === 'batch-bridge' ? 'Batch Bridge' :
                       swap.type === 'batch' ? 'Batch Swap' : 
                       swap.type === 'bridge' ? 'Bridge' : 
                       'Swap'
                     const typeColor = 
+                      swap.type === 'revoke' ? 'bg-red-500/10 text-red-500' :
                       swap.type === 'batch-bridge' ? 'bg-orange-500/10 text-orange-500' :
                       swap.type === 'batch' ? 'bg-purple-500/10 text-purple-500' : 
                       swap.type === 'bridge' ? 'bg-blue-500/10 text-blue-500' : 
@@ -4019,7 +4066,11 @@ export default function RelaySwap() {
                               <Badge className={`text-xs ${typeColor}`}>
                                 {typeLabel}
                               </Badge>
-                              {swap.type !== 'batch' && swap.type !== 'batch-bridge' && (
+                              {swap.type === 'revoke' ? (
+                                <div className="text-xs font-medium">
+                                  {swap.fromTokenSymbol} approval for {swap.toTokenSymbol}
+                                </div>
+                              ) : swap.type !== 'batch' && swap.type !== 'batch-bridge' && (
                                 <div className="text-xs font-medium">
                                   {swap.fromTokenSymbol} → {swap.toTokenSymbol}
                                 </div>
@@ -4048,7 +4099,36 @@ export default function RelaySwap() {
                           </div>
 
                           {/* From details */}
-                          {(swap.type === 'batch' || swap.type === 'batch-bridge') && swap.batchTokens && swap.batchTokens.length > 0 ? (
+                          {swap.type === 'revoke' ? (
+                            <div className="p-2 bg-muted/50 rounded">
+                              <div className="flex items-center gap-2">
+                                {swap.fromTokenLogo && (
+                                  <img src={swap.fromTokenLogo} alt="" className="h-5 w-5 rounded-full" />
+                                )}
+                                <div className="flex-1">
+                                  <div className="text-xs font-medium">
+                                    Revoked {swap.fromTokenSymbol} approval
+                                  </div>
+                                  <div className="text-xs text-muted-foreground">
+                                    Spender: {swap.toTokenSymbol}
+                                  </div>
+                                  <div className="text-xs text-muted-foreground">
+                                    {swap.fromChain}
+                                  </div>
+                                </div>
+                                {swap.txHash && (
+                                  <a
+                                    href={getBlockExplorerUrl(swap.fromChainId, swap.txHash)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-xs text-primary hover:underline"
+                                  >
+                                    View
+                                  </a>
+                                )}
+                              </div>
+                            </div>
+                          ) : (swap.type === 'batch' || swap.type === 'batch-bridge') && swap.batchTokens && swap.batchTokens.length > 0 ? (
                             <div className="p-2 bg-muted/50 rounded space-y-2">
                               <div className="text-xs font-medium text-muted-foreground">
                                 {swap.type === 'batch-bridge' ? 'Bridging' : 'Swapping'} {swap.batchTokens.length} token{swap.batchTokens.length > 1 ? 's' : ''}:
@@ -4113,13 +4193,16 @@ export default function RelaySwap() {
                             </div>
                           )}
 
-                          {/* Arrow */}
-                          <div className="flex justify-center">
-                            <ArrowDownUp className="h-3 w-3 text-muted-foreground" />
-                          </div>
+                          {/* Arrow - hide for revoke */}
+                          {swap.type !== 'revoke' && (
+                            <div className="flex justify-center">
+                              <ArrowDownUp className="h-3 w-3 text-muted-foreground" />
+                            </div>
+                          )}
 
-                          {/* To details */}
-                          <div className="flex items-center gap-2 p-2 bg-muted/50 rounded">
+                          {/* To details - hide for revoke */}
+                          {swap.type !== 'revoke' && (
+                            <div className="flex items-center gap-2 p-2 bg-muted/50 rounded">
                             <div className="flex items-center gap-1.5 flex-1">
                               {swap.toTokenLogo && (
                                 <img src={swap.toTokenLogo} alt="" className="h-5 w-5 rounded-full" />
@@ -4148,6 +4231,7 @@ export default function RelaySwap() {
                               </a>
                             )}
                           </div>
+                          )}
 
                           {/* Share button */}
                           <div className="flex justify-end">

@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7f8194c0002DY5vTfe1ZhRPsW",
+  "messageID": "msg_b7f7fd97b001jqsXfC5rLX9E4w",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01N2Zkj4yCuhjXtdNveVbbsX",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 4030,
+      "limit": 30
+    },
+    "output": "<file>\n04031|                   swapHistory.map((swap) => {\n04032|                     const timeTaken = swap.completedAt && swap.timestamp \n04033|                       ? Math.round((swap.completedAt - swap.timestamp) / 1000)\n04034|                       : null\n04035|                     \n04036|                     const typeLabel = \n04037|                       swap.type === 'batch-bridge' ? 'Batch Bridge' :\n04038|                       swap.type === 'batch' ? 'Batch Swap' : \n04039|                       swap.type === 'bridge' ? 'Bridge' : \n04040|                       'Swap'\n04041|                     const typeColor = \n04042|                       swap.type === 'batch-bridge' ? 'bg-orange-500/10 text-orange-500' :\n04043|                       swap.type === 'batch' ? 'bg-purple-500/10 text-purple-500' : \n04044|                       swap.type === 'bridge' ? 'bg-blue-500/10 text-blue-500' : \n04045|                       'bg-green-500/10 text-green-500'\n04046|                     \n04047|                     // Debug batch tokens\n04048|                     if (swap.type === 'batch' || swap.type === 'batch-bridge') {\n04049|                       console.log('Rendering batch swap:', {\n04050|                         id: swap.id,\n04051|                         type: swap.type,\n04052|                         hasBatchTokens: !!swap.batchTokens,\n04053|                         batchTokensLength: swap.batchTokens?.length,\n04054|                         batchTokens: swap.batchTokens\n04055|                       })\n04056|                     }\n04057|                     \n04058|                     return (\n04059|                       <Card key={swap.id} className=\"p-3\">\n04060|                         <div className=\"space-y-2\">\n\n(File has more lines. Use 'offset' parameter to read beyond line 4060)\n</file>",
+    "metadata": {
+      "preview": "                  swapHistory.map((swap) => {\n                    const timeTaken = swap.completedAt && swap.timestamp \n                      ? Math.round((swap.completedAt - swap.timestamp) / 1000)\n                      : null\n                    \n                    const typeLabel = \n                      swap.type === 'batch-bridge' ? 'Batch Bridge' :\n                      swap.type === 'batch' ? 'Batch Swap' : \n                      swap.type === 'bridge' ? 'Bridge' : \n                      'Swap'\n                    const typeColor = \n                      swap.type === 'batch-bridge' ? 'bg-orange-500/10 text-orange-500' :\n                      swap.type === 'batch' ? 'bg-purple-500/10 text-purple-500' : \n                      swap.type === 'bridge' ? 'bg-blue-500/10 text-blue-500' : \n                      'bg-green-500/10 text-green-500'\n                    \n                    // Debug batch tokens\n                    if (swap.type === 'batch' || swap.type === 'batch-bridge') {\n                      console.log('Rendering batch swap:', {\n                        id: swap.id,"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767370757942,
+      "end": 1767370757944
+    }
+  }
+}

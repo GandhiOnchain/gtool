@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7f8000a8001YPxjen1wL1RcwF",
+  "messageID": "msg_b7f7fd97b001jqsXfC5rLX9E4w",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "The issue is that revoke transactions are not being tracked in the history because they're not going through the Relay API - they're direct on-chain transactions. The history only shows Relay API requests. Let me add support for tracking revoke transactions locally:",
+  "time": {
+    "start": 1767370657516,
+    "end": 1767370657516
+  }
+}

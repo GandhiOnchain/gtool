@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7f832c6a001u6dF1arTpEFTI2",
+  "messageID": "msg_b7f7fd97b001jqsXfC5rLX9E4w",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Perfect! I've implemented revoke transaction tracking in the history. Here's what I did:\n\n1. **Updated SwapHistory interface** to include `'revoke'` as a transaction type\n2. **Modified the revoke function** to save each successful revoke transaction to localStorage with:\n   - Transaction hash\n   - Token being revoked\n   - Spender address/name\n   - Chain information\n   - Timestamp\n3. **Updated history loading** to combine Relay API transactions with local revoke transactions and sort by timestamp\n4. **Added revoke display** in the history tab with:\n   - Red badge labeled \"Revoke\"\n   - Shows \"Revoked [TOKEN] approval\" \n   - Displays spender name/address\n   - Shows chain and View link to block explorer\n   - Hides the arrow and \"To details\" section since revokes don't have a destination\n\nNow when you revoke approvals, they'll appear in the History tab with a red \"Revoke\" label!",
+  "time": {
+    "start": 1767370867378,
+    "end": 1767370867378
+  }
+}

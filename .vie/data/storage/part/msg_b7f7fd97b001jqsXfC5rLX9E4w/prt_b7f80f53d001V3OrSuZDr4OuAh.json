@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7f80f53d001V3OrSuZDr4OuAh",
+  "messageID": "msg_b7f7fd97b001jqsXfC5rLX9E4w",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01QtHS5hnpCBzm7KRk671D6A",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2207,
+      "limit": 20
+    },
+    "output": "<file>\n02208|           }\n02209|           \n02210|           let rawAmount = outTx.data?.value || '0'\n02211|           \n02212|           // For ERC-20 tokens (non-native), always try to fetch from receipt\n02213|           const isNativeToken = !currencyAddress || \n02214|             currencyAddress === '0x0000000000000000000000000000000000000000' ||\n02215|             currencyAddress.toLowerCase() === 'eth'\n02216|           \n02217|           // If we have a transaction hash, fetch the actual transaction to get precise amounts\n02218|           if (outTx.hash && destChain) {\n02219|             try {\n02220|               const txChainConfig = defineChain({\n02221|                 id: destChainId!,\n02222|                 name: destChain.displayName,\n02223|                 nativeCurrency: {\n02224|                   name: destChain.currency.name,\n02225|                   symbol: destChain.currency.symbol,\n02226|                   decimals: destChain.currency.decimals,\n02227|                 },\n\n(File has more lines. Use 'offset' parameter to read beyond line 2227)\n</file>",
+    "metadata": {
+      "preview": "          }\n          \n          let rawAmount = outTx.data?.value || '0'\n          \n          // For ERC-20 tokens (non-native), always try to fetch from receipt\n          const isNativeToken = !currencyAddress || \n            currencyAddress === '0x0000000000000000000000000000000000000000' ||\n            currencyAddress.toLowerCase() === 'eth'\n          \n          // If we have a transaction hash, fetch the actual transaction to get precise amounts\n          if (outTx.hash && destChain) {\n            try {\n              const txChainConfig = defineChain({\n                id: destChainId!,\n                name: destChain.displayName,\n                nativeCurrency: {\n                  name: destChain.currency.name,\n                  symbol: destChain.currency.symbol,\n                  decimals: destChain.currency.decimals,\n                },"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767370717856,
+      "end": 1767370717858
+    }
+  }
+}
