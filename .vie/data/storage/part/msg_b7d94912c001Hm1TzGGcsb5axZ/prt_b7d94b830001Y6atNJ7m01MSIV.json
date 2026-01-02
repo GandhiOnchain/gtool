@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d94b830001Y6atNJ7m01MSIV",
+  "messageID": "msg_b7d94912c001Hm1TzGGcsb5axZ",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I see the issue. The badges are in a flex container with `flex-shrink-0`, but the parent container might be causing overflow. Let me adjust the layout to ensure badges are always visible:",
+  "time": {
+    "start": 1767338465645,
+    "end": 1767338465645
+  }
+}

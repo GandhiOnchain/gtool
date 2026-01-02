@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d9536d200136YKUmFEIfBhsR",
+  "messageID": "msg_b7d94912c001Hm1TzGGcsb5axZ",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Fixed. Added `flex-wrap` to the badge container and `whitespace-nowrap` to the badges themselves to ensure they display fully without being cut off. The badges will now wrap to a new line if needed rather than being hidden.",
+  "time": {
+    "start": 1767338491564,
+    "end": 1767338491564
+  }
+}
