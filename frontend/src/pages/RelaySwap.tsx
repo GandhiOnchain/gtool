@@ -4080,7 +4080,7 @@ export default function RelaySwap() {
                                 <div className="space-y-1">
                                   <div className="text-xs text-muted-foreground">Protocol</div>
                                   <div className="text-xs font-medium break-words">
-                                    {approval.spenderName || `${approval.spender.slice(0, 6)}...${approval.spender.slice(-4)}`}
+                                    {approval.spenderName || approval.spender}
                                   </div>
                                 </div>
                                 <div className="space-y-1">

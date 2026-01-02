@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d9301170012koCvrV08EPbfs",
+  "messageID": "msg_b7d9289b8001tgGYXAL0J4KXEn",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Fixed. The Protocol field now displays the full spender address when there's no protocol name available, instead of showing a truncated version.",
+  "time": {
+    "start": 1767338345620,
+    "end": 1767338345620
+  }
+}
