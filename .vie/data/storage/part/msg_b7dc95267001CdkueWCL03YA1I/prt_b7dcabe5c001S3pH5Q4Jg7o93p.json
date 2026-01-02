@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dcabe5c001S3pH5Q4Jg7o93p",
+  "messageID": "msg_b7dc95267001CdkueWCL03YA1I",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Perfect! I've updated the code to fetch transaction data directly from the blockchain for all transaction types:\n\n**Changes made:**\n\n1. **For regular swaps/bridges**: Now fetches the actual transaction from the blockchain using `getTransaction()` to get the exact value for native tokens, and `getTransactionReceipt()` to parse Transfer events for ERC-20 tokens.\n\n2. **For batch transactions**: Added the same blockchain fetching logic for each transaction in the batch, ensuring accurate amounts are retrieved.\n\n3. **Fallback logic**: If blockchain fetching fails, it still falls back to the existing calldata decoding logic.\n\nThe key improvement is that instead of relying on the potentially incorrect `value` field from the Relay API response, the code now:\n- Fetches the actual on-chain transaction data using the transaction hash\n- For native ETH: Uses the transaction's `value` field directly\n- For ERC-20 tokens: Parses the Transfer event logs from the transaction receipt to get the exact amount\n\nThis should now display accurate amounts for all transaction types by pulling data directly from the blockchain, just like the block explorer does.",
+  "time": {
+    "start": 1767342003901,
+    "end": 1767342003901
+  }
+}

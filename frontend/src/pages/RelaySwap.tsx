@@ -1850,10 +1850,58 @@ export default function RelaySwap() {
                 dataPrefix: inTx.data?.data?.substring(0, 10),
                 fee: inTx.fee,
                 type: inTx.type,
-                chainId: inTx.chainId
+                chainId: inTx.chainId,
+                hash: inTx.hash
               })
               
-              // If value is 0, try to decode from data
+              // Try to fetch from blockchain first if we have a hash
+              if (inTx.hash && originChain) {
+                try {
+                  const txChainConfig = defineChain({
+                    id: originChainId!,
+                    name: originChain.displayName,
+                    nativeCurrency: {
+                      name: originChain.currency.name,
+                      symbol: originChain.currency.symbol,
+                      decimals: originChain.currency.decimals,
+                    },
+                    rpcUrls: {
+                      default: { http: [originChain.httpRpcUrl] },
+                    },
+                  })
+                  
+                  const txClient = createPublicClient({
+                    chain: txChainConfig,
+                    transport: http(originChain.httpRpcUrl),
+                  })
+                  
+                  const isNativeToken = !currencyAddress || currencyAddress === '0x0000000000000000000000000000000000000000'
+                  
+                  // Fetch the actual transaction
+                  const tx = await txClient.getTransaction({ hash: inTx.hash as `0x${string}` })
+                  
+                  if (isNativeToken && tx.value) {
+                    rawAmount = tx.value.toString()
+                    console.log(`✓ Batch tx ${i}: Got native amount from blockchain:`, rawAmount)
+                  } else if (!isNativeToken) {
+                    // For ERC-20, get receipt and parse Transfer events
+                    const receipt = await txClient.getTransactionReceipt({ hash: inTx.hash as `0x${string}` })
+                    for (const log of receipt.logs) {
+                      if (log.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
+                        if (log.data && log.data !== '0x') {
+                          rawAmount = BigInt(log.data).toString()
+                          console.log(`✓ Batch tx ${i}: Got ERC-20 amount from Transfer event:`, rawAmount)
+                          break
+                        }
+                      }
+                    }
+                  }
+                } catch (e) {
+                  console.log(`Could not fetch batch tx ${i} from blockchain:`, e)
+                }
+              }
+              
+              // If still 0, try to decode from data
               if (rawAmount === '0' && inTx.data?.data && inTx.data.data.length > 10) {
                 const txData = inTx.data.data
                 
@@ -1982,8 +2030,8 @@ export default function RelaySwap() {
           // For native tokens, use the value field
           const isNativeToken = !currencyAddress || currencyAddress === '0x0000000000000000000000000000000000000000'
           
-          // If we have a transaction hash and it's an ERC-20 token, fetch the actual transaction to get precise amounts
-          if (inTx.hash && !isNativeToken && originChain) {
+          // If we have a transaction hash, fetch the actual transaction to get precise amounts
+          if (inTx.hash && originChain) {
             try {
               const txChainConfig = defineChain({
                 id: originChainId!,
@@ -2003,22 +2051,32 @@ export default function RelaySwap() {
                 transport: http(originChain.httpRpcUrl),
               })
               
-              const receipt = await txClient.getTransactionReceipt({ hash: inTx.hash as `0x${string}` })
+              // Fetch the actual transaction to get the value
+              const tx = await txClient.getTransaction({ hash: inTx.hash as `0x${string}` })
               
-              // Parse Transfer events to get actual amount
-              for (const log of receipt.logs) {
-                // Transfer event signature: Transfer(address,address,uint256)
-                if (log.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
-                  // topics[1] = from, topics[2] = to, data = amount
-                  if (log.data && log.data !== '0x') {
-                    rawAmount = BigInt(log.data).toString()
-                    console.log('✓ Got amount from Transfer event:', rawAmount)
-                    break
+              // For native token transfers, use the transaction value
+              if (isNativeToken && tx.value) {
+                rawAmount = tx.value.toString()
+                console.log('✓ Got native amount from transaction:', rawAmount)
+              } else if (!isNativeToken) {
+                // For ERC-20 tokens, get the receipt and parse Transfer events
+                const receipt = await txClient.getTransactionReceipt({ hash: inTx.hash as `0x${string}` })
+                
+                // Parse Transfer events to get actual amount
+                for (const log of receipt.logs) {
+                  // Transfer event signature: Transfer(address,address,uint256)
+                  if (log.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
+                    // topics[1] = from, topics[2] = to, data = amount
+                    if (log.data && log.data !== '0x') {
+                      rawAmount = BigInt(log.data).toString()
+                      console.log('✓ Got ERC-20 amount from Transfer event:', rawAmount)
+                      break
+                    }
                   }
                 }
               }
             } catch (e) {
-              console.log('Could not fetch transaction receipt:', e)
+              console.log('Could not fetch transaction from chain:', e)
             }
           }
           
@@ -2070,8 +2128,8 @@ export default function RelaySwap() {
           // For ERC-20 tokens (non-native), always try to fetch from receipt
           const isNativeToken = !currencyAddress || currencyAddress === '0x0000000000000000000000000000000000000000'
           
-          // If we have a transaction hash and it's an ERC-20 token, fetch the actual transaction to get precise amounts
-          if (outTx.hash && !isNativeToken && destChain) {
+          // If we have a transaction hash, fetch the actual transaction to get precise amounts
+          if (outTx.hash && destChain) {
             try {
               const txChainConfig = defineChain({
                 id: destChainId!,
@@ -2091,20 +2149,30 @@ export default function RelaySwap() {
                 transport: http(destChain.httpRpcUrl),
               })
               
-              const receipt = await txClient.getTransactionReceipt({ hash: outTx.hash as `0x${string}` })
+              // Fetch the actual transaction to get the value
+              const tx = await txClient.getTransaction({ hash: outTx.hash as `0x${string}` })
               
-              // Parse Transfer events to get actual amount
-              for (const log of receipt.logs) {
-                if (log.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
-                  if (log.data && log.data !== '0x') {
-                    rawAmount = BigInt(log.data).toString()
-                    console.log('✓ Got to amount from Transfer event:', rawAmount)
-                    break
+              // For native token transfers, use the transaction value
+              if (isNativeToken && tx.value) {
+                rawAmount = tx.value.toString()
+                console.log('✓ Got native to amount from transaction:', rawAmount)
+              } else if (!isNativeToken) {
+                // For ERC-20 tokens, get the receipt and parse Transfer events
+                const receipt = await txClient.getTransactionReceipt({ hash: outTx.hash as `0x${string}` })
+                
+                // Parse Transfer events to get actual amount
+                for (const log of receipt.logs) {
+                  if (log.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
+                    if (log.data && log.data !== '0x') {
+                      rawAmount = BigInt(log.data).toString()
+                      console.log('✓ Got ERC-20 to amount from Transfer event:', rawAmount)
+                      break
+                    }
                   }
                 }
               }
             } catch (e) {
-              console.log('Could not fetch output transaction receipt:', e)
+              console.log('Could not fetch output transaction from chain:', e)
             }
           }
           
