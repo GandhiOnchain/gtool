@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7fa1a1e7001vgJJfsPAObckm1",
+  "messageID": "msg_b7fa0db96001TbiWU3Tn355AhE",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_0187sBppQiq3ZG8bzdwKCJp3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/hooks/alchemy/portfolio/useTokensByOwnerOnMultipleChains.ts",
+      "offset": 72,
+      "limit": 20
+    },
+    "output": "<file>\n00073|       formattedResponse.data.tokens = formattedResponse.data.tokens\n00074|         .map((token) => {\n00075|           return {\n00076|             ...token,\n00077|             tokenBalance: token.tokenBalance.startsWith(\"0x\") ? BigInt(token.tokenBalance).toString() : token.tokenBalance,\n00078|             tokenMetadata: {\n00079|               name: token.tokenMetadata?.name ?? (!token.tokenAddress ? getNetworkDetails(token.network).name : null),\n00080|               symbol: token.tokenMetadata?.symbol ?? (!token.tokenAddress ? getNetworkDetails(token.network).nativeGasTokenSymbol : null),\n00081|               decimals: token.tokenMetadata?.decimals ?? null,\n00082|               logo: token.tokenMetadata?.logo ?? null,\n00083|             },\n00084|           }\n00085|         })\n00086|         // Filter spam tokens by local list of spam tokens\n00087|         .filter((token) => !isSpamToken(token.network, token.tokenAddress));\n00088|       setData(formattedResponse);\n00089|       return formattedResponse;\n00090|     } catch (err) {\n00091|       const error = err instanceof Error ? err : new Error('Failed to fetch tokens for wallet');\n00092|       setError(error);\n\n(File has more lines. Use 'offset' parameter to read beyond line 92)\n</file>",
+    "metadata": {
+      "preview": "      formattedResponse.data.tokens = formattedResponse.data.tokens\n        .map((token) => {\n          return {\n            ...token,\n            tokenBalance: token.tokenBalance.startsWith(\"0x\") ? BigInt(token.tokenBalance).toString() : token.tokenBalance,\n            tokenMetadata: {\n              name: token.tokenMetadata?.name ?? (!token.tokenAddress ? getNetworkDetails(token.network).name : null),\n              symbol: token.tokenMetadata?.symbol ?? (!token.tokenAddress ? getNetworkDetails(token.network).nativeGasTokenSymbol : null),\n              decimals: token.tokenMetadata?.decimals ?? null,\n              logo: token.tokenMetadata?.logo ?? null,\n            },\n          }\n        })\n        // Filter spam tokens by local list of spam tokens\n        .filter((token) => !isSpamToken(token.network, token.tokenAddress));\n      setData(formattedResponse);\n      return formattedResponse;\n    } catch (err) {\n      const error = err instanceof Error ? err : new Error('Failed to fetch tokens for wallet');\n      setError(error);"
+    },
+    "title": "frontend/src/hooks/alchemy/portfolio/useTokensByOwnerOnMultipleChains.ts",
+    "time": {
+      "start": 1767372859545,
+      "end": 1767372859546
+    }
+  }
+}

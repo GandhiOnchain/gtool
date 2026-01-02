@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7fa195b400159imPEkTbnCaMY",
+  "messageID": "msg_b7fa0db96001TbiWU3Tn355AhE",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01CFC1fWuSAaeCaDM742v4Zq",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/config.ts",
+      "offset": 0,
+      "limit": 100
+    },
+    "output": "<file>\n00001| import { Alchemy, Network as AlchemyNetwork } from 'alchemy-sdk';\n00002| import { config } from '../../config';\n00003| \n00004| /**\n00005|  * Alchemy SDK Configuration\n00006|  * \n00007|  * Set up your Alchemy API key in env.json:\n00008|  * VITE_ALCHEMY_API_KEY=your_api_key_here\n00009|  * \n00010|  * You can get an API key from: https://dashboard.alchemy.com/\n00011|  */\n00012| \n00013| const alchemySettings = {\n00014|   apiKey: config.alchemy.apiKey || 'demo',\n00015| };\n00016| \n00017| // Validate API key\n00018| if (!alchemySettings.apiKey) {\n00019|   console.warn(\n00020|     'Alchemy API key not found. Please set VITE_ALCHEMY_API_KEY in your environment variables in env.json.'\n00021|   );\n00022| }\n00023| \n00024| // Create and export default Alchemy instance (ETH mainnet)\n00025| export const alchemy = new Alchemy({\n00026|   ...alchemySettings\n00027| });\n00028| \n00029| // Export settings for reference\n00030| export { alchemySettings };\n00031| \n00032| /**\n00033|  * Network details\n00034|  * @param name - The name of the network\n00035|  * @param nativeGasTokenSymbol - The symbol of the native gas token\n00036|  * @param nativeGasTokenName - The name of the native gas token\n00037|  */\n00038| export type NetworkDetails = {\n00039|   name: string;\n00040|   nativeGasTokenSymbol: string;\n00041|   nativeGasTokenName: string;\n00042| }\n00043| \n00044| // Redefine here for the AI to reference easier!\n00045| export enum Network {\n00046|   // Ethereum family\n00047|   ETH_MAINNET = \"eth-mainnet\",\n00048| \n00049|   // Optimism\n00050|   OPT_MAINNET = \"opt-mainnet\",\n00051| \n00052|   // Arbitrum\n00053|   ARB_MAINNET = \"arb-mainnet\",\n00054|   ARBNOVA_MAINNET = \"arbnova-mainnet\",\n00055| \n00056|   // Polygon\n00057|   MATIC_MAINNET = \"polygon-mainnet\",\n00058|   MATIC_MAINNET_OLD = \"matic-mainnet\",\n00059| \n00060|   // Base\n00061|   BASE_MAINNET = \"base-mainnet\",\n00062|   BASE_SEPOLIA = \"base-sepolia\",\n00063|   \n00064|   // zkSync Era\n00065|   ZKSYNC_MAINNET = \"zksync-mainnet\",\n00066| \n00067|   // Astar\n00068|   ASTAR_MAINNET = \"astar-mainnet\",\n00069| \n00070|   // Linea\n00071|   LINEA_MAINNET = \"linea-mainnet\",\n00072| \n00073|   // Fantom\n00074|   FANTOM_MAINNET = \"fantom-mainnet\",\n00075| \n00076|   // ZetaChain\n00077|   ZETACHAIN_MAINNET = \"zetachain-mainnet\",\n00078| \n00079|   // Blast\n00080|   BLAST_MAINNET = \"blast-mainnet\",\n00081| \n00082|   // Mantle\n00083|   MANTLE_MAINNET = \"mantle-mainnet\",\n00084| \n00085|   // Scroll\n00086|   SCROLL_MAINNET = \"scroll-mainnet\",\n00087| \n00088|   // Gnosis (xDai)\n00089|   GNOSIS_MAINNET = \"gnosis-mainnet\",\n00090| \n00091|   // BNB Chain\n00092|   BNB_MAINNET = \"bnb-mainnet\",\n00093| \n00094|   // Avalanche\n00095|   AVAX_MAINNET = \"avax-mainnet\",\n00096| \n00097|   // Celo\n00098|   CELO_MAINNET = \"celo-mainnet\",\n00099| \n00100|   // Metis\n\n(File has more lines. Use 'offset' parameter to read beyond line 100)\n</file>",
+    "metadata": {
+      "preview": "import { Alchemy, Network as AlchemyNetwork } from 'alchemy-sdk';\nimport { config } from '../../config';\n\n/**\n * Alchemy SDK Configuration\n * \n * Set up your Alchemy API key in env.json:\n * VITE_ALCHEMY_API_KEY=your_api_key_here\n * \n * You can get an API key from: https://dashboard.alchemy.com/\n */\n\nconst alchemySettings = {\n  apiKey: config.alchemy.apiKey || 'demo',\n};\n\n// Validate API key\nif (!alchemySettings.apiKey) {\n  console.warn(\n    'Alchemy API key not found. Please set VITE_ALCHEMY_API_KEY in your environment variables in env.json.'"
+    },
+    "title": "frontend/src/lib/alchemy/config.ts",
+    "time": {
+      "start": 1767372855549,
+      "end": 1767372855550
+    }
+  }
+}

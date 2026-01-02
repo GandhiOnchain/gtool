@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7fa0e3920010aRP08s5s2Njcz",
+  "messageID": "msg_b7fa0db96001TbiWU3Tn355AhE",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01TfWrUSMKo9e6ksF3PZwEcV",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && bun run dev > /tmp/dev.log 2>&1 & echo $!",
+      "description": "Start dev server in background"
+    },
+    "output": "1166\n",
+    "metadata": {
+      "output": "1166\n",
+      "exit": 0,
+      "description": "Start dev server in background"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && bun run dev > /tmp/dev.log 2>&1 & echo $!",
+    "time": {
+      "start": 1767372810416,
+      "end": 1767372810418
+    }
+  }
+}

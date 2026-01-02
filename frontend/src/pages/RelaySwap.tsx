@@ -2872,7 +2872,9 @@ export default function RelaySwap() {
             decimals,
             rawBalance: token.tokenBalance,
             network: token.network,
-            logo: token.tokenMetadata?.logo
+            logo: token.tokenMetadata?.logo,
+            hasLogo: !!token.tokenMetadata?.logo,
+            logoUrl: token.tokenMetadata?.logo
           })
           
           if (balance === 0 || isNaN(balance)) {
@@ -2905,6 +2907,17 @@ export default function RelaySwap() {
             valueUsd
           })
           
+          const logoUrl = token.tokenMetadata?.logo && token.tokenMetadata.logo.trim() !== '' 
+            ? token.tokenMetadata.logo 
+            : undefined
+          
+          console.log('Adding token to chain:', {
+            symbol: token.tokenMetadata?.symbol,
+            rawLogo: token.tokenMetadata?.logo,
+            logoUrl,
+            hasLogo: !!logoUrl
+          })
+          
           chain.tokens.push({
             address: token.tokenAddress || 'native',
             symbol: token.tokenMetadata?.symbol || 'UNKNOWN',
@@ -2913,7 +2926,7 @@ export default function RelaySwap() {
             balanceFormatted: balance.toFixed(6),
             valueUsd,
             priceUsd,
-            logo: token.tokenMetadata?.logo || undefined,
+            logo: logoUrl,
           })
           
           chain.valueUsd += valueUsd
@@ -2921,17 +2934,21 @@ export default function RelaySwap() {
         }
       }
       
+      const chainsArray = Array.from(chainData.values()).sort((a, b) => b.valueUsd - a.valueUsd)
+      
       console.log('Final portfolio data:', {
         totalValue,
-        chains: Array.from(chainData.values())
+        chains: chainsArray,
+        tokensWithLogos: chainsArray.flatMap(c => c.tokens.filter(t => t.logo).map(t => ({ symbol: t.symbol, logo: t.logo }))),
+        tokensWithoutLogos: chainsArray.flatMap(c => c.tokens.filter(t => !t.logo).map(t => ({ symbol: t.symbol })))
       })
       
-      const allTokens = Array.from(chainData.values()).flatMap(c => c.tokens.map(t => ({ ...t, chainId: c.chainId })))
+      const allTokens = chainsArray.flatMap(c => c.tokens.map(t => ({ ...t, chainId: c.chainId })))
       const pnl = calculatePnl(totalValue, allTokens)
       
       setPortfolioData({
         totalValueUsd: totalValue,
-        chains: Array.from(chainData.values()).sort((a, b) => b.valueUsd - a.valueUsd)
+        chains: chainsArray
       })
       setPortfolioPnl(pnl)
     } catch (error) {
@@ -3962,13 +3979,27 @@ export default function RelaySwap() {
                           
                           <div className="space-y-1.5">
                             {(expandedChains.has(chain.chainId) ? chain.tokens : chain.tokens.slice(0, 5)).map(token => (
-                              <div key={token.address} className="flex items-center justify-between text-xs">
+                              <div key={`${chain.chainId}-${token.address}`} className="flex items-center justify-between text-xs">
                                 <div className="flex items-center gap-2 flex-1 min-w-0">
                                   {token.logo ? (
-                                    <img src={token.logo} alt="" className="h-5 w-5 rounded-full flex-shrink-0" />
-                                  ) : (
-                                    <div className="h-5 w-5 rounded-full bg-muted flex-shrink-0" />
-                                  )}
+                                    <img 
+                                      src={token.logo} 
+                                      alt={token.symbol} 
+                                      className="h-5 w-5 rounded-full flex-shrink-0 object-cover"
+                                      onError={(e) => {
+                                        console.log('Image failed to load:', token.logo)
+                                        e.currentTarget.style.display = 'none'
+                                        const fallback = e.currentTarget.nextElementSibling as HTMLElement
+                                        if (fallback) fallback.style.display = 'block'
+                                      }}
+                                    />
+                                  ) : null}
+                                  <div 
+                                    className="h-5 w-5 rounded-full bg-muted flex-shrink-0 flex items-center justify-center text-[8px] font-bold"
+                                    style={{ display: token.logo ? 'none' : 'flex' }}
+                                  >
+                                    {token.symbol.slice(0, 2)}
+                                  </div>
                                   <div className="min-w-0 flex-1">
                                     <div className="font-medium">{token.symbol}</div>
                                     <div className="text-muted-foreground truncate">{token.balanceFormatted}</div>
