@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7d3b50320012TgfdlmKzQxZwm",
+  "messageID": "msg_b7d3a403e001LZVakefvFPosyu",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01B6ywV2UCX91LpJrXnfRLCB",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"const \\[showAirdrops\" src/pages/RelaySwap.tsx",
+      "description": "Find showAirdrops state"
+    },
+    "output": "135:  const [showAirdrops, setShowAirdrops] = useState(false)\n",
+    "metadata": {
+      "output": "135:  const [showAirdrops, setShowAirdrops] = useState(false)\n",
+      "exit": 0,
+      "description": "Find showAirdrops state"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"const \\[showAirdrops\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767332599091,
+      "end": 1767332599097
+    }
+  }
+}

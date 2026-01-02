@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d3e112e001WlAIicKgbDB8qn",
+  "messageID": "msg_b7d3a403e001LZVakefvFPosyu",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "Done. I've completely removed all airdrop-related functionality:\n\n**Removed:**\n- Gift icon button from header\n- All airdrop state variables\n- `checkAirdrops()` function\n- `claimAirdrop()` function  \n- `registerForNotifications()` function\n- Airdrops dialog\n- Drops.bot API integration (`src/lib/drops/`)\n- Backend API files (`/api/`)\n- Vercel cron configuration\n- Setup documentation files\n- VITE_DROPS_API_KEY from env.json\n- drops config from config.ts\n\nThe app is now clean with only the core features: Portfolio, Swap, Batch, Revoke, and History tabs.",
+  "time": {
+    "start": 1767332783051,
+    "end": 1767332783051
+  }
+}

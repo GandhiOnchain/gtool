@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d3c7a42001P7C8ZndqniuKNT",
+  "messageID": "msg_b7d3a403e001LZVakefvFPosyu",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01D56u1pzYmx2VCFJQMiQ474",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 337,
+      "limit": 40
+    },
+    "output": "<file>\n00338|       loadSwapHistory()\n00339|       loadUserStreak()\n00340|       checkAirdrops()\n00341|       registerForNotifications()\n00342|       \n00343|       // Check for new airdrops every 5 minutes\n00344|       const airdropInterval = setInterval(() => {\n00345|         checkAirdrops()\n00346|       }, 5 * 60 * 1000)\n00347|       \n00348|       return () => clearInterval(airdropInterval)\n00349|     }\n00350|   }, [address, chains])\n00351| \n00352|   const registerForNotifications = async () => {\n00353|     if (!address) return\n00354|     \n00355|     try {\n00356|       // Get Farcaster FID if available\n00357|       let fid: string | undefined\n00358|       try {\n00359|         const context = await sdk.context\n00360|         fid = context?.user?.fid?.toString()\n00361|       } catch (error) {\n00362|         console.log('Not in Farcaster context')\n00363|       }\n00364|       \n00365|       // Register user for airdrop notifications\n00366|       const response = await fetch('/api/register-user', {\n00367|         method: 'POST',\n00368|         headers: {\n00369|           'Content-Type': 'application/json',\n00370|         },\n00371|         body: JSON.stringify({\n00372|           address,\n00373|           fid,\n00374|         }),\n00375|       })\n00376|       \n00377|       if (response.ok) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 377)\n</file>",
+    "metadata": {
+      "preview": "      loadSwapHistory()\n      loadUserStreak()\n      checkAirdrops()\n      registerForNotifications()\n      \n      // Check for new airdrops every 5 minutes\n      const airdropInterval = setInterval(() => {\n        checkAirdrops()\n      }, 5 * 60 * 1000)\n      \n      return () => clearInterval(airdropInterval)\n    }\n  }, [address, chains])\n\n  const registerForNotifications = async () => {\n    if (!address) return\n    \n    try {\n      // Get Farcaster FID if available\n      let fid: string | undefined"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767332675093,
+      "end": 1767332675096
+    }
+  }
+}

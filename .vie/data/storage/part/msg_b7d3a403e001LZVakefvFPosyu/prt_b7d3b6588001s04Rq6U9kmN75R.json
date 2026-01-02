@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d3b6588001s04Rq6U9kmN75R",
+  "messageID": "msg_b7d3a403e001LZVakefvFPosyu",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_015GsfzotB6WNYzd7tXZKTUg",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 133,
+      "limit": 5
+    },
+    "output": "<file>\n00134|   const [showSettings, setShowSettings] = useState(false)\n00135|   const [showAirdrops, setShowAirdrops] = useState(false)\n00136|   const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])\n00137|   const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])\n00138|   const [contractAddressSearch, setContractAddressSearch] = useState('')\n\n(File has more lines. Use 'offset' parameter to read beyond line 138)\n</file>",
+    "metadata": {
+      "preview": "  const [showSettings, setShowSettings] = useState(false)\n  const [showAirdrops, setShowAirdrops] = useState(false)\n  const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])\n  const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])\n  const [contractAddressSearch, setContractAddressSearch] = useState('')"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767332604253,
+      "end": 1767332604256
+    }
+  }
+}

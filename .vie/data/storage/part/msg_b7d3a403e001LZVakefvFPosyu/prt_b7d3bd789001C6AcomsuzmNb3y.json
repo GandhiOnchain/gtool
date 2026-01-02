@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d3bd789001C6AcomsuzmNb3y",
+  "messageID": "msg_b7d3a403e001LZVakefvFPosyu",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_0165iC8istraQ4rcGsi3xYvR",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3005,
+      "limit": 10
+    },
+    "output": "<file>\n03006|     }\n03007|   }\n03008| \n03009|   const revokeApproval = async (approval: typeof approvals[0]) => {\n03010|     if (!address || !revokeChain) return\n03011|     \n03012|     setIsRevoking(true)\n03013|     try {\n03014|       // Check if we need to switch chains\n03015|       if (connectedChainId !== revokeChain.id) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 3015)\n</file>",
+    "metadata": {
+      "preview": "    }\n  }\n\n  const revokeApproval = async (approval: typeof approvals[0]) => {\n    if (!address || !revokeChain) return\n    \n    setIsRevoking(true)\n    try {\n      // Check if we need to switch chains\n      if (connectedChainId !== revokeChain.id) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767332633366,
+      "end": 1767332633368
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d3b1b780013RzpMA7O2DU9tz",
+  "messageID": "msg_b7d3a403e001LZVakefvFPosyu",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01R9YuwNqsYbTE5SwJkvTpfU",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 174,
+      "limit": 25
+    },
+    "output": "<file>\n00175|     id: string\n00176|     name: string\n00177|     description: string\n00178|     protocol: string\n00179|     chainId: number\n00180|     chainName: string\n00181|     tokenSymbol: string\n00182|     amount: string\n00183|     amountUsd?: string\n00184|     claimUrl?: string\n00185|     contractAddress?: string\n00186|     isEligible: boolean\n00187|     isClaimed: boolean\n00188|     claimDeadline?: number\n00189|     logo?: string\n00190|     type: 'standard' | 'clanker' | 'farcaster'\n00191|   }>>([])\n00192|   const [isLoadingAirdrops, setIsLoadingAirdrops] = useState(false)\n00193|   const [isClaiming, setIsClaiming] = useState(false)\n00194|   const [portfolioData, setPortfolioData] = useState<{\n00195|     totalValueUsd: number\n00196|     chains: Array<{\n00197|       chainId: number\n00198|       chainName: string\n00199|       valueUsd: number\n\n(File has more lines. Use 'offset' parameter to read beyond line 199)\n</file>",
+    "metadata": {
+      "preview": "    id: string\n    name: string\n    description: string\n    protocol: string\n    chainId: number\n    chainName: string\n    tokenSymbol: string\n    amount: string\n    amountUsd?: string\n    claimUrl?: string\n    contractAddress?: string\n    isEligible: boolean\n    isClaimed: boolean\n    claimDeadline?: number\n    logo?: string\n    type: 'standard' | 'clanker' | 'farcaster'\n  }>>([])\n  const [isLoadingAirdrops, setIsLoadingAirdrops] = useState(false)\n  const [isClaiming, setIsClaiming] = useState(false)\n  const [portfolioData, setPortfolioData] = useState<{"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767332585168,
+      "end": 1767332585171
+    }
+  }
+}

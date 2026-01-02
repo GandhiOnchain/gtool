@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d3ca446001mgZxFBSZlEUHWP",
+  "messageID": "msg_b7d3a403e001LZVakefvFPosyu",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01YcHeeqJPYHdKj7NbPWcEc6",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 377,
+      "limit": 10
+    },
+    "output": "<file>\n00378|         console.log('Registered for airdrop notifications')\n00379|       }\n00380|     } catch (error) {\n00381|       console.error('Failed to register for notifications:', error)\n00382|     }\n00383|   }\n00384| \n00385|   useEffect(() => {\n00386|     loadLeaderboard()\n00387|   }, [])\n\n(File has more lines. Use 'offset' parameter to read beyond line 387)\n</file>",
+    "metadata": {
+      "preview": "        console.log('Registered for airdrop notifications')\n      }\n    } catch (error) {\n      console.error('Failed to register for notifications:', error)\n    }\n  }\n\n  useEffect(() => {\n    loadLeaderboard()\n  }, [])"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767332685722,
+      "end": 1767332685725
+    }
+  }
+}

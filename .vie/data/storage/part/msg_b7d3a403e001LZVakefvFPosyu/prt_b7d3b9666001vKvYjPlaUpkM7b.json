@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7d3b9666001vKvYjPlaUpkM7b",
+  "messageID": "msg_b7d3a403e001LZVakefvFPosyu",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_014oYkRYqCaLiJeorsevgavv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"const checkAirdrops = async|const claimAirdrop = async\" src/pages/RelaySwap.tsx",
+      "description": "Find airdrop functions"
+    },
+    "output": "2855:  const checkAirdrops = async () => {\n2924:  const claimAirdrop = async (airdrop: typeof airdrops[0]) => {\n",
+    "metadata": {
+      "output": "2855:  const checkAirdrops = async () => {\n2924:  const claimAirdrop = async (airdrop: typeof airdrops[0]) => {\n",
+      "exit": 0,
+      "description": "Find airdrop functions"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"const checkAirdrops = async|const claimAirdrop = async\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767332616920,
+      "end": 1767332616926
+    }
+  }
+}

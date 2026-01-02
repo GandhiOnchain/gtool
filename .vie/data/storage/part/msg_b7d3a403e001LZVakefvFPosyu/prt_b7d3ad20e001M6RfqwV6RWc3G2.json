@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d3ad20e001M6RfqwV6RWc3G2",
+  "messageID": "msg_b7d3a403e001LZVakefvFPosyu",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_012DV6cszC9jJkMkvU519X4V",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 20,
+      "limit": 10
+    },
+    "output": "<file>\n00021| import { toast } from 'sonner'\n00022| import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet, Settings, Gift } from 'lucide-react'\n00023| import { secureStorage } from '@/lib/security/storage'\n00024| import { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'\n00025| import { quoteRateLimiter } from '@/lib/security/rateLimit'\n00026| import { checkAirdropsWithDrops, getChainIdFromNetwork, getChainName } from '@/lib/drops/api'\n00027| \n00028| interface TrendingToken {\n00029|   address: string\n00030|   chainId: number\n\n(File has more lines. Use 'offset' parameter to read beyond line 30)\n</file>",
+    "metadata": {
+      "preview": "import { toast } from 'sonner'\nimport { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet, Settings, Gift } from 'lucide-react'\nimport { secureStorage } from '@/lib/security/storage'\nimport { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'\nimport { quoteRateLimiter } from '@/lib/security/rateLimit'\nimport { checkAirdropsWithDrops, getChainIdFromNetwork, getChainName } from '@/lib/drops/api'\n\ninterface TrendingToken {\n  address: string\n  chainId: number"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767332566806,
+      "end": 1767332566810
+    }
+  }
+}
