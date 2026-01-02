@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d974922001TlsxeKQIsHbgmC",
+  "messageID": "msg_b7d96a40d001p91FaBzMVo2Kyq",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Fixed. The badges are now displayed below the token info instead of beside it, with smaller sizing (`text-[10px]`, `h-5`, `px-1.5`). This ensures they're always fully visible and not cut off by the container width.",
+  "time": {
+    "start": 1767338627039,
+    "end": 1767338627039
+  }
+}
