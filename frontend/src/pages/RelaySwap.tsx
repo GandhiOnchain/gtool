@@ -194,6 +194,7 @@ export default function RelaySwap() {
     percentage: number
     tokens: Array<{ symbol: string; pnl: number; percentage: number }>
   } | null>(null)
+  const [expandedChains, setExpandedChains] = useState<Set<number>>(new Set())
 
   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
@@ -3986,7 +3987,7 @@ export default function RelaySwap() {
                           <Separator />
                           
                           <div className="space-y-1.5">
-                            {chain.tokens.slice(0, 5).map(token => (
+                            {(expandedChains.has(chain.chainId) ? chain.tokens : chain.tokens.slice(0, 5)).map(token => (
                               <div key={token.address} className="flex items-center justify-between text-xs">
                                 <div className="flex items-center gap-2 flex-1 min-w-0">
                                   {token.logo ? (
@@ -4006,9 +4007,22 @@ export default function RelaySwap() {
                               </div>
                             ))}
                             {chain.tokens.length > 5 && (
-                              <div className="text-xs text-muted-foreground text-center pt-1">
-                                +{chain.tokens.length - 5} more tokens
-                              </div>
+                              <button
+                                onClick={() => {
+                                  const newExpanded = new Set(expandedChains)
+                                  if (expandedChains.has(chain.chainId)) {
+                                    newExpanded.delete(chain.chainId)
+                                  } else {
+                                    newExpanded.add(chain.chainId)
+                                  }
+                                  setExpandedChains(newExpanded)
+                                }}
+                                className="text-xs text-muted-foreground hover:text-foreground text-center pt-1 w-full transition-colors"
+                              >
+                                {expandedChains.has(chain.chainId) 
+                                  ? 'Show less' 
+                                  : `+${chain.tokens.length - 5} more tokens`}
+                              </button>
                             )}
                           </div>
                         </div>

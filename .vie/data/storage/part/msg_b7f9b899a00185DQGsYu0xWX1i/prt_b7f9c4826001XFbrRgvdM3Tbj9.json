@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7f9c4826001XFbrRgvdM3Tbj9",
+  "messageID": "msg_b7f9b899a00185DQGsYu0xWX1i",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "Fixed. The portfolio now:\n- Shows all tokens with balances across all supported chains (Ethereum, Base, Arbitrum, Polygon, Optimism)\n- Only displays tokens from your connected wallet\n- The \"+X more tokens\" text is now clickable and expands to show all tokens\n- Click again to collapse back to showing only the first 5 tokens per chain",
+  "time": {
+    "start": 1767372509319,
+    "end": 1767372509319
+  }
+}
