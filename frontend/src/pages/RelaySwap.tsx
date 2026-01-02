@@ -4310,27 +4310,27 @@ export default function RelaySwap() {
                               
                               <Separator className="my-2" />
                               
-                              <div className="space-y-1.5">
-                                <div className="flex justify-between text-xs gap-2">
-                                  <span className="text-muted-foreground">Protocol</span>
-                                  <span className="font-medium text-right">
+                              <div className="space-y-2">
+                                <div className="space-y-1">
+                                  <div className="text-xs text-muted-foreground">Protocol</div>
+                                  <div className="text-xs font-medium break-all">
                                     {approval.spenderName || `${approval.spender.slice(0, 6)}...${approval.spender.slice(-4)}`}
-                                  </span>
+                                  </div>
                                 </div>
-                                <div className="flex justify-between text-xs gap-2">
-                                  <span className="text-muted-foreground">Allowance</span>
-                                  <span className="font-mono text-right">
+                                <div className="space-y-1">
+                                  <div className="text-xs text-muted-foreground">Allowance</div>
+                                  <div className="text-xs font-mono break-all">
                                     {approval.allowanceFormatted === 'Unlimited' 
-                                      ? '∞' 
+                                      ? '∞ Unlimited' 
                                       : `${parseFloat(approval.allowanceFormatted).toFixed(4)} ${approval.token.symbol}`
                                     }
-                                  </span>
+                                  </div>
                                 </div>
-                                <div className="flex justify-between text-xs gap-2">
-                                  <span className="text-muted-foreground">Spender Address</span>
-                                  <span className="font-mono text-right text-muted-foreground">
-                                    {approval.spender.slice(0, 6)}...{approval.spender.slice(-4)}
-                                  </span>
+                                <div className="space-y-1">
+                                  <div className="text-xs text-muted-foreground">Spender Address</div>
+                                  <div className="text-xs font-mono text-muted-foreground break-all">
+                                    {approval.spender}
+                                  </div>
                                 </div>
                               </div>
                             </div>

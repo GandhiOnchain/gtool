@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d379b05001kAxNUvcKzB4j3C",
+  "messageID": "msg_b7d36c02a001WDr4IBGYak33Ln",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "Fixed! The approval details now display properly:\n\n**Changes made:**\n- Changed from horizontal `justify-between` layout to vertical stacked layout\n- Added `break-all` class to allow long addresses to wrap\n- Shows full spender address instead of truncated version\n- Better spacing with `space-y-2` between sections\n- Labels on top, values below for better readability\n\nNow you'll see:\n- **Protocol**: Full name or address\n- **Allowance**: Full amount or \"∞ Unlimited\"\n- **Spender Address**: Complete address (not truncated)",
+  "time": {
+    "start": 1767332358631,
+    "end": 1767332358631
+  }
+}

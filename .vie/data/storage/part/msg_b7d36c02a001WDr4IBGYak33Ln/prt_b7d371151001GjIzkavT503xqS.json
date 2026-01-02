@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d371151001GjIzkavT503xqS",
+  "messageID": "msg_b7d36c02a001WDr4IBGYak33Ln",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "The issue is that the text is being cut off because of the layout. Let me fix it by making the values wrap and use better spacing:",
+  "time": {
+    "start": 1767332329271,
+    "end": 1767332329271
+  }
+}
