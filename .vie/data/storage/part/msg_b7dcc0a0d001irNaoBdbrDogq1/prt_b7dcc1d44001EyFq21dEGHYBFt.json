@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dcc1d44001EyFq21dEGHYBFt",
+  "messageID": "msg_b7dcc0a0d001irNaoBdbrDogq1",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Let me check the console logs to see what's happening. Can you open the browser console (F12) and refresh the History tab, then share what errors or logs you see? In the meantime, let me add more comprehensive debugging and try a different approach.\n\nLet me check if there's an issue with how we're identifying native vs ERC-20 tokens:",
+  "time": {
+    "start": 1767342090896,
+    "end": 1767342090896
+  }
+}

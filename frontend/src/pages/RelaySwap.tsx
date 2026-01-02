@@ -1882,15 +1882,23 @@ export default function RelaySwap() {
                   
                   if (isNativeToken && tx.value) {
                     rawAmount = tx.value.toString()
-                    console.log(`✓ Batch tx ${i}: Got native amount from blockchain:`, rawAmount)
+                    console.log(`✓ Batch tx ${i}: Got native amount from blockchain:`, rawAmount, tokenSymbol)
                   } else if (!isNativeToken) {
                     // For ERC-20, get receipt and parse Transfer events
                     const receipt = await txClient.getTransactionReceipt({ hash: inTx.hash as `0x${string}` })
+                    
+                    console.log(`Batch tx ${i}: Looking for Transfer events, currency address:`, currencyAddress?.toLowerCase())
+                    
                     for (const log of receipt.logs) {
                       if (log.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
-                        if (log.data && log.data !== '0x') {
+                        const logAddress = log.address?.toLowerCase()
+                        const expectedAddress = currencyAddress?.toLowerCase()
+                        
+                        console.log(`Batch tx ${i}: Found Transfer from:`, logAddress, 'expected:', expectedAddress)
+                        
+                        if (logAddress === expectedAddress && log.data && log.data !== '0x') {
                           rawAmount = BigInt(log.data).toString()
-                          console.log(`✓ Batch tx ${i}: Got ERC-20 amount from Transfer event:`, rawAmount)
+                          console.log(`✓ Batch tx ${i}: Got ERC-20 amount from Transfer event:`, rawAmount, tokenSymbol)
                           break
                         }
                       }
@@ -2057,22 +2065,35 @@ export default function RelaySwap() {
               // For native token transfers, use the transaction value
               if (isNativeToken && tx.value) {
                 rawAmount = tx.value.toString()
-                console.log('✓ Got native amount from transaction:', rawAmount)
+                console.log('✓ Got native amount from transaction:', rawAmount, fromSymbol)
               } else if (!isNativeToken) {
                 // For ERC-20 tokens, get the receipt and parse Transfer events
                 const receipt = await txClient.getTransactionReceipt({ hash: inTx.hash as `0x${string}` })
                 
+                console.log('Looking for Transfer events, currency address:', currencyAddress?.toLowerCase())
+                console.log('Total logs in receipt:', receipt.logs.length)
+                
                 // Parse Transfer events to get actual amount
+                // Filter by token address to get the right Transfer event
                 for (const log of receipt.logs) {
                   // Transfer event signature: Transfer(address,address,uint256)
                   if (log.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
-                    // topics[1] = from, topics[2] = to, data = amount
-                    if (log.data && log.data !== '0x') {
+                    // Check if this Transfer is from the correct token contract
+                    const logAddress = log.address?.toLowerCase()
+                    const expectedAddress = currencyAddress?.toLowerCase()
+                    
+                    console.log('Found Transfer event from:', logAddress, 'expected:', expectedAddress)
+                    
+                    if (logAddress === expectedAddress && log.data && log.data !== '0x') {
                       rawAmount = BigInt(log.data).toString()
-                      console.log('✓ Got ERC-20 amount from Transfer event:', rawAmount)
+                      console.log('✓ Got ERC-20 amount from Transfer event:', rawAmount, fromSymbol)
                       break
                     }
                   }
+                }
+                
+                if (rawAmount === '0') {
+                  console.warn('No matching Transfer event found for currency:', currencyAddress)
                 }
               }
             } catch (e) {
@@ -2155,20 +2176,34 @@ export default function RelaySwap() {
               // For native token transfers, use the transaction value
               if (isNativeToken && tx.value) {
                 rawAmount = tx.value.toString()
-                console.log('✓ Got native to amount from transaction:', rawAmount)
+                console.log('✓ Got native to amount from transaction:', rawAmount, toSymbol)
               } else if (!isNativeToken) {
                 // For ERC-20 tokens, get the receipt and parse Transfer events
                 const receipt = await txClient.getTransactionReceipt({ hash: outTx.hash as `0x${string}` })
                 
+                console.log('Looking for output Transfer events, currency address:', currencyAddress?.toLowerCase())
+                console.log('Total logs in receipt:', receipt.logs.length)
+                
                 // Parse Transfer events to get actual amount
+                // Filter by token address to get the right Transfer event
                 for (const log of receipt.logs) {
                   if (log.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
-                    if (log.data && log.data !== '0x') {
+                    // Check if this Transfer is from the correct token contract
+                    const logAddress = log.address?.toLowerCase()
+                    const expectedAddress = currencyAddress?.toLowerCase()
+                    
+                    console.log('Found output Transfer event from:', logAddress, 'expected:', expectedAddress)
+                    
+                    if (logAddress === expectedAddress && log.data && log.data !== '0x') {
                       rawAmount = BigInt(log.data).toString()
-                      console.log('✓ Got ERC-20 to amount from Transfer event:', rawAmount)
+                      console.log('✓ Got ERC-20 to amount from Transfer event:', rawAmount, toSymbol)
                       break
                     }
                   }
+                }
+                
+                if (rawAmount === '0') {
+                  console.warn('No matching output Transfer event found for currency:', currencyAddress)
                 }
               }
             } catch (e) {

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dcc3f90001jakXORjxtVIm9d",
+  "messageID": "msg_b7dcc0a0d001irNaoBdbrDogq1",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I see a potential issue - we're checking `isNativeCurrency` at the top level, but then later we're checking `isNativeToken` separately in each section. These might not be consistent. Let me also check if the issue is that for some transactions, there might be multiple Transfer events and we're picking the wrong one.\n\nLet me add better logic to handle Transfer events - we should look for the Transfer event that matches the currency address:",
+  "time": {
+    "start": 1767342110278,
+    "end": 1767342110278
+  }
+}

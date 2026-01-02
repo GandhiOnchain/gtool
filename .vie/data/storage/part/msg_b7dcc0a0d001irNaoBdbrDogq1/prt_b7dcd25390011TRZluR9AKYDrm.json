@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dcd25390011TRZluR9AKYDrm",
+  "messageID": "msg_b7dcc0a0d001irNaoBdbrDogq1",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I've improved the Transfer event parsing to:\n\n1. **Filter by token contract address**: Now it checks that the Transfer event comes from the correct token contract by comparing `log.address` with the `currencyAddress`. This prevents picking up Transfer events from other tokens in the same transaction.\n\n2. **Added comprehensive logging**: The code now logs what it's looking for and what it finds, which will help debug any remaining issues.\n\n3. **Applied to all transaction types**: Regular swaps, bridges, and batch transactions all use this improved logic.\n\nThe key fix is that in complex transactions (like swaps through DEXs), there can be multiple Transfer events from different tokens. We now ensure we're reading the Transfer event from the correct token contract by matching the log's address with the currency address.\n\nPlease refresh the page and check the browser console (F12 → Console tab) to see the detailed logs. This will help us understand if:\n- The transactions are being fetched successfully\n- The Transfer events are being found\n- The currency addresses are matching correctly\n\nShare any error messages or warnings you see in the console.",
+  "time": {
+    "start": 1767342160724,
+    "end": 1767342160724
+  }
+}
