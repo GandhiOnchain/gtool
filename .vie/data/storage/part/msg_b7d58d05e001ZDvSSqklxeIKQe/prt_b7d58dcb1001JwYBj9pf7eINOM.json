@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d58dcb1001JwYBj9pf7eINOM",
+  "messageID": "msg_b7d58d05e001ZDvSSqklxeIKQe",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "grep",
+  "callID": "toolu_vrtx_01Spy1MnZ2qv6ZeYrdthUzXH",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "disconnect",
+      "include": "*.tsx"
+    },
+    "output": "Found 5 matches\n/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx:\n  Line 108:   const { disconnect: wagmiDisconnect } = useDisconnect()\n  Line 3096:                     toast.info('Farcaster wallet cannot be disconnected. Refresh to reconnect.')\n  Line 3101:                   toast.success('Wallet disconnected')\n\n/home/user/sandbox/workspace/frontend/src/components/examples/AlchemyExample.tsx:\n  Line 230:     const { address, isConnected, connect, disconnect } = useWallet()\n  Line 244:             onClick={disconnect}",
+    "metadata": {
+      "matches": 5,
+      "truncated": false
+    },
+    "title": "disconnect",
+    "time": {
+      "start": 1767334534875,
+      "end": 1767334534896
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d58fb39001UXS3f7baShgyEi",
+  "messageID": "msg_b7d58d05e001ZDvSSqklxeIKQe",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I found the issue. The RelaySwap page is importing both `useWallet` and `useDisconnect` from wagmi, but it's using the wagmi `useDisconnect` directly instead of the unified `disconnect` function from `useWallet`. This breaks the abstraction and won't work properly with Privy mode.\n\nLet me fix this:",
+  "time": {
+    "start": 1767334553619,
+    "end": 1767334553619
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d58ecab001PtCXr5K1c0YM0W",
+  "messageID": "msg_b7d58d05e001ZDvSSqklxeIKQe",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I can see the issue. In the RelaySwap page, the disconnect button is calling `wagmiDisconnect()` directly instead of using the `disconnect` function from the `useWallet` hook. This means it's not properly handling both Privy and Wagmi modes. Let me check what's being imported:",
+  "time": {
+    "start": 1767334541106,
+    "end": 1767334541106
+  }
+}

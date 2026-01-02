@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d595ad50014iyyAO9EmcZhoG",
+  "messageID": "msg_b7d58d05e001ZDvSSqklxeIKQe",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Fixed. The disconnect button now uses the unified `disconnect` function from `useWallet` hook, which properly handles both Privy and Wagmi wallet modes.",
+  "time": {
+    "start": 1767334567566,
+    "end": 1767334567566
+  }
+}
