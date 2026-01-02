@@ -2061,15 +2061,16 @@ export default function RelaySwap() {
               
               // Fetch the actual transaction to get the value
               const tx = await txClient.getTransaction({ hash: inTx.hash as `0x${string}` })
+              const receipt = await txClient.getTransactionReceipt({ hash: inTx.hash as `0x${string}` })
               
-              // For native token transfers, use the transaction value
-              if (isNativeToken && tx.value) {
+              // For native token transfers, try transaction value first
+              if (isNativeToken && tx.value && tx.value > 0n) {
                 rawAmount = tx.value.toString()
-                console.log('✓ Got native amount from transaction:', rawAmount, fromSymbol)
-              } else if (!isNativeToken) {
-                // For ERC-20 tokens, get the receipt and parse Transfer events
-                const receipt = await txClient.getTransactionReceipt({ hash: inTx.hash as `0x${string}` })
-                
+                console.log('✓ Got native amount from transaction value:', rawAmount, fromSymbol)
+              }
+              
+              // For ERC-20 or if native amount is still 0, check Transfer events
+              if (rawAmount === '0' || !isNativeToken) {
                 console.log('Looking for Transfer events, currency address:', currencyAddress?.toLowerCase())
                 console.log('Total logs in receipt:', receipt.logs.length)
                 
@@ -2078,13 +2079,29 @@ export default function RelaySwap() {
                 for (const log of receipt.logs) {
                   // Transfer event signature: Transfer(address,address,uint256)
                   if (log.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
-                    // Check if this Transfer is from the correct token contract
                     const logAddress = log.address?.toLowerCase()
                     const expectedAddress = currencyAddress?.toLowerCase()
                     
-                    console.log('Found Transfer event from:', logAddress, 'expected:', expectedAddress)
+                    console.log('Found Transfer event from:', logAddress, 'expected:', expectedAddress, 'data:', log.data)
                     
-                    if (logAddress === expectedAddress && log.data && log.data !== '0x') {
+                    // For native currency, check WETH address or any Transfer with significant amount
+                    if (isNativeToken) {
+                      // WETH addresses on different chains
+                      const wethAddresses = [
+                        '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // Ethereum
+                        '0x4200000000000000000000000000000000000006', // Base, Optimism
+                        '0x82af49447d8a07e3bd95bd0d56f35241523fbab1', // Arbitrum
+                      ]
+                      
+                      if (log.data && log.data !== '0x' && wethAddresses.includes(logAddress)) {
+                        const amount = BigInt(log.data)
+                        if (amount > 0n) {
+                          rawAmount = amount.toString()
+                          console.log('✓ Got native amount from WETH Transfer:', rawAmount, fromSymbol)
+                          break
+                        }
+                      }
+                    } else if (logAddress === expectedAddress && log.data && log.data !== '0x') {
                       rawAmount = BigInt(log.data).toString()
                       console.log('✓ Got ERC-20 amount from Transfer event:', rawAmount, fromSymbol)
                       break
@@ -2094,6 +2111,7 @@ export default function RelaySwap() {
                 
                 if (rawAmount === '0') {
                   console.warn('No matching Transfer event found for currency:', currencyAddress)
+                  console.warn('All Transfer events:', receipt.logs.filter(l => l.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef').map(l => ({ address: l.address, data: l.data })))
                 }
               }
             } catch (e) {
@@ -2172,29 +2190,45 @@ export default function RelaySwap() {
               
               // Fetch the actual transaction to get the value
               const tx = await txClient.getTransaction({ hash: outTx.hash as `0x${string}` })
+              const receipt = await txClient.getTransactionReceipt({ hash: outTx.hash as `0x${string}` })
               
-              // For native token transfers, use the transaction value
-              if (isNativeToken && tx.value) {
+              // For native token transfers, try transaction value first
+              if (isNativeToken && tx.value && tx.value > 0n) {
                 rawAmount = tx.value.toString()
-                console.log('✓ Got native to amount from transaction:', rawAmount, toSymbol)
-              } else if (!isNativeToken) {
-                // For ERC-20 tokens, get the receipt and parse Transfer events
-                const receipt = await txClient.getTransactionReceipt({ hash: outTx.hash as `0x${string}` })
+                console.log('✓ Got native to amount from transaction value:', rawAmount, toSymbol)
+              }
+              
+              // For ERC-20 or if native amount is still 0, check Transfer events
+              if (rawAmount === '0' || !isNativeToken) {
                 
                 console.log('Looking for output Transfer events, currency address:', currencyAddress?.toLowerCase())
                 console.log('Total logs in receipt:', receipt.logs.length)
                 
                 // Parse Transfer events to get actual amount
-                // Filter by token address to get the right Transfer event
                 for (const log of receipt.logs) {
                   if (log.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
-                    // Check if this Transfer is from the correct token contract
                     const logAddress = log.address?.toLowerCase()
                     const expectedAddress = currencyAddress?.toLowerCase()
                     
-                    console.log('Found output Transfer event from:', logAddress, 'expected:', expectedAddress)
+                    console.log('Found output Transfer event from:', logAddress, 'expected:', expectedAddress, 'data:', log.data)
                     
-                    if (logAddress === expectedAddress && log.data && log.data !== '0x') {
+                    // For native currency, check WETH address or any Transfer with significant amount
+                    if (isNativeToken) {
+                      const wethAddresses = [
+                        '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // Ethereum
+                        '0x4200000000000000000000000000000000000006', // Base, Optimism
+                        '0x82af49447d8a07e3bd95bd0d56f35241523fbab1', // Arbitrum
+                      ]
+                      
+                      if (log.data && log.data !== '0x' && wethAddresses.includes(logAddress)) {
+                        const amount = BigInt(log.data)
+                        if (amount > 0n) {
+                          rawAmount = amount.toString()
+                          console.log('✓ Got native to amount from WETH Transfer:', rawAmount, toSymbol)
+                          break
+                        }
+                      }
+                    } else if (logAddress === expectedAddress && log.data && log.data !== '0x') {
                       rawAmount = BigInt(log.data).toString()
                       console.log('✓ Got ERC-20 to amount from Transfer event:', rawAmount, toSymbol)
                       break
@@ -2204,6 +2238,7 @@ export default function RelaySwap() {
                 
                 if (rawAmount === '0') {
                   console.warn('No matching output Transfer event found for currency:', currencyAddress)
+                  console.warn('All output Transfer events:', receipt.logs.filter(l => l.topics[0] === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef').map(l => ({ address: l.address, data: l.data })))
                 }
               }
             } catch (e) {

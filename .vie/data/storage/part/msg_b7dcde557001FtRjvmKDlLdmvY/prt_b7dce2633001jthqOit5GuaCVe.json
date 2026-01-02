@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dce2633001jthqOit5GuaCVe",
+  "messageID": "msg_b7dcde557001FtRjvmKDlLdmvY",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "The issue is clear now - for ETH swaps, the `currencyAddress` is likely `0x0000000000000000000000000000000000000000`, which means `isNativeToken` is true, so the code tries to use `tx.value`. However, for swaps through DEX routers, the `tx.value` might be the amount sent to the router, not the actual swap amount.\n\nFor native ETH swaps, we need to look at WETH Transfer events or Deposit/Withdrawal events. Let me update the logic to handle native token swaps better:",
+  "time": {
+    "start": 1767342229953,
+    "end": 1767342229953
+  }
+}

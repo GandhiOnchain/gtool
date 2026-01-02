@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dcdf8ec0014WMMdhhz4lZqjn",
+  "messageID": "msg_b7dcde557001FtRjvmKDlLdmvY",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I can see the transactions are still showing \"0.000034 ETH\" and \"0 ETH\". The issue is that these are ETH swaps (native token), so they should be using the transaction value directly. Let me check the console logs - can you open the browser's Developer Console (press F12, then click on the \"Console\" tab) and take a screenshot of what's being logged there? That will show me exactly what's happening.\n\nIn the meantime, let me add one more fix. I suspect the issue might be that for native ETH swaps through a DEX, the transaction value might be going to a router contract, and the actual swap amounts are in the logs. Let me update the logic to handle this case:",
+  "time": {
+    "start": 1767342216234,
+    "end": 1767342216234
+  }
+}

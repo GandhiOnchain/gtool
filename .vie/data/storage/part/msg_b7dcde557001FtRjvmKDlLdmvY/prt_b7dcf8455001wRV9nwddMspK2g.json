@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dcf8455001wRV9nwddMspK2g",
+  "messageID": "msg_b7dcde557001FtRjvmKDlLdmvY",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I've made important improvements:\n\n1. **Fetch both transaction and receipt together** to avoid duplicate RPC calls\n2. **Try transaction value first for native tokens** - if it's > 0, use it\n3. **Added WETH detection** - For native ETH swaps that go through WETH (Wrapped ETH), the code now looks for Transfer events from known WETH contract addresses on different chains\n4. **Better fallback logic** - If native amount is 0 or it's an ERC-20, it checks Transfer events\n5. **Enhanced logging** - Now logs all Transfer events if none match, which will help debug\n\nThe key insight is that ETH swaps often involve WETH (Wrapped ETH), so we need to look for WETH Transfer events, not just the transaction value.\n\nPlease refresh the page and check the browser console (F12 → Console tab). The enhanced logging will show us exactly what Transfer events are being found and help identify why the amounts aren't being extracted correctly.",
+  "time": {
+    "start": 1767342316844,
+    "end": 1767342316844
+  }
+}
