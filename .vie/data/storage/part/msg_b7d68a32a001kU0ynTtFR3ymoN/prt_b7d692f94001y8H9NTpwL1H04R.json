@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d692f94001y8H9NTpwL1H04R",
+  "messageID": "msg_b7d68a32a001kU0ynTtFR3ymoN",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Done. The Moralis API key has been configured in `frontend/src/env.json`. The revoke function should now work properly.",
+  "time": {
+    "start": 1767335604989,
+    "end": 1767335604989
+  }
+}

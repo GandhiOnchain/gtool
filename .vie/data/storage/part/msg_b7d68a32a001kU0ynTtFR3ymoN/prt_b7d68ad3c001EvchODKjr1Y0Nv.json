@@ -1,0 +1,19 @@
+{
+  "id": "prt_b7d68ad3c001EvchODKjr1Y0Nv",
+  "messageID": "msg_b7d68a32a001kU0ynTtFR3ymoN",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01TpPBMFbLHLFMTxKBSTN7V5",
+  "state": {
+    "status": "error",
+    "input": {
+      "filePath": "/tmp/image-1735826536-Ks3Wd.png"
+    },
+    "error": "Error: File not found: /tmp/image-1735826536-Ks3Wd.png",
+    "time": {
+      "start": 1767335571876,
+      "end": 1767335571876
+    }
+  }
+}

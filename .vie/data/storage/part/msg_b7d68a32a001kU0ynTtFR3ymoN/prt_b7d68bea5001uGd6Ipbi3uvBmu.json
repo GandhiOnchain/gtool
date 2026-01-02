@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d68bea5001uGd6Ipbi3uvBmu",
+  "messageID": "msg_b7d68a32a001kU0ynTtFR3ymoN",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "grep",
+  "callID": "toolu_vrtx_016N9gNjgAN2afS96Ru6L4RT",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "Moralis|MORALIS",
+      "include": "*.{ts,tsx,json}"
+    },
+    "output": "Found 7 matches\n/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx:\n  Line 2483:       console.log('Fetching approvals from Moralis...')\n  Line 2484:       setDebugInfo('Querying Moralis indexer...')\n  Line 2505:         toast.error('Moralis API key not configured')\n  Line 2522:       console.log('Moralis response:', data)\n  Line 2572:       console.error('Moralis failed:', err)\n\n/home/user/sandbox/workspace/frontend/src/env.json:\n  Line 5:   \"VITE_MORALIS_API_KEY\": \"\"\n\n/home/user/sandbox/workspace/frontend/src/config.ts:\n  Line 25:     apiKey: getEnv('VITE_MORALIS_API_KEY', false),",
+    "metadata": {
+      "matches": 7,
+      "truncated": false
+    },
+    "title": "Moralis|MORALIS",
+    "time": {
+      "start": 1767335576110,
+      "end": 1767335576135
+    }
+  }
+}
