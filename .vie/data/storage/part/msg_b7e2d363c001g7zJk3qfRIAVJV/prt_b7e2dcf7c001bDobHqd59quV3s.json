@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7e2dcf7c001bDobHqd59quV3s",
+  "messageID": "msg_b7e2d363c001g7zJk3qfRIAVJV",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01USRbRc1qoq1ECdznWBHyk6",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"const isNativeToken = \" src/pages/RelaySwap.tsx",
+      "description": "Find all isNativeToken declarations"
+    },
+    "output": "1879:                  const isNativeToken = !currencyAddress || currencyAddress === '0x0000000000000000000000000000000000000000'\n2040:          const isNativeToken = !currencyAddress || \n2171:          const isNativeToken = !currencyAddress || \n",
+    "metadata": {
+      "output": "1879:                  const isNativeToken = !currencyAddress || currencyAddress === '0x0000000000000000000000000000000000000000'\n2040:          const isNativeToken = !currencyAddress || \n2171:          const isNativeToken = !currencyAddress || \n",
+      "exit": 0,
+      "description": "Find all isNativeToken declarations"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"const isNativeToken = \" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767348490953,
+      "end": 1767348490959
+    }
+  }
+}

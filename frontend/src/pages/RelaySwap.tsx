@@ -1718,10 +1718,11 @@ export default function RelaySwap() {
         let fromCurrency: RelayCurrency | null = null
         let toCurrency: RelayCurrency | null = null
         
-        // If currency address is native (0x0000...), use chain's native currency
+        // If currency address is native (0x0000... or 'eth'), use chain's native currency
         const isNativeCurrency = !currencyAddress || 
           currencyAddress === '0x0000000000000000000000000000000000000000' ||
-          currencyAddress === '0x0000000000000000000000000000000000000001'
+          currencyAddress === '0x0000000000000000000000000000000000000001' ||
+          currencyAddress.toLowerCase() === 'eth'
         
         if (isNativeCurrency) {
           console.log('Using native currency for both chains')
@@ -1875,7 +1876,9 @@ export default function RelaySwap() {
                     transport: http(originChain.httpRpcUrl),
                   })
                   
-                  const isNativeToken = !currencyAddress || currencyAddress === '0x0000000000000000000000000000000000000000'
+                  const isNativeToken = !currencyAddress || 
+                    currencyAddress === '0x0000000000000000000000000000000000000000' ||
+                    currencyAddress.toLowerCase() === 'eth'
                   
                   // Fetch the actual transaction
                   const tx = await txClient.getTransaction({ hash: inTx.hash as `0x${string}` })
@@ -2036,7 +2039,9 @@ export default function RelaySwap() {
           
           // For ERC-20 tokens (non-native), always try to fetch from receipt
           // For native tokens, use the value field
-          const isNativeToken = !currencyAddress || currencyAddress === '0x0000000000000000000000000000000000000000'
+          const isNativeToken = !currencyAddress || 
+            currencyAddress === '0x0000000000000000000000000000000000000000' ||
+            currencyAddress.toLowerCase() === 'eth'
           
           // If we have a transaction hash, fetch the actual transaction to get precise amounts
           if (inTx.hash && originChain) {
@@ -2165,7 +2170,9 @@ export default function RelaySwap() {
           let rawAmount = outTx.data?.value || '0'
           
           // For ERC-20 tokens (non-native), always try to fetch from receipt
-          const isNativeToken = !currencyAddress || currencyAddress === '0x0000000000000000000000000000000000000000'
+          const isNativeToken = !currencyAddress || 
+            currencyAddress === '0x0000000000000000000000000000000000000000' ||
+            currencyAddress.toLowerCase() === 'eth'
           
           // If we have a transaction hash, fetch the actual transaction to get precise amounts
           if (outTx.hash && destChain) {

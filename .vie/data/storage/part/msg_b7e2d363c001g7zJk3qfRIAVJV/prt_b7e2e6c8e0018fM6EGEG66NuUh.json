@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7e2e6c8e0018fM6EGEG66NuUh",
+  "messageID": "msg_b7e2d363c001g7zJk3qfRIAVJV",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Perfect! I've fixed the issue. The problem was that the Relay API returns `\"eth\"` (lowercase string) as the currency address for native ETH transactions, not `0x0000000000000000000000000000000000000000`. \n\nThe code was checking if the currency was native by comparing against `0x0000...`, but it never matched `\"eth\"`, so it tried to look for Transfer events from a token contract with address `\"eth\"`, which obviously doesn't exist.\n\n**The fix:**\n- Updated all `isNativeCurrency` and `isNativeToken` checks to also recognize `currencyAddress.toLowerCase() === 'eth'` as a native token\n- Now when the currency is \"eth\", it will correctly use the transaction value for native ETH transfers\n\nPlease refresh the page and the amounts should now display correctly!",
+  "time": {
+    "start": 1767348535079,
+    "end": 1767348535079
+  }
+}

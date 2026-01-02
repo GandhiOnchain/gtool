@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7e2d7316001agbhNEWcDj11Ae",
+  "messageID": "msg_b7e2d363c001g7zJk3qfRIAVJV",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I see! The Relay API is returning `\"eth\"` as the currency address for native ETH, not `0x0000...`. Let me fix the native currency detection:",
+  "time": {
+    "start": 1767348470032,
+    "end": 1767348470032
+  }
+}

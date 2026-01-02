@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7e2d93a6001bOI1JdWXbnK6Cw",
+  "messageID": "msg_b7e2d363c001g7zJk3qfRIAVJV",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Now I also need to update the `isNativeToken` checks to handle the \"eth\" string:",
+  "time": {
+    "start": 1767348478305,
+    "end": 1767348478305
+  }
+}
