@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7fa4c4df0015Y8qieGn7ZXPvB",
+  "messageID": "msg_b7fa42b65001vhJThONKHxd4Gn",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "The example shows the same pattern - it only displays the logo if it exists. The real issue might be that Alchemy's API doesn't always return logo URLs. Let me try a different approach - use a third-party token logo service as a fallback. Let me check what token addresses we're getting and use TrustWallet's asset repository or a similar service:",
+  "time": {
+    "start": 1767373075221,
+    "end": 1767373075221
+  }
+}

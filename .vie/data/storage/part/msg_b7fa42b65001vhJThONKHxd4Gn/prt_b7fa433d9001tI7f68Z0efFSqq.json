@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7fa433d9001tI7f68Z0efFSqq",
+  "messageID": "msg_b7fa42b65001vhJThONKHxd4Gn",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "I can see the portfolio is displaying but the token logos are not showing - just placeholder circles with token initials. Let me check the browser console to see what's happening with the logo URLs.",
+  "time": {
+    "start": 1767373029491,
+    "end": 1767373029491
+  }
+}

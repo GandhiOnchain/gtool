@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7fa57e6f001I5x0M05RKHtcZ0",
+  "messageID": "msg_b7fa42b65001vhJThONKHxd4Gn",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "Wait, I can't use useState inside a map function. Let me fix that properly by creating a separate component:",
+  "time": {
+    "start": 1767373113276,
+    "end": 1767373113276
+  }
+}

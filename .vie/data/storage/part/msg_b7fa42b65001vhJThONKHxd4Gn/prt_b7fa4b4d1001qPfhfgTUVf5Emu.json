@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7fa4b4d1001qPfhfgTUVf5Emu",
+  "messageID": "msg_b7fa42b65001vhJThONKHxd4Gn",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "The API signature looks correct. The issue might be that Alchemy simply doesn't return logo URLs for many tokens. Let me check the actual example to see if they handle this:",
+  "time": {
+    "start": 1767373061466,
+    "end": 1767373061466
+  }
+}

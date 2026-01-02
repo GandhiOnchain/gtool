@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7fa4a267001iB9MFz2vZd9v77",
+  "messageID": "msg_b7fa42b65001vhJThONKHxd4Gn",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "Good! So the `logo` field exists in the SDK. Now let me check if the issue is that we're not actually getting the logo data from Alchemy. Let me look at what the actual API call parameters should be:",
+  "time": {
+    "start": 1767373057354,
+    "end": 1767373057354
+  }
+}

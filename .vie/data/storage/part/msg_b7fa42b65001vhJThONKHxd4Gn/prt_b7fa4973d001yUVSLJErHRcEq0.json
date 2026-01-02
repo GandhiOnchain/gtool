@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7fa4973d001yUVSLJErHRcEq0",
+  "messageID": "msg_b7fa42b65001vhJThONKHxd4Gn",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_019tYfdhy4TmESYdHezcuB99",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/es/api/src/types/types.d.ts | grep -A 20 \"export interface TokenMetadataResponse\"",
+      "description": "Get full TokenMetadataResponse interface"
+    },
+    "output": "export interface TokenMetadataResponse {\r\n    /**\r\n     * The token's name. Is `null` if the name is not defined in the contract and\r\n     * not available from other sources.\r\n     */\r\n    name: string | null;\r\n    /**\r\n     * The token's symbol. Is `null` if the symbol is not defined in the contract\r\n     * and not available from other sources.\r\n     */\r\n    symbol: string | null;\r\n    /**\r\n     * The number of decimals of the token. Returns `null` if not defined in the\r\n     * contract and not available from other sources.\r\n     */\r\n    decimals: number | null;\r\n    /** URL link to the token's logo. Is `null` if the logo is not available. */\r\n    logo: string | null;\r\n}\r\n/**\r\n * Parameters for the {@link CoreNamespace.getAssetTransfers} method.\r\n",
+    "metadata": {
+      "output": "export interface TokenMetadataResponse {\r\n    /**\r\n     * The token's name. Is `null` if the name is not defined in the contract and\r\n     * not available from other sources.\r\n     */\r\n    name: string | null;\r\n    /**\r\n     * The token's symbol. Is `null` if the symbol is not defined in the contract\r\n     * and not available from other sources.\r\n     */\r\n    symbol: string | null;\r\n    /**\r\n     * The number of decimals of the token. Returns `null` if not defined in the\r\n     * contract and not available from other sources.\r\n     */\r\n    decimals: number | null;\r\n    /** URL link to the token's logo. Is `null` if the logo is not available. */\r\n    logo: string | null;\r\n}\r\n/**\r\n * Parameters for the {@link CoreNamespace.getAssetTransfers} method.\r\n",
+      "exit": 0,
+      "description": "Get full TokenMetadataResponse interface"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/es/api/src/types/types.d.ts | grep -A 20 \"export interface TokenMetadataResponse\"",
+    "time": {
+      "start": 1767373052560,
+      "end": 1767373052563
+    }
+  }
+}

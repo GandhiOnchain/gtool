@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { sdk } from '@farcaster/miniapp-sdk'
 import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'
 import { useWallet } from '@/hooks/useWallet'
-import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem } from 'viem'
+import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem, getAddress } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
 import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
@@ -102,6 +102,37 @@ const STREAK_MESSAGES = [
   "🏆 Champion move! Streak continues!",
   "✨ Brilliant! Your streak shines!",
 ]
+
+function TokenRow({ token, chainId }: { token: { address: string; symbol: string; name: string; balanceFormatted: string; valueUsd: number; priceUsd: number; logo?: string }; chainId: number }) {
+  const [imageError, setImageError] = useState(false)
+  
+  return (
+    <div className="flex items-center justify-between text-xs">
+      <div className="flex items-center gap-2 flex-1 min-w-0">
+        {token.logo && !imageError ? (
+          <img 
+            src={token.logo} 
+            alt={token.symbol} 
+            className="h-5 w-5 rounded-full flex-shrink-0 object-cover bg-muted"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <div className="h-5 w-5 rounded-full bg-muted flex-shrink-0 flex items-center justify-center text-[8px] font-bold">
+            {token.symbol.slice(0, 2)}
+          </div>
+        )}
+        <div className="min-w-0 flex-1">
+          <div className="font-medium">{token.symbol}</div>
+          <div className="text-muted-foreground truncate">{token.balanceFormatted}</div>
+        </div>
+      </div>
+      <div className="text-right flex-shrink-0">
+        <div className="font-medium">${token.valueUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+        <div className="text-muted-foreground">${token.priceUsd.toFixed(4)}</div>
+      </div>
+    </div>
+  )
+}
 
 export default function RelaySwap() {
   const { address, isConnected, chainId: connectedChainId, connector } = useAccount()
@@ -2907,15 +2938,38 @@ export default function RelaySwap() {
             valueUsd
           })
           
-          const logoUrl = token.tokenMetadata?.logo && token.tokenMetadata.logo.trim() !== '' 
+          // Try Alchemy logo first, then fallback to TrustWallet assets
+          let logoUrl = token.tokenMetadata?.logo && token.tokenMetadata.logo.trim() !== '' 
             ? token.tokenMetadata.logo 
             : undefined
           
+          // If no logo from Alchemy and we have a token address, try TrustWallet
+          if (!logoUrl && token.tokenAddress) {
+            try {
+              const trustWalletChainMap: Record<number, string> = {
+                1: 'ethereum',
+                8453: 'base',
+                42161: 'arbitrum',
+                137: 'polygon',
+                10: 'optimism'
+              }
+              const trustChain = trustWalletChainMap[chainId]
+              if (trustChain) {
+                // Checksum the address for TrustWallet
+                const checksummedAddress = getAddress(token.tokenAddress)
+                logoUrl = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${trustChain}/assets/${checksummedAddress}/logo.png`
+              }
+            } catch (e) {
+              console.log('Failed to generate TrustWallet logo URL:', e)
+            }
+          }
+          
           console.log('Adding token to chain:', {
             symbol: token.tokenMetadata?.symbol,
-            rawLogo: token.tokenMetadata?.logo,
-            logoUrl,
-            hasLogo: !!logoUrl
+            alchemyLogo: token.tokenMetadata?.logo,
+            finalLogoUrl: logoUrl,
+            hasLogo: !!logoUrl,
+            tokenAddress: token.tokenAddress
           })
           
           chain.tokens.push({
@@ -3979,37 +4033,7 @@ export default function RelaySwap() {
                           
                           <div className="space-y-1.5">
                             {(expandedChains.has(chain.chainId) ? chain.tokens : chain.tokens.slice(0, 5)).map(token => (
-                              <div key={`${chain.chainId}-${token.address}`} className="flex items-center justify-between text-xs">
-                                <div className="flex items-center gap-2 flex-1 min-w-0">
-                                  {token.logo ? (
-                                    <img 
-                                      src={token.logo} 
-                                      alt={token.symbol} 
-                                      className="h-5 w-5 rounded-full flex-shrink-0 object-cover"
-                                      onError={(e) => {
-                                        console.log('Image failed to load:', token.logo)
-                                        e.currentTarget.style.display = 'none'
-                                        const fallback = e.currentTarget.nextElementSibling as HTMLElement
-                                        if (fallback) fallback.style.display = 'block'
-                                      }}
-                                    />
-                                  ) : null}
-                                  <div 
-                                    className="h-5 w-5 rounded-full bg-muted flex-shrink-0 flex items-center justify-center text-[8px] font-bold"
-                                    style={{ display: token.logo ? 'none' : 'flex' }}
-                                  >
-                                    {token.symbol.slice(0, 2)}
-                                  </div>
-                                  <div className="min-w-0 flex-1">
-                                    <div className="font-medium">{token.symbol}</div>
-                                    <div className="text-muted-foreground truncate">{token.balanceFormatted}</div>
-                                  </div>
-                                </div>
-                                <div className="text-right flex-shrink-0">
-                                  <div className="font-medium">${token.valueUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-                                  <div className="text-muted-foreground">${token.priceUsd.toFixed(4)}</div>
-                                </div>
-                              </div>
+                              <TokenRow key={`${chain.chainId}-${token.address}`} token={token} chainId={chain.chainId} />
                             ))}
                             {chain.tokens.length > 5 && (
                               <button

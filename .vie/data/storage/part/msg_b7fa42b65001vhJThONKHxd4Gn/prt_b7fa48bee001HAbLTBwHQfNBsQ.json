@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7fa48bee001HAbLTBwHQfNBsQ",
+  "messageID": "msg_b7fa42b65001vhJThONKHxd4Gn",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01AkxhhjdfqEBd6nxFCKtZCm",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/es/api/src/types/types.d.ts | grep -A 10 \"TokenMetadataResponse\"",
+      "description": "Check TokenMetadataResponse definition"
+    },
+    "output": "export interface TokenMetadataResponse {\r\n    /**\r\n     * The token's name. Is `null` if the name is not defined in the contract and\r\n     * not available from other sources.\r\n     */\r\n    name: string | null;\r\n    /**\r\n     * The token's symbol. Is `null` if the symbol is not defined in the contract\r\n     * and not available from other sources.\r\n     */\r\n    symbol: string | null;\r\n",
+    "metadata": {
+      "output": "export interface TokenMetadataResponse {\r\n    /**\r\n     * The token's name. Is `null` if the name is not defined in the contract and\r\n     * not available from other sources.\r\n     */\r\n    name: string | null;\r\n    /**\r\n     * The token's symbol. Is `null` if the symbol is not defined in the contract\r\n     * and not available from other sources.\r\n     */\r\n    symbol: string | null;\r\n",
+      "exit": 0,
+      "description": "Check TokenMetadataResponse definition"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/es/api/src/types/types.d.ts | grep -A 10 \"TokenMetadataResponse\"",
+    "time": {
+      "start": 1767373049753,
+      "end": 1767373049756
+    }
+  }
+}

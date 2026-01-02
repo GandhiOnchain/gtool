@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7fa4803f001gjdre6c2DVK2s3",
+  "messageID": "msg_b7fa42b65001vhJThONKHxd4Gn",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_012PB16bVq23em3XvyP8sLcs",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/es/api/src/types/portfolio-types.d.ts | grep -A 20 \"TokenMetadata\"",
+      "description": "Check TokenMetadata type definition"
+    },
+    "output": "import { Network, TokenMetadataResponse, TransactionReceipt } from './types';\r\n/**\r\n * Used by {@link PortfolioNamespace} to represent an address and a list of\r\n * networks to fetch portfolio data about.\r\n *\r\n * @public\r\n */\r\nexport interface PortfolioAddress {\r\n    /** Array of network identifiers (e.g., eth-mainnet). */\r\n    networks: Network[];\r\n    /** Wallet address. */\r\n    address: string;\r\n}\r\n/**\r\n * The request fields of {@link PortfolioNamespace.getTokensByWallet}.\r\n *\r\n * @public\r\n */\r\nexport interface GetTokensByWalletRequest {\r\n    /** A list of wallet addresses to query. */\r\n    addresses: PortfolioAddress[];\r\n--\n            tokenMetadata?: TokenMetadataResponse;\r\n            /** Optional pricing data for the token, such as current value or historical prices. */\r\n            tokenPrices?: TokenPriceByAddressResult;\r\n        }>;\r\n        /** A string used for pagination to retrieve additional results if available. */\r\n        pageKey: string;\r\n    };\r\n}\r\n/**\r\n * The request fields of {@link PortfolioNamespace.getTokenBalancesByWallet}.\r\n *\r\n * @public\r\n */\r\nexport interface GetTokenBalancesByWalletRequest {\r\n    /** A list of wallet addresses to retrieve token balances for. */\r\n    addresses: PortfolioAddress[];\r\n    /**\r\n     * Whether to include each chain’s native token in the response\r\n     * (e.g., ETH on Ethereum, MATIC on Polygon).\r\n     */\r\n    includeNativeTokens: boolean;\r\n",
+    "metadata": {
+      "output": "import { Network, TokenMetadataResponse, TransactionReceipt } from './types';\r\n/**\r\n * Used by {@link PortfolioNamespace} to represent an address and a list of\r\n * networks to fetch portfolio data about.\r\n *\r\n * @public\r\n */\r\nexport interface PortfolioAddress {\r\n    /** Array of network identifiers (e.g., eth-mainnet). */\r\n    networks: Network[];\r\n    /** Wallet address. */\r\n    address: string;\r\n}\r\n/**\r\n * The request fields of {@link PortfolioNamespace.getTokensByWallet}.\r\n *\r\n * @public\r\n */\r\nexport interface GetTokensByWalletRequest {\r\n    /** A list of wallet addresses to query. */\r\n    addresses: PortfolioAddress[];\r\n--\n            tokenMetadata?: TokenMetadataResponse;\r\n            /** Optional pricing data for the token, such as current value or historical prices. */\r\n            tokenPrices?: TokenPriceByAddressResult;\r\n        }>;\r\n        /** A string used for pagination to retrieve additional results if available. */\r\n        pageKey: string;\r\n    };\r\n}\r\n/**\r\n * The request fields of {@link PortfolioNamespace.getTokenBalancesByWallet}.\r\n *\r\n * @public\r\n */\r\nexport interface GetTokenBalancesByWalletRequest {\r\n    /** A list of wallet addresses to retrieve token balances for. */\r\n    addresses: PortfolioAddress[];\r\n    /**\r\n     * Whether to include each chain’s native token in the response\r\n     * (e.g., ETH on Ethereum, MATIC on Polygon).\r\n     */\r\n    includeNativeTokens: boolean;\r\n",
+      "exit": 0,
+      "description": "Check TokenMetadata type definition"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/es/api/src/types/portfolio-types.d.ts | grep -A 20 \"TokenMetadata\"",
+    "time": {
+      "start": 1767373046786,
+      "end": 1767373046788
+    }
+  }
+}
