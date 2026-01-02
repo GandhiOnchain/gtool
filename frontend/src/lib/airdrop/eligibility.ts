@@ -1,50 +1,16 @@
 import { AIRDROP_CONFIG } from './config'
 import type { AirdropEligibility } from './types'
-import { formatUnits, parseUnits, createPublicClient, http } from 'viem'
-import { base } from 'viem/chains'
+import { formatUnits, parseUnits } from 'viem'
 
 /**
- * Check if a wallet is eligible for the airdrop using on-chain data
+ * Check if a wallet can claim the airdrop
+ * No eligibility criteria - everyone can claim a fixed amount
  */
 export async function checkAirdropEligibility(
   walletAddress: string
 ): Promise<AirdropEligibility> {
   try {
-    // Create a public client for Base chain
-    const client = createPublicClient({
-      chain: base,
-      transport: http()
-    })
-    
-    // Get native token balance (ETH on Base)
-    const balance = await client.getBalance({
-      address: walletAddress as `0x${string}`
-    })
-    
-    const ethBalance = formatUnits(balance, 18)
-    
-    console.log('Checking eligibility:', {
-      address: walletAddress,
-      ethBalance,
-      minRequired: AIRDROP_CONFIG.eligibilityCriteria.minEthBalance
-    })
-    
-    // Check minimum ETH balance requirement
-    const minEthBalance = AIRDROP_CONFIG.eligibilityCriteria.minEthBalance || '0'
-    const hasMinBalance = parseFloat(ethBalance) >= parseFloat(minEthBalance)
-    
-    if (!hasMinBalance) {
-      return {
-        isEligible: false,
-        amount: '0',
-        amountFormatted: '0',
-        reason: `Minimum ${minEthBalance} ETH balance required. You have ${parseFloat(ethBalance).toFixed(4)} ETH`
-      }
-    }
-    
-    // Calculate airdrop amount based on ETH balance
-    // Example: 1000 tokens per 0.01 ETH (you can customize this formula)
-    const airdropAmount = calculateAirdropAmount(ethBalance)
+    console.log('Checking airdrop status for:', walletAddress)
     
     // Check if already claimed (if using claim contract)
     if (AIRDROP_CONFIG.claimContractAddress) {
@@ -60,6 +26,9 @@ export async function checkAirdropEligibility(
       }
     }
     
+    // Everyone is eligible - use fixed amount (1000 tokens per user)
+    const airdropAmount = '1000'
+    
     return {
       isEligible: true,
       amount: airdropAmount,
@@ -70,37 +39,14 @@ export async function checkAirdropEligibility(
       proof: undefined, // Will be populated if using Merkle tree
     }
   } catch (error) {
-    console.error('Error checking eligibility:', error)
+    console.error('Error checking airdrop status:', error)
     return {
       isEligible: false,
       amount: '0',
       amountFormatted: '0',
-      reason: 'Error checking eligibility. Please try again.'
+      reason: 'Error checking airdrop status. Please try again.'
     }
   }
-}
-
-/**
- * Calculate airdrop amount based on wallet balance
- * Customize this formula based on your requirements
- */
-function calculateAirdropAmount(ethBalance: string): string {
-  const balance = parseFloat(ethBalance)
-  
-  // Example tiered distribution:
-  // 0.01-0.1 ETH: 1000 tokens
-  // 0.1-1 ETH: 5000 tokens
-  // 1+ ETH: 10000 tokens
-  
-  if (balance >= 1) {
-    return '10000'
-  } else if (balance >= 0.1) {
-    return '5000'
-  } else if (balance >= 0.01) {
-    return '1000'
-  }
-  
-  return '0'
 }
 
 /**

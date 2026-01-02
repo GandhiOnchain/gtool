@@ -1,0 +1,23 @@
+{
+  "id": "prt_b7d27545e001Jy6sB1ujARnSot",
+  "messageID": "msg_b7d268685001XrQZ1tF0X4cx5r",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01Vp3B3YMczCtzgogwesv4SB",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/airdrop/config.ts"
+    },
+    "output": "<file>\n00001| import type { AirdropConfig } from './types'\n00002| \n00003| // Configure your airdrop details here\n00004| export const AIRDROP_CONFIG: AirdropConfig = {\n00005|   // Token details\n00006|   tokenAddress: '0x0000000000000000000000000000000000000000', // Replace with your ERC20 token address\n00007|   tokenSymbol: 'AIRDROP',\n00008|   tokenName: 'Airdrop Token',\n00009|   tokenDecimals: 18,\n00010|   \n00011|   // Chain details\n00012|   chainId: 8453, // Base\n00013|   chainName: 'Base',\n00014|   \n00015|   // Airdrop details\n00016|   totalSupply: '1000000', // 1M tokens\n00017|   \n00018|   // Eligibility criteria\n00019|   eligibilityCriteria: {\n00020|     minEthBalance: '0.01', // Minimum 0.01 ETH balance\n00021|     // minTokenBalance: '100', // Optional: minimum token balance\n00022|     // snapshotBlock: 12345678, // Optional: snapshot block number\n00023|     customCriteria: 'Users with >0.01 ETH balance on Base'\n00024|   },\n00025|   \n00026|   // Merkle tree root (if using Merkle proof distribution)\n00027|   merkleRoot: undefined, // Set this if using Merkle tree\n00028|   \n00029|   // Claim contract address (if using a claim contract)\n00030|   claimContractAddress: undefined, // Set this if using a claim contract\n00031| }\n00032| \n00033| // Standard ERC20 ABI for token transfers\n00034| export const ERC20_ABI = [\n00035|   {\n00036|     constant: true,\n00037|     inputs: [{ name: '_owner', type: 'address' }],\n00038|     name: 'balanceOf',\n00039|     outputs: [{ name: 'balance', type: 'uint256' }],\n00040|     type: 'function',\n00041|   },\n00042|   {\n00043|     constant: false,\n00044|     inputs: [\n00045|       { name: '_to', type: 'address' },\n00046|       { name: '_value', type: 'uint256' },\n00047|     ],\n00048|     name: 'transfer',\n00049|     outputs: [{ name: '', type: 'bool' }],\n00050|     type: 'function',\n00051|   },\n00052|   {\n00053|     constant: true,\n00054|     inputs: [],\n00055|     name: 'decimals',\n00056|     outputs: [{ name: '', type: 'uint8' }],\n00057|     type: 'function',\n00058|   },\n00059|   {\n00060|     constant: true,\n00061|     inputs: [],\n00062|     name: 'symbol',\n00063|     outputs: [{ name: '', type: 'string' }],\n00064|     type: 'function',\n00065|   },\n00066| ] as const\n00067| \n00068| // Airdrop claim contract ABI (if using a claim contract)\n00069| export const AIRDROP_CLAIM_ABI = [\n00070|   {\n00071|     inputs: [\n00072|       { name: 'amount', type: 'uint256' },\n00073|       { name: 'proof', type: 'bytes32[]' },\n00074|     ],\n00075|     name: 'claim',\n00076|     outputs: [],\n00077|     stateMutability: 'nonpayable',\n00078|     type: 'function',\n00079|   },\n00080|   {\n00081|     inputs: [{ name: 'user', type: 'address' }],\n00082|     name: 'hasClaimed',\n00083|     outputs: [{ name: '', type: 'bool' }],\n00084|     stateMutability: 'view',\n00085|     type: 'function',\n00086|   },\n00087|   {\n00088|     inputs: [],\n00089|     name: 'merkleRoot',\n00090|     outputs: [{ name: '', type: 'bytes32' }],\n00091|     stateMutability: 'view',\n00092|     type: 'function',\n00093|   },\n00094| ] as const\n00095| \n</file>",
+    "metadata": {
+      "preview": "import type { AirdropConfig } from './types'\n\n// Configure your airdrop details here\nexport const AIRDROP_CONFIG: AirdropConfig = {\n  // Token details\n  tokenAddress: '0x0000000000000000000000000000000000000000', // Replace with your ERC20 token address\n  tokenSymbol: 'AIRDROP',\n  tokenName: 'Airdrop Token',\n  tokenDecimals: 18,\n  \n  // Chain details\n  chainId: 8453, // Base\n  chainName: 'Base',\n  \n  // Airdrop details\n  totalSupply: '1000000', // 1M tokens\n  \n  // Eligibility criteria\n  eligibilityCriteria: {\n    minEthBalance: '0.01', // Minimum 0.01 ETH balance"
+    },
+    "title": "frontend/src/lib/airdrop/config.ts",
+    "time": {
+      "start": 1767331288979,
+      "end": 1767331288981
+    }
+  }
+}

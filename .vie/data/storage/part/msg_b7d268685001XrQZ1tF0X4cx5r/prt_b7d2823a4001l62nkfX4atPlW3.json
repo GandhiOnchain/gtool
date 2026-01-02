@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d2823a4001l62nkfX4atPlW3",
+  "messageID": "msg_b7d268685001XrQZ1tF0X4cx5r",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "Perfect! I've removed all eligibility criteria. Now the airdrop system works as follows:\n\n## ✅ Updated Airdrop System (No Eligibility Checks)\n\n### **What Changed:**\n\n1. **Removed all eligibility criteria**\n   - No minimum ETH balance required\n   - No wallet snapshot checks\n   - No tiered distribution\n\n2. **Fixed amount for everyone**\n   - Every user gets **1000 tokens**\n   - Can be customized in the eligibility.ts file\n\n3. **Only checks if already claimed**\n   - Prevents double claiming\n   - Shows \"Already claimed\" error if user tries again\n\n4. **Simplified UI**\n   - Removed \"Criteria\" row from token details\n   - Shows only: Token, Symbol, Chain\n   - Clean eligibility status display\n\n### **How It Works Now:**\n\n1. User clicks gift icon\n2. System checks if already claimed\n3. If not claimed → Shows \"Eligible\" with 1000 tokens\n4. User clicks \"Claim\" button\n5. Transaction executes on Base chain\n6. Success message with transaction hash\n7. Portfolio refreshes with new balance\n\n### **To Customize Amount:**\n\nEdit `frontend/src/lib/airdrop/eligibility.ts`:\n```typescript\n// Change this line:\nconst airdropAmount = '1000'  // Change to any amount you want\n```\n\n### **To Configure Your Token:**\n\nEdit `frontend/src/lib/airdrop/config.ts`:\n```typescript\ntokenAddress: '0xYourActualTokenAddress'\ntokenSymbol: 'YOUR'\ntokenName: 'Your Token Name'\nclaimContractAddress: '0xYourClaimContract' // if using claim contract\n```\n\nThe system is now ready - everyone can claim 1000 tokens with no restrictions!",
+  "time": {
+    "start": 1767331351054,
+    "end": 1767331351054
+  }
+}

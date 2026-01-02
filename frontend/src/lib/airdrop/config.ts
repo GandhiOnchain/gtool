@@ -13,14 +13,11 @@ export const AIRDROP_CONFIG: AirdropConfig = {
   chainName: 'Base',
   
   // Airdrop details
-  totalSupply: '1000000', // 1M tokens
+  totalSupply: '1000000', // 1M tokens total
   
-  // Eligibility criteria
+  // Eligibility criteria (set to no restrictions)
   eligibilityCriteria: {
-    minEthBalance: '0.01', // Minimum 0.01 ETH balance
-    // minTokenBalance: '100', // Optional: minimum token balance
-    // snapshotBlock: 12345678, // Optional: snapshot block number
-    customCriteria: 'Users with >0.01 ETH balance on Base'
+    customCriteria: 'Open to all users - 1000 tokens per claim'
   },
   
   // Merkle tree root (if using Merkle proof distribution)

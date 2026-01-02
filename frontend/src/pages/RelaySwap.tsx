@@ -4731,12 +4731,6 @@ export default function RelaySwap() {
                     <span className="text-muted-foreground">Chain</span>
                     <span className="font-medium">{AIRDROP_CONFIG.chainName}</span>
                   </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-muted-foreground">Criteria</span>
-                    <span className="font-medium text-right text-xs max-w-[200px]">
-                      {AIRDROP_CONFIG.eligibilityCriteria.customCriteria}
-                    </span>
-                  </div>
                 </div>
 
                 <Separator />

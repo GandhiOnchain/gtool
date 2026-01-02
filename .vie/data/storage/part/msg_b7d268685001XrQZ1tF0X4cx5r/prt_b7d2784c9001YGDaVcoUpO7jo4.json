@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d2784c9001YGDaVcoUpO7jo4",
+  "messageID": "msg_b7d268685001XrQZ1tF0X4cx5r",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_014tbVCzcfHSAoFWo8mTpTAb",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 4830,
+      "limit": 50
+    },
+    "output": "<file>\n\n</file>",
+    "metadata": {
+      "preview": ""
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767331301893,
+      "end": 1767331301895
+    }
+  }
+}
