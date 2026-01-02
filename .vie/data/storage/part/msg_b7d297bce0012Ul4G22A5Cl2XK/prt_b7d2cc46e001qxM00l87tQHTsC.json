@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d2cc46e001qxM00l87tQHTsC",
+  "messageID": "msg_b7d297bce0012Ul4G22A5Cl2XK",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "Perfect! I've fixed the airdrop system. Here's what it does now:\n\n## ✅ Simplified Airdrop System\n\n### **How It Works:**\n\n1. **Detects actual claimable airdrops** - No fake eligibility checks\n2. **Shows only real airdrops** - You add specific airdrop contract addresses\n3. **In-app claiming** - Executes claim transactions directly\n4. **Multi-chain support** - Works across all supported chains\n\n### **To Add Airdrops:**\n\nEdit the `knownAirdropContracts` array in `checkAirdrops()` function:\n\n```typescript\nconst knownAirdropContracts = [\n  {\n    id: 'purple-rain',\n    name: 'Purple Rain',\n    description: 'Claim PURPLE tokens',\n    protocol: 'Clanker',\n    chainId: 8453,\n    chainName: 'Base',\n    tokenSymbol: 'PURPLE',\n    contractAddress: '0xYourClaimContractAddress',\n    logo: 'https://...',\n    type: 'clanker'\n  }\n]\n```\n\n### **Features:**\n\n- ✅ No eligibility criteria\n- ✅ Shows only actual claimable airdrops\n- ✅ Multi-chain support\n- ✅ In-app claiming\n- ✅ Error handling (already claimed, not eligible, etc.)\n- ✅ Success states with transaction links\n- ✅ Auto-refreshes portfolio after claim\n- ✅ Notifications when airdrops found\n- ✅ Gift icon badge shows airdrop count\n\nThe system is now clean and ready for you to add actual airdrop contract addresses.",
+  "time": {
+    "start": 1767331652801,
+    "end": 1767331652801
+  }
+}

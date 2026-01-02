@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d29aeb60019sfF5aUcsyE8pA",
+  "messageID": "msg_b7d297bce0012Ul4G22A5Cl2XK",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01RVHoxnjZSCSqvdYMBgMM1S",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 25,
+      "limit": 5
+    },
+    "output": "<file>\n00026| import { checkAirdropEligibility, getMerkleProof } from '@/lib/airdrop/eligibility'\n00027| import { AIRDROP_CONFIG, AIRDROP_CLAIM_ABI } from '@/lib/airdrop/config'\n00028| \n00029| interface TrendingToken {\n00030|   address: string\n\n(File has more lines. Use 'offset' parameter to read beyond line 30)\n</file>",
+    "metadata": {
+      "preview": "import { checkAirdropEligibility, getMerkleProof } from '@/lib/airdrop/eligibility'\nimport { AIRDROP_CONFIG, AIRDROP_CLAIM_ABI } from '@/lib/airdrop/config'\n\ninterface TrendingToken {\n  address: string"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767331443523,
+      "end": 1767331443529
+    }
+  }
+}
