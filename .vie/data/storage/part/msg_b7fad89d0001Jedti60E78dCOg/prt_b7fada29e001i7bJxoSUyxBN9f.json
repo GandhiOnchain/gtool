@@ -1,0 +1,27 @@
+{
+  "id": "prt_b7fada29e001i7bJxoSUyxBN9f",
+  "messageID": "msg_b7fad89d0001Jedti60E78dCOg",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01HxB9K8NffJ6FVvqkHgfqtM",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && node -e \"\nconst { Alchemy, Network } = require('alchemy-sdk');\nconst alchemy = new Alchemy({ apiKey: 'demo' });\n\n// Test getting token metadata\nalchemy.core.getTokenMetadata('0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48').then(metadata => {\n  console.log('USDC Metadata:', JSON.stringify(metadata, null, 2));\n}).catch(err => console.error('Error:', err.message));\n\"",
+      "timeout": 10000,
+      "description": "Test Alchemy token metadata API"
+    },
+    "output": "Error: failed response (requestBody=\"{\\\"method\\\":\\\"alchemy_getTokenMetadata\\\",\\\"params\\\":[\\\"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\\\"],\\\"id\\\":42,\\\"jsonrpc\\\":\\\"2.0\\\"}\", requestMethod=\"POST\", url=\"https://eth-mainnet.g.alchemy.com/v2/demo\", code=SERVER_ERROR, version=web/5.8.0)\n",
+    "metadata": {
+      "output": "Error: failed response (requestBody=\"{\\\"method\\\":\\\"alchemy_getTokenMetadata\\\",\\\"params\\\":[\\\"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\\\"],\\\"id\\\":42,\\\"jsonrpc\\\":\\\"2.0\\\"}\", requestMethod=\"POST\", url=\"https://eth-mainnet.g.alchemy.com/v2/demo\", code=SERVER_ERROR, version=web/5.8.0)\n",
+      "exit": null,
+      "description": "Test Alchemy token metadata API"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && node -e \"\nconst { Alchemy, Network } = require('alchemy-sdk');\nconst alchemy = new Alchemy({ apiKey: 'demo' });\n\n// Test getting token metadata\nalchemy.core.getTokenMetadata('0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48').then(metadata => {\n  console.log('USDC Metadata:', JSON.stringify(metadata, null, 2));\n}).catch(err => console.error('Error:', err.message));\n\"",
+    "time": {
+      "start": 1767373647289,
+      "end": 1767373657295
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7fadec1b001h294npw2GNtA40",
+  "messageID": "msg_b7fad89d0001Jedti60E78dCOg",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "No API key is set. Let me check the actual response structure by looking at what's being logged. Let me trace through the exact issue:",
+  "time": {
+    "start": 1767373665708,
+    "end": 1767373665708
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7faddccc001cb8vz0YXuwuPXy",
+  "messageID": "msg_b7fad89d0001Jedti60E78dCOg",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "The demo key doesn't work. Let me check what the actual API returns in the portfolio response:",
+  "time": {
+    "start": 1767373661117,
+    "end": 1767373661117
+  }
+}

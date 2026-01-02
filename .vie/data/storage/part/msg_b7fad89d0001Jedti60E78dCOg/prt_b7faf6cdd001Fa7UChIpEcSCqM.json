@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7faf6cdd001Fa7UChIpEcSCqM",
+  "messageID": "msg_b7fad89d0001Jedti60E78dCOg",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01RSthKGEAwqt4apAfufnz3Z",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "for symbol in usdc dai weth matic; do echo -n \"$symbol: \"; curl -sI \"https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/$symbol.png\" 2>&1 | grep \"HTTP\" | head -1; done",
+      "description": "Test multiple token symbols"
+    },
+    "output": "usdc: HTTP/2 200 \r\ndai: HTTP/2 200 \r\nweth: HTTP/2 404 \r\nmatic: HTTP/2 200 \r\n",
+    "metadata": {
+      "output": "usdc: HTTP/2 200 \r\ndai: HTTP/2 200 \r\nweth: HTTP/2 404 \r\nmatic: HTTP/2 200 \r\n",
+      "exit": 0,
+      "description": "Test multiple token symbols"
+    },
+    "title": "for symbol in usdc dai weth matic; do echo -n \"$symbol: \"; curl -sI \"https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/$symbol.png\" 2>&1 | grep \"HTTP\" | head -1; done",
+    "time": {
+      "start": 1767373763246,
+      "end": 1767373763444
+    }
+  }
+}

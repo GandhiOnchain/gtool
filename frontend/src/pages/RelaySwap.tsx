@@ -24,6 +24,7 @@ import { secureStorage } from '@/lib/security/storage'
 import { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'
 import { quoteRateLimiter } from '@/lib/security/rateLimit'
 import { useTokensByOwnerOnMultipleChains } from '@/hooks/alchemy/portfolio/useTokensByOwnerOnMultipleChains'
+import { getTokenLogoFallbacks } from '@/lib/tokenLogos'
 
 interface TrendingToken {
   address: string
@@ -104,63 +105,39 @@ const STREAK_MESSAGES = [
 ]
 
 function TokenRow({ token, chainId }: { token: { address: string; symbol: string; name: string; balanceFormatted: string; valueUsd: number; priceUsd: number; logo?: string }; chainId: number }) {
-  const [imgError, setImgError] = useState(false)
+  const [logoIndex, setLogoIndex] = useState(0)
+  const [showFallback, setShowFallback] = useState(false)
   
-  // Get logo URL with proper fallback logic
-  const getLogoUrl = () => {
-    // For native tokens
-    if (token.address === 'native') {
-      const nativeLogos: Record<number, string> = {
-        1: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',
-        8453: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',
-        42161: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',
-        137: 'https://assets.coingecko.com/coins/images/4713/small/matic-token-icon.png',
-        10: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',
-      }
-      return nativeLogos[chainId]
-    }
-    
-    // Use Alchemy logo if available
-    if (token.logo) {
-      return token.logo
-    }
-    
-    // Fallback to TrustWallet with checksummed address
-    try {
-      const chainMap: Record<number, string> = {
-        1: 'ethereum',
-        8453: 'base',
-        42161: 'arbitrum',
-        137: 'polygon',
-        10: 'optimism',
-      }
-      const chain = chainMap[chainId]
-      if (chain) {
-        const checksummed = getAddress(token.address)
-        return `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${chain}/assets/${checksummed}/logo.png`
-      }
-    } catch (e) {
-      console.error('Error generating logo URL:', e)
-    }
-    
-    return undefined
+  // Get all possible logo URLs
+  const logoUrls = getTokenLogoFallbacks(
+    token.address === 'native' ? null : token.address,
+    chainId,
+    token.symbol
+  )
+  
+  // Add Alchemy logo at the beginning if it exists
+  if (token.logo && token.logo.trim() !== '') {
+    logoUrls.unshift(token.logo)
   }
   
-  const logoUrl = getLogoUrl()
+  const handleImageError = () => {
+    if (logoIndex < logoUrls.length - 1) {
+      setLogoIndex(logoIndex + 1)
+    } else {
+      setShowFallback(true)
+    }
+  }
   
   return (
     <div className="flex items-center justify-between text-xs">
       <div className="flex items-center gap-2 flex-1 min-w-0">
-        {logoUrl && !imgError ? (
+        {!showFallback && logoUrls[logoIndex] ? (
           <img 
-            src={logoUrl} 
+            key={logoIndex}
+            src={logoUrls[logoIndex]} 
             alt={token.symbol} 
             className="h-5 w-5 rounded-full flex-shrink-0 object-cover bg-muted"
-            onError={() => {
-              console.log(`Logo failed for ${token.symbol} (${token.address}):`, logoUrl)
-              setImgError(true)
-            }}
-            crossOrigin="anonymous"
+            onError={handleImageError}
           />
         ) : (
           <div className="h-5 w-5 rounded-full bg-muted flex-shrink-0 flex items-center justify-center text-[8px] font-bold">

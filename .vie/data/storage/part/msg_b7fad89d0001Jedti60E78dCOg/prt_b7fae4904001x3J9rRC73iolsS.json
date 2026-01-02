@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7fae4904001x3J9rRC73iolsS",
+  "messageID": "msg_b7fad89d0001Jedti60E78dCOg",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Ea52iadAE57qcC319B4Y6H",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -sI \"https://cdn.moralis.io/eth/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48.png\" | head -5",
+      "description": "Test Moralis CDN for token logos"
+    },
+    "output": "HTTP/2 403 \r\ndate: Fri, 02 Jan 2026 17:08:08 GMT\r\ncontent-type: application/xml\r\ncf-ray: 9b7bdb512c0a8c9b-EWR\r\nx-amz-request-id: tx00000b7a8a76a646eaddc-006957fb78-1846aa54e-fra1b\r\n",
+    "metadata": {
+      "output": "HTTP/2 403 \r\ndate: Fri, 02 Jan 2026 17:08:08 GMT\r\ncontent-type: application/xml\r\ncf-ray: 9b7bdb512c0a8c9b-EWR\r\nx-amz-request-id: tx00000b7a8a76a646eaddc-006957fb78-1846aa54e-fra1b\r\n",
+      "exit": 0,
+      "description": "Test Moralis CDN for token logos"
+    },
+    "title": "curl -sI \"https://cdn.moralis.io/eth/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48.png\" | head -5",
+    "time": {
+      "start": 1767373688483,
+      "end": 1767373688912
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7faf5b660014ZAFP9MWuxB36X",
+  "messageID": "msg_b7fad89d0001Jedti60E78dCOg",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_017Bvv7q1BRAPo3o3ZgT9PYN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -sI \"https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/eth.png\" | head -3",
+      "description": "Test cryptocurrency-icons for ETH"
+    },
+    "output": "HTTP/2 200 \r\ncache-control: max-age=300\r\ncontent-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox\r\n",
+    "metadata": {
+      "output": "HTTP/2 200 \r\ncache-control: max-age=300\r\ncontent-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox\r\n",
+      "exit": 0,
+      "description": "Test cryptocurrency-icons for ETH"
+    },
+    "title": "curl -sI \"https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/eth.png\" | head -3",
+    "time": {
+      "start": 1767373758674,
+      "end": 1767373758727
+    }
+  }
+}

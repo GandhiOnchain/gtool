@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7faf7c3d001Ty0F83plvKH7bn",
+  "messageID": "msg_b7fad89d0001Jedti60E78dCOg",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "WETH doesn't exist but ETH does. The logos should now work for major tokens. The system will:\n\n1. Try Alchemy's logo first (if provided)\n2. Try cryptocurrency-icons by symbol (works for ETH, USDC, DAI, MATIC, etc.)\n3. Try TrustWallet by address\n4. Try CoinGecko for Ethereum mainnet\n5. Fall back to initials\n\nThe key improvement is using **symbol-based lookups** first, which are much more reliable than address-based lookups. This should display logos for all major tokens immediately.",
+  "time": {
+    "start": 1767373770102,
+    "end": 1767373770102
+  }
+}

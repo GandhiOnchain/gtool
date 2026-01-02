@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7fadf1e1001fbffobkujomf4n",
+  "messageID": "msg_b7fad89d0001Jedti60E78dCOg",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01WZoagGuVZLK3P4PUWuoGwh",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2860,
+      "limit": 60
+    },
+    "output": "<file>\n02861|       setIsLoadingApprovals(false)\n02862|     }\n02863|   }\n02864| \n02865|   const calculatePnl = (currentValue: number, tokens: Array<{ symbol: string; valueUsd: number; address: string; chainId: number }>) => {\n02866|     const storedCosts = secureStorage.getItem<Record<string, number>>(`token_costs_${address}`) || {}\n02867|     \n02868|     let totalCost = 0\n02869|     const tokenPnls: Array<{ symbol: string; pnl: number; percentage: number }> = []\n02870|     \n02871|     for (const token of tokens) {\n02872|       const key = `${token.chainId}_${token.address}`\n02873|       const cost = storedCosts[key] || token.valueUsd\n02874|       totalCost += cost\n02875|       \n02876|       const pnl = token.valueUsd - cost\n02877|       const percentage = cost > 0 ? (pnl / cost) * 100 : 0\n02878|       \n02879|       tokenPnls.push({\n02880|         symbol: token.symbol,\n02881|         pnl,\n02882|         percentage\n02883|       })\n02884|     }\n02885|     \n02886|     const totalPnl = currentValue - totalCost\n02887|     const totalPercentage = totalCost > 0 ? (totalPnl / totalCost) * 100 : 0\n02888|     \n02889|     return {\n02890|       total: totalPnl,\n02891|       percentage: totalPercentage,\n02892|       tokens: tokenPnls.sort((a, b) => Math.abs(b.pnl) - Math.abs(a.pnl)).slice(0, 5)\n02893|     }\n02894|   }\n02895| \n02896|   const loadPortfolio = async () => {\n02897|     if (!address) return\n02898|     \n02899|     setIsLoadingPortfolio(true)\n02900|     try {\n02901|       const supportedChains = [\n02902|         { id: 1, name: 'Ethereum' },\n02903|         { id: 8453, name: 'Base' },\n02904|         { id: 42161, name: 'Arbitrum' },\n02905|         { id: 137, name: 'Polygon' },\n02906|         { id: 10, name: 'Optimism' },\n02907|       ]\n02908|       \n02909|       console.log('Fetching portfolio for:', address)\n02910|       const response = await fetchTokensByOwnerOnMultipleChains({\n02911|         walletAddress: address,\n02912|         chainIds: supportedChains.map(c => c.id),\n02913|         withMetadata: true,\n02914|         withPrices: true,\n02915|         includeNativeTokens: true\n02916|       })\n02917|       \n02918|       console.log('Portfolio response:', response)\n02919|       \n02920|       const chainData = new Map<number, {\n\n(File has more lines. Use 'offset' parameter to read beyond line 2920)\n</file>",
+    "metadata": {
+      "preview": "      setIsLoadingApprovals(false)\n    }\n  }\n\n  const calculatePnl = (currentValue: number, tokens: Array<{ symbol: string; valueUsd: number; address: string; chainId: number }>) => {\n    const storedCosts = secureStorage.getItem<Record<string, number>>(`token_costs_${address}`) || {}\n    \n    let totalCost = 0\n    const tokenPnls: Array<{ symbol: string; pnl: number; percentage: number }> = []\n    \n    for (const token of tokens) {\n      const key = `${token.chainId}_${token.address}`\n      const cost = storedCosts[key] || token.valueUsd\n      totalCost += cost\n      \n      const pnl = token.valueUsd - cost\n      const percentage = cost > 0 ? (pnl / cost) * 100 : 0\n      \n      tokenPnls.push({\n        symbol: token.symbol,"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767373665634,
+      "end": 1767373665636
+    }
+  }
+}
