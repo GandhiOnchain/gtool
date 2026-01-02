@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7e3662c8001fPA7lhH2G1B3LZ",
+  "messageID": "msg_b7e35794a001o4Tq4e2R7wkqls",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01KDxrkgcb53HeTdNCcUb9Zq",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1600,
+      "limit": 40
+    },
+    "output": "<file>\n01601|       // Only update streak and clear tokens if at least one transaction confirmed\n01602|       if (confirmedCount > 0) {\n01603|         toast.success(`Batch swap completed: ${confirmedCount}/${transactions.length} transaction(s) confirmed`)\n01604|         updateUserStreak()\n01605|         updateLeaderboard()\n01606|         loadSwapHistory()\n01607|         setBatchTokens([])\n01608|         setBatchQuote(null)\n01609|         \n01610|         // Refetch balances to show updated amounts\n01611|         refetchBalances()\n01612|         \n01613|         // Reload batch wallet tokens to update the list\n01614|         if (batchChain) {\n01615|           setTimeout(() => {\n01616|             loadBatchWalletTokens()\n01617|           }, 2000)\n01618|         }\n01619|       } else if (successCount > 0) {\n01620|         toast.warning(`${successCount} transaction(s) submitted but none confirmed yet`)\n01621|       } else {\n01622|         toast.error('All batch swap transactions failed')\n01623|       }\n01624|       \n01625|       if (failedTxs.length > 0) {\n01626|         toast.warning(`${failedTxs.length} transaction(s) failed to submit`)\n01627|       }\n01628|     } catch (error) {\n01629|       console.error('Batch swap failed:', error)\n01630|       const errorMessage = error instanceof Error ? error.message : 'Batch swap failed'\n01631|       toast.error(errorMessage)\n01632|     } finally {\n01633|       setIsSwapping(false)\n01634|     }\n01635|   }\n01636| \n01637|   const loadTrendingTokens = async () => {\n01638|     try {\n01639|       const response = await fetch('https://api.warpcast.com/v2/trending-tokens')\n01640|       if (response.ok) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 1640)\n</file>",
+    "metadata": {
+      "preview": "      // Only update streak and clear tokens if at least one transaction confirmed\n      if (confirmedCount > 0) {\n        toast.success(`Batch swap completed: ${confirmedCount}/${transactions.length} transaction(s) confirmed`)\n        updateUserStreak()\n        updateLeaderboard()\n        loadSwapHistory()\n        setBatchTokens([])\n        setBatchQuote(null)\n        \n        // Refetch balances to show updated amounts\n        refetchBalances()\n        \n        // Reload batch wallet tokens to update the list\n        if (batchChain) {\n          setTimeout(() => {\n            loadBatchWalletTokens()\n          }, 2000)\n        }\n      } else if (successCount > 0) {\n        toast.warning(`${successCount} transaction(s) submitted but none confirmed yet`)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767349052783,
+      "end": 1767349052787
+    }
+  }
+}

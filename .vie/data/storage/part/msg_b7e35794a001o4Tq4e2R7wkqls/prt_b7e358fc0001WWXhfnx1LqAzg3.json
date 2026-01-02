@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7e358fc0001WWXhfnx1LqAzg3",
+  "messageID": "msg_b7e35794a001o4Tq4e2R7wkqls",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Vmug5SwxK2HPVNJK8JXRWe",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"Failed to get quote\" src/pages/RelaySwap.tsx",
+      "description": "Find failed to get quote message"
+    },
+    "output": "1072:      const errorMessage = error instanceof Error ? error.message : 'Failed to get quote'\n",
+    "metadata": {
+      "output": "1072:      const errorMessage = error instanceof Error ? error.message : 'Failed to get quote'\n",
+      "exit": 0,
+      "description": "Find failed to get quote message"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"Failed to get quote\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767348999521,
+      "end": 1767348999526
+    }
+  }
+}

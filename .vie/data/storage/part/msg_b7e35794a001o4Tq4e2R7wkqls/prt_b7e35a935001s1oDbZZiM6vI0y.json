@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7e35a935001s1oDbZZiM6vI0y",
+  "messageID": "msg_b7e35794a001o4Tq4e2R7wkqls",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_011SaC2mHuiCKfsCEQ9U9Jgt",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1065,
+      "limit": 30
+    },
+    "output": "<file>\n01066|       setQuote(quoteData)\n01067|       if (quoteData.details.currencyOut) {\n01068|         setToAmount(quoteData.details.currencyOut.amountFormatted)\n01069|       }\n01070|     } catch (error) {\n01071|       console.error('Failed to fetch quote:', error)\n01072|       const errorMessage = error instanceof Error ? error.message : 'Failed to get quote'\n01073|       toast.error(errorMessage)\n01074|       setQuote(null)\n01075|     } finally {\n01076|       setIsLoadingQuote(false)\n01077|     }\n01078|   }\n01079| \n01080|   const executeSwap = async () => {\n01081|     if (!quote || !quote.steps || quote.steps.length === 0) {\n01082|       toast.error('No quote available')\n01083|       return\n01084|     }\n01085| \n01086|     if (!isConnected || !address) {\n01087|       toast.error('Please connect your wallet first')\n01088|       return\n01089|     }\n01090| \n01091|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {\n01092|       toast.error('Missing swap parameters')\n01093|       return\n01094|     }\n01095| \n\n(File has more lines. Use 'offset' parameter to read beyond line 1095)\n</file>",
+    "metadata": {
+      "preview": "      setQuote(quoteData)\n      if (quoteData.details.currencyOut) {\n        setToAmount(quoteData.details.currencyOut.amountFormatted)\n      }\n    } catch (error) {\n      console.error('Failed to fetch quote:', error)\n      const errorMessage = error instanceof Error ? error.message : 'Failed to get quote'\n      toast.error(errorMessage)\n      setQuote(null)\n    } finally {\n      setIsLoadingQuote(false)\n    }\n  }\n\n  const executeSwap = async () => {\n    if (!quote || !quote.steps || quote.steps.length === 0) {\n      toast.error('No quote available')\n      return\n    }\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767349005492,
+      "end": 1767349005494
+    }
+  }
+}

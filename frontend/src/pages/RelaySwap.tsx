@@ -1069,7 +1069,26 @@ export default function RelaySwap() {
       }
     } catch (error) {
       console.error('Failed to fetch quote:', error)
-      const errorMessage = error instanceof Error ? error.message : 'Failed to get quote'
+      
+      // Parse error message to make it user-friendly
+      let errorMessage = 'Failed to get quote'
+      if (error instanceof Error) {
+        const msg = error.message.toLowerCase()
+        if (msg.includes('amount_too_low') || msg.includes('amount must be greater')) {
+          errorMessage = 'Amount is too low. Please enter a larger amount.'
+        } else if (msg.includes('insufficient')) {
+          errorMessage = 'Insufficient balance for this swap.'
+        } else if (msg.includes('slippage')) {
+          errorMessage = 'Slippage tolerance too low. Try increasing it.'
+        } else if (msg.includes('liquidity')) {
+          errorMessage = 'Not enough liquidity for this swap.'
+        } else if (msg.includes('network') || msg.includes('timeout')) {
+          errorMessage = 'Network error. Please try again.'
+        } else {
+          errorMessage = 'Unable to get quote. Please try a different amount or token.'
+        }
+      }
+      
       toast.error(errorMessage)
       setQuote(null)
     } finally {
@@ -1608,7 +1627,28 @@ export default function RelaySwap() {
       }
     } catch (error) {
       console.error('Batch swap failed:', error)
-      const errorMessage = error instanceof Error ? error.message : 'Batch swap failed'
+      
+      // Parse error message to make it user-friendly
+      let errorMessage = 'Batch swap failed'
+      if (error instanceof Error) {
+        const msg = error.message.toLowerCase()
+        if (msg.includes('amount_too_low') || msg.includes('amount must be greater')) {
+          errorMessage = 'One or more amounts are too low. Please enter larger amounts.'
+        } else if (msg.includes('insufficient')) {
+          errorMessage = 'Insufficient balance for batch swap.'
+        } else if (msg.includes('slippage')) {
+          errorMessage = 'Slippage tolerance too low. Try increasing it.'
+        } else if (msg.includes('liquidity')) {
+          errorMessage = 'Not enough liquidity for this batch swap.'
+        } else if (msg.includes('user rejected') || msg.includes('user denied')) {
+          errorMessage = 'Transaction rejected.'
+        } else if (msg.includes('network') || msg.includes('timeout')) {
+          errorMessage = 'Network error. Please try again.'
+        } else {
+          errorMessage = 'Batch swap failed. Please try again.'
+        }
+      }
+      
       toast.error(errorMessage)
     } finally {
       setIsSwapping(false)

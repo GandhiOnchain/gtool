@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7e36f9f2001VPwKbkJaNWr0f9",
+  "messageID": "msg_b7e35794a001o4Tq4e2R7wkqls",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Fixed! I've updated the error handling for both regular swaps and batch swaps to show user-friendly messages instead of raw JSON/code errors. The error messages now include:\n\n- \"Amount is too low. Please enter a larger amount.\" (for AMOUNT_TOO_LOW errors)\n- \"Insufficient balance for this swap.\"\n- \"Slippage tolerance too low. Try increasing it.\"\n- \"Not enough liquidity for this swap.\"\n- \"Network error. Please try again.\"\n- \"Unable to get quote. Please try a different amount or token.\" (generic fallback)\n\nThe raw error details are still logged to the console for debugging, but users will see clean, simple sentences.",
+  "time": {
+    "start": 1767349094847,
+    "end": 1767349094847
+  }
+}
