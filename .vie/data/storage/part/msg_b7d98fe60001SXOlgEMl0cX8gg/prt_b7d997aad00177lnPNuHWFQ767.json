@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d997aad00177lnPNuHWFQ767",
+  "messageID": "msg_b7d98fe60001SXOlgEMl0cX8gg",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Fixed. The badges are now stacked vertically on the right side using `flex-col` instead of wrapping horizontally. They're also smaller (`text-[10px]`, `h-5`, `px-1.5`) to ensure they fit properly.",
+  "time": {
+    "start": 1767338770642,
+    "end": 1767338770642
+  }
+}
