@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import * as React from 'react'
 import { sdk } from '@farcaster/miniapp-sdk'
 import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'
 import { useWallet } from '@/hooks/useWallet'
@@ -109,21 +110,28 @@ function TokenRow({ token, chainId }: { token: { address: string; symbol: string
   const [showFallback, setShowFallback] = useState(false)
   
   // Get all possible logo URLs
-  const logoUrls = getTokenLogoFallbacks(
-    token.address === 'native' ? null : token.address,
-    chainId,
-    token.symbol
-  )
-  
-  // Add Alchemy logo at the beginning if it exists
-  if (token.logo && token.logo.trim() !== '') {
-    logoUrls.unshift(token.logo)
-  }
+  const logoUrls = React.useMemo(() => {
+    const urls = getTokenLogoFallbacks(
+      token.address === 'native' ? null : token.address,
+      chainId,
+      token.symbol
+    )
+    
+    // Add Alchemy logo at the beginning if it exists
+    if (token.logo && token.logo.trim() !== '') {
+      urls.unshift(token.logo)
+    }
+    
+    return urls
+  }, [token.address, token.logo, token.symbol, chainId])
   
   const handleImageError = () => {
+    console.log(`Logo failed for ${token.symbol} [${logoIndex + 1}/${logoUrls.length}]:`, logoUrls[logoIndex])
+    
     if (logoIndex < logoUrls.length - 1) {
       setLogoIndex(logoIndex + 1)
     } else {
+      console.log(`All logos failed for ${token.symbol}. Tried:`, logoUrls)
       setShowFallback(true)
     }
   }

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7fb13f22001HCQM5usES0WDQK",
+  "messageID": "msg_b7fb12e08001dFctpP8QX7EKXP",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01NTQjqvtP9ph45aqtRbujsk",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/\" 2>&1 | grep -o 'href=\"[^\"]*\\.png\"' | sed 's/href=\"//;s/\\.png\"//' | head -50",
+      "description": "List available icons in cryptocurrency-icons"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "List available icons in cryptocurrency-icons"
+    },
+    "title": "curl -s \"https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/\" 2>&1 | grep -o 'href=\"[^\"]*\\.png\"' | sed 's/href=\"//;s/\\.png\"//' | head -50",
+    "time": {
+      "start": 1767373881990,
+      "end": 1767373882024
+    }
+  }
+}

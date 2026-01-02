@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7fb14e9b001v0Cmk5Ggqgw3ku",
+  "messageID": "msg_b7fb12e08001dFctpP8QX7EKXP",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01T3XTK62LUDj1awCheErNyn",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://api.github.com/repos/spothq/cryptocurrency-icons/contents/128/color\" | python3 -c \"import sys, json; files = json.load(sys.stdin); print('\\n'.join([f['name'].replace('.png', '') for f in files[:50] if f['name'].endswith('.png')]))\"",
+      "description": "Get list of available token icons"
+    },
+    "output": "$pac\n0xbtc\n1inch\n2give\naave\nabt\nact\nactn\nada\nadd\nadx\nae\naeon\naeur\nagi\nagrs\naion\nalgo\namb\namp\nampl\nankr\nant\nape\napex\nappc\nardr\narg\nark\narn\narnx\nary\nast\natlas\natm\natom\naudr\naury\nauto\navax\naywa\nbab\nbal\nband\nbat\nbay\nbcbc\nbcc\nbcd\nbch\n",
+    "metadata": {
+      "output": "$pac\n0xbtc\n1inch\n2give\naave\nabt\nact\nactn\nada\nadd\nadx\nae\naeon\naeur\nagi\nagrs\naion\nalgo\namb\namp\nampl\nankr\nant\nape\napex\nappc\nardr\narg\nark\narn\narnx\nary\nast\natlas\natm\natom\naudr\naury\nauto\navax\naywa\nbab\nbal\nband\nbat\nbay\nbcbc\nbcc\nbcd\nbch\n",
+      "exit": 0,
+      "description": "Get list of available token icons"
+    },
+    "title": "curl -s \"https://api.github.com/repos/spothq/cryptocurrency-icons/contents/128/color\" | python3 -c \"import sys, json; files = json.load(sys.stdin); print('\\n'.join([f['name'].replace('.png', '') for f in files[:50] if f['name'].endswith('.png')]))\"",
+    "time": {
+      "start": 1767373886543,
+      "end": 1767373886699
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7fb22d1c001XjxDrDrGzEb59t",
+  "messageID": "msg_b7fb12e08001dFctpP8QX7EKXP",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01Pw6QjpB7LjQgjjQ8dE5V42",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 0,
+      "limit": 5
+    },
+    "output": "<file>\n00001| import { useEffect, useState } from 'react'\n00002| import { sdk } from '@farcaster/miniapp-sdk'\n00003| import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'\n00004| import { useWallet } from '@/hooks/useWallet'\n00005| import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem, getAddress } from 'viem'\n\n(File has more lines. Use 'offset' parameter to read beyond line 5)\n</file>",
+    "metadata": {
+      "preview": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'\nimport { useWallet } from '@/hooks/useWallet'\nimport { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem, getAddress } from 'viem'"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767373943346,
+      "end": 1767373943347
+    }
+  }
+}

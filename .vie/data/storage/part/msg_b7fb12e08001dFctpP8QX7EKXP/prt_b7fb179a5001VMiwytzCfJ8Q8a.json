@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7fb179a5001VMiwytzCfJ8Q8a",
+  "messageID": "msg_b7fb12e08001dFctpP8QX7EKXP",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "So the cryptocurrency-icons repo only has major tokens. For the others (ALT, CODEX, BREV, GSTR), we need to use TrustWallet. Let me verify the TrustWallet URLs are working correctly. First, let me check what the actual token addresses are by looking at the console logs. Let me improve the fallback system to properly handle TrustWallet:",
+  "time": {
+    "start": 1767373919488,
+    "end": 1767373919488
+  }
+}

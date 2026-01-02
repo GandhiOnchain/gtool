@@ -1,29 +1,4 @@
-/**
- * Get token logo URL using multiple reliable sources
- */
-export function getTokenLogo(
-  address: string | null | undefined,
-  chainId: number,
-  symbol?: string
-): string {
-  // Native token logos
-  if (!address || address === 'native') {
-    const nativeLogos: Record<number, string> = {
-      1: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',
-      8453: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',
-      42161: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',
-      137: 'https://assets.coingecko.com/coins/images/4713/small/matic-token-icon.png',
-      10: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',
-    }
-    return nativeLogos[chainId] || 'https://assets.coingecko.com/coins/images/279/small/ethereum.png'
-  }
-
-  const lowerAddress = address.toLowerCase()
-  
-  // Use Cloudflare's IPFS gateway for token logos (most reliable)
-  // This uses the token-icons repository which has comprehensive coverage
-  return `https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/${symbol?.toLowerCase() || 'generic'}.png`
-}
+import { getAddress, isAddress } from 'viem'
 
 /**
  * Get multiple logo URLs to try in order
@@ -62,14 +37,23 @@ export function getTokenLogoFallbacks(
   }
   
   const chainName = chainNames[chainId]
-  if (chainName) {
-    // Try both checksummed and lowercase
-    logos.push(`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${chainName}/assets/${address}/logo.png`)
+  if (chainName && isAddress(address)) {
+    try {
+      const checksummed = getAddress(address)
+      logos.push(`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${chainName}/assets/${checksummed}/logo.png`)
+    } catch (e) {
+      // If checksum fails, try lowercase
+      logos.push(`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${chainName}/assets/${address}/logo.png`)
+    }
   }
 
-  // 3. CoinGecko assets (for Ethereum mainnet)
-  if (chainId === 1) {
-    logos.push(`https://assets.coingecko.com/coins/images/1/small/${lowerSymbol}.png`)
+  // 3. Fallback to generic token icon services
+  if (isAddress(address)) {
+    // Ethereum token avatar service
+    logos.push(`https://ethereum-token-icons.s3.amazonaws.com/${address}.png`)
+    
+    // Token logo service
+    logos.push(`https://tokens-data.1inch.io/images/${address}.png`)
   }
 
   return logos
