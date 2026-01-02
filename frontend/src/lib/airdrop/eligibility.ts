@@ -1,21 +1,27 @@
-import { alchemy, getAlchemyNetwork } from '../alchemy/config'
 import { AIRDROP_CONFIG } from './config'
 import type { AirdropEligibility } from './types'
-import { formatUnits, parseUnits } from 'viem'
+import { formatUnits, parseUnits, createPublicClient, http } from 'viem'
+import { base } from 'viem/chains'
 
 /**
- * Check if a wallet is eligible for the airdrop using Moralis/Alchemy
+ * Check if a wallet is eligible for the airdrop using on-chain data
  */
 export async function checkAirdropEligibility(
   walletAddress: string
 ): Promise<AirdropEligibility> {
   try {
-    // Get wallet balance on the specified chain
-    const network = getAlchemyNetwork(AIRDROP_CONFIG.chainId)
+    // Create a public client for Base chain
+    const client = createPublicClient({
+      chain: base,
+      transport: http()
+    })
     
     // Get native token balance (ETH on Base)
-    const balance = await alchemy.core.getBalance(walletAddress, 'latest')
-    const ethBalance = formatUnits(balance.toBigInt(), 18)
+    const balance = await client.getBalance({
+      address: walletAddress as `0x${string}`
+    })
+    
+    const ethBalance = formatUnits(balance, 18)
     
     console.log('Checking eligibility:', {
       address: walletAddress,

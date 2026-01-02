@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7d238afd001ae76gN2BSSB4Mv",
+  "messageID": "msg_b7d232e06001nNIgP4h95p5gj0",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "edit",
+  "callID": "toolu_vrtx_01KpZF2Mk1QP1pKFEfk4hZNv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/airdrop/eligibility.ts",
+      "oldString": "import { alchemy, getAlchemyNetwork } from '../alchemy/config'\nimport { AIRDROP_CONFIG } from './config'\nimport type { AirdropEligibility } from './types'\nimport { formatUnits, parseUnits } from 'viem'\n\n/**\n * Check if a wallet is eligible for the airdrop using Moralis/Alchemy\n */\nexport async function checkAirdropEligibility(\n  walletAddress: string\n): Promise<AirdropEligibility> {\n  try {\n    // Get wallet balance on the specified chain\n    const network = getAlchemyNetwork(AIRDROP_CONFIG.chainId)\n    \n    // Get native token balance (ETH on Base)\n    let balance\n    try {\n      balance = await alchemy.core.getBalance(walletAddress, 'latest')\n    } catch (error) {\n      console.error('Error fetching balance:', error)\n      // Fallback: assume 0 balance if API fails\n      balance = { toBigInt: () => BigInt(0) }\n    }\n    \n    const ethBalance = formatUnits(balance.toBigInt(), 18)",
+      "newString": "import { AIRDROP_CONFIG } from './config'\nimport type { AirdropEligibility } from './types'\nimport { formatUnits, parseUnits, createPublicClient, http } from 'viem'\nimport { base } from 'viem/chains'\n\n/**\n * Check if a wallet is eligible for the airdrop using on-chain data\n */\nexport async function checkAirdropEligibility(\n  walletAddress: string\n): Promise<AirdropEligibility> {\n  try {\n    // Create a public client for Base chain\n    const client = createPublicClient({\n      chain: base,\n      transport: http()\n    })\n    \n    // Get native token balance (ETH on Base)\n    const balance = await client.getBalance({\n      address: walletAddress as `0x${string}`\n    })\n    \n    const ethBalance = formatUnits(balance, 18)"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "diff": "Index: /home/user/sandbox/workspace/frontend/src/lib/airdrop/eligibility.ts\n===================================================================\n--- /home/user/sandbox/workspace/frontend/src/lib/airdrop/eligibility.ts\n+++ /home/user/sandbox/workspace/frontend/src/lib/airdrop/eligibility.ts\n@@ -1,30 +1,28 @@\n-import { alchemy, getAlchemyNetwork } from '../alchemy/config'\n import { AIRDROP_CONFIG } from './config'\n import type { AirdropEligibility } from './types'\n-import { formatUnits, parseUnits } from 'viem'\n+import { formatUnits, parseUnits, createPublicClient, http } from 'viem'\n+import { base } from 'viem/chains'\n \n /**\n- * Check if a wallet is eligible for the airdrop using Moralis/Alchemy\n+ * Check if a wallet is eligible for the airdrop using on-chain data\n  */\n export async function checkAirdropEligibility(\n   walletAddress: string\n ): Promise<AirdropEligibility> {\n   try {\n-    // Get wallet balance on the specified chain\n-    const network = getAlchemyNetwork(AIRDROP_CONFIG.chainId)\n+    // Create a public client for Base chain\n+    const client = createPublicClient({\n+      chain: base,\n+      transport: http()\n+    })\n     \n     // Get native token balance (ETH on Base)\n-    let balance\n-    try {\n-      balance = await alchemy.core.getBalance(walletAddress, 'latest')\n-    } catch (error) {\n-      console.error('Error fetching balance:', error)\n-      // Fallback: assume 0 balance if API fails\n-      balance = { toBigInt: () => BigInt(0) }\n-    }\n+    const balance = await client.getBalance({\n+      address: walletAddress as `0x${string}`\n+    })\n     \n-    const ethBalance = formatUnits(balance.toBigInt(), 18)\n+    const ethBalance = formatUnits(balance, 18)\n     \n     console.log('Checking eligibility:', {\n       address: walletAddress,\n       ethBalance,\n"
+    },
+    "title": "frontend/src/lib/airdrop/eligibility.ts",
+    "time": {
+      "start": 1767331046003,
+      "end": 1767331046009
+    }
+  }
+}

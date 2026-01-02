@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d233ada001x5lRd4q18bimrr",
+  "messageID": "msg_b7d232e06001nNIgP4h95p5gj0",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "I can see the error \"Error checking eligibility. Please try again.\" Let me check the browser console to see what the actual error is. The issue is likely in the eligibility checking function. Let me fix it:",
+  "time": {
+    "start": 1767331022830,
+    "end": 1767331022830
+  }
+}

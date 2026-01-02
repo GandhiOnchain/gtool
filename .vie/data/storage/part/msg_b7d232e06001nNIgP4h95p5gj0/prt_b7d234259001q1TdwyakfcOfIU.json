@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d234259001q1TdwyakfcOfIU",
+  "messageID": "msg_b7d232e06001nNIgP4h95p5gj0",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01Jz81S9QjwbFvk3s2YRUhUA",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/airdrop/eligibility.ts",
+      "offset": 10,
+      "limit": 30
+    },
+    "output": "<file>\n00011| ): Promise<AirdropEligibility> {\n00012|   try {\n00013|     // Get wallet balance on the specified chain\n00014|     const network = getAlchemyNetwork(AIRDROP_CONFIG.chainId)\n00015|     \n00016|     // Get native token balance (ETH on Base)\n00017|     const balance = await alchemy.core.getBalance(walletAddress, 'latest')\n00018|     const ethBalance = formatUnits(balance.toBigInt(), 18)\n00019|     \n00020|     console.log('Checking eligibility:', {\n00021|       address: walletAddress,\n00022|       ethBalance,\n00023|       minRequired: AIRDROP_CONFIG.eligibilityCriteria.minEthBalance\n00024|     })\n00025|     \n00026|     // Check minimum ETH balance requirement\n00027|     const minEthBalance = AIRDROP_CONFIG.eligibilityCriteria.minEthBalance || '0'\n00028|     const hasMinBalance = parseFloat(ethBalance) >= parseFloat(minEthBalance)\n00029|     \n00030|     if (!hasMinBalance) {\n00031|       return {\n00032|         isEligible: false,\n00033|         amount: '0',\n00034|         amountFormatted: '0',\n00035|         reason: `Minimum ${minEthBalance} ETH balance required. You have ${parseFloat(ethBalance).toFixed(4)} ETH`\n00036|       }\n00037|     }\n00038|     \n00039|     // Calculate airdrop amount based on ETH balance\n00040|     // Example: 1000 tokens per 0.01 ETH (you can customize this formula)\n\n(File has more lines. Use 'offset' parameter to read beyond line 40)\n</file>",
+    "metadata": {
+      "preview": "): Promise<AirdropEligibility> {\n  try {\n    // Get wallet balance on the specified chain\n    const network = getAlchemyNetwork(AIRDROP_CONFIG.chainId)\n    \n    // Get native token balance (ETH on Base)\n    const balance = await alchemy.core.getBalance(walletAddress, 'latest')\n    const ethBalance = formatUnits(balance.toBigInt(), 18)\n    \n    console.log('Checking eligibility:', {\n      address: walletAddress,\n      ethBalance,\n      minRequired: AIRDROP_CONFIG.eligibilityCriteria.minEthBalance\n    })\n    \n    // Check minimum ETH balance requirement\n    const minEthBalance = AIRDROP_CONFIG.eligibilityCriteria.minEthBalance || '0'\n    const hasMinBalance = parseFloat(ethBalance) >= parseFloat(minEthBalance)\n    \n    if (!hasMinBalance) {"
+    },
+    "title": "frontend/src/lib/airdrop/eligibility.ts",
+    "time": {
+      "start": 1767331022699,
+      "end": 1767331022701
+    }
+  }
+}

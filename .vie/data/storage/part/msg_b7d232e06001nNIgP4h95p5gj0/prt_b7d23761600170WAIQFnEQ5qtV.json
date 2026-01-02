@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d23761600170WAIQFnEQ5qtV",
+  "messageID": "msg_b7d232e06001nNIgP4h95p5gj0",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01XyxcATCRNJH8pCCf4MGuCg",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/config.ts",
+      "offset": 20,
+      "limit": 30
+    },
+    "output": "<file>\n00021|   );\n00022| }\n00023| \n00024| // Create and export default Alchemy instance (ETH mainnet)\n00025| export const alchemy = new Alchemy({\n00026|   ...alchemySettings\n00027| });\n00028| \n00029| // Export settings for reference\n00030| export { alchemySettings };\n00031| \n00032| /**\n00033|  * Network details\n00034|  * @param name - The name of the network\n00035|  * @param nativeGasTokenSymbol - The symbol of the native gas token\n00036|  * @param nativeGasTokenName - The name of the native gas token\n00037|  */\n00038| export type NetworkDetails = {\n00039|   name: string;\n00040|   nativeGasTokenSymbol: string;\n00041|   nativeGasTokenName: string;\n00042| }\n00043| \n00044| // Redefine here for the AI to reference easier!\n00045| export enum Network {\n00046|   // Ethereum family\n00047|   ETH_MAINNET = \"eth-mainnet\",\n00048| \n00049|   // Optimism\n00050|   OPT_MAINNET = \"opt-mainnet\",\n\n(File has more lines. Use 'offset' parameter to read beyond line 50)\n</file>",
+    "metadata": {
+      "preview": "  );\n}\n\n// Create and export default Alchemy instance (ETH mainnet)\nexport const alchemy = new Alchemy({\n  ...alchemySettings\n});\n\n// Export settings for reference\nexport { alchemySettings };\n\n/**\n * Network details\n * @param name - The name of the network\n * @param nativeGasTokenSymbol - The symbol of the native gas token\n * @param nativeGasTokenName - The name of the native gas token\n */\nexport type NetworkDetails = {\n  name: string;\n  nativeGasTokenSymbol: string;"
+    },
+    "title": "frontend/src/lib/alchemy/config.ts",
+    "time": {
+      "start": 1767331035498,
+      "end": 1767331035500
+    }
+  }
+}
