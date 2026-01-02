@@ -4348,7 +4348,7 @@ export default function RelaySwap() {
                 <div className="space-y-1">
                   {filteredCurrencies.length === 0 ? (
                     <div className="text-xs text-muted-foreground text-center p-4">
-                      No tokens found. Try selecting a chain first.
+                      {/* Empty state - no message shown when searching */}
                     </div>
                   ) : (
                     filteredCurrencies.map((currency) => (

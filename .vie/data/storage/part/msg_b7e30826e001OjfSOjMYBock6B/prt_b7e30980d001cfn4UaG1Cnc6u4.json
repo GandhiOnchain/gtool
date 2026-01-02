@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7e30980d001cfn4UaG1Cnc6u4",
+  "messageID": "msg_b7e30826e001OjfSOjMYBock6B",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "grep",
+  "callID": "toolu_vrtx_01M7mXe4EspdtjNU49Z8m3hs",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "no token found|No token found|token.*not found",
+      "path": "/home/user/sandbox/workspace/frontend/src/pages",
+      "include": "*.tsx"
+    },
+    "output": "No files found",
+    "metadata": {
+      "matches": 0,
+      "truncated": false
+    },
+    "title": "no token found|No token found|token.*not found",
+    "time": {
+      "start": 1767348673616,
+      "end": 1767348673630
+    }
+  }
+}
