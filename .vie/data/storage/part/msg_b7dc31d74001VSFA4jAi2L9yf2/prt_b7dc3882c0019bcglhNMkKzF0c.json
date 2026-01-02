@@ -1,0 +1,24 @@
+{
+  "id": "prt_b7dc3882c0019bcglhNMkKzF0c",
+  "messageID": "msg_b7dc31d74001VSFA4jAi2L9yf2",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "glob",
+  "callID": "toolu_vrtx_011stMpoacvgsXT9x72himbY",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "**/relay/**/*.ts"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/src/lib/relay/types.ts\n/home/user/sandbox/workspace/frontend/src/lib/relay/api.ts",
+    "metadata": {
+      "count": 2,
+      "truncated": false
+    },
+    "title": "",
+    "time": {
+      "start": 1767341525537,
+      "end": 1767341525560
+    }
+  }
+}

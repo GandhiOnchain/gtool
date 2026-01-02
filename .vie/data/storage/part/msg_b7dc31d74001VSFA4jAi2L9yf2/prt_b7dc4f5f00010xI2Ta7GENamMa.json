@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dc4f5f00010xI2Ta7GENamMa",
+  "messageID": "msg_b7dc31d74001VSFA4jAi2L9yf2",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "The status endpoint is used elsewhere. However, for the history, we're using the `/requests/v2` endpoint which returns the raw transaction data. The issue is that the amount decoding logic is complex and error-prone.\n\nLet me take a different approach - instead of trying to fix the complex decoding logic, let me simplify it by using the transaction receipt logs more reliably. The current code tries to fetch receipts but only when `rawAmount === '0'`. Let me make it always try to get the receipt first:\n\nActually, looking at the code again, I realize the real issue might be simpler - the console logs show the decoding is working in some cases. The problem might be that for some transactions, the `value` field contains a very small amount that's being used instead of the decoded amount.\n\nLet me add a fix to ensure we always try to decode from calldata or receipts for ERC-20 tokens, regardless of the `value` field:",
+  "time": {
+    "start": 1767341625765,
+    "end": 1767341625765
+  }
+}

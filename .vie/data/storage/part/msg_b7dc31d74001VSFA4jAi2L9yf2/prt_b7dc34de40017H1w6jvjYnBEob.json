@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dc34de40017H1w6jvjYnBEob",
+  "messageID": "msg_b7dc31d74001VSFA4jAi2L9yf2",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I see another issue - line 2189 only includes batchTokens for `'batch'` type, not `'batch-bridge'`. But the main issue is that the amounts are showing as \"0\" or very small values. Let me check if there's a better way to get the amounts from the Relay API. Let me look at what data the API actually returns:",
+  "time": {
+    "start": 1767341514041,
+    "end": 1767341514041
+  }
+}

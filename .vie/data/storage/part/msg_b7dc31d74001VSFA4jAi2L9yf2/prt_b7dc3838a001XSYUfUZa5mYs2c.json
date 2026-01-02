@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7dc3838a001XSYUfUZa5mYs2c",
+  "messageID": "msg_b7dc31d74001VSFA4jAi2L9yf2",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_016RY4uKCYnbMhtfxr4uHMzy",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && find . -name \"*.ts\" -type f -exec grep -l \"RelayRequest\\|getRequests\" {} \\;",
+      "description": "Find Relay API type definitions"
+    },
+    "output": "./src/lib/relay/api.ts\n./src/lib/relay/types.ts\n",
+    "metadata": {
+      "output": "./src/lib/relay/api.ts\n./src/lib/relay/types.ts\n",
+      "exit": 0,
+      "description": "Find Relay API type definitions"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && find . -name \"*.ts\" -type f -exec grep -l \"RelayRequest\\|getRequests\" {} \\;",
+    "time": {
+      "start": 1767341525035,
+      "end": 1767341570894
+    }
+  }
+}

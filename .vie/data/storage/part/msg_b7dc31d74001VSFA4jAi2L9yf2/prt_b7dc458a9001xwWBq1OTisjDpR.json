@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dc458a9001xwWBq1OTisjDpR",
+  "messageID": "msg_b7dc31d74001VSFA4jAi2L9yf2",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Perfect! I can see that the `inTxs` and `outTxs` have a `data.value` field which should contain the amount. The issue is that this `value` field is for native currency (ETH) transfers, not ERC-20 tokens. For ERC-20 tokens, the amount is encoded in the `data.data` field.\n\nHowever, I notice there's no direct `amount` field in the request data. The amounts need to be decoded. Let me check if there's additional data in the request that we're missing. Let me look for where amounts might be stored:",
+  "time": {
+    "start": 1767341584040,
+    "end": 1767341584040
+  }
+}

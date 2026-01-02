@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dc47bf2001D58hRwFEWlX8JI",
+  "messageID": "msg_b7dc31d74001VSFA4jAi2L9yf2",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "The request object is being logged. The real issue is that the amount decoding logic is complex and might be failing. Let me add better fallback logic. Instead of trying to decode from transaction data (which is unreliable), let me check if the Relay API provides the amounts in the quote details that were used to create the request.\n\nActually, looking at the code more carefully, I see the issue - when the transaction `value` is \"0\" (which it is for ERC-20 transfers), the code tries to decode from calldata or fetch from receipts, but this is failing. Let me add better logging and a simpler approach - use the Relay API's own data if available:",
+  "time": {
+    "start": 1767341594305,
+    "end": 1767341594305
+  }
+}

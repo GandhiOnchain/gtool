@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dc4cd4d001mJPu5NXhojdFuZ",
+  "messageID": "msg_b7dc31d74001VSFA4jAi2L9yf2",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "The Relay API doesn't seem to have a method that returns the amounts directly in the request history. The amounts need to be decoded from the transaction data. The current implementation tries to do this but it's failing for some transactions.\n\nLooking at the screenshot again, I see \"0.000034 ETH\" and \"0 ETH\" - these are very small or zero values, which suggests the decoding is partially working but getting wrong values.\n\nThe real solution is to use the Relay SDK's built-in transaction indexing and status checking, which should provide the actual amounts. Let me check if we can get better data from the status endpoint:",
+  "time": {
+    "start": 1767341613886,
+    "end": 1767341613886
+  }
+}

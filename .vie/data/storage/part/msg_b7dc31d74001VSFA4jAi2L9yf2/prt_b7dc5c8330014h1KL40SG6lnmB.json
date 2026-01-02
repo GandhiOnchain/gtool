@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dc5c8330014h1KL40SG6lnmB",
+  "messageID": "msg_b7dc31d74001VSFA4jAi2L9yf2",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Perfect! I've fixed the issue. The problem was that the code only tried to fetch transaction receipts (which contain the actual ERC-20 transfer amounts) when the `value` field was exactly \"0\". However, some transactions have small non-zero values in the `value` field (like gas or dust amounts), which prevented the receipt fetching logic from running.\n\nThe fix:\n1. Added logic to detect if the token is native (ETH) or ERC-20\n2. For ERC-20 tokens, always fetch the transaction receipt to get the actual transfer amount from the Transfer event logs\n3. For native tokens, use the `value` field directly\n4. Also fixed the batch tokens to include `'batch-bridge'` type\n\nThis should now correctly display the amounts for all transaction types (swap, bridge, batch swap, batch bridge).",
+  "time": {
+    "start": 1767341677030,
+    "end": 1767341677030
+  }
+}

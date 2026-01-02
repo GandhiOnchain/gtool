@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dc4b239001fr59JnN0nHq04D",
+  "messageID": "msg_b7dc31d74001VSFA4jAi2L9yf2",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Now let me add console logging to help debug what's happening with the amounts. But first, let me check if there's a simpler solution - maybe the Relay SDK has a method to get request details with amounts:",
+  "time": {
+    "start": 1767341603436,
+    "end": 1767341603436
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dc524b400129bX4tQAslsd5z",
+  "messageID": "msg_b7dc31d74001VSFA4jAi2L9yf2",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I see the issue now! The code only tries to fetch the receipt when `rawAmount === '0'`, but for some transactions, the `value` field might have a small non-zero value (like gas or dust), which prevents the receipt fetching logic from running. Let me fix this by always trying to fetch the receipt for ERC-20 tokens:",
+  "time": {
+    "start": 1767341637285,
+    "end": 1767341637285
+  }
+}

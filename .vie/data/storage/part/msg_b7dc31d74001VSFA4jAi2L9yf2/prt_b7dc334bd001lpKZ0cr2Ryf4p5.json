@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7dc334bd001lpKZ0cr2Ryf4p5",
+  "messageID": "msg_b7dc31d74001VSFA4jAi2L9yf2",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_017B3wxw3CnNp96BQ8UMgRM4",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -A 5 \"req.data.inTxs\\[0\\]\" src/pages/RelaySwap.tsx | head -20",
+      "description": "Check how inTx data is accessed"
+    },
+    "output": "          const inTx = req.data.inTxs[0]\n          \n          // Set token info\n          if (fromCurrency) {\n            fromDecimals = fromCurrency.decimals\n            fromSymbol = fromCurrency.symbol\n",
+    "metadata": {
+      "output": "          const inTx = req.data.inTxs[0]\n          \n          // Set token info\n          if (fromCurrency) {\n            fromDecimals = fromCurrency.decimals\n            fromSymbol = fromCurrency.symbol\n",
+      "exit": 0,
+      "description": "Check how inTx data is accessed"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -A 5 \"req.data.inTxs\\[0\\]\" src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1767341505725,
+      "end": 1767341505733
+    }
+  }
+}

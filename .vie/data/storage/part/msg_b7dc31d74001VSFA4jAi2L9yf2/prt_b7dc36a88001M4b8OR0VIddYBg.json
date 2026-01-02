@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dc36a88001M4b8OR0VIddYBg",
+  "messageID": "msg_b7dc31d74001VSFA4jAi2L9yf2",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "The issue is complex. The Relay API returns transaction data but the amounts need to be decoded from the transaction calldata or fetched from on-chain receipts. Let me check if the Relay API provides the amounts directly in a different field. Let me look at the request object structure more carefully:",
+  "time": {
+    "start": 1767341520312,
+    "end": 1767341520312
+  }
+}

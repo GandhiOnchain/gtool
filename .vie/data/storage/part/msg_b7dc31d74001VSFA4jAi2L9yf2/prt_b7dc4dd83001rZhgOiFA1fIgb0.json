@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7dc4dd83001rZhgOiFA1fIgb0",
+  "messageID": "msg_b7dc31d74001VSFA4jAi2L9yf2",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_017rkr4CLFYTyM8DDm5biPUW",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"getStatus\" src/pages/RelaySwap.tsx",
+      "description": "Check if getStatus is used"
+    },
+    "output": "1305:        const status = await relayAPI.getStatus(requestId)\n",
+    "metadata": {
+      "output": "1305:        const status = await relayAPI.getStatus(requestId)\n",
+      "exit": 0,
+      "description": "Check if getStatus is used"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"getStatus\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767341613829,
+      "end": 1767341613837
+    }
+  }
+}

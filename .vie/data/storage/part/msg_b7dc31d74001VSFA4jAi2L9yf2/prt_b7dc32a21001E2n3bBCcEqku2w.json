@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7dc32a21001E2n3bBCcEqku2w",
+  "messageID": "msg_b7dc31d74001VSFA4jAi2L9yf2",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I can see the issue - the transactions are showing \"0.000034 ETH\" and \"0 ETH\" which means the amount decoding is failing. The problem is that the code is trying to decode amounts from transaction data, but it's not working correctly. Let me check the Relay API response structure to understand what data is actually available:",
+  "time": {
+    "start": 1767341506780,
+    "end": 1767341506780
+  }
+}

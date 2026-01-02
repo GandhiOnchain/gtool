@@ -1978,8 +1978,12 @@ export default function RelaySwap() {
           
           let rawAmount = inTx.data?.value || '0'
           
-          // If we have a transaction hash, fetch the actual transaction to get precise amounts
-          if (inTx.hash && rawAmount === '0' && originChain) {
+          // For ERC-20 tokens (non-native), always try to fetch from receipt
+          // For native tokens, use the value field
+          const isNativeToken = !currencyAddress || currencyAddress === '0x0000000000000000000000000000000000000000'
+          
+          // If we have a transaction hash and it's an ERC-20 token, fetch the actual transaction to get precise amounts
+          if (inTx.hash && !isNativeToken && originChain) {
             try {
               const txChainConfig = defineChain({
                 id: originChainId!,
@@ -2063,8 +2067,11 @@ export default function RelaySwap() {
           
           let rawAmount = outTx.data?.value || '0'
           
-          // If we have a transaction hash, fetch the actual transaction to get precise amounts
-          if (outTx.hash && rawAmount === '0' && destChain) {
+          // For ERC-20 tokens (non-native), always try to fetch from receipt
+          const isNativeToken = !currencyAddress || currencyAddress === '0x0000000000000000000000000000000000000000'
+          
+          // If we have a transaction hash and it's an ERC-20 token, fetch the actual transaction to get precise amounts
+          if (outTx.hash && !isNativeToken && destChain) {
             try {
               const txChainConfig = defineChain({
                 id: destChainId!,
@@ -2186,7 +2193,7 @@ export default function RelaySwap() {
           completedAt,
           txHash: req.data.outTxs?.[0]?.hash,
           inTxHash: req.data.inTxs?.[0]?.hash,
-          batchTokens: transactionType === 'batch' && batchTokens.length > 0 ? batchTokens : undefined,
+          batchTokens: (transactionType === 'batch' || transactionType === 'batch-bridge') && batchTokens.length > 0 ? batchTokens : undefined,
         }
         
         console.log('Final history item:', {
