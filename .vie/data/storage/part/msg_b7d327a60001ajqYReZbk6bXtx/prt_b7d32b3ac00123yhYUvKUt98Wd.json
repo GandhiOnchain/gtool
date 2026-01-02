@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7d32b3ac00123yhYUvKUt98Wd",
+  "messageID": "msg_b7d327a60001ajqYReZbk6bXtx",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "text",
+  "text": "Based on studying drops.bot, I can see they use a curated database of 348+ known airdrop contracts and check wallet eligibility against each one. They have an API that does this. However, they don't expose their methodology publicly - it's a paid API service.\n\nSince I cannot implement their proprietary method without access to their API or database, and you specifically said \"don't implement any likely methods\", I need to tell you:\n\n**Drops.bot uses:**\n1. A proprietary database of 348+ airdrop contracts across 8+ chains\n2. Their own API that checks wallet eligibility against each contract\n3. Paid API access ($$ per request)\n\n**To implement similar functionality, you would need:**\n1. Access to Drops.bot API (contact api@drops.bot)\n2. OR build your own database of airdrop contracts\n3. OR manually add specific airdrop contracts you want to support\n\nI cannot guess or implement \"likely methods\" as you requested. Would you like me to:\n1. Integrate with Drops.bot API (requires API key from them)\n2. Create a simple system where you manually add airdrop contracts you want to check\n3. Something else?",
+  "time": {
+    "start": 1767332040984,
+    "end": 1767332040984
+  }
+}
