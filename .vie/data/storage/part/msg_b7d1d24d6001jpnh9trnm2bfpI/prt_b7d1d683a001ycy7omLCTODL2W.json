@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7d1d683a001ycy7omLCTODL2W",
+  "messageID": "msg_b7d1d24d6001jpnh9trnm2bfpI",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "write",
+  "callID": "toolu_vrtx_0188hqopkPWuqtcifJj6bY1Y",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/airdrop/config.ts",
+      "content": "import type { AirdropConfig } from './types'\n\n// Configure your airdrop details here\nexport const AIRDROP_CONFIG: AirdropConfig = {\n  // Token details\n  tokenAddress: '0x0000000000000000000000000000000000000000', // Replace with your ERC20 token address\n  tokenSymbol: 'AIRDROP',\n  tokenName: 'Airdrop Token',\n  tokenDecimals: 18,\n  \n  // Chain details\n  chainId: 8453, // Base\n  chainName: 'Base',\n  \n  // Airdrop details\n  totalSupply: '1000000', // 1M tokens\n  \n  // Eligibility criteria\n  eligibilityCriteria: {\n    minEthBalance: '0.01', // Minimum 0.01 ETH balance\n    // minTokenBalance: '100', // Optional: minimum token balance\n    // snapshotBlock: 12345678, // Optional: snapshot block number\n    customCriteria: 'Users with >0.01 ETH balance on Base'\n  },\n  \n  // Merkle tree root (if using Merkle proof distribution)\n  merkleRoot: undefined, // Set this if using Merkle tree\n  \n  // Claim contract address (if using a claim contract)\n  claimContractAddress: undefined, // Set this if using a claim contract\n}\n\n// Standard ERC20 ABI for token transfers\nexport const ERC20_ABI = [\n  {\n    constant: true,\n    inputs: [{ name: '_owner', type: 'address' }],\n    name: 'balanceOf',\n    outputs: [{ name: 'balance', type: 'uint256' }],\n    type: 'function',\n  },\n  {\n    constant: false,\n    inputs: [\n      { name: '_to', type: 'address' },\n      { name: '_value', type: 'uint256' },\n    ],\n    name: 'transfer',\n    outputs: [{ name: '', type: 'bool' }],\n    type: 'function',\n  },\n  {\n    constant: true,\n    inputs: [],\n    name: 'decimals',\n    outputs: [{ name: '', type: 'uint8' }],\n    type: 'function',\n  },\n  {\n    constant: true,\n    inputs: [],\n    name: 'symbol',\n    outputs: [{ name: '', type: 'string' }],\n    type: 'function',\n  },\n] as const\n\n// Airdrop claim contract ABI (if using a claim contract)\nexport const AIRDROP_CLAIM_ABI = [\n  {\n    inputs: [\n      { name: 'amount', type: 'uint256' },\n      { name: 'proof', type: 'bytes32[]' },\n    ],\n    name: 'claim',\n    outputs: [],\n    stateMutability: 'nonpayable',\n    type: 'function',\n  },\n  {\n    inputs: [{ name: 'user', type: 'address' }],\n    name: 'hasClaimed',\n    outputs: [{ name: '', type: 'bool' }],\n    stateMutability: 'view',\n    type: 'function',\n  },\n  {\n    inputs: [],\n    name: 'merkleRoot',\n    outputs: [{ name: '', type: 'bytes32' }],\n    stateMutability: 'view',\n    type: 'function',\n  },\n] as const\n"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "filepath": "/home/user/sandbox/workspace/frontend/src/lib/airdrop/config.ts",
+      "exists": false
+    },
+    "title": "frontend/src/lib/airdrop/config.ts",
+    "time": {
+      "start": 1767330648466,
+      "end": 1767330648467
+    }
+  }
+}

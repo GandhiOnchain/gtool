@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7d1e97f9001UuvXAekgoK9Bg8",
+  "messageID": "msg_b7d1d24d6001jpnh9trnm2bfpI",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01SA2Bc5uDr6KPDoGGbdeHVY",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"const checkAirdrops = async\" src/pages/RelaySwap.tsx",
+      "description": "Find checkAirdrops function"
+    },
+    "output": "2891:  const checkAirdrops = async () => {\n",
+    "metadata": {
+      "output": "2891:  const checkAirdrops = async () => {\n",
+      "exit": 0,
+      "description": "Find checkAirdrops function"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"const checkAirdrops = async\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767330716645,
+      "end": 1767330716650
+    }
+  }
+}

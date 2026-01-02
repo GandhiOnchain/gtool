@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d1e7673001OR4ivQgDMf1q5T",
+  "messageID": "msg_b7d1d24d6001jpnh9trnm2bfpI",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01JrPpmskR5ofrT4PdwEYBxn",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 0,
+      "limit": 25
+    },
+    "output": "<file>\n00001| import { useEffect, useState } from 'react'\n00002| import { sdk } from '@farcaster/miniapp-sdk'\n00003| import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useDisconnect } from 'wagmi'\n00004| import { useWallet } from '@/hooks/useWallet'\n00005| import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem } from 'viem'\n00006| import { relayAPI } from '@/lib/relay/api'\n00007| import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\n00008| import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'\n00009| import { config } from '@/config'\n00010| import { Network as AlchemyNetwork } from 'alchemy-sdk'\n00011| import { Button } from '@/components/ui/button'\n00012| import { Input } from '@/components/ui/input'\n00013| import { Card } from '@/components/ui/card'\n00014| import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\n00015| import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'\n00016| import { ScrollArea } from '@/components/ui/scroll-area'\n00017| import { Badge } from '@/components/ui/badge'\n00018| import { Separator } from '@/components/ui/separator'\n00019| import { Switch } from '@/components/ui/switch'\n00020| import { Checkbox } from '@/components/ui/checkbox'\n00021| import { toast } from 'sonner'\n00022| import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet, Settings, Gift } from 'lucide-react'\n00023| import { secureStorage } from '@/lib/security/storage'\n00024| import { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'\n00025| import { quoteRateLimiter } from '@/lib/security/rateLimit'\n\n(File has more lines. Use 'offset' parameter to read beyond line 25)\n</file>",
+    "metadata": {
+      "preview": "import { useEffect, useState } from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useDisconnect } from 'wagmi'\nimport { useWallet } from '@/hooks/useWallet'\nimport { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\nimport { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'\nimport { config } from '@/config'\nimport { Network as AlchemyNetwork } from 'alchemy-sdk'\nimport { Button } from '@/components/ui/button'\nimport { Input } from '@/components/ui/input'\nimport { Card } from '@/components/ui/card'\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\nimport { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'\nimport { ScrollArea } from '@/components/ui/scroll-area'\nimport { Badge } from '@/components/ui/badge'\nimport { Separator } from '@/components/ui/separator'\nimport { Switch } from '@/components/ui/switch'\nimport { Checkbox } from '@/components/ui/checkbox'"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767330707353,
+      "end": 1767330707357
+    }
+  }
+}

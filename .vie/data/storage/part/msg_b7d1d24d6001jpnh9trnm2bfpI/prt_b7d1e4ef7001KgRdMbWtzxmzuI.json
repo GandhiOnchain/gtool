@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d1e4ef7001KgRdMbWtzxmzuI",
+  "messageID": "msg_b7d1d24d6001jpnh9trnm2bfpI",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01EfFzmi1xnpYRHfV22uWgmU",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 172,
+      "limit": 30
+    },
+    "output": "<file>\n00173|   const [debugInfo, setDebugInfo] = useState<string>('')\n00174|   const [airdrops, setAirdrops] = useState<Array<{\n00175|     id: string\n00176|     name: string\n00177|     description: string\n00178|     protocol: string\n00179|     chainId: number\n00180|     chainName: string\n00181|     tokenSymbol: string\n00182|     amount: string\n00183|     amountUsd?: string\n00184|     claimUrl?: string\n00185|     contractAddress?: string\n00186|     isEligible: boolean\n00187|     isClaimed: boolean\n00188|     claimDeadline?: number\n00189|     logo?: string\n00190|     type: 'standard' | 'clanker' | 'farcaster'\n00191|   }>>([])\n00192|   const [isLoadingAirdrops, setIsLoadingAirdrops] = useState(false)\n00193|   const [isClaiming, setIsClaiming] = useState(false)\n00194|   const [portfolioData, setPortfolioData] = useState<{\n00195|     totalValueUsd: number\n00196|     chains: Array<{\n00197|       chainId: number\n00198|       chainName: string\n00199|       valueUsd: number\n00200|       tokens: Array<{\n00201|         address: string\n00202|         symbol: string\n\n(File has more lines. Use 'offset' parameter to read beyond line 202)\n</file>",
+    "metadata": {
+      "preview": "  const [debugInfo, setDebugInfo] = useState<string>('')\n  const [airdrops, setAirdrops] = useState<Array<{\n    id: string\n    name: string\n    description: string\n    protocol: string\n    chainId: number\n    chainName: string\n    tokenSymbol: string\n    amount: string\n    amountUsd?: string\n    claimUrl?: string\n    contractAddress?: string\n    isEligible: boolean\n    isClaimed: boolean\n    claimDeadline?: number\n    logo?: string\n    type: 'standard' | 'clanker' | 'farcaster'\n  }>>([])\n  const [isLoadingAirdrops, setIsLoadingAirdrops] = useState(false)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767330697957,
+      "end": 1767330697961
+    }
+  }
+}

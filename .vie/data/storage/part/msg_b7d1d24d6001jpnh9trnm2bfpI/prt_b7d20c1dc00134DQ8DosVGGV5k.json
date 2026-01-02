@@ -1,0 +1,25 @@
+{
+  "id": "prt_b7d20c1dc00134DQ8DosVGGV5k",
+  "messageID": "msg_b7d1d24d6001jpnh9trnm2bfpI",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_017i9zLrRaaVUUbdjdds1tum",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/airdrop/eligibility.ts",
+      "offset": 0,
+      "limit": 20
+    },
+    "output": "<file>\n00001| import { alchemy, getAlchemyNetwork } from '../alchemy/config'\n00002| import { AIRDROP_CONFIG } from './config'\n00003| import type { AirdropEligibility } from './types'\n00004| import { formatUnits, parseUnits } from 'viem'\n00005| \n00006| /**\n00007|  * Check if a wallet is eligible for the airdrop using Moralis/Alchemy\n00008|  */\n00009| export async function checkAirdropEligibility(\n00010|   walletAddress: string\n00011| ): Promise<AirdropEligibility> {\n00012|   try {\n00013|     // Get wallet balance on the specified chain\n00014|     const network = getAlchemyNetwork(AIRDROP_CONFIG.chainId)\n00015|     \n00016|     // Get native token balance (ETH on Base)\n00017|     const balance = await alchemy.core.getBalance(walletAddress, 'latest')\n00018|     const ethBalance = formatUnits(balance.toBigInt(), 18)\n00019|     \n00020|     console.log('Checking eligibility:', {\n\n(File has more lines. Use 'offset' parameter to read beyond line 20)\n</file>",
+    "metadata": {
+      "preview": "import { alchemy, getAlchemyNetwork } from '../alchemy/config'\nimport { AIRDROP_CONFIG } from './config'\nimport type { AirdropEligibility } from './types'\nimport { formatUnits, parseUnits } from 'viem'\n\n/**\n * Check if a wallet is eligible for the airdrop using Moralis/Alchemy\n */\nexport async function checkAirdropEligibility(\n  walletAddress: string\n): Promise<AirdropEligibility> {\n  try {\n    // Get wallet balance on the specified chain\n    const network = getAlchemyNetwork(AIRDROP_CONFIG.chainId)\n    \n    // Get native token balance (ETH on Base)\n    const balance = await alchemy.core.getBalance(walletAddress, 'latest')\n    const ethBalance = formatUnits(balance.toBigInt(), 18)\n    \n    console.log('Checking eligibility:', {"
+    },
+    "title": "frontend/src/lib/airdrop/eligibility.ts",
+    "time": {
+      "start": 1767330858682,
+      "end": 1767330858684
+    }
+  }
+}

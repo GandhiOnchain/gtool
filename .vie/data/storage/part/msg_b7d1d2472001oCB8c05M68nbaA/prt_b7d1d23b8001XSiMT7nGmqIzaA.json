@@ -1,0 +1,7 @@
+{
+  "id": "prt_b7d1d23b8001XSiMT7nGmqIzaA",
+  "type": "text",
+  "text": "- In the gift icon section, display the user's eligibility status, claimable token amount (e.g., based on a Merkle proof or wallet snapshot), and a \"Claim Airdrop\" button.\n- Use Moralis API for wallet authentication and onchain queries (check eligibility without leaving the app).\n- When the user clicks Claim, execute the transaction in-app: Connect wallet if needed, sign the claim tx, and transfer tokens to the user's address on Base chain.\n- Handle errors like \"Already claimed\" or \"Not eligible\", and show a success message with updated balance after claim.\n- Make it gas-efficient; no redirects or external sites—keep everything seamless within the app.\n- Token details: [Specify your token, e.g., ERC20 at address 0x..., total airdrop supply 1M tokens, eligibility for users with >0.01 ETH balance or custom criteria].\n- Update the UI to be clean, matching the existing theme with badges and buttons.\n\nDiagnostic complete and publish-ready.",
+  "messageID": "msg_b7d1d2472001oCB8c05M68nbaA",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI"
+}

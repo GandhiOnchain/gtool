@@ -1,0 +1,31 @@
+{
+  "id": "prt_b7d20844e001oBzPjYx0xYyC00",
+  "messageID": "msg_b7d1d24d6001jpnh9trnm2bfpI",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01KmegyQu219CmVKWoVFUsG4",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ❌ ERROR [2899:33] Expected 3 arguments, but got 1. [typescript]\n  ❌ ERROR [2900:29] Argument of type 'boolean' is not assignable to parameter of type 'SetStateAction<{ isEligible: boolean; amount: string; amountFormatted: string; reason?: string | undefined; alreadyClaimed?: boolean | undefined; proof?: string[] | undefined; } | null>'. [typescript]\n  ❌ ERROR [2902:23] Property 'isEligible' does not exist on type 'boolean'. [typescript]\n  ❌ ERROR [2905:46] Property 'amountFormatted' does not exist on type 'boolean'. [typescript]\n  ❌ ERROR [2924:32] Property 'reason' does not exist on type 'boolean'. [typescript]\n\n──────────────────────────────────────────────────\nSummary: 5 issue(s) found\n  - 5 error(s)\n",
+    "metadata": {
+      "filesChecked": 4,
+      "filesWithIssues": 1,
+      "totalIssues": 5,
+      "errorCount": 5,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/src/pages/RelaySwap.tsx",
+        "frontend/src/lib/airdrop/config.ts",
+        "frontend/src/lib/airdrop/eligibility.ts",
+        "frontend/src/lib/airdrop/types.ts"
+      ]
+    },
+    "title": "Diagnostics: 5 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1767330841848,
+      "end": 1767330854238
+    }
+  }
+}

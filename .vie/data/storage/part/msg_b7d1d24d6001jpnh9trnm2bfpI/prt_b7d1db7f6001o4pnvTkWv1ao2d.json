@@ -1,0 +1,26 @@
+{
+  "id": "prt_b7d1db7f6001o4pnvTkWv1ao2d",
+  "messageID": "msg_b7d1d24d6001jpnh9trnm2bfpI",
+  "sessionID": "ses_487667e6dffeVOIc2hDIqWL1PI",
+  "type": "tool",
+  "tool": "write",
+  "callID": "toolu_vrtx_01V95yadsqcnvjGuYpbUaefJ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/airdrop/eligibility.ts",
+      "content": "import { alchemy, getAlchemyNetwork } from '../alchemy/config'\nimport { AIRDROP_CONFIG } from './config'\nimport type { AirdropEligibility } from './types'\nimport { formatUnits, parseUnits } from 'viem'\n\n/**\n * Check if a wallet is eligible for the airdrop using Moralis/Alchemy\n */\nexport async function checkAirdropEligibility(\n  walletAddress: string\n): Promise<AirdropEligibility> {\n  try {\n    // Get wallet balance on the specified chain\n    const network = getAlchemyNetwork(AIRDROP_CONFIG.chainId)\n    \n    // Get native token balance (ETH on Base)\n    const balance = await alchemy.core.getBalance(walletAddress, 'latest')\n    const ethBalance = formatUnits(balance.toBigInt(), 18)\n    \n    console.log('Checking eligibility:', {\n      address: walletAddress,\n      ethBalance,\n      minRequired: AIRDROP_CONFIG.eligibilityCriteria.minEthBalance\n    })\n    \n    // Check minimum ETH balance requirement\n    const minEthBalance = AIRDROP_CONFIG.eligibilityCriteria.minEthBalance || '0'\n    const hasMinBalance = parseFloat(ethBalance) >= parseFloat(minEthBalance)\n    \n    if (!hasMinBalance) {\n      return {\n        isEligible: false,\n        amount: '0',\n        amountFormatted: '0',\n        reason: `Minimum ${minEthBalance} ETH balance required. You have ${parseFloat(ethBalance).toFixed(4)} ETH`\n      }\n    }\n    \n    // Calculate airdrop amount based on ETH balance\n    // Example: 1000 tokens per 0.01 ETH (you can customize this formula)\n    const airdropAmount = calculateAirdropAmount(ethBalance)\n    \n    // Check if already claimed (if using claim contract)\n    if (AIRDROP_CONFIG.claimContractAddress) {\n      const hasClaimed = await checkIfClaimed(walletAddress)\n      if (hasClaimed) {\n        return {\n          isEligible: false,\n          amount: '0',\n          amountFormatted: '0',\n          reason: 'Airdrop already claimed',\n          alreadyClaimed: true\n        }\n      }\n    }\n    \n    return {\n      isEligible: true,\n      amount: airdropAmount,\n      amountFormatted: formatUnits(\n        parseUnits(airdropAmount, AIRDROP_CONFIG.tokenDecimals),\n        AIRDROP_CONFIG.tokenDecimals\n      ),\n      proof: undefined, // Will be populated if using Merkle tree\n    }\n  } catch (error) {\n    console.error('Error checking eligibility:', error)\n    return {\n      isEligible: false,\n      amount: '0',\n      amountFormatted: '0',\n      reason: 'Error checking eligibility. Please try again.'\n    }\n  }\n}\n\n/**\n * Calculate airdrop amount based on wallet balance\n * Customize this formula based on your requirements\n */\nfunction calculateAirdropAmount(ethBalance: string): string {\n  const balance = parseFloat(ethBalance)\n  \n  // Example tiered distribution:\n  // 0.01-0.1 ETH: 1000 tokens\n  // 0.1-1 ETH: 5000 tokens\n  // 1+ ETH: 10000 tokens\n  \n  if (balance >= 1) {\n    return '10000'\n  } else if (balance >= 0.1) {\n    return '5000'\n  } else if (balance >= 0.01) {\n    return '1000'\n  }\n  \n  return '0'\n}\n\n/**\n * Check if user has already claimed (if using claim contract)\n */\nasync function checkIfClaimed(walletAddress: string): Promise<boolean> {\n  if (!AIRDROP_CONFIG.claimContractAddress) {\n    return false\n  }\n  \n  try {\n    // This would call the claim contract's hasClaimed function\n    // For now, return false as placeholder\n    return false\n  } catch (error) {\n    console.error('Error checking claim status:', error)\n    return false\n  }\n}\n\n/**\n * Get Merkle proof for a wallet address (if using Merkle tree distribution)\n */\nexport async function getMerkleProof(\n  walletAddress: string,\n  amount: string\n): Promise<string[] | undefined> {\n  if (!AIRDROP_CONFIG.merkleRoot) {\n    return undefined\n  }\n  \n  try {\n    // This would fetch the Merkle proof from your backend/API\n    // For now, return undefined as placeholder\n    // \n    // Example implementation:\n    // const response = await fetch(`/api/merkle-proof?address=${walletAddress}&amount=${amount}`)\n    // const data = await response.json()\n    // return data.proof\n    \n    return undefined\n  } catch (error) {\n    console.error('Error getting Merkle proof:', error)\n    return undefined\n  }\n}\n"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "filepath": "/home/user/sandbox/workspace/frontend/src/lib/airdrop/eligibility.ts",
+      "exists": false
+    },
+    "title": "frontend/src/lib/airdrop/eligibility.ts",
+    "time": {
+      "start": 1767330676709,
+      "end": 1767330676710
+    }
+  }
+}
