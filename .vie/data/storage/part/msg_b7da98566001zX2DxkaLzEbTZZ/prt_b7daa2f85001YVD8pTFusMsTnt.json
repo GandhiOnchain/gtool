@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7daa2f85001YVD8pTFusMsTnt",
+  "messageID": "msg_b7da98566001zX2DxkaLzEbTZZ",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "Fixed. Made several changes:\n1. Added `overflow-visible` to the Card component to prevent clipping\n2. Removed `overflow-hidden` from the parent div\n3. Made badges even smaller (`text-[9px]`, `h-4`, `px-1`, `leading-none`)\n4. Added `flex-shrink-0` and `ml-2` to the badge container to ensure they have dedicated space\n5. Changed gap from `gap-1` to `gap-0.5` to make badges more compact\n\nThe badges should now display fully without being cut off.",
+  "time": {
+    "start": 1767339866966,
+    "end": 1767339866966
+  }
+}

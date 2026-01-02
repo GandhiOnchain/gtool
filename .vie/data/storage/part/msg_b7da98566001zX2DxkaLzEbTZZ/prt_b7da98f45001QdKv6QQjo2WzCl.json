@@ -1,0 +1,11 @@
+{
+  "id": "prt_b7da98f45001QdKv6QQjo2WzCl",
+  "messageID": "msg_b7da98566001zX2DxkaLzEbTZZ",
+  "sessionID": "ses_482baf145ffeLNN5P2MRWUPUZZ",
+  "type": "text",
+  "text": "I can see the badges are still cut off. The problem is the ScrollArea or Card component has overflow constraints. Let me try a different approach - I'll make the badges smaller and use a more compact layout:",
+  "time": {
+    "start": 1767339826206,
+    "end": 1767339826206
+  }
+}

@@ -4039,40 +4039,40 @@ export default function RelaySwap() {
                 <ScrollArea className="h-[400px]">
                   <div className="space-y-2">
                     {approvals.map((approval, idx) => (
-                      <Card key={idx} className="p-3 hover:bg-muted/50 transition-colors">
-                        <div className="space-y-2.5">
-                          <div className="flex items-start gap-2">
-                            <Checkbox
-                              checked={selectedApprovals.has(idx)}
-                              onCheckedChange={() => toggleApprovalSelection(idx)}
-                              className="mt-1 flex-shrink-0"
-                            />
-                            <div className="flex-1 overflow-hidden">
-                              <div className="flex items-start gap-2">
-                                <div className="flex items-center gap-2 flex-1 min-w-0">
-                                  {approval.token.metadata?.logoURI ? (
-                                    <img src={approval.token.metadata.logoURI} alt="" className="h-6 w-6 rounded-full flex-shrink-0" />
-                                  ) : (
-                                    <div className="h-6 w-6 rounded-full bg-muted flex-shrink-0" />
-                                  )}
-                                  <div className="min-w-0 flex-1">
-                                    <div className="text-sm font-medium">{approval.token.symbol}</div>
-                                    <div className="text-xs text-muted-foreground truncate">{approval.token.name}</div>
-                                  </div>
-                                </div>
-                                <div className="flex flex-col gap-1 items-end">
-                                  {approval.allowanceFormatted === 'Unlimited' && (
-                                    <Badge variant="destructive" className="text-[10px] h-5 px-1.5 whitespace-nowrap">
-                                      Unlimited
-                                    </Badge>
-                                  )}
-                                  {approval.riskLevel === 'high' && (
-                                    <Badge variant="destructive" className="text-[10px] h-5 px-1.5 whitespace-nowrap">
-                                      High Risk
-                                    </Badge>
-                                  )}
-                                </div>
-                              </div>
+                       <Card key={idx} className="p-3 hover:bg-muted/50 transition-colors overflow-visible">
+                         <div className="space-y-2.5">
+                           <div className="flex items-start gap-2">
+                             <Checkbox
+                               checked={selectedApprovals.has(idx)}
+                               onCheckedChange={() => toggleApprovalSelection(idx)}
+                               className="mt-1 flex-shrink-0"
+                             />
+                             <div className="flex-1">
+                               <div className="flex items-start gap-2 justify-between">
+                                 <div className="flex items-center gap-2 flex-1 min-w-0">
+                                   {approval.token.metadata?.logoURI ? (
+                                     <img src={approval.token.metadata.logoURI} alt="" className="h-6 w-6 rounded-full flex-shrink-0" />
+                                   ) : (
+                                     <div className="h-6 w-6 rounded-full bg-muted flex-shrink-0" />
+                                   )}
+                                   <div className="min-w-0 flex-1">
+                                     <div className="text-sm font-medium">{approval.token.symbol}</div>
+                                     <div className="text-xs text-muted-foreground truncate">{approval.token.name}</div>
+                                   </div>
+                                 </div>
+                                 <div className="flex flex-col gap-0.5 flex-shrink-0 ml-2">
+                                   {approval.allowanceFormatted === 'Unlimited' && (
+                                     <Badge variant="destructive" className="text-[9px] h-4 px-1 leading-none">
+                                       Unlimited
+                                     </Badge>
+                                   )}
+                                   {approval.riskLevel === 'high' && (
+                                     <Badge variant="destructive" className="text-[9px] h-4 px-1 leading-none">
+                                       High Risk
+                                     </Badge>
+                                   )}
+                                 </div>
+                               </div>
                               
                               <Separator className="my-2" />
                               
