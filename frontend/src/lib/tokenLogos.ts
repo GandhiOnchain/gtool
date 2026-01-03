@@ -63,14 +63,15 @@ export function getTokenLogoFallbacks(
 
 /**
  * Get chain logo URL
+ * Using DeFi Llama for updated chain logos
  */
 export function getChainLogo(chainId: number): string {
   const chainLogos: Record<number, string> = {
-    1: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png',
-    8453: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/base/info/logo.png',
-    42161: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/arbitrum/info/logo.png',
-    137: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/polygon/info/logo.png',
-    10: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/optimism/info/logo.png',
+    1: 'https://icons.llamao.fi/icons/chains/rsz_ethereum.jpg',
+    8453: 'https://icons.llamao.fi/icons/chains/rsz_base.jpg',
+    42161: 'https://icons.llamao.fi/icons/chains/rsz_arbitrum.jpg',
+    137: 'https://icons.llamao.fi/icons/chains/rsz_polygon.jpg',
+    10: 'https://icons.llamao.fi/icons/chains/rsz_optimism.jpg',
   }
   return chainLogos[chainId] || chainLogos[1]
 }

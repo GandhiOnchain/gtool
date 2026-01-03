@@ -1,0 +1,26 @@
+{
+  "id": "prt_b81e557b2001qHGZ6zDbnG2hBg",
+  "messageID": "msg_b81e51e63001yoPqBlSDkPygvU",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01BzAapS3H6bNk6NkvuqjCbv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat > /tmp/test_base_logos.sh << 'EOF'\n#!/bin/bash\n\necho \"Testing Base logo URLs...\"\necho \"\"\n\n# Test various Base logo sources\necho \"1. TrustWallet Base logo:\"\ncurl -sI \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/base/info/logo.png\" | grep \"HTTP\" | head -1\n\necho \"\"\necho \"2. Base official (coinbase CDN):\"\ncurl -sI \"https://assets.base.org/img/base-logo.svg\" 2>&1 | grep \"HTTP\" | head -1\n\necho \"\"\necho \"3. Alternative Base logo:\"\ncurl -sI \"https://avatars.githubusercontent.com/u/108554348\" 2>&1 | grep \"HTTP\" | head -1\n\necho \"\"\necho \"4. CoinGecko Base:\"\ncurl -sI \"https://assets.coingecko.com/coins/images/31164/small/base.png\" 2>&1 | grep \"HTTP\" | head -1\n\nEOF\n\nchmod +x /tmp/test_base_logos.sh\n/tmp/test_base_logos.sh",
+      "description": "Test different Base logo sources"
+    },
+    "output": "Testing Base logo URLs...\n\n1. TrustWallet Base logo:\nHTTP/2 200 \r\n\n2. Base official (coinbase CDN):\n\n3. Alternative Base logo:\nHTTP/2 200 \r\n\n4. CoinGecko Base:\nHTTP/2 403 \r\n",
+    "metadata": {
+      "output": "Testing Base logo URLs...\n\n1. TrustWallet Base logo:\nHTTP/2 200 \r\n\n2. Base official (coinbase CDN):\n\n3. Alternative Base logo:\nHTTP/2 200 \r\n\n4. CoinGecko Base:\nHTTP/2 403 \r\n",
+      "exit": 0,
+      "description": "Test different Base logo sources"
+    },
+    "title": "cat > /tmp/test_base_logos.sh << 'EOF'\n#!/bin/bash\n\necho \"Testing Base logo URLs...\"\necho \"\"\n\n# Test various Base logo sources\necho \"1. TrustWallet Base logo:\"\ncurl -sI \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/base/info/logo.png\" | grep \"HTTP\" | head -1\n\necho \"\"\necho \"2. Base official (coinbase CDN):\"\ncurl -sI \"https://assets.base.org/img/base-logo.svg\" 2>&1 | grep \"HTTP\" | head -1\n\necho \"\"\necho \"3. Alternative Base logo:\"\ncurl -sI \"https://avatars.githubusercontent.com/u/108554348\" 2>&1 | grep \"HTTP\" | head -1\n\necho \"\"\necho \"4. CoinGecko Base:\"\ncurl -sI \"https://assets.coingecko.com/coins/images/31164/small/base.png\" 2>&1 | grep \"HTTP\" | head -1\n\nEOF\n\nchmod +x /tmp/test_base_logos.sh\n/tmp/test_base_logos.sh",
+    "time": {
+      "start": 1767410853920,
+      "end": 1767410854220
+    }
+  }
+}
