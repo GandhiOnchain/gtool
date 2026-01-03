@@ -2933,14 +2933,25 @@ export default function RelaySwap() {
       
       // Process Zapper data if available
       if (zapperData?.tokenBalances) {
-        console.log('Processing Zapper tokens:', zapperData.tokenBalances.length)
+        console.log('✅ Processing Zapper tokens:', zapperData.tokenBalances.length)
+        console.log('Zapper total value:', zapperData.totals.total)
         
         for (const item of zapperData.tokenBalances) {
           const token = item.token
           const chainId = ZAPPER_NETWORK_TO_CHAIN_ID[token.baseToken.network] || 1
           
+          console.log('Processing token:', {
+            symbol: token.baseToken.symbol,
+            network: token.baseToken.network,
+            chainId,
+            balance: token.balance,
+            balanceUSD: token.balanceUSD,
+            logo: token.baseToken.imgUrl
+          })
+          
           // Skip if not in supported chains
           if (!supportedChains.find(c => c.id === chainId)) {
+            console.log(`Skipping ${token.baseToken.symbol} - chain ${chainId} not supported`)
             continue
           }
           
@@ -2970,10 +2981,10 @@ export default function RelaySwap() {
           })
           
           chain.valueUsd += valueUsd
-          totalValue += valueUsd
         }
         
         totalValue = zapperData.totals.total
+        console.log('Zapper processing complete. Chains:', chainData.size, 'Total value:', totalValue)
       } else {
         // Fallback to Moralis if Zapper fails
         console.log('Using Moralis as fallback')
@@ -3029,9 +3040,16 @@ export default function RelaySwap() {
       
       const chainsArray = Array.from(chainData.values()).sort((a, b) => b.valueUsd - a.valueUsd)
       
-      console.log('Final portfolio data:', {
+      console.log('📊 Final portfolio data:', {
         totalValue,
-        chains: chainsArray,
+        chainsCount: chainsArray.length,
+        chains: chainsArray.map(c => ({ 
+          chainId: c.chainId, 
+          chainName: c.chainName, 
+          tokensCount: c.tokens.length,
+          valueUsd: c.valueUsd,
+          tokens: c.tokens.map(t => ({ symbol: t.symbol, valueUsd: t.valueUsd, logo: t.logo }))
+        })),
         tokensWithLogos: chainsArray.flatMap(c => c.tokens.filter(t => t.logo).map(t => ({ symbol: t.symbol, logo: t.logo }))),
         tokensWithoutLogos: chainsArray.flatMap(c => c.tokens.filter(t => !t.logo).map(t => ({ symbol: t.symbol })))
       })

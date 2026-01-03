@@ -1,0 +1,11 @@
+{
+  "id": "prt_b82690918001xb8i0M1a7SmpZ2",
+  "messageID": "msg_b8268eb1b001ZB4Qh4wq5NDpZ6",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "I can see the portfolio shows $0.01 total value but no token breakdown. The Zapper API is working (I tested it and got data), but the UI isn't displaying the tokens. Let me check the console logs and fix the issue:",
+  "time": {
+    "start": 1767419484064,
+    "end": 1767419484064
+  }
+}

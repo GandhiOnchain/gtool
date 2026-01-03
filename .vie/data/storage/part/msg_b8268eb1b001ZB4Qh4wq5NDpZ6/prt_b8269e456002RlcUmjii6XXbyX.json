@@ -1,0 +1,11 @@
+{
+  "id": "prt_b8269e456002RlcUmjii6XXbyX",
+  "messageID": "msg_b8268eb1b001ZB4Qh4wq5NDpZ6",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "The UI code looks correct. The issue must be in the data processing. Let me check if `portfolioData.chains` has data. Let me add a check to see if chains array is empty:",
+  "time": {
+    "start": 1767419539515,
+    "end": 1767419539515
+  }
+}
