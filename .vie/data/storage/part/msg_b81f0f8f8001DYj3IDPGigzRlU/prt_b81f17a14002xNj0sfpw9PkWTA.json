@@ -1,0 +1,11 @@
+{
+  "id": "prt_b81f17a14002xNj0sfpw9PkWTA",
+  "messageID": "msg_b81f0f8f8001DYj3IDPGigzRlU",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "I can see the revoke functionality is using Revoke.cash API. Let me check if Moralis has a better API for this. Let me also verify the Moralis API key is working:",
+  "time": {
+    "start": 1767411658598,
+    "end": 1767411658598
+  }
+}

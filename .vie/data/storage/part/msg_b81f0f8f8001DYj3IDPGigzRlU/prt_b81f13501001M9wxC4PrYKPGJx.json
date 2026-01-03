@@ -1,0 +1,26 @@
+{
+  "id": "prt_b81f13501001M9wxC4PrYKPGJx",
+  "messageID": "msg_b81f0f8f8001DYj3IDPGigzRlU",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01ApU5M2PTdVXNVpCA9o2qmY",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "find /home/user/sandbox/workspace/frontend/src -name \"*moralis*\" -o -name \"*Moralis*\" 2>/dev/null",
+      "description": "Find Moralis files"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Find Moralis files"
+    },
+    "title": "find /home/user/sandbox/workspace/frontend/src -name \"*moralis*\" -o -name \"*Moralis*\" 2>/dev/null",
+    "time": {
+      "start": 1767411628093,
+      "end": 1767411628103
+    }
+  }
+}
