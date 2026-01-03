@@ -1,0 +1,25 @@
+{
+  "id": "prt_b81f7ff87001Q9oM941PR9TZn2",
+  "messageID": "msg_b81f74a2a001rj5WBOGZbqOQZw",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01Rue9kunQDuBPbh98v4Jw8k",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 26,
+      "limit": 5
+    },
+    "output": "<file>\n00027| import { useTokensByOwnerOnMultipleChains } from '@/hooks/alchemy/portfolio/useTokensByOwnerOnMultipleChains'\n00028| import { getTokenLogoFallbacks, getChainLogo } from '@/lib/tokenLogos'\n00029| \n00030| interface TrendingToken {\n00031|   address: string\n\n(File has more lines. Use 'offset' parameter to read beyond line 31)\n</file>",
+    "metadata": {
+      "preview": "import { useTokensByOwnerOnMultipleChains } from '@/hooks/alchemy/portfolio/useTokensByOwnerOnMultipleChains'\nimport { getTokenLogoFallbacks, getChainLogo } from '@/lib/tokenLogos'\n\ninterface TrendingToken {\n  address: string"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1767412073437,
+      "end": 1767412073439
+    }
+  }
+}

@@ -24,7 +24,7 @@ import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet,
 import { secureStorage } from '@/lib/security/storage'
 import { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'
 import { quoteRateLimiter } from '@/lib/security/rateLimit'
-import { useTokensByOwnerOnMultipleChains } from '@/hooks/alchemy/portfolio/useTokensByOwnerOnMultipleChains'
+import { useMoralisPortfolio } from '@/hooks/useMoralisPortfolio'
 import { getTokenLogoFallbacks, getChainLogo } from '@/lib/tokenLogos'
 
 interface TrendingToken {
@@ -179,7 +179,7 @@ export default function RelaySwap() {
   const { connect, connectors } = useConnect()
   const { disconnect } = useWallet()
   const { switchChain } = useSwitchChain()
-  const { fetchTokensByOwnerOnMultipleChains } = useTokensByOwnerOnMultipleChains()
+  const { fetchPortfolio: fetchMoralisPortfolio } = useMoralisPortfolio()
   const [chains, setChains] = useState<RelayChain[]>([])
   const [fromChain, setFromChain] = useState<RelayChain | null>(null)
   const [toChain, setToChain] = useState<RelayChain | null>(null)
@@ -2900,16 +2900,13 @@ export default function RelaySwap() {
         { id: 10, name: 'Optimism' },
       ]
       
-      console.log('Fetching portfolio for:', address)
-      const response = await fetchTokensByOwnerOnMultipleChains({
-        walletAddress: address,
-        chainIds: supportedChains.map(c => c.id),
-        withMetadata: true,
-        withPrices: true,
-        includeNativeTokens: true
-      })
+      console.log('Fetching portfolio from Moralis for:', address)
+      const response = await fetchMoralisPortfolio(
+        address,
+        supportedChains.map(c => c.id)
+      )
       
-      console.log('Portfolio response:', response)
+      console.log('Moralis portfolio response:', response)
       
       const chainData = new Map<number, {
         chainId: number
@@ -2928,32 +2925,19 @@ export default function RelaySwap() {
       }>()
       let totalValue = 0
       
-      const tokens = response?.data?.tokens || []
+      const tokens = response?.tokens || []
       console.log('Tokens found:', tokens.length)
       
       if (tokens && tokens.length > 0) {
         for (const token of tokens) {
-          const decimals = token.tokenMetadata?.decimals || 18
-          const balance = parseFloat(token.tokenBalance) / Math.pow(10, decimals)
-          
-          console.log('Token details:', {
-            symbol: token.tokenMetadata?.symbol,
-            name: token.tokenMetadata?.name,
-            balance,
-            decimals,
-            rawBalance: token.tokenBalance,
-            network: token.network,
-            logo: token.tokenMetadata?.logo,
-            hasLogo: !!token.tokenMetadata?.logo,
-            logoUrl: token.tokenMetadata?.logo
-          })
+          const balance = parseFloat(token.balance_formatted || '0')
           
           if (balance === 0 || isNaN(balance)) {
-            console.log('Skipping token with zero/invalid balance')
             continue
           }
           
-          const chainId = supportedChains.find(c => getAlchemyNetwork(c.id) === token.network)?.id || 1
+          const chainId = token.chainId || 1
+          const logoUrl = token.logo || token.thumbnail || undefined
           
           if (!chainData.has(chainId)) {
             chainData.set(chainId, {
@@ -2966,28 +2950,15 @@ export default function RelaySwap() {
           
           const chain = chainData.get(chainId)!
           
-          const pricesArray = token.tokenPrices || []
-          const usdPrice = pricesArray.find((p) => p.currency === 'usd')
-          const priceUsd = usdPrice ? parseFloat(usdPrice.value) : 0
-          const valueUsd = balance * priceUsd
-          
-          console.log('Token value:', {
-            symbol: token.tokenMetadata?.symbol,
-            balance,
-            priceUsd,
-            valueUsd
-          })
-          
-          const logoUrl = token.tokenMetadata?.logo && token.tokenMetadata.logo.trim() !== '' 
-            ? token.tokenMetadata.logo 
-            : undefined
+          const priceUsd = token.usd_price || 0
+          const valueUsd = token.usd_value || 0
           
           chain.tokens.push({
-            address: token.tokenAddress || 'native',
-            symbol: token.tokenMetadata?.symbol || 'UNKNOWN',
-            name: token.tokenMetadata?.name || 'Unknown',
-            balance: token.tokenBalance,
-            balanceFormatted: balance.toFixed(6),
+            address: token.token_address,
+            symbol: token.symbol,
+            name: token.name,
+            balance: token.balance,
+            balanceFormatted: token.balance_formatted || balance.toFixed(6),
             valueUsd,
             priceUsd,
             logo: logoUrl,

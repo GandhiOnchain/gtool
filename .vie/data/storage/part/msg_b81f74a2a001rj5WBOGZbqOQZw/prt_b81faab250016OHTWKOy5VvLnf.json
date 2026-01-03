@@ -1,0 +1,47 @@
+{
+  "id": "prt_b81faab250016OHTWKOy5VvLnf",
+  "messageID": "msg_b81f74a2a001rj5WBOGZbqOQZw",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01RnNVCE8JaeCQSXzpWPhmth",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "✅ All checked files are clean!\n\nChecked 20 file(s):\n  - frontend/output/index.html\n  - frontend/src/pages/RelaySwap.tsx\n  - frontend/output/assets/SIWXUtil-BuDodH_F.js\n  - frontend/output/assets/_esm-CK_yJIKS.js\n  - frontend/output/assets/actions-C7jlREFr.js\n  - frontend/output/assets/basic-uDuxDthe.js\n  - frontend/output/assets/ccip-CygEVV76.js\n  - frontend/output/assets/ccip-CynpPnj6.js\n  - frontend/output/assets/ccip-gnFu2iJO.js\n  - frontend/output/assets/core-Sp_oct8u.js\n  - frontend/output/assets/dist-f0xK4h9P.js\n  - frontend/output/assets/index-D15F6UVl.js\n  - frontend/output/assets/localBatchGatewayRequest-052H-QfJ.js\n  - frontend/output/assets/secp256k1-CJFWiWZc.js\n  - frontend/output/assets/secp256k1-CuDM5Atf.js\n  - frontend/output/assets/secp256k1-DFC9bzwf.js\n  - frontend/output/assets/w3m-modal-BjdCbqDb.js\n  - frontend/output/assets/wagmi-CGakz3eH.js\n  - frontend/output/assets/wui-text-MTRdA-7S.js\n  - frontend/src/hooks/useMoralisPortfolio.ts",
+    "metadata": {
+      "filesChecked": 20,
+      "filesWithIssues": 0,
+      "totalIssues": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/output/index.html",
+        "frontend/src/pages/RelaySwap.tsx",
+        "frontend/output/assets/SIWXUtil-BuDodH_F.js",
+        "frontend/output/assets/_esm-CK_yJIKS.js",
+        "frontend/output/assets/actions-C7jlREFr.js",
+        "frontend/output/assets/basic-uDuxDthe.js",
+        "frontend/output/assets/ccip-CygEVV76.js",
+        "frontend/output/assets/ccip-CynpPnj6.js",
+        "frontend/output/assets/ccip-gnFu2iJO.js",
+        "frontend/output/assets/core-Sp_oct8u.js",
+        "frontend/output/assets/dist-f0xK4h9P.js",
+        "frontend/output/assets/index-D15F6UVl.js",
+        "frontend/output/assets/localBatchGatewayRequest-052H-QfJ.js",
+        "frontend/output/assets/secp256k1-CJFWiWZc.js",
+        "frontend/output/assets/secp256k1-CuDM5Atf.js",
+        "frontend/output/assets/secp256k1-DFC9bzwf.js",
+        "frontend/output/assets/w3m-modal-BjdCbqDb.js",
+        "frontend/output/assets/wagmi-CGakz3eH.js",
+        "frontend/output/assets/wui-text-MTRdA-7S.js",
+        "frontend/src/hooks/useMoralisPortfolio.ts"
+      ]
+    },
+    "title": "Diagnostics: 0 issue(s) in 0 file(s)",
+    "time": {
+      "start": 1767412247573,
+      "end": 1767412251778
+    }
+  }
+}

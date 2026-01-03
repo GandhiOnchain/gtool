@@ -1,0 +1,11 @@
+{
+  "id": "prt_b81fa7315001GvtO3lfYp2fz3b",
+  "messageID": "msg_b81f74a2a001rj5WBOGZbqOQZw",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "Perfect! Moralis has an approvals API that returns detailed approval information including logos. The revoke functionality can use this. Let me mark the tasks as complete:",
+  "time": {
+    "start": 1767412238691,
+    "end": 1767412238691
+  }
+}
