@@ -1,0 +1,23 @@
+{
+  "id": "prt_b81e2c923001QAFejY0WsRSVHX",
+  "messageID": "msg_b81e2b522001j0ZCD8pMcVgyZQ",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_0179kLKp392tMqi9SmadvuDi",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/tokenLogos.ts"
+    },
+    "output": "<file>\n00001| import { getAddress, isAddress } from 'viem'\n00002| \n00003| /**\n00004|  * Get multiple logo URLs to try in order\n00005|  * All URLs are HTTPS to avoid CORS/Mixed Content issues in Farcaster Mini Apps\n00006|  */\n00007| export function getTokenLogoFallbacks(\n00008|   address: string | null | undefined,\n00009|   chainId: number,\n00010|   symbol?: string\n00011| ): string[] {\n00012|   // Native token logos - use chain-specific logos from TrustWallet\n00013|   if (!address || address === 'native') {\n00014|     const nativeLogos: Record<number, string> = {\n00015|       // Ethereum - use TrustWallet's native ETH logo\n00016|       1: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png',\n00017|       // Base - uses ETH as native token\n00018|       8453: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/base/info/logo.png',\n00019|       // Arbitrum - uses ETH as native token\n00020|       42161: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/arbitrum/info/logo.png',\n00021|       // Polygon - uses MATIC as native token\n00022|       137: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/polygon/info/logo.png',\n00023|       // Optimism - uses ETH as native token\n00024|       10: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/optimism/info/logo.png',\n00025|     }\n00026|     return [nativeLogos[chainId] || 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png']\n00027|   }\n00028| \n00029|   const logos: string[] = []\n00030|   const lowerSymbol = symbol?.toLowerCase()\n00031| \n00032|   // 1. Symbol-based from cryptocurrency-icons (HTTPS, most reliable for major tokens)\n00033|   if (lowerSymbol) {\n00034|     logos.push(`https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/${lowerSymbol}.png`)\n00035|   }\n00036| \n00037|   // 2. TrustWallet (HTTPS, good coverage, requires checksummed address)\n00038|   // Chain-specific paths as per TrustWallet documentation\n00039|   const chainNames: Record<number, string> = {\n00040|     1: 'ethereum',\n00041|     8453: 'base',\n00042|     42161: 'arbitrum',\n00043|     137: 'polygon',\n00044|     10: 'optimism',\n00045|   }\n00046|   \n00047|   const chainName = chainNames[chainId]\n00048|   if (chainName && isAddress(address)) {\n00049|     try {\n00050|       const checksummed = getAddress(address)\n00051|       logos.push(`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${chainName}/assets/${checksummed}/logo.png`)\n00052|     } catch (e) {\n00053|       // If checksum fails, try lowercase\n00054|       logos.push(`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${chainName}/assets/${address}/logo.png`)\n00055|     }\n00056|   }\n00057| \n00058|   return logos\n00059| }\n00060| \n</file>",
+    "metadata": {
+      "preview": "import { getAddress, isAddress } from 'viem'\n\n/**\n * Get multiple logo URLs to try in order\n * All URLs are HTTPS to avoid CORS/Mixed Content issues in Farcaster Mini Apps\n */\nexport function getTokenLogoFallbacks(\n  address: string | null | undefined,\n  chainId: number,\n  symbol?: string\n): string[] {\n  // Native token logos - use chain-specific logos from TrustWallet\n  if (!address || address === 'native') {\n    const nativeLogos: Record<number, string> = {\n      // Ethereum - use TrustWallet's native ETH logo\n      1: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png',\n      // Base - uses ETH as native token\n      8453: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/base/info/logo.png',\n      // Arbitrum - uses ETH as native token\n      42161: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/arbitrum/info/logo.png',"
+    },
+    "title": "frontend/src/lib/tokenLogos.ts",
+    "time": {
+      "start": 1767410683132,
+      "end": 1767410683133
+    }
+  }
+}

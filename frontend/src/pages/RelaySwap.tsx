@@ -25,7 +25,7 @@ import { secureStorage } from '@/lib/security/storage'
 import { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'
 import { quoteRateLimiter } from '@/lib/security/rateLimit'
 import { useTokensByOwnerOnMultipleChains } from '@/hooks/alchemy/portfolio/useTokensByOwnerOnMultipleChains'
-import { getTokenLogoFallbacks } from '@/lib/tokenLogos'
+import { getTokenLogoFallbacks, getChainLogo } from '@/lib/tokenLogos'
 
 interface TrendingToken {
   address: string
@@ -4029,6 +4029,11 @@ export default function RelaySwap() {
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
+                              <img 
+                                src={getChainLogo(chain.chainId)} 
+                                alt={chain.chainName}
+                                className="h-4 w-4 rounded-full"
+                              />
                               <div className="text-sm font-medium">{chain.chainName}</div>
                               <Badge variant="outline" className="text-xs">
                                 {chain.tokens.length} tokens

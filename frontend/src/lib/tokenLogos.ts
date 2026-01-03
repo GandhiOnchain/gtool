@@ -9,21 +9,24 @@ export function getTokenLogoFallbacks(
   chainId: number,
   symbol?: string
 ): string[] {
-  // Native token logos - use chain-specific logos from TrustWallet
+  // Native token logos - use actual token logos, not chain logos
   if (!address || address === 'native') {
-    const nativeLogos: Record<number, string> = {
-      // Ethereum - use TrustWallet's native ETH logo
-      1: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png',
-      // Base - uses ETH as native token
-      8453: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/base/info/logo.png',
-      // Arbitrum - uses ETH as native token
-      42161: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/arbitrum/info/logo.png',
-      // Polygon - uses MATIC as native token
-      137: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/polygon/info/logo.png',
-      // Optimism - uses ETH as native token
-      10: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/optimism/info/logo.png',
+    // For native tokens, use the token logo based on symbol
+    // ETH chains (Ethereum, Base, Arbitrum, Optimism) all use ETH logo
+    // Polygon uses MATIC logo
+    const nativeTokenLogos: Record<number, string> = {
+      // Ethereum - ETH logo
+      1: 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/eth.png',
+      // Base - ETH logo (not Base chain logo)
+      8453: 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/eth.png',
+      // Arbitrum - ETH logo (not Arbitrum chain logo)
+      42161: 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/eth.png',
+      // Polygon - MATIC logo (not Polygon chain logo)
+      137: 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/matic.png',
+      // Optimism - ETH logo (not Optimism chain logo)
+      10: 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/eth.png',
     }
-    return [nativeLogos[chainId] || 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png']
+    return [nativeTokenLogos[chainId] || 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/eth.png']
   }
 
   const logos: string[] = []
@@ -56,4 +59,18 @@ export function getTokenLogoFallbacks(
   }
 
   return logos
+}
+
+/**
+ * Get chain logo URL
+ */
+export function getChainLogo(chainId: number): string {
+  const chainLogos: Record<number, string> = {
+    1: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png',
+    8453: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/base/info/logo.png',
+    42161: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/arbitrum/info/logo.png',
+    137: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/polygon/info/logo.png',
+    10: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/optimism/info/logo.png',
+  }
+  return chainLogos[chainId] || chainLogos[1]
 }
