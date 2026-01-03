@@ -1,0 +1,26 @@
+{
+  "id": "prt_b82618398001V31pw7iD1zhE39",
+  "messageID": "msg_b82614c37001hoK3FVzxnRqGyt",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_0129cD9ifpuos7WUEX5ZhfPU",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://api.zapper.xyz/v2/balances/tokens?addresses[]=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\" \\\n  -H \"Authorization: Basic $(echo -n '06112e77-d5df-4c51-8f86-707bc1a842c0:' | base64)\" 2>&1 | head -50",
+      "description": "Test Zapper tokens endpoint"
+    },
+    "output": "{\"message\":\"Forbidden\",\"statusCode\":403}",
+    "metadata": {
+      "output": "{\"message\":\"Forbidden\",\"statusCode\":403}",
+      "exit": 0,
+      "description": "Test Zapper tokens endpoint"
+    },
+    "title": "curl -s \"https://api.zapper.xyz/v2/balances/tokens?addresses[]=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\" \\\n  -H \"Authorization: Basic $(echo -n '06112e77-d5df-4c51-8f86-707bc1a842c0:' | base64)\" 2>&1 | head -50",
+    "time": {
+      "start": 1767418989279,
+      "end": 1767418989365
+    }
+  }
+}

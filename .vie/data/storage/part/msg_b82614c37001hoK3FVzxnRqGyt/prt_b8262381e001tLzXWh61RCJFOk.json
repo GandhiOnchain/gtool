@@ -1,0 +1,26 @@
+{
+  "id": "prt_b8262381e001tLzXWh61RCJFOk",
+  "messageID": "msg_b82614c37001hoK3FVzxnRqGyt",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01F8LTBYrw8ftA8LWeyHrGeu",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://api.zapper.xyz/graphql\" \\\n  -H \"Authorization: Bearer 06112e77-d5df-4c51-8f86-707bc1a842c0\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\":\"query { portfolio(addresses: [\\\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\\\"]) { totals { total } } }\"}' 2>&1 | head -20",
+      "description": "Test with Bearer token"
+    },
+    "output": "{\"x402Version\":1,\"error\":\"Payment required\",\"accepts\":[{\"scheme\":\"exact\",\"network\":\"base\",\"maxAmountRequired\":\"4000\",\"resource\":\"https://public.zapper.xyz/graphql\",\"description\":\"Zapper GraphQL API\",\"mimeType\":\"application/json\",\"discoverable\":false,\"payTo\":\"0x43a2a720cd0911690c248075f4a29a5e7716f758\",\"maxTimeoutSeconds\":10,\"asset\":\"0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913\",\"extra\":{\"name\":\"USD Coin\",\"version\":\"2\"}}]}",
+    "metadata": {
+      "output": "{\"x402Version\":1,\"error\":\"Payment required\",\"accepts\":[{\"scheme\":\"exact\",\"network\":\"base\",\"maxAmountRequired\":\"4000\",\"resource\":\"https://public.zapper.xyz/graphql\",\"description\":\"Zapper GraphQL API\",\"mimeType\":\"application/json\",\"discoverable\":false,\"payTo\":\"0x43a2a720cd0911690c248075f4a29a5e7716f758\",\"maxTimeoutSeconds\":10,\"asset\":\"0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913\",\"extra\":{\"name\":\"USD Coin\",\"version\":\"2\"}}]}",
+      "exit": 0,
+      "description": "Test with Bearer token"
+    },
+    "title": "curl -s \"https://api.zapper.xyz/graphql\" \\\n  -H \"Authorization: Bearer 06112e77-d5df-4c51-8f86-707bc1a842c0\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\":\"query { portfolio(addresses: [\\\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\\\"]) { totals { total } } }\"}' 2>&1 | head -20",
+    "time": {
+      "start": 1767419035562,
+      "end": 1767419035714
+    }
+  }
+}

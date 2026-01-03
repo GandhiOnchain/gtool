@@ -1,0 +1,26 @@
+{
+  "id": "prt_b8262553e001Occqsd3kHSR9qY",
+  "messageID": "msg_b82614c37001hoK3FVzxnRqGyt",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_016Z27VvPbqFreG38Y19YnAN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://public.zapper.xyz/graphql\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\":\"query { portfolio(addresses: [\\\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\\\"]) { totals { total } } }\"}' 2>&1 | python3 -c \"import sys, json; print(json.dumps(json.load(sys.stdin), indent=2))\" 2>&1 | head -30",
+      "description": "Test public Zapper endpoint"
+    },
+    "output": "{\n  \"x402Version\": 1,\n  \"error\": \"Payment required\",\n  \"accepts\": [\n    {\n      \"scheme\": \"exact\",\n      \"network\": \"base\",\n      \"maxAmountRequired\": \"4000\",\n      \"resource\": \"https://public.zapper.xyz/graphql\",\n      \"description\": \"Zapper GraphQL API\",\n      \"mimeType\": \"application/json\",\n      \"discoverable\": false,\n      \"payTo\": \"0x43a2a720cd0911690c248075f4a29a5e7716f758\",\n      \"maxTimeoutSeconds\": 10,\n      \"asset\": \"0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913\",\n      \"extra\": {\n        \"name\": \"USD Coin\",\n        \"version\": \"2\"\n      }\n    }\n  ]\n}\n",
+    "metadata": {
+      "output": "{\n  \"x402Version\": 1,\n  \"error\": \"Payment required\",\n  \"accepts\": [\n    {\n      \"scheme\": \"exact\",\n      \"network\": \"base\",\n      \"maxAmountRequired\": \"4000\",\n      \"resource\": \"https://public.zapper.xyz/graphql\",\n      \"description\": \"Zapper GraphQL API\",\n      \"mimeType\": \"application/json\",\n      \"discoverable\": false,\n      \"payTo\": \"0x43a2a720cd0911690c248075f4a29a5e7716f758\",\n      \"maxTimeoutSeconds\": 10,\n      \"asset\": \"0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913\",\n      \"extra\": {\n        \"name\": \"USD Coin\",\n        \"version\": \"2\"\n      }\n    }\n  ]\n}\n",
+      "exit": 0,
+      "description": "Test public Zapper endpoint"
+    },
+    "title": "curl -s \"https://public.zapper.xyz/graphql\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"query\":\"query { portfolio(addresses: [\\\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\\\"]) { totals { total } } }\"}' 2>&1 | python3 -c \"import sys, json; print(json.dumps(json.load(sys.stdin), indent=2))\" 2>&1 | head -30",
+    "time": {
+      "start": 1767419043272,
+      "end": 1767419043361
+    }
+  }
+}

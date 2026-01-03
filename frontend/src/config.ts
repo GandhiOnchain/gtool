@@ -24,6 +24,9 @@ export const config = {
   moralis: {
     apiKey: getEnv('VITE_MORALIS_API_KEY', false),
   },
+  zapper: {
+    apiKey: getEnv('VITE_ZAPPER_API_KEY', false),
+  },
   networks: {
     // Base
     8453: {

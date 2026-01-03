@@ -1,0 +1,25 @@
+{
+  "id": "prt_b8262c323001voOkLM72sH0cwn",
+  "messageID": "msg_b82614c37001hoK3FVzxnRqGyt",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01QwHS3etSRLGx36muBCgxWm",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/config.ts",
+      "offset": 15,
+      "limit": 15
+    },
+    "output": "<file>\n00016| export const config = {\n00017|   privy: {\n00018|     appId: getEnv('VITE_PRIVY_APP_ID', false),\n00019|     clientId: getEnv('VITE_PRIVY_CLIENT_ID', false),\n00020|   },\n00021|   alchemy: {\n00022|     apiKey: alchemyApiKey,\n00023|   },\n00024|   moralis: {\n00025|     apiKey: getEnv('VITE_MORALIS_API_KEY', false),\n00026|   },\n00027|   networks: {\n00028|     // Base\n00029|     8453: {\n00030|       chainId: 8453,\n\n(File has more lines. Use 'offset' parameter to read beyond line 30)\n</file>",
+    "metadata": {
+      "preview": "export const config = {\n  privy: {\n    appId: getEnv('VITE_PRIVY_APP_ID', false),\n    clientId: getEnv('VITE_PRIVY_CLIENT_ID', false),\n  },\n  alchemy: {\n    apiKey: alchemyApiKey,\n  },\n  moralis: {\n    apiKey: getEnv('VITE_MORALIS_API_KEY', false),\n  },\n  networks: {\n    // Base\n    8453: {\n      chainId: 8453,"
+    },
+    "title": "frontend/src/config.ts",
+    "time": {
+      "start": 1767419070250,
+      "end": 1767419070251
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_b8261b3fc001M5dv0Q4xjnx9H1",
+  "messageID": "msg_b82614c37001hoK3FVzxnRqGyt",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01FBD8wGkPMXczgFvKuwiGPB",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://api.zapper.xyz/v2/apps/tokens/balances?addresses[]=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\" \\\n  -H \"accept: application/json\" \\\n  -H \"Authorization: Basic $(echo -n '06112e77-d5df-4c51-8f86-707bc1a842c0:' | base64)\" 2>&1 | head -50",
+      "description": "Test Zapper apps endpoint"
+    },
+    "output": "{\"message\":\"Cannot GET /v2/apps/tokens/balances?addresses[]=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\"error\":\"Not Found\",\"statusCode\":404}",
+    "metadata": {
+      "output": "{\"message\":\"Cannot GET /v2/apps/tokens/balances?addresses[]=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\"error\":\"Not Found\",\"statusCode\":404}",
+      "exit": 0,
+      "description": "Test Zapper apps endpoint"
+    },
+    "title": "curl -s \"https://api.zapper.xyz/v2/apps/tokens/balances?addresses[]=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\" \\\n  -H \"accept: application/json\" \\\n  -H \"Authorization: Basic $(echo -n '06112e77-d5df-4c51-8f86-707bc1a842c0:' | base64)\" 2>&1 | head -50",
+    "time": {
+      "start": 1767419001784,
+      "end": 1767419001869
+    }
+  }
+}
