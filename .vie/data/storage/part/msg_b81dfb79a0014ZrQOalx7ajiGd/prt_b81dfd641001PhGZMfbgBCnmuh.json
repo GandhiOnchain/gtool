@@ -1,0 +1,23 @@
+{
+  "id": "prt_b81dfd641001PhGZMfbgBCnmuh",
+  "messageID": "msg_b81dfb79a0014ZrQOalx7ajiGd",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01WFzC9HnSqpkGNSasp3DyMz",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/tokenLogos.ts"
+    },
+    "output": "<file>\n00001| import { getAddress, isAddress } from 'viem'\n00002| \n00003| /**\n00004|  * Get multiple logo URLs to try in order\n00005|  */\n00006| export function getTokenLogoFallbacks(\n00007|   address: string | null | undefined,\n00008|   chainId: number,\n00009|   symbol?: string\n00010| ): string[] {\n00011|   if (!address || address === 'native') {\n00012|     const nativeLogos: Record<number, string> = {\n00013|       1: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',\n00014|       8453: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',\n00015|       42161: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',\n00016|       137: 'https://assets.coingecko.com/coins/images/4713/small/matic-token-icon.png',\n00017|       10: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',\n00018|     }\n00019|     return [nativeLogos[chainId] || 'https://assets.coingecko.com/coins/images/279/small/ethereum.png']\n00020|   }\n00021| \n00022|   const logos: string[] = []\n00023|   const lowerSymbol = symbol?.toLowerCase()\n00024| \n00025|   // 1. Symbol-based from cryptocurrency-icons (most reliable for major tokens)\n00026|   if (lowerSymbol) {\n00027|     logos.push(`https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/${lowerSymbol}.png`)\n00028|   }\n00029| \n00030|   // 2. TrustWallet (good coverage, requires checksummed address)\n00031|   const chainNames: Record<number, string> = {\n00032|     1: 'ethereum',\n00033|     8453: 'base',\n00034|     42161: 'arbitrum',\n00035|     137: 'polygon',\n00036|     10: 'optimism',\n00037|   }\n00038|   \n00039|   const chainName = chainNames[chainId]\n00040|   if (chainName && isAddress(address)) {\n00041|     try {\n00042|       const checksummed = getAddress(address)\n00043|       logos.push(`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${chainName}/assets/${checksummed}/logo.png`)\n00044|     } catch (e) {\n00045|       // If checksum fails, try lowercase\n00046|       logos.push(`https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${chainName}/assets/${address}/logo.png`)\n00047|     }\n00048|   }\n00049| \n00050|   return logos\n00051| }\n00052| \n</file>",
+    "metadata": {
+      "preview": "import { getAddress, isAddress } from 'viem'\n\n/**\n * Get multiple logo URLs to try in order\n */\nexport function getTokenLogoFallbacks(\n  address: string | null | undefined,\n  chainId: number,\n  symbol?: string\n): string[] {\n  if (!address || address === 'native') {\n    const nativeLogos: Record<number, string> = {\n      1: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',\n      8453: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',\n      42161: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',\n      137: 'https://assets.coingecko.com/coins/images/4713/small/matic-token-icon.png',\n      10: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png',\n    }\n    return [nativeLogos[chainId] || 'https://assets.coingecko.com/coins/images/279/small/ethereum.png']\n  }"
+    },
+    "title": "frontend/src/lib/tokenLogos.ts",
+    "time": {
+      "start": 1767410489781,
+      "end": 1767410489782
+    }
+  }
+}

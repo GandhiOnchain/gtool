@@ -108,6 +108,7 @@ const STREAK_MESSAGES = [
 function TokenRow({ token, chainId }: { token: { address: string; symbol: string; name: string; balanceFormatted: string; valueUsd: number; priceUsd: number; logo?: string }; chainId: number }) {
   const [logoIndex, setLogoIndex] = useState(0)
   const [showFallback, setShowFallback] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   
   // Get all possible logo URLs
   const logoUrls = React.useMemo(() => {
@@ -117,8 +118,8 @@ function TokenRow({ token, chainId }: { token: { address: string; symbol: string
       token.symbol
     )
     
-    // Add Alchemy logo at the beginning if it exists
-    if (token.logo && token.logo.trim() !== '') {
+    // Add Alchemy logo at the beginning if it exists and is HTTPS
+    if (token.logo && token.logo.trim() !== '' && token.logo.startsWith('https://')) {
       urls.unshift(token.logo)
     }
     
@@ -126,27 +127,35 @@ function TokenRow({ token, chainId }: { token: { address: string; symbol: string
   }, [token.address, token.logo, token.symbol, chainId])
   
   const handleImageError = () => {
-    console.log(`Logo failed for ${token.symbol} [${logoIndex + 1}/${logoUrls.length}]:`, logoUrls[logoIndex])
-    
     if (logoIndex < logoUrls.length - 1) {
       setLogoIndex(logoIndex + 1)
     } else {
-      console.log(`All logos failed for ${token.symbol}. Tried:`, logoUrls)
       setShowFallback(true)
+      setIsLoading(false)
     }
+  }
+  
+  const handleImageLoad = () => {
+    setIsLoading(false)
   }
   
   return (
     <div className="flex items-center justify-between text-xs">
       <div className="flex items-center gap-2 flex-1 min-w-0">
         {!showFallback && logoUrls[logoIndex] ? (
-          <img 
-            key={logoIndex}
-            src={logoUrls[logoIndex]} 
-            alt={token.symbol} 
-            className="h-5 w-5 rounded-full flex-shrink-0 object-cover bg-muted"
-            onError={handleImageError}
-          />
+          <>
+            {isLoading && (
+              <div className="h-5 w-5 rounded-full bg-muted flex-shrink-0 animate-pulse" />
+            )}
+            <img 
+              key={logoIndex}
+              src={logoUrls[logoIndex]} 
+              alt={token.symbol} 
+              className={`h-5 w-5 rounded-full flex-shrink-0 object-cover bg-muted ${isLoading ? 'hidden' : ''}`}
+              onError={handleImageError}
+              onLoad={handleImageLoad}
+            />
+          </>
         ) : (
           <div className="h-5 w-5 rounded-full bg-muted flex-shrink-0 flex items-center justify-center text-[8px] font-bold">
             {token.symbol.slice(0, 2)}
