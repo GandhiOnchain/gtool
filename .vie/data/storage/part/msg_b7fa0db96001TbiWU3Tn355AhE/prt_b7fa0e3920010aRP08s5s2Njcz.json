@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && bun run dev > /tmp/dev.log 2>&1 & echo $!",
     "time": {
       "start": 1767372810416,
-      "end": 1767372810418
+      "end": 1767372810418,
+      "compacted": 1767419584882
     }
   }
 }

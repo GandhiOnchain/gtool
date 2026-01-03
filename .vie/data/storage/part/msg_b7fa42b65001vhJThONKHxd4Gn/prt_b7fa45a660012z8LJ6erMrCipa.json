@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && grep -r \"tokenMetadata\" node_modules/alchemy-sdk/dist/*.d.ts 2>/dev/null | grep -A 3 \"logo\" | head -20",
     "time": {
       "start": 1767373037448,
-      "end": 1767373037451
+      "end": 1767373037451,
+      "compacted": 1767419584881
     }
   }
 }

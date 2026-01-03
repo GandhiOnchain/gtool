@@ -19,7 +19,8 @@
     "title": "frontend/src/hooks/alchemy/portfolio/useTokensByOwnerOnMultipleChains.ts",
     "time": {
       "start": 1767372859545,
-      "end": 1767372859546
+      "end": 1767372859546,
+      "compacted": 1767419584881
     }
   }
 }

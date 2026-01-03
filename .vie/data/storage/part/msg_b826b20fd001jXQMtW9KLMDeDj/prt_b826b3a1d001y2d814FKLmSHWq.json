@@ -1,0 +1,26 @@
+{
+  "id": "prt_b826b3a1d001y2d814FKLmSHWq",
+  "messageID": "msg_b826b20fd001jXQMtW9KLMDeDj",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01F7jeQu4jDheFn7sYjVKqGN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://public.zapper.xyz/graphql\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"x-zapper-api-key: 06112e77-d5df-4c51-8f86-707bc1a842c0\" \\\n  -d '{\"query\":\"query Portfolio($addresses: [Address!]!) { portfolio(addresses: $addresses) { totals { total } tokenBalances { token { baseToken { name symbol address imgUrl network } balance balanceUSD } } } }\", \"variables\": {\"addresses\": [\"0xf7b0...643b\"]}}' 2>&1 | python3 -c \"import sys, json; data=json.load(sys.stdin); print('Total:', data.get('data', {}).get('portfolio', {}).get('totals', {}).get('total')); print('Token count:', len(data.get('data', {}).get('portfolio', {}).get('tokenBalances', [])))\"",
+      "description": "Test with your actual address"
+    },
+    "output": "Total: None\nToken count: 0\n",
+    "metadata": {
+      "output": "Total: None\nToken count: 0\n",
+      "exit": 0,
+      "description": "Test with your actual address"
+    },
+    "title": "curl -s \"https://public.zapper.xyz/graphql\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"x-zapper-api-key: 06112e77-d5df-4c51-8f86-707bc1a842c0\" \\\n  -d '{\"query\":\"query Portfolio($addresses: [Address!]!) { portfolio(addresses: $addresses) { totals { total } tokenBalances { token { baseToken { name symbol address imgUrl network } balance balanceUSD } } } }\", \"variables\": {\"addresses\": [\"0xf7b0...643b\"]}}' 2>&1 | python3 -c \"import sys, json; data=json.load(sys.stdin); print('Total:', data.get('data', {}).get('portfolio', {}).get('totals', {}).get('total')); print('Token count:', len(data.get('data', {}).get('portfolio', {}).get('tokenBalances', [])))\"",
+    "time": {
+      "start": 1767419629931,
+      "end": 1767419630030
+    }
+  }
+}

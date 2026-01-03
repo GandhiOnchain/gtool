@@ -20,7 +20,8 @@
     "title": "grep -A 5 -B 5 \"logo\" /home/user/sandbox/workspace/frontend/src/components/examples/AlchemyExample.tsx | head -40",
     "time": {
       "start": 1767372863044,
-      "end": 1767372863047
+      "end": 1767372863047,
+      "compacted": 1767419584881
     }
   }
 }

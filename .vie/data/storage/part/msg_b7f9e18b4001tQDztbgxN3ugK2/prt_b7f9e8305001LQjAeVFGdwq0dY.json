@@ -20,7 +20,8 @@
     "title": "grep -n \"const.*=.*RelaySwap\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -1",
     "time": {
       "start": 1767372654415,
-      "end": 1767372654420
+      "end": 1767372654420,
+      "compacted": 1767419584883
     }
   }
 }

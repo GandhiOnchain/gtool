@@ -2901,6 +2901,7 @@ export default function RelaySwap() {
         { id: 42161, name: 'Arbitrum' },
         { id: 137, name: 'Polygon' },
         { id: 10, name: 'Optimism' },
+        { id: 56, name: 'BNB Chain' },
       ]
       
       console.log('Fetching hybrid portfolio (Zapper + Moralis) for:', address)
@@ -2908,10 +2909,12 @@ export default function RelaySwap() {
       // Fetch from Zapper first (comprehensive, includes DeFi positions)
       let zapperData
       try {
+        console.log('🔵 Calling Zapper API for address:', address)
         zapperData = await fetchZapperPortfolio(address)
-        console.log('Zapper portfolio response:', zapperData)
+        console.log('🔵 Zapper portfolio response:', zapperData)
+        console.log('🔵 Zapper token balances:', zapperData?.tokenBalances?.length || 0)
       } catch (err) {
-        console.warn('Zapper fetch failed, falling back to Moralis only:', err)
+        console.error('🔴 Zapper fetch failed, falling back to Moralis only:', err)
       }
       
       const chainData = new Map<number, {
@@ -2949,16 +2952,12 @@ export default function RelaySwap() {
             logo: token.baseToken.imgUrl
           })
           
-          // Skip if not in supported chains
-          if (!supportedChains.find(c => c.id === chainId)) {
-            console.log(`Skipping ${token.baseToken.symbol} - chain ${chainId} not supported`)
-            continue
-          }
-          
           if (!chainData.has(chainId)) {
+            const chainName = supportedChains.find(c => c.id === chainId)?.name || `Chain ${chainId}`
+            console.log(`Creating new chain entry: ${chainName} (${chainId})`)
             chainData.set(chainId, {
               chainId,
-              chainName: supportedChains.find(c => c.id === chainId)?.name || 'Unknown',
+              chainName,
               valueUsd: 0,
               tokens: []
             })
@@ -2968,6 +2967,8 @@ export default function RelaySwap() {
           const balance = token.balance
           const valueUsd = token.balanceUSD
           const priceUsd = balance > 0 ? valueUsd / balance : 0
+          
+          console.log(`Adding ${token.baseToken.symbol} to ${chain.chainName}`)
           
           chain.tokens.push({
             address: token.baseToken.address,
@@ -2981,6 +2982,7 @@ export default function RelaySwap() {
           })
           
           chain.valueUsd += valueUsd
+          console.log(`Chain ${chain.chainName} now has ${chain.tokens.length} tokens, value: $${chain.valueUsd}`)
         }
         
         totalValue = zapperData.totals.total
@@ -3057,11 +3059,19 @@ export default function RelaySwap() {
       const allTokens = chainsArray.flatMap(c => c.tokens.map(t => ({ ...t, chainId: c.chainId })))
       const pnl = calculatePnl(totalValue, allTokens)
       
+      console.log('🟢 Setting portfolio data:', {
+        totalValueUsd: totalValue,
+        chainsCount: chainsArray.length,
+        totalTokens: allTokens.length
+      })
+      
       setPortfolioData({
         totalValueUsd: totalValue,
         chains: chainsArray
       })
       setPortfolioPnl(pnl)
+      
+      console.log('🟢 Portfolio state updated successfully')
     } catch (error) {
       const err = error as Error
       console.error('Failed to load portfolio:', err)
@@ -4071,6 +4081,11 @@ export default function RelaySwap() {
 
                 <ScrollArea className="h-[400px]">
                   <div className="space-y-2">
+                    {portfolioData.chains.length === 0 && (
+                      <Card className="p-4 text-center">
+                        <div className="text-sm text-muted-foreground">No tokens found in portfolio</div>
+                      </Card>
+                    )}
                     {portfolioData.chains.map(chain => (
                       <Card key={chain.chainId} className="p-3">
                         <div className="space-y-2">

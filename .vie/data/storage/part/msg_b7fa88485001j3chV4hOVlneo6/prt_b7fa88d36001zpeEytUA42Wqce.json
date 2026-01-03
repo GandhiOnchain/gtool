@@ -20,7 +20,8 @@
     "title": "curl -s \"https://tokens.coingecko.com/uniswap/all.json\" | head -100",
     "time": {
       "start": 1767373312336,
-      "end": 1767373312406
+      "end": 1767373312406,
+      "compacted": 1767419584879
     }
   }
 }

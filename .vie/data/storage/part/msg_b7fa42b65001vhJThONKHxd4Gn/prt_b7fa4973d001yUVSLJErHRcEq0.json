@@ -20,7 +20,8 @@
     "title": "cat /home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/es/api/src/types/types.d.ts | grep -A 20 \"export interface TokenMetadataResponse\"",
     "time": {
       "start": 1767373052560,
-      "end": 1767373052563
+      "end": 1767373052563,
+      "compacted": 1767419584881
     }
   }
 }

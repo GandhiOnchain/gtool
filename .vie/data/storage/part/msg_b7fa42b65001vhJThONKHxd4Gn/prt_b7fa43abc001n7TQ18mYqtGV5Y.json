@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && timeout 3 tail -f /tmp/dev.log 2>&1 || true",
     "time": {
       "start": 1767373029419,
-      "end": 1767373032423
+      "end": 1767373032423,
+      "compacted": 1767419584881
     }
   }
 }

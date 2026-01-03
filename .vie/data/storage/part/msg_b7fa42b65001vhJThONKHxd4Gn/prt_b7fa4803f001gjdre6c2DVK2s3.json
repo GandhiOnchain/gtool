@@ -20,7 +20,8 @@
     "title": "cat /home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/es/api/src/types/portfolio-types.d.ts | grep -A 20 \"TokenMetadata\"",
     "time": {
       "start": 1767373046786,
-      "end": 1767373046788
+      "end": 1767373046788,
+      "compacted": 1767419584881
     }
   }
 }

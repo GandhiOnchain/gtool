@@ -20,7 +20,8 @@
     "title": "cat /home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/es/api/src/types/types.d.ts | grep -A 10 \"TokenMetadataResponse\"",
     "time": {
       "start": 1767373049753,
-      "end": 1767373049756
+      "end": 1767373049756,
+      "compacted": 1767419584881
     }
   }
 }

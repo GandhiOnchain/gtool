@@ -20,7 +20,8 @@
     "title": "cat /home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/es/api/src/api/portfolio-namespace.d.ts | grep -A 30 \"getTokensByWallet\"",
     "time": {
       "start": 1767373057283,
-      "end": 1767373057286
+      "end": 1767373057286,
+      "compacted": 1767419584881
     }
   }
 }

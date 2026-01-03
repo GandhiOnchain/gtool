@@ -20,7 +20,8 @@
     "title": "find /home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk -name \"*portfolio*.d.ts\" -o -name \"*token*.d.ts\" | head -10",
     "time": {
       "start": 1767373043737,
-      "end": 1767373043742
+      "end": 1767373043742,
+      "compacted": 1767419584881
     }
   }
 }

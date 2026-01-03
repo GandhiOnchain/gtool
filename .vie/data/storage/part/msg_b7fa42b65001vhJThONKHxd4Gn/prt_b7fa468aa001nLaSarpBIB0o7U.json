@@ -20,7 +20,8 @@
     "title": "find /home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk -name \"*.d.ts\" -type f | head -5",
     "time": {
       "start": 1767373040720,
-      "end": 1767373040729
+      "end": 1767373040729,
+      "compacted": 1767419584881
     }
   }
 }
