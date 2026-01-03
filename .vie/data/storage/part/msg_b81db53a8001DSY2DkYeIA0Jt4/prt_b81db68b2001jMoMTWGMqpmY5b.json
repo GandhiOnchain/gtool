@@ -1,0 +1,26 @@
+{
+  "id": "prt_b81db68b2001jMoMTWGMqpmY5b",
+  "messageID": "msg_b81db53a8001DSY2DkYeIA0Jt4",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01MeqKrgk74AXDSBqFyRU4D3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "echo \"Testing token logo URLs for your tokens...\"",
+      "description": "Start testing"
+    },
+    "output": "Testing token logo URLs for your tokens...\n",
+    "metadata": {
+      "output": "Testing token logo URLs for your tokens...\n",
+      "exit": 0,
+      "description": "Start testing"
+    },
+    "title": "echo \"Testing token logo URLs for your tokens...\"",
+    "time": {
+      "start": 1767410199563,
+      "end": 1767410199565
+    }
+  }
+}

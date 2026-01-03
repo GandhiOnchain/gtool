@@ -1,0 +1,26 @@
+{
+  "id": "prt_b81db9e68001XnG3rX1ozkN519",
+  "messageID": "msg_b81db53a8001DSY2DkYeIA0Jt4",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_015pd8MPBezpdhgKB17PZ7rv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat > /tmp/test_specific.sh << 'EOF'\n#!/bin/bash\n\necho \"Testing specific token logo sources...\"\necho \"\"\n\n# Test USDC on Base (known token)\nUSDC_BASE=\"0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913\"\n\necho \"USDC on Base ($USDC_BASE):\"\necho \"  Symbol-based (usdc): $(curl -sI \"https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/usdc.png\" 2>&1 | grep \"HTTP\" | head -1 | awk '{print $2}')\"\necho \"  TrustWallet Base: $(curl -sI \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/base/assets/$USDC_BASE/logo.png\" 2>&1 | grep \"HTTP\" | head -1 | awk '{print $2}')\"\n\necho \"\"\necho \"Testing Ethereum token icons S3:\"\necho \"  $(curl -sI \"https://ethereum-token-icons.s3.amazonaws.com/$USDC_BASE.png\" 2>&1 | grep \"HTTP\" | head -1 | awk '{print $2}')\"\n\nEOF\n\nchmod +x /tmp/test_specific.sh\n/tmp/test_specific.sh",
+      "description": "Test specific token addresses"
+    },
+    "output": "Testing specific token logo sources...\n\nUSDC on Base (0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913):\n  Symbol-based (usdc): 200\n  TrustWallet Base: 200\n\nTesting Ethereum token icons S3:\n  404\n",
+    "metadata": {
+      "output": "Testing specific token logo sources...\n\nUSDC on Base (0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913):\n  Symbol-based (usdc): 200\n  TrustWallet Base: 200\n\nTesting Ethereum token icons S3:\n  404\n",
+      "exit": 0,
+      "description": "Test specific token addresses"
+    },
+    "title": "cat > /tmp/test_specific.sh << 'EOF'\n#!/bin/bash\n\necho \"Testing specific token logo sources...\"\necho \"\"\n\n# Test USDC on Base (known token)\nUSDC_BASE=\"0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913\"\n\necho \"USDC on Base ($USDC_BASE):\"\necho \"  Symbol-based (usdc): $(curl -sI \"https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/usdc.png\" 2>&1 | grep \"HTTP\" | head -1 | awk '{print $2}')\"\necho \"  TrustWallet Base: $(curl -sI \"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/base/assets/$USDC_BASE/logo.png\" 2>&1 | grep \"HTTP\" | head -1 | awk '{print $2}')\"\n\necho \"\"\necho \"Testing Ethereum token icons S3:\"\necho \"  $(curl -sI \"https://ethereum-token-icons.s3.amazonaws.com/$USDC_BASE.png\" 2>&1 | grep \"HTTP\" | head -1 | awk '{print $2}')\"\n\nEOF\n\nchmod +x /tmp/test_specific.sh\n/tmp/test_specific.sh",
+    "time": {
+      "start": 1767410217024,
+      "end": 1767410217579
+    }
+  }
+}

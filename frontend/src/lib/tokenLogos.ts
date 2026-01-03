@@ -47,14 +47,5 @@ export function getTokenLogoFallbacks(
     }
   }
 
-  // 3. Fallback to generic token icon services
-  if (isAddress(address)) {
-    // Ethereum token avatar service
-    logos.push(`https://ethereum-token-icons.s3.amazonaws.com/${address}.png`)
-    
-    // Token logo service
-    logos.push(`https://tokens-data.1inch.io/images/${address}.png`)
-  }
-
   return logos
 }
