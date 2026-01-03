@@ -1,0 +1,26 @@
+{
+  "id": "prt_b8264fc89001YkfolVMcyDe4cG",
+  "messageID": "msg_b82645d13001gWKfWEyrmKvnP8",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Av5QrY5LrmmJ2QqBrWt6Kr",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://public.zapper.xyz/graphql\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"x-zapper-api-key: 06112e77-d5df-4c51-8f86-707bc1a842c0\" \\\n  -d '{\"query\":\"query Portfolio($addresses: [Address!]!) { portfolio(addresses: $addresses) { totals { total } tokenBalances { token { baseToken { name symbol address imgUrl network } price balance balanceUSD } } } }\", \"variables\": {\"addresses\": [\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\"]}}' 2>&1 | python3 -c \"import sys, json; print(json.dumps(json.load(sys.stdin), indent=2))\" | head -300",
+      "description": "Test with baseToken structure"
+    },
+    "output": "{\n  \"errors\": [\n    {\n      \"message\": \"Cannot query field \\\"price\\\" on type \\\"BaseTokenBalance\\\".\",\n      \"locations\": [\n        {\n          \"line\": 1,\n          \"column\": 169\n        }\n      ],\n      \"extensions\": {\n        \"code\": \"GRAPHQL_VALIDATION_FAILED\"\n      }\n    }\n  ]\n}\n",
+    "metadata": {
+      "output": "{\n  \"errors\": [\n    {\n      \"message\": \"Cannot query field \\\"price\\\" on type \\\"BaseTokenBalance\\\".\",\n      \"locations\": [\n        {\n          \"line\": 1,\n          \"column\": 169\n        }\n      ],\n      \"extensions\": {\n        \"code\": \"GRAPHQL_VALIDATION_FAILED\"\n      }\n    }\n  ]\n}\n",
+      "exit": 0,
+      "description": "Test with baseToken structure"
+    },
+    "title": "curl -s \"https://public.zapper.xyz/graphql\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"x-zapper-api-key: 06112e77-d5df-4c51-8f86-707bc1a842c0\" \\\n  -d '{\"query\":\"query Portfolio($addresses: [Address!]!) { portfolio(addresses: $addresses) { totals { total } tokenBalances { token { baseToken { name symbol address imgUrl network } price balance balanceUSD } } } }\", \"variables\": {\"addresses\": [\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\"]}}' 2>&1 | python3 -c \"import sys, json; print(json.dumps(json.load(sys.stdin), indent=2))\" | head -300",
+    "time": {
+      "start": 1767419217953,
+      "end": 1767419218033
+    }
+  }
+}

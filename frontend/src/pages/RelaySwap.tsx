@@ -25,6 +25,7 @@ import { secureStorage } from '@/lib/security/storage'
 import { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'
 import { quoteRateLimiter } from '@/lib/security/rateLimit'
 import { useMoralisPortfolio } from '@/hooks/useMoralisPortfolio'
+import { useZapperPortfolio } from '@/hooks/useZapperPortfolio'
 import { getTokenLogoFallbacks, getChainLogo } from '@/lib/tokenLogos'
 
 interface TrendingToken {
@@ -118,7 +119,8 @@ function TokenRow({ token, chainId }: { token: { address: string; symbol: string
       token.symbol
     )
     
-    // Add Alchemy logo at the beginning if it exists and is HTTPS
+    // Add Zapper/Moralis logo at the beginning if it exists and is HTTPS
+    // Zapper and Moralis logos are high quality and should be prioritized
     if (token.logo && token.logo.trim() !== '' && token.logo.startsWith('https://')) {
       urls.unshift(token.logo)
     }
@@ -180,6 +182,7 @@ export default function RelaySwap() {
   const { disconnect } = useWallet()
   const { switchChain } = useSwitchChain()
   const { fetchPortfolio: fetchMoralisPortfolio } = useMoralisPortfolio()
+  const { fetchPortfolio: fetchZapperPortfolio, ZAPPER_NETWORK_TO_CHAIN_ID } = useZapperPortfolio()
   const [chains, setChains] = useState<RelayChain[]>([])
   const [fromChain, setFromChain] = useState<RelayChain | null>(null)
   const [toChain, setToChain] = useState<RelayChain | null>(null)
@@ -2900,13 +2903,16 @@ export default function RelaySwap() {
         { id: 10, name: 'Optimism' },
       ]
       
-      console.log('Fetching portfolio from Moralis for:', address)
-      const response = await fetchMoralisPortfolio(
-        address,
-        supportedChains.map(c => c.id)
-      )
+      console.log('Fetching hybrid portfolio (Zapper + Moralis) for:', address)
       
-      console.log('Moralis portfolio response:', response)
+      // Fetch from Zapper first (comprehensive, includes DeFi positions)
+      let zapperData
+      try {
+        zapperData = await fetchZapperPortfolio(address)
+        console.log('Zapper portfolio response:', zapperData)
+      } catch (err) {
+        console.warn('Zapper fetch failed, falling back to Moralis only:', err)
+      }
       
       const chainData = new Map<number, {
         chainId: number
@@ -2925,10 +2931,62 @@ export default function RelaySwap() {
       }>()
       let totalValue = 0
       
-      const tokens = response?.tokens || []
-      console.log('Tokens found:', tokens.length)
-      
-      if (tokens && tokens.length > 0) {
+      // Process Zapper data if available
+      if (zapperData?.tokenBalances) {
+        console.log('Processing Zapper tokens:', zapperData.tokenBalances.length)
+        
+        for (const item of zapperData.tokenBalances) {
+          const token = item.token
+          const chainId = ZAPPER_NETWORK_TO_CHAIN_ID[token.baseToken.network] || 1
+          
+          // Skip if not in supported chains
+          if (!supportedChains.find(c => c.id === chainId)) {
+            continue
+          }
+          
+          if (!chainData.has(chainId)) {
+            chainData.set(chainId, {
+              chainId,
+              chainName: supportedChains.find(c => c.id === chainId)?.name || 'Unknown',
+              valueUsd: 0,
+              tokens: []
+            })
+          }
+          
+          const chain = chainData.get(chainId)!
+          const balance = token.balance
+          const valueUsd = token.balanceUSD
+          const priceUsd = balance > 0 ? valueUsd / balance : 0
+          
+          chain.tokens.push({
+            address: token.baseToken.address,
+            symbol: token.baseToken.symbol,
+            name: token.baseToken.name,
+            balance: balance.toString(),
+            balanceFormatted: balance.toFixed(6),
+            valueUsd,
+            priceUsd,
+            logo: token.baseToken.imgUrl,
+          })
+          
+          chain.valueUsd += valueUsd
+          totalValue += valueUsd
+        }
+        
+        totalValue = zapperData.totals.total
+      } else {
+        // Fallback to Moralis if Zapper fails
+        console.log('Using Moralis as fallback')
+        const moralisResponse = await fetchMoralisPortfolio(
+          address,
+          supportedChains.map(c => c.id)
+        )
+        
+        console.log('Moralis portfolio response:', moralisResponse)
+        
+        const tokens = moralisResponse?.tokens || []
+        console.log('Moralis tokens found:', tokens.length)
+        
         for (const token of tokens) {
           const balance = parseFloat(token.balance_formatted || '0')
           

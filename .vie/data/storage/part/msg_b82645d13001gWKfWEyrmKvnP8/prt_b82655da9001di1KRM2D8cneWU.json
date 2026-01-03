@@ -1,0 +1,26 @@
+{
+  "id": "prt_b82655da9001di1KRM2D8cneWU",
+  "messageID": "msg_b82645d13001gWKfWEyrmKvnP8",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "write",
+  "callID": "toolu_vrtx_01BB4Zf8Ci8qhbSg8e8777we",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/hooks/useZapperPortfolio.ts",
+      "content": "import { useState, useCallback } from 'react'\nimport { config } from '@/config'\n\ninterface ZapperToken {\n  baseToken: {\n    name: string\n    symbol: string\n    address: string\n    imgUrl: string\n    network: string\n  }\n  balance: number\n  balanceUSD: number\n}\n\ninterface ZapperPortfolioResponse {\n  totals: {\n    total: number\n  }\n  tokenBalances: Array<{\n    token: ZapperToken\n  }>\n}\n\nconst ZAPPER_NETWORK_TO_CHAIN_ID: Record<string, number> = {\n  'ETHEREUM_MAINNET': 1,\n  'BASE_MAINNET': 8453,\n  'ARBITRUM_MAINNET': 42161,\n  'POLYGON_MAINNET': 137,\n  'OPTIMISM_MAINNET': 10,\n  'BINANCE_SMART_CHAIN_MAINNET': 56,\n}\n\n/**\n * Hook for fetching portfolio data from Zapper\n */\nexport function useZapperPortfolio() {\n  const [data, setData] = useState<ZapperPortfolioResponse | null>(null)\n  const [isLoading, setIsLoading] = useState(false)\n  const [error, setError] = useState<Error | null>(null)\n\n  const fetchPortfolio = useCallback(async (\n    walletAddress: string\n  ): Promise<ZapperPortfolioResponse> => {\n    setIsLoading(true)\n    setError(null)\n\n    try {\n      const apiKey = config.zapper.apiKey\n      if (!apiKey) {\n        throw new Error('Zapper API key not configured')\n      }\n\n      const query = `\n        query Portfolio($addresses: [Address!]!) {\n          portfolio(addresses: $addresses) {\n            totals {\n              total\n            }\n            tokenBalances {\n              token {\n                baseToken {\n                  name\n                  symbol\n                  address\n                  imgUrl\n                  network\n                }\n                balance\n                balanceUSD\n              }\n            }\n          }\n        }\n      `\n\n      const response = await fetch('https://public.zapper.xyz/graphql', {\n        method: 'POST',\n        headers: {\n          'Content-Type': 'application/json',\n          'x-zapper-api-key': apiKey,\n        },\n        body: JSON.stringify({\n          query,\n          variables: {\n            addresses: [walletAddress],\n          },\n        }),\n      })\n\n      if (!response.ok) {\n        throw new Error(`Zapper API error: ${response.statusText}`)\n      }\n\n      const result = await response.json()\n\n      if (result.errors) {\n        throw new Error(`Zapper GraphQL error: ${result.errors[0]?.message}`)\n      }\n\n      const portfolioData = result.data.portfolio\n\n      setData(portfolioData)\n      return portfolioData\n    } catch (err) {\n      const error = err instanceof Error ? err : new Error('Failed to fetch Zapper portfolio')\n      setError(error)\n      throw error\n    } finally {\n      setIsLoading(false)\n    }\n  }, [])\n\n  return {\n    data,\n    isLoading,\n    error,\n    fetchPortfolio,\n    ZAPPER_NETWORK_TO_CHAIN_ID,\n  }\n}\n"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "filepath": "/home/user/sandbox/workspace/frontend/src/hooks/useZapperPortfolio.ts",
+      "exists": false
+    },
+    "title": "frontend/src/hooks/useZapperPortfolio.ts",
+    "time": {
+      "start": 1767419251607,
+      "end": 1767419251608
+    }
+  }
+}

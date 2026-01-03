@@ -1,0 +1,26 @@
+{
+  "id": "prt_b8264c04a001G3ekXfcrSPsOt8",
+  "messageID": "msg_b82645d13001gWKfWEyrmKvnP8",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01NJW8w5XfxXh51icWoFwwNy",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://public.zapper.xyz/graphql\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"x-zapper-api-key: 06112e77-d5df-4c51-8f86-707bc1a842c0\" \\\n  -d '{\"query\":\"query Portfolio($addresses: [Address!]!) { portfolio(addresses: $addresses) { totals { total } tokenBalances { totalBalanceUSD byToken(first: 100) { edges { node { name symbol price tokenAddress imgUrl1V2 balance balanceUSD network } } } } } }\", \"variables\": {\"addresses\": [\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\"]}}' 2>&1 | python3 -c \"import sys, json; print(json.dumps(json.load(sys.stdin), indent=2))\" | head -200",
+      "description": "Test Zapper portfolio query"
+    },
+    "output": "{\n  \"errors\": [\n    {\n      \"message\": \"Cannot query field \\\"totalBalanceUSD\\\" on type \\\"TokenBalance\\\".\",\n      \"locations\": [\n        {\n          \"line\": 1,\n          \"column\": 112\n        }\n      ],\n      \"extensions\": {\n        \"code\": \"GRAPHQL_VALIDATION_FAILED\"\n      }\n    },\n    {\n      \"message\": \"Cannot query field \\\"byToken\\\" on type \\\"TokenBalance\\\". Did you mean \\\"token\\\"?\",\n      \"locations\": [\n        {\n          \"line\": 1,\n          \"column\": 128\n        }\n      ],\n      \"extensions\": {\n        \"code\": \"GRAPHQL_VALIDATION_FAILED\"\n      }\n    }\n  ]\n}\n",
+    "metadata": {
+      "output": "{\n  \"errors\": [\n    {\n      \"message\": \"Cannot query field \\\"totalBalanceUSD\\\" on type \\\"TokenBalance\\\".\",\n      \"locations\": [\n        {\n          \"line\": 1,\n          \"column\": 112\n        }\n      ],\n      \"extensions\": {\n        \"code\": \"GRAPHQL_VALIDATION_FAILED\"\n      }\n    },\n    {\n      \"message\": \"Cannot query field \\\"byToken\\\" on type \\\"TokenBalance\\\". Did you mean \\\"token\\\"?\",\n      \"locations\": [\n        {\n          \"line\": 1,\n          \"column\": 128\n        }\n      ],\n      \"extensions\": {\n        \"code\": \"GRAPHQL_VALIDATION_FAILED\"\n      }\n    }\n  ]\n}\n",
+      "exit": 0,
+      "description": "Test Zapper portfolio query"
+    },
+    "title": "curl -s \"https://public.zapper.xyz/graphql\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"x-zapper-api-key: 06112e77-d5df-4c51-8f86-707bc1a842c0\" \\\n  -d '{\"query\":\"query Portfolio($addresses: [Address!]!) { portfolio(addresses: $addresses) { totals { total } tokenBalances { totalBalanceUSD byToken(first: 100) { edges { node { name symbol price tokenAddress imgUrl1V2 balance balanceUSD network } } } } } }\", \"variables\": {\"addresses\": [\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\"]}}' 2>&1 | python3 -c \"import sys, json; print(json.dumps(json.load(sys.stdin), indent=2))\" | head -200",
+    "time": {
+      "start": 1767419202881,
+      "end": 1767419203599
+    }
+  }
+}

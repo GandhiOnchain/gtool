@@ -1,0 +1,11 @@
+{
+  "id": "prt_b826558570019vx5uMTJ6h4H2f",
+  "messageID": "msg_b82645d13001gWKfWEyrmKvnP8",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "Excellent! Zapper API is working with the correct header. Now let me create a Zapper hook and integrate it with Moralis for hybrid portfolio fetching:",
+  "time": {
+    "start": 1767419251761,
+    "end": 1767419251761
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_b82646d5f001XuvC2v4BIEll36",
+  "messageID": "msg_b82645d13001gWKfWEyrmKvnP8",
+  "sessionID": "ses_48065df80ffejMKJ1h6aliDXIv",
+  "type": "text",
+  "text": "Perfect! I can see you have 5,000 credits. The screenshot shows the correct API syntax. Let me integrate Zapper API properly using the GraphQL endpoint with the `x-zapper-api-key` header:",
+  "time": {
+    "start": 1767419186968,
+    "end": 1767419186968
+  }
+}
