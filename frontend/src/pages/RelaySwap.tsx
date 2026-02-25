@@ -14,7 +14,6 @@ import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
@@ -2395,56 +2394,16 @@ export default function RelaySwap() {
                 </Badge>
               )}
               {connectedChainId && (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="h-7 gap-1.5 px-2 text-xs"
-                    >
-                      {chains.find(c => c.id === connectedChainId)?.iconUrl && (
-                        <img 
-                          src={chains.find(c => c.id === connectedChainId)?.iconUrl} 
-                          alt="" 
-                          className="h-3.5 w-3.5 rounded-full" 
-                        />
-                      )}
-                      {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}
-                      <ChevronDown className="h-3 w-3" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-48">
-                    {chains.map((chain) => (
-                      <DropdownMenuItem
-                        key={chain.id}
-                        onClick={async () => {
-                          if (chain.id === connectedChainId) return
-                          
-                          try {
-                            await switchChain({ chainId: chain.id })
-                            toast.success(`Switched to ${chain.displayName}`)
-                          } catch (error) {
-                            console.error('Failed to switch chain:', error)
-                            toast.error('Failed to switch chain')
-                          }
-                        }}
-                        className="flex items-center gap-2 cursor-pointer"
-                      >
-                        {chain.iconUrl && (
-                          <img 
-                            src={chain.iconUrl} 
-                            alt={chain.displayName} 
-                            className="h-4 w-4 rounded-full" 
-                          />
-                        )}
-                        <span>{chain.displayName}</span>
-                        {chain.id === connectedChainId && (
-                          <span className="ml-auto text-xs text-muted-foreground">✓</span>
-                        )}
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <Badge variant="outline" className="gap-1.5 text-xs px-2 py-0.5">
+                  {chains.find(c => c.id === connectedChainId)?.iconUrl && (
+                    <img 
+                      src={chains.find(c => c.id === connectedChainId)?.iconUrl} 
+                      alt="" 
+                      className="h-3.5 w-3.5 rounded-full" 
+                    />
+                  )}
+                  {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}
+                </Badge>
               )}
             </div>
             <div className="flex items-center gap-1">

@@ -1,0 +1,11 @@
+{
+  "id": "prt_c96586c340012D2Efi5TLhutUq",
+  "messageID": "msg_c9657e38d001CuGXtaIWU0f2IJ",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "Perfect! I've reverted the chain selector back to a simple badge that just displays the current connected chain with its logo. It's no longer clickable - it just shows which chain you're currently connected to with the chain's icon next to the name.",
+  "time": {
+    "start": 1772048905047,
+    "end": 1772048905047
+  }
+}
