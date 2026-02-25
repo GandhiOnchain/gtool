@@ -19,7 +19,7 @@ const App = () => (
                 <Toaster />
                 <Sonner />
                 <BrowserRouter basename={basename}>
-                    <Layout appName="Relay Swap" showHeader={false}>
+                    <Layout appName="Swap" showHeader={false}>
                     	<RouteSync />
                     	<ThemeSync />
                         <Routes>

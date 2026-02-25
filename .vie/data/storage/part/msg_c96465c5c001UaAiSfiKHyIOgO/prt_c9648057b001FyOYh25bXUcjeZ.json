@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9648057b001FyOYh25bXUcjeZ",
+  "messageID": "msg_c96465c5c001UaAiSfiKHyIOgO",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01G9QusP1TesgAHk9nKH8KPm",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"Trophy\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "description": "Find Trophy icon usage"
+    },
+    "output": "2410:                <Trophy className=\"h-4 w-4\" />\n",
+    "metadata": {
+      "output": "2410:                <Trophy className=\"h-4 w-4\" />\n",
+      "exit": 0,
+      "description": "Find Trophy icon usage"
+    },
+    "title": "grep -n \"Trophy\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772047829232,
+      "end": 1772047829236
+    }
+  }
+}

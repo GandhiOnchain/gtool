@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9647e273001GbbzUekzWsJjI9",
+  "messageID": "msg_c96465c5c001UaAiSfiKHyIOgO",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_019fXthkMkBU2fmj6o9qsuND",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1768,
+      "limit": 50
+    },
+    "output": "<file>\n01769|     const stored = secureStorage.getItem<LeaderboardEntry[]>('leaderboard')\n01770|     setLeaderboard(stored || [])\n01771|   }\n01772| \n01773|   const updateLeaderboard = () => {\n01774|     if (!address) return\n01775|     \n01776|     const current: LeaderboardEntry[] = secureStorage.getItem<LeaderboardEntry[]>('leaderboard') || []\n01777|     \n01778|     const userIndex = current.findIndex(e => e.address === address)\n01779|     if (userIndex >= 0) {\n01780|       current[userIndex].swapCount += 1\n01781|     } else {\n01782|       current.push({\n01783|         address,\n01784|         swapCount: 1,\n01785|         volume: '0',\n01786|         rank: current.length + 1,\n01787|       })\n01788|     }\n01789|     \n01790|     current.sort((a, b) => b.swapCount - a.swapCount)\n01791|     current.forEach((entry, index) => {\n01792|       entry.rank = index + 1\n01793|     })\n01794|     \n01795|     secureStorage.setItem('leaderboard', current)\n01796|     setLeaderboard(current)\n01797|   }\n01798| \n01799|   const loadUserData = () => {\n01800|     if (address) {\n01801|       loadUserStreak()\n01802|     }\n01803|   }\n01804| \n01805|   const loadApprovals = async () => {\n01806|     if (!address || !revokeChain) return\n01807|     \n01808|     setIsLoadingApprovals(true)\n01809|     setDebugInfo('Fetching approvals from API...')\n01810|     \n01811|     try {\n01812|       console.log('🔍 Loading approvals for:', revokeChain.displayName, address)\n01813|       \n01814|       // Try multiple methods to fetch approvals\n01815|       const chainId = revokeChain.id\n01816|       let data = null\n01817|       \n01818|       // Method 1: Try direct API call (might work in some environments)\n\n(File has more lines. Use 'offset' parameter to read beyond line 1818)\n</file>",
+    "metadata": {
+      "preview": "    const stored = secureStorage.getItem<LeaderboardEntry[]>('leaderboard')\n    setLeaderboard(stored || [])\n  }\n\n  const updateLeaderboard = () => {\n    if (!address) return\n    \n    const current: LeaderboardEntry[] = secureStorage.getItem<LeaderboardEntry[]>('leaderboard') || []\n    \n    const userIndex = current.findIndex(e => e.address === address)\n    if (userIndex >= 0) {\n      current[userIndex].swapCount += 1\n    } else {\n      current.push({\n        address,\n        swapCount: 1,\n        volume: '0',\n        rank: current.length + 1,\n      })\n    }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772047820016,
+      "end": 1772047820018
+    }
+  }
+}

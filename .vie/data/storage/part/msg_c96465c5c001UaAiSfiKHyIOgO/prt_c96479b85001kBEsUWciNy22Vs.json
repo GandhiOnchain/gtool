@@ -1,0 +1,25 @@
+{
+  "id": "prt_c96479b85001kBEsUWciNy22Vs",
+  "messageID": "msg_c96465c5c001UaAiSfiKHyIOgO",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01VVuMKHu4bva92uzWK7gvkD",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1378,
+      "limit": 8
+    },
+    "output": "<file>\n01379|           setIsSwapping(false)\n01380|           updateUserStreak()\n01381|           updateLeaderboard()\n01382|           setFromAmount('')\n01383|           setToAmount('')\n01384|           setUsdAmount('')\n01385|           \n01386|           // Refetch balances to show updated amounts\n\n(File has more lines. Use 'offset' parameter to read beyond line 1386)\n</file>",
+    "metadata": {
+      "preview": "          setIsSwapping(false)\n          updateUserStreak()\n          updateLeaderboard()\n          setFromAmount('')\n          setToAmount('')\n          setUsdAmount('')\n          \n          // Refetch balances to show updated amounts"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772047801852,
+      "end": 1772047801858
+    }
+  }
+}

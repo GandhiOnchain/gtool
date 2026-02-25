@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9646f4fe0015f6VcL3vbuKxXY",
+  "messageID": "msg_c96465c5c001UaAiSfiKHyIOgO",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_011ajHWdgye7RXmfRenHdvwF",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 20,
+      "limit": 10
+    },
+    "output": "<file>\n00021| import { Checkbox } from '@/components/ui/checkbox'\n00022| import { toast } from 'sonner'\n00023| import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet, Settings } from 'lucide-react'\n00024| import { secureStorage } from '@/lib/security/storage'\n00025| import { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'\n00026| import { quoteRateLimiter } from '@/lib/security/rateLimit'\n00027| import { getTokenLogoFallbacks, getChainLogo } from '@/lib/tokenLogos'\n00028| \n00029| interface TrendingToken {\n00030|   address: string\n\n(File has more lines. Use 'offset' parameter to read beyond line 30)\n</file>",
+    "metadata": {
+      "preview": "import { Checkbox } from '@/components/ui/checkbox'\nimport { toast } from 'sonner'\nimport { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet, Settings } from 'lucide-react'\nimport { secureStorage } from '@/lib/security/storage'\nimport { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'\nimport { quoteRateLimiter } from '@/lib/security/rateLimit'\nimport { getTokenLogoFallbacks, getChainLogo } from '@/lib/tokenLogos'\n\ninterface TrendingToken {\n  address: string"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772047759795,
+      "end": 1772047759797
+    }
+  }
+}

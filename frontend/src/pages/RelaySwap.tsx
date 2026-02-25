@@ -20,7 +20,7 @@ import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { Checkbox } from '@/components/ui/checkbox'
 import { toast } from 'sonner'
-import { ArrowDownUp, TrendingUp, Trophy, Share2, Flame, X, ChevronDown, Wallet, Settings } from 'lucide-react'
+import { ArrowDownUp, TrendingUp, Share2, Flame, X, ChevronDown, Wallet, Settings } from 'lucide-react'
 import { secureStorage } from '@/lib/security/storage'
 import { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'
 import { quoteRateLimiter } from '@/lib/security/rateLimit'
@@ -75,13 +75,6 @@ interface UserStreak {
   currentStreak: number
   lastSwapTimestamp: number
   totalSwaps: number
-}
-
-interface LeaderboardEntry {
-  address: string
-  swapCount: number
-  volume: string
-  rank: number
 }
 
 interface WalletToken {
@@ -200,8 +193,6 @@ export default function RelaySwap() {
   const [toCurrencies, setToCurrencies] = useState<RelayCurrency[]>([])
   const [trendingTokens, setTrendingTokens] = useState<TrendingToken[]>([])
   const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 })
-  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([])
-  const [showLeaderboard, setShowLeaderboard] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])
   const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])
@@ -385,9 +376,7 @@ export default function RelaySwap() {
     }
   }, [address, chains])
 
-  useEffect(() => {
-    loadLeaderboard()
-  }, [])
+
 
   useEffect(() => {
     if (address && fromChain && isConnected) {
@@ -1389,7 +1378,6 @@ export default function RelaySwap() {
           toast.success('Swap completed successfully!')
           setIsSwapping(false)
           updateUserStreak()
-          updateLeaderboard()
           setFromAmount('')
           setToAmount('')
           setUsdAmount('')
@@ -1641,7 +1629,6 @@ export default function RelaySwap() {
       if (confirmedCount > 0) {
         toast.success(`Batch swap completed: ${confirmedCount}/${transactions.length} transaction(s) confirmed`)
         updateUserStreak()
-        updateLeaderboard()
         setBatchTokens([])
         setBatchQuote(null)
         
@@ -1776,37 +1763,6 @@ export default function RelaySwap() {
         duration: 3000,
       })
     }
-  }
-
-  const loadLeaderboard = () => {
-    const stored = secureStorage.getItem<LeaderboardEntry[]>('leaderboard')
-    setLeaderboard(stored || [])
-  }
-
-  const updateLeaderboard = () => {
-    if (!address) return
-    
-    const current: LeaderboardEntry[] = secureStorage.getItem<LeaderboardEntry[]>('leaderboard') || []
-    
-    const userIndex = current.findIndex(e => e.address === address)
-    if (userIndex >= 0) {
-      current[userIndex].swapCount += 1
-    } else {
-      current.push({
-        address,
-        swapCount: 1,
-        volume: '0',
-        rank: current.length + 1,
-      })
-    }
-    
-    current.sort((a, b) => b.swapCount - a.swapCount)
-    current.forEach((entry, index) => {
-      entry.rank = index + 1
-    })
-    
-    secureStorage.setItem('leaderboard', current)
-    setLeaderboard(current)
   }
 
   const loadUserData = () => {
@@ -2448,14 +2404,6 @@ export default function RelaySwap() {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setShowLeaderboard(true)}
-                className="h-7 w-7 p-0"
-              >
-                <Trophy className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
                 onClick={() => setShowSettings(true)}
                 className="h-7 w-7 p-0"
               >
@@ -2690,18 +2638,68 @@ export default function RelaySwap() {
                   </Button>
                 </div>
 
-                <Input
-                  type="number"
-                  placeholder="0.0"
-                  value={toAmount}
-                  readOnly
-                  className="text-lg h-10 bg-muted"
-                />
-                {toAmount && toTokenPrice > 0 && (
-                  <div className="text-xs text-muted-foreground px-1">
-                    ≈ ${(parseFloat(toAmount) * toTokenPrice).toFixed(2)}
+                <div className="space-y-1">
+                  <div className="relative">
+                    <Input
+                      type="number"
+                      placeholder={inputMode === 'token' ? '0.0' : '$0.00'}
+                      value={inputMode === 'token' ? toAmount : (toAmount && toTokenPrice > 0 ? (parseFloat(toAmount) * toTokenPrice).toFixed(2) : '')}
+                      onChange={(e) => {
+                        const value = sanitizeInput(e.target.value)
+                        if (inputMode === 'token') {
+                          if (!value || validateAmount(value, toToken?.decimals || 18)) {
+                            setToAmount(value)
+                            if (value && toTokenPrice > 0 && fromTokenPrice > 0 && toToken && fromToken) {
+                              const usdValue = parseFloat(value) * toTokenPrice
+                              const fromTokenAmount = usdValue / fromTokenPrice
+                              setFromAmount(fromTokenAmount.toString())
+                              setUsdAmount(usdValue.toFixed(2))
+                            } else {
+                              setFromAmount('')
+                              setUsdAmount('')
+                            }
+                          }
+                        } else {
+                          if (!value || validateAmount(value, 2)) {
+                            const usdValue = value
+                            if (usdValue && toTokenPrice > 0) {
+                              const toTokenAmount = parseFloat(usdValue) / toTokenPrice
+                              setToAmount(toTokenAmount.toString())
+                              if (fromTokenPrice > 0) {
+                                setFromAmount((parseFloat(usdValue) / fromTokenPrice).toString())
+                              }
+                              setUsdAmount(usdValue)
+                            } else {
+                              setToAmount('')
+                              setFromAmount('')
+                              setUsdAmount('')
+                            }
+                          }
+                        }
+                      }}
+                      className="text-lg h-10 pr-16"
+                    />
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setInputMode(inputMode === 'token' ? 'usd' : 'token')}
+                      className="absolute right-1 top-1 h-8 px-2 text-xs"
+                      disabled={!toTokenPrice}
+                    >
+                      {inputMode === 'token' ? toToken?.symbol || 'TOKEN' : 'USD'}
+                    </Button>
                   </div>
-                )}
+                  {toAmount && toTokenPrice > 0 && inputMode === 'token' && (
+                    <div className="text-xs text-muted-foreground px-1">
+                      ≈ ${(parseFloat(toAmount) * toTokenPrice).toFixed(2)}
+                    </div>
+                  )}
+                  {toAmount && toTokenPrice > 0 && inputMode === 'usd' && (
+                    <div className="text-xs text-muted-foreground px-1">
+                      ≈ {(parseFloat(toAmount)).toFixed(6)} {toToken?.symbol}
+                    </div>
+                  )}
+                </div>
               </div>
             </Card>
 
@@ -2806,7 +2804,11 @@ export default function RelaySwap() {
               })()}
               className="w-full h-10"
             >
-              {isSwapping ? 'Swapping...' : isLoadingQuote ? 'Loading...' : 'Swap'}
+              {isSwapping 
+                ? (fromChain && toChain && fromChain.id !== toChain.id ? 'Bridging...' : 'Swapping...') 
+                : isLoadingQuote 
+                ? 'Loading...' 
+                : (fromChain && toChain && fromChain.id !== toChain.id ? 'Bridge' : 'Swap')}
             </Button>
 
             {trendingTokens.length > 0 && (
@@ -3045,7 +3047,11 @@ export default function RelaySwap() {
                   disabled={batchTokens.length === 0 || isSwapping || !isConnected || !batchQuote}
                   className="w-full h-8 text-xs"
                 >
-                  {isSwapping ? 'Swapping...' : isLoadingBatchQuote ? 'Loading Quote...' : 'Execute Batch Swap'}
+                  {isSwapping 
+                    ? (batchChain && toChain && batchChain.id !== toChain.id ? 'Batch Bridging...' : 'Batch Swapping...') 
+                    : isLoadingBatchQuote 
+                    ? 'Loading Quote...' 
+                    : (batchChain && toChain && batchChain.id !== toChain.id ? 'Batch Bridge' : 'Batch Swap')}
                 </Button>
               </div>
             </Card>
@@ -3393,27 +3399,6 @@ export default function RelaySwap() {
                 </div>
               </ScrollArea>
             </div>
-          </DialogContent>
-        </Dialog>
-
-        <Dialog open={showLeaderboard} onOpenChange={setShowLeaderboard}>
-          <DialogContent className="max-w-[380px]">
-            <DialogHeader>
-              <DialogTitle className="text-sm">Top Swappers This Week</DialogTitle>
-            </DialogHeader>
-            <ScrollArea className="h-[300px]">
-              <div className="space-y-2">
-                {leaderboard.slice(0, 10).map((entry) => (
-                  <div key={entry.address} className="flex items-center justify-between p-2 rounded bg-muted">
-                    <div className="flex items-center gap-2">
-                      <div className="text-xs font-bold">#{entry.rank}</div>
-                      <div className="text-xs">{entry.address.slice(0, 6)}...{entry.address.slice(-4)}</div>
-                    </div>
-                    <div className="text-xs font-medium">{entry.swapCount} swaps</div>
-                  </div>
-                ))}
-              </div>
-            </ScrollArea>
           </DialogContent>
         </Dialog>
 

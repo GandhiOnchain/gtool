@@ -1,0 +1,25 @@
+{
+  "id": "prt_c96471755001ueFK1Kx9Hp1XD5",
+  "messageID": "msg_c96465c5c001UaAiSfiKHyIOgO",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01JDyX6eKgZJbXv3xw6tpzdX",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 78,
+      "limit": 10
+    },
+    "output": "<file>\n00079| \n00080| interface LeaderboardEntry {\n00081|   address: string\n00082|   swapCount: number\n00083|   volume: string\n00084|   rank: number\n00085| }\n00086| \n00087| interface WalletToken {\n00088|   token: RelayCurrency\n\n(File has more lines. Use 'offset' parameter to read beyond line 88)\n</file>",
+    "metadata": {
+      "preview": "\ninterface LeaderboardEntry {\n  address: string\n  swapCount: number\n  volume: string\n  rank: number\n}\n\ninterface WalletToken {\n  token: RelayCurrency"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772047767667,
+      "end": 1772047767669
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_c96489e2a001gdZQTncBmB6Pv1",
+  "messageID": "msg_c96465c5c001UaAiSfiKHyIOgO",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01FLS6QTjv71if4ybHPT7F9S",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2728,
+      "limit": 25
+    },
+    "output": "<file>\n02729|               </Card>\n02730|             )}\n02731| \n02732|             <Button\n02733|               onClick={executeSwap}\n02734|               disabled={(() => {\n02735|                 if (!quote || isSwapping || !isConnected) return true\n02736|                 \n02737|                 // Check if same token\n02738|                 if (fromChain && toChain && fromToken && toToken &&\n02739|                     fromChain.id === toChain.id && \n02740|                     fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n02741|                   return true\n02742|                 }\n02743|                 \n02744|                 // Check if cross-VM swap requires recipient address\n02745|                 if (fromChain && toChain) {\n02746|                   const fromVMType = fromChain.vmType || 'evm'\n02747|                   const toVMType = toChain.vmType || 'evm'\n02748|                   const isCrossVM = fromVMType !== toVMType\n02749|                   \n02750|                   if (isCrossVM && !recipientAddress) return true\n02751|                 }\n02752|                 \n02753|                 return false\n\n(File has more lines. Use 'offset' parameter to read beyond line 2753)\n</file>",
+    "metadata": {
+      "preview": "              </Card>\n            )}\n\n            <Button\n              onClick={executeSwap}\n              disabled={(() => {\n                if (!quote || isSwapping || !isConnected) return true\n                \n                // Check if same token\n                if (fromChain && toChain && fromToken && toToken &&\n                    fromChain.id === toChain.id && \n                    fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n                  return true\n                }\n                \n                // Check if cross-VM swap requires recipient address\n                if (fromChain && toChain) {\n                  const fromVMType = fromChain.vmType || 'evm'\n                  const toVMType = toChain.vmType || 'evm'\n                  const isCrossVM = fromVMType !== toVMType"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772047868319,
+      "end": 1772047868321
+    }
+  }
+}

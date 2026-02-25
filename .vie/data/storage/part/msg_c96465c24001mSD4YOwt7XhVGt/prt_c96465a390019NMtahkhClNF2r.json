@@ -1,0 +1,7 @@
+{
+  "id": "prt_c96465a390019NMtahkhClNF2r",
+  "type": "text",
+  "text": "remove the relay branding and the trophy icon. in the swap tab, the app should automatically detect the type of transaction and display in the placeholder button as swap or bridge. in the batch tab, the app should automatically detect the type of transaction and display in the placeholder button as batch swap or batch bridge. also users should be able to input in both from and to sections but not just from, in both token and usd values.",
+  "messageID": "msg_c96465c24001mSD4YOwt7XhVGt",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko"
+}

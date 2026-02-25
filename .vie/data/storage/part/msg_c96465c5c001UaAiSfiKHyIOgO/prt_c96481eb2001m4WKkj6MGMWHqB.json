@@ -1,0 +1,25 @@
+{
+  "id": "prt_c96481eb2001m4WKkj6MGMWHqB",
+  "messageID": "msg_c96465c5c001UaAiSfiKHyIOgO",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01AJiyBLE88TUjsM1XGbrfaJ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2400,
+      "limit": 25
+    },
+    "output": "<file>\n02401|               )}\n02402|             </div>\n02403|             <div className=\"flex items-center gap-1\">\n02404|               <Button\n02405|                 variant=\"ghost\"\n02406|                 size=\"sm\"\n02407|                 onClick={() => setShowLeaderboard(true)}\n02408|                 className=\"h-7 w-7 p-0\"\n02409|               >\n02410|                 <Trophy className=\"h-4 w-4\" />\n02411|               </Button>\n02412|               <Button\n02413|                 variant=\"ghost\"\n02414|                 size=\"sm\"\n02415|                 onClick={() => setShowSettings(true)}\n02416|                 className=\"h-7 w-7 p-0\"\n02417|               >\n02418|                 <Settings className=\"h-4 w-4\" />\n02419|               </Button>\n02420|               <Button\n02421|                 variant=\"ghost\"\n02422|                 size=\"sm\"\n02423|                 onClick={async () => {\n02424|                   const connectorName = connector?.name || 'Unknown'\n02425|                   console.log('Disconnect clicked:', { connectorName, isConnected, address })\n\n(File has more lines. Use 'offset' parameter to read beyond line 2425)\n</file>",
+    "metadata": {
+      "preview": "              )}\n            </div>\n            <div className=\"flex items-center gap-1\">\n              <Button\n                variant=\"ghost\"\n                size=\"sm\"\n                onClick={() => setShowLeaderboard(true)}\n                className=\"h-7 w-7 p-0\"\n              >\n                <Trophy className=\"h-4 w-4\" />\n              </Button>\n              <Button\n                variant=\"ghost\"\n                size=\"sm\"\n                onClick={() => setShowSettings(true)}\n                className=\"h-7 w-7 p-0\"\n              >\n                <Settings className=\"h-4 w-4\" />\n              </Button>\n              <Button"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772047835481,
+      "end": 1772047835483
+    }
+  }
+}

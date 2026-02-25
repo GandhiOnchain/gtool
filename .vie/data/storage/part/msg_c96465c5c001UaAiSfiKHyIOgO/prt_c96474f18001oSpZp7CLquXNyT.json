@@ -1,0 +1,25 @@
+{
+  "id": "prt_c96474f18001oSpZp7CLquXNyT",
+  "messageID": "msg_c96465c5c001UaAiSfiKHyIOgO",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_016H4FgeweX6MSxxSsmDgnMp",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 385,
+      "limit": 10
+    },
+    "output": "<file>\n00386|     }\n00387|   }, [address, fromChain, isConnected])\n00388| \n00389|   useEffect(() => {\n00390|     if (batchChain) {\n00391|       const vmType = batchChain.vmType || 'evm'\n00392|       // For EVM chains, need EVM wallet connected\n00393|       // For Solana chains, need Solana wallet connected\n00394|       const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n00395|                                 ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)\n\n(File has more lines. Use 'offset' parameter to read beyond line 395)\n</file>",
+    "metadata": {
+      "preview": "    }\n  }, [address, fromChain, isConnected])\n\n  useEffect(() => {\n    if (batchChain) {\n      const vmType = batchChain.vmType || 'evm'\n      // For EVM chains, need EVM wallet connected\n      // For Solana chains, need Solana wallet connected\n      const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n                                ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772047782293,
+      "end": 1772047782296
+    }
+  }
+}

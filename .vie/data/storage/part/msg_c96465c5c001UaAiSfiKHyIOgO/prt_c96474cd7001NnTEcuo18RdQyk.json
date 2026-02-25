@@ -1,0 +1,11 @@
+{
+  "id": "prt_c96474cd7001NnTEcuo18RdQyk",
+  "messageID": "msg_c96465c5c001UaAiSfiKHyIOgO",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "Now remove the useEffect that loads leaderboard and the functions:",
+  "time": {
+    "start": 1772047782321,
+    "end": 1772047782321
+  }
+}
