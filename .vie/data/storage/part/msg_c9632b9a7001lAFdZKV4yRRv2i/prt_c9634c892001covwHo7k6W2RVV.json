@@ -20,7 +20,8 @@
     "title": "rm -rf /home/user/sandbox/workspace/frontend/src/hooks/alchemy/portfolio",
     "time": {
       "start": 1772046568627,
-      "end": 1772046568629
+      "end": 1772046568629,
+      "compacted": 1772048403864
     }
   }
 }

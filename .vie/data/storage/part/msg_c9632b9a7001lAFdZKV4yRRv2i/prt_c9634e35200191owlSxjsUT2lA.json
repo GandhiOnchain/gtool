@@ -20,7 +20,8 @@
     "title": "rm /home/user/sandbox/workspace/frontend/src/hooks/alchemy/types/portfolio.types.ts",
     "time": {
       "start": 1772046575255,
-      "end": 1772046575256
+      "end": 1772046575256,
+      "compacted": 1772048403863
     }
   }
 }

@@ -2387,7 +2387,6 @@ export default function RelaySwap() {
         ) : (
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <h1 className="text-lg font-bold">gtool</h1>
               {userStreak.currentStreak > 0 && (
                 <Badge variant="secondary" className="gap-1 text-xs px-2 py-0.5">
                   <Flame className="h-3 w-3" />
@@ -2395,9 +2394,37 @@ export default function RelaySwap() {
                 </Badge>
               )}
               {connectedChainId && (
-                <Badge variant="outline" className="text-xs px-2 py-0.5">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={async () => {
+                    const currentChain = chains.find(c => c.id === connectedChainId)
+                    if (!currentChain) return
+                    
+                    // Find next chain in the list
+                    const currentIndex = chains.findIndex(c => c.id === connectedChainId)
+                    const nextChain = chains[(currentIndex + 1) % chains.length]
+                    
+                    try {
+                      await switchChain({ chainId: nextChain.id })
+                      toast.success(`Switched to ${nextChain.displayName}`)
+                    } catch (error) {
+                      console.error('Failed to switch chain:', error)
+                      toast.error('Failed to switch chain')
+                    }
+                  }}
+                  className="h-7 gap-1.5 px-2 text-xs"
+                >
+                  {chains.find(c => c.id === connectedChainId)?.iconUrl && (
+                    <img 
+                      src={chains.find(c => c.id === connectedChainId)?.iconUrl} 
+                      alt="" 
+                      className="h-3.5 w-3.5 rounded-full" 
+                    />
+                  )}
                   {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}
-                </Badge>
+                  <ChevronDown className="h-3 w-3" />
+                </Button>
               )}
             </div>
             <div className="flex items-center gap-1">

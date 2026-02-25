@@ -1,0 +1,25 @@
+{
+  "id": "prt_c965356350012tPgt2HSUkbrub",
+  "messageID": "msg_c9653464e001FU4SgZfs4KZFab",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01JCK7MWx17RoC46sLcNvRGk",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2385,
+      "limit": 25
+    },
+    "output": "<file>\n02386|           </Button>\n02387|         ) : (\n02388|           <div className=\"flex items-center justify-between mb-2\">\n02389|             <div className=\"flex items-center gap-2\">\n02390|               <h1 className=\"text-lg font-bold\">gtool</h1>\n02391|               {userStreak.currentStreak > 0 && (\n02392|                 <Badge variant=\"secondary\" className=\"gap-1 text-xs px-2 py-0.5\">\n02393|                   <Flame className=\"h-3 w-3\" />\n02394|                   {userStreak.currentStreak}\n02395|                 </Badge>\n02396|               )}\n02397|               {connectedChainId && (\n02398|                 <Badge variant=\"outline\" className=\"text-xs px-2 py-0.5\">\n02399|                   {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}\n02400|                 </Badge>\n02401|               )}\n02402|             </div>\n02403|             <div className=\"flex items-center gap-1\">\n02404|               <Button\n02405|                 variant=\"ghost\"\n02406|                 size=\"sm\"\n02407|                 onClick={() => setShowSettings(true)}\n02408|                 className=\"h-7 w-7 p-0\"\n02409|               >\n02410|                 <Settings className=\"h-4 w-4\" />\n\n(File has more lines. Use 'offset' parameter to read beyond line 2410)\n</file>",
+    "metadata": {
+      "preview": "          </Button>\n        ) : (\n          <div className=\"flex items-center justify-between mb-2\">\n            <div className=\"flex items-center gap-2\">\n              <h1 className=\"text-lg font-bold\">gtool</h1>\n              {userStreak.currentStreak > 0 && (\n                <Badge variant=\"secondary\" className=\"gap-1 text-xs px-2 py-0.5\">\n                  <Flame className=\"h-3 w-3\" />\n                  {userStreak.currentStreak}\n                </Badge>\n              )}\n              {connectedChainId && (\n                <Badge variant=\"outline\" className=\"text-xs px-2 py-0.5\">\n                  {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}\n                </Badge>\n              )}\n            </div>\n            <div className=\"flex items-center gap-1\">\n              <Button\n                variant=\"ghost\""
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772048571428,
+      "end": 1772048571430
+    }
+  }
+}

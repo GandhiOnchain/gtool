@@ -20,7 +20,8 @@
     "title": "rm /home/user/sandbox/workspace/frontend/src/hooks/alchemy/price/useHistoricalTokenPrices.ts /home/user/sandbox/workspace/frontend/src/hooks/alchemy/price/useHistoricalTokenPricesBySymbol.ts",
     "time": {
       "start": 1772046581193,
-      "end": 1772046581195
+      "end": 1772046581195,
+      "compacted": 1772048403863
     }
   }
 }

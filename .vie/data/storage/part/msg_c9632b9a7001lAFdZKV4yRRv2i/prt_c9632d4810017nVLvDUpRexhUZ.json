@@ -20,7 +20,8 @@
     "title": "find /home/user/sandbox/workspace/frontend/src/hooks/alchemy -type f -name \"*.ts\" 2>/dev/null",
     "time": {
       "start": 1772046440629,
-      "end": 1772046440635
+      "end": 1772046440635,
+      "compacted": 1772048403865
     }
   }
 }

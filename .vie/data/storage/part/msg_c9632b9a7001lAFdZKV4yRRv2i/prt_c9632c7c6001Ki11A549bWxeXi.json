@@ -20,7 +20,8 @@
     "title": "find /home/user/sandbox/workspace/frontend/src -type f -name \"*.tsx\" -o -name \"*.ts\" | head -50",
     "time": {
       "start": 1772046437311,
-      "end": 1772046437332
+      "end": 1772046437332,
+      "compacted": 1772048403865
     }
   }
 }
