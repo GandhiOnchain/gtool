@@ -1,0 +1,26 @@
+{
+  "id": "prt_c96372f58001XWkqyP6onabGxt",
+  "messageID": "msg_c96366c6c001W93fu5fyMbYcVZ",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_011cggvMoMSQGU9VvqN6GfpK",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "awk '/^.*<TabsContent value=\"history\"/{start=NR} start && /^.*<\\/TabsContent>/{print NR; exit}' /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "description": "Find end of history TabsContent"
+    },
+    "output": "4381\n",
+    "metadata": {
+      "output": "4381\n",
+      "exit": 0,
+      "description": "Find end of history TabsContent"
+    },
+    "title": "awk '/^.*<TabsContent value=\"history\"/{start=NR} start && /^.*<\\/TabsContent>/{print NR; exit}' /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772046726249,
+      "end": 1772046726256
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9638a2e6001kGl1Wqfs03xA40",
+  "messageID": "msg_c96366c6c001W93fu5fyMbYcVZ",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01AyLocWT418VhUYm9vEE529",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 380,
+      "limit": 15
+    },
+    "output": "<file>\n00381| \n00382|   useEffect(() => {\n00383|     if (address && chains.length > 0) {\n00384|       loadSwapHistory()\n00385|       loadUserStreak()\n00386|     }\n00387|   }, [address, chains])\n00388| \n00389|   useEffect(() => {\n00390|     loadLeaderboard()\n00391|   }, [])\n00392| \n00393|   useEffect(() => {\n00394|     if (address && fromChain && isConnected) {\n00395|       loadWalletTokens()\n\n(File has more lines. Use 'offset' parameter to read beyond line 395)\n</file>",
+    "metadata": {
+      "preview": "\n  useEffect(() => {\n    if (address && chains.length > 0) {\n      loadSwapHistory()\n      loadUserStreak()\n    }\n  }, [address, chains])\n\n  useEffect(() => {\n    loadLeaderboard()\n  }, [])\n\n  useEffect(() => {\n    if (address && fromChain && isConnected) {\n      loadWalletTokens()"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772046820765,
+      "end": 1772046820767
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_c963694ed001gU41zYXe3q8ziz",
+  "messageID": "msg_c96366c6c001W93fu5fyMbYcVZ",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01R8nCGKRf75Mx8Pjx4FswYu",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "find /home/user/sandbox/workspace/frontend/src -name \"RelaySwap.tsx\" -o -name \"RelaySwap.ts\" 2>/dev/null",
+      "description": "Find RelaySwap file"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n",
+    "metadata": {
+      "output": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n",
+      "exit": 0,
+      "description": "Find RelaySwap file"
+    },
+    "title": "find /home/user/sandbox/workspace/frontend/src -name \"RelaySwap.tsx\" -o -name \"RelaySwap.ts\" 2>/dev/null",
+    "time": {
+      "start": 1772046686370,
+      "end": 1772046686387
+    }
+  }
+}

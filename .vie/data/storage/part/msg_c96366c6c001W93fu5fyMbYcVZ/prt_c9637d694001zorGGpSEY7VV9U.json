@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9637d694001zorGGpSEY7VV9U",
+  "messageID": "msg_c96366c6c001W93fu5fyMbYcVZ",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_017aZyqkF8QRYixE9zxifCmo",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"fetchMoralisPortfolio\\|fetchZapperPortfolio\\|isLoadingPortfolio\\|portfolioData\\|portfolioPnl\\|isLoadingHistory\\|swapHistory\\|loadPortfolio\\|loadSwapHistory\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+      "description": "Find portfolio and history references"
+    },
+    "output": "182:  const { fetchPortfolio: fetchMoralisPortfolio } = useMoralisPortfolio()\n183:  const { fetchPortfolio: fetchZapperPortfolio, ZAPPER_NETWORK_TO_CHAIN_ID } = useZapperPortfolio()\n204:  const [swapHistory, setSwapHistory] = useState<SwapHistory[]>([])\n231:  const [isLoadingHistory, setIsLoadingHistory] = useState(false)\n247:  const [portfolioData, setPortfolioData] = useState<{\n265:  const [isLoadingPortfolio, setIsLoadingPortfolio] = useState(false)\n266:  const [portfolioPnl, setPortfolioPnl] = useState<{\n413:      loadSwapHistory()\n466:      loadPortfolio()\n1426:          loadSwapHistory()\n1681:        loadSwapHistory()\n1747:  const loadSwapHistory = async () => {\n2601:      loadSwapHistory()\n2891:  const loadPortfolio = async () => {\n2911:        zapperData = await fetchZapperPortfolio(address)\n2991:        const moralisResponse = await fetchMoralisPortfolio(\n3269:        loadSwapHistory()\n",
+    "metadata": {
+      "output": "182:  const { fetchPortfolio: fetchMoralisPortfolio } = useMoralisPortfolio()\n183:  const { fetchPortfolio: fetchZapperPortfolio, ZAPPER_NETWORK_TO_CHAIN_ID } = useZapperPortfolio()\n204:  const [swapHistory, setSwapHistory] = useState<SwapHistory[]>([])\n231:  const [isLoadingHistory, setIsLoadingHistory] = useState(false)\n247:  const [portfolioData, setPortfolioData] = useState<{\n265:  const [isLoadingPortfolio, setIsLoadingPortfolio] = useState(false)\n266:  const [portfolioPnl, setPortfolioPnl] = useState<{\n413:      loadSwapHistory()\n466:      loadPortfolio()\n1426:          loadSwapHistory()\n1681:        loadSwapHistory()\n1747:  const loadSwapHistory = async () => {\n2601:      loadSwapHistory()\n2891:  const loadPortfolio = async () => {\n2911:        zapperData = await fetchZapperPortfolio(address)\n2991:        const moralisResponse = await fetchMoralisPortfolio(\n3269:        loadSwapHistory()\n",
+      "exit": 0,
+      "description": "Find portfolio and history references"
+    },
+    "title": "grep -n \"fetchMoralisPortfolio\\|fetchZapperPortfolio\\|isLoadingPortfolio\\|portfolioData\\|portfolioPnl\\|isLoadingHistory\\|swapHistory\\|loadPortfolio\\|loadSwapHistory\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772046769910,
+      "end": 1772046769929
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "id": "prt_c96395dbd001plHW3DPtUIKNyd",
+  "messageID": "msg_c96366c6c001W93fu5fyMbYcVZ",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_01AXGDs9kZCPq1me3kVZmwj5",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ❌ ERROR [1391:11] Cannot find name 'loadSwapHistory'. [typescript]\n  ❌ ERROR [1646:9] Cannot find name 'loadSwapHistory'. [typescript]\n  ❌ ERROR [1817:7] Cannot find name 'loadSwapHistory'. [typescript]\n  ❌ ERROR [2292:9] Cannot find name 'loadSwapHistory'. [typescript]\n\n──────────────────────────────────────────────────\nSummary: 4 issue(s) found\n  - 4 error(s)\n",
+    "metadata": {
+      "filesChecked": 3,
+      "filesWithIssues": 1,
+      "totalIssues": 4,
+      "errorCount": 4,
+      "warningCount": 0,
+      "checkedFiles": [
+        ".attachments/image.png",
+        "frontend/src/pages/RelaySwap.tsx",
+        "frontend/src/pages/RelaySwap.tsx.backup"
+      ]
+    },
+    "title": "Diagnostics: 4 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1772046868037,
+      "end": 1772046884571
+    }
+  }
+}

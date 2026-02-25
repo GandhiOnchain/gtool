@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9638bbdc001Z5DqMapHqIDJg7",
+  "messageID": "msg_c96366c6c001W93fu5fyMbYcVZ",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01P6XgGzQFogyTJ8y4yQgrRm",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 433,
+      "limit": 10
+    },
+    "output": "<file>\n00434|   useEffect(() => {\n00435|     if (activeTab === 'portfolio' && address && isConnected) {\n00436|       loadPortfolio()\n00437|     }\n00438|   }, [activeTab, address, isConnected])\n00439| \n00440|   // External token search when contract address is pasted\n00441|   useEffect(() => {\n00442|     const searchExternally = async () => {\n00443|       // Check if the search term looks like a contract address (0x followed by 40 hex chars)\n\n(File has more lines. Use 'offset' parameter to read beyond line 443)\n</file>",
+    "metadata": {
+      "preview": "  useEffect(() => {\n    if (activeTab === 'portfolio' && address && isConnected) {\n      loadPortfolio()\n    }\n  }, [activeTab, address, isConnected])\n\n  // External token search when contract address is pasted\n  useEffect(() => {\n    const searchExternally = async () => {\n      // Check if the search term looks like a contract address (0x followed by 40 hex chars)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772046827131,
+      "end": 1772046827133
+    }
+  }
+}

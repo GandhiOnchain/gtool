@@ -1,0 +1,49 @@
+{
+  "id": "prt_c963a337f001Db0BPOI9Nc1fjU",
+  "messageID": "msg_c96366c6c001W93fu5fyMbYcVZ",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_vrtx_011fuCZoECL6DBSgcDu3vLmF",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "✅ All checked files are clean!\n\nChecked 22 file(s):\n  - .attachments/image.png\n  - frontend/output/index.html\n  - frontend/src/pages/RelaySwap.tsx\n  - frontend/output/assets/SIWXUtil-BD5l1kpc.js\n  - frontend/output/assets/_esm-DTviwRA_.js\n  - frontend/output/assets/actions-FATleyFu.js\n  - frontend/output/assets/basic-BulzC8OG.js\n  - frontend/output/assets/ccip-CZffVhpb.js\n  - frontend/output/assets/ccip-D-eDTaHL.js\n  - frontend/output/assets/ccip-VTG6oREH.js\n  - frontend/output/assets/core-BPw_H5Ri.js\n  - frontend/output/assets/dist-T9FFNf58.js\n  - frontend/output/assets/index-BQQJcwSf.css\n  - frontend/output/assets/index-DYEoZKKW.js\n  - frontend/output/assets/localBatchGatewayRequest-CZz6GnlH.js\n  - frontend/output/assets/secp256k1-B82MHXYY.js\n  - frontend/output/assets/secp256k1-DFGacCaQ.js\n  - frontend/output/assets/secp256k1-DN-ofr0S.js\n  - frontend/output/assets/w3m-modal-4nN4NCEq.js\n  - frontend/output/assets/wagmi-DJWxpLTk.js\n  - frontend/output/assets/wui-text-gTmI71Cv.js\n  - frontend/src/pages/RelaySwap.tsx.backup",
+    "metadata": {
+      "filesChecked": 22,
+      "filesWithIssues": 0,
+      "totalIssues": 0,
+      "errorCount": 0,
+      "warningCount": 0,
+      "checkedFiles": [
+        ".attachments/image.png",
+        "frontend/output/index.html",
+        "frontend/src/pages/RelaySwap.tsx",
+        "frontend/output/assets/SIWXUtil-BD5l1kpc.js",
+        "frontend/output/assets/_esm-DTviwRA_.js",
+        "frontend/output/assets/actions-FATleyFu.js",
+        "frontend/output/assets/basic-BulzC8OG.js",
+        "frontend/output/assets/ccip-CZffVhpb.js",
+        "frontend/output/assets/ccip-D-eDTaHL.js",
+        "frontend/output/assets/ccip-VTG6oREH.js",
+        "frontend/output/assets/core-BPw_H5Ri.js",
+        "frontend/output/assets/dist-T9FFNf58.js",
+        "frontend/output/assets/index-BQQJcwSf.css",
+        "frontend/output/assets/index-DYEoZKKW.js",
+        "frontend/output/assets/localBatchGatewayRequest-CZz6GnlH.js",
+        "frontend/output/assets/secp256k1-B82MHXYY.js",
+        "frontend/output/assets/secp256k1-DFGacCaQ.js",
+        "frontend/output/assets/secp256k1-DN-ofr0S.js",
+        "frontend/output/assets/w3m-modal-4nN4NCEq.js",
+        "frontend/output/assets/wagmi-DJWxpLTk.js",
+        "frontend/output/assets/wui-text-gTmI71Cv.js",
+        "frontend/src/pages/RelaySwap.tsx.backup"
+      ]
+    },
+    "title": "Diagnostics: 0 issue(s) in 0 file(s)",
+    "time": {
+      "start": 1772046922762,
+      "end": 1772046932693
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9637713c001YOzx0HngkVTuaL",
+  "messageID": "msg_c96366c6c001W93fu5fyMbYcVZ",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Gw5mWoj8U5oXBmLwvwEKv6",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "sed -n '4143,4145p' /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "description": "Check between portfolio and history"
+    },
+    "output": "          </TabsContent>\n\n          <TabsContent value=\"history\" className=\"mt-2\">\n",
+    "metadata": {
+      "output": "          </TabsContent>\n\n          <TabsContent value=\"history\" className=\"mt-2\">\n",
+      "exit": 0,
+      "description": "Check between portfolio and history"
+    },
+    "title": "sed -n '4143,4145p' /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772046742570,
+      "end": 1772046742574
+    }
+  }
+}

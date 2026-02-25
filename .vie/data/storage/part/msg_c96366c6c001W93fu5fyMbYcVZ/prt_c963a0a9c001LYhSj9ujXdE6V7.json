@@ -1,0 +1,25 @@
+{
+  "id": "prt_c963a0a9c001LYhSj9ujXdE6V7",
+  "messageID": "msg_c96366c6c001W93fu5fyMbYcVZ",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01MsHDYvBiSeBchnAJ9Gfzhd",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2289,
+      "limit": 8
+    },
+    "output": "<file>\n02290|       }\n02291|       if (failCount > 0) {\n02292|         toast.error(`Failed to revoke ${failCount} approval${failCount > 1 ? 's' : ''}`)\n02293|       }\n02294|       \n02295|       setSelectedApprovals(new Set())\n02296|       setTimeout(() => {\n02297|         loadApprovals()\n\n(File has more lines. Use 'offset' parameter to read beyond line 2297)\n</file>",
+    "metadata": {
+      "preview": "      }\n      if (failCount > 0) {\n        toast.error(`Failed to revoke ${failCount} approval${failCount > 1 ? 's' : ''}`)\n      }\n      \n      setSelectedApprovals(new Set())\n      setTimeout(() => {\n        loadApprovals()"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772046912906,
+      "end": 1772046912908
+    }
+  }
+}

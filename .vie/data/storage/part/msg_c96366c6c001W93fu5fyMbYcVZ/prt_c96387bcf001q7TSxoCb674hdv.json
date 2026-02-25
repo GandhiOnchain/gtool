@@ -1,0 +1,25 @@
+{
+  "id": "prt_c96387bcf001q7TSxoCb674hdv",
+  "messageID": "msg_c96366c6c001W93fu5fyMbYcVZ",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_013KdyWjiAfvdkFo16nqbRVh",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 410,
+      "limit": 15
+    },
+    "output": "<file>\n00411|   }, [address, batchChain, isConnected, solanaAddress])\n00412| \n00413|   // Fetch batch quote when batch tokens or destination changes\n00414|   useEffect(() => {\n00415|     if (batchTokens.length > 0 && toToken && toChain && batchChain && address) {\n00416|       const debounce = setTimeout(() => {\n00417|         fetchBatchQuote()\n00418|       }, 500)\n00419|       return () => clearTimeout(debounce)\n00420|     } else {\n00421|       setBatchQuote(null)\n00422|     }\n00423|   }, [batchTokens, toToken, toChain, batchChain, address])\n00424| \n00425|   // Load approvals when revoke chain changes\n\n(File has more lines. Use 'offset' parameter to read beyond line 425)\n</file>",
+    "metadata": {
+      "preview": "  }, [address, batchChain, isConnected, solanaAddress])\n\n  // Fetch batch quote when batch tokens or destination changes\n  useEffect(() => {\n    if (batchTokens.length > 0 && toToken && toChain && batchChain && address) {\n      const debounce = setTimeout(() => {\n        fetchBatchQuote()\n      }, 500)\n      return () => clearTimeout(debounce)\n    } else {\n      setBatchQuote(null)\n    }\n  }, [batchTokens, toToken, toChain, batchChain, address])\n\n  // Load approvals when revoke chain changes"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772046810832,
+      "end": 1772046810835
+    }
+  }
+}

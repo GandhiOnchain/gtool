@@ -1,0 +1,26 @@
+{
+  "id": "prt_c963921a4001zmo9j4q1dWY16F",
+  "messageID": "msg_c96366c6c001W93fu5fyMbYcVZ",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01X1hRK5wkkJS4sJhHb34V5u",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "awk '/^  const loadSwapHistory = async/{start=NR} start && /^  const [a-zA-Z]/{if(NR!=start) {print NR-1; exit}}' /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "description": "Find end of loadSwapHistory"
+    },
+    "output": "2460\n",
+    "metadata": {
+      "output": "2460\n",
+      "exit": 0,
+      "description": "Find end of loadSwapHistory"
+    },
+    "title": "awk '/^  const loadSwapHistory = async/{start=NR} start && /^  const [a-zA-Z]/{if(NR!=start) {print NR-1; exit}}' /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772046854094,
+      "end": 1772046854100
+    }
+  }
+}

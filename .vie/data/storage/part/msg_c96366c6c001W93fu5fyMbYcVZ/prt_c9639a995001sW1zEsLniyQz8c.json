@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9639a995001sW1zEsLniyQz8c",
+  "messageID": "msg_c96366c6c001W93fu5fyMbYcVZ",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01CoXLsBCKuWGiHr83436xMw",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "sed -n '1389,1393p' /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "description": "Check first error context"
+    },
+    "output": "          toast.success('Swap completed successfully!')\n          setIsSwapping(false)\n          loadSwapHistory()\n          updateUserStreak()\n          updateLeaderboard()\n",
+    "metadata": {
+      "output": "          toast.success('Swap completed successfully!')\n          setIsSwapping(false)\n          loadSwapHistory()\n          updateUserStreak()\n          updateLeaderboard()\n",
+      "exit": 0,
+      "description": "Check first error context"
+    },
+    "title": "sed -n '1389,1393p' /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772046888338,
+      "end": 1772046888341
+    }
+  }
+}
