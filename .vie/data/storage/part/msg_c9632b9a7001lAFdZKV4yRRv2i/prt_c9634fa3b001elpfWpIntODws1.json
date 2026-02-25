@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9634fa3b001elpfWpIntODws1",
+  "messageID": "msg_c9632b9a7001lAFdZKV4yRRv2i",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01SpHiGBCx5shthkR9VPiy3t",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "rm /home/user/sandbox/workspace/frontend/src/hooks/alchemy/price/useHistoricalTokenPrices.ts /home/user/sandbox/workspace/frontend/src/hooks/alchemy/price/useHistoricalTokenPricesBySymbol.ts",
+      "description": "Remove historical price hooks"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Remove historical price hooks"
+    },
+    "title": "rm /home/user/sandbox/workspace/frontend/src/hooks/alchemy/price/useHistoricalTokenPrices.ts /home/user/sandbox/workspace/frontend/src/hooks/alchemy/price/useHistoricalTokenPricesBySymbol.ts",
+    "time": {
+      "start": 1772046581193,
+      "end": 1772046581195
+    }
+  }
+}
