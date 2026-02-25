@@ -20,7 +20,8 @@
     "title": "find /home/user/sandbox/workspace/frontend/src -name \"RelaySwap.tsx\" -o -name \"RelaySwap.ts\" 2>/dev/null",
     "time": {
       "start": 1772046686370,
-      "end": 1772046686387
+      "end": 1772046686387,
+      "compacted": 1772048624506
     }
   }
 }

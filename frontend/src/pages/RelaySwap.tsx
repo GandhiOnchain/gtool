@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
@@ -2394,37 +2395,56 @@ export default function RelaySwap() {
                 </Badge>
               )}
               {connectedChainId && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={async () => {
-                    const currentChain = chains.find(c => c.id === connectedChainId)
-                    if (!currentChain) return
-                    
-                    // Find next chain in the list
-                    const currentIndex = chains.findIndex(c => c.id === connectedChainId)
-                    const nextChain = chains[(currentIndex + 1) % chains.length]
-                    
-                    try {
-                      await switchChain({ chainId: nextChain.id })
-                      toast.success(`Switched to ${nextChain.displayName}`)
-                    } catch (error) {
-                      console.error('Failed to switch chain:', error)
-                      toast.error('Failed to switch chain')
-                    }
-                  }}
-                  className="h-7 gap-1.5 px-2 text-xs"
-                >
-                  {chains.find(c => c.id === connectedChainId)?.iconUrl && (
-                    <img 
-                      src={chains.find(c => c.id === connectedChainId)?.iconUrl} 
-                      alt="" 
-                      className="h-3.5 w-3.5 rounded-full" 
-                    />
-                  )}
-                  {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}
-                  <ChevronDown className="h-3 w-3" />
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-7 gap-1.5 px-2 text-xs"
+                    >
+                      {chains.find(c => c.id === connectedChainId)?.iconUrl && (
+                        <img 
+                          src={chains.find(c => c.id === connectedChainId)?.iconUrl} 
+                          alt="" 
+                          className="h-3.5 w-3.5 rounded-full" 
+                        />
+                      )}
+                      {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}
+                      <ChevronDown className="h-3 w-3" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="w-48">
+                    {chains.map((chain) => (
+                      <DropdownMenuItem
+                        key={chain.id}
+                        onClick={async () => {
+                          if (chain.id === connectedChainId) return
+                          
+                          try {
+                            await switchChain({ chainId: chain.id })
+                            toast.success(`Switched to ${chain.displayName}`)
+                          } catch (error) {
+                            console.error('Failed to switch chain:', error)
+                            toast.error('Failed to switch chain')
+                          }
+                        }}
+                        className="flex items-center gap-2 cursor-pointer"
+                      >
+                        {chain.iconUrl && (
+                          <img 
+                            src={chain.iconUrl} 
+                            alt={chain.displayName} 
+                            className="h-4 w-4 rounded-full" 
+                          />
+                        )}
+                        <span>{chain.displayName}</span>
+                        {chain.id === connectedChainId && (
+                          <span className="ml-auto text-xs text-muted-foreground">✓</span>
+                        )}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               )}
             </div>
             <div className="flex items-center gap-1">
