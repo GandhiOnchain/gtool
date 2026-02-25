@@ -2387,7 +2387,7 @@ export default function RelaySwap() {
         ) : (
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <h1 className="text-lg font-bold">RELAY</h1>
+              <h1 className="text-lg font-bold">gtool</h1>
               {userStreak.currentStreak > 0 && (
                 <Badge variant="secondary" className="gap-1 text-xs px-2 py-0.5">
                   <Flame className="h-3 w-3" />

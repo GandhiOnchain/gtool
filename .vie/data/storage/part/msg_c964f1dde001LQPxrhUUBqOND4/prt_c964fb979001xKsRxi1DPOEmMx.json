@@ -1,0 +1,11 @@
+{
+  "id": "prt_c964fb979001xKsRxi1DPOEmMx",
+  "messageID": "msg_c964f1dde001LQPxrhUUBqOND4",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "Good! I can see there's already a moralis config. Now let me check the env.json file:",
+  "time": {
+    "start": 1772048334580,
+    "end": 1772048334580
+  }
+}

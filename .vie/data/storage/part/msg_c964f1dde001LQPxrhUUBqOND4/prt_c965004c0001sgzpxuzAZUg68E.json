@@ -1,0 +1,26 @@
+{
+  "id": "prt_c965004c0001sgzpxuzAZUg68E",
+  "messageID": "msg_c964f1dde001LQPxrhUUBqOND4",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01SJzk7JYQE2Zkt5L8UsrgmN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"loadApprovals\\|moralis\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+      "description": "Find loadApprovals function"
+    },
+    "output": "416:      loadApprovals()\n1774:  const loadApprovals = async () => {\n1922:      await loadApprovalsOnChain()\n1929:  const loadApprovalsOnChain = async () => {\n1954:      if (!config.moralis.apiKey) {\n1961:        `https://deep-index.moralis.io/api/v2.2/wallets/${address}/approvals?chain=${chainSlug}`,\n1966:            'X-API-Key': config.moralis.apiKey\n2137:            loadApprovals()\n2251:        loadApprovals()\n",
+    "metadata": {
+      "output": "416:      loadApprovals()\n1774:  const loadApprovals = async () => {\n1922:      await loadApprovalsOnChain()\n1929:  const loadApprovalsOnChain = async () => {\n1954:      if (!config.moralis.apiKey) {\n1961:        `https://deep-index.moralis.io/api/v2.2/wallets/${address}/approvals?chain=${chainSlug}`,\n1966:            'X-API-Key': config.moralis.apiKey\n2137:            loadApprovals()\n2251:        loadApprovals()\n",
+      "exit": 0,
+      "description": "Find loadApprovals function"
+    },
+    "title": "grep -n \"loadApprovals\\|moralis\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772048353690,
+      "end": 1772048353696
+    }
+  }
+}

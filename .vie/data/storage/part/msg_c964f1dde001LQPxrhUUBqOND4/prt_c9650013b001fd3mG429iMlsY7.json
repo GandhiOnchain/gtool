@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9650013b001fd3mG429iMlsY7",
+  "messageID": "msg_c964f1dde001LQPxrhUUBqOND4",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "Now let me check if the revoke function is using Moralis API. Let me search for where approvals are loaded:",
+  "time": {
+    "start": 1772048353698,
+    "end": 1772048353698
+  }
+}

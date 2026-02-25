@@ -1,0 +1,11 @@
+{
+  "id": "prt_c964f966e001lt2BuBITCOxbzt",
+  "messageID": "msg_c964f1dde001LQPxrhUUBqOND4",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "Now let me integrate the Moralis API key for the revoke function. First, let me check if there's an env file or config:",
+  "time": {
+    "start": 1772048326186,
+    "end": 1772048326186
+  }
+}
