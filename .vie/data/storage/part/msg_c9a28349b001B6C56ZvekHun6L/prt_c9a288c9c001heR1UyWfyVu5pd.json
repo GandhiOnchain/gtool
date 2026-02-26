@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9a288c9c001heR1UyWfyVu5pd",
+  "messageID": "msg_c9a28349b001B6C56ZvekHun6L",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01CGMx17RN14NCeEUgQxXmFR",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://deep-index.moralis.io/api/v2.2/wallets/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/tokens?chain=base\" -H \"X-API-Key: test\" 2>/dev/null | head -100",
+      "description": "Test Moralis without key"
+    },
+    "output": "{\"message\":\"Api Key is not valid\"}",
+    "metadata": {
+      "output": "{\"message\":\"Api Key is not valid\"}",
+      "exit": 0,
+      "description": "Test Moralis without key"
+    },
+    "title": "curl -s \"https://deep-index.moralis.io/api/v2.2/wallets/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/tokens?chain=base\" -H \"X-API-Key: test\" 2>/dev/null | head -100",
+    "time": {
+      "start": 1772112877224,
+      "end": 1772112877737
+    }
+  }
+}

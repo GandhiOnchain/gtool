@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9a28a6af0016pfQ2CsQcW0ltj",
+  "messageID": "msg_c9a28349b001B6C56ZvekHun6L",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Gs4T6VZ8d11CUYUjsDacUF",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "# Test if the Alchemy key works from server side (it's domain-restricted for browser)\ncurl -s -X POST \"https://base-mainnet.g.alchemy.com/v2/oTgEqagb1skfZMORBdRso\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Origin: https://vie.dev\" \\\n  -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"eth_blockNumber\",\"params\":[]}' 2>/dev/null | head -50",
+      "description": "Test Alchemy key with vie.dev origin"
+    },
+    "output": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":\"0x28af788\"}",
+    "metadata": {
+      "output": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":\"0x28af788\"}",
+      "exit": 0,
+      "description": "Test Alchemy key with vie.dev origin"
+    },
+    "title": "# Test if the Alchemy key works from server side (it's domain-restricted for browser)\ncurl -s -X POST \"https://base-mainnet.g.alchemy.com/v2/oTgEqagb1skfZMORBdRso\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Origin: https://vie.dev\" \\\n  -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"eth_blockNumber\",\"params\":[]}' 2>/dev/null | head -50",
+    "time": {
+      "start": 1772112883679,
+      "end": 1772112883712
+    }
+  }
+}

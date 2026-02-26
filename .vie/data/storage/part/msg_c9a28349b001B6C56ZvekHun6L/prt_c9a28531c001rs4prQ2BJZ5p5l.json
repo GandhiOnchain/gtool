@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9a28531c001rs4prQ2BJZ5p5l",
+  "messageID": "msg_c9a28349b001B6C56ZvekHun6L",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01MDxqFGRdQQAajUcoL4LCiX",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "printenv | grep -i moralis 2>/dev/null || echo \"no moralis env key\"",
+      "description": "Check for Moralis key in environment"
+    },
+    "output": "no moralis env key\n",
+    "metadata": {
+      "output": "no moralis env key\n",
+      "exit": 0,
+      "description": "Check for Moralis key in environment"
+    },
+    "title": "printenv | grep -i moralis 2>/dev/null || echo \"no moralis env key\"",
+    "time": {
+      "start": 1772112860912,
+      "end": 1772112860915
+    }
+  }
+}

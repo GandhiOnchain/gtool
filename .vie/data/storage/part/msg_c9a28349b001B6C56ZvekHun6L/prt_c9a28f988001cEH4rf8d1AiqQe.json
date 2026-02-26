@@ -1,0 +1,49 @@
+{
+  "id": "prt_c9a28f988001cEH4rf8d1AiqQe",
+  "messageID": "msg_c9a28349b001B6C56ZvekHun6L",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01TbV29XvtzHPWYvTchfxxP3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Fix RPC: use chain.httpRpcUrl for viem, Alchemy only for token discovery",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Move refresh button beside chain dropdown",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Fix RPC: use chain.httpRpcUrl for viem, Alchemy only for token discovery\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Move refresh button beside chain dropdown\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Fix RPC: use chain.httpRpcUrl for viem, Alchemy only for token discovery",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Move refresh button beside chain dropdown",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "title": "2 todos",
+    "time": {
+      "start": 1772112904211,
+      "end": 1772112904212
+    }
+  }
+}

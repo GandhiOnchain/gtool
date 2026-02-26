@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a28cfa0001rb5UhxkVM1aHDG",
+  "messageID": "msg_c9a28349b001B6C56ZvekHun6L",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "The Alchemy key works when the `Origin: https://vie.dev` header is set — it's domain-whitelisted for vie.dev. The problem is the browser fetch from the sandbox preview URL may differ. Let me check what the actual issue is — the native token not being fetched means the `publicClient.getBalance` call itself is failing. Let me look at the current code flow more carefully:",
+  "time": {
+    "start": 1772112895268,
+    "end": 1772112895268
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9a28b9b0001rc9ChbN5gSKb4X",
+  "messageID": "msg_c9a28349b001B6C56ZvekHun6L",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01NHCCjuhntUbEvgNYpmuGGX",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s -X POST \"https://base-mainnet.g.alchemy.com/v2/oTgEqagb1skfZMORBdRso\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Origin: https://vie.dev\" \\\n  -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"alchemy_getTokenBalances\",\"params\":[\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\"erc20\"]}' 2>/dev/null | python3 -c \"import json,sys; d=json.load(sys.stdin); tb=d.get('result',{}).get('tokenBalances',[]); print(f'tokens: {len(tb)}'); [print(t['contractAddress'][:20], t['tokenBalance'][:10]) for t in tb[:3]]\"",
+      "description": "Test Alchemy token balances with vie.dev origin"
+    },
+    "output": "tokens: 100\n0x0004a2c7a40d97add1 0x00000000\n0x001075b96b0505d14e 0x00000000\n0x0017c7cb3c8e620227 0x00000000\n",
+    "metadata": {
+      "output": "tokens: 100\n0x0004a2c7a40d97add1 0x00000000\n0x001075b96b0505d14e 0x00000000\n0x0017c7cb3c8e620227 0x00000000\n",
+      "exit": 0,
+      "description": "Test Alchemy token balances with vie.dev origin"
+    },
+    "title": "curl -s -X POST \"https://base-mainnet.g.alchemy.com/v2/oTgEqagb1skfZMORBdRso\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Origin: https://vie.dev\" \\\n  -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"alchemy_getTokenBalances\",\"params\":[\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\"erc20\"]}' 2>/dev/null | python3 -c \"import json,sys; d=json.load(sys.stdin); tb=d.get('result',{}).get('tokenBalances',[]); print(f'tokens: {len(tb)}'); [print(t['contractAddress'][:20], t['tokenBalance'][:10]) for t in tb[:3]]\"",
+    "time": {
+      "start": 1772112889180,
+      "end": 1772112889464
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a2ad554001DG4S11Fu3Tv3fV",
+  "messageID": "msg_c9a28349b001B6C56ZvekHun6L",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "**Root cause of native token not showing:** `getChainRpcUrl` was returning the Alchemy URL (e.g. `https://base-mainnet.g.alchemy.com/v2/KEY`) for the viem `publicClient`. Alchemy's domain whitelist blocks requests from the sandbox preview origin, so `publicClient.getBalance` was throwing — caught silently — and nothing was added to the list.\n\n**Fixes:**\n1. **Consolidated** `loadTokensForChain` + `loadBatchWalletTokens` into a single `fetchWalletTokens(chain)` function — no duplication, one place to fix.\n2. **Always use `chain.httpRpcUrl`** (the chain's own public RPC) for viem calls — no domain restrictions, always works.\n3. **Alchemy only for `alchemy_getTokenBalances`** — only called if `alchemySettings.apiKey` is set, and only for the special token discovery method (not for balance/contract reads).\n4. **Refresh button** moved to sit inline at the end of the chain dropdown row.",
+  "time": {
+    "start": 1772113031339,
+    "end": 1772113031339
+  }
+}
