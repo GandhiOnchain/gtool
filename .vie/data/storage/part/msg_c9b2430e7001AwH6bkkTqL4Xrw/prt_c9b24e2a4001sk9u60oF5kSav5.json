@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b24e2a4001sk9u60oF5kSav5",
+  "messageID": "msg_c9b2430e7001AwH6bkkTqL4Xrw",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Fixed. The changes:\n\n- `overflow-visible` → `overflow-hidden` on the Card — badges can no longer bleed outside the card boundary\n- `flex-1` → `flex-1 min-w-0` on the inner wrapper — ensures the left side (token name/symbol) properly constrains itself and doesn't push the badges out\n- Added `truncate` to the symbol text so long symbols don't force layout overflow\n- Added `whitespace-nowrap` to badges so they never wrap mid-word\n- Removed `justify-between` and `ml-2` in favor of natural flex gap, keeping badges pinned right via `items-end`",
+  "time": {
+    "start": 1772129415256,
+    "end": 1772129415256
+  }
+}

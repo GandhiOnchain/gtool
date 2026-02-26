@@ -3448,7 +3448,7 @@ export default function RelaySwap() {
                 <ScrollArea className="h-[400px]">
                   <div className="space-y-2">
                     {approvals.map((approval, idx) => (
-                       <Card key={idx} className="p-3 hover:bg-muted/50 transition-colors overflow-visible">
+                       <Card key={idx} className="p-3 hover:bg-muted/50 transition-colors overflow-hidden">
                          <div className="space-y-2.5">
                            <div className="flex items-start gap-2">
                              <Checkbox
@@ -3456,8 +3456,8 @@ export default function RelaySwap() {
                                onCheckedChange={() => toggleApprovalSelection(idx)}
                                className="mt-1 flex-shrink-0"
                              />
-                             <div className="flex-1">
-                               <div className="flex items-start gap-2 justify-between">
+                             <div className="flex-1 min-w-0">
+                               <div className="flex items-start gap-2">
                                  <div className="flex items-center gap-2 flex-1 min-w-0">
                                    {approval.token.metadata?.logoURI ? (
                                      <img src={approval.token.metadata.logoURI} alt="" className="h-6 w-6 rounded-full flex-shrink-0" />
@@ -3465,18 +3465,18 @@ export default function RelaySwap() {
                                      <div className="h-6 w-6 rounded-full bg-muted flex-shrink-0" />
                                    )}
                                    <div className="min-w-0 flex-1">
-                                     <div className="text-sm font-medium">{approval.token.symbol}</div>
+                                     <div className="text-sm font-medium truncate">{approval.token.symbol}</div>
                                      <div className="text-xs text-muted-foreground truncate">{approval.token.name}</div>
                                    </div>
                                  </div>
-                                 <div className="flex flex-col gap-0.5 flex-shrink-0 ml-2">
+                                 <div className="flex flex-col items-end gap-0.5 flex-shrink-0">
                                    {approval.allowanceFormatted === 'Unlimited' && (
-                                     <Badge variant="destructive" className="text-[9px] h-4 px-1 leading-none">
+                                     <Badge variant="destructive" className="text-[9px] h-4 px-1 leading-none whitespace-nowrap">
                                        Unlimited
                                      </Badge>
                                    )}
                                    {approval.riskLevel === 'high' && (
-                                     <Badge variant="destructive" className="text-[9px] h-4 px-1 leading-none">
+                                     <Badge variant="destructive" className="text-[9px] h-4 px-1 leading-none whitespace-nowrap">
                                        High Risk
                                      </Badge>
                                    )}

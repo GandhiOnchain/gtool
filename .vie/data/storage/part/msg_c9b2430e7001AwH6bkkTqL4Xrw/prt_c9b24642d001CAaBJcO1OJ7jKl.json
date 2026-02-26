@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b24642d001CAaBJcO1OJ7jKl",
+  "messageID": "msg_c9b2430e7001AwH6bkkTqL4Xrw",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "The issue is clear: the badge column uses `flex-shrink-0 ml-2` but the badges themselves (`text-[9px] h-4 px-1`) can still overflow the card boundary when the token name/symbol area is wide. The `overflow-visible` on the Card is what causes badges to render outside the card bounds. The fix: remove `overflow-visible`, give the badge column a fixed `min-w` so it never gets squeezed, and ensure the left side truncates properly.",
+  "time": {
+    "start": 1772129390905,
+    "end": 1772129390905
+  }
+}
