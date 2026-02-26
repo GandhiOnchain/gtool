@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a0f34120016NSGg1iQXQHlIj",
+  "messageID": "msg_c9a0db267001AVztPHZC3myLVe",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Good — `RelayCurrency` is already imported. Now also fix the `useEffect` that triggers `loadBatchWalletTokens` to not fire when wallet isn't ready:",
+  "time": {
+    "start": 1772111216324,
+    "end": 1772111216324
+  }
+}

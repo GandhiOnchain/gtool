@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a0f5b4c001bPUojFMzqba2Uo",
+  "messageID": "msg_c9a0db267001AVztPHZC3myLVe",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "The `useEffect` already has the `hasRequiredWallet` guard — that's fine. The issue is that `loadBatchWalletTokens` itself was throwing because `relayAPI.getCurrencies` failed. That's now fixed. Let me also check the `viem` imports — in the new code I removed the dynamic `import('viem')` and use the top-level imports directly:",
+  "time": {
+    "start": 1772111226414,
+    "end": 1772111226414
+  }
+}

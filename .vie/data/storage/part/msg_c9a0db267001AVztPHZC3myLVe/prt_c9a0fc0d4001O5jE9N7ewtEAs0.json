@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a0fc0d4001O5jE9N7ewtEAs0",
+  "messageID": "msg_c9a0db267001AVztPHZC3myLVe",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Here's what was wrong and what was fixed:\n\n**Root cause:** `loadBatchWalletTokens` called `relayAPI.getCurrencies(...)` at line 817 with no try/catch around it. If that API call failed (non-OK response, network error, or empty statusText), it threw directly into the outer catch block, which showed \"Failed to detect tokens: Failed to fetch currencies:\". This was a single point of failure that aborted the entire token detection flow.\n\n**Fixes applied:**\n\n1. **`getCurrencies` is now non-fatal** — wrapped in its own try/catch. If it fails, `relayCurrencies` stays empty and the code continues. Alchemy-detected tokens still get their on-chain metadata fetched directly.\n\n2. **Alchemy failure is also non-fatal** — if `getAlchemyNetwork` throws (unsupported chain) or the Alchemy RPC fails, it falls back to the Relay currency list gracefully.\n\n3. **Solana RPC calls are individually wrapped** — SOL balance and SPL token fetches each have their own try/catch so one failure doesn't kill the other.\n\n4. **Removed dynamic `import('viem')`** — now uses the top-level static imports, eliminating a potential async failure point.\n\n5. **Dedup applied to final results** — prevents duplicate tokens in the batch list.\n\n6. **Solana RPC hardcoded to mainnet** — uses `api.mainnet-beta.solana.com` instead of `chain.httpRpcUrl` which may not be a valid Solana RPC endpoint.",
+  "time": {
+    "start": 1772111258503,
+    "end": 1772111258503
+  }
+}

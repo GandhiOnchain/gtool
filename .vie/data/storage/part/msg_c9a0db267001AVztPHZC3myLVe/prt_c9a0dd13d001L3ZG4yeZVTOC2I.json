@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a0dd13d001L3ZG4yeZVTOC2I",
+  "messageID": "msg_c9a0db267001AVztPHZC3myLVe",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now let me check the `getAlchemyNetwork` function to understand what happens when a chain isn't supported:",
+  "time": {
+    "start": 1772111124169,
+    "end": 1772111124169
+  }
+}

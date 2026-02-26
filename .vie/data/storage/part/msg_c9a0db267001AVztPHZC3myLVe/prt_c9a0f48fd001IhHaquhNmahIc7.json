@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9a0f48fd001IhHaquhNmahIc7",
+  "messageID": "msg_c9a0db267001AVztPHZC3myLVe",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01Eb47N6JM9QNpQtoVp7Ntdg",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 388,
+      "limit": 20
+    },
+    "output": "<file>\n00389|     }\n00390|   }, [batchTokens, toToken, toChain, batchChain, address])\n00391| \n00392|   // Load approvals when revoke chain changes\n00393|   useEffect(() => {\n00394|     if (revokeChain && address && isConnected) {\n00395|       loadApprovals()\n00396|     } else {\n00397|       setApprovals([])\n00398|     }\n00399|   }, [revokeChain, address, isConnected])\n00400| \n00401| \n00402| \n00403|   // External token search when contract address is pasted\n00404|   useEffect(() => {\n00405|     const searchExternally = async () => {\n00406|       // Check if the search term looks like a contract address (0x followed by 40 hex chars)\n00407|       const isContractAddress = /^0x[a-fA-F0-9]{40}$/.test(tokenSearchTerm.trim())\n00408|       \n\n(File has more lines. Use 'offset' parameter to read beyond line 408)\n</file>",
+    "metadata": {
+      "preview": "    }\n  }, [batchTokens, toToken, toChain, batchChain, address])\n\n  // Load approvals when revoke chain changes\n  useEffect(() => {\n    if (revokeChain && address && isConnected) {\n      loadApprovals()\n    } else {\n      setApprovals([])\n    }\n  }, [revokeChain, address, isConnected])\n\n\n\n  // External token search when contract address is pasted\n  useEffect(() => {\n    const searchExternally = async () => {\n      // Check if the search term looks like a contract address (0x followed by 40 hex chars)\n      const isContractAddress = /^0x[a-fA-F0-9]{40}$/.test(tokenSearchTerm.trim())\n      "
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772111219542,
+      "end": 1772111219543
+    }
+  }
+}

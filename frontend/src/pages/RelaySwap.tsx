@@ -742,21 +742,14 @@ export default function RelaySwap() {
     const chain = batchChain
     const vmType = chain.vmType || 'evm'
 
-    if (vmType === 'svm' && !solanaAddress) {
-      toast.error('Please connect your Solana wallet to detect tokens')
-      return
-    }
-    if ((vmType === 'evm' || vmType === 'hypevm') && !address) {
-      toast.error('Please connect your wallet to detect tokens')
-      return
-    }
+    if (vmType === 'svm' && !solanaAddress) return
+    if ((vmType === 'evm' || vmType === 'hypevm') && (!address || !isConnected)) return
 
     setIsLoadingBatchTokens(true)
     const tokensWithBalances: WalletToken[] = []
 
     try {
       if (vmType === 'evm' || vmType === 'hypevm') {
-        const { createPublicClient, http, defineChain } = await import('viem')
         const chainConfig = defineChain({
           id: chain.id,
           name: chain.displayName,
@@ -765,7 +758,7 @@ export default function RelaySwap() {
         })
         const publicClient = createPublicClient({ chain: chainConfig, transport: http(chain.httpRpcUrl) })
 
-        // Always fetch native balance first
+        // Native balance
         try {
           const nativeBalance = await publicClient.getBalance({ address: address as `0x${string}` })
           if (nativeBalance > 0n) {
@@ -786,22 +779,26 @@ export default function RelaySwap() {
           console.warn('Failed to fetch native balance:', e)
         }
 
-        // Try Alchemy alchemy_getTokenBalances via direct RPC fetch (works with demo key)
+        // Fetch Relay currency list for metadata (non-fatal)
+        let relayCurrencies: RelayCurrency[] = []
+        try {
+          const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })
+          relayCurrencies = dedupCurrencies(raw)
+        } catch (e) {
+          console.warn('Failed to fetch Relay currencies for chain', chain.id, e)
+        }
+        const relayCurrencyMap = new Map(relayCurrencies.map(c => [c.address.toLowerCase(), c]))
+
+        // Try Alchemy token balances
         let alchemyTokenAddresses: string[] = []
         try {
           const alchemyNetwork = getAlchemyNetwork(chain.id)
-          // Build Alchemy RPC URL
           const alchemyApiKey = alchemySettings.apiKey || 'demo'
-          const networkSlug = alchemyNetwork.toString()
-          const alchemyRpcUrl = `https://${networkSlug}.g.alchemy.com/v2/${alchemyApiKey}`
+          const alchemyRpcUrl = `https://${alchemyNetwork.toString()}.g.alchemy.com/v2/${alchemyApiKey}`
           const res = await fetch(alchemyRpcUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              jsonrpc: '2.0', id: 1,
-              method: 'alchemy_getTokenBalances',
-              params: [address, 'erc20'],
-            }),
+            body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'alchemy_getTokenBalances', params: [address, 'erc20'] }),
           })
           const data = await res.json()
           if (data.result?.tokenBalances) {
@@ -810,12 +807,8 @@ export default function RelaySwap() {
               .map((t: { contractAddress: string }) => t.contractAddress.toLowerCase())
           }
         } catch (e) {
-          console.warn('Alchemy RPC not available for this chain, falling back to Relay list:', e)
+          console.warn('Alchemy not available for chain', chain.id, '- falling back to Relay list')
         }
-
-        // Fetch Relay default currency list for metadata
-        const relayCurrencies = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })
-        const relayCurrencyMap = new Map(relayCurrencies.map(c => [c.address.toLowerCase(), c]))
 
         const erc20Abi = [{
           name: 'balanceOf', type: 'function', stateMutability: 'view',
@@ -824,7 +817,6 @@ export default function RelaySwap() {
         }] as const
 
         if (alchemyTokenAddresses.length > 0) {
-          // Resolve balances for Alchemy-detected tokens
           const results = await Promise.allSettled(
             alchemyTokenAddresses.map(addr =>
               publicClient.readContract({ address: addr as `0x${string}`, abi: erc20Abi, functionName: 'balanceOf', args: [address as `0x${string}`] })
@@ -840,7 +832,6 @@ export default function RelaySwap() {
             if (relayCurrency) {
               tokensWithBalances.push({ token: relayCurrency, balance: balance.toString(), balanceFormatted: formatUnits(balance, relayCurrency.decimals) })
             } else {
-              // Not in Relay list — fetch token metadata from chain
               try {
                 const [decimals, symbol, name] = await Promise.all([
                   publicClient.readContract({ address: addr as `0x${string}`, abi: [{ name: 'decimals', type: 'function', stateMutability: 'view', inputs: [], outputs: [{ type: 'uint8' }] }] as const, functionName: 'decimals' }),
@@ -852,11 +843,11 @@ export default function RelaySwap() {
                   balance: balance.toString(),
                   balanceFormatted: formatUnits(balance, decimals as number),
                 })
-              } catch { /* skip */ }
+              } catch { /* skip unknown token */ }
             }
           }
-        } else {
-          // Fallback: check Relay default list balances in parallel
+        } else if (relayCurrencies.length > 0) {
+          // Fallback: check Relay default list balances
           const erc20Currencies = relayCurrencies.filter(c => c.address !== '0x0000000000000000000000000000000000000000')
           const CHUNK = 50
           for (let i = 0; i < erc20Currencies.length; i += CHUNK) {
@@ -876,64 +867,77 @@ export default function RelaySwap() {
 
       } else if (vmType === 'svm') {
         if (!solanaAddress) throw new Error('Solana wallet not connected')
-        const rpcUrl = chain.httpRpcUrl
+        const rpcUrl = 'https://api.mainnet-beta.solana.com'
 
         // Native SOL
-        const solRes = await fetch(rpcUrl, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getBalance', params: [solanaAddress] }),
-        })
-        const solData = await solRes.json()
-        if (solData.result?.value) {
-          const balance = BigInt(solData.result.value)
-          if (balance > 0n) {
+        try {
+          const solRes = await fetch(rpcUrl, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getBalance', params: [solanaAddress] }),
+          })
+          const solData = await solRes.json()
+          if (solData.result?.value) {
+            const balance = BigInt(solData.result.value)
+            if (balance > 0n) {
+              tokensWithBalances.push({
+                token: { chainId: chain.id, address: '0x0000000000000000000000000000000000000000', symbol: 'SOL', name: 'Solana', decimals: 9, metadata: { isNative: true } },
+                balance: balance.toString(),
+                balanceFormatted: formatUnits(balance, 9),
+              })
+            }
+          }
+        } catch (e) {
+          console.warn('Failed to fetch SOL balance:', e)
+        }
+
+        // SPL tokens
+        try {
+          const splRes = await fetch(rpcUrl, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getTokenAccountsByOwner', params: [solanaAddress, { programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' }, { encoding: 'jsonParsed' }] }),
+          })
+          const splData = await splRes.json()
+
+          let relayCurrencyMap = new Map<string, RelayCurrency>()
+          try {
+            const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })
+            relayCurrencyMap = new Map(dedupCurrencies(raw).map(c => [c.address.toLowerCase(), c]))
+          } catch (e) {
+            console.warn('Failed to fetch Relay currencies for Solana:', e)
+          }
+
+          for (const account of (splData.result?.value || [])) {
+            const info = account.account?.data?.parsed?.info
+            if (!info) continue
+            const mint = info.mint as string
+            const amount = BigInt(info.tokenAmount?.amount || '0')
+            if (amount <= 0n) continue
+            const decimals = info.tokenAmount?.decimals as number
+            const relayCurrency = relayCurrencyMap.get(mint.toLowerCase())
             tokensWithBalances.push({
-              token: { chainId: chain.id, address: '0x0000000000000000000000000000000000000000', symbol: 'SOL', name: 'Solana', decimals: 9, metadata: { isNative: true } },
-              balance: balance.toString(),
-              balanceFormatted: formatUnits(balance, 9),
+              token: relayCurrency || { chainId: chain.id, address: mint, symbol: mint.slice(0, 6), name: mint.slice(0, 10), decimals },
+              balance: amount.toString(),
+              balanceFormatted: formatUnits(amount, decimals),
             })
           }
-        }
-
-        // All SPL tokens in one call
-        const splRes = await fetch(rpcUrl, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getTokenAccountsByOwner', params: [solanaAddress, { programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' }, { encoding: 'jsonParsed' }] }),
-        })
-        const splData = await splRes.json()
-        const relayCurrencies = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })
-        const relayCurrencyMap = new Map(relayCurrencies.map(c => [c.address.toLowerCase(), c]))
-
-        for (const account of (splData.result?.value || [])) {
-          const info = account.account?.data?.parsed?.info
-          if (!info) continue
-          const mint = info.mint as string
-          const amount = BigInt(info.tokenAmount?.amount || '0')
-          if (amount <= 0n) continue
-          const decimals = info.tokenAmount?.decimals as number
-          const relayCurrency = relayCurrencyMap.get(mint.toLowerCase())
-          tokensWithBalances.push({
-            token: relayCurrency || { chainId: chain.id, address: mint, symbol: mint.slice(0, 6), name: mint.slice(0, 10), decimals },
-            balance: amount.toString(),
-            balanceFormatted: formatUnits(amount, decimals),
-          })
+        } catch (e) {
+          console.warn('Failed to fetch SPL tokens:', e)
         }
       } else {
-        toast.info(`Token detection not supported for ${chain.displayName}`)
         setIsLoadingBatchTokens(false)
         return
       }
 
-      const sorted = tokensWithBalances.sort((a, b) => parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted))
+      const sorted = dedupCurrencies(tokensWithBalances.map(t => t.token))
+        .map(token => tokensWithBalances.find(t => t.token.chainId === token.chainId && t.token.address.toLowerCase() === token.address.toLowerCase())!)
+        .filter(Boolean)
+        .sort((a, b) => parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted))
+
       setWalletTokens(sorted)
       setBatchTokens(sorted)
-
-      if (sorted.length === 0) {
-        toast.info('No tokens with balance found on this chain')
-      }
     } catch (error) {
-      console.error('Failed to load wallet tokens:', error)
-      toast.error('Failed to detect tokens: ' + (error instanceof Error ? error.message : String(error)))
+      console.error('Failed to load batch wallet tokens:', error)
+      toast.error('Failed to detect tokens')
     } finally {
       setIsLoadingBatchTokens(false)
     }
