@@ -467,11 +467,12 @@ export default function RelaySwap() {
       if (batchChain) {
         try {
           console.log('Loading currencies for batch chain:', batchChain.displayName)
-          const fetchedCurrencies = await relayAPI.getCurrencies({
+          const raw = await relayAPI.getCurrencies({
             chainIds: [batchChain.id],
             defaultList: true,
             limit: 100,
           })
+          const fetchedCurrencies = dedupCurrencies(raw)
           console.log('Loaded', fetchedCurrencies.length, 'currencies for batch chain')
           setCurrencies(fetchedCurrencies)
         } catch (error) {
@@ -651,16 +652,26 @@ export default function RelaySwap() {
     }
   }
 
+  const dedupCurrencies = (currencies: RelayCurrency[]): RelayCurrency[] => {
+    const seen = new Set<string>()
+    return currencies.filter(c => {
+      const key = `${c.chainId}:${c.address.toLowerCase()}`
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
+  }
+
   const loadCurrencies = async (chainId: number, type: 'from' | 'to') => {
     try {
       console.log('Loading currencies for chain:', chainId, 'type:', type)
-      const fetchedCurrencies = await relayAPI.getCurrencies({
+      const raw = await relayAPI.getCurrencies({
         chainIds: [chainId],
         defaultList: true,
         limit: 100,
       })
+      const fetchedCurrencies = dedupCurrencies(raw)
       console.log('Fetched currencies:', fetchedCurrencies.length, 'for chain', chainId)
-      console.log('First few tokens:', fetchedCurrencies.slice(0, 5).map(c => c.symbol))
       
       if (type === 'from') {
         setFromCurrencies(fetchedCurrencies)
@@ -714,13 +725,12 @@ export default function RelaySwap() {
     }
 
     try {
-      const fetchedCurrencies = await relayAPI.getCurrencies({
+      const raw = await relayAPI.getCurrencies({
         chainIds: [chain.id],
         defaultList: true,
         limit: 50,
       })
-      
-      setCurrencies(fetchedCurrencies)
+      setCurrencies(dedupCurrencies(raw))
     } catch (error) {
       console.error('Failed to load wallet tokens:', error)
     }
@@ -2362,10 +2372,11 @@ export default function RelaySwap() {
     ? currencies.filter(c => c.chainId === batchChain.id)
     : currencies
   
-  // Combine regular currencies with external search results
-  const allCurrencies = externalSearchResults.length > 0 
-    ? [...externalSearchResults, ...activeCurrencies]
-    : activeCurrencies
+  const allCurrencies = dedupCurrencies(
+    externalSearchResults.length > 0
+      ? [...externalSearchResults, ...activeCurrencies]
+      : activeCurrencies
+  )
   
   const filteredCurrencies = allCurrencies.filter(currency =>
     currency.symbol.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||

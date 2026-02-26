@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a02c2d9001jdGkcXKQTmn5hG",
+  "messageID": "msg_c9a029063001i2wrJ7POJ9xVUf",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "The fix is to deduplicate currencies after fetching — by `address` (case-insensitive) within the same `chainId`. This handles SOL appearing twice (same address, same chainId) and any similar duplicates on EVM chains. I'll add a dedup helper and apply it everywhere currencies are set.",
+  "time": {
+    "start": 1772110400714,
+    "end": 1772110400714
+  }
+}

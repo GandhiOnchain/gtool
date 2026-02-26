@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a02a07d0010KaHmVKGTOsBsB",
+  "messageID": "msg_c9a029063001i2wrJ7POJ9xVUf",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Let me look at how currencies are loaded and deduplicated.",
+  "time": {
+    "start": 1772110390521,
+    "end": 1772110390521
+  }
+}

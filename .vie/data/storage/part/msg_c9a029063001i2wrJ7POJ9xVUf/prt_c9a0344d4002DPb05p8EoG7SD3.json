@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a0344d4002DPb05p8EoG7SD3",
+  "messageID": "msg_c9a029063001i2wrJ7POJ9xVUf",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Lines 817 and 904 are used to build a lookup map — deduplication there is handled naturally by the Map (last write wins, but since we're just looking up by address it doesn't matter for correctness). The key fix is at the display level. Let me also dedup the `filteredCurrencies` used in the token selector to be safe, since `externalSearchResults` could also introduce duplicates:",
+  "time": {
+    "start": 1772110435299,
+    "end": 1772110435299
+  }
+}

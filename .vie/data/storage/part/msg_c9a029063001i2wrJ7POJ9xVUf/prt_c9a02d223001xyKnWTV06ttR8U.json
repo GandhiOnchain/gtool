@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a02d223001xyKnWTV06ttR8U",
+  "messageID": "msg_c9a029063001i2wrJ7POJ9xVUf",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now I'll add a dedup helper right before the `loadCurrencies` function and apply it everywhere currencies are stored:",
+  "time": {
+    "start": 1772110407323,
+    "end": 1772110407323
+  }
+}

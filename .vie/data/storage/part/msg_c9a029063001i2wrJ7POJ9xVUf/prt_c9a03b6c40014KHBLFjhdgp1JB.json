@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a03b6c40014KHBLFjhdgp1JB",
+  "messageID": "msg_c9a029063001i2wrJ7POJ9xVUf",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Clean. The root cause was the Relay API returning the native token (SOL/ETH/etc.) twice in the currency list — once as a native entry and once as a regular listed token with the same address. The fix:\n\n- Added a `dedupCurrencies` helper that deduplicates by `chainId:address` key\n- Applied it at every point currencies are fetched and stored (`loadCurrencies`, `loadWalletTokens`, batch chain loader)\n- Also applied it at render time on `allCurrencies` before filtering, so even if external search results overlap with the main list, no duplicates appear",
+  "time": {
+    "start": 1772110464349,
+    "end": 1772110464349
+  }
+}

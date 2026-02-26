@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a02acef002HWHwGSo7u17xcF",
+  "messageID": "msg_c9a029063001i2wrJ7POJ9xVUf",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "The issue is clear. The `loadCurrencies` function fetches from the Relay API which returns SOL as a native token, but the `filteredChains` list in the chain selector and the currency list both include duplicates because the API returns SOL twice (once as native, once as a listed token with the same address). Let me look at the deduplication logic:",
+  "time": {
+    "start": 1772110396200,
+    "end": 1772110396200
+  }
+}

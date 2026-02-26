@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9a032e81001NoMy0OdnAIDWJM",
+  "messageID": "msg_c9a029063001i2wrJ7POJ9xVUf",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01Vwv1TKaxuCV4xPXM8BCArT",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"relayCurrencies\\|relayAPI.getCurrencies\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "description": "Find all getCurrencies calls"
+    },
+    "output": "426:          const results = await relayAPI.getCurrencies({\n470:          const raw = await relayAPI.getCurrencies({\n668:      const raw = await relayAPI.getCurrencies({\n728:      const raw = await relayAPI.getCurrencies({\n817:        const relayCurrencies = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })\n818:        const relayCurrencyMap = new Map(relayCurrencies.map(c => [c.address.toLowerCase(), c]))\n860:          const erc20Currencies = relayCurrencies.filter(c => c.address !== '0x0000000000000000000000000000000000000000')\n904:        const relayCurrencies = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })\n905:        const relayCurrencyMap = new Map(relayCurrencies.map(c => [c.address.toLowerCase(), c]))\n956:      const results = await relayAPI.getCurrencies({\n",
+    "metadata": {
+      "output": "426:          const results = await relayAPI.getCurrencies({\n470:          const raw = await relayAPI.getCurrencies({\n668:      const raw = await relayAPI.getCurrencies({\n728:      const raw = await relayAPI.getCurrencies({\n817:        const relayCurrencies = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })\n818:        const relayCurrencyMap = new Map(relayCurrencies.map(c => [c.address.toLowerCase(), c]))\n860:          const erc20Currencies = relayCurrencies.filter(c => c.address !== '0x0000000000000000000000000000000000000000')\n904:        const relayCurrencies = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })\n905:        const relayCurrencyMap = new Map(relayCurrencies.map(c => [c.address.toLowerCase(), c]))\n956:      const results = await relayAPI.getCurrencies({\n",
+      "exit": 0,
+      "description": "Find all getCurrencies calls"
+    },
+    "title": "grep -n \"relayCurrencies\\|relayAPI.getCurrencies\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772110426500,
+      "end": 1772110426505
+    }
+  }
+}

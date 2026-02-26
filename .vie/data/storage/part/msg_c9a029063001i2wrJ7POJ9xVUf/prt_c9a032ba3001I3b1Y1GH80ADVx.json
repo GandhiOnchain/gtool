@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a032ba3001I3b1Y1GH80ADVx",
+  "messageID": "msg_c9a029063001i2wrJ7POJ9xVUf",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Also dedup in the batch wallet tokens loader where it fetches relay currencies for metadata:",
+  "time": {
+    "start": 1772110426560,
+    "end": 1772110426560
+  }
+}

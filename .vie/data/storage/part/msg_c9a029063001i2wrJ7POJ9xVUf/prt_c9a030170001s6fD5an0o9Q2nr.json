@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9a030170001s6fD5an0o9Q2nr",
+  "messageID": "msg_c9a029063001i2wrJ7POJ9xVUf",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_014tGzNuri5Pcydo3Qnr2hJi",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 488,
+      "limit": 25
+    },
+    "output": "<file>\n00489|       if (isTxSuccess && txHash && currentSwapRequestId && currentSwapChainId) {\n00490|         console.log('Transaction confirmed on-chain:', txHash)\n00491|         toast.success('Transaction confirmed')\n00492|         \n00493|         // Refetch balances immediately after transaction confirmation\n00494|         setTimeout(() => {\n00495|           refetchBalances()\n00496|         }, 1000) // Wait 1 second for blockchain state to update\n00497|         \n00498|         // Index the transaction with Relay after confirmation\n00499|         try {\n00500|           console.log('Indexing confirmed transaction with Relay:', txHash, 'on chain', currentSwapChainId)\n00501|           await relayAPI.indexSingleTransaction({\n00502|             txHash,\n00503|             chainId: currentSwapChainId,\n00504|           })\n00505|           console.log('Transaction indexed successfully')\n00506|         } catch (indexError) {\n00507|           console.error('Failed to index transaction:', indexError)\n00508|           // Continue anyway - Relay may auto-detect the transaction\n00509|         }\n00510|         \n00511|         // Start monitoring the swap status\n00512|         console.log('Starting swap status monitoring with requestId:', currentSwapRequestId)\n00513|         monitorSwapStatus(currentSwapRequestId)\n\n(File has more lines. Use 'offset' parameter to read beyond line 513)\n</file>",
+    "metadata": {
+      "preview": "      if (isTxSuccess && txHash && currentSwapRequestId && currentSwapChainId) {\n        console.log('Transaction confirmed on-chain:', txHash)\n        toast.success('Transaction confirmed')\n        \n        // Refetch balances immediately after transaction confirmation\n        setTimeout(() => {\n          refetchBalances()\n        }, 1000) // Wait 1 second for blockchain state to update\n        \n        // Index the transaction with Relay after confirmation\n        try {\n          console.log('Indexing confirmed transaction with Relay:', txHash, 'on chain', currentSwapChainId)\n          await relayAPI.indexSingleTransaction({\n            txHash,\n            chainId: currentSwapChainId,\n          })\n          console.log('Transaction indexed successfully')\n        } catch (indexError) {\n          console.error('Failed to index transaction:', indexError)\n          // Continue anyway - Relay may auto-detect the transaction"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772110414804,
+      "end": 1772110414806
+    }
+  }
+}
