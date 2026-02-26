@@ -1,0 +1,61 @@
+{
+  "id": "prt_c99eca83c001ZVspdP2TwS74xC",
+  "messageID": "msg_c99ea9e35001Ru2aiBaYrJt16v",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_015gKnaQ38NKfxW5jfb1QzHE",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Fix batch token detection failure",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add Solana and Bitcoin chain support in chain selector and swap/bridge/batch/revoke",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "3"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Fix batch token detection failure\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Add Solana and Bitcoin chain support in chain selector and swap/bridge/batch/revoke\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Fix batch token detection failure",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add Solana and Bitcoin chain support in chain selector and swap/bridge/batch/revoke",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "3"
+        }
+      ]
+    },
+    "title": "1 todos",
+    "time": {
+      "start": 1772108951470,
+      "end": 1772108951470
+    }
+  }
+}

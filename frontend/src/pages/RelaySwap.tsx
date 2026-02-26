@@ -771,166 +771,130 @@ export default function RelaySwap() {
     try {
       if (vmType === 'evm' || vmType === 'hypevm') {
         const { createPublicClient, http, defineChain } = await import('viem')
-
         const chainConfig = defineChain({
           id: chain.id,
           name: chain.displayName,
-          nativeCurrency: {
-            name: chain.currency.name,
-            symbol: chain.currency.symbol,
-            decimals: chain.currency.decimals,
-          },
+          nativeCurrency: { name: chain.currency.name, symbol: chain.currency.symbol, decimals: chain.currency.decimals },
           rpcUrls: { default: { http: [chain.httpRpcUrl] } },
         })
-        const publicClient = createPublicClient({
-          chain: chainConfig,
-          transport: http(chain.httpRpcUrl),
-        })
+        const publicClient = createPublicClient({ chain: chainConfig, transport: http(chain.httpRpcUrl) })
 
-        // Step 1: try Alchemy getTokensForOwner — returns all tokens with balance in one call
-        let alchemyTokenAddresses: Set<string> = new Set()
+        // Always fetch native balance first
         try {
-          const alchemyNetwork = getAlchemyNetwork(chain.id)
-          const alchemyInstance = new (await import('alchemy-sdk')).Alchemy({
-            ...alchemySettings,
-            network: alchemyNetwork,
-          })
-          const result = await alchemyInstance.core.getTokensForOwner(address as string)
-          for (const t of result.tokens) {
-            if (t.balance && parseFloat(t.balance) > 0 && t.contractAddress) {
-              alchemyTokenAddresses.add(t.contractAddress.toLowerCase())
-            }
+          const nativeBalance = await publicClient.getBalance({ address: address as `0x${string}` })
+          if (nativeBalance > 0n) {
+            tokensWithBalances.push({
+              token: {
+                chainId: chain.id,
+                address: '0x0000000000000000000000000000000000000000',
+                symbol: chain.currency.symbol,
+                name: chain.currency.name,
+                decimals: chain.currency.decimals,
+                metadata: { isNative: true },
+              },
+              balance: nativeBalance.toString(),
+              balanceFormatted: formatUnits(nativeBalance, chain.currency.decimals),
+            })
           }
         } catch (e) {
-          console.warn('Alchemy getTokensForOwner not available for this chain, falling back to RPC:', e)
+          console.warn('Failed to fetch native balance:', e)
         }
 
-        // Step 2: fetch native balance
-        const nativeBalance = await publicClient.getBalance({ address: address as `0x${string}` })
-        if (nativeBalance > 0n) {
-          tokensWithBalances.push({
-            token: {
-              chainId: chain.id,
-              address: '0x0000000000000000000000000000000000000000',
-              symbol: chain.currency.symbol,
-              name: chain.currency.name,
-              decimals: chain.currency.decimals,
-              metadata: { isNative: true },
-            },
-            balance: nativeBalance.toString(),
-            balanceFormatted: formatUnits(nativeBalance, chain.currency.decimals),
+        // Try Alchemy alchemy_getTokenBalances via direct RPC fetch (works with demo key)
+        let alchemyTokenAddresses: string[] = []
+        try {
+          const alchemyNetwork = getAlchemyNetwork(chain.id)
+          // Build Alchemy RPC URL
+          const alchemyApiKey = alchemySettings.apiKey || 'demo'
+          const networkSlug = alchemyNetwork.toString()
+          const alchemyRpcUrl = `https://${networkSlug}.g.alchemy.com/v2/${alchemyApiKey}`
+          const res = await fetch(alchemyRpcUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              jsonrpc: '2.0', id: 1,
+              method: 'alchemy_getTokenBalances',
+              params: [address, 'erc20'],
+            }),
           })
+          const data = await res.json()
+          if (data.result?.tokenBalances) {
+            alchemyTokenAddresses = data.result.tokenBalances
+              .filter((t: { tokenBalance: string }) => t.tokenBalance && t.tokenBalance !== '0x0000000000000000000000000000000000000000000000000000000000000000')
+              .map((t: { contractAddress: string }) => t.contractAddress.toLowerCase())
+          }
+        } catch (e) {
+          console.warn('Alchemy RPC not available for this chain, falling back to Relay list:', e)
         }
 
-        // Step 3: fetch Relay currency list to get metadata (logo, verified, etc.)
-        const relayCurrencies = await relayAPI.getCurrencies({
-          chainIds: [chain.id],
-          defaultList: false,
-          limit: 500,
-        })
+        // Fetch Relay default currency list for metadata
+        const relayCurrencies = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })
         const relayCurrencyMap = new Map(relayCurrencies.map(c => [c.address.toLowerCase(), c]))
 
-        // Step 4: if Alchemy found tokens, resolve them against Relay metadata
-        if (alchemyTokenAddresses.size > 0) {
-          const erc20Abi = [{
-            name: 'balanceOf',
-            type: 'function',
-            stateMutability: 'view',
-            inputs: [{ name: 'account', type: 'address' }],
-            outputs: [{ name: 'balance', type: 'uint256' }],
-          }] as const
+        const erc20Abi = [{
+          name: 'balanceOf', type: 'function', stateMutability: 'view',
+          inputs: [{ name: 'account', type: 'address' }],
+          outputs: [{ name: 'balance', type: 'uint256' }],
+        }] as const
 
-          const addressList = Array.from(alchemyTokenAddresses)
-          const balanceResults = await Promise.allSettled(
-            addressList.map(addr =>
-              publicClient.readContract({
-                address: addr as `0x${string}`,
-                abi: erc20Abi,
-                functionName: 'balanceOf',
-                args: [address as `0x${string}`],
-              })
+        if (alchemyTokenAddresses.length > 0) {
+          // Resolve balances for Alchemy-detected tokens
+          const results = await Promise.allSettled(
+            alchemyTokenAddresses.map(addr =>
+              publicClient.readContract({ address: addr as `0x${string}`, abi: erc20Abi, functionName: 'balanceOf', args: [address as `0x${string}`] })
             )
           )
-
-          for (let i = 0; i < addressList.length; i++) {
-            const result = balanceResults[i]
-            if (result.status !== 'fulfilled') continue
-            const balance = result.value as bigint
+          for (let i = 0; i < alchemyTokenAddresses.length; i++) {
+            const r = results[i]
+            if (r.status !== 'fulfilled') continue
+            const balance = r.value as bigint
             if (balance <= 0n) continue
-
-            const addr = addressList[i]
+            const addr = alchemyTokenAddresses[i]
             const relayCurrency = relayCurrencyMap.get(addr)
-
             if (relayCurrency) {
-              const balanceFormatted = formatUnits(balance, relayCurrency.decimals)
-              tokensWithBalances.push({ token: relayCurrency, balance: balance.toString(), balanceFormatted })
+              tokensWithBalances.push({ token: relayCurrency, balance: balance.toString(), balanceFormatted: formatUnits(balance, relayCurrency.decimals) })
             } else {
-              // Token not in Relay list — fetch decimals/symbol from chain
+              // Not in Relay list — fetch token metadata from chain
               try {
                 const [decimals, symbol, name] = await Promise.all([
                   publicClient.readContract({ address: addr as `0x${string}`, abi: [{ name: 'decimals', type: 'function', stateMutability: 'view', inputs: [], outputs: [{ type: 'uint8' }] }] as const, functionName: 'decimals' }),
                   publicClient.readContract({ address: addr as `0x${string}`, abi: [{ name: 'symbol', type: 'function', stateMutability: 'view', inputs: [], outputs: [{ type: 'string' }] }] as const, functionName: 'symbol' }),
                   publicClient.readContract({ address: addr as `0x${string}`, abi: [{ name: 'name', type: 'function', stateMutability: 'view', inputs: [], outputs: [{ type: 'string' }] }] as const, functionName: 'name' }),
                 ])
-                const balanceFormatted = formatUnits(balance, decimals as number)
                 tokensWithBalances.push({
                   token: { chainId: chain.id, address: addr, symbol: symbol as string, name: name as string, decimals: decimals as number },
                   balance: balance.toString(),
-                  balanceFormatted,
+                  balanceFormatted: formatUnits(balance, decimals as number),
                 })
-              } catch { /* skip unresolvable tokens */ }
+              } catch { /* skip */ }
             }
           }
         } else {
-          // Alchemy not available — fall back to checking Relay default list via multicall
-          const erc20Abi = [{
-            name: 'balanceOf',
-            type: 'function',
-            stateMutability: 'view',
-            inputs: [{ name: 'account', type: 'address' }],
-            outputs: [{ name: 'balance', type: 'uint256' }],
-          }] as const
-
-          const erc20Currencies = relayCurrencies.filter(c =>
-            c.address !== '0x0000000000000000000000000000000000000000'
-          )
-
+          // Fallback: check Relay default list balances in parallel
+          const erc20Currencies = relayCurrencies.filter(c => c.address !== '0x0000000000000000000000000000000000000000')
           const CHUNK = 50
           for (let i = 0; i < erc20Currencies.length; i += CHUNK) {
             const chunk = erc20Currencies.slice(i, i + CHUNK)
             const results = await Promise.allSettled(
-              chunk.map(c =>
-                publicClient.readContract({
-                  address: c.address as `0x${string}`,
-                  abi: erc20Abi,
-                  functionName: 'balanceOf',
-                  args: [address as `0x${string}`],
-                })
-              )
+              chunk.map(c => publicClient.readContract({ address: c.address as `0x${string}`, abi: erc20Abi, functionName: 'balanceOf', args: [address as `0x${string}`] }))
             )
             for (let j = 0; j < chunk.length; j++) {
               const r = results[j]
               if (r.status !== 'fulfilled') continue
               const balance = r.value as bigint
               if (balance <= 0n) continue
-              const currency = chunk[j]
-              tokensWithBalances.push({
-                token: currency,
-                balance: balance.toString(),
-                balanceFormatted: formatUnits(balance, currency.decimals),
-              })
+              tokensWithBalances.push({ token: chunk[j], balance: balance.toString(), balanceFormatted: formatUnits(balance, chunk[j].decimals) })
             }
           }
         }
 
       } else if (vmType === 'svm') {
         if (!solanaAddress) throw new Error('Solana wallet not connected')
-        const solanaRpcUrl = chain.httpRpcUrl
+        const rpcUrl = chain.httpRpcUrl
 
         // Native SOL
-        const solRes = await fetch(solanaRpcUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        const solRes = await fetch(rpcUrl, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getBalance', params: [solanaAddress] }),
         })
         const solData = await solRes.json()
@@ -945,15 +909,14 @@ export default function RelaySwap() {
           }
         }
 
-        // SPL tokens
-        const splRes = await fetch(solanaRpcUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        // All SPL tokens in one call
+        const splRes = await fetch(rpcUrl, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getTokenAccountsByOwner', params: [solanaAddress, { programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' }, { encoding: 'jsonParsed' }] }),
         })
         const splData = await splRes.json()
-        const relayCurrencies2 = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: false, limit: 500 })
-        const relayCurrencyMap2 = new Map(relayCurrencies2.map(c => [c.address.toLowerCase(), c]))
+        const relayCurrencies = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })
+        const relayCurrencyMap = new Map(relayCurrencies.map(c => [c.address.toLowerCase(), c]))
 
         for (const account of (splData.result?.value || [])) {
           const info = account.account?.data?.parsed?.info
@@ -962,7 +925,7 @@ export default function RelaySwap() {
           const amount = BigInt(info.tokenAmount?.amount || '0')
           if (amount <= 0n) continue
           const decimals = info.tokenAmount?.decimals as number
-          const relayCurrency = relayCurrencyMap2.get(mint.toLowerCase())
+          const relayCurrency = relayCurrencyMap.get(mint.toLowerCase())
           tokensWithBalances.push({
             token: relayCurrency || { chainId: chain.id, address: mint, symbol: mint.slice(0, 6), name: mint.slice(0, 10), decimals },
             balance: amount.toString(),
@@ -971,6 +934,7 @@ export default function RelaySwap() {
         }
       } else {
         toast.info(`Token detection not supported for ${chain.displayName}`)
+        setIsLoadingBatchTokens(false)
         return
       }
 
@@ -983,7 +947,7 @@ export default function RelaySwap() {
       }
     } catch (error) {
       console.error('Failed to load wallet tokens:', error)
-      toast.error('Failed to detect tokens')
+      toast.error('Failed to detect tokens: ' + (error instanceof Error ? error.message : String(error)))
     } finally {
       setIsLoadingBatchTokens(false)
     }
@@ -2465,22 +2429,32 @@ export default function RelaySwap() {
                     </div>
                     <ScrollArea className="h-56">
                       {chains
-                        .filter(c => (c.vmType === 'evm' || !c.vmType) && !c.disabled)
+                        .filter(c => !c.disabled)
                         .filter(c => !chainSearch || c.displayName.toLowerCase().includes(chainSearch.toLowerCase()))
-                        .map((chain) => (
-                          <DropdownMenuItem
-                            key={chain.id}
-                            className="flex items-center gap-2 cursor-pointer"
-                            onClick={() => switchToChain(chain)}
-                          >
-                            {chain.iconUrl
-                              ? <img src={chain.iconUrl} alt="" className="h-4 w-4 rounded-full flex-shrink-0" />
-                              : <div className="h-4 w-4 rounded-full bg-muted flex-shrink-0" />
-                            }
-                            <span className="flex-1 truncate text-xs">{chain.displayName}</span>
-                            {chain.id === connectedChainId && <span className="text-accent text-xs">✓</span>}
-                          </DropdownMenuItem>
-                        ))
+                        .map((chain) => {
+                          const isEvm = chain.vmType === 'evm' || !chain.vmType
+                          return (
+                            <DropdownMenuItem
+                              key={chain.id}
+                              className="flex items-center gap-2 cursor-pointer"
+                              onClick={() => {
+                                if (isEvm) {
+                                  switchToChain(chain)
+                                } else {
+                                  toast.info(`Switch to ${chain.displayName} in your wallet manually`)
+                                }
+                              }}
+                            >
+                              {chain.iconUrl
+                                ? <img src={chain.iconUrl} alt="" className="h-4 w-4 rounded-full flex-shrink-0" />
+                                : <div className="h-4 w-4 rounded-full bg-muted flex-shrink-0" />
+                              }
+                              <span className="flex-1 truncate text-xs">{chain.displayName}</span>
+                              {!isEvm && <span className="text-xs text-muted-foreground">{chain.vmType?.toUpperCase()}</span>}
+                              {chain.id === connectedChainId && <span className="text-accent text-xs">✓</span>}
+                            </DropdownMenuItem>
+                          )
+                        })
                       }
                     </ScrollArea>
                   </DropdownMenuContent>

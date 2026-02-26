@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99eafad1001l9ixxA6vTwdqhN",
+  "messageID": "msg_c99ea9e35001Ru2aiBaYrJt16v",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01NcMFvkMFheHh7hB1BjZAQd",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"export.*alchemySettings\" /home/user/sandbox/workspace/frontend/src/lib/alchemy/config.ts",
+      "description": "Check alchemySettings export"
+    },
+    "output": "30:export { alchemySettings };\n",
+    "metadata": {
+      "output": "30:export { alchemySettings };\n",
+      "exit": 0,
+      "description": "Check alchemySettings export"
+    },
+    "title": "grep -n \"export.*alchemySettings\" /home/user/sandbox/workspace/frontend/src/lib/alchemy/config.ts",
+    "time": {
+      "start": 1772108840275,
+      "end": 1772108840277
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_c99ec6f3c001Ai4EW0evOy13b5",
+  "messageID": "msg_c99ea9e35001Ru2aiBaYrJt16v",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_012RzXefBkK6XDP6Nu6xSf7S",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2455,
+      "limit": 15
+    },
+    "output": "<file>\n02456|                 variant=\"ghost\"\n02457|                 size=\"sm\"\n02458|                 onClick={() => setShowSettings(true)}\n02459|                 className=\"h-7 w-7 p-0\"\n02460|               >\n02461|                 <Settings className=\"h-4 w-4\" />\n02462|               </Button>\n02463|               <Button\n02464|                 variant=\"ghost\"\n02465|                 size=\"sm\"\n02466|                 onClick={async () => {\n02467|                   const connectorName = connector?.name || 'Unknown'\n02468|                   console.log('Disconnect clicked:', { connectorName, isConnected, address })\n02469|                   \n02470|                   if (connectorName === 'Farcaster Miniapp') {\n\n(File has more lines. Use 'offset' parameter to read beyond line 2470)\n</file>",
+    "metadata": {
+      "preview": "                variant=\"ghost\"\n                size=\"sm\"\n                onClick={() => setShowSettings(true)}\n                className=\"h-7 w-7 p-0\"\n              >\n                <Settings className=\"h-4 w-4\" />\n              </Button>\n              <Button\n                variant=\"ghost\"\n                size=\"sm\"\n                onClick={async () => {\n                  const connectorName = connector?.name || 'Unknown'\n                  console.log('Disconnect clicked:', { connectorName, isConnected, address })\n                  \n                  if (connectorName === 'Farcaster Miniapp') {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772108936027,
+      "end": 1772108936032
+    }
+  }
+}

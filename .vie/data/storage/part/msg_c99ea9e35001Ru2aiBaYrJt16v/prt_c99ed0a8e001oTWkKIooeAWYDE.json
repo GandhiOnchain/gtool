@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99ed0a8e001oTWkKIooeAWYDE",
+  "messageID": "msg_c99ea9e35001Ru2aiBaYrJt16v",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "All clean. Here's what was fixed and why:\n\n---\n\n## Batch Token Detection Fix\n\n**Root cause of \"Failed to detect tokens\":** The previous code called `getCurrencies({ defaultList: false, limit: 500 })` — the Relay API doesn't support `defaultList: false` and was throwing an error that bubbled up to the outer catch.\n\n**New approach:**\n1. **Native balance** — always fetched first via `getBalance`, no dependency on any list\n2. **Alchemy `alchemy_getTokenBalances`** — called directly via raw RPC fetch (no SDK needed, works with the demo key). Returns every ERC-20 with a non-zero balance in one call\n3. **Relay default list fallback** — if Alchemy isn't available for the chain, checks the Relay default list (200 tokens) in parallel chunks of 50\n4. **Unknown tokens** — if Alchemy finds a token not in the Relay list, fetches `decimals/symbol/name` directly from the contract\n\n---\n\n## Solana & Bitcoin in Chain Selector\n\n**Root cause:** The header dropdown was filtering to `vmType === 'evm' || !c.vmType` — explicitly excluding Solana (SVM) and Bitcoin.\n\n**Fix:** Removed the EVM-only filter. All chains now appear. Non-EVM chains (Solana, Bitcoin, etc.) show their VM type label (SVM, BVM) and display a toast telling the user to switch manually in their wallet, since `wallet_switchEthereumChain` only works for EVM. The swap/bridge/batch/revoke chain selectors already showed all chains via `filteredChains` — no change needed there.",
+  "time": {
+    "start": 1772108985394,
+    "end": 1772108985394
+  }
+}

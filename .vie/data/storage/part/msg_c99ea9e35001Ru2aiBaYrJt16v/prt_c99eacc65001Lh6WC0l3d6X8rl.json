@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99eacc65001Lh6WC0l3d6X8rl",
+  "messageID": "msg_c99ea9e35001Ru2aiBaYrJt16v",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_011vJn3Za8ureDksDgC7qY9t",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -rn \"getTokensForOwner\" /home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/ 2>/dev/null | head -5",
+      "description": "Check alchemy-sdk for getTokensForOwner"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/cjs/api/src/api/core-namespace.d.ts:275:    getTokensForOwner(addressOrName: string, options?: GetTokensForOwnerOptions): Promise<GetTokensForOwnerResponse>;\r\n/home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/cjs/api/src/types/types.d.ts:262: * Optional params to pass into {@link CoreNamespace.getTokensForOwner}.\r\n/home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/cjs/api/src/types/types.d.ts:277: * Response object for {@link CoreNamespace.getTokensForOwner}.\r\n/home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/cjs/index-011acf63.js:2299:    getTokensForOwner(addressOrName, options) {\r\n/home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/cjs/index-011acf63.js:2311:            const response = (yield provider._send('alchemy_getTokenBalances', params, 'getTokensForOwner'));\r\n",
+    "metadata": {
+      "output": "/home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/cjs/api/src/api/core-namespace.d.ts:275:    getTokensForOwner(addressOrName: string, options?: GetTokensForOwnerOptions): Promise<GetTokensForOwnerResponse>;\r\n/home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/cjs/api/src/types/types.d.ts:262: * Optional params to pass into {@link CoreNamespace.getTokensForOwner}.\r\n/home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/cjs/api/src/types/types.d.ts:277: * Response object for {@link CoreNamespace.getTokensForOwner}.\r\n/home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/cjs/index-011acf63.js:2299:    getTokensForOwner(addressOrName, options) {\r\n/home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/cjs/index-011acf63.js:2311:            const response = (yield provider._send('alchemy_getTokenBalances', params, 'getTokensForOwner'));\r\n",
+      "exit": 0,
+      "description": "Check alchemy-sdk for getTokensForOwner"
+    },
+    "title": "grep -rn \"getTokensForOwner\" /home/user/sandbox/workspace/frontend/node_modules/alchemy-sdk/dist/ 2>/dev/null | head -5",
+    "time": {
+      "start": 1772108828471,
+      "end": 1772108828500
+    }
+  }
+}

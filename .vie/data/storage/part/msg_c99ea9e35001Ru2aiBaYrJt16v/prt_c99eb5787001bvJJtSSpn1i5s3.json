@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99eb5787001bvJJtSSpn1i5s3",
+  "messageID": "msg_c99ea9e35001Ru2aiBaYrJt16v",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "Now I see all the issues. The `getCurrencies` with `defaultList: false` is likely the culprit — Relay API may not support that. Also for Solana it calls it again. Let me now also check the chain filtering for the chain selector dialog to understand the Solana/Bitcoin issue:",
+  "time": {
+    "start": 1772108866925,
+    "end": 1772108866925
+  }
+}

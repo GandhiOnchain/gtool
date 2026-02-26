@@ -1,0 +1,25 @@
+{
+  "id": "prt_c99eb4df2001i1xZIOMgzpJ9vU",
+  "messageID": "msg_c99ea9e35001Ru2aiBaYrJt16v",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01SQjGz1mR9GASvn7mrMLcUF",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 933,
+      "limit": 60
+    },
+    "output": "<file>\n00934|           body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getBalance', params: [solanaAddress] }),\n00935|         })\n00936|         const solData = await solRes.json()\n00937|         if (solData.result?.value) {\n00938|           const balance = BigInt(solData.result.value)\n00939|           if (balance > 0n) {\n00940|             tokensWithBalances.push({\n00941|               token: { chainId: chain.id, address: '0x0000000000000000000000000000000000000000', symbol: 'SOL', name: 'Solana', decimals: 9, metadata: { isNative: true } },\n00942|               balance: balance.toString(),\n00943|               balanceFormatted: formatUnits(balance, 9),\n00944|             })\n00945|           }\n00946|         }\n00947| \n00948|         // SPL tokens\n00949|         const splRes = await fetch(solanaRpcUrl, {\n00950|           method: 'POST',\n00951|           headers: { 'Content-Type': 'application/json' },\n00952|           body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getTokenAccountsByOwner', params: [solanaAddress, { programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' }, { encoding: 'jsonParsed' }] }),\n00953|         })\n00954|         const splData = await splRes.json()\n00955|         const relayCurrencies2 = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: false, limit: 500 })\n00956|         const relayCurrencyMap2 = new Map(relayCurrencies2.map(c => [c.address.toLowerCase(), c]))\n00957| \n00958|         for (const account of (splData.result?.value || [])) {\n00959|           const info = account.account?.data?.parsed?.info\n00960|           if (!info) continue\n00961|           const mint = info.mint as string\n00962|           const amount = BigInt(info.tokenAmount?.amount || '0')\n00963|           if (amount <= 0n) continue\n00964|           const decimals = info.tokenAmount?.decimals as number\n00965|           const relayCurrency = relayCurrencyMap2.get(mint.toLowerCase())\n00966|           tokensWithBalances.push({\n00967|             token: relayCurrency || { chainId: chain.id, address: mint, symbol: mint.slice(0, 6), name: mint.slice(0, 10), decimals },\n00968|             balance: amount.toString(),\n00969|             balanceFormatted: formatUnits(amount, decimals),\n00970|           })\n00971|         }\n00972|       } else {\n00973|         toast.info(`Token detection not supported for ${chain.displayName}`)\n00974|         return\n00975|       }\n00976| \n00977|       const sorted = tokensWithBalances.sort((a, b) => parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted))\n00978|       setWalletTokens(sorted)\n00979|       setBatchTokens(sorted)\n00980| \n00981|       if (sorted.length === 0) {\n00982|         toast.info('No tokens with balance found on this chain')\n00983|       }\n00984|     } catch (error) {\n00985|       console.error('Failed to load wallet tokens:', error)\n00986|       toast.error('Failed to detect tokens')\n00987|     } finally {\n00988|       setIsLoadingBatchTokens(false)\n00989|     }\n00990|   }\n00991| \n00992|   const searchTokenByContract = async (contractAddress: string) => {\n00993|     if (!contractAddress) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 993)\n</file>",
+    "metadata": {
+      "preview": "          body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getBalance', params: [solanaAddress] }),\n        })\n        const solData = await solRes.json()\n        if (solData.result?.value) {\n          const balance = BigInt(solData.result.value)\n          if (balance > 0n) {\n            tokensWithBalances.push({\n              token: { chainId: chain.id, address: '0x0000000000000000000000000000000000000000', symbol: 'SOL', name: 'Solana', decimals: 9, metadata: { isNative: true } },\n              balance: balance.toString(),\n              balanceFormatted: formatUnits(balance, 9),\n            })\n          }\n        }\n\n        // SPL tokens\n        const splRes = await fetch(solanaRpcUrl, {\n          method: 'POST',\n          headers: { 'Content-Type': 'application/json' },\n          body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getTokenAccountsByOwner', params: [solanaAddress, { programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' }, { encoding: 'jsonParsed' }] }),\n        })"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772108861469,
+      "end": 1772108861471
+    }
+  }
+}

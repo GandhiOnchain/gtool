@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99eb3745001MH7B8sAEicgqzE",
+  "messageID": "msg_c99ea9e35001Ru2aiBaYrJt16v",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "The issue is clear: `getCurrencies` with `defaultList: false, limit: 500` is likely throwing because the Relay API doesn't support that combination, or it's returning an error response. Also the whole approach is overly complex. Let me simplify — use `defaultList: true` with a higher limit, and use the Alchemy `alchemy_getTokenBalances` endpoint directly via fetch (no SDK needed, works with the demo key too):",
+  "time": {
+    "start": 1772108858777,
+    "end": 1772108858777
+  }
+}

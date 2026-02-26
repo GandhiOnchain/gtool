@@ -1,2 +1,0 @@
-import { _t as unichain, at as berachain, ct as hyperliquid, dt as optimism, et as wagmiConfig, ft as plume, gt as supportedChains, ht as shape, it as baseSepolia, lt as linea, mt as scroll, nt as avalanche, ot as bsc, pt as polygon, rt as base, st as ethereum, tt as arbitrum, ut as mantle } from "./index-BkbTfWaE.js";
-export { arbitrum, avalanche, base, baseSepolia, berachain, bsc, ethereum, hyperliquid, linea, mantle, optimism, plume, polygon, scroll, shape, supportedChains, unichain, wagmiConfig };

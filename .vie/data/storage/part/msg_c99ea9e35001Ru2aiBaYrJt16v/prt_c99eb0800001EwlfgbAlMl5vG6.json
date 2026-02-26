@@ -1,0 +1,25 @@
+{
+  "id": "prt_c99eb0800001EwlfgbAlMl5vG6",
+  "messageID": "msg_c99ea9e35001Ru2aiBaYrJt16v",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01Hqf53SHReMu8QgNbeEgLp5",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/config.ts",
+      "offset": 13,
+      "limit": 20
+    },
+    "output": "<file>\n00014|   apiKey: config.alchemy.apiKey || 'demo',\n00015| };\n00016| \n00017| // Validate API key\n00018| if (!alchemySettings.apiKey) {\n00019|   console.warn(\n00020|     'Alchemy API key not found. Please set VITE_ALCHEMY_API_KEY in your environment variables in env.json.'\n00021|   );\n00022| }\n00023| \n00024| // Create and export default Alchemy instance (ETH mainnet)\n00025| export const alchemy = new Alchemy({\n00026|   ...alchemySettings\n00027| });\n00028| \n00029| // Export settings for reference\n00030| export { alchemySettings };\n00031| \n00032| /**\n00033|  * Network details\n\n(File has more lines. Use 'offset' parameter to read beyond line 33)\n</file>",
+    "metadata": {
+      "preview": "  apiKey: config.alchemy.apiKey || 'demo',\n};\n\n// Validate API key\nif (!alchemySettings.apiKey) {\n  console.warn(\n    'Alchemy API key not found. Please set VITE_ALCHEMY_API_KEY in your environment variables in env.json.'\n  );\n}\n\n// Create and export default Alchemy instance (ETH mainnet)\nexport const alchemy = new Alchemy({\n  ...alchemySettings\n});\n\n// Export settings for reference\nexport { alchemySettings };\n\n/**\n * Network details"
+    },
+    "title": "frontend/src/lib/alchemy/config.ts",
+    "time": {
+      "start": 1772108843731,
+      "end": 1772108843733
+    }
+  }
+}

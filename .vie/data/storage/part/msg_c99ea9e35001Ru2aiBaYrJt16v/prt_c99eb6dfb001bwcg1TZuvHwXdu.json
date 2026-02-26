@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99eb6dfb001bwcg1TZuvHwXdu",
+  "messageID": "msg_c99ea9e35001Ru2aiBaYrJt16v",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "Found it — line 2468 filters to only EVM chains in the header dropdown. And `filteredChains` (used in the chain select dialog) doesn't filter by vmType, so Solana/Bitcoin should appear there. But the header dropdown explicitly filters `vmType === 'evm' || !c.vmType`. Now let me fix everything:\n\n1. **Batch detection**: rewrite to use `alchemy_getTokenBalances` via direct RPC fetch (no SDK needed), fall back to Relay default list\n2. **Chain selector**: remove EVM-only filter from header dropdown (but keep `wallet_switchEthereumChain` only for EVM; for non-EVM just show them)\n3. **Solana/Bitcoin in swap/batch/revoke**: they already appear in `filteredChains` since no vmType filter there — but the `switchToChain` function only works for EVM. For non-EVM chains in the header, we should just show them without trying to switch",
+  "time": {
+    "start": 1772108875237,
+    "end": 1772108875237
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "prt_c99eaaa80001Gorsx49e79oZND",
+  "messageID": "msg_c99ea9e35001Ru2aiBaYrJt16v",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_01RNup8d17TbojBzJoJ4iLzR",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Fix batch token detection failure",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add Solana and Bitcoin chain support in chain selector and swap/bridge/batch/revoke",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Fix batch token detection failure\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Add Solana and Bitcoin chain support in chain selector and swap/bridge/batch/revoke\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Fix batch token detection failure",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add Solana and Bitcoin chain support in chain selector and swap/bridge/batch/revoke",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "title": "2 todos",
+    "time": {
+      "start": 1772108820480,
+      "end": 1772108820481
+    }
+  }
+}
