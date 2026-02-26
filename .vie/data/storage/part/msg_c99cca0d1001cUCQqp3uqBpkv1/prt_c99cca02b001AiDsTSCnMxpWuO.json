@@ -1,0 +1,7 @@
+{
+  "id": "prt_c99cca02b001AiDsTSCnMxpWuO",
+  "type": "text",
+  "text": "in the batch tab, under the add token button, it says 'swap to' regardless for a bridge transaction as well. it should automatically detect and say accordingly, fix it. and rename the swap tab to swap/bridge. also the top left chain indicator with logo should be a dropdown to select and switch chains. make it work.",
+  "messageID": "msg_c99cca0d1001cUCQqp3uqBpkv1",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko"
+}

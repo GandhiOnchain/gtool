@@ -1,0 +1,25 @@
+{
+  "id": "prt_c99ccf6630011JvHWg2KYJkxkr",
+  "messageID": "msg_c99cca122001PNaE08uw4hqXp5",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01ExEmqp3HtL9osWwLx4haiS",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 15,
+      "limit": 5
+    },
+    "output": "<file>\n00016| import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'\n00017| import { ScrollArea } from '@/components/ui/scroll-area'\n00018| import { Badge } from '@/components/ui/badge'\n00019| import { Separator } from '@/components/ui/separator'\n00020| import { Switch } from '@/components/ui/switch'\n\n(File has more lines. Use 'offset' parameter to read beyond line 20)\n</file>",
+    "metadata": {
+      "preview": "import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'\nimport { ScrollArea } from '@/components/ui/scroll-area'\nimport { Badge } from '@/components/ui/badge'\nimport { Separator } from '@/components/ui/separator'\nimport { Switch } from '@/components/ui/switch'"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772106872835,
+      "end": 1772106872837
+    }
+  }
+}

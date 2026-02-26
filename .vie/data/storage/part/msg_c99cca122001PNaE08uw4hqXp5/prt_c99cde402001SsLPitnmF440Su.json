@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99cde402001SsLPitnmF440Su",
+  "messageID": "msg_c99cca122001PNaE08uw4hqXp5",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "All three fixes done:\n\n1. **\"Swap to\" → auto-detects** — shows \"Bridge to\" when the batch destination chain differs from the source chain, \"Swap to\" otherwise\n2. **Swap tab renamed** to \"Swap / Bridge\"\n3. **Chain indicator is now a working dropdown** — shows all EVM chains with logos, checkmark on the current chain, clicking any chain switches to it via `switchChain`",
+  "time": {
+    "start": 1772106935329,
+    "end": 1772106935329
+  }
+}

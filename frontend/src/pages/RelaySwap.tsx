@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
@@ -2393,17 +2394,38 @@ export default function RelaySwap() {
                   {userStreak.currentStreak}
                 </Badge>
               )}
-              {connectedChainId && (
-                <Badge variant="outline" className="gap-1.5 text-xs px-2 py-0.5">
-                  {chains.find(c => c.id === connectedChainId)?.iconUrl && (
-                    <img 
-                      src={chains.find(c => c.id === connectedChainId)?.iconUrl} 
-                      alt="" 
-                      className="h-3.5 w-3.5 rounded-full" 
-                    />
-                  )}
-                  {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}
-                </Badge>
+              {connectedChainId && chains.length > 0 && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-7 gap-1.5 px-2 text-xs">
+                      {chains.find(c => c.id === connectedChainId)?.iconUrl && (
+                        <img src={chains.find(c => c.id === connectedChainId)?.iconUrl} alt="" className="h-3.5 w-3.5 rounded-full" />
+                      )}
+                      {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}
+                      <ChevronDown className="h-3 w-3 opacity-60" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="w-44 max-h-64 overflow-y-auto">
+                    {chains.filter(c => c.vmType === 'evm' || !c.vmType).map((chain) => (
+                      <DropdownMenuItem
+                        key={chain.id}
+                        className="flex items-center gap-2 cursor-pointer"
+                        onClick={async () => {
+                          if (chain.id === connectedChainId) return
+                          try {
+                            await switchChain({ chainId: chain.id })
+                          } catch (err) {
+                            toast.error('Failed to switch chain')
+                          }
+                        }}
+                      >
+                        {chain.iconUrl && <img src={chain.iconUrl} alt="" className="h-4 w-4 rounded-full" />}
+                        <span className="flex-1">{chain.displayName}</span>
+                        {chain.id === connectedChainId && <span className="text-accent">✓</span>}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               )}
             </div>
             <div className="flex items-center gap-1">
@@ -2440,7 +2462,7 @@ export default function RelaySwap() {
 
         <Tabs defaultValue="swap" value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-3 h-8">
-            <TabsTrigger value="swap" className="text-xs">Swap</TabsTrigger>
+            <TabsTrigger value="swap" className="text-xs">Swap / Bridge</TabsTrigger>
             <TabsTrigger value="batch" className="text-xs">Batch</TabsTrigger>
             <TabsTrigger value="revoke" className="text-xs">Revoke</TabsTrigger>
           </TabsList>
@@ -2947,7 +2969,7 @@ export default function RelaySwap() {
                 <Separator />
 
                 <div className="space-y-2">
-                  <div className="text-xs text-muted-foreground">Swap to</div>
+                  <div className="text-xs text-muted-foreground">{batchChain && toChain && batchChain.id !== toChain.id ? 'Bridge to' : 'Swap to'}</div>
                   <div className="flex gap-2">
                     <Button
                       variant="outline"

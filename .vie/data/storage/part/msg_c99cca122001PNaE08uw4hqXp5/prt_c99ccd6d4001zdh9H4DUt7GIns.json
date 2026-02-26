@@ -1,0 +1,25 @@
+{
+  "id": "prt_c99ccd6d4001zdh9H4DUt7GIns",
+  "messageID": "msg_c99cca122001PNaE08uw4hqXp5",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01CzmLcr9wbHvsGBwKNfdXu3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2388,
+      "limit": 20
+    },
+    "output": "<file>\n02389|             <div className=\"flex items-center gap-2\">\n02390|               {userStreak.currentStreak > 0 && (\n02391|                 <Badge variant=\"secondary\" className=\"gap-1 text-xs px-2 py-0.5\">\n02392|                   <Flame className=\"h-3 w-3\" />\n02393|                   {userStreak.currentStreak}\n02394|                 </Badge>\n02395|               )}\n02396|               {connectedChainId && (\n02397|                 <Badge variant=\"outline\" className=\"gap-1.5 text-xs px-2 py-0.5\">\n02398|                   {chains.find(c => c.id === connectedChainId)?.iconUrl && (\n02399|                     <img \n02400|                       src={chains.find(c => c.id === connectedChainId)?.iconUrl} \n02401|                       alt=\"\" \n02402|                       className=\"h-3.5 w-3.5 rounded-full\" \n02403|                     />\n02404|                   )}\n02405|                   {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}\n02406|                 </Badge>\n02407|               )}\n02408|             </div>\n\n(File has more lines. Use 'offset' parameter to read beyond line 2408)\n</file>",
+    "metadata": {
+      "preview": "            <div className=\"flex items-center gap-2\">\n              {userStreak.currentStreak > 0 && (\n                <Badge variant=\"secondary\" className=\"gap-1 text-xs px-2 py-0.5\">\n                  <Flame className=\"h-3 w-3\" />\n                  {userStreak.currentStreak}\n                </Badge>\n              )}\n              {connectedChainId && (\n                <Badge variant=\"outline\" className=\"gap-1.5 text-xs px-2 py-0.5\">\n                  {chains.find(c => c.id === connectedChainId)?.iconUrl && (\n                    <img \n                      src={chains.find(c => c.id === connectedChainId)?.iconUrl} \n                      alt=\"\" \n                      className=\"h-3.5 w-3.5 rounded-full\" \n                    />\n                  )}\n                  {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}\n                </Badge>\n              )}\n            </div>"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772106864929,
+      "end": 1772106864932
+    }
+  }
+}

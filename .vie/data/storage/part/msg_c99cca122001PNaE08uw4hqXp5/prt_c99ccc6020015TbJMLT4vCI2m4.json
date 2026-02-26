@@ -1,0 +1,25 @@
+{
+  "id": "prt_c99ccc6020015TbJMLT4vCI2m4",
+  "messageID": "msg_c99cca122001PNaE08uw4hqXp5",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_011EAeD8kwwU4igHUUjJ7Bdv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2945,
+      "limit": 10
+    },
+    "output": "<file>\n02946| \n02947|                 <Separator />\n02948| \n02949|                 <div className=\"space-y-2\">\n02950|                   <div className=\"text-xs text-muted-foreground\">Swap to</div>\n02951|                   <div className=\"flex gap-2\">\n02952|                     <Button\n02953|                       variant=\"outline\"\n02954|                       onClick={() => {\n02955|                         setSelectingFor('to')\n\n(File has more lines. Use 'offset' parameter to read beyond line 2955)\n</file>",
+    "metadata": {
+      "preview": "\n                <Separator />\n\n                <div className=\"space-y-2\">\n                  <div className=\"text-xs text-muted-foreground\">Swap to</div>\n                  <div className=\"flex gap-2\">\n                    <Button\n                      variant=\"outline\"\n                      onClick={() => {\n                        setSelectingFor('to')"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772106860634,
+      "end": 1772106860636
+    }
+  }
+}

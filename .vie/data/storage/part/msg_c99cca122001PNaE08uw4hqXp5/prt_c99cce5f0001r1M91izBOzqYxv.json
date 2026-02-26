@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99cce5f0001r1M91izBOzqYxv",
+  "messageID": "msg_c99cca122001PNaE08uw4hqXp5",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01Dwo8VgTayfJ2i8THrMzJsQ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"DropdownMenu\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -5",
+      "description": "Check DropdownMenu import"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Check DropdownMenu import"
+    },
+    "title": "grep -n \"DropdownMenu\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -5",
+    "time": {
+      "start": 1772106868852,
+      "end": 1772106868858
+    }
+  }
+}
