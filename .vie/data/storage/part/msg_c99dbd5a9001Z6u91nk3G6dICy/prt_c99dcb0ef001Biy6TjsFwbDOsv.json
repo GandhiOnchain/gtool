@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99dcb0ef001Biy6TjsFwbDOsv",
+  "messageID": "msg_c99dbd5a9001Z6u91nk3G6dICy",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "Now replace the dropdown with a full searchable list using the same `chains` from Relay API (EVM only), calling `switchToChain`:",
+  "time": {
+    "start": 1772107918052,
+    "end": 1772107918052
+  }
+}

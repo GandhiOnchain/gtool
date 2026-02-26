@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99dc54a3001orS0EwFm1jEF7q",
+  "messageID": "msg_c99dbd5a9001Z6u91nk3G6dICy",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "The `RelayChain` has `httpRpcUrl`, `currency`, `explorerUrl` — everything needed to call `wallet_addEthereumChain`. Now I'll implement a proper `switchToChain` function that uses `wallet_addEthereumChain` directly via the wallet provider, which works for any EVM chain regardless of wagmi config:",
+  "time": {
+    "start": 1772107883418,
+    "end": 1772107883418
+  }
+}

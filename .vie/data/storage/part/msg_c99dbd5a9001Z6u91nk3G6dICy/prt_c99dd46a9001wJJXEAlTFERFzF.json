@@ -1,0 +1,47 @@
+{
+  "id": "prt_c99dd46a9001wJJXEAlTFERFzF",
+  "messageID": "msg_c99dbd5a9001Z6u91nk3G6dICy",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_0127yNQV1p2akrz44PdVACoY",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ❌ ERROR [1:1] Unexpected any. Specify a different type. [oxlint]\n\n──────────────────────────────────────────────────\nSummary: 1 issue(s) found\n  - 1 error(s)\n",
+    "metadata": {
+      "filesChecked": 20,
+      "filesWithIssues": 1,
+      "totalIssues": 1,
+      "errorCount": 1,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/output/index.html",
+        "frontend/src/pages/RelaySwap.tsx",
+        "frontend/output/assets/SIWXUtil-C2hJRF7W.js",
+        "frontend/output/assets/_esm-DWk8odm8.js",
+        "frontend/output/assets/actions-BsZgRion.js",
+        "frontend/output/assets/basic-DjWCW3I8.js",
+        "frontend/output/assets/ccip-C644yb41.js",
+        "frontend/output/assets/ccip-DRHJc-4B.js",
+        "frontend/output/assets/ccip-TGNZBzfp.js",
+        "frontend/output/assets/core-Bng78nNO.js",
+        "frontend/output/assets/dist-B8EtVDW8.js",
+        "frontend/output/assets/index-CpYihUJ3.js",
+        "frontend/output/assets/index-DOLpG5iF.css",
+        "frontend/output/assets/localBatchGatewayRequest-Cva4ZDkv.js",
+        "frontend/output/assets/secp256k1-CEdUJ6Aq.js",
+        "frontend/output/assets/secp256k1-DWruz6p9.js",
+        "frontend/output/assets/secp256k1-XULJC7P4.js",
+        "frontend/output/assets/w3m-modal-BZS4WE-V.js",
+        "frontend/output/assets/wagmi-DM-ksZfF.js",
+        "frontend/output/assets/wui-text-CveWNyhF.js"
+      ]
+    },
+    "title": "Diagnostics: 1 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1772107941769,
+      "end": 1772107946623
+    }
+  }
+}

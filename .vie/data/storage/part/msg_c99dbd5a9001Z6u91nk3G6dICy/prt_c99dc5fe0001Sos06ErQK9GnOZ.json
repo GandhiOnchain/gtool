@@ -1,0 +1,25 @@
+{
+  "id": "prt_c99dc5fe0001Sos06ErQK9GnOZ",
+  "messageID": "msg_c99dbd5a9001Z6u91nk3G6dICy",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01NtsU6Wpb34tnx8t3CQN4MD",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2350,
+      "limit": 10
+    },
+    "output": "<file>\n02351|     }\n02352|   }\n02353| \n02354|   const filteredChains = chains.filter(chain =>\n02355|     chain.name.toLowerCase().includes(searchTerm.toLowerCase()) ||\n02356|     chain.displayName.toLowerCase().includes(searchTerm.toLowerCase())\n02357|   )\n02358| \n02359|   const activeCurrencies = selectingFor === 'from' \n02360|     ? fromCurrencies \n\n(File has more lines. Use 'offset' parameter to read beyond line 2360)\n</file>",
+    "metadata": {
+      "preview": "    }\n  }\n\n  const filteredChains = chains.filter(chain =>\n    chain.name.toLowerCase().includes(searchTerm.toLowerCase()) ||\n    chain.displayName.toLowerCase().includes(searchTerm.toLowerCase())\n  )\n\n  const activeCurrencies = selectingFor === 'from' \n    ? fromCurrencies "
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772107883363,
+      "end": 1772107883365
+    }
+  }
+}

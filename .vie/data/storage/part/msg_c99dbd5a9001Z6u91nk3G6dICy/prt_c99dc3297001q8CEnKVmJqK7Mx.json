@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99dc3297001q8CEnKVmJqK7Mx",
+  "messageID": "msg_c99dbd5a9001Z6u91nk3G6dICy",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_019bUWdVHT7aed18q7wnaF4z",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -A 20 \"interface RelayChain\\|type RelayChain\" /home/user/sandbox/workspace/frontend/src/lib/relay/types.ts",
+      "description": "Find RelayChain type fields"
+    },
+    "output": "export interface RelayChain {\n  id: number\n  name: string\n  displayName: string\n  httpRpcUrl: string\n  wsRpcUrl?: string\n  explorerUrl: string\n  explorerName: string\n  depositEnabled: boolean\n  tokenSupport: string\n  disabled: boolean\n  currency: {\n    id: string\n    symbol: string\n    name: string\n    address: string\n    decimals: number\n    supportsBridging: boolean\n  }\n  featuredTokens?: RelayCurrency[]\n  erc20Currencies?: RelayCurrency[]\n",
+    "metadata": {
+      "output": "export interface RelayChain {\n  id: number\n  name: string\n  displayName: string\n  httpRpcUrl: string\n  wsRpcUrl?: string\n  explorerUrl: string\n  explorerName: string\n  depositEnabled: boolean\n  tokenSupport: string\n  disabled: boolean\n  currency: {\n    id: string\n    symbol: string\n    name: string\n    address: string\n    decimals: number\n    supportsBridging: boolean\n  }\n  featuredTokens?: RelayCurrency[]\n  erc20Currencies?: RelayCurrency[]\n",
+      "exit": 0,
+      "description": "Find RelayChain type fields"
+    },
+    "title": "grep -A 20 \"interface RelayChain\\|type RelayChain\" /home/user/sandbox/workspace/frontend/src/lib/relay/types.ts",
+    "time": {
+      "start": 1772107871547,
+      "end": 1772107871550
+    }
+  }
+}

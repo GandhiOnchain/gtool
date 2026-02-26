@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99dd6065001Johf8AEWTNfNxD",
+  "messageID": "msg_c99dbd5a9001Z6u91nk3G6dICy",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_015f7YScrrbyFvxAMJKqkK2M",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \" any\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | grep -v \"//\\|console\\|import\" | head -10",
+      "description": "Find remaining any usages"
+    },
+    "output": "2373:    } catch (switchError: any) {\n3191:                  You haven't approved any tokens on {revokeChain.displayName} yet\n",
+    "metadata": {
+      "output": "2373:    } catch (switchError: any) {\n3191:                  You haven't approved any tokens on {revokeChain.displayName} yet\n",
+      "exit": 0,
+      "description": "Find remaining any usages"
+    },
+    "title": "grep -n \" any\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | grep -v \"//\\|console\\|import\" | head -10",
+    "time": {
+      "start": 1772107949112,
+      "end": 1772107949121
+    }
+  }
+}

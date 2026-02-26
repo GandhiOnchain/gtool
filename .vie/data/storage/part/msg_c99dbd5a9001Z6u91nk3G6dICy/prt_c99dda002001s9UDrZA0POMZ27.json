@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99dda002001s9UDrZA0POMZ27",
+  "messageID": "msg_c99dbd5a9001Z6u91nk3G6dICy",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "All clean. Here's what was done and why it now works:\n\n**Root cause:** `wagmi`'s `switchChain` only works for chains pre-registered in the wagmi config. Any chain not in that list silently fails or throws.\n\n**The fix — `switchToChain` function:**\n1. First tries `wallet_switchEthereumChain` directly via `window.ethereum` (works if the chain is already in the wallet)\n2. If the wallet returns error code `4902` (chain not found) or `-32603`, it automatically calls `wallet_addEthereumChain` using the Relay chain's RPC URL, name, native currency, and explorer — adding it to the wallet on the fly\n3. This works for **any EVM chain** from the Relay API, not just the few in the wagmi config\n\n**Dropdown improvements:**\n- Shows all EVM chains from the Relay API (same list as the swap section)\n- Searchable with a text input at the top\n- Clears search when closed\n- Shows chain logos and a checkmark on the current chain",
+  "time": {
+    "start": 1772107971324,
+    "end": 1772107971324
+  }
+}

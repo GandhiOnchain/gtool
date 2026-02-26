@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99dc983b001mdiiUZxmfBcsyD",
+  "messageID": "msg_c99dbd5a9001Z6u91nk3G6dICy",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "Now I need to add a `chainSearch` state and replace the dropdown content. Let me first add the state:",
+  "time": {
+    "start": 1772107898829,
+    "end": 1772107898829
+  }
+}

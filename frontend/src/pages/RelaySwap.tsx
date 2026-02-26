@@ -6,7 +6,7 @@ import { useWallet } from '@/hooks/useWallet'
 import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem, getAddress } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
-import { supportedChains } from '@/lib/blockchain/chains'
+
 import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
 import { config } from '@/config'
 import { Network as AlchemyNetwork } from 'alchemy-sdk'
@@ -233,6 +233,7 @@ export default function RelaySwap() {
   const [isRevoking, setIsRevoking] = useState(false)
   const [selectedApprovals, setSelectedApprovals] = useState<Set<number>>(new Set())
   const [debugInfo, setDebugInfo] = useState<string>('')
+  const [chainSearch, setChainSearch] = useState('')
 
   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
@@ -2356,6 +2357,48 @@ export default function RelaySwap() {
     chain.displayName.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
+  const switchToChain = async (chain: RelayChain) => {
+    if (chain.id === connectedChainId) return
+    const chainIdHex = `0x${chain.id.toString(16)}`
+    const provider = (window as { ethereum?: { request: (args: { method: string; params?: unknown[] }) => Promise<unknown> } }).ethereum
+    if (!provider) {
+      toast.error('No wallet detected')
+      return
+    }
+    try {
+      await provider.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: chainIdHex }],
+      })
+    } catch (switchError: unknown) {
+      const code = (switchError as { code?: number }).code
+      if (code === 4902 || code === -32603) {
+        try {
+          await provider.request({
+            method: 'wallet_addEthereumChain',
+            params: [{
+              chainId: chainIdHex,
+              chainName: chain.displayName,
+              nativeCurrency: {
+                name: chain.currency.name,
+                symbol: chain.currency.symbol,
+                decimals: chain.currency.decimals,
+              },
+              rpcUrls: [chain.httpRpcUrl],
+              blockExplorerUrls: [chain.explorerUrl],
+            }],
+          })
+        } catch (addError) {
+          console.error('Failed to add chain:', addError)
+          toast.error(`Failed to add ${chain.displayName} to wallet`)
+        }
+      } else {
+        console.error('Failed to switch chain:', switchError)
+        toast.error(`Failed to switch to ${chain.displayName}`)
+      }
+    }
+  }
+
   const activeCurrencies = selectingFor === 'from' 
     ? fromCurrencies 
     : selectingFor === 'to' 
@@ -2396,42 +2439,47 @@ export default function RelaySwap() {
                 </Badge>
               )}
               {connectedChainId && (
-                <DropdownMenu>
+                <DropdownMenu onOpenChange={(open) => { if (!open) setChainSearch('') }}>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="sm" className="h-7 gap-1.5 px-2 text-xs">
                       {chains.find(c => c.id === connectedChainId)?.iconUrl && (
                         <img src={chains.find(c => c.id === connectedChainId)?.iconUrl} alt="" className="h-3.5 w-3.5 rounded-full" />
                       )}
-                      {chains.find(c => c.id === connectedChainId)?.displayName || supportedChains.find(c => c.id === connectedChainId)?.name || `Chain ${connectedChainId}`}
+                      {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}
                       <ChevronDown className="h-3 w-3 opacity-60" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-44 max-h-64 overflow-y-auto">
-                    {supportedChains.map((wagmiChain) => {
-                      const relayChain = chains.find(c => c.id === wagmiChain.id)
-                      return (
-                        <DropdownMenuItem
-                          key={wagmiChain.id}
-                          className="flex items-center gap-2 cursor-pointer"
-                          onClick={async () => {
-                            if (wagmiChain.id === connectedChainId) return
-                            try {
-                              await switchChain({ chainId: wagmiChain.id })
-                            } catch (err) {
-                              console.error('switchChain error:', err)
-                              toast.error('Failed to switch chain. Please switch manually in your wallet.')
+                  <DropdownMenuContent align="start" className="w-52 p-1">
+                    <div className="px-1 pb-1">
+                      <input
+                        className="w-full h-7 px-2 text-xs rounded border border-border bg-background outline-none"
+                        placeholder="Search chains..."
+                        value={chainSearch}
+                        onChange={e => setChainSearch(e.target.value)}
+                        onKeyDown={e => e.stopPropagation()}
+                        autoFocus
+                      />
+                    </div>
+                    <ScrollArea className="h-56">
+                      {chains
+                        .filter(c => (c.vmType === 'evm' || !c.vmType) && !c.disabled)
+                        .filter(c => !chainSearch || c.displayName.toLowerCase().includes(chainSearch.toLowerCase()))
+                        .map((chain) => (
+                          <DropdownMenuItem
+                            key={chain.id}
+                            className="flex items-center gap-2 cursor-pointer"
+                            onClick={() => switchToChain(chain)}
+                          >
+                            {chain.iconUrl
+                              ? <img src={chain.iconUrl} alt="" className="h-4 w-4 rounded-full flex-shrink-0" />
+                              : <div className="h-4 w-4 rounded-full bg-muted flex-shrink-0" />
                             }
-                          }}
-                        >
-                          {relayChain?.iconUrl
-                            ? <img src={relayChain.iconUrl} alt="" className="h-4 w-4 rounded-full flex-shrink-0" />
-                            : <div className="h-4 w-4 rounded-full bg-muted flex-shrink-0" />
-                          }
-                          <span className="flex-1 truncate">{relayChain?.displayName || wagmiChain.name}</span>
-                          {wagmiChain.id === connectedChainId && <span className="text-accent text-xs">✓</span>}
-                        </DropdownMenuItem>
-                      )
-                    })}
+                            <span className="flex-1 truncate text-xs">{chain.displayName}</span>
+                            {chain.id === connectedChainId && <span className="text-accent text-xs">✓</span>}
+                          </DropdownMenuItem>
+                        ))
+                      }
+                    </ScrollArea>
                   </DropdownMenuContent>
                 </DropdownMenu>
               )}

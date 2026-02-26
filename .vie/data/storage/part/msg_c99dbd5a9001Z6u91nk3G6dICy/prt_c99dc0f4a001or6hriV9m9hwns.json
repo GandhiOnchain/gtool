@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99dc0f4a001or6hriV9m9hwns",
+  "messageID": "msg_c99dbd5a9001Z6u91nk3G6dICy",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "Now I understand the full picture. The chain select dialog already has all Relay chains. The top-left dropdown needs to use the same chain list but call `switchChain` — which only works for wagmi-registered chains. \n\nThe real solution: **dynamically add the chain to wagmi** using `addEthereumChain` (EIP-3085) via the wallet directly, which works for any EVM chain. This is what MetaMask and other wallets support.",
+  "time": {
+    "start": 1772107865853,
+    "end": 1772107865853
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_c99dc06b4001oH1xC0G77uMP4a",
+  "messageID": "msg_c99dbd5a9001Z6u91nk3G6dICy",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01QzPLpxSBxS8RG4kENaoUxP",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3253,
+      "limit": 50
+    },
+    "output": "<file>\n03254|           <DialogContent className=\"max-w-[380px]\">\n03255|             <DialogHeader>\n03256|               <DialogTitle className=\"text-sm\">Select Chain</DialogTitle>\n03257|             </DialogHeader>\n03258|             <div className=\"space-y-2\">\n03259|               <Input\n03260|                 placeholder=\"Search chains...\"\n03261|                 value={searchTerm}\n03262|                 onChange={(e) => setSearchTerm(e.target.value)}\n03263|                 className=\"h-8 text-xs\"\n03264|               />\n03265|               <ScrollArea className=\"h-[300px]\">\n03266|                 <div className=\"space-y-1\">\n03267|                   {filteredChains.map((chain) => (\n03268|                     <div\n03269|                       key={chain.id}\n03270|                       onClick={() => {\n03271|                         if (selectingFor === 'from') {\n03272|                           setFromChain(chain)\n03273|                         } else if (selectingFor === 'to') {\n03274|                           setToChain(chain)\n03275|                         } else if (selectingFor === 'batch') {\n03276|                           setBatchChain(chain)\n03277|                         } else if (selectingFor === 'revoke') {\n03278|                           setRevokeChain(chain)\n03279|                         }\n03280|                         setIsChainSelectOpen(false)\n03281|                         setSearchTerm('')\n03282|                       }}\n03283|                       className=\"flex items-center gap-2 p-2 rounded hover:bg-accent cursor-pointer\"\n03284|                     >\n03285|                       {chain.iconUrl && (\n03286|                         <img src={chain.iconUrl} alt=\"\" className=\"h-5 w-5 rounded-full\" />\n03287|                       )}\n03288|                       <div className=\"text-xs\">{chain.displayName}</div>\n03289|                     </div>\n03290|                   ))}\n03291|                 </div>\n03292|               </ScrollArea>\n03293|             </div>\n03294|           </DialogContent>\n03295|         </Dialog>\n03296| \n03297|         <Dialog open={isTokenSelectOpen} onOpenChange={(open) => {\n03298|           setIsTokenSelectOpen(open)\n03299|           if (open) {\n03300|             console.log('Token selector opened for:', selectingFor)\n03301|             console.log('Active currencies:', activeCurrencies.length)\n03302|             console.log('From currencies:', fromCurrencies.length)\n03303|             console.log('To currencies:', toCurrencies.length)\n\n(File has more lines. Use 'offset' parameter to read beyond line 3303)\n</file>",
+    "metadata": {
+      "preview": "          <DialogContent className=\"max-w-[380px]\">\n            <DialogHeader>\n              <DialogTitle className=\"text-sm\">Select Chain</DialogTitle>\n            </DialogHeader>\n            <div className=\"space-y-2\">\n              <Input\n                placeholder=\"Search chains...\"\n                value={searchTerm}\n                onChange={(e) => setSearchTerm(e.target.value)}\n                className=\"h-8 text-xs\"\n              />\n              <ScrollArea className=\"h-[300px]\">\n                <div className=\"space-y-1\">\n                  {filteredChains.map((chain) => (\n                    <div\n                      key={chain.id}\n                      onClick={() => {\n                        if (selectingFor === 'from') {\n                          setFromChain(chain)\n                        } else if (selectingFor === 'to') {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772107860423,
+      "end": 1772107860424
+    }
+  }
+}

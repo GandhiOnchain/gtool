@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99dc4289001GySe9m7T4kvgby",
+  "messageID": "msg_c99dbd5a9001Z6u91nk3G6dICy",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_0161XmsqKHE8eDLEGdqt9YT3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -A 35 \"interface RelayChain\\|type RelayChain\" /home/user/sandbox/workspace/frontend/src/lib/relay/types.ts",
+      "description": "Get full RelayChain type"
+    },
+    "output": "export interface RelayChain {\n  id: number\n  name: string\n  displayName: string\n  httpRpcUrl: string\n  wsRpcUrl?: string\n  explorerUrl: string\n  explorerName: string\n  depositEnabled: boolean\n  tokenSupport: string\n  disabled: boolean\n  currency: {\n    id: string\n    symbol: string\n    name: string\n    address: string\n    decimals: number\n    supportsBridging: boolean\n  }\n  featuredTokens?: RelayCurrency[]\n  erc20Currencies?: RelayCurrency[]\n  iconUrl?: string\n  logoUrl?: string\n  brandColor?: string\n  vmType?: string\n}\n\nexport interface RelayAmount {\n  currency: RelayCurrency\n  amount: string\n  amountFormatted: string\n  amountUsd: string\n  minimumAmount?: string\n}\n\nexport interface RelayQuoteStep {\n",
+    "metadata": {
+      "output": "export interface RelayChain {\n  id: number\n  name: string\n  displayName: string\n  httpRpcUrl: string\n  wsRpcUrl?: string\n  explorerUrl: string\n  explorerName: string\n  depositEnabled: boolean\n  tokenSupport: string\n  disabled: boolean\n  currency: {\n    id: string\n    symbol: string\n    name: string\n    address: string\n    decimals: number\n    supportsBridging: boolean\n  }\n  featuredTokens?: RelayCurrency[]\n  erc20Currencies?: RelayCurrency[]\n  iconUrl?: string\n  logoUrl?: string\n  brandColor?: string\n  vmType?: string\n}\n\nexport interface RelayAmount {\n  currency: RelayCurrency\n  amount: string\n  amountFormatted: string\n  amountUsd: string\n  minimumAmount?: string\n}\n\nexport interface RelayQuoteStep {\n",
+      "exit": 0,
+      "description": "Get full RelayChain type"
+    },
+    "title": "grep -A 35 \"interface RelayChain\\|type RelayChain\" /home/user/sandbox/workspace/frontend/src/lib/relay/types.ts",
+    "time": {
+      "start": 1772107876140,
+      "end": 1772107876142
+    }
+  }
+}

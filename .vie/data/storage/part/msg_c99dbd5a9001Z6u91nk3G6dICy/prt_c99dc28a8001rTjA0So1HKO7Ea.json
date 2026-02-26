@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99dc28a8001rTjA0So1HKO7Ea",
+  "messageID": "msg_c99dbd5a9001Z6u91nk3G6dICy",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01NqsWd254squeTwy2tocZoN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "find /home/user/sandbox/workspace/frontend/src/lib/relay -type f | xargs grep -l \"RelayChain\" 2>/dev/null",
+      "description": "Find RelayChain type definition"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/src/lib/relay/api.ts\n/home/user/sandbox/workspace/frontend/src/lib/relay/types.ts\n",
+    "metadata": {
+      "output": "/home/user/sandbox/workspace/frontend/src/lib/relay/api.ts\n/home/user/sandbox/workspace/frontend/src/lib/relay/types.ts\n",
+      "exit": 0,
+      "description": "Find RelayChain type definition"
+    },
+    "title": "find /home/user/sandbox/workspace/frontend/src/lib/relay -type f | xargs grep -l \"RelayChain\" 2>/dev/null",
+    "time": {
+      "start": 1772107869482,
+      "end": 1772107869485
+    }
+  }
+}
