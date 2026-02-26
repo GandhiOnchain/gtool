@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b0d989a001MbO4Sn3P88I14m",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now update the batch quote useEffect to use `batchToChain`/`batchToToken`:",
+  "time": {
+    "start": 1772127890537,
+    "end": 1772127890537
+  }
+}

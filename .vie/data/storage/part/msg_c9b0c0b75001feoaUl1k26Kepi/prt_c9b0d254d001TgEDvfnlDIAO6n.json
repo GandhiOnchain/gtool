@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b0d254d001TgEDvfnlDIAO6n",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now add a useEffect to load currencies when `batchToChain` changes and set a default `batchToToken`:",
+  "time": {
+    "start": 1772127857497,
+    "end": 1772127857497
+  }
+}

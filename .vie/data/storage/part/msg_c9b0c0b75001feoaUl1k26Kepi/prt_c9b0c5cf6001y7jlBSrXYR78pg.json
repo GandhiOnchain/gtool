@@ -1,0 +1,23 @@
+{
+  "id": "prt_c9b0c5cf6001y7jlBSrXYR78pg",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01TZoRrwPC5bu9mqV4HrMebH",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/hooks/useZapperPortfolio.ts"
+    },
+    "output": "<file>\n00001| import { useState, useCallback } from 'react'\n00002| import { config } from '@/config'\n00003| \n00004| interface ZapperToken {\n00005|   baseToken: {\n00006|     name: string\n00007|     symbol: string\n00008|     address: string\n00009|     imgUrl: string\n00010|     network: string\n00011|   }\n00012|   balance: number\n00013|   balanceUSD: number\n00014| }\n00015| \n00016| interface ZapperPortfolioResponse {\n00017|   totals: {\n00018|     total: number\n00019|   }\n00020|   tokenBalances: Array<{\n00021|     token: ZapperToken\n00022|   }>\n00023| }\n00024| \n00025| const ZAPPER_NETWORK_TO_CHAIN_ID: Record<string, number> = {\n00026|   'ETHEREUM_MAINNET': 1,\n00027|   'BASE_MAINNET': 8453,\n00028|   'ARBITRUM_MAINNET': 42161,\n00029|   'POLYGON_MAINNET': 137,\n00030|   'OPTIMISM_MAINNET': 10,\n00031|   'BINANCE_SMART_CHAIN_MAINNET': 56,\n00032| }\n00033| \n00034| /**\n00035|  * Hook for fetching portfolio data from Zapper\n00036|  */\n00037| export function useZapperPortfolio() {\n00038|   const [data, setData] = useState<ZapperPortfolioResponse | null>(null)\n00039|   const [isLoading, setIsLoading] = useState(false)\n00040|   const [error, setError] = useState<Error | null>(null)\n00041| \n00042|   const fetchPortfolio = useCallback(async (\n00043|     walletAddress: string\n00044|   ): Promise<ZapperPortfolioResponse> => {\n00045|     setIsLoading(true)\n00046|     setError(null)\n00047| \n00048|     try {\n00049|       const apiKey = config.zapper.apiKey\n00050|       if (!apiKey) {\n00051|         throw new Error('Zapper API key not configured')\n00052|       }\n00053| \n00054|       const query = `\n00055|         query Portfolio($addresses: [Address!]!) {\n00056|           portfolio(addresses: $addresses) {\n00057|             totals {\n00058|               total\n00059|             }\n00060|             tokenBalances {\n00061|               token {\n00062|                 baseToken {\n00063|                   name\n00064|                   symbol\n00065|                   address\n00066|                   imgUrl\n00067|                   network\n00068|                 }\n00069|                 balance\n00070|                 balanceUSD\n00071|               }\n00072|             }\n00073|           }\n00074|         }\n00075|       `\n00076| \n00077|       const response = await fetch('https://public.zapper.xyz/graphql', {\n00078|         method: 'POST',\n00079|         headers: {\n00080|           'Content-Type': 'application/json',\n00081|           'x-zapper-api-key': apiKey,\n00082|         },\n00083|         body: JSON.stringify({\n00084|           query,\n00085|           variables: {\n00086|             addresses: [walletAddress],\n00087|           },\n00088|         }),\n00089|       })\n00090| \n00091|       if (!response.ok) {\n00092|         throw new Error(`Zapper API error: ${response.statusText}`)\n00093|       }\n00094| \n00095|       const result = await response.json()\n00096| \n00097|       if (result.errors) {\n00098|         throw new Error(`Zapper GraphQL error: ${result.errors[0]?.message}`)\n00099|       }\n00100| \n00101|       const portfolioData = result.data.portfolio\n00102| \n00103|       setData(portfolioData)\n00104|       return portfolioData\n00105|     } catch (err) {\n00106|       const error = err instanceof Error ? err : new Error('Failed to fetch Zapper portfolio')\n00107|       setError(error)\n00108|       throw error\n00109|     } finally {\n00110|       setIsLoading(false)\n00111|     }\n00112|   }, [])\n00113| \n00114|   return {\n00115|     data,\n00116|     isLoading,\n00117|     error,\n00118|     fetchPortfolio,\n00119|     ZAPPER_NETWORK_TO_CHAIN_ID,\n00120|   }\n00121| }\n00122| \n</file>",
+    "metadata": {
+      "preview": "import { useState, useCallback } from 'react'\nimport { config } from '@/config'\n\ninterface ZapperToken {\n  baseToken: {\n    name: string\n    symbol: string\n    address: string\n    imgUrl: string\n    network: string\n  }\n  balance: number\n  balanceUSD: number\n}\n\ninterface ZapperPortfolioResponse {\n  totals: {\n    total: number\n  }\n  tokenBalances: Array<{"
+    },
+    "title": "frontend/src/hooks/useZapperPortfolio.ts",
+    "time": {
+      "start": 1772127805070,
+      "end": 1772127805072
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9b0c98e40012x88es0Q5K5Wg3",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01RWoXKmzuxQU6UVJ1z5PgRc",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/config.ts",
+      "offset": 280,
+      "limit": 60
+    },
+    "output": "<file>\n00281|   // Superseed\n00282|   5330: Network.SUPERSEED_MAINNET,\n00283| \n00284|   // Tea (Sepolia)\n00285|   667: Network.TEA_SEPOLIA,\n00286| \n00287|   // Story\n00288|   1514: Network.STORY_MAINNET,\n00289| \n00290|   // Botanix\n00291|   3636: Network.BOTANIX_MAINNET,\n00292|   3637: Network.BOTANIX_TESTNET,\n00293| \n00294|   // Humanity\n00295|   332: Network.HUMANITY_MAINNET,\n00296| \n00297|   // Rise\n00298|   202020: Network.RISE_TESTNET,\n00299| \n00300|   // Hyperliquid\n00301|   999: Network.HYPERLIQUID_MAINNET,\n00302| \n00303|   // Shape\n00304|   360: Network.SHAPE_MAINNET,\n00305| } as const;\n00306| \n00307| const NETWORK_DETAILS: Record<Network, NetworkDetails> = {\n00308|   // Ethereum\n00309|   [Network.ETH_MAINNET]: {\n00310|     name: \"Ethereum\",\n00311|     nativeGasTokenSymbol: \"ETH\",\n00312|     nativeGasTokenName: \"Ether\",\n00313|   },\n00314| \n00315|   // Optimism\n00316|   [Network.OPT_MAINNET]: {\n00317|     name: \"Optimism\",\n00318|     nativeGasTokenSymbol: \"ETH\",\n00319|     nativeGasTokenName: \"Ether\",\n00320|   },\n00321| \n00322|   // Arbitrum\n00323|   [Network.ARB_MAINNET]: {\n00324|     name: \"Arbitrum One\",\n00325|     nativeGasTokenSymbol: \"ETH\",\n00326|     nativeGasTokenName: \"Ether\",\n00327|   },\n00328|   [Network.ARBNOVA_MAINNET]: {\n00329|     name: \"Arbitrum Nova\",\n00330|     nativeGasTokenSymbol: \"ETH\",\n00331|     nativeGasTokenName: \"Ether\",\n00332|   },\n00333| \n00334|   // Polygon\n00335|   [Network.MATIC_MAINNET]: {\n00336|     name: \"Polygon\",\n00337|     nativeGasTokenSymbol: \"POL\",\n00338|     nativeGasTokenName: \"Pol\",\n00339|   },\n00340|   [Network.MATIC_MAINNET_OLD]: {\n\n(File has more lines. Use 'offset' parameter to read beyond line 340)\n</file>",
+    "metadata": {
+      "preview": "  // Superseed\n  5330: Network.SUPERSEED_MAINNET,\n\n  // Tea (Sepolia)\n  667: Network.TEA_SEPOLIA,\n\n  // Story\n  1514: Network.STORY_MAINNET,\n\n  // Botanix\n  3636: Network.BOTANIX_MAINNET,\n  3637: Network.BOTANIX_TESTNET,\n\n  // Humanity\n  332: Network.HUMANITY_MAINNET,\n\n  // Rise\n  202020: Network.RISE_TESTNET,\n\n  // Hyperliquid"
+    },
+    "title": "frontend/src/lib/alchemy/config.ts",
+    "time": {
+      "start": 1772127820673,
+      "end": 1772127820677
+    }
+  }
+}

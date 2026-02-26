@@ -231,7 +231,7 @@ export default function RelaySwap() {
   const [tokenSearchTerm, setTokenSearchTerm] = useState('')
   const [isChainSelectOpen, setIsChainSelectOpen] = useState(false)
   const [isTokenSelectOpen, setIsTokenSelectOpen] = useState(false)
-  const [selectingFor, setSelectingFor] = useState<'from' | 'to' | 'batch' | 'revoke'>('from')
+  const [selectingFor, setSelectingFor] = useState<'from' | 'to' | 'batch' | 'batchTo' | 'revoke'>('from')
   const [currencies, setCurrencies] = useState<RelayCurrency[]>([])
   const [fromCurrencies, setFromCurrencies] = useState<RelayCurrency[]>([])
   const [toCurrencies, setToCurrencies] = useState<RelayCurrency[]>([])
@@ -246,6 +246,9 @@ export default function RelaySwap() {
   const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})
   const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)
   const [batchChain, setBatchChain] = useState<RelayChain | null>(null)
+  const [batchToChain, setBatchToChain] = useState<RelayChain | null>(null)
+  const [batchToToken, setBatchToToken] = useState<RelayCurrency | null>(null)
+  const [batchToCurrencies, setBatchToCurrencies] = useState<RelayCurrency[]>([])
   const [recipientAddress, setRecipientAddress] = useState('')
   const [fromTokenPrice, setFromTokenPrice] = useState<number>(0)
   const [toTokenPrice, setToTokenPrice] = useState<number>(0)
@@ -340,7 +343,29 @@ export default function RelaySwap() {
       const baseChain = chains.find(c => c.id === 8453) || chains[0]
       setBatchChain(baseChain)
     }
+    if (chains.length > 0 && !batchToChain) {
+      const baseChain = chains.find(c => c.id === 8453) || chains[0]
+      setBatchToChain(baseChain)
+    }
   }, [chains])
+
+  useEffect(() => {
+    if (!batchToChain) return
+    const loadBatchToCurrencies = async () => {
+      try {
+        const raw = await relayAPI.getCurrencies({ chainIds: [batchToChain.id], limit: 100 })
+        const fetched = dedupCurrencies(raw)
+        setBatchToCurrencies(fetched)
+        if (!batchToToken || batchToToken.chainId !== batchToChain.id) {
+          const native = fetched.find(c => c.metadata?.isNative || isNativeAddress(c.address))
+          setBatchToToken(native || fetched[0] || null)
+        }
+      } catch (e) {
+        console.warn('Failed to load batch destination currencies:', e)
+      }
+    }
+    loadBatchToCurrencies()
+  }, [batchToChain])
 
   useEffect(() => {
     if (fromToken && fromChain) {
@@ -434,10 +459,10 @@ export default function RelaySwap() {
 
   // Fetch batch quote when batch tokens or destination changes
   useEffect(() => {
-    const toVMType = toChain?.vmType || 'evm'
+    const toVMType = batchToChain?.vmType || 'evm'
     const hasDestWallet = toVMType === 'svm' ? !!solanaAddress : true
     const selectedBatch = batchTokens.filter(bt => bt.selected !== false)
-    if (selectedBatch.length > 0 && toToken && toChain && batchChain && address && hasDestWallet) {
+    if (selectedBatch.length > 0 && batchToToken && batchToChain && batchChain && address && hasDestWallet) {
       const debounce = setTimeout(() => {
         fetchBatchQuote()
       }, 500)
@@ -445,7 +470,7 @@ export default function RelaySwap() {
     } else {
       setBatchQuote(null)
     }
-  }, [batchTokens, toToken, toChain, batchChain, address, solanaAddress])
+  }, [batchTokens, batchToToken, batchToChain, batchChain, address, solanaAddress])
 
   // Load approvals when revoke chain changes
   useEffect(() => {
@@ -830,12 +855,14 @@ export default function RelaySwap() {
       } catch { /* non-fatal */ }
       const relayCurrencyMap = new Map(relayCurrencies.map(c => [c.address.toLowerCase(), c]))
 
-      // 3. Alchemy token discovery (uses Alchemy RPC with API key — works on vie.dev domain)
-      let alchemyDetected: Array<{ address: string; balance: bigint }> = []
+      // 3. Token discovery: try Alchemy first, then Moralis as fallback
+      let alchemyDetected: Array<{ address: string; balance: bigint; symbol?: string; name?: string; decimals?: number; logo?: string }> = []
+
+      // 3a. Alchemy token discovery
       try {
         const alchemyNetwork = getAlchemyNetwork(chain.id)
         const alchemyApiKey = alchemySettings.apiKey
-        if (alchemyApiKey) {
+        if (alchemyApiKey && alchemyNetwork) {
           const alchemyRpcUrl = `https://${alchemyNetwork.toString()}.g.alchemy.com/v2/${alchemyApiKey}`
           const tryAlchemy = async (tokenType: string) => {
             const res = await fetch(alchemyRpcUrl, {
@@ -862,14 +889,55 @@ export default function RelaySwap() {
         console.warn('Alchemy token discovery failed for', chain.displayName)
       }
 
+      // 3b. Moralis fallback — runs when Alchemy finds nothing or fails
+      if (alchemyDetected.length === 0) {
+        const moralisChainMap: Record<number, string> = {
+          1: 'eth', 8453: 'base', 42161: 'arbitrum', 137: 'polygon',
+          10: 'optimism', 56: 'bsc', 43114: 'avalanche',
+        }
+        const moralisChain = moralisChainMap[chain.id]
+        const moralisApiKey = config.moralis.apiKey
+        if (moralisChain && moralisApiKey) {
+          try {
+            const res = await fetch(
+              `https://deep-index.moralis.io/api/v2.2/${address}/erc20?chain=${moralisChain}`,
+              { headers: { accept: 'application/json', 'X-API-Key': moralisApiKey } }
+            )
+            if (res.ok) {
+              const tokens: Array<{ token_address: string; balance: string; decimals: number; symbol: string; name: string; logo?: string; possible_spam?: boolean }> = await res.json()
+              alchemyDetected = tokens
+                .filter(t => !t.possible_spam && t.balance && t.balance !== '0')
+                .map(t => ({
+                  address: t.token_address.toLowerCase(),
+                  balance: BigInt(t.balance),
+                  symbol: t.symbol,
+                  name: t.name,
+                  decimals: t.decimals,
+                  logo: t.logo || undefined,
+                }))
+              console.log(`Moralis found ${alchemyDetected.length} tokens on ${chain.displayName}`)
+            }
+          } catch (e) {
+            console.warn('Moralis token discovery failed for', chain.displayName)
+          }
+        }
+      }
+
       const erc20Abi = [{ name: 'balanceOf', type: 'function', stateMutability: 'view', inputs: [{ name: 'account', type: 'address' }], outputs: [{ name: 'balance', type: 'uint256' }] }] as const
 
-      // 4. Resolve Alchemy-detected tokens
-      for (const { address: addr, balance } of alchemyDetected) {
+      // 4. Resolve detected tokens
+      for (const { address: addr, balance, symbol: detectedSymbol, name: detectedName, decimals: detectedDecimals, logo: detectedLogo } of alchemyDetected) {
         if (balance <= 0n) continue
         const relayCurrency = relayCurrencyMap.get(addr)
         if (relayCurrency) {
-          found.push({ token: relayCurrency, balance: balance.toString(), balanceFormatted: formatUnits(balance, relayCurrency.decimals) })
+          const enriched = detectedLogo ? { ...relayCurrency, metadata: { ...relayCurrency.metadata, logoURI: relayCurrency.metadata?.logoURI || detectedLogo } } : relayCurrency
+          found.push({ token: enriched, balance: balance.toString(), balanceFormatted: formatUnits(balance, relayCurrency.decimals) })
+        } else if (detectedSymbol && detectedDecimals !== undefined) {
+          found.push({
+            token: { chainId: chain.id, address: addr, symbol: detectedSymbol, name: detectedName || detectedSymbol, decimals: detectedDecimals, metadata: detectedLogo ? { logoURI: detectedLogo } : undefined },
+            balance: balance.toString(),
+            balanceFormatted: formatUnits(balance, detectedDecimals),
+          })
         } else {
           try {
             const [decimals, symbol, name] = await Promise.all([
@@ -1450,11 +1518,11 @@ export default function RelaySwap() {
   }
 
   const fetchBatchQuote = async () => {
-    if (!toToken || !toChain || !address || batchTokens.length === 0 || !batchChain) {
+    if (!batchToToken || !batchToChain || !address || batchTokens.length === 0 || !batchChain) {
       return
     }
 
-    const toVMType = toChain.vmType || 'evm'
+    const toVMType = batchToChain.vmType || 'evm'
     const isCrossVM = (batchChain.vmType || 'evm') !== toVMType
     const batchRecipient = isCrossVM
       ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined
@@ -1486,8 +1554,8 @@ export default function RelaySwap() {
       const multiQuote = await relayAPI.getMultiInputQuote({
         user: address,
         origins,
-        destinationCurrency: toToken.address,
-        destinationChainId: toChain.id,
+        destinationCurrency: batchToToken.address,
+        destinationChainId: batchToChain.id,
         tradeType: 'EXACT_INPUT',
         recipient: batchRecipient,
       })
@@ -1503,7 +1571,7 @@ export default function RelaySwap() {
   }
 
   const executeBatchSwap = async () => {
-    if (!toToken || !toChain || !address || batchTokens.length === 0 || !batchChain) {
+    if (!batchToToken || !batchToChain || !address || batchTokens.length === 0 || !batchChain) {
       toast.error('Please select chain and tokens to swap')
       return
     }
@@ -1527,7 +1595,7 @@ export default function RelaySwap() {
       }
     }
 
-    const execToVMType = toChain.vmType || 'evm'
+    const execToVMType = batchToChain.vmType || 'evm'
     const execIsCrossVM = (batchChain.vmType || 'evm') !== execToVMType
     const execBatchRecipient = execIsCrossVM
       ? (execToVMType === 'svm' ? solanaAddress : recipientAddress) || undefined
@@ -1560,8 +1628,8 @@ export default function RelaySwap() {
       const multiQuote = await relayAPI.getMultiInputQuote({
         user: address,
         origins,
-        destinationCurrency: toToken.address,
-        destinationChainId: toChain.id,
+        destinationCurrency: batchToToken.address,
+        destinationChainId: batchToChain.id,
         tradeType: 'EXACT_INPUT',
         recipient: execBatchRecipient,
       })
@@ -2451,12 +2519,15 @@ export default function RelaySwap() {
 
   const activeChainId = selectingFor === 'from' ? fromChain?.id
     : selectingFor === 'to' ? toChain?.id
+    : selectingFor === 'batchTo' ? batchToChain?.id
     : batchChain?.id
 
   const activeCurrencies = selectingFor === 'from' 
     ? fromCurrencies 
     : selectingFor === 'to' 
     ? toCurrencies 
+    : selectingFor === 'batchTo'
+    ? batchToCurrencies
     : selectingFor === 'batch' && batchChain
     ? currencies.filter(c => c.chainId === batchChain.id)
     : currencies
@@ -3160,21 +3231,21 @@ export default function RelaySwap() {
                 <Separator />
 
                 <div className="space-y-2">
-                  <div className="text-xs text-muted-foreground">{batchChain && toChain && batchChain.id !== toChain.id ? 'Bridge to' : 'Swap to'}</div>
+                  <div className="text-xs text-muted-foreground">{batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Bridge to' : 'Swap to'}</div>
                   <div className="flex gap-2">
                     <Button
                       variant="outline"
                       onClick={() => {
-                        setSelectingFor('to')
+                        setSelectingFor('batchTo')
                         setIsChainSelectOpen(true)
                       }}
                       className="flex-1 justify-between h-8 text-xs"
                     >
                       <div className="flex items-center gap-1.5">
-                        {toChain?.iconUrl && (
-                          <img src={toChain.iconUrl} alt="" className="h-4 w-4 rounded-full" />
+                        {batchToChain?.iconUrl && (
+                          <img src={batchToChain.iconUrl} alt="" className="h-4 w-4 rounded-full" />
                         )}
-                        <span>{toChain?.displayName || 'Select'}</span>
+                        <span>{batchToChain?.displayName || 'Select'}</span>
                       </div>
                       <ChevronDown className="h-3 w-3" />
                     </Button>
@@ -3182,23 +3253,23 @@ export default function RelaySwap() {
                     <Button
                       variant="outline"
                       onClick={() => {
-                        setSelectingFor('to')
+                        setSelectingFor('batchTo')
                         setIsTokenSelectOpen(true)
                       }}
                       className="flex-1 justify-between h-8 text-xs"
                     >
                       <div className="flex items-center gap-1.5">
-                        {toToken && (
-                          <TokenLogo address={toToken.metadata?.isNative || isNativeAddress(toToken.address) ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />
+                        {batchToToken && (
+                          <TokenLogo address={batchToToken.metadata?.isNative || isNativeAddress(batchToToken.address) ? undefined : batchToToken.address} chainId={batchToToken.chainId} symbol={batchToToken.symbol} logoURI={batchToToken.metadata?.logoURI} size={4} />
                         )}
-                        <span>{toToken?.symbol || 'Select'}</span>
+                        <span>{batchToToken?.symbol || 'Select'}</span>
                       </div>
                       <ChevronDown className="h-3 w-3" />
                     </Button>
                   </div>
                 </div>
 
-                {toChain?.vmType === 'svm' && (
+                {batchToChain?.vmType === 'svm' && (
                   <Card className="p-2 bg-muted/50 border-accent">
                     <div className="text-xs font-medium mb-1">Solana Recipient</div>
                     <div className="text-xs font-mono text-muted-foreground break-all">
@@ -3223,7 +3294,7 @@ export default function RelaySwap() {
                         <div className="flex justify-between items-center">
                           <span className="text-muted-foreground">You Receive</span>
                           <span className="font-mono font-medium">
-                            {parseFloat(batchQuote.details.currencyOut.amountFormatted).toFixed(6)} {toToken?.symbol}
+                            {parseFloat(batchQuote.details.currencyOut.amountFormatted).toFixed(6)} {batchToToken?.symbol}
                           </span>
                         </div>
                       )}
@@ -3287,10 +3358,10 @@ export default function RelaySwap() {
                   className="w-full h-8 text-xs"
                 >
                   {isSwapping 
-                    ? (batchChain && toChain && batchChain.id !== toChain.id ? 'Batch Bridging...' : 'Batch Swapping...') 
+                    ? (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridging...' : 'Batch Swapping...') 
                     : isLoadingBatchQuote 
                     ? 'Loading Quote...' 
-                    : (batchChain && toChain && batchChain.id !== toChain.id ? 'Batch Bridge' : 'Batch Swap')}
+                    : (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridge' : 'Batch Swap')}
                 </Button>
               </div>
             </Card>
@@ -3466,6 +3537,8 @@ export default function RelaySwap() {
                           setToChain(chain)
                         } else if (selectingFor === 'batch') {
                           setBatchChain(chain)
+                        } else if (selectingFor === 'batchTo') {
+                          setBatchToChain(chain)
                         } else if (selectingFor === 'revoke') {
                           setRevokeChain(chain)
                         }
@@ -3606,9 +3679,10 @@ export default function RelaySwap() {
                           
                           setBatchTokens([...batchTokens, newToken])
                           toast.success(`Added ${currency.symbol} to batch swap${balanceFormatted !== '0' ? ` (Balance: ${balanceFormatted})` : ''}`)
+                        } else if (selectingFor === 'batchTo') {
+                          setBatchToToken(currency)
                         } else if (selectingFor === 'from') {
                           setFromToken(currency)
-                          // If toToken is the same and chains are the same, clear toToken
                           if (toToken && toChain && fromChain && 
                               fromChain.id === toChain.id && 
                               currency.address.toLowerCase() === toToken.address.toLowerCase()) {
@@ -3616,7 +3690,6 @@ export default function RelaySwap() {
                           }
                         } else {
                           setToToken(currency)
-                          // If fromToken is the same and chains are the same, clear fromToken
                           if (fromToken && fromChain && toChain && 
                               fromChain.id === toChain.id && 
                               currency.address.toLowerCase() === fromToken.address.toLowerCase()) {

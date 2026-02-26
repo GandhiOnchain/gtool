@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9b0e66e3001fwQfhXP3M0XjId",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_012AHvf9ughAvDA5hRTiCiLn",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3305,
+      "limit": 25
+    },
+    "output": "<file>\n03306|                   </Card>\n03307|                 )}\n03308| \n03309|                 <Button\n03310|                   onClick={executeBatchSwap}\n03311|                   disabled={batchTokens.filter(t => t.selected !== false).length === 0 || isSwapping || !isConnected || !batchQuote}\n03312|                   className=\"w-full h-8 text-xs\"\n03313|                 >\n03314|                   {isSwapping \n03315|                     ? (batchChain && toChain && batchChain.id !== toChain.id ? 'Batch Bridging...' : 'Batch Swapping...') \n03316|                     : isLoadingBatchQuote \n03317|                     ? 'Loading Quote...' \n03318|                     : (batchChain && toChain && batchChain.id !== toChain.id ? 'Batch Bridge' : 'Batch Swap')}\n03319|                 </Button>\n03320|               </div>\n03321|             </Card>\n03322|           </TabsContent>\n03323| \n03324| \n03325|           <TabsContent value=\"revoke\" className=\"space-y-2 mt-2\">\n03326|             <Card className=\"p-3\">\n03327|               <div className=\"space-y-2\">\n03328|                 <div className=\"text-sm font-medium\">Revoke Token Approvals</div>\n03329|                 <div className=\"text-xs text-muted-foreground\">\n03330|                   Select a chain to view and revoke token approvals\n\n(File has more lines. Use 'offset' parameter to read beyond line 3330)\n</file>",
+    "metadata": {
+      "preview": "                  </Card>\n                )}\n\n                <Button\n                  onClick={executeBatchSwap}\n                  disabled={batchTokens.filter(t => t.selected !== false).length === 0 || isSwapping || !isConnected || !batchQuote}\n                  className=\"w-full h-8 text-xs\"\n                >\n                  {isSwapping \n                    ? (batchChain && toChain && batchChain.id !== toChain.id ? 'Batch Bridging...' : 'Batch Swapping...') \n                    : isLoadingBatchQuote \n                    ? 'Loading Quote...' \n                    : (batchChain && toChain && batchChain.id !== toChain.id ? 'Batch Bridge' : 'Batch Swap')}\n                </Button>\n              </div>\n            </Card>\n          </TabsContent>\n\n\n          <TabsContent value=\"revoke\" className=\"space-y-2 mt-2\">"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772127938810,
+      "end": 1772127938812
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9b0ecce9001YO6M3SHxpVnp1y",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_016Y9o1vax5aF1SCkzvL9iQF",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2472,
+      "limit": 30
+    },
+    "output": "<file>\n02473|       }\n02474|     }\n02475|   }\n02476| \n02477|   const activeChainId = selectingFor === 'from' ? fromChain?.id\n02478|     : selectingFor === 'to' ? toChain?.id\n02479|     : batchChain?.id\n02480| \n02481|   const activeCurrencies = selectingFor === 'from' \n02482|     ? fromCurrencies \n02483|     : selectingFor === 'to' \n02484|     ? toCurrencies \n02485|     : selectingFor === 'batch' && batchChain\n02486|     ? currencies.filter(c => c.chainId === batchChain.id)\n02487|     : currencies\n02488| \n02489|   const activeWalletTokenMap = React.useMemo(() => {\n02490|     if (!activeChainId) return new Map<string, WalletToken>()\n02491|     const tokens = chainWalletTokens[activeChainId] || []\n02492|     return new Map(tokens.map(wt => [`${wt.token.chainId}:${wt.token.address.toLowerCase()}`, wt]))\n02493|   }, [activeChainId, chainWalletTokens])\n02494|   \n02495|   const allCurrencies = dedupCurrencies(\n02496|     externalSearchResults.length > 0\n02497|       ? [...externalSearchResults, ...activeCurrencies]\n02498|       : activeCurrencies\n02499|   )\n02500|   \n02501|   const filteredCurrencies = allCurrencies\n02502|     .filter(currency =>\n\n(File has more lines. Use 'offset' parameter to read beyond line 2502)\n</file>",
+    "metadata": {
+      "preview": "      }\n    }\n  }\n\n  const activeChainId = selectingFor === 'from' ? fromChain?.id\n    : selectingFor === 'to' ? toChain?.id\n    : batchChain?.id\n\n  const activeCurrencies = selectingFor === 'from' \n    ? fromCurrencies \n    : selectingFor === 'to' \n    ? toCurrencies \n    : selectingFor === 'batch' && batchChain\n    ? currencies.filter(c => c.chainId === batchChain.id)\n    : currencies\n\n  const activeWalletTokenMap = React.useMemo(() => {\n    if (!activeChainId) return new Map<string, WalletToken>()\n    const tokens = chainWalletTokens[activeChainId] || []\n    return new Map(tokens.map(wt => [`${wt.token.chainId}:${wt.token.address.toLowerCase()}`, wt]))"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772127964883,
+      "end": 1772127964885
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9b0d568e0010P73oc978aKnZc",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01DUt5Precmni5Sk18jBWEDc",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1455,
+      "limit": 60
+    },
+    "output": "<file>\n01456|         if (attempts < maxAttempts) {\n01457|           setTimeout(checkStatus, 2000)\n01458|         } else {\n01459|           toast.error('Swap status check timeout - please check your transaction history')\n01460|           setIsSwapping(false)\n01461|         }\n01462|       } catch (error) {\n01463|         console.error('Failed to check status:', error)\n01464|         attempts++\n01465|         if (attempts < maxAttempts) {\n01466|           setTimeout(checkStatus, 2000)\n01467|         } else {\n01468|           toast.error('Failed to monitor swap status')\n01469|           setIsSwapping(false)\n01470|         }\n01471|       }\n01472|     }\n01473| \n01474|     checkStatus()\n01475|   }\n01476| \n01477|   const fetchBatchQuote = async () => {\n01478|     if (!toToken || !toChain || !address || batchTokens.length === 0 || !batchChain) {\n01479|       return\n01480|     }\n01481| \n01482|     const toVMType = toChain.vmType || 'evm'\n01483|     const isCrossVM = (batchChain.vmType || 'evm') !== toVMType\n01484|     const batchRecipient = isCrossVM\n01485|       ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined\n01486|       : undefined\n01487| \n01488|     if (isCrossVM && toVMType === 'svm' && !solanaAddress) {\n01489|       console.log('Batch quote skipped: Solana destination requires Solana wallet')\n01490|       setBatchQuote(null)\n01491|       return\n01492|     }\n01493| \n01494|     setIsLoadingBatchQuote(true)\n01495|     try {\n01496|       const selectedTokens = batchTokens.filter(bt => bt.selected !== false && parseFloat(bt.balanceFormatted) > 0)\n01497|       const origins = selectedTokens.map(bt => ({\n01498|         chainId: batchChain.id,\n01499|         currency: bt.token.address,\n01500|         amount: bt.balance,\n01501|       }))\n01502| \n01503|       if (origins.length === 0) {\n01504|         setBatchQuote(null)\n01505|         setIsLoadingBatchQuote(false)\n01506|         return\n01507|       }\n01508| \n01509|       console.log('Getting batch swap quote for', origins.length, 'tokens, recipient:', batchRecipient)\n01510| \n01511|       const multiQuote = await relayAPI.getMultiInputQuote({\n01512|         user: address,\n01513|         origins,\n01514|         destinationCurrency: toToken.address,\n01515|         destinationChainId: toChain.id,\n\n(File has more lines. Use 'offset' parameter to read beyond line 1515)\n</file>",
+    "metadata": {
+      "preview": "        if (attempts < maxAttempts) {\n          setTimeout(checkStatus, 2000)\n        } else {\n          toast.error('Swap status check timeout - please check your transaction history')\n          setIsSwapping(false)\n        }\n      } catch (error) {\n        console.error('Failed to check status:', error)\n        attempts++\n        if (attempts < maxAttempts) {\n          setTimeout(checkStatus, 2000)\n        } else {\n          toast.error('Failed to monitor swap status')\n          setIsSwapping(false)\n        }\n      }\n    }\n\n    checkStatus()\n  }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772127869258,
+      "end": 1772127869260
+    }
+  }
+}

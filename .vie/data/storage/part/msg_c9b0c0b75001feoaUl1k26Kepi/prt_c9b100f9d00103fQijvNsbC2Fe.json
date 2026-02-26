@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b100f9d00103fQijvNsbC2Fe",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "All done. Here's what was fixed:\n\n**Independent batch state**\n- Added `batchToChain`, `batchToToken`, `batchToCurrencies` states — completely separate from the swap tab's `toChain`/`toToken`\n- Added a `useEffect` that loads currencies and sets a default token when `batchToChain` changes\n- Added `'batchTo'` to the `selectingFor` type and wired it through the chain/token select dialogs, `activeChainId`, and `activeCurrencies`\n- All batch logic (`fetchBatchQuote`, `executeBatchSwap`, the quote summary, button labels, Solana recipient card) now uses `batchToChain`/`batchToToken` exclusively — changing chains/tokens in the swap tab no longer affects the batch tab\n\n**Token detection (only native showing)**\n- Root cause: Alchemy `alchemy_getTokenBalances` returns empty on chains it doesn't support (Shape, Plume, Hyperliquid, etc.) or when the API key has rate limits. The fallback only checked the Relay currency list (~100 tokens) via `readContract`, missing any token not in that list.\n- Fix: Added Moralis as a parallel fallback — when Alchemy returns 0 tokens, it calls `https://deep-index.moralis.io/api/v2.2/{address}/erc20?chain={chain}` which returns all ERC20 tokens with balances, symbols, names, decimals, and logos. Moralis covers ETH, Base, Arbitrum, Polygon, Optimism, BSC, and Avalanche.\n- Also enriched token metadata: when Moralis provides a logo URL, it's used as the token logo in the batch list.",
+  "time": {
+    "start": 1772128059029,
+    "end": 1772128059029
+  }
+}

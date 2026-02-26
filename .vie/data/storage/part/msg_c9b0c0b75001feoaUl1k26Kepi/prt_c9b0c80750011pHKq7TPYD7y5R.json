@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9b0c80750011pHKq7TPYD7y5R",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01Ra1Jei4EaqnHnGvcBm9J2D",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/config.ts",
+      "offset": 80,
+      "limit": 120
+    },
+    "output": "<file>\n00081| \n00082|   // Mantle\n00083|   MANTLE_MAINNET = \"mantle-mainnet\",\n00084| \n00085|   // Scroll\n00086|   SCROLL_MAINNET = \"scroll-mainnet\",\n00087| \n00088|   // Gnosis (xDai)\n00089|   GNOSIS_MAINNET = \"gnosis-mainnet\",\n00090| \n00091|   // BNB Chain\n00092|   BNB_MAINNET = \"bnb-mainnet\",\n00093| \n00094|   // Avalanche\n00095|   AVAX_MAINNET = \"avax-mainnet\",\n00096| \n00097|   // Celo\n00098|   CELO_MAINNET = \"celo-mainnet\",\n00099| \n00100|   // Metis\n00101|   METIS_MAINNET = \"metis-mainnet\",\n00102| \n00103|   // opBNB\n00104|   OPBNB_MAINNET = \"opbnb-mainnet\",\n00105| \n00106|   // Berachain\n00107|   BERACHAIN_MAINNET = \"berachain-mainnet\",\n00108| \n00109|   // Soneium\n00110|   SONEIUM_MAINNET = \"soneium-mainnet\",\n00111| \n00112|   // World Chain\n00113|   WORLDCHAIN_MAINNET = \"worldchain-mainnet\",\n00114| \n00115|   // Rootstock\n00116|   ROOTSTOCK_MAINNET = \"rootstock-mainnet\",\n00117| \n00118|   // Zora\n00119|   ZORA_MAINNET = \"zora-mainnet\",\n00120| \n00121|   // Frax (Fraxtal)\n00122|   FRAX_MAINNET = \"frax-mainnet\",\n00123| \n00124|   // CrossFi (only testnet present in your list)\n00125|   CROSSFI_TESTNET = \"crossfi-testnet\",\n00126| \n00127|   // ApeChain\n00128|   APECHAIN_MAINNET = \"apechain-mainnet\",\n00129| \n00130|   // Lumia\n00131|   LUMIA_PRISM = \"lumia-prism\",\n00132| \n00133|   // Unichain\n00134|   UNICHAIN_MAINNET = \"unichain-mainnet\",\n00135| \n00136|   // Sonic\n00137|   SONIC_MAINNET = \"sonic-mainnet\",\n00138| \n00139|   // Abstract\n00140|   ABSTRACT_MAINNET = \"abstract-mainnet\",\n00141| \n00142|   // Ink\n00143|   INK_MAINNET = \"ink-mainnet\",\n00144| \n00145|   // Sei\n00146|   SEI_MAINNET = \"sei-mainnet\",\n00147| \n00148|   // Ronin\n00149|   RONIN_MAINNET = \"ronin-mainnet\",\n00150| \n00151|   // Superseed\n00152|   SUPERSEED_MAINNET = \"superseed-mainnet\",\n00153| \n00154|   // Tea (only Sepolia in your list)\n00155|   TEA_SEPOLIA = \"tea-sepolia\",\n00156| \n00157|   // Story\n00158|   STORY_MAINNET = \"story-mainnet\",\n00159| \n00160|   // Botanix\n00161|   BOTANIX_MAINNET = \"botanix-mainnet\",\n00162|   BOTANIX_TESTNET = \"botanix-testnet\",\n00163| \n00164|   // Humanity\n00165|   HUMANITY_MAINNET = \"humanity-mainnet\",\n00166| \n00167|   // Rise (testnet only)\n00168|   RISE_TESTNET = \"rise-testnet\",\n00169| \n00170|   // Hyperliquid (app-chain id in your list)\n00171|   HYPERLIQUID_MAINNET = \"hyperliquid-mainnet\",\n00172| \n00173|   SHAPE_MAINNET = \"shape-mainnet\",\n00174| }\n00175| \n00176| export const CHAIN_ID_TO_NETWORK: Record<number, Network> = {\n00177|   // Ethereum\n00178|   1: Network.ETH_MAINNET,\n00179| \n00180|   // Optimism\n00181|   10: Network.OPT_MAINNET,\n00182| \n00183|   // Arbitrum\n00184|   42161: Network.ARB_MAINNET,\n00185|   42170: Network.ARBNOVA_MAINNET,\n00186| \n00187|   // Polygon\n00188|   137: Network.MATIC_MAINNET,\n00189| \n00190|   // Base\n00191|   8453: Network.BASE_MAINNET,\n00192|   84532: Network.BASE_SEPOLIA,\n00193| \n00194|   // zkSync Era\n00195|   324: Network.ZKSYNC_MAINNET,\n00196| \n00197|   // Astar\n00198|   592: Network.ASTAR_MAINNET,\n00199| \n00200|   // Linea\n\n(File has more lines. Use 'offset' parameter to read beyond line 200)\n</file>",
+    "metadata": {
+      "preview": "\n  // Mantle\n  MANTLE_MAINNET = \"mantle-mainnet\",\n\n  // Scroll\n  SCROLL_MAINNET = \"scroll-mainnet\",\n\n  // Gnosis (xDai)\n  GNOSIS_MAINNET = \"gnosis-mainnet\",\n\n  // BNB Chain\n  BNB_MAINNET = \"bnb-mainnet\",\n\n  // Avalanche\n  AVAX_MAINNET = \"avax-mainnet\",\n\n  // Celo\n  CELO_MAINNET = \"celo-mainnet\",\n\n  // Metis"
+    },
+    "title": "frontend/src/lib/alchemy/config.ts",
+    "time": {
+      "start": 1772127814323,
+      "end": 1772127814324
+    }
+  }
+}

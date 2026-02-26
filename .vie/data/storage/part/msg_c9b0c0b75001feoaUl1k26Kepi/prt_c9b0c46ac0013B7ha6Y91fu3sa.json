@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b0c46ac0013B7ha6Y91fu3sa",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "The root causes are clear:\n\n1. **Shared state**: The batch tab uses `toChain` and `toToken` which are the same state as the swap tab. Need dedicated `batchToChain` and `batchToToken` states.\n\n2. **Only native tokens in batch**: `fetchWalletTokens` uses Alchemy for ERC20 discovery. When Alchemy fails (wrong network name, API key issue, etc.), it falls back to checking the Relay currency list via `readContract`. But the Relay list only has ~100 tokens and many user tokens won't be in it. The real fix is to use the Alchemy `alchemy_getTokenBalances` with `DEFAULT_TOKENS` and also try the `erc20` type, but also use a more reliable fallback — specifically, use Moralis or Zapper portfolio data which is already available in the codebase.\n\nLet me check the Moralis/Zapper hooks:",
+  "time": {
+    "start": 1772127805082,
+    "end": 1772127805082
+  }
+}

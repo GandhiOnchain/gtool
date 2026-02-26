@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9b0dc15c001PCVvO6Y8HvXdVk",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01HZi7uyzYMtdNXJqsMWr2cF",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1525,
+      "limit": 15
+    },
+    "output": "<file>\n01526|       setIsLoadingBatchQuote(false)\n01527|     }\n01528|   }\n01529| \n01530|   const executeBatchSwap = async () => {\n01531|     if (!toToken || !toChain || !address || batchTokens.length === 0 || !batchChain) {\n01532|       toast.error('Please select chain and tokens to swap')\n01533|       return\n01534|     }\n01535| \n01536|     if (!isConnected) {\n01537|       toast.error('Please connect your wallet first')\n01538|       return\n01539|     }\n01540| \n\n(File has more lines. Use 'offset' parameter to read beyond line 1540)\n</file>",
+    "metadata": {
+      "preview": "      setIsLoadingBatchQuote(false)\n    }\n  }\n\n  const executeBatchSwap = async () => {\n    if (!toToken || !toChain || !address || batchTokens.length === 0 || !batchChain) {\n      toast.error('Please select chain and tokens to swap')\n      return\n    }\n\n    if (!isConnected) {\n      toast.error('Please connect your wallet first')\n      return\n    }\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772127896475,
+      "end": 1772127896480
+    }
+  }
+}

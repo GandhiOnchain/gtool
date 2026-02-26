@@ -1,0 +1,73 @@
+{
+  "id": "prt_c9b0fe65a001gXAa1wUe917rnu",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_bdrk_01WAgW2b7Z4ZvnW4YZ13GjjT",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Add independent batch destination state (batchToChain, batchToToken, batchToCurrencies)",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Wire batch tab UI to use batchToChain/batchToToken instead of shared toChain/toToken",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Fix token detection - add Moralis as fallback for ERC20 discovery",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "completed",
+          "priority": "medium",
+          "id": "4"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Add independent batch destination state (batchToChain, batchToToken, batchToCurrencies)\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Wire batch tab UI to use batchToChain/batchToToken instead of shared toChain/toToken\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Fix token detection - add Moralis as fallback for ERC20 discovery\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"completed\",\n    \"priority\": \"medium\",\n    \"id\": \"4\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Add independent batch destination state (batchToChain, batchToToken, batchToCurrencies)",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Wire batch tab UI to use batchToChain/batchToToken instead of shared toChain/toToken",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Fix token detection - add Moralis as fallback for ERC20 discovery",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "completed",
+          "priority": "medium",
+          "id": "4"
+        }
+      ]
+    },
+    "title": "0 todos",
+    "time": {
+      "start": 1772128039142,
+      "end": 1772128039142
+    }
+  }
+}

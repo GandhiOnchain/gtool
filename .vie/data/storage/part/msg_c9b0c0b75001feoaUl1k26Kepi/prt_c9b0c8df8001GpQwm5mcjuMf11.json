@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9b0c8df8001GpQwm5mcjuMf11",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01XakP2m1kQshDzo3JkUByYX",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/config.ts",
+      "offset": 200,
+      "limit": 80
+    },
+    "output": "<file>\n00201|   59144: Network.LINEA_MAINNET,\n00202| \n00203|   // Fantom\n00204|   250: Network.FANTOM_MAINNET,\n00205| \n00206|   // ZetaChain\n00207|   7000: Network.ZETACHAIN_MAINNET,\n00208| \n00209|   // Blast\n00210|   81457: Network.BLAST_MAINNET,\n00211| \n00212|   // Mantle\n00213|   5000: Network.MANTLE_MAINNET,\n00214| \n00215|   // Scroll\n00216|   534352: Network.SCROLL_MAINNET,\n00217| \n00218|   // Gnosis (xDai)\n00219|   100: Network.GNOSIS_MAINNET,\n00220| \n00221|   // BNB Chain\n00222|   56: Network.BNB_MAINNET,\n00223| \n00224|   // Avalanche\n00225|   43114: Network.AVAX_MAINNET,\n00226| \n00227|   // Celo\n00228|   42220: Network.CELO_MAINNET,\n00229| \n00230|   // Metis\n00231|   1088: Network.METIS_MAINNET,\n00232| \n00233|   // opBNB\n00234|   204: Network.OPBNB_MAINNET,\n00235| \n00236|   // Berachain\n00237|   80094: Network.BERACHAIN_MAINNET,\n00238| \n00239|   // Soneium\n00240|   1868: Network.SONEIUM_MAINNET,\n00241| \n00242|   // World Chain\n00243|   480: Network.WORLDCHAIN_MAINNET,\n00244| \n00245|   // Rootstock\n00246|   30: Network.ROOTSTOCK_MAINNET,\n00247| \n00248|   // Zora\n00249|   7777777: Network.ZORA_MAINNET,\n00250| \n00251|   // Frax (Fraxtal)\n00252|   252: Network.FRAX_MAINNET,\n00253| \n00254|   // CrossFi (your list only includes 4158)\n00255|   4158: Network.CROSSFI_TESTNET,\n00256| \n00257|   // ApeChain\n00258|   33139: Network.APECHAIN_MAINNET,\n00259| \n00260|   // Lumia\n00261|   994873017: Network.LUMIA_PRISM,\n00262| \n00263|   // Unichain\n00264|   130: Network.UNICHAIN_MAINNET,\n00265| \n00266|   // Sonic\n00267|   146: Network.SONIC_MAINNET,\n00268| \n00269|   // Abstract\n00270|   2741: Network.ABSTRACT_MAINNET,\n00271| \n00272|   // Ink\n00273|   57073: Network.INK_MAINNET,\n00274| \n00275|   // Sei\n00276|   1329: Network.SEI_MAINNET,\n00277| \n00278|   // Ronin\n00279|   2020: Network.RONIN_MAINNET,\n00280| \n\n(File has more lines. Use 'offset' parameter to read beyond line 280)\n</file>",
+    "metadata": {
+      "preview": "  59144: Network.LINEA_MAINNET,\n\n  // Fantom\n  250: Network.FANTOM_MAINNET,\n\n  // ZetaChain\n  7000: Network.ZETACHAIN_MAINNET,\n\n  // Blast\n  81457: Network.BLAST_MAINNET,\n\n  // Mantle\n  5000: Network.MANTLE_MAINNET,\n\n  // Scroll\n  534352: Network.SCROLL_MAINNET,\n\n  // Gnosis (xDai)\n  100: Network.GNOSIS_MAINNET,\n"
+    },
+    "title": "frontend/src/lib/alchemy/config.ts",
+    "time": {
+      "start": 1772127817651,
+      "end": 1772127817656
+    }
+  }
+}

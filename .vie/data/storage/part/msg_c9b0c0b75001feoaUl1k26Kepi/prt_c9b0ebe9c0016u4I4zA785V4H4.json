@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9b0ebe9c0016u4I4zA785V4H4",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01BdYiULfvDApKd5g3sHqUjB",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2500,
+      "limit": 30
+    },
+    "output": "<file>\n02501|   const filteredCurrencies = allCurrencies\n02502|     .filter(currency =>\n02503|       currency.symbol.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||\n02504|       currency.name.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||\n02505|       currency.address.toLowerCase().includes(tokenSearchTerm.toLowerCase())\n02506|     )\n02507|     .sort((a, b) => {\n02508|       const aWallet = activeWalletTokenMap.get(`${a.chainId}:${a.address.toLowerCase()}`)\n02509|       const bWallet = activeWalletTokenMap.get(`${b.chainId}:${b.address.toLowerCase()}`)\n02510|       const aBalance = aWallet ? parseFloat(aWallet.balanceFormatted) : 0\n02511|       const bBalance = bWallet ? parseFloat(bWallet.balanceFormatted) : 0\n02512|       if (bBalance !== aBalance) return bBalance - aBalance\n02513|       if (a.metadata?.isNative && !b.metadata?.isNative) return -1\n02514|       if (!a.metadata?.isNative && b.metadata?.isNative) return 1\n02515|       return 0\n02516|     })\n02517| \n02518|   return (\n02519|     <div className=\"min-h-screen bg-background p-2 max-w-[424px] mx-auto\">\n02520|       <div className=\"space-y-2\">\n02521|         {!isConnected ? (\n02522|           <Button\n02523|             onClick={handleConnect}\n02524|             className=\"w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90\"\n02525|           >\n02526|             <Wallet className=\"h-4 w-4 mr-2\" />\n02527|             Connect Wallet\n02528|           </Button>\n02529|         ) : (\n02530|           <div className=\"flex items-center justify-between mb-2\">\n\n(File has more lines. Use 'offset' parameter to read beyond line 2530)\n</file>",
+    "metadata": {
+      "preview": "  const filteredCurrencies = allCurrencies\n    .filter(currency =>\n      currency.symbol.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||\n      currency.name.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||\n      currency.address.toLowerCase().includes(tokenSearchTerm.toLowerCase())\n    )\n    .sort((a, b) => {\n      const aWallet = activeWalletTokenMap.get(`${a.chainId}:${a.address.toLowerCase()}`)\n      const bWallet = activeWalletTokenMap.get(`${b.chainId}:${b.address.toLowerCase()}`)\n      const aBalance = aWallet ? parseFloat(aWallet.balanceFormatted) : 0\n      const bBalance = bWallet ? parseFloat(bWallet.balanceFormatted) : 0\n      if (bBalance !== aBalance) return bBalance - aBalance\n      if (a.metadata?.isNative && !b.metadata?.isNative) return -1\n      if (!a.metadata?.isNative && b.metadata?.isNative) return 1\n      return 0\n    })\n\n  return (\n    <div className=\"min-h-screen bg-background p-2 max-w-[424px] mx-auto\">\n      <div className=\"space-y-2\">"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772127961462,
+      "end": 1772127961464
+    }
+  }
+}

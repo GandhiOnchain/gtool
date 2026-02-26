@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9b0d2887001EUpuRZ50nunA3p",
+  "messageID": "msg_c9b0c0b75001feoaUl1k26Kepi",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_016KsJm8i88s3CagLQDN86iC",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 336,
+      "limit": 20
+    },
+    "output": "<file>\n00337|     loadTrendingTokens()\n00338|     loadSwapSources()\n00339|   }, [])\n00340| \n00341|   useEffect(() => {\n00342|     if (chains.length > 0 && !batchChain) {\n00343|       const baseChain = chains.find(c => c.id === 8453) || chains[0]\n00344|       setBatchChain(baseChain)\n00345|     }\n00346|   }, [chains])\n00347| \n00348|   useEffect(() => {\n00349|     if (fromToken && fromChain) {\n00350|       fetchTokenPrice(fromToken.address, fromChain.id, 'from')\n00351|     }\n00352|   }, [fromToken, fromChain])\n00353| \n00354|   // Update USD amount when price changes\n00355|   useEffect(() => {\n00356|     if (inputMode === 'usd' && usdAmount && fromTokenPrice > 0) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 356)\n</file>",
+    "metadata": {
+      "preview": "    loadTrendingTokens()\n    loadSwapSources()\n  }, [])\n\n  useEffect(() => {\n    if (chains.length > 0 && !batchChain) {\n      const baseChain = chains.find(c => c.id === 8453) || chains[0]\n      setBatchChain(baseChain)\n    }\n  }, [chains])\n\n  useEffect(() => {\n    if (fromToken && fromChain) {\n      fetchTokenPrice(fromToken.address, fromChain.id, 'from')\n    }\n  }, [fromToken, fromChain])\n\n  // Update USD amount when price changes\n  useEffect(() => {\n    if (inputMode === 'usd' && usdAmount && fromTokenPrice > 0) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772127857460,
+      "end": 1772127857462
+    }
+  }
+}
