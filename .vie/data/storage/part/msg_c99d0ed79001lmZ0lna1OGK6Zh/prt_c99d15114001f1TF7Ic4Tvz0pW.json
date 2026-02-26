@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99d15114001f1TF7Ic4Tvz0pW",
+  "messageID": "msg_c99d0ed79001lmZ0lna1OGK6Zh",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "Now I understand the root issue. The `chains` state in RelaySwap comes from the Relay API (`relayAPI.getChains()`), which returns hundreds of chains — most of which are **not** in the wagmi config's `supportedChains`. When `switchChain` is called with a chain ID not registered in wagmi, it silently fails or the wallet rejects it.\n\nThe fix: filter the dropdown to only show chains that exist in wagmi's `supportedChains`, and import that list.",
+  "time": {
+    "start": 1772107161246,
+    "end": 1772107161246
+  }
+}

@@ -6,6 +6,7 @@ import { useWallet } from '@/hooks/useWallet'
 import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem, getAddress } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
+import { supportedChains } from '@/lib/blockchain/chains'
 import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
 import { config } from '@/config'
 import { Network as AlchemyNetwork } from 'alchemy-sdk'
@@ -2394,36 +2395,43 @@ export default function RelaySwap() {
                   {userStreak.currentStreak}
                 </Badge>
               )}
-              {connectedChainId && chains.length > 0 && (
+              {connectedChainId && (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="sm" className="h-7 gap-1.5 px-2 text-xs">
                       {chains.find(c => c.id === connectedChainId)?.iconUrl && (
                         <img src={chains.find(c => c.id === connectedChainId)?.iconUrl} alt="" className="h-3.5 w-3.5 rounded-full" />
                       )}
-                      {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}
+                      {chains.find(c => c.id === connectedChainId)?.displayName || supportedChains.find(c => c.id === connectedChainId)?.name || `Chain ${connectedChainId}`}
                       <ChevronDown className="h-3 w-3 opacity-60" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start" className="w-44 max-h-64 overflow-y-auto">
-                    {chains.filter(c => c.vmType === 'evm' || !c.vmType).map((chain) => (
-                      <DropdownMenuItem
-                        key={chain.id}
-                        className="flex items-center gap-2 cursor-pointer"
-                        onClick={async () => {
-                          if (chain.id === connectedChainId) return
-                          try {
-                            await switchChain({ chainId: chain.id })
-                          } catch (err) {
-                            toast.error('Failed to switch chain')
+                    {supportedChains.map((wagmiChain) => {
+                      const relayChain = chains.find(c => c.id === wagmiChain.id)
+                      return (
+                        <DropdownMenuItem
+                          key={wagmiChain.id}
+                          className="flex items-center gap-2 cursor-pointer"
+                          onClick={async () => {
+                            if (wagmiChain.id === connectedChainId) return
+                            try {
+                              await switchChain({ chainId: wagmiChain.id })
+                            } catch (err) {
+                              console.error('switchChain error:', err)
+                              toast.error('Failed to switch chain. Please switch manually in your wallet.')
+                            }
+                          }}
+                        >
+                          {relayChain?.iconUrl
+                            ? <img src={relayChain.iconUrl} alt="" className="h-4 w-4 rounded-full flex-shrink-0" />
+                            : <div className="h-4 w-4 rounded-full bg-muted flex-shrink-0" />
                           }
-                        }}
-                      >
-                        {chain.iconUrl && <img src={chain.iconUrl} alt="" className="h-4 w-4 rounded-full" />}
-                        <span className="flex-1">{chain.displayName}</span>
-                        {chain.id === connectedChainId && <span className="text-accent">✓</span>}
-                      </DropdownMenuItem>
-                    ))}
+                          <span className="flex-1 truncate">{relayChain?.displayName || wagmiChain.name}</span>
+                          {wagmiChain.id === connectedChainId && <span className="text-accent text-xs">✓</span>}
+                        </DropdownMenuItem>
+                      )
+                    })}
                   </DropdownMenuContent>
                 </DropdownMenu>
               )}

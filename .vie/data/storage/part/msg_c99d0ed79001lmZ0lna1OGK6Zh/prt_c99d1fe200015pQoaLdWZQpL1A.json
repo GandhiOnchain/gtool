@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99d1fe200015pQoaLdWZQpL1A",
+  "messageID": "msg_c99d0ed79001lmZ0lna1OGK6Zh",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "The root cause was that the dropdown was iterating over `chains` from the Relay API — which contains hundreds of chains including non-EVM ones — and calling `switchChain` with IDs that wagmi doesn't know about, causing silent failures.\n\n**The fix:** The dropdown now iterates over `supportedChains` from the wagmi config (the 16 chains actually registered). These are the only chains wagmi can switch to. For each one, it still looks up the Relay chain to get the logo and display name. This guarantees `switchChain` always receives a valid, registered chain ID.",
+  "time": {
+    "start": 1772107205071,
+    "end": 1772107205071
+  }
+}

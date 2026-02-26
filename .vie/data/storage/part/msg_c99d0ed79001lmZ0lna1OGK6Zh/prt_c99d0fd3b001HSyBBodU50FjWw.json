@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99d0fd3b001HSyBBodU50FjWw",
+  "messageID": "msg_c99d0ed79001lmZ0lna1OGK6Zh",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01U4giUVfdUzi7e7hjvE8LZf",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"switchChain\\|useSwitchChain\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+      "description": "Find all switchChain usages"
+    },
+    "output": "4:import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'\n175:  const { switchChain } = useSwitchChain()\n1276:          await switchChain({ chainId: txData.chainId })\n1480:        await switchChain({ chainId: batchChain.id })\n2116:          await switchChain({ chainId: revokeChain.id })\n2165:          await switchChain({ chainId: revokeChain.id })\n2308:  const switchChains = () => {\n2416:                            await switchChain({ chainId: chain.id })\n2610:                onClick={switchChains}\n",
+    "metadata": {
+      "output": "4:import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'\n175:  const { switchChain } = useSwitchChain()\n1276:          await switchChain({ chainId: txData.chainId })\n1480:        await switchChain({ chainId: batchChain.id })\n2116:          await switchChain({ chainId: revokeChain.id })\n2165:          await switchChain({ chainId: revokeChain.id })\n2308:  const switchChains = () => {\n2416:                            await switchChain({ chainId: chain.id })\n2610:                onClick={switchChains}\n",
+      "exit": 0,
+      "description": "Find all switchChain usages"
+    },
+    "title": "grep -n \"switchChain\\|useSwitchChain\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772107137212,
+      "end": 1772107137219
+    }
+  }
+}
