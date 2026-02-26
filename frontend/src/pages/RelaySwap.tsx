@@ -1047,7 +1047,15 @@ export default function RelaySwap() {
     setIsLoadingBatchTokens(true)
     try {
       const tokens = await fetchWalletTokens(chain)
-      const tokensWithSelection = tokens.map(t => ({ ...t, selected: true }))
+      const erc20Only = tokens
+        .filter(t => !t.token.metadata?.isNative && !isNativeAddress(t.token.address))
+        .sort((a, b) => {
+          const aHasLogo = !!(a.token.metadata?.logoURI)
+          const bHasLogo = !!(b.token.metadata?.logoURI)
+          if (aHasLogo !== bHasLogo) return aHasLogo ? -1 : 1
+          return parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted)
+        })
+      const tokensWithSelection = erc20Only.map(t => ({ ...t, selected: true }))
       setWalletTokens(tokensWithSelection)
       setBatchTokens(tokensWithSelection)
       setChainWalletTokens(prev => ({ ...prev, [chain.id]: tokens }))

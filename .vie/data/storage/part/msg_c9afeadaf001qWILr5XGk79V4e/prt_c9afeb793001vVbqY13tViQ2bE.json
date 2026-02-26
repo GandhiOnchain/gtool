@@ -20,7 +20,8 @@
     "title": "find /home/user/sandbox/workspace/frontend/src -name \"*.tsx\" -o -name \"*.ts\" | grep -v node_modules | sort",
     "time": {
       "start": 1772126911159,
-      "end": 1772126911173
+      "end": 1772126911173,
+      "compacted": 1772128856524
     }
   }
 }

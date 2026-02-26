@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b1dbd840013X3TucwTbnls5H",
+  "messageID": "msg_c9b1d9d5a001GYDi7ncwZdrFLe",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "The sort is at line 1028 in `fetchWalletTokens`. I need to:\n1. Filter out native tokens before setting `batchTokens`\n2. Sort by: has logo first, then descending by USD value (or balance as proxy)",
+  "time": {
+    "start": 1772128945908,
+    "end": 1772128945908
+  }
+}

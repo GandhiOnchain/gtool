@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b1e2fa3001o6EVtw3GzdiAZK",
+  "messageID": "msg_c9b1d9d5a001GYDi7ncwZdrFLe",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Done. Native tokens are now excluded from the batch cleanup list entirely, and the remaining tokens are sorted: tokens with logos first, then descending by balance within each group.",
+  "time": {
+    "start": 1772128973514,
+    "end": 1772128973514
+  }
+}

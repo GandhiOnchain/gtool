@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b1dccd4001ZIFU9toQvYP6Qd",
+  "messageID": "msg_c9b1d9d5a001GYDi7ncwZdrFLe",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Two changes needed:\n1. In `loadBatchWalletTokens`: filter out native tokens and sort by logo-first then descending balance\n2. The `TokenLogo` component has the logo info — I need to check if a token has a logo URL to sort by it",
+  "time": {
+    "start": 1772128952886,
+    "end": 1772128952886
+  }
+}
