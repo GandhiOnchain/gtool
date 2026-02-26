@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99c9b63c001drQYiuHIWc4eTC",
+  "messageID": "msg_c99c8d6bd001elLuMndWb7i34e",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "Both fixes done:\n\n1. **\"Batch Cleanup Swap\" → \"Batch Cleanup\"** — removed the trailing \"Swap\"\n2. **Insufficient balance** — added a red warning card that shows \"Insufficient {token} balance\" when the entered amount exceeds the wallet balance, and the swap button is also disabled in that case so it won't prompt the wallet",
+  "time": {
+    "start": 1772106661349,
+    "end": 1772106661349
+  }
+}

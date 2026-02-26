@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99c90062001lEva47iA45kFMZ",
+  "messageID": "msg_c99c8d6bd001elLuMndWb7i34e",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_011QKkAQcffNqQsaLRThCfMr",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"insufficient\\|Insufficient\\|fromBalance\\|fromAmount\\|executeSwap\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | grep -v \"//\\|console\" | head -20",
+      "description": "Find balance check and swap execution"
+    },
+    "output": "50:  fromAmount: string\n70:  fromAmountUsd?: string\n180:  const [fromAmount, setFromAmount] = useState('')\n258:  const fromBalance = (fromChain?.vmType === 'evm' || !fromChain?.vmType) ? evmFromBalance : customBalances.from\n333:    } else if (inputMode === 'token' && fromAmount && fromTokenPrice > 0) {\n334:      setUsdAmount((parseFloat(fromAmount) * fromTokenPrice).toFixed(2))\n365:    if (fromToken && toToken && fromAmount && fromChain && toChain && address) {\n371:  }, [fromToken, toToken, fromAmount, fromChain, toChain, address])\n1044:    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return\n1059:      const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n1108:        } else if (msg.includes('insufficient')) {\n1109:          errorMessage = 'Insufficient balance for this swap.'\n1128:  const executeSwap = async () => {\n1139:    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {\n1186:      const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n1662:        } else if (msg.includes('insufficient')) {\n1663:          errorMessage = 'Insufficient balance for batch swap.'\n2200:                  fromAmount: '0',\n2302:    const text = `Just swapped ${swap.fromAmount} ${swap.fromTokenSymbol} (${swap.fromChain}) to ${swap.toAmount} ${swap.toTokenSymbol} (${swap.toChain}) on Relay!`\n2316:    const tempAmount = fromAmount\n",
+    "metadata": {
+      "output": "50:  fromAmount: string\n70:  fromAmountUsd?: string\n180:  const [fromAmount, setFromAmount] = useState('')\n258:  const fromBalance = (fromChain?.vmType === 'evm' || !fromChain?.vmType) ? evmFromBalance : customBalances.from\n333:    } else if (inputMode === 'token' && fromAmount && fromTokenPrice > 0) {\n334:      setUsdAmount((parseFloat(fromAmount) * fromTokenPrice).toFixed(2))\n365:    if (fromToken && toToken && fromAmount && fromChain && toChain && address) {\n371:  }, [fromToken, toToken, fromAmount, fromChain, toChain, address])\n1044:    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return\n1059:      const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n1108:        } else if (msg.includes('insufficient')) {\n1109:          errorMessage = 'Insufficient balance for this swap.'\n1128:  const executeSwap = async () => {\n1139:    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {\n1186:      const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n1662:        } else if (msg.includes('insufficient')) {\n1663:          errorMessage = 'Insufficient balance for batch swap.'\n2200:                  fromAmount: '0',\n2302:    const text = `Just swapped ${swap.fromAmount} ${swap.fromTokenSymbol} (${swap.fromChain}) to ${swap.toAmount} ${swap.toTokenSymbol} (${swap.toChain}) on Relay!`\n2316:    const tempAmount = fromAmount\n",
+      "exit": 0,
+      "description": "Find balance check and swap execution"
+    },
+    "title": "grep -n \"insufficient\\|Insufficient\\|fromBalance\\|fromAmount\\|executeSwap\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | grep -v \"//\\|console\" | head -20",
+    "time": {
+      "start": 1772106614140,
+      "end": 1772106614148
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "id": "prt_c99c8d4c6001zskplAru7I9n71",
+  "type": "text",
+  "text": "under the batch tab, it says batch cleanup swap as shown in the image. it should only say batch cleanup. fix it.\n\nand when swapping tokens with no available balance, there is no message that says insufficient balance or something like that. the swap is still being prompted to wallet",
+  "messageID": "msg_c99c8d67a001UzcTcK3T70xyN4",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_c99c92310001JHa4PDYDXhgryF",
+  "messageID": "msg_c99c8d6bd001elLuMndWb7i34e",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01FNCqw1AUx5gKUFDHRVDRRx",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2760,
+      "limit": 30
+    },
+    "output": "<file>\n02761|                       </span>\n02762|                     </div>\n02763|                   )}\n02764|                 </div>\n02765|                 {quote.details.totalImpact && Math.abs(parseFloat(quote.details.totalImpact.percent)) > 5 && (\n02766|                   <div className=\"mt-2 p-2 bg-destructive/10 border border-destructive/20 rounded text-xs text-destructive\">\n02767|                     High price impact detected. You may receive significantly less than expected.\n02768|                   </div>\n02769|                 )}\n02770|                 {parseFloat(slippage) > 1 && (\n02771|                   <div className=\"mt-2 p-2 bg-destructive/10 border border-destructive/20 rounded text-xs text-destructive\">\n02772|                     High slippage tolerance set. Transaction may execute at unfavorable rates.\n02773|                   </div>\n02774|                 )}\n02775|               </Card>\n02776|             )}\n02777| \n02778|             {fromChain && toChain && fromToken && toToken && \n02779|              fromChain.id === toChain.id && \n02780|              fromToken.address.toLowerCase() === toToken.address.toLowerCase() && (\n02781|               <Card className=\"p-3 bg-destructive/10 border-destructive\">\n02782|                 <div className=\"text-xs text-destructive text-center\">\n02783|                   Cannot swap the same token to itself. Please select a different token.\n02784|                 </div>\n02785|               </Card>\n02786|             )}\n02787| \n02788|             <Button\n02789|               onClick={executeSwap}\n02790|               disabled={(() => {\n\n(File has more lines. Use 'offset' parameter to read beyond line 2790)\n</file>",
+    "metadata": {
+      "preview": "                      </span>\n                    </div>\n                  )}\n                </div>\n                {quote.details.totalImpact && Math.abs(parseFloat(quote.details.totalImpact.percent)) > 5 && (\n                  <div className=\"mt-2 p-2 bg-destructive/10 border border-destructive/20 rounded text-xs text-destructive\">\n                    High price impact detected. You may receive significantly less than expected.\n                  </div>\n                )}\n                {parseFloat(slippage) > 1 && (\n                  <div className=\"mt-2 p-2 bg-destructive/10 border border-destructive/20 rounded text-xs text-destructive\">\n                    High slippage tolerance set. Transaction may execute at unfavorable rates.\n                  </div>\n                )}\n              </Card>\n            )}\n\n            {fromChain && toChain && fromToken && toToken && \n             fromChain.id === toChain.id && \n             fromToken.address.toLowerCase() === toToken.address.toLowerCase() && ("
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772106622285,
+      "end": 1772106622286
+    }
+  }
+}

@@ -2785,10 +2785,21 @@ export default function RelaySwap() {
               </Card>
             )}
 
+            {fromAmount && fromBalance && parseFloat(fromAmount) > parseFloat(formatUnits(fromBalance.value, fromBalance.decimals)) && (
+              <Card className="p-3 bg-destructive/10 border-destructive">
+                <div className="text-xs text-destructive text-center">
+                  Insufficient {fromToken?.symbol} balance
+                </div>
+              </Card>
+            )}
+
             <Button
               onClick={executeSwap}
               disabled={(() => {
                 if (!quote || isSwapping || !isConnected) return true
+
+                // Check insufficient balance
+                if (fromAmount && fromBalance && parseFloat(fromAmount) > parseFloat(formatUnits(fromBalance.value, fromBalance.decimals))) return true
                 
                 // Check if same token
                 if (fromChain && toChain && fromToken && toToken &&
@@ -2867,7 +2878,7 @@ export default function RelaySwap() {
           <TabsContent value="batch" className="space-y-2 mt-2">
             <Card className="p-3">
               <div className="space-y-2">
-                <div className="text-sm font-medium">Batch Cleanup Swap</div>
+                <div className="text-sm font-medium">Batch Cleanup</div>
                 
                 <div className="space-y-2">
                   <div className="text-xs text-muted-foreground">Select chain to detect tokens</div>
