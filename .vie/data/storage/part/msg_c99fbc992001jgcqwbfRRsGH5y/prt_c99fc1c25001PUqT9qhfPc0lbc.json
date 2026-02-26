@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99fc1c25001PUqT9qhfPc0lbc",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "First, filter out Bitcoin chains in `loadChains`:",
+  "time": {
+    "start": 1772109964390,
+    "end": 1772109964390
+  }
+}

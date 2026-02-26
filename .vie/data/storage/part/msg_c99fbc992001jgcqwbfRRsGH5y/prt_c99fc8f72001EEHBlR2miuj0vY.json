@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99fc8f72001EEHBlR2miuj0vY",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_013VTnrc7MZo2UsDJy8eVEwK",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "ls /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-sdk/dist/ && ls /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-core/dist/ 2>/dev/null | head -20",
+      "description": "List miniapp-core dist files"
+    },
+    "output": "back.d.ts\nback.js\nendpoint.d.ts\nendpoint.js\nethereumProvider.d.ts\nethereumProvider.js\nindex.d.ts\nindex.js\nindex.min.js\nindex.min.js.map\nminiAppHost.d.ts\nminiAppHost.js\nquickAuth.d.ts\nquickAuth.js\nsdk.d.ts\nsdk.js\nsdkEmitter.d.ts\nsdkEmitter.js\nsolanaProvider.d.ts\nsolanaProvider.js\ntsconfig.tsbuildinfo\ntypes.d.ts\ntypes.js\nactions\nback.d.ts\nback.js\ncontext.d.ts\ncontext.js\nerrors.d.ts\nerrors.js\nindex.d.ts\nindex.js\ninternal\nmanifest.d.ts\nmanifest.js\nschemas\nsolana.d.ts\nsolana.js\nsolanaWire.d.ts\nsolanaWire.js\ntypes.d.ts\ntypes.js\nwallet\n",
+    "metadata": {
+      "output": "back.d.ts\nback.js\nendpoint.d.ts\nendpoint.js\nethereumProvider.d.ts\nethereumProvider.js\nindex.d.ts\nindex.js\nindex.min.js\nindex.min.js.map\nminiAppHost.d.ts\nminiAppHost.js\nquickAuth.d.ts\nquickAuth.js\nsdk.d.ts\nsdk.js\nsdkEmitter.d.ts\nsdkEmitter.js\nsolanaProvider.d.ts\nsolanaProvider.js\ntsconfig.tsbuildinfo\ntypes.d.ts\ntypes.js\nactions\nback.d.ts\nback.js\ncontext.d.ts\ncontext.js\nerrors.d.ts\nerrors.js\nindex.d.ts\nindex.js\ninternal\nmanifest.d.ts\nmanifest.js\nschemas\nsolana.d.ts\nsolana.js\nsolanaWire.d.ts\nsolanaWire.js\ntypes.d.ts\ntypes.js\nwallet\n",
+      "exit": 0,
+      "description": "List miniapp-core dist files"
+    },
+    "title": "ls /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-sdk/dist/ && ls /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-core/dist/ 2>/dev/null | head -20",
+    "time": {
+      "start": 1772109992806,
+      "end": 1772109992808
+    }
+  }
+}

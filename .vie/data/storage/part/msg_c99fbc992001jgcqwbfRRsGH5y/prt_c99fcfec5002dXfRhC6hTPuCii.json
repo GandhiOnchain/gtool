@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99fcfec5002dXfRhC6hTPuCii",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now update the cross-VM swap logic. When the destination is Solana (`toVMType === 'svm'`), use `solanaAddress` automatically instead of requiring a manual recipient input. Update `fetchQuote`, `executeSwap`, and the UI:",
+  "time": {
+    "start": 1772110027947,
+    "end": 1772110027947
+  }
+}

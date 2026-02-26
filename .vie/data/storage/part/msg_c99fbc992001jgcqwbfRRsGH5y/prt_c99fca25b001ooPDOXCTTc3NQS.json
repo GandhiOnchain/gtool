@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99fca25b001ooPDOXCTTc3NQS",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01QWAMBMEbB6K3SdpGgs5Au4",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-sdk/dist/sdk.d.ts",
+      "description": "Read SDK type definitions"
+    },
+    "output": "import type { MiniAppSDK } from './types.ts';\nexport declare const sdk: MiniAppSDK;\n",
+    "metadata": {
+      "output": "import type { MiniAppSDK } from './types.ts';\nexport declare const sdk: MiniAppSDK;\n",
+      "exit": 0,
+      "description": "Read SDK type definitions"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-sdk/dist/sdk.d.ts",
+    "time": {
+      "start": 1772109997266,
+      "end": 1772109997268
+    }
+  }
+}

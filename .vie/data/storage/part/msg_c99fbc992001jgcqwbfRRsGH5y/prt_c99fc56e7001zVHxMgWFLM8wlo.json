@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99fc56e7001zVHxMgWFLM8wlo",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01CsKkUUeELEo7Jsq66Ef6yn",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "rg \"solana\" /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-sdk/dist/index.js 2>/dev/null | head -20 || rg \"solana\" /home/user/sandbox/workspace/frontend/node_modules/@farcaster/frame-sdk/dist/index.js 2>/dev/null | head -20",
+      "description": "Check Farcaster SDK for Solana support"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Check Farcaster SDK for Solana support"
+    },
+    "title": "rg \"solana\" /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-sdk/dist/index.js 2>/dev/null | head -20 || rg \"solana\" /home/user/sandbox/workspace/frontend/node_modules/@farcaster/frame-sdk/dist/index.js 2>/dev/null | head -20",
+    "time": {
+      "start": 1772109978864,
+      "end": 1772109978867
+    }
+  }
+}

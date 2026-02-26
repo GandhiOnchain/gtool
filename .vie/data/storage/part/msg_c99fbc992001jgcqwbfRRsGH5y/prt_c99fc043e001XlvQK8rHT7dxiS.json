@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99fc043e001XlvQK8rHT7dxiS",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now I have a clear picture. Here are the two changes needed:\n\n1. **Remove Bitcoin support** — filter out chains with `vmType === 'bvm'` (Bitcoin VM) from the chain list\n2. **Solana cross-VM swap** — when the destination is Solana (`toVMType === 'svm'`), use the Farcaster SDK's Solana address instead of asking for a recipient address input",
+  "time": {
+    "start": 1772109960648,
+    "end": 1772109960648
+  }
+}

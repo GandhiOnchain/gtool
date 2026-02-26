@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99fd537b001gOi1HnBowf7awf",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now update the UI to hide the recipient address input when the destination is Solana:",
+  "time": {
+    "start": 1772110050732,
+    "end": 1772110050732
+  }
+}

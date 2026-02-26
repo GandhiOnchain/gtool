@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99fc6767001InyqAYXDOztDMz",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01VFar8o3uT77fcQoKGMC2Ax",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "rg -i \"solana\" /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-sdk/dist/index.js 2>/dev/null | head -30",
+      "description": "Check miniapp-sdk for Solana"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Check miniapp-sdk for Solana"
+    },
+    "title": "rg -i \"solana\" /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-sdk/dist/index.js 2>/dev/null | head -30",
+    "time": {
+      "start": 1772109982495,
+      "end": 1772109982499
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99fcdd2e0015fJ442kicvD1I5",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now update the Solana wallet detection to use the Farcaster SDK's Solana provider:",
+  "time": {
+    "start": 1772110019448,
+    "end": 1772110019448
+  }
+}

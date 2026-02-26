@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99fc3258001vA3siM9xPrHq0Z",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01MDHUcgmLfiRxvkBPR1gbHo",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "rg -r \"solana\" /home/user/sandbox/workspace/frontend/src --include=\"*.ts\" --include=\"*.tsx\" -l",
+      "description": "Find files referencing solana"
+    },
+    "output": "rg: unrecognized flag --include\n\nsimilar flags that are available: --include-zero\n",
+    "metadata": {
+      "output": "rg: unrecognized flag --include\n\nsimilar flags that are available: --include-zero\n",
+      "exit": 2,
+      "description": "Find files referencing solana"
+    },
+    "title": "rg -r \"solana\" /home/user/sandbox/workspace/frontend/src --include=\"*.ts\" --include=\"*.tsx\" -l",
+    "time": {
+      "start": 1772109969036,
+      "end": 1772109969042
+    }
+  }
+}

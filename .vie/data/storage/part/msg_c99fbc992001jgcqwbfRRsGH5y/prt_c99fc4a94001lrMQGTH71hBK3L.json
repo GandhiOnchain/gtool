@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99fc4a94001lrMQGTH71hBK3L",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01WQfAbrV5aaudi8DYgRHtz5",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "rg \"solana\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+      "description": "Find solana references in RelaySwap"
+    },
+    "output": "  const [solanaAddress, setSolanaAddress] = useState<string | null>(null)\n        // Check if window.solana exists (Phantom, Solflare, etc.)\n          solana?: {\n        const solanaWallet = (window as SolanaWindow).solana\n        if (solanaWallet) {\n          if (solanaWallet.isConnected && solanaWallet.publicKey) {\n            const pubKey = solanaWallet.publicKey.toString()\n              const response = await solanaWallet.connect({ onlyIfTrusted: true })\n      const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n  }, [address, batchChain, isConnected, solanaAddress])\n    if (fromChain && fromToken && fromChain.vmType === 'svm' && solanaAddress) {\n  }, [fromChain, fromToken, solanaAddress])\n    if (toChain && toToken && toChain.vmType === 'svm' && solanaAddress) {\n  }, [toChain, toToken, solanaAddress])\n    if (fromChain?.vmType === 'svm' && fromToken && solanaAddress) {\n    if (toChain?.vmType === 'svm' && toToken && solanaAddress) {\n    if (!solanaAddress) {\n      const solanaRpcUrl = 'https://api.mainnet-beta.solana.com'\n        const response = await fetch(solanaRpcUrl, {\n            params: [solanaAddress]\n",
+    "metadata": {
+      "output": "  const [solanaAddress, setSolanaAddress] = useState<string | null>(null)\n        // Check if window.solana exists (Phantom, Solflare, etc.)\n          solana?: {\n        const solanaWallet = (window as SolanaWindow).solana\n        if (solanaWallet) {\n          if (solanaWallet.isConnected && solanaWallet.publicKey) {\n            const pubKey = solanaWallet.publicKey.toString()\n              const response = await solanaWallet.connect({ onlyIfTrusted: true })\n      const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n  }, [address, batchChain, isConnected, solanaAddress])\n    if (fromChain && fromToken && fromChain.vmType === 'svm' && solanaAddress) {\n  }, [fromChain, fromToken, solanaAddress])\n    if (toChain && toToken && toChain.vmType === 'svm' && solanaAddress) {\n  }, [toChain, toToken, solanaAddress])\n    if (fromChain?.vmType === 'svm' && fromToken && solanaAddress) {\n    if (toChain?.vmType === 'svm' && toToken && solanaAddress) {\n    if (!solanaAddress) {\n      const solanaRpcUrl = 'https://api.mainnet-beta.solana.com'\n        const response = await fetch(solanaRpcUrl, {\n            params: [solanaAddress]\n",
+      "exit": 0,
+      "description": "Find solana references in RelaySwap"
+    },
+    "title": "rg \"solana\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772109974884,
+      "end": 1772109974888
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99fc6097001Vxz1qxX9ZwsIgz",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01LBPrZVRJCDGDMyoPh8sbMa",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "ls /home/user/sandbox/workspace/frontend/node_modules/@farcaster/ 2>/dev/null",
+      "description": "List Farcaster packages"
+    },
+    "output": "miniapp-core\nminiapp-sdk\nminiapp-wagmi-connector\nquick-auth\n",
+    "metadata": {
+      "output": "miniapp-core\nminiapp-sdk\nminiapp-wagmi-connector\nquick-auth\n",
+      "exit": 0,
+      "description": "List Farcaster packages"
+    },
+    "title": "ls /home/user/sandbox/workspace/frontend/node_modules/@farcaster/ 2>/dev/null",
+    "time": {
+      "start": 1772109980529,
+      "end": 1772109980532
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "prt_c99fcc7ee001H1KdSyFpW5BMPO",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_01WpxcpKPDPxcsv9fv6EBQLa",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Filter out Bitcoin chains from chain list",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Auto-use Farcaster Solana address for cross-VM swaps to Solana (no recipient input)",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Filter out Bitcoin chains from chain list\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Auto-use Farcaster Solana address for cross-VM swaps to Solana (no recipient input)\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Filter out Bitcoin chains from chain list",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Auto-use Farcaster Solana address for cross-VM swaps to Solana (no recipient input)",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "title": "1 todos",
+    "time": {
+      "start": 1772110008049,
+      "end": 1772110008049
+    }
+  }
+}

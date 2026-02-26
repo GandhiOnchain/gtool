@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99fde17e001KjqnV1T6HZmIQg",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Clean. Here's what was changed:\n\n1. **Bitcoin removed** — chains with `vmType === 'bvm'` are filtered out when loading chains, so Bitcoin never appears in any chain selector.\n\n2. **Solana recipient auto-filled** — instead of showing a text input for the recipient address when bridging to Solana, the app now:\n   - Uses `sdk.wallet.getSolanaProvider()` from the Farcaster SDK to detect and connect the Solana wallet on load\n   - Displays the connected Solana address as a read-only field when a cross-VM swap to Solana is detected\n   - Automatically passes that address as the `recipient` in quote/swap calls\n   - Blocks the swap button if the Farcaster Solana wallet isn't connected (rather than requiring manual input)",
+  "time": {
+    "start": 1772110083175,
+    "end": 1772110083175
+  }
+}

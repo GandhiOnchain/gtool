@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99fc7e27001PzZwD3ofYICE26",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01EDXVVHg5krVpx1qsViDvdU",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -i \"solana\\|wallet\\|address\" /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-sdk/dist/index.d.ts | head -40",
+      "description": "Check SDK type definitions for wallet/solana"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Check SDK type definitions for wallet/solana"
+    },
+    "title": "grep -i \"solana\\|wallet\\|address\" /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-sdk/dist/index.d.ts | head -40",
+    "time": {
+      "start": 1772109988616,
+      "end": 1772109988618
+    }
+  }
+}

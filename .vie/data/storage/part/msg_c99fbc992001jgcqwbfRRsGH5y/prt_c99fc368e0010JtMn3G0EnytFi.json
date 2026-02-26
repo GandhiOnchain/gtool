@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99fc368e0010JtMn3G0EnytFi",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01KpcVg8Vtq1G8T56TdsCAaQ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "rg \"sdk\\.\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+      "description": "Find SDK usage in RelaySwap"
+    },
+    "output": "    sdk.actions.ready().catch(() => {})\n",
+    "metadata": {
+      "output": "    sdk.actions.ready().catch(() => {})\n",
+      "exit": 0,
+      "description": "Find SDK usage in RelaySwap"
+    },
+    "title": "rg \"sdk\\.\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772109969948,
+      "end": 1772109969952
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99fc74a2001yoEaCp4h3KMoKX",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01CBziBnk1igKaLJmG1hRFDv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "ls /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-sdk/dist/ 2>/dev/null | head -10",
+      "description": "List miniapp-sdk dist files"
+    },
+    "output": "back.d.ts\nback.js\nendpoint.d.ts\nendpoint.js\nethereumProvider.d.ts\nethereumProvider.js\nindex.d.ts\nindex.js\nindex.min.js\nindex.min.js.map\n",
+    "metadata": {
+      "output": "back.d.ts\nback.js\nendpoint.d.ts\nendpoint.js\nethereumProvider.d.ts\nethereumProvider.js\nindex.d.ts\nindex.js\nindex.min.js\nindex.min.js.map\n",
+      "exit": 0,
+      "description": "List miniapp-sdk dist files"
+    },
+    "title": "ls /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-sdk/dist/ 2>/dev/null | head -10",
+    "time": {
+      "start": 1772109985711,
+      "end": 1772109985713
+    }
+  }
+}

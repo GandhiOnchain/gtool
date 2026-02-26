@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99fcc168001mnsoz2bAjhe4Ta",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "The Farcaster Solana provider exposes `request({ method: 'connect' })` which returns `{ publicKey: string }`. Now I'll update the Solana address detection to use the Farcaster SDK's Solana provider, and remove the recipient address input for Solana destinations.",
+  "time": {
+    "start": 1772110008056,
+    "end": 1772110008056
+  }
+}

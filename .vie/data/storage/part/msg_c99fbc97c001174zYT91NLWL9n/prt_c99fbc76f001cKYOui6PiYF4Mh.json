@@ -1,0 +1,7 @@
+{
+  "id": "prt_c99fbc76f001cKYOui6PiYF4Mh",
+  "type": "text",
+  "text": "remove bitcoin support for now. also solana functions shouldnt ask for recepient wallet address since farcaster supports solana. fix it.",
+  "messageID": "msg_c99fbc97c001174zYT91NLWL9n",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC"
+}

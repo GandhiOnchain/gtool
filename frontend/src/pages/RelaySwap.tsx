@@ -265,44 +265,20 @@ export default function RelaySwap() {
     sdk.actions.ready().catch(() => {})
   }, [])
 
-  // Detect Solana wallet
+  // Detect Solana wallet via Farcaster SDK
   useEffect(() => {
     const detectSolanaWallet = async () => {
       try {
-        // Check if window.solana exists (Phantom, Solflare, etc.)
-        interface SolanaWindow extends Window {
-          solana?: {
-            isConnected: boolean
-            publicKey?: { toString: () => string }
-            connect: (options?: { onlyIfTrusted?: boolean }) => Promise<{ publicKey: { toString: () => string } }>
-          }
-        }
-        
-        const solanaWallet = (window as SolanaWindow).solana
-        
-        if (solanaWallet) {
-          // Check if already connected
-          if (solanaWallet.isConnected && solanaWallet.publicKey) {
-            const pubKey = solanaWallet.publicKey.toString()
-            console.log('Solana wallet detected:', pubKey)
-            setSolanaAddress(pubKey)
-          } else {
-            // Try to connect silently
-            try {
-              const response = await solanaWallet.connect({ onlyIfTrusted: true })
-              if (response.publicKey) {
-                const pubKey = response.publicKey.toString()
-                console.log('Solana wallet connected:', pubKey)
-                setSolanaAddress(pubKey)
-              }
-            } catch (err) {
-              // User hasn't approved this site yet
-              console.log('Solana wallet not connected yet')
-            }
+        const solanaProvider = await sdk.wallet.getSolanaProvider()
+        if (solanaProvider) {
+          const result = await solanaProvider.request({ method: 'connect' })
+          if (result.publicKey) {
+            console.log('Farcaster Solana wallet connected:', result.publicKey)
+            setSolanaAddress(result.publicKey)
           }
         }
       } catch (error) {
-        console.error('Error detecting Solana wallet:', error)
+        console.log('Farcaster Solana wallet not available:', error)
       }
     }
 
@@ -649,7 +625,7 @@ export default function RelaySwap() {
   const loadChains = async () => {
     try {
       const { chains: fetchedChains } = await relayAPI.getChains()
-      const activeChains = fetchedChains.filter(c => !c.disabled)
+      const activeChains = fetchedChains.filter(c => !c.disabled && c.vmType !== 'bvm')
       setChains(activeChains)
       if (activeChains.length > 0) {
         const baseChain = activeChains.find(c => c.id === 8453) || activeChains[0]
@@ -1046,6 +1022,10 @@ export default function RelaySwap() {
         return
       }
       
+      const crossVMRecipient = isCrossVM
+        ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined
+        : undefined
+
       const quoteParams = {
         user: userAddress,
         originChainId: fromChain.id,
@@ -1055,7 +1035,7 @@ export default function RelaySwap() {
         amount: amountInWei.toString(),
         tradeType: 'EXACT_INPUT' as const,
         slippageTolerance: slippageBps,
-        recipient: isCrossVM && recipientAddress ? recipientAddress : undefined,
+        recipient: crossVMRecipient,
         includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
         useExternalLiquidity: isCrossVM ? true : undefined,
       }
@@ -1138,12 +1118,16 @@ export default function RelaySwap() {
       return
     }
 
-    // Check for cross-VM swap recipient requirement
     const fromVMType = fromChain.vmType || 'evm'
     const toVMType = toChain.vmType || 'evm'
     const isCrossVM = fromVMType !== toVMType
     
-    if (isCrossVM && !recipientAddress) {
+    if (isCrossVM && toVMType === 'svm' && !solanaAddress) {
+      toast.error('Farcaster Solana wallet not connected')
+      return
+    }
+    
+    if (isCrossVM && toVMType !== 'svm' && !recipientAddress) {
       toast.error(`Recipient address required for ${toChain.displayName}`)
       return
     }
@@ -1170,6 +1154,10 @@ export default function RelaySwap() {
         return
       }
       
+      const execCrossVMRecipient = isCrossVM
+        ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined
+        : undefined
+
       const quoteParams = {
         user: userAddress,
         originChainId: fromChain.id,
@@ -1179,7 +1167,7 @@ export default function RelaySwap() {
         amount: amountInWei.toString(),
         tradeType: 'EXACT_INPUT' as const,
         slippageTolerance: slippageBps,
-        recipient: isCrossVM && recipientAddress ? recipientAddress : undefined,
+        recipient: execCrossVMRecipient,
         includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
         useExternalLiquidity: isCrossVM ? true : undefined,
       }
@@ -2768,22 +2756,35 @@ export default function RelaySwap() {
               const fromVMType = fromChain?.vmType || 'evm'
               const toVMType = toChain?.vmType || 'evm'
               const isCrossVM = fromVMType !== toVMType
+              const isSolanaDestination = toVMType === 'svm'
               
-              return isCrossVM && toChain && fromChain && (
+              if (!isCrossVM || !toChain || !fromChain) return null
+
+              if (isSolanaDestination) {
+                return (
+                  <Card className="p-3 bg-muted/50 border-accent">
+                    <div className="space-y-1">
+                      <div className="text-xs font-medium">Solana Recipient</div>
+                      <div className="text-xs font-mono text-muted-foreground break-all">
+                        {solanaAddress || 'Farcaster Solana wallet not connected'}
+                      </div>
+                    </div>
+                  </Card>
+                )
+              }
+
+              return (
                 <Card className="p-3 bg-muted/50 border-accent">
                   <div className="space-y-2">
                     <div className="text-xs font-medium">
                       Recipient Address ({toChain.displayName}) <span className="text-destructive">*</span>
                     </div>
                     <Input
-                      placeholder={`Enter ${toChain.displayName} address (required for cross-VM swap)`}
+                      placeholder={`Enter ${toChain.displayName} address`}
                       value={recipientAddress}
                       onChange={(e) => setRecipientAddress(e.target.value)}
                       className="h-8 text-xs"
                     />
-                    <div className="text-xs text-muted-foreground">
-                      Cross-VM swap detected: {fromChain.displayName} ({fromVMType}) → {toChain.displayName} ({toVMType})
-                    </div>
                   </div>
                 </Card>
               )
@@ -2863,13 +2864,13 @@ export default function RelaySwap() {
                   return true
                 }
                 
-                // Check if cross-VM swap requires recipient address
                 if (fromChain && toChain) {
                   const fromVMType = fromChain.vmType || 'evm'
                   const toVMType = toChain.vmType || 'evm'
                   const isCrossVM = fromVMType !== toVMType
                   
-                  if (isCrossVM && !recipientAddress) return true
+                  if (isCrossVM && toVMType === 'svm' && !solanaAddress) return true
+                  if (isCrossVM && toVMType !== 'svm' && !recipientAddress) return true
                 }
                 
                 return false

@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99fc8681001kNFdmsbrBaREsA",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01HAzBYtLB4wJP5kzDZ4AudW",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-sdk/dist/index.d.ts | head -100",
+      "description": "Read SDK type definitions"
+    },
+    "output": "import { sdk } from './sdk.ts';\nexport * from '@farcaster/miniapp-core';\nexport * from './miniAppHost.ts';\nexport * as QuickAuth from './quickAuth.ts';\nexport { quickAuth } from './quickAuth.ts';\nexport * from './sdk.ts';\nexport default sdk;\n",
+    "metadata": {
+      "output": "import { sdk } from './sdk.ts';\nexport * from '@farcaster/miniapp-core';\nexport * from './miniAppHost.ts';\nexport * as QuickAuth from './quickAuth.ts';\nexport { quickAuth } from './quickAuth.ts';\nexport * from './sdk.ts';\nexport default sdk;\n",
+      "exit": 0,
+      "description": "Read SDK type definitions"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-sdk/dist/index.d.ts | head -100",
+    "time": {
+      "start": 1772109990230,
+      "end": 1772109990232
+    }
+  }
+}

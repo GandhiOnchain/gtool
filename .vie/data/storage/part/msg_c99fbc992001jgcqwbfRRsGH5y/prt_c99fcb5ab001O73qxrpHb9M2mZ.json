@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99fcb5ab001O73qxrpHb9M2mZ",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "The SDK has `sdk.wallet.getSolanaProvider()`. Let me check the Solana provider type to understand how to get the address:",
+  "time": {
+    "start": 1772110003570,
+    "end": 1772110003570
+  }
+}

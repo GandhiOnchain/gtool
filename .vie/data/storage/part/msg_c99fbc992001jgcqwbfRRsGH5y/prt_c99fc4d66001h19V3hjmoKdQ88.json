@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99fc4d66001h19V3hjmoKdQ88",
+  "messageID": "msg_c99fbc992001jgcqwbfRRsGH5y",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01Kt3PLaeXwwTrdc4dG9HvTQ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "rg \"farcaster\" /home/user/sandbox/workspace/frontend/src -l 2>/dev/null | head -10",
+      "description": "Find farcaster references"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx.backup\n/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n/home/user/sandbox/workspace/frontend/src/lib/blockchain/wagmi.ts\n",
+    "metadata": {
+      "output": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx.backup\n/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n/home/user/sandbox/workspace/frontend/src/lib/blockchain/wagmi.ts\n",
+      "exit": 0,
+      "description": "Find farcaster references"
+    },
+    "title": "rg \"farcaster\" /home/user/sandbox/workspace/frontend/src -l 2>/dev/null | head -10",
+    "time": {
+      "start": 1772109975683,
+      "end": 1772109975712
+    }
+  }
+}
