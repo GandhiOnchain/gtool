@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9af2b2120012x2jO6tkfg9m13",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01RdVkUJnm49D8K67D7SE1KZ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1040,
+      "limit": 15
+    },
+    "output": "<file>\n01041|     }\n01042|   }\n01043| \n01044|   const fetchQuote = async () => {\n01045|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return\n01046| \n01047|     if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n01048|       setQuote(null)\n01049|       setToAmount('')\n01050|       return\n01051|     }\n01052| \n01053|     if (!quoteRateLimiter.check('quote')) {\n01054|       toast.error('Too many quote requests. Please wait a moment.')\n01055|       return\n\n(File has more lines. Use 'offset' parameter to read beyond line 1055)\n</file>",
+    "metadata": {
+      "preview": "    }\n  }\n\n  const fetchQuote = async () => {\n    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return\n\n    if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n      setQuote(null)\n      setToAmount('')\n      return\n    }\n\n    if (!quoteRateLimiter.check('quote')) {\n      toast.error('Too many quote requests. Please wait a moment.')\n      return"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772126123257,
+      "end": 1772126123258
+    }
+  }
+}

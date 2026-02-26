@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af337570013ZgwwPVbrz4XgN",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "These same-chain same-token checks are fine — they only trigger when `fromChain.id === toChain.id`, so cross-VM won't be affected.\n\nNow fix the `loadCurrencies` function — when it sets the default token for Solana chains, it uses the first currency from Relay which should already have the correct `11111...1` address. But let me verify the `isNative` check used to find the native token:",
+  "time": {
+    "start": 1772126160571,
+    "end": 1772126160571
+  }
+}

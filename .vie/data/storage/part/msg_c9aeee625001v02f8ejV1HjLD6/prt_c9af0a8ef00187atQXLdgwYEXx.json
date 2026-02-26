@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af0a8ef00187atQXLdgwYEXx",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now I have the full picture of both bugs:\n\n**Bug 1 - Token detection**: `limit: 200` causes a 400 error from Relay API (max is 100), so `relayCurrencies` is always empty → only native token shows.\n\n**Bug 2 - Solana quotes**: Solana native token address from Relay is `11111111111111111111111111111111`, but the code hardcodes `0x0000000000000000000000000000000000000000` for native tokens on Solana chains. The quote API rejects this as \"Invalid output currency\".",
+  "time": {
+    "start": 1772125994906,
+    "end": 1772125994906
+  }
+}

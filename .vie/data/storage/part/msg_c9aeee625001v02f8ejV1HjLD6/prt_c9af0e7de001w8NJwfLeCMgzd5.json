@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af0e7de001w8NJwfLeCMgzd5",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Fix all `limit: 200` → `limit: 100`, and also remove `defaultList: true` to get more tokens:",
+  "time": {
+    "start": 1772126006781,
+    "end": 1772126006781
+  }
+}

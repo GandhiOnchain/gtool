@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af1f53a001RgrTf1CLlAXQec",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now fix the `fetchSolanaBalance` function which also uses the wrong address check, and fix the `useBalance` hooks which check for EVM native:",
+  "time": {
+    "start": 1772126075891,
+    "end": 1772126075891
+  }
+}

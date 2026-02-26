@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af231be001uxURhB2VlYr9jt",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Fix the ERC20 filter in `fetchWalletTokens` that excludes native tokens:",
+  "time": {
+    "start": 1772126091137,
+    "end": 1772126091137
+  }
+}

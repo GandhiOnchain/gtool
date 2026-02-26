@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9af37b3c001w8WjYZGLhpBx8V",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01VnxcgoLXabqH391b6eo3Sb",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 510,
+      "limit": 20
+    },
+    "output": "<file>\n00511|     if (toChain && toToken && toChain.vmType === 'svm' && solanaAddress) {\n00512|       fetchSolanaBalance(toToken.address, toToken.decimals, toToken.symbol, 'to')\n00513|     }\n00514|   }, [toChain, toToken, solanaAddress])\n00515| \n00516|   // Load currencies for batch chain\n00517|   useEffect(() => {\n00518|     const loadBatchChainCurrencies = async () => {\n00519|       if (batchChain) {\n00520|         try {\n00521|           console.log('Loading currencies for batch chain:', batchChain.displayName)\n00522|           const raw = await relayAPI.getCurrencies({\n00523|             chainIds: [batchChain.id],\n00524|             limit: 100,\n00525|           })\n00526|           const fetchedCurrencies = dedupCurrencies(raw)\n00527|           console.log('Loaded', fetchedCurrencies.length, 'currencies for batch chain')\n00528|           setCurrencies(fetchedCurrencies)\n00529|         } catch (error) {\n00530|           console.error('Failed to load batch chain currencies:', error)\n\n(File has more lines. Use 'offset' parameter to read beyond line 530)\n</file>",
+    "metadata": {
+      "preview": "    if (toChain && toToken && toChain.vmType === 'svm' && solanaAddress) {\n      fetchSolanaBalance(toToken.address, toToken.decimals, toToken.symbol, 'to')\n    }\n  }, [toChain, toToken, solanaAddress])\n\n  // Load currencies for batch chain\n  useEffect(() => {\n    const loadBatchChainCurrencies = async () => {\n      if (batchChain) {\n        try {\n          console.log('Loading currencies for batch chain:', batchChain.displayName)\n          const raw = await relayAPI.getCurrencies({\n            chainIds: [batchChain.id],\n            limit: 100,\n          })\n          const fetchedCurrencies = dedupCurrencies(raw)\n          console.log('Loaded', fetchedCurrencies.length, 'currencies for batch chain')\n          setCurrencies(fetchedCurrencies)\n        } catch (error) {\n          console.error('Failed to load batch chain currencies:', error)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772126174584,
+      "end": 1772126174585
+    }
+  }
+}

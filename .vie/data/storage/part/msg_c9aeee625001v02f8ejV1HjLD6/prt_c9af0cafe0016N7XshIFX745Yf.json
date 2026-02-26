@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9af0cafe0016N7XshIFX745Yf",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01Ben17WakLmcEFJyF4EHV2S",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"limit: 200\\|limit:200\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "description": "Find all limit:200 calls"
+    },
+    "output": "814:        const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })\n922:          const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })\n",
+    "metadata": {
+      "output": "814:        const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })\n922:          const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })\n",
+      "exit": 0,
+      "description": "Find all limit:200 calls"
+    },
+    "title": "grep -n \"limit: 200\\|limit:200\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772125999001,
+      "end": 1772125999005
+    }
+  }
+}

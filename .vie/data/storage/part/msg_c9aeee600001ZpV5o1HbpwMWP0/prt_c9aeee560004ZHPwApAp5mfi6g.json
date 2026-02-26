@@ -1,0 +1,7 @@
+{
+  "id": "prt_c9aeee560004ZHPwApAp5mfi6g",
+  "type": "text",
+  "text": "the tokens are still not being shown except for native one. the batch tab should automatically detect all the available tokens with balances across the selected chains.\n\nalso for solana swaps/bridges, the quotes are not being shown. run thorough analysis to identify the issue and fix it. make it work",
+  "messageID": "msg_c9aeee600001ZpV5o1HbpwMWP0",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC"
+}

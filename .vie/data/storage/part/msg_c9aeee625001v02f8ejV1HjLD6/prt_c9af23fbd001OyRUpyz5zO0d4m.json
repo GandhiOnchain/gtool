@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af23fbd001OyRUpyz5zO0d4m",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now fix the quote params — the `originCurrency` and `destinationCurrency` must use the correct address for Solana. The `fromToken.address` and `toToken.address` come from the Relay API so they should already be correct (`11111...1` for SOL). But the `recipient` for cross-VM also needs fixing. Let me check the quote building:",
+  "time": {
+    "start": 1772126096273,
+    "end": 1772126096273
+  }
+}

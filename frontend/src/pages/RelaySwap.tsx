@@ -201,6 +201,15 @@ function TokenRow({ token, chainId }: { token: { address: string; symbol: string
   )
 }
 
+const SOLANA_NATIVE_ADDRESS = '11111111111111111111111111111111'
+const EVM_NATIVE_ADDRESS = '0x0000000000000000000000000000000000000000'
+
+const getNativeAddress = (vmType?: string) =>
+  vmType === 'svm' ? SOLANA_NATIVE_ADDRESS : EVM_NATIVE_ADDRESS
+
+const isNativeAddress = (address: string) =>
+  address === EVM_NATIVE_ADDRESS || address === SOLANA_NATIVE_ADDRESS
+
 export default function RelaySwap() {
   const { address, isConnected, chainId: connectedChainId, connector } = useAccount()
   const { connect, connectors } = useConnect()
@@ -275,7 +284,7 @@ export default function RelaySwap() {
   const { data: evmFromBalance, refetch: refetchFromBalance } = useBalance({
     address: address as `0x${string}` | undefined,
     chainId: fromChain?.id,
-    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,
+    token: fromToken?.address && !isNativeAddress(fromToken.address) ? fromToken.address as `0x${string}` : undefined,
     query: {
       enabled: fromChain?.vmType === 'evm' || !fromChain?.vmType,
     },
@@ -284,7 +293,7 @@ export default function RelaySwap() {
   const { data: evmToBalance, refetch: refetchToBalance } = useBalance({
     address: address as `0x${string}` | undefined,
     chainId: toChain?.id,
-    token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,
+    token: toToken?.address && !isNativeAddress(toToken.address) ? toToken.address as `0x${string}` : undefined,
     query: {
       enabled: toChain?.vmType === 'evm' || !toChain?.vmType,
     },
@@ -374,13 +383,15 @@ export default function RelaySwap() {
   }, [toChain])
 
   useEffect(() => {
-    if (fromToken && toToken && fromAmount && fromChain && toChain && address) {
+    const fromVMType = fromChain?.vmType || 'evm'
+    const hasWallet = fromVMType === 'svm' ? !!solanaAddress : !!address
+    if (fromToken && toToken && fromAmount && fromChain && toChain && hasWallet) {
       const debounce = setTimeout(() => {
         fetchQuote()
       }, 500)
       return () => clearTimeout(debounce)
     }
-  }, [fromToken, toToken, fromAmount, fromChain, toChain, address])
+  }, [fromToken, toToken, fromAmount, fromChain, toChain, address, solanaAddress])
 
   useEffect(() => {
     if (address && chains.length > 0) {
@@ -510,7 +521,6 @@ export default function RelaySwap() {
           console.log('Loading currencies for batch chain:', batchChain.displayName)
           const raw = await relayAPI.getCurrencies({
             chainIds: [batchChain.id],
-            defaultList: true,
             limit: 100,
           })
           const fetchedCurrencies = dedupCurrencies(raw)
@@ -596,7 +606,7 @@ export default function RelaySwap() {
       const solanaRpcUrl = 'https://api.mainnet-beta.solana.com'
       
       // For native SOL
-      if (tokenAddress === '0x0000000000000000000000000000000000000000' || tokenAddress.toLowerCase() === 'sol') {
+      if (isNativeAddress(tokenAddress) || tokenAddress.toLowerCase() === 'sol') {
         const response = await fetch(solanaRpcUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -708,7 +718,6 @@ export default function RelaySwap() {
       console.log('Loading currencies for chain:', chainId, 'type:', type)
       const raw = await relayAPI.getCurrencies({
         chainIds: [chainId],
-        defaultList: true,
         limit: 100,
       })
       const fetchedCurrencies = dedupCurrencies(raw)
@@ -723,7 +732,7 @@ export default function RelaySwap() {
       }
       
       if (fetchedCurrencies.length > 0) {
-        const nativeToken = fetchedCurrencies.find(c => c.metadata?.isNative)
+        const nativeToken = fetchedCurrencies.find(c => c.metadata?.isNative || isNativeAddress(c.address))
         const defaultToken = nativeToken || fetchedCurrencies[0]
         console.log('Setting default token:', defaultToken.symbol, 'for', type)
         if (type === 'from') {
@@ -768,8 +777,7 @@ export default function RelaySwap() {
     try {
       const raw = await relayAPI.getCurrencies({
         chainIds: [chain.id],
-        defaultList: true,
-        limit: 50,
+        limit: 100,
       })
       setCurrencies(dedupCurrencies(raw))
     } catch (error) {
@@ -799,7 +807,7 @@ export default function RelaySwap() {
         const nativeBal = await publicClient.getBalance({ address: address as `0x${string}` })
         if (nativeBal > 0n) {
           found.push({
-            token: { chainId: chain.id, address: '0x0000000000000000000000000000000000000000', symbol: chain.currency.symbol, name: chain.currency.name, decimals: chain.currency.decimals, metadata: { isNative: true } },
+            token: { chainId: chain.id, address: EVM_NATIVE_ADDRESS, symbol: chain.currency.symbol, name: chain.currency.name, decimals: chain.currency.decimals, metadata: { isNative: true } },
             balance: nativeBal.toString(),
             balanceFormatted: formatUnits(nativeBal, chain.currency.decimals),
           })
@@ -811,7 +819,7 @@ export default function RelaySwap() {
       // 2. Relay currency list for metadata
       let relayCurrencies: RelayCurrency[] = []
       try {
-        const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })
+        const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], limit: 100 })
         relayCurrencies = dedupCurrencies(raw)
       } catch { /* non-fatal */ }
       const relayCurrencyMap = new Map(relayCurrencies.map(c => [c.address.toLowerCase(), c]))
@@ -872,7 +880,7 @@ export default function RelaySwap() {
       if (relayCurrencies.length > 0) {
         const alreadyFound = new Set(found.map(t => t.token.address.toLowerCase()))
         const erc20Currencies = relayCurrencies.filter(c =>
-          c.address !== '0x0000000000000000000000000000000000000000' &&
+          !isNativeAddress(c.address) &&
           !alreadyFound.has(c.address.toLowerCase())
         )
         const CHUNK = 50
@@ -904,7 +912,7 @@ export default function RelaySwap() {
         const balance = BigInt(solData.result?.value || 0)
         if (balance > 0n) {
           found.push({
-            token: { chainId: chain.id, address: '0x0000000000000000000000000000000000000000', symbol: 'SOL', name: 'Solana', decimals: 9, metadata: { isNative: true } },
+            token: { chainId: chain.id, address: SOLANA_NATIVE_ADDRESS, symbol: 'SOL', name: 'Solana', decimals: 9, metadata: { isNative: true } },
             balance: balance.toString(),
             balanceFormatted: formatUnits(balance, 9),
           })
@@ -919,7 +927,7 @@ export default function RelaySwap() {
         const splData = await splRes.json()
         let relayCurrencyMap = new Map<string, RelayCurrency>()
         try {
-          const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })
+          const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], limit: 100 })
           relayCurrencyMap = new Map(dedupCurrencies(raw).map(c => [c.address.toLowerCase(), c]))
         } catch { /* non-fatal */ }
 
@@ -1034,7 +1042,9 @@ export default function RelaySwap() {
   }
 
   const fetchQuote = async () => {
-    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain || !address) return
+    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) return
+    const fromVMType_ = fromChain.vmType || 'evm'
+    if (fromVMType_ === 'svm' ? !solanaAddress : !address) return
 
     if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {
       setQuote(null)
@@ -2602,7 +2612,7 @@ export default function RelaySwap() {
                   >
                     <div className="flex items-center gap-1.5">
                       {fromToken && (
-                        <TokenLogo address={fromToken.metadata?.isNative ? undefined : fromToken.address} chainId={fromToken.chainId} symbol={fromToken.symbol} logoURI={fromToken.metadata?.logoURI} size={4} />
+                        <TokenLogo address={fromToken.metadata?.isNative || isNativeAddress(fromToken.address) ? undefined : fromToken.address} chainId={fromToken.chainId} symbol={fromToken.symbol} logoURI={fromToken.metadata?.logoURI} size={4} />
                       )}
                       <span>{fromToken?.symbol || 'Select'}</span>
                     </div>
@@ -2748,7 +2758,7 @@ export default function RelaySwap() {
                   >
                     <div className="flex items-center gap-1.5">
                       {toToken && (
-                        <TokenLogo address={toToken.metadata?.isNative ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />
+                        <TokenLogo address={toToken.metadata?.isNative || isNativeAddress(toToken.address) ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />
                       )}
                       <span>{toToken?.symbol || 'Select'}</span>
                     </div>
@@ -3055,7 +3065,7 @@ export default function RelaySwap() {
                       <div key={i} className="flex items-center gap-2 p-2 border rounded">
                         <div className="flex-1 flex items-center gap-2">
                           <TokenLogo
-                            address={wt.token.metadata?.isNative ? undefined : wt.token.address}
+                            address={wt.token.metadata?.isNative || isNativeAddress(wt.token.address) ? undefined : wt.token.address}
                             chainId={wt.token.chainId}
                             symbol={wt.token.symbol}
                             logoURI={wt.token.metadata?.logoURI}
@@ -3123,7 +3133,7 @@ export default function RelaySwap() {
                     >
                       <div className="flex items-center gap-1.5">
                         {toToken && (
-                          <TokenLogo address={toToken.metadata?.isNative ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />
+                          <TokenLogo address={toToken.metadata?.isNative || isNativeAddress(toToken.address) ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />
                         )}
                         <span>{toToken?.symbol || 'Select'}</span>
                       </div>
@@ -3553,7 +3563,7 @@ export default function RelaySwap() {
                       className="flex items-center gap-2 p-2 rounded hover:bg-accent cursor-pointer"
                     >
                       <TokenLogo
-                        address={currency.metadata?.isNative ? undefined : currency.address}
+                        address={currency.metadata?.isNative || isNativeAddress(currency.address) ? undefined : currency.address}
                         chainId={currency.chainId}
                         symbol={currency.symbol}
                         logoURI={currency.metadata?.logoURI}

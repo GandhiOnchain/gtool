@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9af2f624001VtM9jOcgKkPZ5A",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01C8SvypBEYj2n1Sw3vwyJdx",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"isNative ? undefined\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -10",
+      "description": "Find TokenLogo native address checks"
+    },
+    "output": "2615:                        <TokenLogo address={fromToken.metadata?.isNative ? undefined : fromToken.address} chainId={fromToken.chainId} symbol={fromToken.symbol} logoURI={fromToken.metadata?.logoURI} size={4} />\n2761:                        <TokenLogo address={toToken.metadata?.isNative ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />\n3068:                            address={wt.token.metadata?.isNative ? undefined : wt.token.address}\n3136:                          <TokenLogo address={toToken.metadata?.isNative ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />\n3566:                        address={currency.metadata?.isNative ? undefined : currency.address}\n",
+    "metadata": {
+      "output": "2615:                        <TokenLogo address={fromToken.metadata?.isNative ? undefined : fromToken.address} chainId={fromToken.chainId} symbol={fromToken.symbol} logoURI={fromToken.metadata?.logoURI} size={4} />\n2761:                        <TokenLogo address={toToken.metadata?.isNative ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />\n3068:                            address={wt.token.metadata?.isNative ? undefined : wt.token.address}\n3136:                          <TokenLogo address={toToken.metadata?.isNative ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />\n3566:                        address={currency.metadata?.isNative ? undefined : currency.address}\n",
+      "exit": 0,
+      "description": "Find TokenLogo native address checks"
+    },
+    "title": "grep -n \"isNative ? undefined\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -10",
+    "time": {
+      "start": 1772126140971,
+      "end": 1772126140976
+    }
+  }
+}

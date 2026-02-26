@@ -1,0 +1,61 @@
+{
+  "id": "prt_c9af0b6b6001PSOr07fmKLCZVl",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_013y8XSa5HgiUMZV3FJXLw1n",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Fix limit:200 → limit:100 in all getCurrencies calls",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix Solana native token address (use 11111...1 not 0x000...0)",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Fix quote params for Solana: use correct currency addresses",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Fix limit:200 → limit:100 in all getCurrencies calls\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Fix Solana native token address (use 11111...1 not 0x000...0)\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Fix quote params for Solana: use correct currency addresses\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Fix limit:200 → limit:100 in all getCurrencies calls",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix Solana native token address (use 11111...1 not 0x000...0)",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Fix quote params for Solana: use correct currency addresses",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        }
+      ]
+    },
+    "title": "3 todos",
+    "time": {
+      "start": 1772125994885,
+      "end": 1772125994886
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9af36cba001AhKPujsKRlpkTS",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01NoRrHBsXG1ivgCsvgZykxo",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 590,
+      "limit": 25
+    },
+    "output": "<file>\n00591|     if (toChain?.vmType === 'svm' && toToken && solanaAddress) {\n00592|       await fetchSolanaBalance(toToken.address, toToken.decimals, toToken.symbol, 'to')\n00593|     }\n00594|     \n00595|     console.log('Balances refetched')\n00596|   }\n00597| \n00598|   const fetchSolanaBalance = async (tokenAddress: string, decimals: number, symbol: string, type: 'from' | 'to') => {\n00599|     if (!solanaAddress) {\n00600|       console.log('No Solana address available')\n00601|       return\n00602|     }\n00603| \n00604|     try {\n00605|       // Use Solana RPC to fetch balance\n00606|       const solanaRpcUrl = 'https://api.mainnet-beta.solana.com'\n00607|       \n00608|       // For native SOL\n00609|       if (isNativeAddress(tokenAddress) || tokenAddress.toLowerCase() === 'sol') {\n00610|         const response = await fetch(solanaRpcUrl, {\n00611|           method: 'POST',\n00612|           headers: { 'Content-Type': 'application/json' },\n00613|           body: JSON.stringify({\n00614|             jsonrpc: '2.0',\n00615|             id: 1,\n\n(File has more lines. Use 'offset' parameter to read beyond line 615)\n</file>",
+    "metadata": {
+      "preview": "    if (toChain?.vmType === 'svm' && toToken && solanaAddress) {\n      await fetchSolanaBalance(toToken.address, toToken.decimals, toToken.symbol, 'to')\n    }\n    \n    console.log('Balances refetched')\n  }\n\n  const fetchSolanaBalance = async (tokenAddress: string, decimals: number, symbol: string, type: 'from' | 'to') => {\n    if (!solanaAddress) {\n      console.log('No Solana address available')\n      return\n    }\n\n    try {\n      // Use Solana RPC to fetch balance\n      const solanaRpcUrl = 'https://api.mainnet-beta.solana.com'\n      \n      // For native SOL\n      if (isNativeAddress(tokenAddress) || tokenAddress.toLowerCase() === 'sol') {\n        const response = await fetch(solanaRpcUrl, {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772126170928,
+      "end": 1772126170929
+    }
+  }
+}

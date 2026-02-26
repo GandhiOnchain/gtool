@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9af0915c001iv0g2Gozu6O4Wy",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01Y16xaRBZg3jGM6cfb6GYku",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "# Only 20 tokens with defaultList:true. Let's try without defaultList\ncurl -s -X POST \"https://api.relay.link/currencies/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"chainIds\":[8453],\"limit\":100}' 2>/dev/null | python3 -c \"\nimport json,sys\nd=json.load(sys.stdin)\nprint(f'Total without defaultList: {len(d)}')\nfor c in d[:5]:\n    print(c.get('symbol'), c.get('address')[:30])\n\"",
+      "description": "Test Relay currencies without defaultList filter"
+    },
+    "output": "Total without defaultList: 100\nWETH 0x4200000000000000000000000000\nETH 0x0000000000000000000000000000\nUSDC 0x833589fcd6edb6e08f4c7c32d4f7\ncbBTC 0xcbb7c0000ab88b473b1f5afd9ef8\nVIRTUAL 0x0b3e328455c4059eeb9e3f84b554\n",
+    "metadata": {
+      "output": "Total without defaultList: 100\nWETH 0x4200000000000000000000000000\nETH 0x0000000000000000000000000000\nUSDC 0x833589fcd6edb6e08f4c7c32d4f7\ncbBTC 0xcbb7c0000ab88b473b1f5afd9ef8\nVIRTUAL 0x0b3e328455c4059eeb9e3f84b554\n",
+      "exit": 0,
+      "description": "Test Relay currencies without defaultList filter"
+    },
+    "title": "# Only 20 tokens with defaultList:true. Let's try without defaultList\ncurl -s -X POST \"https://api.relay.link/currencies/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"chainIds\":[8453],\"limit\":100}' 2>/dev/null | python3 -c \"\nimport json,sys\nd=json.load(sys.stdin)\nprint(f'Total without defaultList: {len(d)}')\nfor c in d[:5]:\n    print(c.get('symbol'), c.get('address')[:30])\n\"",
+    "time": {
+      "start": 1772125984757,
+      "end": 1772125987165
+    }
+  }
+}

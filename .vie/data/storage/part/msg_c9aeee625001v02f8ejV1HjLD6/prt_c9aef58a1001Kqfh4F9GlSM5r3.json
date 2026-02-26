@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9aef58a1001Kqfh4F9GlSM5r3",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01LjBto1kDgEbuxkZcdQnrEV",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "# Test Relay quote with correct Solana currency address\ncurl -s -X POST \"https://api.relay.link/quote/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"user\": \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n    \"originChainId\": 8453,\n    \"destinationChainId\": 792703809,\n    \"originCurrency\": \"0x0000000000000000000000000000000000000000\",\n    \"destinationCurrency\": \"11111111111111111111111111111111\",\n    \"amount\": \"1000000000000000\",\n    \"tradeType\": \"EXACT_INPUT\",\n    \"recipient\": \"7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV\",\n    \"useExternalLiquidity\": true\n  }' 2>/dev/null | python3 -c \"import json,sys; d=json.load(sys.stdin); print(json.dumps(d, indent=2)[:800])\"",
+      "description": "Test Relay quote with correct Solana SOL address"
+    },
+    "output": "{\n  \"steps\": [\n    {\n      \"id\": \"deposit\",\n      \"action\": \"Confirm transaction in your wallet\",\n      \"description\": \"Depositing funds to the relayer to execute the swap for SOL\",\n      \"kind\": \"transaction\",\n      \"items\": [\n        {\n          \"status\": \"incomplete\",\n          \"data\": {\n            \"from\": \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n            \"to\": \"0x4cd00e387622c35bddb9b4c962c136462338bc31\",\n            \"data\": \"0x49290c1c000000000000000000000000d8da6bf26964af9d7eed9e03e53415d37aa960451cdd746cfec205a740d2093f737f89f812647b844db1f51ff82426265ce9f553\",\n            \"value\": \"1000000000000000\",\n            \"chainId\": 8453,\n            \"gas\": \"32713\",\n            \"maxFeePerGas\": \"17580522\",\n            \"maxPriorityFeePerGas\": \"1000000\"\n          },\n          \"check\": \n",
+    "metadata": {
+      "output": "{\n  \"steps\": [\n    {\n      \"id\": \"deposit\",\n      \"action\": \"Confirm transaction in your wallet\",\n      \"description\": \"Depositing funds to the relayer to execute the swap for SOL\",\n      \"kind\": \"transaction\",\n      \"items\": [\n        {\n          \"status\": \"incomplete\",\n          \"data\": {\n            \"from\": \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n            \"to\": \"0x4cd00e387622c35bddb9b4c962c136462338bc31\",\n            \"data\": \"0x49290c1c000000000000000000000000d8da6bf26964af9d7eed9e03e53415d37aa960451cdd746cfec205a740d2093f737f89f812647b844db1f51ff82426265ce9f553\",\n            \"value\": \"1000000000000000\",\n            \"chainId\": 8453,\n            \"gas\": \"32713\",\n            \"maxFeePerGas\": \"17580522\",\n            \"maxPriorityFeePerGas\": \"1000000\"\n          },\n          \"check\": \n",
+      "exit": 0,
+      "description": "Test Relay quote with correct Solana SOL address"
+    },
+    "title": "# Test Relay quote with correct Solana currency address\ncurl -s -X POST \"https://api.relay.link/quote/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"user\": \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n    \"originChainId\": 8453,\n    \"destinationChainId\": 792703809,\n    \"originCurrency\": \"0x0000000000000000000000000000000000000000\",\n    \"destinationCurrency\": \"11111111111111111111111111111111\",\n    \"amount\": \"1000000000000000\",\n    \"tradeType\": \"EXACT_INPUT\",\n    \"recipient\": \"7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV\",\n    \"useExternalLiquidity\": true\n  }' 2>/dev/null | python3 -c \"import json,sys; d=json.load(sys.stdin); print(json.dumps(d, indent=2)[:800])\"",
+    "time": {
+      "start": 1772125905898,
+      "end": 1772125907298
+    }
+  }
+}

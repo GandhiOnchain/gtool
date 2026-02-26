@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af1e85c00131WPxuu42kJv0K",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now fix the EVM native token in `loadBatchWalletTokens` (the old one that was kept):",
+  "time": {
+    "start": 1772126072626,
+    "end": 1772126072626
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9af07d64001rIb3LYI1vL0Lf9",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01DPEwCG6vzm4FYHJRhFKaU3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "# limit must be <= 100! Our code uses limit:200 which returns an error!\n# That's why relayCurrencies is empty - the API call fails with 400\ncurl -s -X POST \"https://api.relay.link/currencies/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"chainIds\":[8453],\"defaultList\":true,\"limit\":100}' 2>/dev/null | python3 -c \"\nimport json,sys\nd=json.load(sys.stdin)\nprint(f'Total: {len(d)}')\nfor c in d[:5]:\n    print(c.get('symbol'), c.get('address')[:30])\n\"",
+      "description": "Test Relay currencies with limit 100"
+    },
+    "output": "Total: 20\nETH 0x0000000000000000000000000000\ncbBTC 0xcbb7c0000ab88b473b1f5afd9ef8\nUSDC 0x833589fcd6edb6e08f4c7c32d4f7\nEURC 0x60a3e35cc302bfa44cb288bc5a4f\nmsETH 0x7ba6f01772924a82d9626c126347\n",
+    "metadata": {
+      "output": "Total: 20\nETH 0x0000000000000000000000000000\ncbBTC 0xcbb7c0000ab88b473b1f5afd9ef8\nUSDC 0x833589fcd6edb6e08f4c7c32d4f7\nEURC 0x60a3e35cc302bfa44cb288bc5a4f\nmsETH 0x7ba6f01772924a82d9626c126347\n",
+      "exit": 0,
+      "description": "Test Relay currencies with limit 100"
+    },
+    "title": "# limit must be <= 100! Our code uses limit:200 which returns an error!\n# That's why relayCurrencies is empty - the API call fails with 400\ncurl -s -X POST \"https://api.relay.link/currencies/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"chainIds\":[8453],\"defaultList\":true,\"limit\":100}' 2>/dev/null | python3 -c \"\nimport json,sys\nd=json.load(sys.stdin)\nprint(f'Total: {len(d)}')\nfor c in d[:5]:\n    print(c.get('symbol'), c.get('address')[:30])\n\"",
+    "time": {
+      "start": 1772125980600,
+      "end": 1772125980669
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9af149f7001b7pfRMsV2QB2ji",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01NM7Q8ndPKvWVdAoRgABspa",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 768,
+      "limit": 10
+    },
+    "output": "<file>\n00769|       const raw = await relayAPI.getCurrencies({\n00770|         chainIds: [chain.id],\n00771|         defaultList: true,\n00772|         limit: 50,\n00773|       })\n00774|       setCurrencies(dedupCurrencies(raw))\n00775|     } catch (error) {\n00776|       console.error('Failed to load wallet tokens:', error)\n00777|     }\n00778|   }\n\n(File has more lines. Use 'offset' parameter to read beyond line 778)\n</file>",
+    "metadata": {
+      "preview": "      const raw = await relayAPI.getCurrencies({\n        chainIds: [chain.id],\n        defaultList: true,\n        limit: 50,\n      })\n      setCurrencies(dedupCurrencies(raw))\n    } catch (error) {\n      console.error('Failed to load wallet tokens:', error)\n    }\n  }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772126031344,
+      "end": 1772126031348
+    }
+  }
+}

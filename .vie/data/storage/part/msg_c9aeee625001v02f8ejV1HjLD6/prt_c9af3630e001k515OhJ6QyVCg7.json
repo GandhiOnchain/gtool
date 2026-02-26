@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af3630e001k515OhJ6QyVCg7",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now fix the `fetchSolanaBalance` function — it's called with `fromToken.address` which for SOL will now be `11111...1`. The check `isNativeAddress(tokenAddress)` will catch it correctly. But the SPL token path uses `tokenAddress` as a Solana mint address directly in the RPC call — that's fine.\n\nNow fix the `refetchBalances` function which checks for `svm` chains:",
+  "time": {
+    "start": 1772126171010,
+    "end": 1772126171010
+  }
+}

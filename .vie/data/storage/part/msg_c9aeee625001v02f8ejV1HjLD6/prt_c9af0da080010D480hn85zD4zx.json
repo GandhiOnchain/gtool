@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9af0da080010D480hn85zD4zx",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_015GcgpLWV6jWzK8Kw7yCcxv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"limit:\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "description": "Find all limit calls"
+    },
+    "output": "471:            limit: 10,\n514:            limit: 100,\n712:        limit: 100,\n772:        limit: 50,\n814:        const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })\n922:          const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })\n997:        limit: 10,\n",
+    "metadata": {
+      "output": "471:            limit: 10,\n514:            limit: 100,\n712:        limit: 100,\n772:        limit: 50,\n814:        const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })\n922:          const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })\n997:        limit: 10,\n",
+      "exit": 0,
+      "description": "Find all limit calls"
+    },
+    "title": "grep -n \"limit:\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772126002345,
+      "end": 1772126002352
+    }
+  }
+}

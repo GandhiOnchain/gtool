@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af3cd65001tA5tuJpQcP7XzY",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Two root causes found and fixed:\n\n**Bug 1 — Only native token in batch:**\n`limit: 200` in `getCurrencies` calls returns a `400 Bad Request` (Relay API max is 100). This caused `relayCurrencies` to always be empty, so the fallback `readContract` loop had no tokens to check — only the native balance (fetched separately via `getBalance`) ever showed up. Fixed by changing all `limit: 200` → `limit: 100` and removing `defaultList: true` (which further restricted results to only ~20 tokens).\n\n**Bug 2 — Solana quotes failing:**\nSolana's native token address in the Relay API is `11111111111111111111111111111111`, not `0x000...0`. The code was hardcoding the EVM zero address for native tokens on all chains, including Solana. When this got passed as `destinationCurrency` or `originCurrency` to the Relay quote API, it returned \"Invalid output currency\". Fixed by:\n- Adding `SOLANA_NATIVE_ADDRESS = '11111111111111111111111111111111'` and `getNativeAddress(vmType)` helper\n- Using `isNativeAddress()` everywhere native token detection is needed (covers both EVM and Solana)\n- Fixing `fetchQuote` to not require EVM `address` when origin is Solana — uses `solanaAddress` instead\n- Fixing the quote trigger `useEffect` to check the right wallet based on origin chain VM type",
+  "time": {
+    "start": 1772126204081,
+    "end": 1772126204081
+  }
+}

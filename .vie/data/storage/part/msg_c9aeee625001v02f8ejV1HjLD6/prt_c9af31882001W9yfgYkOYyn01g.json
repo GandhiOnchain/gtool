@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9af31882001W9yfgYkOYyn01g",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01756xcdXiQtgauqjHTrJsDQ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"isNative ? undefined\\|isNativeAddress\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -15",
+      "description": "Verify the replacements"
+    },
+    "output": "210:const isNativeAddress = (address: string) =>\n287:    token: fromToken?.address && !isNativeAddress(fromToken.address) ? fromToken.address as `0x${string}` : undefined,\n296:    token: toToken?.address && !isNativeAddress(toToken.address) ? toToken.address as `0x${string}` : undefined,\n609:      if (isNativeAddress(tokenAddress) || tokenAddress.toLowerCase() === 'sol') {\n883:          !isNativeAddress(c.address) &&\n2615:                        <TokenLogo address={fromToken.metadata?.isNative || isNativeAddress(fromToken.address) ? undefined : fromToken.address} chainId={fromToken.chainId} symbol={fromToken.symbol} logoURI={fromToken.metadata?.logoURI} size={4} />\n2761:                        <TokenLogo address={toToken.metadata?.isNative || isNativeAddress(toToken.address) ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />\n3068:                            address={wt.token.metadata?.isNative || isNativeAddress(wt.token.address) ? undefined : wt.token.address}\n3136:                          <TokenLogo address={toToken.metadata?.isNative || isNativeAddress(toToken.address) ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />\n3566:                        address={currency.metadata?.isNative || isNativeAddress(currency.address) ? undefined : currency.address}\n",
+    "metadata": {
+      "output": "210:const isNativeAddress = (address: string) =>\n287:    token: fromToken?.address && !isNativeAddress(fromToken.address) ? fromToken.address as `0x${string}` : undefined,\n296:    token: toToken?.address && !isNativeAddress(toToken.address) ? toToken.address as `0x${string}` : undefined,\n609:      if (isNativeAddress(tokenAddress) || tokenAddress.toLowerCase() === 'sol') {\n883:          !isNativeAddress(c.address) &&\n2615:                        <TokenLogo address={fromToken.metadata?.isNative || isNativeAddress(fromToken.address) ? undefined : fromToken.address} chainId={fromToken.chainId} symbol={fromToken.symbol} logoURI={fromToken.metadata?.logoURI} size={4} />\n2761:                        <TokenLogo address={toToken.metadata?.isNative || isNativeAddress(toToken.address) ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />\n3068:                            address={wt.token.metadata?.isNative || isNativeAddress(wt.token.address) ? undefined : wt.token.address}\n3136:                          <TokenLogo address={toToken.metadata?.isNative || isNativeAddress(toToken.address) ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />\n3566:                        address={currency.metadata?.isNative || isNativeAddress(currency.address) ? undefined : currency.address}\n",
+      "exit": 0,
+      "description": "Verify the replacements"
+    },
+    "title": "grep -n \"isNative ? undefined\\|isNativeAddress\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -15",
+    "time": {
+      "start": 1772126149508,
+      "end": 1772126149513
+    }
+  }
+}

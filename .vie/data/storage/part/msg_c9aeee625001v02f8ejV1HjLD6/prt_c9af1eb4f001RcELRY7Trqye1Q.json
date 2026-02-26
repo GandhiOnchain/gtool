@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9af1eb4f001RcELRY7Trqye1Q",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01VoL9pwS5ZPUMnJTZYiHLsb",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"0x0000000000000000000000000000000000000000\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+      "description": "Find all hardcoded zero addresses"
+    },
+    "output": "205:const EVM_NATIVE_ADDRESS = '0x0000000000000000000000000000000000000000'\n287:    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n296:    token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n607:      if (tokenAddress === '0x0000000000000000000000000000000000000000' || tokenAddress.toLowerCase() === 'sol') {\n842:              .filter((t: { tokenBalance: string }) => t.tokenBalance && t.tokenBalance !== '0x0000000000000000000000000000000000000000000000000000000000000000')\n881:          c.address !== '0x0000000000000000000000000000000000000000' &&\n",
+    "metadata": {
+      "output": "205:const EVM_NATIVE_ADDRESS = '0x0000000000000000000000000000000000000000'\n287:    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n296:    token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n607:      if (tokenAddress === '0x0000000000000000000000000000000000000000' || tokenAddress.toLowerCase() === 'sol') {\n842:              .filter((t: { tokenBalance: string }) => t.tokenBalance && t.tokenBalance !== '0x0000000000000000000000000000000000000000000000000000000000000000')\n881:          c.address !== '0x0000000000000000000000000000000000000000' &&\n",
+      "exit": 0,
+      "description": "Find all hardcoded zero addresses"
+    },
+    "title": "grep -n \"0x0000000000000000000000000000000000000000\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772126072570,
+      "end": 1772126072575
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af34e00001JOf0BnBBrohLIt",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "The `metadata?.isNative` check won't find SOL since Relay doesn't set that flag. Fix to also check `isNativeAddress`:",
+  "time": {
+    "start": 1772126165029,
+    "end": 1772126165029
+  }
+}

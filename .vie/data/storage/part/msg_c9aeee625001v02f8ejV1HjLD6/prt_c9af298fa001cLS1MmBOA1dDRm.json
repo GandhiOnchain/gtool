@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9af298fa001cLS1MmBOA1dDRm",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01GXQYY5pXqKDZeoR7rBeHny",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 388,
+      "limit": 8
+    },
+    "output": "<file>\n00389|       const debounce = setTimeout(() => {\n00390|         fetchQuote()\n00391|       }, 500)\n00392|       return () => clearTimeout(debounce)\n00393|     }\n00394|   }, [fromToken, toToken, fromAmount, fromChain, toChain, address])\n00395| \n00396|   useEffect(() => {\n\n(File has more lines. Use 'offset' parameter to read beyond line 396)\n</file>",
+    "metadata": {
+      "preview": "      const debounce = setTimeout(() => {\n        fetchQuote()\n      }, 500)\n      return () => clearTimeout(debounce)\n    }\n  }, [fromToken, toToken, fromAmount, fromChain, toChain, address])\n\n  useEffect(() => {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772126116684,
+      "end": 1772126116686
+    }
+  }
+}

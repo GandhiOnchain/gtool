@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af27d9e001KqabF1uu7KtGn5",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "The quote effect requires `address` (EVM address). When `fromChain` is Solana, `address` is the EVM address (still connected via Farcaster), so it's fine. But when `fromChain` is Solana and `solanaAddress` is null, the quote will fail. Let me fix the trigger condition:",
+  "time": {
+    "start": 1772126113035,
+    "end": 1772126113035
+  }
+}

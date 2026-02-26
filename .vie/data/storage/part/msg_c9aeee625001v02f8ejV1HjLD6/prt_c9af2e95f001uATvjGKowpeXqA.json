@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af2e95f001uATvjGKowpeXqA",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "The `TokenLogo` passes `address` to `getTokenLogoFallbacks`. When `address` is `undefined` (for native tokens), it uses the native token logo path. That's fine. The callers already pass `undefined` for native tokens. Good.\n\nNow fix the `TokenLogo` usage in the token selector — it passes `currency.metadata?.isNative ? undefined : currency.address`. For Solana tokens, `metadata.isNative` may not be set even for SOL (since Relay doesn't set it). Let me fix this to use `isNativeAddress`:",
+  "time": {
+    "start": 1772126140997,
+    "end": 1772126140997
+  }
+}

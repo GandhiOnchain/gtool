@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9aef9e61001BrAspzzWKxVTAq",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_0165oBhNjrve8y9USmu6PT8V",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "# Check what the Relay currencies return for Solana - specifically the address field\ncurl -s -X POST \"https://api.relay.link/currencies/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"chainIds\":[792703809],\"defaultList\":true,\"limit\":10}' 2>/dev/null | python3 -c \"\nimport json,sys\nd=json.load(sys.stdin)\nfor c in d[:10]:\n    print(f'symbol={c.get(\\\"symbol\\\")} address={c.get(\\\"address\\\")} isNative={c.get(\\\"metadata\\\",{}).get(\\\"isNative\\\")}')\n\"",
+      "description": "Check Solana currency addresses from Relay"
+    },
+    "output": "symbol=SOL address=11111111111111111111111111111111 isNative=None\nsymbol=SOL address=11111111111111111111111111111111 isNative=None\nsymbol=USDT address=Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB isNative=None\nsymbol=arc address=61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump isNative=None\nsymbol=NIRE address=7nePAcJhg88s1KFJptgaBvzYgHaUDzddgU65Etvtpump isNative=None\nsymbol=pippin address=Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump isNative=None\nsymbol=USDG address=2u1tszSeqZ3qBWF3uNGPFc8TzMk2tdiwknnRMWGWjGWH isNative=None\nsymbol=cbBTC address=cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij isNative=None\nsymbol=USD1 address=USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB isNative=None\nsymbol=gork address=38PgzpJYu2HkiYvV8qePFakB8tuobPdGm2FFEn7Dpump isNative=None\n",
+    "metadata": {
+      "output": "symbol=SOL address=11111111111111111111111111111111 isNative=None\nsymbol=SOL address=11111111111111111111111111111111 isNative=None\nsymbol=USDT address=Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB isNative=None\nsymbol=arc address=61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump isNative=None\nsymbol=NIRE address=7nePAcJhg88s1KFJptgaBvzYgHaUDzddgU65Etvtpump isNative=None\nsymbol=pippin address=Dfh5DzRgSvvCFDoYc2ciTkMrbDfRKybA4SoFbPmApump isNative=None\nsymbol=USDG address=2u1tszSeqZ3qBWF3uNGPFc8TzMk2tdiwknnRMWGWjGWH isNative=None\nsymbol=cbBTC address=cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij isNative=None\nsymbol=USD1 address=USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB isNative=None\nsymbol=gork address=38PgzpJYu2HkiYvV8qePFakB8tuobPdGm2FFEn7Dpump isNative=None\n",
+      "exit": 0,
+      "description": "Check Solana currency addresses from Relay"
+    },
+    "title": "# Check what the Relay currencies return for Solana - specifically the address field\ncurl -s -X POST \"https://api.relay.link/currencies/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"chainIds\":[792703809],\"defaultList\":true,\"limit\":10}' 2>/dev/null | python3 -c \"\nimport json,sys\nd=json.load(sys.stdin)\nfor c in d[:10]:\n    print(f'symbol={c.get(\\\"symbol\\\")} address={c.get(\\\"address\\\")} isNative={c.get(\\\"metadata\\\",{}).get(\\\"isNative\\\")}')\n\"",
+    "time": {
+      "start": 1772125923324,
+      "end": 1772125923494
+    }
+  }
+}

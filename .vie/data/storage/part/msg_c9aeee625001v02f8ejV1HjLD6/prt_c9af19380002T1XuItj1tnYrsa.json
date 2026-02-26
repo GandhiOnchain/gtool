@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af19380002T1XuItj1tnYrsa",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now fix the Solana native token address. The issue is in `fetchWalletTokens` where we hardcode `0x000...0` for SOL, and in `loadCurrencies` where the default token for Solana chains gets the wrong address. The Relay API returns `11111111111111111111111111111111` for SOL — we need to use that. Let me add a helper and fix all the places:",
+  "time": {
+    "start": 1772126052261,
+    "end": 1772126052261
+  }
+}

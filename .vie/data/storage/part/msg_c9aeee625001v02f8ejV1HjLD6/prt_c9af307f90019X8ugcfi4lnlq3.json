@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9af307f90019X8ugcfi4lnlq3",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01URKCP2bC4cbe7WqHWuvESC",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "sed -i 's/metadata?.isNative ? undefined : \\(.*\\)\\.address/metadata?.isNative || isNativeAddress(\\1.address) ? undefined : \\1.address/g' /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx 2>/dev/null; echo \"done\"",
+      "description": "Fix isNative checks to also use isNativeAddress"
+    },
+    "output": "done\n",
+    "metadata": {
+      "output": "done\n",
+      "exit": 0,
+      "description": "Fix isNative checks to also use isNativeAddress"
+    },
+    "title": "sed -i 's/metadata?.isNative ? undefined : \\(.*\\)\\.address/metadata?.isNative || isNativeAddress(\\1.address) ? undefined : \\1.address/g' /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx 2>/dev/null; echo \"done\"",
+    "time": {
+      "start": 1772126146066,
+      "end": 1772126146072
+    }
+  }
+}

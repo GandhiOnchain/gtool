@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af12629001pzsG0KUab7Jbtf",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Also fix the other `getCurrencies` calls that use `limit: 100` with `defaultList: true` — they work but return only 20 tokens. Remove `defaultList` to get 100:",
+  "time": {
+    "start": 1772126023248,
+    "end": 1772126023248
+  }
+}

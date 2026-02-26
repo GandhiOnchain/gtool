@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9aef881e001Dcfc5JigsNdGXf",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01KT32tAxz1Zk9cH7nKsqLs9",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "# Test with proper recipient for EVM destination\ncurl -s -X POST \"https://api.relay.link/quote/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"user\": \"7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV\",\n    \"originChainId\": 792703809,\n    \"destinationChainId\": 8453,\n    \"originCurrency\": \"11111111111111111111111111111111\",\n    \"destinationCurrency\": \"0x0000000000000000000000000000000000000000\",\n    \"amount\": \"100000000\",\n    \"tradeType\": \"EXACT_INPUT\",\n    \"recipient\": \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n    \"useExternalLiquidity\": true\n  }' 2>/dev/null | python3 -c \"import json,sys; d=json.load(sys.stdin); print(json.dumps(d, indent=2)[:600])\"",
+      "description": "Test Relay quote from Solana with EVM recipient"
+    },
+    "output": "{\n  \"steps\": [\n    {\n      \"id\": \"deposit\",\n      \"action\": \"Confirm transaction in your wallet\",\n      \"description\": \"Depositing funds to the relayer to execute the swap for ETH\",\n      \"kind\": \"transaction\",\n      \"items\": [\n        {\n          \"status\": \"incomplete\",\n          \"data\": {\n            \"instructions\": [\n              {\n                \"keys\": [\n                  {\n                    \"pubkey\": \"Dodg2HifwU8rmaVVyMyUZDGTRbqAJTyVYxXPwcbNpBKc\",\n                    \"isSigner\": false,\n                    \"isWritable\": false\n                  },\n                  {\n                  \n",
+    "metadata": {
+      "output": "{\n  \"steps\": [\n    {\n      \"id\": \"deposit\",\n      \"action\": \"Confirm transaction in your wallet\",\n      \"description\": \"Depositing funds to the relayer to execute the swap for ETH\",\n      \"kind\": \"transaction\",\n      \"items\": [\n        {\n          \"status\": \"incomplete\",\n          \"data\": {\n            \"instructions\": [\n              {\n                \"keys\": [\n                  {\n                    \"pubkey\": \"Dodg2HifwU8rmaVVyMyUZDGTRbqAJTyVYxXPwcbNpBKc\",\n                    \"isSigner\": false,\n                    \"isWritable\": false\n                  },\n                  {\n                  \n",
+      "exit": 0,
+      "description": "Test Relay quote from Solana with EVM recipient"
+    },
+    "title": "# Test with proper recipient for EVM destination\ncurl -s -X POST \"https://api.relay.link/quote/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"user\": \"7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV\",\n    \"originChainId\": 792703809,\n    \"destinationChainId\": 8453,\n    \"originCurrency\": \"11111111111111111111111111111111\",\n    \"destinationCurrency\": \"0x0000000000000000000000000000000000000000\",\n    \"amount\": \"100000000\",\n    \"tradeType\": \"EXACT_INPUT\",\n    \"recipient\": \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n    \"useExternalLiquidity\": true\n  }' 2>/dev/null | python3 -c \"import json,sys; d=json.load(sys.stdin); print(json.dumps(d, indent=2)[:600])\"",
+    "time": {
+      "start": 1772125917821,
+      "end": 1772125919017
+    }
+  }
+}

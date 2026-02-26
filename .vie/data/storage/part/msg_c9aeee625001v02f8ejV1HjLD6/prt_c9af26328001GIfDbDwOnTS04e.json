@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af26328001GIfDbDwOnTS04e",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "The quote params look correct — `fromToken.address` and `toToken.address` come from the Relay API so they'll be `11111...1` for SOL. The issue is the `recipient` for cross-VM to Solana: it uses `solanaAddress` which is the Farcaster Solana wallet address. That's correct.\n\nBut there's another issue: for **same-VM Solana swaps** (Solana → Solana), `isCrossVM` is false, so `recipient` is `undefined`. But the Relay API needs the Solana user address as `user`. That's already handled: `userAddress = fromVMType === 'svm' ? solanaAddress : address`. Good.\n\nThe real remaining issue for Solana quotes: the `fetchQuote` useEffect only triggers when `address` (EVM) is set:",
+  "time": {
+    "start": 1772126107016,
+    "end": 1772126107016
+  }
+}

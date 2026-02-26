@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9aef3432001ITLRlVUeiYtayX",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01XM67b4Dea9oPKhKvbDpyFg",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "# Get Solana chain info from Relay\ncurl -s \"https://api.relay.link/chains\" 2>/dev/null | python3 -c \"\nimport json,sys\nd=json.load(sys.stdin)\nchains = d.get('chains', [])\nsol = [c for c in chains if c.get('vmType') == 'svm' or 'solana' in c.get('name','').lower() or 'solana' in c.get('displayName','').lower()]\nfor c in sol:\n    print(json.dumps({k: c.get(k) for k in ['id','name','displayName','vmType','disabled']}, indent=2))\n\"",
+      "description": "Get Solana chain details from Relay API"
+    },
+    "output": "{\n  \"id\": 9286185,\n  \"name\": \"eclipse\",\n  \"displayName\": \"Eclipse\",\n  \"vmType\": \"svm\",\n  \"disabled\": false\n}\n{\n  \"id\": 9286186,\n  \"name\": \"soon\",\n  \"displayName\": \"Soon\",\n  \"vmType\": \"svm\",\n  \"disabled\": false\n}\n{\n  \"id\": 792703809,\n  \"name\": \"solana\",\n  \"displayName\": \"Solana\",\n  \"vmType\": \"svm\",\n  \"disabled\": false\n}\n",
+    "metadata": {
+      "output": "{\n  \"id\": 9286185,\n  \"name\": \"eclipse\",\n  \"displayName\": \"Eclipse\",\n  \"vmType\": \"svm\",\n  \"disabled\": false\n}\n{\n  \"id\": 9286186,\n  \"name\": \"soon\",\n  \"displayName\": \"Soon\",\n  \"vmType\": \"svm\",\n  \"disabled\": false\n}\n{\n  \"id\": 792703809,\n  \"name\": \"solana\",\n  \"displayName\": \"Solana\",\n  \"vmType\": \"svm\",\n  \"disabled\": false\n}\n",
+      "exit": 0,
+      "description": "Get Solana chain details from Relay API"
+    },
+    "title": "# Get Solana chain info from Relay\ncurl -s \"https://api.relay.link/chains\" 2>/dev/null | python3 -c \"\nimport json,sys\nd=json.load(sys.stdin)\nchains = d.get('chains', [])\nsol = [c for c in chains if c.get('vmType') == 'svm' or 'solana' in c.get('name','').lower() or 'solana' in c.get('displayName','').lower()]\nfor c in sol:\n    print(json.dumps({k: c.get(k) for k in ['id','name','displayName','vmType','disabled']}, indent=2))\n\"",
+    "time": {
+      "start": 1772125896557,
+      "end": 1772125896644
+    }
+  }
+}

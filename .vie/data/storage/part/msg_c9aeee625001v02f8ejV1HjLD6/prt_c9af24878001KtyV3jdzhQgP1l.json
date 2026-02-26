@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9af24878001KtyV3jdzhQgP1l",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_017psxrHcijtRVTpTpGziCSc",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1090,
+      "limit": 60
+    },
+    "output": "<file>\n01091|         recipient: crossVMRecipient,\n01092|         includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n01093|         useExternalLiquidity: isCrossVM ? true : undefined,\n01094|       }\n01095|       \n01096|       const quoteData = await relayAPI.getQuote(quoteParams)\n01097|       \n01098|       setQuote(quoteData)\n01099|       if (quoteData.details.currencyOut) {\n01100|         setToAmount(quoteData.details.currencyOut.amountFormatted)\n01101|       }\n01102|     } catch (error) {\n01103|       console.error('Failed to fetch quote:', error)\n01104|       \n01105|       // Parse error message to make it user-friendly\n01106|       let errorMessage = 'Failed to get quote'\n01107|       if (error instanceof Error) {\n01108|         const msg = error.message.toLowerCase()\n01109|         if (msg.includes('amount_too_low') || msg.includes('amount must be greater')) {\n01110|           errorMessage = 'Amount is too low. Please enter a larger amount.'\n01111|         } else if (msg.includes('insufficient')) {\n01112|           errorMessage = 'Insufficient balance for this swap.'\n01113|         } else if (msg.includes('slippage')) {\n01114|           errorMessage = 'Slippage tolerance too low. Try increasing it.'\n01115|         } else if (msg.includes('liquidity')) {\n01116|           errorMessage = 'Not enough liquidity for this swap.'\n01117|         } else if (msg.includes('network') || msg.includes('timeout')) {\n01118|           errorMessage = 'Network error. Please try again.'\n01119|         } else {\n01120|           errorMessage = 'Unable to get quote. Please try a different amount or token.'\n01121|         }\n01122|       }\n01123|       \n01124|       toast.error(errorMessage)\n01125|       setQuote(null)\n01126|     } finally {\n01127|       setIsLoadingQuote(false)\n01128|     }\n01129|   }\n01130| \n01131|   const executeSwap = async () => {\n01132|     if (!quote || !quote.steps || quote.steps.length === 0) {\n01133|       toast.error('No quote available')\n01134|       return\n01135|     }\n01136| \n01137|     if (!isConnected || !address) {\n01138|       toast.error('Please connect your wallet first')\n01139|       return\n01140|     }\n01141| \n01142|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {\n01143|       toast.error('Missing swap parameters')\n01144|       return\n01145|     }\n01146| \n01147|     // Validate that token chainIds match selected chains\n01148|     if (fromToken.chainId !== fromChain.id) {\n01149|       console.error('Token chainId mismatch:', {\n01150|         fromTokenChainId: fromToken.chainId,\n\n(File has more lines. Use 'offset' parameter to read beyond line 1150)\n</file>",
+    "metadata": {
+      "preview": "        recipient: crossVMRecipient,\n        includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n        useExternalLiquidity: isCrossVM ? true : undefined,\n      }\n      \n      const quoteData = await relayAPI.getQuote(quoteParams)\n      \n      setQuote(quoteData)\n      if (quoteData.details.currencyOut) {\n        setToAmount(quoteData.details.currencyOut.amountFormatted)\n      }\n    } catch (error) {\n      console.error('Failed to fetch quote:', error)\n      \n      // Parse error message to make it user-friendly\n      let errorMessage = 'Failed to get quote'\n      if (error instanceof Error) {\n        const msg = error.message.toLowerCase()\n        if (msg.includes('amount_too_low') || msg.includes('amount must be greater')) {\n          errorMessage = 'Amount is too low. Please enter a larger amount.'"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772126096114,
+      "end": 1772126096115
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9aef0f3c0011xTiym3tgkGOFA",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01X8Y9ADssbh7Ded59a2ajxV",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "# Test what the Relay quote API returns for a Solana swap\ncurl -s -X POST \"https://api.relay.link/quote/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"user\": \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n    \"originChainId\": 8453,\n    \"destinationChainId\": 792703809,\n    \"originCurrency\": \"0x0000000000000000000000000000000000000000\",\n    \"destinationCurrency\": \"0x0000000000000000000000000000000000000000\",\n    \"amount\": \"1000000000000000\",\n    \"tradeType\": \"EXACT_INPUT\",\n    \"recipient\": \"7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV\"\n  }' 2>/dev/null | python3 -c \"import json,sys; d=json.load(sys.stdin); print(json.dumps(d, indent=2)[:500])\"",
+      "description": "Test Relay quote for cross-chain to Solana"
+    },
+    "output": "{\n  \"message\": \"Invalid output currency\",\n  \"requestId\": \"0x4a5400e5f0aa882893ea7730de0715af469e8ec5cd333488b43dbd523d4fd837\"\n}\n",
+    "metadata": {
+      "output": "{\n  \"message\": \"Invalid output currency\",\n  \"requestId\": \"0x4a5400e5f0aa882893ea7730de0715af469e8ec5cd333488b43dbd523d4fd837\"\n}\n",
+      "exit": 0,
+      "description": "Test Relay quote for cross-chain to Solana"
+    },
+    "title": "# Test what the Relay quote API returns for a Solana swap\ncurl -s -X POST \"https://api.relay.link/quote/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"user\": \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n    \"originChainId\": 8453,\n    \"destinationChainId\": 792703809,\n    \"originCurrency\": \"0x0000000000000000000000000000000000000000\",\n    \"destinationCurrency\": \"0x0000000000000000000000000000000000000000\",\n    \"amount\": \"1000000000000000\",\n    \"tradeType\": \"EXACT_INPUT\",\n    \"recipient\": \"7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV\"\n  }' 2>/dev/null | python3 -c \"import json,sys; d=json.load(sys.stdin); print(json.dumps(d, indent=2)[:500])\"",
+    "time": {
+      "start": 1772125890500,
+      "end": 1772125890931
+    }
+  }
+}

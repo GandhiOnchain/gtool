@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af2d6e10014nUkmL7RQ5LOf2",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now fix the `TokenLogo` component — it uses `isNativeAddress` check for Solana tokens but the address `11111...1` isn't an EVM address so `isAddress` will fail. Let me check:",
+  "time": {
+    "start": 1772126134360,
+    "end": 1772126134360
+  }
+}

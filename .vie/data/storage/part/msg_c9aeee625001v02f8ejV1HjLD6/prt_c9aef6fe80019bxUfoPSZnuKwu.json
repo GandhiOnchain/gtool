@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9aef6fe80019bxUfoPSZnuKwu",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01KvWF3u1cKDqDdyj9zfdPPW",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "# Now check what address the Solana SOL token uses vs what the code sends\n# The code uses: 0x0000000000000000000000000000000000000000 for native\n# But Relay expects: 11111111111111111111111111111111 for Solana native\n\n# Also check what happens when fromChain is Solana\ncurl -s -X POST \"https://api.relay.link/quote/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"user\": \"7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV\",\n    \"originChainId\": 792703809,\n    \"destinationChainId\": 8453,\n    \"originCurrency\": \"11111111111111111111111111111111\",\n    \"destinationCurrency\": \"0x0000000000000000000000000000000000000000\",\n    \"amount\": \"100000000\",\n    \"tradeType\": \"EXACT_INPUT\",\n    \"useExternalLiquidity\": true\n  }' 2>/dev/null | python3 -c \"import json,sys; d=json.load(sys.stdin); print(json.dumps(d, indent=2)[:600])\"",
+      "description": "Test Relay quote from Solana to EVM"
+    },
+    "output": "{\n  \"message\": \"Invalid address 7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV for chain 8453\"\n}\n",
+    "metadata": {
+      "output": "{\n  \"message\": \"Invalid address 7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV for chain 8453\"\n}\n",
+      "exit": 0,
+      "description": "Test Relay quote from Solana to EVM"
+    },
+    "title": "# Now check what address the Solana SOL token uses vs what the code sends\n# The code uses: 0x0000000000000000000000000000000000000000 for native\n# But Relay expects: 11111111111111111111111111111111 for Solana native\n\n# Also check what happens when fromChain is Solana\ncurl -s -X POST \"https://api.relay.link/quote/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"user\": \"7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV\",\n    \"originChainId\": 792703809,\n    \"destinationChainId\": 8453,\n    \"originCurrency\": \"11111111111111111111111111111111\",\n    \"destinationCurrency\": \"0x0000000000000000000000000000000000000000\",\n    \"amount\": \"100000000\",\n    \"tradeType\": \"EXACT_INPUT\",\n    \"useExternalLiquidity\": true\n  }' 2>/dev/null | python3 -c \"import json,sys; d=json.load(sys.stdin); print(json.dumps(d, indent=2)[:600])\"",
+    "time": {
+      "start": 1772125913344,
+      "end": 1772125913406
+    }
+  }
+}

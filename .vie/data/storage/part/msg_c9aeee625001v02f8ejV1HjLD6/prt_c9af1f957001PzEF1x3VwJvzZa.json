@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9af1f957001PzEF1x3VwJvzZa",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01YZvAX3vH896p51TCPZw9VA",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 283,
+      "limit": 20
+    },
+    "output": "<file>\n00284|   const { data: evmFromBalance, refetch: refetchFromBalance } = useBalance({\n00285|     address: address as `0x${string}` | undefined,\n00286|     chainId: fromChain?.id,\n00287|     token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n00288|     query: {\n00289|       enabled: fromChain?.vmType === 'evm' || !fromChain?.vmType,\n00290|     },\n00291|   })\n00292| \n00293|   const { data: evmToBalance, refetch: refetchToBalance } = useBalance({\n00294|     address: address as `0x${string}` | undefined,\n00295|     chainId: toChain?.id,\n00296|     token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n00297|     query: {\n00298|       enabled: toChain?.vmType === 'evm' || !toChain?.vmType,\n00299|     },\n00300|   })\n00301| \n00302|   // Use EVM balance or custom balance based on chain type\n00303|   const fromBalance = (fromChain?.vmType === 'evm' || !fromChain?.vmType) ? evmFromBalance : customBalances.from\n\n(File has more lines. Use 'offset' parameter to read beyond line 303)\n</file>",
+    "metadata": {
+      "preview": "  const { data: evmFromBalance, refetch: refetchFromBalance } = useBalance({\n    address: address as `0x${string}` | undefined,\n    chainId: fromChain?.id,\n    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n    query: {\n      enabled: fromChain?.vmType === 'evm' || !fromChain?.vmType,\n    },\n  })\n\n  const { data: evmToBalance, refetch: refetchToBalance } = useBalance({\n    address: address as `0x${string}` | undefined,\n    chainId: toChain?.id,\n    token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n    query: {\n      enabled: toChain?.vmType === 'evm' || !toChain?.vmType,\n    },\n  })\n\n  // Use EVM balance or custom balance based on chain type\n  const fromBalance = (fromChain?.vmType === 'evm' || !fromChain?.vmType) ? evmFromBalance : customBalances.from"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772126075838,
+      "end": 1772126075842
+    }
+  }
+}

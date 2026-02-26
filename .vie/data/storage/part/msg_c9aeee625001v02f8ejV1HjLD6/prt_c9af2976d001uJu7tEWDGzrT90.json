@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9af2976d001uJu7tEWDGzrT90",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Also add `solanaAddress` to the dependency array:",
+  "time": {
+    "start": 1772126116737,
+    "end": 1772126116737
+  }
+}

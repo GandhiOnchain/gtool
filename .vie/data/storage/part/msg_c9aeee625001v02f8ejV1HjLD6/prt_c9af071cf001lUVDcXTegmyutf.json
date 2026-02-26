@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9af071cf001lUVDcXTegmyutf",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01Kq72wmWJEh6ertiYMpvUfy",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s -X POST \"https://api.relay.link/currencies/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"chainIds\":[8453],\"defaultList\":true,\"limit\":200}' 2>/dev/null | python3 -c \"\nimport json,sys\nd=json.load(sys.stdin)\nprint(type(d), repr(d)[:200])\n\"",
+      "description": "Check raw Relay currencies response"
+    },
+    "output": "<class 'dict'> {'statusCode': 400, 'code': 'FST_ERR_VALIDATION', 'error': 'Bad Request', 'message': 'body/limit must be <= 100'}\n",
+    "metadata": {
+      "output": "<class 'dict'> {'statusCode': 400, 'code': 'FST_ERR_VALIDATION', 'error': 'Bad Request', 'message': 'body/limit must be <= 100'}\n",
+      "exit": 0,
+      "description": "Check raw Relay currencies response"
+    },
+    "title": "curl -s -X POST \"https://api.relay.link/currencies/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"chainIds\":[8453],\"defaultList\":true,\"limit\":200}' 2>/dev/null | python3 -c \"\nimport json,sys\nd=json.load(sys.stdin)\nprint(type(d), repr(d)[:200])\n\"",
+    "time": {
+      "start": 1772125976276,
+      "end": 1772125976325
+    }
+  }
+}

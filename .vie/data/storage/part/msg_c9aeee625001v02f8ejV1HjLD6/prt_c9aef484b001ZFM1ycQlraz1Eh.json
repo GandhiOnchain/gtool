@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9aef484b001ZFM1ycQlraz1Eh",
+  "messageID": "msg_c9aeee625001v02f8ejV1HjLD6",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01KZPcio3jS4533dmsiWy6rn",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "# Get Solana currencies from Relay\ncurl -s -X POST \"https://api.relay.link/currencies/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"chainIds\":[792703809],\"defaultList\":true,\"limit\":5}' 2>/dev/null | python3 -c \"\nimport json,sys\nd=json.load(sys.stdin)\nfor c in d[:5]:\n    print(c.get('symbol'), c.get('address'), c.get('chainId'))\n\"",
+      "description": "Get Solana token addresses from Relay"
+    },
+    "output": "SOL 11111111111111111111111111111111 792703809\nSOL 11111111111111111111111111111111 792703809\nUSDT Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB 792703809\narc 61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump 792703809\nNIRE 7nePAcJhg88s1KFJptgaBvzYgHaUDzddgU65Etvtpump 792703809\n",
+    "metadata": {
+      "output": "SOL 11111111111111111111111111111111 792703809\nSOL 11111111111111111111111111111111 792703809\nUSDT Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB 792703809\narc 61V8vBaqAGMpgDQi4JcAwo1dmBGHsyhzodcPqnEVpump 792703809\nNIRE 7nePAcJhg88s1KFJptgaBvzYgHaUDzddgU65Etvtpump 792703809\n",
+      "exit": 0,
+      "description": "Get Solana token addresses from Relay"
+    },
+    "title": "# Get Solana currencies from Relay\ncurl -s -X POST \"https://api.relay.link/currencies/v2\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"chainIds\":[792703809],\"defaultList\":true,\"limit\":5}' 2>/dev/null | python3 -c \"\nimport json,sys\nd=json.load(sys.stdin)\nfor c in d[:5]:\n    print(c.get('symbol'), c.get('address'), c.get('chainId'))\n\"",
+    "time": {
+      "start": 1772125900940,
+      "end": 1772125901074
+    }
+  }
+}
