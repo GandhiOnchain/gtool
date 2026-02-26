@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9b01421c001ZKr163eSHEE8En",
+  "messageID": "msg_c9afeadaf001qWILr5XGk79V4e",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_014EYunUima7cnJAEqTt8Fzb",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1030,
+      "limit": 12
+    },
+    "output": "<file>\n01031|         \n01032|         // Add token to batch with balance of 0 (will be fetched when executing)\n01033|         const newToken: WalletToken = {\n01034|           token: foundToken,\n01035|           balance: '0',\n01036|           balanceFormatted: '0',\n01037|         }\n01038|         \n01039|         setBatchTokens([...batchTokens, newToken])\n01040|         toast.success(`Added ${foundToken.symbol} to batch swap`)\n01041|         setContractAddressSearch('')\n01042|       } else {\n\n(File has more lines. Use 'offset' parameter to read beyond line 1042)\n</file>",
+    "metadata": {
+      "preview": "        \n        // Add token to batch with balance of 0 (will be fetched when executing)\n        const newToken: WalletToken = {\n          token: foundToken,\n          balance: '0',\n          balanceFormatted: '0',\n        }\n        \n        setBatchTokens([...batchTokens, newToken])\n        toast.success(`Added ${foundToken.symbol} to batch swap`)\n        setContractAddressSearch('')\n      } else {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772127077427,
+      "end": 1772127077429
+    }
+  }
+}

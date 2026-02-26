@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b010e7e001c0IRV7gaJfGh5L",
+  "messageID": "msg_c9afeadaf001qWILr5XGk79V4e",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now also fix the \"Add Token\" flow in the token selector to mark newly added tokens as selected:",
+  "time": {
+    "start": 1772127065048,
+    "end": 1772127065048
+  }
+}

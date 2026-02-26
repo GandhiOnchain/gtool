@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b015626001ECvV8MzTSyL334",
+  "messageID": "msg_c9afeadaf001qWILr5XGk79V4e",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now also fix the `fetchQuote` function to handle the case where `toVMType === 'svm'` but `solanaAddress` is null - provide a clearer error:",
+  "time": {
+    "start": 1772127083721,
+    "end": 1772127083721
+  }
+}

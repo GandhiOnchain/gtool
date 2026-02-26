@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b002417001OZxdi2RMPC4Pff",
+  "messageID": "msg_c9afeadaf001qWILr5XGk79V4e",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now fix `fetchBatchQuote` to pass `recipient` for Solana destination and use selected tokens:",
+  "time": {
+    "start": 1772127013741,
+    "end": 1772127013741
+  }
+}

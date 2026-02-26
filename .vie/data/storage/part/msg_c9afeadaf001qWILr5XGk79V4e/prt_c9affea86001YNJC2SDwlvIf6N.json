@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9affea86001YNJC2SDwlvIf6N",
+  "messageID": "msg_c9afeadaf001qWILr5XGk79V4e",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now fix the batch quote useEffect to also depend on `solanaAddress` and check for Solana destination:",
+  "time": {
+    "start": 1772126992808,
+    "end": 1772126992808
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b0004f9001sCwQEc0L9cNfpl",
+  "messageID": "msg_c9afeadaf001qWILr5XGk79V4e",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now I need to add `selected` field to `WalletToken` interface:",
+  "time": {
+    "start": 1772126997835,
+    "end": 1772126997835
+  }
+}

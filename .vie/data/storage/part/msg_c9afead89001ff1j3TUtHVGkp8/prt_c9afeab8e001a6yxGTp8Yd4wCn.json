@@ -1,0 +1,7 @@
+{
+  "id": "prt_c9afeab8e001a6yxGTp8Yd4wCn",
+  "type": "text",
+  "text": "the quotes are not loading when i'm trying to batch swap/bridge from a chain to solana. it might be the case for normal swap/bridge as well. analyze the root causes and fix them. make it work. also for batch, only native tokens are being show. all available tokens with balances should be shown. make it work.",
+  "messageID": "msg_c9afead89001ff1j3TUtHVGkp8",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2"
+}

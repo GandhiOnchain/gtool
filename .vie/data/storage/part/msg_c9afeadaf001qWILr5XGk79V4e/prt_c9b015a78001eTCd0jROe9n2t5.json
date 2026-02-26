@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9b015a78001eTCd0jROe9n2t5",
+  "messageID": "msg_c9afeadaf001qWILr5XGk79V4e",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01EVvcpHaYQEgi4uEoCkrgEL",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1083,
+      "limit": 20
+    },
+    "output": "<file>\n01084|       if (!userAddress) {\n01085|         toast.error(`Please connect your ${fromVMType === 'svm' ? 'Solana' : 'EVM'} wallet`)\n01086|         setIsLoadingQuote(false)\n01087|         return\n01088|       }\n01089|       \n01090|       const crossVMRecipient = isCrossVM\n01091|         ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined\n01092|         : undefined\n01093| \n01094|       const quoteParams = {\n01095|         user: userAddress,\n01096|         originChainId: fromChain.id,\n01097|         destinationChainId: toChain.id,\n01098|         originCurrency: fromToken.address,\n01099|         destinationCurrency: toToken.address,\n01100|         amount: amountInWei.toString(),\n01101|         tradeType: 'EXACT_INPUT' as const,\n01102|         slippageTolerance: slippageBps,\n01103|         recipient: crossVMRecipient,\n\n(File has more lines. Use 'offset' parameter to read beyond line 1103)\n</file>",
+    "metadata": {
+      "preview": "      if (!userAddress) {\n        toast.error(`Please connect your ${fromVMType === 'svm' ? 'Solana' : 'EVM'} wallet`)\n        setIsLoadingQuote(false)\n        return\n      }\n      \n      const crossVMRecipient = isCrossVM\n        ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined\n        : undefined\n\n      const quoteParams = {\n        user: userAddress,\n        originChainId: fromChain.id,\n        destinationChainId: toChain.id,\n        originCurrency: fromToken.address,\n        destinationCurrency: toToken.address,\n        amount: amountInWei.toString(),\n        tradeType: 'EXACT_INPUT' as const,\n        slippageTolerance: slippageBps,\n        recipient: crossVMRecipient,"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772127083681,
+      "end": 1772127083683
+    }
+  }
+}

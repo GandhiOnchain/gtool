@@ -84,6 +84,7 @@ interface WalletToken {
   balance: string
   balanceFormatted: string
   balanceUsd?: string
+  selected?: boolean
 }
 
 const STREAK_MESSAGES = [
@@ -384,8 +385,10 @@ export default function RelaySwap() {
 
   useEffect(() => {
     const fromVMType = fromChain?.vmType || 'evm'
-    const hasWallet = fromVMType === 'svm' ? !!solanaAddress : !!address
-    if (fromToken && toToken && fromAmount && fromChain && toChain && hasWallet) {
+    const toVMType = toChain?.vmType || 'evm'
+    const hasFromWallet = fromVMType === 'svm' ? !!solanaAddress : !!address
+    const hasToWallet = toVMType === 'svm' ? !!solanaAddress : true
+    if (fromToken && toToken && fromAmount && fromChain && toChain && hasFromWallet && hasToWallet) {
       const debounce = setTimeout(() => {
         fetchQuote()
       }, 500)
@@ -431,7 +434,10 @@ export default function RelaySwap() {
 
   // Fetch batch quote when batch tokens or destination changes
   useEffect(() => {
-    if (batchTokens.length > 0 && toToken && toChain && batchChain && address) {
+    const toVMType = toChain?.vmType || 'evm'
+    const hasDestWallet = toVMType === 'svm' ? !!solanaAddress : true
+    const selectedBatch = batchTokens.filter(bt => bt.selected !== false)
+    if (selectedBatch.length > 0 && toToken && toChain && batchChain && address && hasDestWallet) {
       const debounce = setTimeout(() => {
         fetchBatchQuote()
       }, 500)
@@ -439,7 +445,7 @@ export default function RelaySwap() {
     } else {
       setBatchQuote(null)
     }
-  }, [batchTokens, toToken, toChain, batchChain, address])
+  }, [batchTokens, toToken, toChain, batchChain, address, solanaAddress])
 
   // Load approvals when revoke chain changes
   useEffect(() => {
@@ -973,8 +979,9 @@ export default function RelaySwap() {
     setIsLoadingBatchTokens(true)
     try {
       const tokens = await fetchWalletTokens(chain)
-      setWalletTokens(tokens)
-      setBatchTokens(tokens)
+      const tokensWithSelection = tokens.map(t => ({ ...t, selected: true }))
+      setWalletTokens(tokensWithSelection)
+      setBatchTokens(tokensWithSelection)
       setChainWalletTokens(prev => ({ ...prev, [chain.id]: tokens }))
     } catch (error) {
       console.error('Failed to load batch wallet tokens:', error)
@@ -1027,6 +1034,7 @@ export default function RelaySwap() {
           token: foundToken,
           balance: '0',
           balanceFormatted: '0',
+          selected: true,
         }
         
         setBatchTokens([...batchTokens, newToken])
@@ -1075,6 +1083,12 @@ export default function RelaySwap() {
       
       if (!userAddress) {
         toast.error(`Please connect your ${fromVMType === 'svm' ? 'Solana' : 'EVM'} wallet`)
+        setIsLoadingQuote(false)
+        return
+      }
+
+      if (isCrossVM && toVMType === 'svm' && !solanaAddress) {
+        toast.error('Farcaster Solana wallet not connected. Cannot get quote for Solana destination.')
         setIsLoadingQuote(false)
         return
       }
@@ -1440,15 +1454,26 @@ export default function RelaySwap() {
       return
     }
 
+    const toVMType = toChain.vmType || 'evm'
+    const isCrossVM = (batchChain.vmType || 'evm') !== toVMType
+    const batchRecipient = isCrossVM
+      ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined
+      : undefined
+
+    if (isCrossVM && toVMType === 'svm' && !solanaAddress) {
+      console.log('Batch quote skipped: Solana destination requires Solana wallet')
+      setBatchQuote(null)
+      return
+    }
+
     setIsLoadingBatchQuote(true)
     try {
-      const origins = batchTokens
-        .filter(bt => parseFloat(bt.balanceFormatted) > 0)
-        .map(bt => ({
-          chainId: batchChain.id,
-          currency: bt.token.address,
-          amount: bt.balance,
-        }))
+      const selectedTokens = batchTokens.filter(bt => bt.selected !== false && parseFloat(bt.balanceFormatted) > 0)
+      const origins = selectedTokens.map(bt => ({
+        chainId: batchChain.id,
+        currency: bt.token.address,
+        amount: bt.balance,
+      }))
 
       if (origins.length === 0) {
         setBatchQuote(null)
@@ -1456,7 +1481,7 @@ export default function RelaySwap() {
         return
       }
 
-      console.log('Getting batch swap quote for', origins.length, 'tokens')
+      console.log('Getting batch swap quote for', origins.length, 'tokens, recipient:', batchRecipient)
 
       const multiQuote = await relayAPI.getMultiInputQuote({
         user: address,
@@ -1464,6 +1489,7 @@ export default function RelaySwap() {
         destinationCurrency: toToken.address,
         destinationChainId: toChain.id,
         tradeType: 'EXACT_INPUT',
+        recipient: batchRecipient,
       })
 
       console.log('Batch quote received:', multiQuote)
@@ -1501,11 +1527,22 @@ export default function RelaySwap() {
       }
     }
 
+    const execToVMType = toChain.vmType || 'evm'
+    const execIsCrossVM = (batchChain.vmType || 'evm') !== execToVMType
+    const execBatchRecipient = execIsCrossVM
+      ? (execToVMType === 'svm' ? solanaAddress : recipientAddress) || undefined
+      : undefined
+
+    if (execIsCrossVM && execToVMType === 'svm' && !solanaAddress) {
+      toast.error('Farcaster Solana wallet not connected')
+      return
+    }
+
     setIsSwapping(true)
     try {
       // Get a fresh quote for execution
       const origins = batchTokens
-        .filter(bt => parseFloat(bt.balanceFormatted) > 0)
+        .filter(bt => bt.selected !== false && parseFloat(bt.balanceFormatted) > 0)
         .map(bt => ({
           chainId: batchChain.id,
           currency: bt.token.address,
@@ -1526,6 +1563,7 @@ export default function RelaySwap() {
         destinationCurrency: toToken.address,
         destinationChainId: toChain.id,
         tradeType: 'EXACT_INPUT',
+        recipient: execBatchRecipient,
       })
 
       console.log('Fresh batch quote received:', multiQuote)
@@ -3055,35 +3093,53 @@ export default function RelaySwap() {
 
                 <Separator />
 
-                <div className="text-xs text-muted-foreground">
-                  {isLoadingBatchTokens ? 'Scanning for tokens...' : batchTokens.length > 0 ? `${batchTokens.length} token${batchTokens.length > 1 ? 's' : ''} found` : batchChain ? 'No tokens with balance found' : 'Select a chain to detect tokens'}
+                <div className="flex items-center justify-between">
+                  <div className="text-xs text-muted-foreground">
+                    {isLoadingBatchTokens ? 'Scanning for tokens...' : batchTokens.length > 0 ? `${batchTokens.filter(t => t.selected !== false).length}/${batchTokens.length} selected` : batchChain ? 'No tokens with balance found' : 'Select a chain to detect tokens'}
+                  </div>
+                  {batchTokens.length > 0 && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-6 text-xs px-2"
+                      onClick={() => {
+                        const allSelected = batchTokens.every(t => t.selected !== false)
+                        setBatchTokens(batchTokens.map(t => ({ ...t, selected: !allSelected })))
+                      }}
+                    >
+                      {batchTokens.every(t => t.selected !== false) ? 'Deselect All' : 'Select All'}
+                    </Button>
+                  )}
                 </div>
 
-                <ScrollArea className="h-40">
-                  <div className="space-y-2">
+                <ScrollArea className="h-48">
+                  <div className="space-y-1">
                     {batchTokens.map((wt, i) => (
-                      <div key={i} className="flex items-center gap-2 p-2 border rounded">
-                        <div className="flex-1 flex items-center gap-2">
-                          <TokenLogo
-                            address={wt.token.metadata?.isNative || isNativeAddress(wt.token.address) ? undefined : wt.token.address}
-                            chainId={wt.token.chainId}
-                            symbol={wt.token.symbol}
-                            logoURI={wt.token.metadata?.logoURI}
-                            size={4}
-                          />
-                          <div className="flex-1">
-                            <div className="text-xs font-medium">{wt.token.symbol}</div>
-                            <div className="text-xs text-muted-foreground">{parseFloat(wt.balanceFormatted).toFixed(6)}</div>
-                          </div>
+                      <div
+                        key={`${wt.token.chainId}-${wt.token.address}-${i}`}
+                        className={`flex items-center gap-2 p-2 border rounded cursor-pointer transition-colors ${wt.selected !== false ? 'border-accent/50 bg-accent/5' : 'border-border opacity-60'}`}
+                        onClick={() => setBatchTokens(batchTokens.map((t, idx) => idx === i ? { ...t, selected: t.selected === false ? true : false } : t))}
+                      >
+                        <Checkbox
+                          checked={wt.selected !== false}
+                          onCheckedChange={() => setBatchTokens(batchTokens.map((t, idx) => idx === i ? { ...t, selected: t.selected === false ? true : false } : t))}
+                          onClick={e => e.stopPropagation()}
+                          className="flex-shrink-0"
+                        />
+                        <TokenLogo
+                          address={wt.token.metadata?.isNative || isNativeAddress(wt.token.address) ? undefined : wt.token.address}
+                          chainId={wt.token.chainId}
+                          symbol={wt.token.symbol}
+                          logoURI={wt.token.metadata?.logoURI}
+                          size={4}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-medium">{wt.token.symbol}</div>
+                          <div className="text-xs text-muted-foreground truncate">{wt.token.name}</div>
                         </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => setBatchTokens(batchTokens.filter((_, idx) => idx !== i))}
-                          className="h-6 w-6 p-0"
-                        >
-                          <X className="h-3 w-3" />
-                        </Button>
+                        <div className="text-right flex-shrink-0">
+                          <div className="text-xs font-medium">{parseFloat(wt.balanceFormatted).toFixed(4)}</div>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -3142,6 +3198,15 @@ export default function RelaySwap() {
                   </div>
                 </div>
 
+                {toChain?.vmType === 'svm' && (
+                  <Card className="p-2 bg-muted/50 border-accent">
+                    <div className="text-xs font-medium mb-1">Solana Recipient</div>
+                    <div className="text-xs font-mono text-muted-foreground break-all">
+                      {solanaAddress || 'Farcaster Solana wallet not connected'}
+                    </div>
+                  </Card>
+                )}
+
                 {batchQuote && (
                   <Card className="p-3 bg-card">
                     <div className="space-y-1.5 text-xs">
@@ -3150,7 +3215,7 @@ export default function RelaySwap() {
                       <div className="flex justify-between items-center">
                         <span className="text-muted-foreground">Total Input</span>
                         <span className="font-mono">
-                          {batchTokens.length} token{batchTokens.length > 1 ? 's' : ''}
+                          {batchTokens.filter(t => t.selected !== false).length} token{batchTokens.filter(t => t.selected !== false).length !== 1 ? 's' : ''}
                         </span>
                       </div>
                       
@@ -3218,7 +3283,7 @@ export default function RelaySwap() {
 
                 <Button
                   onClick={executeBatchSwap}
-                  disabled={batchTokens.length === 0 || isSwapping || !isConnected || !batchQuote}
+                  disabled={batchTokens.filter(t => t.selected !== false).length === 0 || isSwapping || !isConnected || !batchQuote}
                   className="w-full h-8 text-xs"
                 >
                   {isSwapping 
@@ -3536,6 +3601,7 @@ export default function RelaySwap() {
                             token: currency,
                             balance,
                             balanceFormatted,
+                            selected: true,
                           }
                           
                           setBatchTokens([...batchTokens, newToken])

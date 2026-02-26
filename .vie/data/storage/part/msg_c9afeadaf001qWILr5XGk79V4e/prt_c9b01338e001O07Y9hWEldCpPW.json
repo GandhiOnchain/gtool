@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9b01338e001O07Y9hWEldCpPW",
+  "messageID": "msg_c9afeadaf001qWILr5XGk79V4e",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01Ak1TzT9sLbQfhMunzLfURz",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"searchTokenByContract\\|newToken.*WalletToken\\|balance: '0'\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+      "description": "Find searchTokenByContract new token creation"
+    },
+    "output": "994:  const searchTokenByContract = async (contractAddress: string) => {\n1033:        const newToken: WalletToken = {\n1035:          balance: '0',\n3584:                          const newToken: WalletToken = {\n",
+    "metadata": {
+      "output": "994:  const searchTokenByContract = async (contractAddress: string) => {\n1033:        const newToken: WalletToken = {\n1035:          balance: '0',\n3584:                          const newToken: WalletToken = {\n",
+      "exit": 0,
+      "description": "Find searchTokenByContract new token creation"
+    },
+    "title": "grep -n \"searchTokenByContract\\|newToken.*WalletToken\\|balance: '0'\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772127074921,
+      "end": 1772127074928
+    }
+  }
+}

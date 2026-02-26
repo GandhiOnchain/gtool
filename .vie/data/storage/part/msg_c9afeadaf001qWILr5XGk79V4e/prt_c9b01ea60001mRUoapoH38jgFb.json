@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b01ea60001mRUoapoH38jgFb",
+  "messageID": "msg_c9afeadaf001qWILr5XGk79V4e",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Here's a summary of the root causes and fixes:\n\n**Quote not loading (Solana destination)**\n- Root cause: The `fetchQuote` useEffect only checked if the FROM wallet was connected, not the TO wallet. When destination is Solana (SVM), `solanaAddress` must be present for Relay to generate a valid quote (it's required as `recipient`). Without it, the API call either fails or returns an invalid quote.\n- Fix: Added `hasToWallet` check — when `toChain.vmType === 'svm'`, require `solanaAddress` before triggering the quote. Also added an explicit guard inside `fetchQuote` with a clear error message.\n\n**Batch quote not loading (Solana destination)**\n- Root cause: `fetchBatchQuote` never passed `recipient` to `getMultiInputQuote`. For cross-VM (EVM → Solana), Relay requires a `recipient` (the Solana address). Also the useEffect didn't depend on `solanaAddress` so it wouldn't re-trigger when the Solana wallet connected.\n- Fix: Added `recipient` param derived from `solanaAddress` when destination is SVM, added `solanaAddress` to the useEffect dependency array, and added an early return guard when Solana wallet is missing.\n\n**Batch only showing native tokens**\n- Root cause: The batch tab displayed `batchTokens` which was set to all detected tokens — but the UI had no way to distinguish \"detected\" from \"selected for swap\". All tokens were auto-included, but if Alchemy token discovery failed, only the native token (always fetched via `getBalance`) would appear.\n- Fix: Added a `selected` boolean field to `WalletToken`. All detected tokens default to `selected: true`. The batch tab now shows all tokens with checkboxes, a \"Select All / Deselect All\" toggle, and only selected tokens are included in the quote and execution.",
+  "time": {
+    "start": 1772127130326,
+    "end": 1772127130326
+  }
+}

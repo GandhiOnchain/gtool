@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9affc854001zo7SsyUHunzZr6",
+  "messageID": "msg_c9afeadaf001qWILr5XGk79V4e",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01N397Bxd6ivzFoBxybT4Ld6",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 385,
+      "limit": 60
+    },
+    "output": "<file>\n00386|     const fromVMType = fromChain?.vmType || 'evm'\n00387|     const hasWallet = fromVMType === 'svm' ? !!solanaAddress : !!address\n00388|     if (fromToken && toToken && fromAmount && fromChain && toChain && hasWallet) {\n00389|       const debounce = setTimeout(() => {\n00390|         fetchQuote()\n00391|       }, 500)\n00392|       return () => clearTimeout(debounce)\n00393|     }\n00394|   }, [fromToken, toToken, fromAmount, fromChain, toChain, address, solanaAddress])\n00395| \n00396|   useEffect(() => {\n00397|     if (address && chains.length > 0) {\n00398|       loadUserStreak()\n00399|     }\n00400|   }, [address, chains])\n00401| \n00402| \n00403| \n00404|   useEffect(() => {\n00405|     if (address && fromChain && isConnected) {\n00406|       loadWalletTokens()\n00407|       if (!chainWalletTokens[fromChain.id]) {\n00408|         loadTokensForChain(fromChain)\n00409|       }\n00410|     }\n00411|   }, [address, fromChain, isConnected])\n00412| \n00413|   useEffect(() => {\n00414|     if (address && toChain && isConnected && !chainWalletTokens[toChain.id]) {\n00415|       loadTokensForChain(toChain)\n00416|     }\n00417|   }, [address, toChain, isConnected])\n00418| \n00419|   useEffect(() => {\n00420|     setBatchTokens([])\n00421|     setWalletTokens([])\n00422|     if (batchChain) {\n00423|       const vmType = batchChain.vmType || 'evm'\n00424|       const hasRequiredWallet = (vmType === 'svm' && solanaAddress) ||\n00425|                                 ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)\n00426|       if (hasRequiredWallet) {\n00427|         loadBatchWalletTokens()\n00428|       }\n00429|     }\n00430|   }, [address, batchChain, isConnected, solanaAddress])\n00431| \n00432|   // Fetch batch quote when batch tokens or destination changes\n00433|   useEffect(() => {\n00434|     if (batchTokens.length > 0 && toToken && toChain && batchChain && address) {\n00435|       const debounce = setTimeout(() => {\n00436|         fetchBatchQuote()\n00437|       }, 500)\n00438|       return () => clearTimeout(debounce)\n00439|     } else {\n00440|       setBatchQuote(null)\n00441|     }\n00442|   }, [batchTokens, toToken, toChain, batchChain, address])\n00443| \n00444|   // Load approvals when revoke chain changes\n00445|   useEffect(() => {\n\n(File has more lines. Use 'offset' parameter to read beyond line 445)\n</file>",
+    "metadata": {
+      "preview": "    const fromVMType = fromChain?.vmType || 'evm'\n    const hasWallet = fromVMType === 'svm' ? !!solanaAddress : !!address\n    if (fromToken && toToken && fromAmount && fromChain && toChain && hasWallet) {\n      const debounce = setTimeout(() => {\n        fetchQuote()\n      }, 500)\n      return () => clearTimeout(debounce)\n    }\n  }, [fromToken, toToken, fromAmount, fromChain, toChain, address, solanaAddress])\n\n  useEffect(() => {\n    if (address && chains.length > 0) {\n      loadUserStreak()\n    }\n  }, [address, chains])\n\n\n\n  useEffect(() => {\n    if (address && fromChain && isConnected) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772126980871,
+      "end": 1772126980874
+    }
+  }
+}

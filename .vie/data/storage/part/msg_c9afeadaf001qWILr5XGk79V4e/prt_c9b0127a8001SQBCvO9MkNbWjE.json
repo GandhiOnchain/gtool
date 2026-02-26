@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9b0127a8001SQBCvO9MkNbWjE",
+  "messageID": "msg_c9afeadaf001qWILr5XGk79V4e",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01JJ3h1Bo2k5gGNdEXSnz3FN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1070,
+      "limit": 20
+    },
+    "output": "<file>\n01071|       \n01072|       const includedSources = Object.entries(enabledSources)\n01073|         .filter(([_, enabled]) => enabled)\n01074|         .map(([source]) => source)\n01075|       \n01076|       const fromVMType = fromChain.vmType || 'evm'\n01077|       const toVMType = toChain.vmType || 'evm'\n01078|       const isCrossVM = fromVMType !== toVMType\n01079|       \n01080|       // Use the appropriate address based on the origin chain type\n01081|       const userAddress = fromVMType === 'svm' ? solanaAddress : address\n01082|       \n01083|       if (!userAddress) {\n01084|         toast.error(`Please connect your ${fromVMType === 'svm' ? 'Solana' : 'EVM'} wallet`)\n01085|         setIsLoadingQuote(false)\n01086|         return\n01087|       }\n01088|       \n01089|       const crossVMRecipient = isCrossVM\n01090|         ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined\n\n(File has more lines. Use 'offset' parameter to read beyond line 1090)\n</file>",
+    "metadata": {
+      "preview": "      \n      const includedSources = Object.entries(enabledSources)\n        .filter(([_, enabled]) => enabled)\n        .map(([source]) => source)\n      \n      const fromVMType = fromChain.vmType || 'evm'\n      const toVMType = toChain.vmType || 'evm'\n      const isCrossVM = fromVMType !== toVMType\n      \n      // Use the appropriate address based on the origin chain type\n      const userAddress = fromVMType === 'svm' ? solanaAddress : address\n      \n      if (!userAddress) {\n        toast.error(`Please connect your ${fromVMType === 'svm' ? 'Solana' : 'EVM'} wallet`)\n        setIsLoadingQuote(false)\n        return\n      }\n      \n      const crossVMRecipient = isCrossVM\n        ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772127070816,
+      "end": 1772127070819
+    }
+  }
+}

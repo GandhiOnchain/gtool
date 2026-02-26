@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b0125cb001Akwir4gz0QSors",
+  "messageID": "msg_c9afeadaf001qWILr5XGk79V4e",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Also fix `searchTokenByContract` to mark new tokens as selected:",
+  "time": {
+    "start": 1772127070852,
+    "end": 1772127070852
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9affd18a001LqjPBihWrXI1PS",
+  "messageID": "msg_c9afeadaf001qWILr5XGk79V4e",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now I'll make all the fixes. Let me start with the critical ones:\n\n**Fix 1**: The `fetchQuote` useEffect - add check for `solanaAddress` when `toChain` is SVM\n**Fix 2**: The `fetchBatchQuote` useEffect - add `solanaAddress` dependency and check\n**Fix 3**: `fetchBatchQuote` function - pass `recipient` for Solana destination\n**Fix 4**: `fetchQuote` function - ensure recipient is properly handled\n**Fix 5**: Batch tab - show `walletTokens` with checkboxes, `batchTokens` = selected subset",
+  "time": {
+    "start": 1772126987730,
+    "end": 1772126987730
+  }
+}

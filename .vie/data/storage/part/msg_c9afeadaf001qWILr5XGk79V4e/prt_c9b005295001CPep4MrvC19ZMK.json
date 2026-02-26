@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9b005295001CPep4MrvC19ZMK",
+  "messageID": "msg_c9afeadaf001qWILr5XGk79V4e",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_015eq8y7YJV2pDTm5RWukkg4",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1479,
+      "limit": 50
+    },
+    "output": "<file>\n01480|         user: address,\n01481|         origins,\n01482|         destinationCurrency: toToken.address,\n01483|         destinationChainId: toChain.id,\n01484|         tradeType: 'EXACT_INPUT',\n01485|         recipient: batchRecipient,\n01486|       })\n01487| \n01488|       console.log('Batch quote received:', multiQuote)\n01489|       setBatchQuote(multiQuote)\n01490|     } catch (error) {\n01491|       console.error('Failed to fetch batch quote:', error)\n01492|       setBatchQuote(null)\n01493|     } finally {\n01494|       setIsLoadingBatchQuote(false)\n01495|     }\n01496|   }\n01497| \n01498|   const executeBatchSwap = async () => {\n01499|     if (!toToken || !toChain || !address || batchTokens.length === 0 || !batchChain) {\n01500|       toast.error('Please select chain and tokens to swap')\n01501|       return\n01502|     }\n01503| \n01504|     if (!isConnected) {\n01505|       toast.error('Please connect your wallet first')\n01506|       return\n01507|     }\n01508| \n01509|     // Check if we need to switch chains\n01510|     if (connectedChainId !== batchChain.id) {\n01511|       console.log('Switching chain from', connectedChainId, 'to', batchChain.id)\n01512|       try {\n01513|         await switchChain({ chainId: batchChain.id })\n01514|         toast.success('Chain switched successfully')\n01515|         await new Promise(resolve => setTimeout(resolve, 500))\n01516|       } catch (switchError) {\n01517|         console.error('Failed to switch chain:', switchError)\n01518|         toast.error('Please switch to the correct network in your wallet')\n01519|         return\n01520|       }\n01521|     }\n01522| \n01523|     setIsSwapping(true)\n01524|     try {\n01525|       // Get a fresh quote for execution\n01526|       const origins = batchTokens\n01527|         .filter(bt => parseFloat(bt.balanceFormatted) > 0)\n01528|         .map(bt => ({\n01529|           chainId: batchChain.id,\n\n(File has more lines. Use 'offset' parameter to read beyond line 1529)\n</file>",
+    "metadata": {
+      "preview": "        user: address,\n        origins,\n        destinationCurrency: toToken.address,\n        destinationChainId: toChain.id,\n        tradeType: 'EXACT_INPUT',\n        recipient: batchRecipient,\n      })\n\n      console.log('Batch quote received:', multiQuote)\n      setBatchQuote(multiQuote)\n    } catch (error) {\n      console.error('Failed to fetch batch quote:', error)\n      setBatchQuote(null)\n    } finally {\n      setIsLoadingBatchQuote(false)\n    }\n  }\n\n  const executeBatchSwap = async () => {\n    if (!toToken || !toChain || !address || batchTokens.length === 0 || !batchChain) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772127016334,
+      "end": 1772127016335
+    }
+  }
+}
