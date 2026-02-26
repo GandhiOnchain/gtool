@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9a129ee5001RP0gRu4T8LkQJr",
+  "messageID": "msg_c9a1220e9001jWfAXwiz3F4vZT",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_016D6UeRk3g3kiUanDnqYZcF",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 100,
+      "limit": 75
+    },
+    "output": "<file>\n00101| \n00102| function TokenRow({ token, chainId }: { token: { address: string; symbol: string; name: string; balanceFormatted: string; valueUsd: number; priceUsd: number; logo?: string }; chainId: number }) {\n00103|   const [logoIndex, setLogoIndex] = useState(0)\n00104|   const [showFallback, setShowFallback] = useState(false)\n00105|   const [isLoading, setIsLoading] = useState(true)\n00106|   \n00107|   // Get all possible logo URLs\n00108|   const logoUrls = React.useMemo(() => {\n00109|     const urls = getTokenLogoFallbacks(\n00110|       token.address === 'native' ? null : token.address,\n00111|       chainId,\n00112|       token.symbol\n00113|     )\n00114|     \n00115|     // Add Zapper/Moralis logo at the beginning if it exists and is HTTPS\n00116|     // Zapper and Moralis logos are high quality and should be prioritized\n00117|     if (token.logo && token.logo.trim() !== '' && token.logo.startsWith('https://')) {\n00118|       urls.unshift(token.logo)\n00119|     }\n00120|     \n00121|     return urls\n00122|   }, [token.address, token.logo, token.symbol, chainId])\n00123|   \n00124|   const handleImageError = () => {\n00125|     if (logoIndex < logoUrls.length - 1) {\n00126|       setLogoIndex(logoIndex + 1)\n00127|     } else {\n00128|       setShowFallback(true)\n00129|       setIsLoading(false)\n00130|     }\n00131|   }\n00132|   \n00133|   const handleImageLoad = () => {\n00134|     setIsLoading(false)\n00135|   }\n00136|   \n00137|   return (\n00138|     <div className=\"flex items-center justify-between text-xs\">\n00139|       <div className=\"flex items-center gap-2 flex-1 min-w-0\">\n00140|         {!showFallback && logoUrls[logoIndex] ? (\n00141|           <>\n00142|             {isLoading && (\n00143|               <div className=\"h-5 w-5 rounded-full bg-muted flex-shrink-0 animate-pulse\" />\n00144|             )}\n00145|             <img \n00146|               key={logoIndex}\n00147|               src={logoUrls[logoIndex]} \n00148|               alt={token.symbol} \n00149|               className={`h-5 w-5 rounded-full flex-shrink-0 object-cover bg-muted ${isLoading ? 'hidden' : ''}`}\n00150|               onError={handleImageError}\n00151|               onLoad={handleImageLoad}\n00152|             />\n00153|           </>\n00154|         ) : (\n00155|           <div className=\"h-5 w-5 rounded-full bg-muted flex-shrink-0 flex items-center justify-center text-[8px] font-bold\">\n00156|             {token.symbol.slice(0, 2)}\n00157|           </div>\n00158|         )}\n00159|         <div className=\"min-w-0 flex-1\">\n00160|           <div className=\"font-medium\">{token.symbol}</div>\n00161|           <div className=\"text-muted-foreground truncate\">{token.balanceFormatted}</div>\n00162|         </div>\n00163|       </div>\n00164|       <div className=\"text-right flex-shrink-0\">\n00165|         <div className=\"font-medium\">${token.valueUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>\n00166|         <div className=\"text-muted-foreground\">${token.priceUsd.toFixed(4)}</div>\n00167|       </div>\n00168|     </div>\n00169|   )\n00170| }\n00171| \n00172| export default function RelaySwap() {\n00173|   const { address, isConnected, chainId: connectedChainId, connector } = useAccount()\n00174|   const { connect, connectors } = useConnect()\n00175|   const { disconnect } = useWallet()\n\n(File has more lines. Use 'offset' parameter to read beyond line 175)\n</file>",
+    "metadata": {
+      "preview": "\nfunction TokenRow({ token, chainId }: { token: { address: string; symbol: string; name: string; balanceFormatted: string; valueUsd: number; priceUsd: number; logo?: string }; chainId: number }) {\n  const [logoIndex, setLogoIndex] = useState(0)\n  const [showFallback, setShowFallback] = useState(false)\n  const [isLoading, setIsLoading] = useState(true)\n  \n  // Get all possible logo URLs\n  const logoUrls = React.useMemo(() => {\n    const urls = getTokenLogoFallbacks(\n      token.address === 'native' ? null : token.address,\n      chainId,\n      token.symbol\n    )\n    \n    // Add Zapper/Moralis logo at the beginning if it exists and is HTTPS\n    // Zapper and Moralis logos are high quality and should be prioritized\n    if (token.logo && token.logo.trim() !== '' && token.logo.startsWith('https://')) {\n      urls.unshift(token.logo)\n    }\n    "
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772111438661,
+      "end": 1772111438664
+    }
+  }
+}

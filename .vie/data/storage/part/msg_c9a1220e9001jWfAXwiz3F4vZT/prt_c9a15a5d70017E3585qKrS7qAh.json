@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a15a5d70017E3585qKrS7qAh",
+  "messageID": "msg_c9a1220e9001jWfAXwiz3F4vZT",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Here's what was fixed and why:\n\n**Only native token shown in batch**\n- Root cause: `alchemy_getTokenBalances` with `'erc20'` requires a paid Alchemy key — with `'demo'` it returns an error, so `alchemyDetected` was empty. The fallback then checked the Relay default list via `readContract`, but only tokens already in that list would show up.\n- Fix: Now tries `'erc20'` first, then falls back to `'DEFAULT_TOKENS'` (which works with the demo key). Also always runs the Relay list check afterward to catch any tokens Alchemy missed — skipping addresses already found.\n\n**Logos not shown**\n- Root cause: Token selector only checked `currency.metadata?.logoURI` which is `null` for most tokens from the Relay API.\n- Fix: Added a `TokenLogo` component that uses `getTokenLogoFallbacks` (tries cryptocurrency-icons CDN → TrustWallet assets) with a text fallback. Used everywhere: token selector, batch list, from/to token buttons, trending tokens.\n\n**Tokens with balance not first**\n- Root cause: `filteredCurrencies` had no sorting — tokens appeared in API response order.\n- Fix: Added `chainWalletTokens` state (a map of `chainId → WalletToken[]`). When from/to/batch chain changes, wallet tokens are loaded for that chain. The token selector sorts by wallet balance descending, with native tokens prioritized when balance is equal.\n\n**Per-chain balance loading**\n- Added `loadTokensForChain` — a lightweight version of the batch loader that populates `chainWalletTokens` for any EVM chain. Triggered automatically when `fromChain` or `toChain` changes.",
+  "time": {
+    "start": 1772111646684,
+    "end": 1772111646684
+  }
+}

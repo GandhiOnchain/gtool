@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a132ef4001mOEH2pdkBiuqFK",
+  "messageID": "msg_c9a1220e9001jWfAXwiz3F4vZT",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now fix the `filteredCurrencies` computation to sort tokens-with-balance first, and update the token selector rendering to use `TokenLogo` and show balances. First update the sort logic:",
+  "time": {
+    "start": 1772111485060,
+    "end": 1772111485060
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a14c017001JTYCxGZ6bwNKOv",
+  "messageID": "msg_c9a1220e9001jWfAXwiz3F4vZT",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now also make sure the from/to chain wallet tokens are loaded when the chain changes (not just batch). Add a `useEffect` to load wallet tokens for the from chain:",
+  "time": {
+    "start": 1772111579557,
+    "end": 1772111579557
+  }
+}

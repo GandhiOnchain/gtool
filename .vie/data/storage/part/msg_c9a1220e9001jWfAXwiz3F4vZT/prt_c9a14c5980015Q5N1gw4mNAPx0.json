@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9a14c5980015Q5N1gw4mNAPx0",
+  "messageID": "msg_c9a1220e9001jWfAXwiz3F4vZT",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01RaacLxzr9KUVGocRq4a3tz",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 355,
+      "limit": 35
+    },
+    "output": "<file>\n00356|   useEffect(() => {\n00357|     if (fromChain) {\n00358|       // Clear fromToken if it doesn't belong to the new chain\n00359|       if (fromToken && fromToken.chainId !== fromChain.id) {\n00360|         setFromToken(null)\n00361|       }\n00362|       loadCurrencies(fromChain.id, 'from')\n00363|     }\n00364|   }, [fromChain])\n00365| \n00366|   useEffect(() => {\n00367|     if (toChain) {\n00368|       // Clear toToken if it doesn't belong to the new chain\n00369|       if (toToken && toToken.chainId !== toChain.id) {\n00370|         setToToken(null)\n00371|       }\n00372|       loadCurrencies(toChain.id, 'to')\n00373|     }\n00374|   }, [toChain])\n00375| \n00376|   useEffect(() => {\n00377|     if (fromToken && toToken && fromAmount && fromChain && toChain && address) {\n00378|       const debounce = setTimeout(() => {\n00379|         fetchQuote()\n00380|       }, 500)\n00381|       return () => clearTimeout(debounce)\n00382|     }\n00383|   }, [fromToken, toToken, fromAmount, fromChain, toChain, address])\n00384| \n00385|   useEffect(() => {\n00386|     if (address && chains.length > 0) {\n00387|       loadUserStreak()\n00388|     }\n00389|   }, [address, chains])\n00390| \n\n(File has more lines. Use 'offset' parameter to read beyond line 390)\n</file>",
+    "metadata": {
+      "preview": "  useEffect(() => {\n    if (fromChain) {\n      // Clear fromToken if it doesn't belong to the new chain\n      if (fromToken && fromToken.chainId !== fromChain.id) {\n        setFromToken(null)\n      }\n      loadCurrencies(fromChain.id, 'from')\n    }\n  }, [fromChain])\n\n  useEffect(() => {\n    if (toChain) {\n      // Clear toToken if it doesn't belong to the new chain\n      if (toToken && toToken.chainId !== toChain.id) {\n        setToToken(null)\n      }\n      loadCurrencies(toChain.id, 'to')\n    }\n  }, [toChain])\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772111579516,
+      "end": 1772111579518
+    }
+  }
+}

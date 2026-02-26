@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a12ef750019TUxunkqAkcBrI",
+  "messageID": "msg_c9a1220e9001jWfAXwiz3F4vZT",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now fix the token selector to: use `TokenLogo`, show balances, sort tokens-with-balance first. First I need to track per-chain wallet balances for the from/to selectors. Let me add a `walletBalanceMap` state that maps `chainId:address` → formatted balance, populated when batch tokens load and also when EVM balances are fetched:\n\nActually the cleanest approach is: in the token selector, compute a balance map from `walletTokens` (for batch) and from the EVM balance hooks (for from/to). Let me add a state for \"from chain wallet tokens\" and \"to chain wallet tokens\":",
+  "time": {
+    "start": 1772111462498,
+    "end": 1772111462498
+  }
+}

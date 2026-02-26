@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a13d986001g6j3pYKgyR6pVP",
+  "messageID": "msg_c9a1220e9001jWfAXwiz3F4vZT",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Now fix the from/to token buttons in the swap UI to also use `TokenLogo`:",
+  "time": {
+    "start": 1772111519744,
+    "end": 1772111519744
+  }
+}

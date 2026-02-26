@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9a14d051001H2IIRZ380WaZxd",
+  "messageID": "msg_c9a1220e9001jWfAXwiz3F4vZT",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_019daRFGzeDPAGqgHxMtpg3c",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 390,
+      "limit": 20
+    },
+    "output": "<file>\n00391| \n00392| \n00393|   useEffect(() => {\n00394|     if (address && fromChain && isConnected) {\n00395|       loadWalletTokens()\n00396|     }\n00397|   }, [address, fromChain, isConnected])\n00398| \n00399|   useEffect(() => {\n00400|     if (batchChain) {\n00401|       const vmType = batchChain.vmType || 'evm'\n00402|       // For EVM chains, need EVM wallet connected\n00403|       // For Solana chains, need Solana wallet connected\n00404|       const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n00405|                                 ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)\n00406|       \n00407|       if (hasRequiredWallet) {\n00408|         loadBatchWalletTokens()\n00409|       }\n00410|     }\n\n(File has more lines. Use 'offset' parameter to read beyond line 410)\n</file>",
+    "metadata": {
+      "preview": "\n\n  useEffect(() => {\n    if (address && fromChain && isConnected) {\n      loadWalletTokens()\n    }\n  }, [address, fromChain, isConnected])\n\n  useEffect(() => {\n    if (batchChain) {\n      const vmType = batchChain.vmType || 'evm'\n      // For EVM chains, need EVM wallet connected\n      // For Solana chains, need Solana wallet connected\n      const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n                                ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)\n      \n      if (hasRequiredWallet) {\n        loadBatchWalletTokens()\n      }\n    }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772111581839,
+      "end": 1772111581840
+    }
+  }
+}

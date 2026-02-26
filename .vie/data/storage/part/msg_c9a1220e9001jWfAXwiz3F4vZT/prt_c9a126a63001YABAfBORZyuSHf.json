@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a126a63001YABAfBORZyuSHf",
+  "messageID": "msg_c9a1220e9001jWfAXwiz3F4vZT",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "The core issues are:\n\n1. **Only native token shown in batch** — Alchemy `alchemy_getTokenBalances` returns token addresses, then the code does `readContract(balanceOf)` to verify — but Alchemy already confirmed non-zero balance. The re-check via viem's `readContract` may be failing silently for many tokens. Also the Relay currency map lookup uses `relayCurrencyMap.get(addr)` but Alchemy addresses are already lowercased while Relay map keys are also lowercased — that should work. The real issue is likely that `alchemy_getTokenBalances` with `'erc20'` param requires a paid Alchemy key; with `'demo'` it returns nothing, so `alchemyTokenAddresses` stays empty, and then the fallback checks the Relay default list (only ~100 tokens) via `readContract` — but many user tokens aren't in that list.\n\n2. **Logos not shown** — token selector only checks `currency.metadata?.logoURI` which is often null. Need to use `getTokenLogoFallbacks`.\n\n3. **Tokens with balance not first** — the `filteredCurrencies` list doesn't know about wallet balances for the from/to selectors.\n\nLet me fix all of these:",
+  "time": {
+    "start": 1772111434409,
+    "end": 1772111434409
+  }
+}

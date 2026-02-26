@@ -99,6 +99,38 @@ const STREAK_MESSAGES = [
   "✨ Brilliant! Your streak shines!",
 ]
 
+function TokenLogo({ address, chainId, symbol, logoURI, size = 5 }: { address?: string; chainId: number; symbol: string; logoURI?: string; size?: number }) {
+  const [logoIndex, setLogoIndex] = useState(0)
+  const [showFallback, setShowFallback] = useState(false)
+
+  const logoUrls = React.useMemo(() => {
+    const urls = getTokenLogoFallbacks(address || null, chainId, symbol)
+    if (logoURI && logoURI.startsWith('https://')) urls.unshift(logoURI)
+    return urls
+  }, [address, chainId, symbol, logoURI])
+
+  if (showFallback || logoUrls.length === 0) {
+    return (
+      <div className={`h-${size} w-${size} rounded-full bg-muted flex-shrink-0 flex items-center justify-center text-[8px] font-bold`}>
+        {symbol.slice(0, 2).toUpperCase()}
+      </div>
+    )
+  }
+
+  return (
+    <img
+      key={logoIndex}
+      src={logoUrls[logoIndex]}
+      alt={symbol}
+      className={`h-${size} w-${size} rounded-full flex-shrink-0 object-cover bg-muted`}
+      onError={() => {
+        if (logoIndex < logoUrls.length - 1) setLogoIndex(i => i + 1)
+        else setShowFallback(true)
+      }}
+    />
+  )
+}
+
 function TokenRow({ token, chainId }: { token: { address: string; symbol: string; name: string; balanceFormatted: string; valueUsd: number; priceUsd: number; logo?: string }; chainId: number }) {
   const [logoIndex, setLogoIndex] = useState(0)
   const [showFallback, setShowFallback] = useState(false)
@@ -198,6 +230,7 @@ export default function RelaySwap() {
   const [showSettings, setShowSettings] = useState(false)
   const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])
   const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])
+  const [chainWalletTokens, setChainWalletTokens] = useState<Record<number, WalletToken[]>>({})
   const [contractAddressSearch, setContractAddressSearch] = useState('')
   const [swapSources, setSwapSources] = useState<string[]>([])
   const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})
@@ -360,8 +393,17 @@ export default function RelaySwap() {
   useEffect(() => {
     if (address && fromChain && isConnected) {
       loadWalletTokens()
+      if (!chainWalletTokens[fromChain.id]) {
+        loadTokensForChain(fromChain)
+      }
     }
   }, [address, fromChain, isConnected])
+
+  useEffect(() => {
+    if (address && toChain && isConnected && !chainWalletTokens[toChain.id]) {
+      loadTokensForChain(toChain)
+    }
+  }, [address, toChain, isConnected])
 
   useEffect(() => {
     if (batchChain) {
@@ -736,6 +778,101 @@ export default function RelaySwap() {
     }
   }
 
+  const loadTokensForChain = async (chain: RelayChain) => {
+    const vmType = chain.vmType || 'evm'
+    if (vmType !== 'evm' && vmType !== 'hypevm') return
+    if (!address || !isConnected) return
+
+    const found: WalletToken[] = []
+    try {
+      const chainConfig = defineChain({
+        id: chain.id,
+        name: chain.displayName,
+        nativeCurrency: { name: chain.currency.name, symbol: chain.currency.symbol, decimals: chain.currency.decimals },
+        rpcUrls: { default: { http: [chain.httpRpcUrl] } },
+      })
+      const publicClient = createPublicClient({ chain: chainConfig, transport: http(chain.httpRpcUrl) })
+
+      try {
+        const nativeBal = await publicClient.getBalance({ address: address as `0x${string}` })
+        if (nativeBal > 0n) {
+          found.push({
+            token: { chainId: chain.id, address: '0x0000000000000000000000000000000000000000', symbol: chain.currency.symbol, name: chain.currency.name, decimals: chain.currency.decimals, metadata: { isNative: true } },
+            balance: nativeBal.toString(),
+            balanceFormatted: formatUnits(nativeBal, chain.currency.decimals),
+          })
+        }
+      } catch { /* ignore */ }
+
+      let relayCurrencies: RelayCurrency[] = []
+      try {
+        const raw = await relayAPI.getCurrencies({ chainIds: [chain.id], defaultList: true, limit: 200 })
+        relayCurrencies = dedupCurrencies(raw)
+      } catch { /* ignore */ }
+      const relayCurrencyMap = new Map(relayCurrencies.map(c => [c.address.toLowerCase(), c]))
+
+      let alchemyDetected: Array<{ address: string; balance: bigint }> = []
+      try {
+        const alchemyNetwork = getAlchemyNetwork(chain.id)
+        const alchemyApiKey = alchemySettings.apiKey || 'demo'
+        const alchemyRpcUrl = `https://${alchemyNetwork.toString()}.g.alchemy.com/v2/${alchemyApiKey}`
+        const tryAlchemy = async (tokenType: string) => {
+          const res = await fetch(alchemyRpcUrl, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'alchemy_getTokenBalances', params: [address, tokenType] }),
+          })
+          const data = await res.json()
+          if (data.error || !data.result?.tokenBalances) return []
+          return data.result.tokenBalances
+            .filter((t: { tokenBalance: string }) => t.tokenBalance && t.tokenBalance !== '0x0000000000000000000000000000000000000000000000000000000000000000')
+            .map((t: { contractAddress: string; tokenBalance: string }) => ({ address: t.contractAddress.toLowerCase(), balance: BigInt(t.tokenBalance) }))
+        }
+        let results = await tryAlchemy('erc20')
+        if (results.length === 0) results = await tryAlchemy('DEFAULT_TOKENS')
+        alchemyDetected = results
+      } catch { /* ignore */ }
+
+      const erc20Abi = [{ name: 'balanceOf', type: 'function', stateMutability: 'view', inputs: [{ name: 'account', type: 'address' }], outputs: [{ name: 'balance', type: 'uint256' }] }] as const
+
+      for (const { address: addr, balance } of alchemyDetected) {
+        if (balance <= 0n) continue
+        const relayCurrency = relayCurrencyMap.get(addr)
+        if (relayCurrency) {
+          found.push({ token: relayCurrency, balance: balance.toString(), balanceFormatted: formatUnits(balance, relayCurrency.decimals) })
+        } else {
+          try {
+            const [decimals, symbol, name] = await Promise.all([
+              publicClient.readContract({ address: addr as `0x${string}`, abi: [{ name: 'decimals', type: 'function', stateMutability: 'view', inputs: [], outputs: [{ type: 'uint8' }] }] as const, functionName: 'decimals' }),
+              publicClient.readContract({ address: addr as `0x${string}`, abi: [{ name: 'symbol', type: 'function', stateMutability: 'view', inputs: [], outputs: [{ type: 'string' }] }] as const, functionName: 'symbol' }),
+              publicClient.readContract({ address: addr as `0x${string}`, abi: [{ name: 'name', type: 'function', stateMutability: 'view', inputs: [], outputs: [{ type: 'string' }] }] as const, functionName: 'name' }),
+            ])
+            found.push({ token: { chainId: chain.id, address: addr, symbol: symbol as string, name: name as string, decimals: decimals as number }, balance: balance.toString(), balanceFormatted: formatUnits(balance, decimals as number) })
+          } catch { /* skip */ }
+        }
+      }
+
+      const alreadyFound = new Set(found.map(t => t.token.address.toLowerCase()))
+      const erc20Currencies = relayCurrencies.filter(c => c.address !== '0x0000000000000000000000000000000000000000' && !alreadyFound.has(c.address.toLowerCase()))
+      const CHUNK = 50
+      for (let i = 0; i < erc20Currencies.length; i += CHUNK) {
+        const chunk = erc20Currencies.slice(i, i + CHUNK)
+        const results = await Promise.allSettled(chunk.map(c => publicClient.readContract({ address: c.address as `0x${string}`, abi: erc20Abi, functionName: 'balanceOf', args: [address as `0x${string}`] })))
+        for (let j = 0; j < chunk.length; j++) {
+          const r = results[j]
+          if (r.status !== 'fulfilled') continue
+          const balance = r.value as bigint
+          if (balance <= 0n) continue
+          found.push({ token: chunk[j], balance: balance.toString(), balanceFormatted: formatUnits(balance, chunk[j].decimals) })
+        }
+      }
+
+      const sorted = found.sort((a, b) => parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted))
+      setChainWalletTokens(prev => ({ ...prev, [chain.id]: sorted }))
+    } catch (e) {
+      console.warn('loadTokensForChain failed for', chain.displayName, e)
+    }
+  }
+
   const loadBatchWalletTokens = async () => {
     if (!batchChain) return
 
@@ -789,45 +926,45 @@ export default function RelaySwap() {
         }
         const relayCurrencyMap = new Map(relayCurrencies.map(c => [c.address.toLowerCase(), c]))
 
-        // Try Alchemy token balances
-        let alchemyTokenAddresses: string[] = []
-        try {
-          const alchemyNetwork = getAlchemyNetwork(chain.id)
-          const alchemyApiKey = alchemySettings.apiKey || 'demo'
-          const alchemyRpcUrl = `https://${alchemyNetwork.toString()}.g.alchemy.com/v2/${alchemyApiKey}`
-          const res = await fetch(alchemyRpcUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'alchemy_getTokenBalances', params: [address, 'erc20'] }),
-          })
-          const data = await res.json()
-          if (data.result?.tokenBalances) {
-            alchemyTokenAddresses = data.result.tokenBalances
-              .filter((t: { tokenBalance: string }) => t.tokenBalance && t.tokenBalance !== '0x0000000000000000000000000000000000000000000000000000000000000000')
-              .map((t: { contractAddress: string }) => t.contractAddress.toLowerCase())
-          }
-        } catch (e) {
-          console.warn('Alchemy not available for chain', chain.id, '- falling back to Relay list')
-        }
-
         const erc20Abi = [{
           name: 'balanceOf', type: 'function', stateMutability: 'view',
           inputs: [{ name: 'account', type: 'address' }],
           outputs: [{ name: 'balance', type: 'uint256' }],
         }] as const
 
-        if (alchemyTokenAddresses.length > 0) {
-          const results = await Promise.allSettled(
-            alchemyTokenAddresses.map(addr =>
-              publicClient.readContract({ address: addr as `0x${string}`, abi: erc20Abi, functionName: 'balanceOf', args: [address as `0x${string}`] })
-            )
-          )
-          for (let i = 0; i < alchemyTokenAddresses.length; i++) {
-            const r = results[i]
-            if (r.status !== 'fulfilled') continue
-            const balance = r.value as bigint
+        // Try Alchemy token balances — try 'erc20' first (paid), fall back to 'DEFAULT_TOKENS' (free)
+        let alchemyDetected: Array<{ address: string; balance: bigint }> = []
+        try {
+          const alchemyNetwork = getAlchemyNetwork(chain.id)
+          const alchemyApiKey = alchemySettings.apiKey || 'demo'
+          const alchemyRpcUrl = `https://${alchemyNetwork.toString()}.g.alchemy.com/v2/${alchemyApiKey}`
+
+          const tryAlchemy = async (tokenType: string) => {
+            const res = await fetch(alchemyRpcUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'alchemy_getTokenBalances', params: [address, tokenType] }),
+            })
+            const data = await res.json()
+            if (data.error || !data.result?.tokenBalances) return []
+            return data.result.tokenBalances
+              .filter((t: { tokenBalance: string }) => t.tokenBalance && t.tokenBalance !== '0x0000000000000000000000000000000000000000000000000000000000000000')
+              .map((t: { contractAddress: string; tokenBalance: string }) => ({
+                address: t.contractAddress.toLowerCase(),
+                balance: BigInt(t.tokenBalance),
+              }))
+          }
+
+          let results = await tryAlchemy('erc20')
+          if (results.length === 0) results = await tryAlchemy('DEFAULT_TOKENS')
+          alchemyDetected = results
+        } catch (e) {
+          console.warn('Alchemy not available for chain', chain.id, '- falling back to Relay list')
+        }
+
+        if (alchemyDetected.length > 0) {
+          for (const { address: addr, balance } of alchemyDetected) {
             if (balance <= 0n) continue
-            const addr = alchemyTokenAddresses[i]
             const relayCurrency = relayCurrencyMap.get(addr)
             if (relayCurrency) {
               tokensWithBalances.push({ token: relayCurrency, balance: balance.toString(), balanceFormatted: formatUnits(balance, relayCurrency.decimals) })
@@ -846,9 +983,14 @@ export default function RelaySwap() {
               } catch { /* skip unknown token */ }
             }
           }
-        } else if (relayCurrencies.length > 0) {
-          // Fallback: check Relay default list balances
-          const erc20Currencies = relayCurrencies.filter(c => c.address !== '0x0000000000000000000000000000000000000000')
+        }
+
+        // Always check Relay default list too (catches tokens Alchemy may miss)
+        if (relayCurrencies.length > 0) {
+          const erc20Currencies = relayCurrencies.filter(c =>
+            c.address !== '0x0000000000000000000000000000000000000000' &&
+            !tokensWithBalances.some(t => t.token.address.toLowerCase() === c.address.toLowerCase())
+          )
           const CHUNK = 50
           for (let i = 0; i < erc20Currencies.length; i += CHUNK) {
             const chunk = erc20Currencies.slice(i, i + CHUNK)
@@ -935,6 +1077,7 @@ export default function RelaySwap() {
 
       setWalletTokens(sorted)
       setBatchTokens(sorted)
+      setChainWalletTokens(prev => ({ ...prev, [chain.id]: sorted }))
     } catch (error) {
       console.error('Failed to load batch wallet tokens:', error)
       toast.error('Failed to detect tokens')
@@ -2368,6 +2511,10 @@ export default function RelaySwap() {
     }
   }
 
+  const activeChainId = selectingFor === 'from' ? fromChain?.id
+    : selectingFor === 'to' ? toChain?.id
+    : batchChain?.id
+
   const activeCurrencies = selectingFor === 'from' 
     ? fromCurrencies 
     : selectingFor === 'to' 
@@ -2375,6 +2522,12 @@ export default function RelaySwap() {
     : selectingFor === 'batch' && batchChain
     ? currencies.filter(c => c.chainId === batchChain.id)
     : currencies
+
+  const activeWalletTokenMap = React.useMemo(() => {
+    if (!activeChainId) return new Map<string, WalletToken>()
+    const tokens = chainWalletTokens[activeChainId] || []
+    return new Map(tokens.map(wt => [`${wt.token.chainId}:${wt.token.address.toLowerCase()}`, wt]))
+  }, [activeChainId, chainWalletTokens])
   
   const allCurrencies = dedupCurrencies(
     externalSearchResults.length > 0
@@ -2382,11 +2535,22 @@ export default function RelaySwap() {
       : activeCurrencies
   )
   
-  const filteredCurrencies = allCurrencies.filter(currency =>
-    currency.symbol.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||
-    currency.name.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||
-    currency.address.toLowerCase().includes(tokenSearchTerm.toLowerCase())
-  )
+  const filteredCurrencies = allCurrencies
+    .filter(currency =>
+      currency.symbol.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||
+      currency.name.toLowerCase().includes(tokenSearchTerm.toLowerCase()) ||
+      currency.address.toLowerCase().includes(tokenSearchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      const aWallet = activeWalletTokenMap.get(`${a.chainId}:${a.address.toLowerCase()}`)
+      const bWallet = activeWalletTokenMap.get(`${b.chainId}:${b.address.toLowerCase()}`)
+      const aBalance = aWallet ? parseFloat(aWallet.balanceFormatted) : 0
+      const bBalance = bWallet ? parseFloat(bWallet.balanceFormatted) : 0
+      if (bBalance !== aBalance) return bBalance - aBalance
+      if (a.metadata?.isNative && !b.metadata?.isNative) return -1
+      if (!a.metadata?.isNative && b.metadata?.isNative) return 1
+      return 0
+    })
 
   return (
     <div className="min-h-screen bg-background p-2 max-w-[424px] mx-auto">
@@ -2547,8 +2711,8 @@ export default function RelaySwap() {
                     className="flex-1 justify-between h-10 text-xs"
                   >
                     <div className="flex items-center gap-1.5">
-                      {fromToken?.metadata?.logoURI && (
-                        <img src={fromToken.metadata.logoURI} alt="" className="h-4 w-4 rounded-full" />
+                      {fromToken && (
+                        <TokenLogo address={fromToken.metadata?.isNative ? undefined : fromToken.address} chainId={fromToken.chainId} symbol={fromToken.symbol} logoURI={fromToken.metadata?.logoURI} size={4} />
                       )}
                       <span>{fromToken?.symbol || 'Select'}</span>
                     </div>
@@ -2693,8 +2857,8 @@ export default function RelaySwap() {
                     className="flex-1 justify-between h-10 text-xs"
                   >
                     <div className="flex items-center gap-1.5">
-                      {toToken?.metadata?.logoURI && (
-                        <img src={toToken.metadata.logoURI} alt="" className="h-4 w-4 rounded-full" />
+                      {toToken && (
+                        <TokenLogo address={toToken.metadata?.isNative ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />
                       )}
                       <span>{toToken?.symbol || 'Select'}</span>
                     </div>
@@ -2925,9 +3089,12 @@ export default function RelaySwap() {
                         }}
                       >
                         <div className="flex items-center gap-2">
-                          {token.logoURI && (
-                            <img src={token.logoURI} alt="" className="h-5 w-5 rounded-full" />
-                          )}
+                          <TokenLogo
+                            address={token.address}
+                            chainId={token.chainId}
+                            symbol={token.symbol}
+                            logoURI={token.logoURI}
+                          />
                           <div>
                             <div className="font-medium">{token.symbol}</div>
                             <div className="text-muted-foreground text-xs">{token.name}</div>
@@ -2982,9 +3149,13 @@ export default function RelaySwap() {
                     {batchTokens.map((wt, i) => (
                       <div key={i} className="flex items-center gap-2 p-2 border rounded">
                         <div className="flex-1 flex items-center gap-2">
-                          {wt.token.metadata?.logoURI && (
-                            <img src={wt.token.metadata.logoURI} alt="" className="h-4 w-4 rounded-full" />
-                          )}
+                          <TokenLogo
+                            address={wt.token.metadata?.isNative ? undefined : wt.token.address}
+                            chainId={wt.token.chainId}
+                            symbol={wt.token.symbol}
+                            logoURI={wt.token.metadata?.logoURI}
+                            size={4}
+                          />
                           <div className="flex-1">
                             <div className="text-xs font-medium">{wt.token.symbol}</div>
                             <div className="text-xs text-muted-foreground">{parseFloat(wt.balanceFormatted).toFixed(6)}</div>
@@ -3046,8 +3217,8 @@ export default function RelaySwap() {
                       className="flex-1 justify-between h-8 text-xs"
                     >
                       <div className="flex items-center gap-1.5">
-                        {toToken?.metadata?.logoURI && (
-                          <img src={toToken.metadata.logoURI} alt="" className="h-4 w-4 rounded-full" />
+                        {toToken && (
+                          <TokenLogo address={toToken.metadata?.isNative ? undefined : toToken.address} chainId={toToken.chainId} symbol={toToken.symbol} logoURI={toToken.metadata?.logoURI} size={4} />
                         )}
                         <span>{toToken?.symbol || 'Select'}</span>
                       </div>
@@ -3367,7 +3538,9 @@ export default function RelaySwap() {
                       {/* Empty state - no message shown when searching */}
                     </div>
                   ) : (
-                    filteredCurrencies.map((currency) => (
+                    filteredCurrencies.map((currency) => {
+                    const walletToken = activeWalletTokenMap.get(`${currency.chainId}:${currency.address.toLowerCase()}`)
+                    return (
                     <div
                       key={`${currency.chainId}-${currency.address}`}
                       onClick={async () => {
@@ -3474,15 +3647,24 @@ export default function RelaySwap() {
                       }}
                       className="flex items-center gap-2 p-2 rounded hover:bg-accent cursor-pointer"
                     >
-                      {currency.metadata?.logoURI && (
-                        <img src={currency.metadata.logoURI} alt="" className="h-5 w-5 rounded-full" />
-                      )}
-                      <div className="flex-1">
+                      <TokenLogo
+                        address={currency.metadata?.isNative ? undefined : currency.address}
+                        chainId={currency.chainId}
+                        symbol={currency.symbol}
+                        logoURI={currency.metadata?.logoURI}
+                      />
+                      <div className="flex-1 min-w-0">
                         <div className="text-xs font-medium">{currency.symbol}</div>
-                        <div className="text-xs text-muted-foreground">{currency.name}</div>
+                        <div className="text-xs text-muted-foreground truncate">{currency.name}</div>
                       </div>
+                      {walletToken && parseFloat(walletToken.balanceFormatted) > 0 && (
+                        <div className="text-xs text-right flex-shrink-0">
+                          <div className="font-medium">{parseFloat(walletToken.balanceFormatted).toFixed(4)}</div>
+                        </div>
+                      )}
                     </div>
-                    ))
+                    )
+                    })
                   )}
                 </div>
               </ScrollArea>
