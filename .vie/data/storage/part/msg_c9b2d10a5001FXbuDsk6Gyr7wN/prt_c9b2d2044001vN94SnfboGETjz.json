@@ -1,0 +1,22 @@
+{
+  "id": "prt_c9b2d2044001vN94SnfboGETjz",
+  "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+  "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+  "type": "tool",
+  "tool": "webfetch",
+  "callID": "toolu_vrtx_01UXgdXLAAV8eVksD7pCtkH8",
+  "state": {
+    "status": "completed",
+    "input": {
+      "url": "https://docs.0x.org",
+      "format": "markdown"
+    },
+    "output": "0x Docs | 0x Docs\n\n \n\n🌉 Cross-Chain API is in private beta. <a href=\"https://0x.org/products/cross-chain\" target=\"\\_blank\">Request access to start building</a>.\n\nSearch\n\n/\n\nAsk AI\n\n[Contact Support](https://docs.0x.org/docs/introduction/need-help#-contact-developer-support-fastest-direct-help)[Discord](https://discord.com/invite/official0x)[Go to dashboard](https://dashboard.0x.org/create-account)\n\n[Home](/home/home)[Docs](/docs/introduction/welcome)[API Reference](/api-reference/api-overview)[Liquidity Integration](/liquidity-integration/liquidity-integrations)[Changelog](/changelog)\n\n[Home](/home/home)[Docs](/docs/introduction/welcome)[API Reference](/api-reference/api-overview)[Liquidity Integration](/liquidity-integration/liquidity-integrations)[Changelog](/changelog)\n\nLight\n\n# 0x Docs\n\nAsk a question|Copy page|[View as Markdown](https://docs.0x.org/home/home.md \"View this page as plain text\")|More actions\n\n# \n\nWelcome to 0x Docs\n\nEmbed swaps in your onchain app\n\n[\n\nStart building\n\n](/docs/introduction/quickstart/getting-started)\n\n## Quick Links\n\n[\n\nBuild with AI\n\nAccelerate your 0x integration using AI tools\n\n\n\n\n\n\n\n](https://docs.0x.org/docs/introduction/develop-with-ai/using-ai-with-0x)[\n\nBuild with Swap API\n\nGet started with Swap API\n\n\n\n\n\n\n\n](https://docs.0x.org/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api)[\n\nCode Examples\n\nReady-to-use 0x code examples\n\n\n\n\n\n\n\n](https://github.com/0xProject/0x-examples)[\n\nMonetize your app\n\nUnlock new revenue streams with 0x\n\n\n\n\n\n\n\n](/docs/0x-swap-api/guides/monetize-your-app-using-swap)\n\n## Explore 0x APIs\n\n[\n\nSwap API\n\nEmbed swaps into your app\n\n\n\n\n\n\n\n](/docs/0x-swap-api/introduction)[\n\nGasless API\n\nEnable seamless, gasless DeFi transactions\n\n\n\n\n\n\n\n](/docs/gasless-api/introduction)[\n\nTrade Analytics API\n\nTrack & analyze trading activity\n\n\n\n\n\n\n\n](/docs/trade-analytics-api/introduction)\n\n## Dev Resources\n\n[\n\nTroubleshooting\n\nAnswers to common integration issues\n\n\n\n\n\n\n\n](/docs/introduction/faq)[\n\n0x System Status\n\nReal-time 0x system performance updates\n\n\n\n\n\n\n\n](https://0x.statuspal.io/)[\n\n0x Cheat Sheet\n\nQuick reference for supported chains & contract addresses\n\n\n\n\n\n\n\n](/docs/core-concepts/0x-cheat-sheet)\n\nWas this page helpful?\n\nYesNo\n\n[Built with](https://buildwithfern.com/?utm_campaign=buildWith&utm_medium=docs&utm_source=docs.0x.org)\n\n🌉 Cross-Chain API is in private beta. [Request access to start building](https://0x.org/products/cross-chain).\n\n[![Logo](https://files.buildwithfern.com/0x.docs.buildwithfern.com/8d72ef9d3aae4ffa9a6d69e5a7cd4f57a452f39dfa6c219952dd9bfac10e4d92/docs/assets/logo-light.svg)![Logo](https://files.buildwithfern.com/0x.docs.buildwithfern.com/27057be3c7e0478774e84be9f8dc01456f2a2a7db0b75f138391c5c98e18faaf/docs/assets/logo-dark.svg)](https://0x.org/)\n\n[Contact Support](https://docs.0x.org/docs/introduction/need-help#-contact-developer-support-fastest-direct-help)[Discord](https://discord.com/invite/official0x)[Go to dashboard](https://dashboard.0x.org/create-account)",
+    "metadata": {},
+    "title": "https://docs.0x.org (text/html; charset=utf-8)",
+    "time": {
+      "start": 1772129951840,
+      "end": 1772129952041
+    }
+  }
+}

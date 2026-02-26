@@ -1,0 +1,61 @@
+{
+  "id": "prt_c9b2e4a31001FWgQ01xCc2jEgJ",
+  "messageID": "msg_c9b2ce4a5001eGutdgDQHAhO6C",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01YWtTPhC6KxtN8rBCkDUcob",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Add GoPlus security scanning to fetchWalletTokens for batch cleanup",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add spam/risk UI indicators on batch token list",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "medium",
+          "id": "3"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Add GoPlus security scanning to fetchWalletTokens for batch cleanup\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Add spam/risk UI indicators on batch token list\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"pending\",\n    \"priority\": \"medium\",\n    \"id\": \"3\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Add GoPlus security scanning to fetchWalletTokens for batch cleanup",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add spam/risk UI indicators on batch token list",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "medium",
+          "id": "3"
+        }
+      ]
+    },
+    "title": "3 todos",
+    "time": {
+      "start": 1772130030174,
+      "end": 1772130030174
+    }
+  }
+}

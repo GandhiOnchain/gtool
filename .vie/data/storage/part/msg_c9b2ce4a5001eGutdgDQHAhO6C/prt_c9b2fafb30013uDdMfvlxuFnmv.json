@@ -1,0 +1,61 @@
+{
+  "id": "prt_c9b2fafb30013uDdMfvlxuFnmv",
+  "messageID": "msg_c9b2ce4a5001eGutdgDQHAhO6C",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_014Wuuyuy1vf6S9EPMKhSdnE",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Add GoPlus security scanning to fetchWalletTokens for batch cleanup",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add spam/risk UI indicators on batch token list",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "completed",
+          "priority": "medium",
+          "id": "3"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Add GoPlus security scanning to fetchWalletTokens for batch cleanup\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Add spam/risk UI indicators on batch token list\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"completed\",\n    \"priority\": \"medium\",\n    \"id\": \"3\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Add GoPlus security scanning to fetchWalletTokens for batch cleanup",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add spam/risk UI indicators on batch token list",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "completed",
+          "priority": "medium",
+          "id": "3"
+        }
+      ]
+    },
+    "title": "0 todos",
+    "time": {
+      "start": 1772130121674,
+      "end": 1772130121675
+    }
+  }
+}

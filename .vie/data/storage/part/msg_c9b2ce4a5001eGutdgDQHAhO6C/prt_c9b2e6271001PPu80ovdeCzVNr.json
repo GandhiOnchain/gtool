@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b2e6271001PPu80ovdeCzVNr",
+  "messageID": "msg_c9b2ce4a5001eGutdgDQHAhO6C",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "First, add a `risk` field to `WalletToken` and a GoPlus scanning function:",
+  "time": {
+    "start": 1772130037148,
+    "end": 1772130037148
+  }
+}

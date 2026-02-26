@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b2ecd75001TaSIcl5TxcV5JI",
+  "messageID": "msg_c9b2ce4a5001eGutdgDQHAhO6C",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now call the scanner in `loadBatchWalletTokens` after tokens are fetched, and attach risk data:",
+  "time": {
+    "start": 1772130063827,
+    "end": 1772130063827
+  }
+}

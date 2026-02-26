@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b2fc08b001SJa7jIgHA8DGSH",
+  "messageID": "msg_c9b2ce4a5001eGutdgDQHAhO6C",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Here's what was integrated:\n\n**GoPlus Security API** (`api.gopluslabs.io`) — free, no API key needed, supports all your chains.\n\n**What it checks per token:**\n- Honeypot detection (can't sell)\n- Hidden owner / owner can reclaim control\n- Self-destruct capability\n- Buy/sell tax (flags >5% as low risk, >10% as medium)\n- Transfer pausable\n- Mintable supply\n- Unverified contract\n- Creator made other honeypots\n\n**Behavior:**\n- Runs in batches of 50 tokens after wallet scan completes\n- **High risk / honeypots** → auto-deselected, red border, \"Honeypot\" or \"High Risk\" badge, sorted to the bottom\n- **Medium risk** → yellow border, \"Caution\" badge, first flag shown as subtitle\n- **Safe tokens** → sorted logo-first by balance descending as before\n- Status line shows `12/15 selected · 3 flagged` when risks are found\n- 8s timeout so it never blocks the UI if GoPlus is slow",
+  "time": {
+    "start": 1772130131545,
+    "end": 1772130131545
+  }
+}

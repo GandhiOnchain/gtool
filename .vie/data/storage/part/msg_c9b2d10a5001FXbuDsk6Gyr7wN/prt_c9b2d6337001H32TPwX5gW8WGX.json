@@ -1,0 +1,20 @@
+{
+  "id": "prt_c9b2d6337001H32TPwX5gW8WGX",
+  "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+  "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+  "type": "tool",
+  "tool": "webfetch",
+  "callID": "toolu_vrtx_01Mt3mkVHFBYAuQ1qBgoevoX",
+  "state": {
+    "status": "error",
+    "input": {
+      "url": "https://docs.0x.org/0x-swap-api/introduction",
+      "format": "markdown"
+    },
+    "error": "Error: Request failed with status code: 404",
+    "time": {
+      "start": 1772129969419,
+      "end": 1772129969635
+    }
+  }
+}

@@ -79,12 +79,20 @@ interface UserStreak {
   totalSwaps: number
 }
 
+interface TokenRisk {
+  isSpam: boolean
+  isHoneypot: boolean
+  riskLevel: 'safe' | 'low' | 'medium' | 'high'
+  flags: string[]
+}
+
 interface WalletToken {
   token: RelayCurrency
   balance: string
   balanceFormatted: string
   balanceUsd?: string
   selected?: boolean
+  risk?: TokenRisk
 }
 
 const STREAK_MESSAGES = [
@@ -816,6 +824,69 @@ export default function RelaySwap() {
     }
   }
 
+  const scanTokensWithGoPlus = async (
+    tokenAddresses: string[],
+    chainId: number
+  ): Promise<Map<string, TokenRisk>> => {
+    const result = new Map<string, TokenRisk>()
+    if (tokenAddresses.length === 0) return result
+
+    const BATCH = 50
+    for (let i = 0; i < tokenAddresses.length; i += BATCH) {
+      const batch = tokenAddresses.slice(i, i + BATCH)
+      try {
+        const res = await fetch(
+          `https://api.gopluslabs.io/api/v1/token_security/${chainId}?contract_addresses=${batch.join(',')}`,
+          { signal: AbortSignal.timeout(8000) }
+        )
+        if (!res.ok) continue
+        const data = await res.json()
+        if (data.code !== 1 || !data.result) continue
+
+        for (const [addr, info] of Object.entries(data.result as Record<string, Record<string, string>>)) {
+          const flags: string[] = []
+          let riskLevel: TokenRisk['riskLevel'] = 'safe'
+
+          const isHoneypot = info.is_honeypot === '1'
+          const isOpenSource = info.is_open_source === '1'
+          const isProxy = info.is_proxy === '1'
+          const canTakeBackOwnership = info.can_take_back_ownership === '1'
+          const ownerChangeBalance = info.owner_change_balance === '1'
+          const hiddenOwner = info.hidden_owner === '1'
+          const selfDestruct = info.selfdestruct === '1'
+          const externalCall = info.external_call === '1'
+          const buyTax = parseFloat(info.buy_tax || '0')
+          const sellTax = parseFloat(info.sell_tax || '0')
+          const isBlacklisted = info.is_blacklisted === '1'
+          const isWhitelisted = info.is_whitelisted === '1'
+          const transferPausable = info.transfer_pausable === '1'
+          const isMintable = info.is_mintable === '1'
+          const honeypotWithSameCreator = info.honeypot_with_same_creator === '1'
+
+          if (isHoneypot) { flags.push('Honeypot'); riskLevel = 'high' }
+          if (hiddenOwner) { flags.push('Hidden owner'); riskLevel = 'high' }
+          if (canTakeBackOwnership) { flags.push('Owner can reclaim'); riskLevel = 'high' }
+          if (selfDestruct) { flags.push('Self-destruct'); riskLevel = 'high' }
+          if (honeypotWithSameCreator) { flags.push('Creator made honeypots'); riskLevel = 'high' }
+          if (ownerChangeBalance) { flags.push('Owner can change balance'); if (riskLevel === 'safe') riskLevel = 'medium' }
+          if (transferPausable) { flags.push('Transfers pausable'); if (riskLevel === 'safe') riskLevel = 'medium' }
+          if (isMintable) { flags.push('Mintable'); if (riskLevel === 'safe') riskLevel = 'low' }
+          if (!isOpenSource) { flags.push('Unverified contract'); if (riskLevel === 'safe') riskLevel = 'low' }
+          if (sellTax > 10) { flags.push(`Sell tax ${sellTax}%`); if (riskLevel === 'safe') riskLevel = 'medium' }
+          else if (sellTax > 5) { flags.push(`Sell tax ${sellTax}%`); if (riskLevel === 'safe') riskLevel = 'low' }
+          if (buyTax > 10) { flags.push(`Buy tax ${buyTax}%`); if (riskLevel === 'safe') riskLevel = 'medium' }
+
+          const isSpam = riskLevel === 'high' || isHoneypot
+
+          result.set(addr.toLowerCase(), { isSpam, isHoneypot, riskLevel, flags })
+        }
+      } catch (e) {
+        console.warn('GoPlus scan failed for batch:', e)
+      }
+    }
+    return result
+  }
+
   const fetchWalletTokens = async (chain: RelayChain): Promise<WalletToken[]> => {
     const vmType = chain.vmType || 'evm'
     const found: WalletToken[] = []
@@ -1047,15 +1118,41 @@ export default function RelaySwap() {
     setIsLoadingBatchTokens(true)
     try {
       const tokens = await fetchWalletTokens(chain)
-      const erc20Only = tokens
-        .filter(t => !t.token.metadata?.isNative && !isNativeAddress(t.token.address))
-        .sort((a, b) => {
-          const aHasLogo = !!(a.token.metadata?.logoURI)
-          const bHasLogo = !!(b.token.metadata?.logoURI)
-          if (aHasLogo !== bHasLogo) return aHasLogo ? -1 : 1
-          return parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted)
-        })
-      const tokensWithSelection = erc20Only.map(t => ({ ...t, selected: true }))
+      const erc20Only = tokens.filter(
+        t => !t.token.metadata?.isNative && !isNativeAddress(t.token.address)
+      )
+
+      // GoPlus security scan — only for EVM chains
+      let riskMap = new Map<string, TokenRisk>()
+      const vmType_ = chain.vmType || 'evm'
+      if ((vmType_ === 'evm' || vmType_ === 'hypevm') && erc20Only.length > 0) {
+        const addrs = erc20Only.map(t => t.token.address)
+        riskMap = await scanTokensWithGoPlus(addrs, chain.id)
+        console.log(`GoPlus scanned ${riskMap.size} tokens on ${chain.displayName}`)
+      }
+
+      const withRisk = erc20Only.map(t => ({
+        ...t,
+        risk: riskMap.get(t.token.address.toLowerCase()),
+      }))
+
+      // Sort: safe+logo first by balance desc, then risky tokens last
+      const sorted = withRisk.sort((a, b) => {
+        const aSpam = a.risk?.isSpam || a.risk?.riskLevel === 'high'
+        const bSpam = b.risk?.isSpam || b.risk?.riskLevel === 'high'
+        if (aSpam !== bSpam) return aSpam ? 1 : -1
+        const aHasLogo = !!(a.token.metadata?.logoURI)
+        const bHasLogo = !!(b.token.metadata?.logoURI)
+        if (aHasLogo !== bHasLogo) return aHasLogo ? -1 : 1
+        return parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted)
+      })
+
+      // Auto-deselect spam/high-risk tokens
+      const tokensWithSelection = sorted.map(t => ({
+        ...t,
+        selected: !(t.risk?.isSpam || t.risk?.riskLevel === 'high'),
+      }))
+
       setWalletTokens(tokensWithSelection)
       setBatchTokens(tokensWithSelection)
       setChainWalletTokens(prev => ({ ...prev, [chain.id]: tokens }))
@@ -3174,7 +3271,7 @@ export default function RelaySwap() {
 
                 <div className="flex items-center justify-between">
                   <div className="text-xs text-muted-foreground">
-                    {isLoadingBatchTokens ? 'Scanning for tokens...' : batchTokens.length > 0 ? `${batchTokens.filter(t => t.selected !== false).length}/${batchTokens.length} selected` : batchChain ? 'No tokens with balance found' : 'Select a chain to detect tokens'}
+                    {isLoadingBatchTokens ? 'Scanning & checking security...' : batchTokens.length > 0 ? `${batchTokens.filter(t => t.selected !== false).length}/${batchTokens.length} selected${batchTokens.some(t => t.risk?.isSpam || t.risk?.riskLevel === 'high') ? ` · ${batchTokens.filter(t => t.risk?.isSpam || t.risk?.riskLevel === 'high').length} flagged` : ''}` : batchChain ? 'No tokens with balance found' : 'Select a chain to detect tokens'}
                   </div>
                   {batchTokens.length > 0 && (
                     <Button
@@ -3193,34 +3290,56 @@ export default function RelaySwap() {
 
                 <ScrollArea className="h-48">
                   <div className="space-y-1">
-                    {batchTokens.map((wt, i) => (
-                      <div
-                        key={`${wt.token.chainId}-${wt.token.address}-${i}`}
-                        className={`flex items-center gap-2 p-2 border rounded cursor-pointer transition-colors ${wt.selected !== false ? 'border-accent/50 bg-accent/5' : 'border-border opacity-60'}`}
-                        onClick={() => setBatchTokens(batchTokens.map((t, idx) => idx === i ? { ...t, selected: t.selected === false ? true : false } : t))}
-                      >
-                        <Checkbox
-                          checked={wt.selected !== false}
-                          onCheckedChange={() => setBatchTokens(batchTokens.map((t, idx) => idx === i ? { ...t, selected: t.selected === false ? true : false } : t))}
-                          onClick={e => e.stopPropagation()}
-                          className="flex-shrink-0"
-                        />
-                        <TokenLogo
-                          address={wt.token.metadata?.isNative || isNativeAddress(wt.token.address) ? undefined : wt.token.address}
-                          chainId={wt.token.chainId}
-                          symbol={wt.token.symbol}
-                          logoURI={wt.token.metadata?.logoURI}
-                          size={4}
-                        />
-                        <div className="flex-1 min-w-0">
-                          <div className="text-xs font-medium">{wt.token.symbol}</div>
-                          <div className="text-xs text-muted-foreground truncate">{wt.token.name}</div>
+                    {batchTokens.map((wt, i) => {
+                      const risk = wt.risk
+                      const isHighRisk = risk?.riskLevel === 'high' || risk?.isSpam
+                      const isMedRisk = risk?.riskLevel === 'medium'
+                      const riskColor = isHighRisk ? 'border-destructive/50 bg-destructive/5' : isMedRisk ? 'border-yellow-500/40 bg-yellow-500/5' : wt.selected !== false ? 'border-accent/50 bg-accent/5' : 'border-border'
+                      return (
+                        <div
+                          key={`${wt.token.chainId}-${wt.token.address}-${i}`}
+                          className={`flex items-center gap-2 p-2 border rounded cursor-pointer transition-colors ${riskColor} ${wt.selected === false ? 'opacity-50' : ''}`}
+                          onClick={() => setBatchTokens(batchTokens.map((t, idx) => idx === i ? { ...t, selected: !t.selected } : t))}
+                        >
+                          <Checkbox
+                            checked={wt.selected !== false}
+                            onCheckedChange={() => setBatchTokens(batchTokens.map((t, idx) => idx === i ? { ...t, selected: !t.selected } : t))}
+                            onClick={e => e.stopPropagation()}
+                            className="flex-shrink-0"
+                          />
+                          <TokenLogo
+                            address={wt.token.metadata?.isNative || isNativeAddress(wt.token.address) ? undefined : wt.token.address}
+                            chainId={wt.token.chainId}
+                            symbol={wt.token.symbol}
+                            logoURI={wt.token.metadata?.logoURI}
+                            size={4}
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1 flex-wrap">
+                              <span className="text-xs font-medium">{wt.token.symbol}</span>
+                              {isHighRisk && (
+                                <Badge variant="destructive" className="text-[8px] h-3.5 px-1 leading-none whitespace-nowrap">
+                                  {risk?.isHoneypot ? 'Honeypot' : 'High Risk'}
+                                </Badge>
+                              )}
+                              {isMedRisk && !isHighRisk && (
+                                <Badge className="text-[8px] h-3.5 px-1 leading-none whitespace-nowrap bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
+                                  Caution
+                                </Badge>
+                              )}
+                            </div>
+                            {risk && risk.flags.length > 0 ? (
+                              <div className="text-[10px] text-muted-foreground truncate">{risk.flags[0]}{risk.flags.length > 1 ? ` +${risk.flags.length - 1}` : ''}</div>
+                            ) : (
+                              <div className="text-xs text-muted-foreground truncate">{wt.token.name}</div>
+                            )}
+                          </div>
+                          <div className="text-right flex-shrink-0">
+                            <div className="text-xs font-medium">{parseFloat(wt.balanceFormatted).toFixed(4)}</div>
+                          </div>
                         </div>
-                        <div className="text-right flex-shrink-0">
-                          <div className="text-xs font-medium">{parseFloat(wt.balanceFormatted).toFixed(4)}</div>
-                        </div>
-                      </div>
-                    ))}
+                      )
+                    })}
                   </div>
                 </ScrollArea>
 

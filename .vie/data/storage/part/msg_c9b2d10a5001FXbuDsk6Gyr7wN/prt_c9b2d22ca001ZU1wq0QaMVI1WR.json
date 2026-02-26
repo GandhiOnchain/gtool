@@ -1,0 +1,20 @@
+{
+  "id": "prt_c9b2d22ca001ZU1wq0QaMVI1WR",
+  "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+  "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+  "type": "tool",
+  "tool": "webfetch",
+  "callID": "toolu_vrtx_01JGqHMQGQEupRE3quzo5Emx",
+  "state": {
+    "status": "error",
+    "input": {
+      "url": "https://docs.moralis.io/web3-data-api/evm/reference/get-token-spam",
+      "format": "markdown"
+    },
+    "error": "Error: Request failed with status code: 404",
+    "time": {
+      "start": 1772129953391,
+      "end": 1772129953885
+    }
+  }
+}

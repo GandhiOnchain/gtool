@@ -1,0 +1,7 @@
+{
+  "id": "prt_c9b2d10a0002Uu6nx79TR98wLJ",
+  "type": "text",
+  "text": "Research the following token security/spam scanning APIs and return their endpoints, authentication methods, what data they return, and any free tier limits:\n\n1. GoPlus Security API (https://gopluslabs.io) - token security endpoint\n2. 0x API token security/spam filtering\n3. Honeypot.is API\n4. De.Fi Shield API\n5. Moralis token spam detection (already have API key)\n6. Alchemy token spam detection\n\nFor each, find:\n- The exact API endpoint URL\n- Whether it requires an API key\n- What it returns (spam score, honeypot detection, etc.)\n- Rate limits on free tier\n- Whether it supports EVM chains like Base, Ethereum, Polygon, Arbitrum\n\nFocus on APIs that work without requiring a paid API key or that have a generous free tier. Return concrete endpoint examples.",
+  "messageID": "msg_c9b2d10a00017g8Xg729E2kFM6",
+  "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB"
+}

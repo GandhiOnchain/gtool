@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9b2e797800198hJDcq2FSBsgw",
+  "messageID": "msg_c9b2ce4a5001eGutdgDQHAhO6C",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now add the GoPlus scanning function right before `fetchWalletTokens`:",
+  "time": {
+    "start": 1772130041344,
+    "end": 1772130041344
+  }
+}

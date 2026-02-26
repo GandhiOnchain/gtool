@@ -1,0 +1,22 @@
+{
+  "id": "prt_c9b2d36e90012vqQ36blr5X15l",
+  "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+  "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+  "type": "tool",
+  "tool": "webfetch",
+  "callID": "toolu_vrtx_01DfYhPUt6wPnRtS7w4EzyCx",
+  "state": {
+    "status": "completed",
+    "input": {
+      "url": "https://honeypot.is/ethereum",
+      "format": "markdown"
+    },
+    "output": "   Honeypot Detector for Ethereum | Honeypot Scanner                                  \n\n[![Logo](assets/img/logo2.png)](/)\n\n-   [](https://t.me/honeypotis)\n\n## Ethereum Honeypot Detector\n\nSwitch to [![](assets/img/bsc.png) BSC](/) [![](assets/img/base.svg) BASE](/base)\n\nToken Address\n\nCheck for honeypot\n\nDetect Honeypot on the Ethereum chain. Honeypot detector simulates a buy and a sell transaction to determine if the token is a honeypot or not. To prevent getting tricked, honeypot detector performs a lot of extra checks to minimize false results. Crypto's most advanced honeypot detection. Detect honeypots with the highest accuracy.\n\nThis is not a foolproof method. Just because it's not a honeypot now, does not mean it won't change!\n\nTrusted By\n\n[![apespace](assets/img/tby/apespace-logo.png)](https://apespace.io) [![dexview](assets/img/tby/dexview.png)](https://dexview.com) [![dextools](https://info.dextools.io/content/themes/dext/img/dextools.png)](https://dextools.io) [![unibot](assets/img/tby/unibotXLogo.png)](https://unibot.app) [![tokensniffer](assets/img/tby/tokensniffer.png)](https://tokensniffer.com)\n\n[![starwallet](assets/img/tby/starwallet.png)](https://t.me/StarWallet_Bot) [![proficy](assets/img/tby/proficy_banner_transparent.png)](https://t.me/ProficyPriceBot) [![cryptach](assets/img/tby/cryptach.png)](https://cryptach.org) [![lotusmarket](https://lotusmarket.io/img/logo.svg)](https://lotusmarket.io)\n\n[![bscheck](assets/img/tby/bsccheck.webp)](https://bscheck.eu) [![cakebot](assets/img/tby/cakebot.png)](https://cakebot.io) [![signai](assets/img/tby/signai_logo.png)](https://app.signai.tech) [![chainscout](assets/img/tby/chainscout.png)](https://t.me/chainscoutbots) [![ttf](assets/img/tby/ttf.png)](https://t.me/ttfbotbot) [![garudalabs](assets/img/tby/garudalabs.png)](https://scan.garudalabs.io/)\n\n[![goodcrypto](assets/img/tby/logo_goodcrypto_x.png)](https://goodcrypto.app/x) [![notifai](assets/img/tby/notifai2.png)](https://notifai.trade) [![Cryptogugu](assets/img/tby/Cryptogugu.png)](https://cryptogugu.com) [![safeanalyzer](assets/img/tby/safeanalyzer.png)](https://t.me/safeanalyzerbot) [![alphagardeners](assets/img/tby/ag.jpg)](https://alphagardeners.xyz) [![pocketuniverse](https://join.pocketuniverse.app/logo.png)](https://pocketuniverse.app)\n\n[![padre](assets/img/tby/padre.svg)](https://padre.gg/) [![mainline](assets/img/tby/mainline.png)](https://getmainline.io/) [![dexcheck](assets/img/tby/dexcheck-light.svg)](https://dexcheck.ai/) [![alpha_dex](assets/img/tby/alpha_dex.png)](https://t.me/alpha_web3_bot?start=Alpha1)\n\n[![listing spy](assets/img/tby/ListingSpy.png)](https://listingspy.net)\n\n#### Contact\n\nTG : [@ishoneypot](https://t.me/ishoneypot)\n\nEmail : [\\[email protected\\]](/cdn-cgi/l/email-protection)\n\n#### Supported Chains\n\n-   Ethereum\n-   Binance Smart Chain\n-   Base\n\nCopyright 2024 Honeypot.is All rights reserved.\n\nDesign Gifted with love by [Husty Designs](https://t.me/husty_network)",
+    "metadata": {},
+    "title": "https://honeypot.is/ethereum (text/html; charset=utf-8)",
+    "time": {
+      "start": 1772129958115,
+      "end": 1772129958169
+    }
+  }
+}

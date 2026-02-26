@@ -1,0 +1,490 @@
+{
+  "id": "prt_c9b2cfa3d001epihuYvwKpigoo",
+  "messageID": "msg_c9b2ce4a5001eGutdgDQHAhO6C",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "task",
+  "callID": "toolu_vrtx_01TqUjSSwTbY1a9nURcXDPHD",
+  "state": {
+    "status": "completed",
+    "input": {
+      "description": "Research token security APIs",
+      "prompt": "Research the following token security/spam scanning APIs and return their endpoints, authentication methods, what data they return, and any free tier limits:\n\n1. GoPlus Security API (https://gopluslabs.io) - token security endpoint\n2. 0x API token security/spam filtering\n3. Honeypot.is API\n4. De.Fi Shield API\n5. Moralis token spam detection (already have API key)\n6. Alchemy token spam detection\n\nFor each, find:\n- The exact API endpoint URL\n- Whether it requires an API key\n- What it returns (spam score, honeypot detection, etc.)\n- Rate limits on free tier\n- Whether it supports EVM chains like Base, Ethereum, Polygon, Arbitrum\n\nFocus on APIs that work without requiring a paid API key or that have a generous free tier. Return concrete endpoint examples.",
+      "subagent_type": "docs"
+    },
+    "output": "Based on my research, here's a comprehensive overview of the token security and spam scanning APIs:\n\n---\n\n# Token Security & Spam Scanning APIs - Research Summary\n\n## 1. GoPlus Security API ⭐ **RECOMMENDED**\n\n**Endpoint:**\n```\nGET https://api.gopluslabs.io/api/v1/token_security/{chain_id}?contract_addresses={token_address}\n```\n\n**Authentication:**\n- **Free tier available** - No API key required for basic usage\n- Optional access token for higher rate limits (via POST to `/api/v1/token/access_token`)\n\n**What it returns:**\n- Comprehensive security analysis including:\n  - Honeypot detection\n  - Buy/sell tax\n  - Transfer pausable\n  - Blacklist/whitelist functions\n  - Ownership privileges\n  - Liquidity info (locked/unlocked)\n  - Holder analysis\n  - DEX information\n  - Contract verification status\n  - Proxy contract detection\n  - Hidden owner\n  - Self-destruct capability\n  - External calls\n  - And 50+ other security indicators\n\n**Rate Limits (Free Tier):**\n- Not explicitly documented, but appears to be generous for public use\n- Access token available for higher limits\n\n**Supported Chains:**\n- ✅ Ethereum (chain_id: 1)\n- ✅ BSC (chain_id: 56)\n- ✅ Polygon (chain_id: 137)\n- ✅ Arbitrum (chain_id: 42161)\n- ✅ Optimism (chain_id: 10)\n- ✅ Base (chain_id: 8453)\n- ✅ Avalanche (chain_id: 43114)\n- And 20+ other EVM chains\n\n**Example Request:**\n```bash\ncurl \"https://api.gopluslabs.io/api/v1/token_security/1?contract_addresses=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\"\n```\n\n**Pros:**\n- Most comprehensive security data\n- No API key required\n- Supports multiple chains\n- Free to use\n- Well-documented\n\n---\n\n## 2. Honeypot.is API\n\n**Endpoint:**\n```\nGET https://api.honeypot.is/v2/IsHoneypot?address={token_address}&chainID={chain_id}\n```\n\n**Authentication:**\n- **No API key required** for basic usage\n- Contact via Telegram (@ishoneypot) for commercial/high-volume usage\n\n**What it returns:**\n- `isHoneypot`: boolean\n- `honeypotReason`: string (if applicable)\n- Simulates buy and sell transactions\n- Tax information\n- Liquidity analysis\n- Transfer restrictions\n\n**Rate Limits:**\n- Not publicly documented\n- Free tier appears available for reasonable usage\n- Contact for commercial limits\n\n**Supported Chains:**\n- ✅ Ethereum\n- ✅ BSC (Binance Smart Chain)\n- ✅ Base\n- Limited to these 3 chains\n\n**Example Request:**\n```bash\ncurl \"https://api.honeypot.is/v2/IsHoneypot?address=0x123...&chainID=1\"\n```\n\n**Pros:**\n- Simple, focused on honeypot detection\n- No API key needed\n- Fast response\n- Trusted by major platforms (DexTools, Unibot, etc.)\n\n**Cons:**\n- Limited chain support (only 3 chains)\n- Less comprehensive than GoPlus\n\n---\n\n## 3. De.Fi Shield API\n\n**Endpoint:**\n```\nPOST https://public-api.de.fi/graphql\n```\n\n**Authentication:**\n- **Requires API key** - Contact support@de.fi\n- Paid service with credit-based pricing\n\n**What it returns (via GraphQL):**\n- `shieldAdvanced`: Security information for contracts\n- `shieldApprovals`: ERC20 approvals\n- `shieldApprovalsNft`: ERC721/ERC1155 approvals\n- `scannerProject`: Smart contract security analysis (25 credits)\n- `scannerHolderAnalysis`: Top holder info (5 credits)\n- `scannerLiquidityAnalysis`: Liquidity distribution (10 credits)\n\n**Rate Limits & Pricing:**\n- Credit-based system\n- `scannerProject`: 25 credits per call, 20 req/min\n- `shieldAdvanced`: 5 credits per call, 20 req/min\n- `shieldApprovals`: 10 credits per call, 20 req/min\n\n**Supported Chains:**\n- ✅ 35+ blockchains supported\n- Includes all major EVM chains\n\n**Example Request:**\n```graphql\nquery {\n  scannerProject(address: \"0x123...\") {\n    securityScore\n    issues\n    similarContracts\n  }\n}\n```\n\n**Pros:**\n- Very comprehensive analysis\n- GraphQL interface\n- 35+ chains\n\n**Cons:**\n- **Requires paid API key**\n- Credit-based pricing\n- More complex setup\n\n---\n\n## 4. Moralis Token Spam Detection\n\n**Endpoint:**\n```\nGET https://deep-index.moralis.io/api/v2.2/erc20/metadata?chain={chain}&addresses={token_address}\n```\n\n**Authentication:**\n- **Requires API key** (free tier available)\n- Sign up at moralis.com\n\n**What it returns:**\n- Token metadata with `possible_spam` boolean flag\n- `verified_contract` boolean\n- Basic token info (name, symbol, decimals)\n- Spam classification based on Moralis' internal algorithms\n\n**Rate Limits (Free Tier):**\n- 40,000 compute units/month free\n- Each request costs varying compute units\n- Paid plans start at $49/month\n\n**Supported Chains:**\n- ✅ Ethereum\n- ✅ Polygon\n- ✅ BSC\n- ✅ Arbitrum\n- ✅ Optimism\n- ✅ Base\n- ✅ Avalanche\n- And 20+ other chains\n\n**Example Request:**\n```bash\ncurl -X GET \\\n  'https://deep-index.moralis.io/api/v2.2/erc20/metadata?chain=eth&addresses=0x123...' \\\n  -H 'X-API-Key: YOUR_API_KEY'\n```\n\n**Pros:**\n- You already have an API key\n- Simple boolean spam flag\n- Good free tier\n- Multi-chain support\n\n**Cons:**\n- Less detailed than GoPlus\n- Requires API key\n- Limited free tier\n\n---\n\n## 5. Alchemy Token Spam Detection\n\n**Endpoint:**\n```\nPOST https://{network}.g.alchemy.com/v2/{apiKey}\nMethod: alchemy_getTokenMetadata\n```\n\n**Authentication:**\n- **Requires API key** (free tier available)\n- Sign up at alchemy.com\n\n**What it returns:**\n- Token metadata (name, symbol, decimals, logo)\n- **Note:** Alchemy doesn't have a dedicated spam detection endpoint\n- Spam filtering is built into their `getTokenBalances` response with `isSpam` flag\n\n**Better Alchemy Endpoint for Spam:**\n```\nPOST https://{network}.g.alchemy.com/v2/{apiKey}\nMethod: alchemy_getTokenBalances\n```\nReturns: `isSpam` boolean for each token\n\n**Rate Limits (Free Tier):**\n- 300M compute units/month\n- Generous free tier\n\n**Supported Chains:**\n- ✅ Ethereum\n- ✅ Polygon\n- ✅ Arbitrum\n- ✅ Optimism\n- ✅ Base\n- Limited to Alchemy-supported chains\n\n**Example Request:**\n```bash\ncurl -X POST \\\n  https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"jsonrpc\": \"2.0\",\n    \"method\": \"alchemy_getTokenBalances\",\n    \"params\": [\"0xWalletAddress\"],\n    \"id\": 1\n  }'\n```\n\n**Pros:**\n- Good free tier\n- Integrated with token balance queries\n- Reliable infrastructure\n\n**Cons:**\n- Less detailed spam analysis\n- Requires API key\n- Not a dedicated security API\n\n---\n\n## 6. 0x API\n\n**Status:** ❌ **No dedicated token spam/security endpoint**\n\n0x API focuses on DEX aggregation and swap quotes. While they may filter out malicious tokens from swap routes, they don't provide a public security/spam detection API.\n\n---\n\n## **RECOMMENDATIONS**\n\n### **Best Free Option:**\n**GoPlus Security API** - No API key required, most comprehensive data, supports all your chains\n\n### **Best for Simple Spam Detection:**\n**Honeypot.is** - Free, simple boolean result, but limited to 3 chains\n\n### **Best if You Already Have Keys:**\n- **Moralis** - You mentioned having an API key, simple `possible_spam` flag\n- **Alchemy** - If you have an Alchemy key, use `isSpam` from token balances\n\n### **Most Comprehensive (Paid):**\n**De.Fi Shield API** - Most detailed analysis but requires paid credits\n\n---\n\n## **Implementation Strategy**\n\nFor your use case (Base, Ethereum, Polygon, Arbitrum support), I recommend:\n\n1. **Primary:** GoPlus Security API (free, comprehensive)\n2. **Fallback:** Moralis spam detection (you have the key)\n3. **Optional:** Honeypot.is for Base/Ethereum/BSC specific checks\n\n**Example Multi-API Approach:**\n```typescript\nasync function checkTokenSecurity(tokenAddress: string, chainId: number) {\n  // Primary: GoPlus\n  const goPlusData = await fetch(\n    `https://api.gopluslabs.io/api/v1/token_security/${chainId}?contract_addresses=${tokenAddress}`\n  );\n  \n  // Fallback: Moralis\n  if (!goPlusData.ok) {\n    const moralisData = await fetch(\n      `https://deep-index.moralis.io/api/v2.2/erc20/metadata?chain=${chain}&addresses=${tokenAddress}`,\n      { headers: { 'X-API-Key': MORALIS_KEY } }\n    );\n  }\n  \n  return { isSpam, honeypot, securityScore, ... };\n}\n```",
+    "metadata": {
+      "summary": [
+        {
+          "id": "prt_c9b2d1880001gJOgMfh1inT54b",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_015so26YFY9vDKH15wx5qETd",
+          "state": {
+            "status": "error",
+            "input": {
+              "url": "https://docs.gopluslabs.io/reference/token-security",
+              "format": "markdown"
+            },
+            "error": "Error: Request failed with status code: 404",
+            "time": {
+              "start": 1772129950497,
+              "end": 1772129950841
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d1b41001qyaoPlaIF1H42G",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01ApfrFBd4hAgmGVuifB9ytw",
+          "state": {
+            "status": "completed",
+            "input": {
+              "url": "https://gopluslabs.io",
+              "format": "markdown"
+            },
+            "output": "     GoPlus: The Leading Web3 Security Layer",
+            "metadata": {},
+            "title": "https://gopluslabs.io (text/html)",
+            "time": {
+              "start": 1772129951800,
+              "end": 1772129951834
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d2044001vN94SnfboGETjz",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01UXgdXLAAV8eVksD7pCtkH8",
+          "state": {
+            "status": "completed",
+            "input": {
+              "url": "https://docs.0x.org",
+              "format": "markdown"
+            },
+            "output": "0x Docs | 0x Docs\n\n \n\n🌉 Cross-Chain API is in private beta. <a href=\"https://0x.org/products/cross-chain\" target=\"\\_blank\">Request access to start building</a>.\n\nSearch\n\n/\n\nAsk AI\n\n[Contact Support](https://docs.0x.org/docs/introduction/need-help#-contact-developer-support-fastest-direct-help)[Discord](https://discord.com/invite/official0x)[Go to dashboard](https://dashboard.0x.org/create-account)\n\n[Home](/home/home)[Docs](/docs/introduction/welcome)[API Reference](/api-reference/api-overview)[Liquidity Integration](/liquidity-integration/liquidity-integrations)[Changelog](/changelog)\n\n[Home](/home/home)[Docs](/docs/introduction/welcome)[API Reference](/api-reference/api-overview)[Liquidity Integration](/liquidity-integration/liquidity-integrations)[Changelog](/changelog)\n\nLight\n\n# 0x Docs\n\nAsk a question|Copy page|[View as Markdown](https://docs.0x.org/home/home.md \"View this page as plain text\")|More actions\n\n# \n\nWelcome to 0x Docs\n\nEmbed swaps in your onchain app\n\n[\n\nStart building\n\n](/docs/introduction/quickstart/getting-started)\n\n## Quick Links\n\n[\n\nBuild with AI\n\nAccelerate your 0x integration using AI tools\n\n\n\n\n\n\n\n](https://docs.0x.org/docs/introduction/develop-with-ai/using-ai-with-0x)[\n\nBuild with Swap API\n\nGet started with Swap API\n\n\n\n\n\n\n\n](https://docs.0x.org/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api)[\n\nCode Examples\n\nReady-to-use 0x code examples\n\n\n\n\n\n\n\n](https://github.com/0xProject/0x-examples)[\n\nMonetize your app\n\nUnlock new revenue streams with 0x\n\n\n\n\n\n\n\n](/docs/0x-swap-api/guides/monetize-your-app-using-swap)\n\n## Explore 0x APIs\n\n[\n\nSwap API\n\nEmbed swaps into your app\n\n\n\n\n\n\n\n](/docs/0x-swap-api/introduction)[\n\nGasless API\n\nEnable seamless, gasless DeFi transactions\n\n\n\n\n\n\n\n](/docs/gasless-api/introduction)[\n\nTrade Analytics API\n\nTrack & analyze trading activity\n\n\n\n\n\n\n\n](/docs/trade-analytics-api/introduction)\n\n## Dev Resources\n\n[\n\nTroubleshooting\n\nAnswers to common integration issues\n\n\n\n\n\n\n\n](/docs/introduction/faq)[\n\n0x System Status\n\nReal-time 0x system performance updates\n\n\n\n\n\n\n\n](https://0x.statuspal.io/)[\n\n0x Cheat Sheet\n\nQuick reference for supported chains & contract addresses\n\n\n\n\n\n\n\n](/docs/core-concepts/0x-cheat-sheet)\n\nWas this page helpful?\n\nYesNo\n\n[Built with](https://buildwithfern.com/?utm_campaign=buildWith&utm_medium=docs&utm_source=docs.0x.org)\n\n🌉 Cross-Chain API is in private beta. [Request access to start building](https://0x.org/products/cross-chain).\n\n[![Logo](https://files.buildwithfern.com/0x.docs.buildwithfern.com/8d72ef9d3aae4ffa9a6d69e5a7cd4f57a452f39dfa6c219952dd9bfac10e4d92/docs/assets/logo-light.svg)![Logo](https://files.buildwithfern.com/0x.docs.buildwithfern.com/27057be3c7e0478774e84be9f8dc01456f2a2a7db0b75f138391c5c98e18faaf/docs/assets/logo-dark.svg)](https://0x.org/)\n\n[Contact Support](https://docs.0x.org/docs/introduction/need-help#-contact-developer-support-fastest-direct-help)[Discord](https://discord.com/invite/official0x)[Go to dashboard](https://dashboard.0x.org/create-account)",
+            "metadata": {},
+            "title": "https://docs.0x.org (text/html; charset=utf-8)",
+            "time": {
+              "start": 1772129951840,
+              "end": 1772129952041
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d206d001yjuE1Jma1jgYph",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01PfKgUM2kD2rrbA2592w9qv",
+          "state": {
+            "status": "completed",
+            "input": {
+              "url": "https://honeypot.is",
+              "format": "markdown"
+            },
+            "output": "   Honeypot Detector for BSC/Ethereum | Honeypot Scanner                                \n\n[![Logo](assets/img/logo.png)](/)\n\n-   [](https://t.me/honeypotis)\n\n## BSC Honeypot Detector\n\nSwitch to [![](assets/img/eth.png) ETHEREUM](/eth) [![](assets/img/base.svg) BASE](/base)\n\nToken Address\n\nCheck for honeypot\n\nDetect Honeypot on the BSC chain. Honeypot detector simulates a buy and a sell transaction to determine if the token is a honeypot or not. To prevent getting tricked, honeypot detector performs a lot of extra checks to minimize false results. Crypto's most advanced honeypot detection. Detect honeypots with the highest accuracy.\n\nThis is not a foolproof method. Just because it's not a honeypot now, does not mean it won't change!\n\nTrusted By\n\n[![apespace](assets/img/tby/apespace-logo.png)](https://apespace.io) [![dexview](assets/img/tby/dexview.png)](https://dexview.com) [![dextools](https://info.dextools.io/content/themes/dext/img/dextools.png)](https://dextools.io) [![unibot](assets/img/tby/unibotXLogo.png)](https://unibot.app) [![tokensniffer](assets/img/tby/tokensniffer.png)](https://tokensniffer.com)\n\n[![starwallet](assets/img/tby/starwallet.png)](https://t.me/StarWallet_Bot) [![proficy](assets/img/tby/proficy_banner_transparent.png)](https://t.me/ProficyPriceBot) [![cryptach](assets/img/tby/cryptach.png)](https://cryptach.org) [![lotusmarket](https://lotusmarket.io/img/logo.svg)](https://lotusmarket.io)\n\n[![bscheck](assets/img/tby/bsccheck.webp)](https://bscheck.eu) [![cakebot](assets/img/tby/cakebot.png)](https://cakebot.io) [![signai](assets/img/tby/signai_logo.png)](https://app.signai.tech) [![chainscout](assets/img/tby/chainscout.png)](https://t.me/chainscoutbots) [![ttf](assets/img/tby/ttf.png)](https://t.me/ttfbotbot) [![garudalabs](assets/img/tby/garudalabs.png)](https://scan.garudalabs.io/)\n\n[![goodcrypto](assets/img/tby/logo_goodcrypto_x.png)](https://goodcrypto.app/x) [![notifai](assets/img/tby/notifai2.png)](https://notifai.trade) [![Cryptogugu](assets/img/tby/Cryptogugu.png)](https://cryptogugu.com) [![safeanalyzer](assets/img/tby/safeanalyzer.png)](https://t.me/safeanalyzerbot) [![alphagardeners](assets/img/tby/ag.jpg)](https://alphagardeners.xyz) [![pocketuniverse](https://join.pocketuniverse.app/logo.png)](https://pocketuniverse.app)\n\n[![padre](assets/img/tby/padre.svg)](https://padre.gg/) [![mainline](assets/img/tby/mainline.png)](https://getmainline.io/) [![dexcheck](assets/img/tby/dexcheck-light.svg)](https://dexcheck.ai/) [![alpha_dex](assets/img/tby/alpha_dex.png)](https://t.me/alpha_web3_bot?start=Alpha1)\n\n[![listing spy](assets/img/tby/ListingSpy.png)](https://listingspy.net)\n\n#### Contact\n\nTG : [@ishoneypot](https://t.me/ishoneypot)\n\nEmail : [\\[email protected\\]](/cdn-cgi/l/email-protection)\n\n#### Supported Chains\n\n-   Ethereum\n-   Binance Smart Chain\n-   Base\n\nCopyright 2024 Honeypot.is All rights reserved.\n\nDesign Gifted with love by [Husty Designs](https://t.me/husty_network)",
+            "metadata": {},
+            "title": "https://honeypot.is (text/html; charset=utf-8)",
+            "time": {
+              "start": 1772129951920,
+              "end": 1772129951995
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d20b40016sCR3uPlmbJ8GQ",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01JVVHa26XYZ7yrMcHJWZvwr",
+          "state": {
+            "status": "completed",
+            "input": {
+              "url": "https://docs.de.fi",
+              "format": "markdown"
+            },
+            "output": "Introduction | De.Fi Docs \n\nbars[![](https://docs.de.fi/~gitbook/image?url=https%3A%2F%2F1036063852-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FXOyvZ43P03BZ8mN6KNWT%252Ficon%252F1hV2Waqet2YS2jtkV0f3%252FLogo.png%3Falt%3Dmedia%26token%3D9d648dc1-b752-4168-9f7a-4183708f2d58&width=32&dpr=3&quality=100&sign=dbc1908b&sv=2)![](https://docs.de.fi/~gitbook/image?url=https%3A%2F%2F1036063852-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FXOyvZ43P03BZ8mN6KNWT%252Ficon%252F1hV2Waqet2YS2jtkV0f3%252FLogo.png%3Falt%3Dmedia%26token%3D9d648dc1-b752-4168-9f7a-4183708f2d58&width=32&dpr=3&quality=100&sign=dbc1908b&sv=2)\n\nDe.Fi Docs\n\n](/)\n\nsearch\n\ncircle-xmark\n\n⌘Ctrlk\n\n[App](https://de.fi)[Twitter](https://twitter.com/DeFi)\n\nMoreellipsischevron-down\n\n[![](https://docs.de.fi/~gitbook/image?url=https%3A%2F%2F1036063852-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FXOyvZ43P03BZ8mN6KNWT%252Ficon%252F1hV2Waqet2YS2jtkV0f3%252FLogo.png%3Falt%3Dmedia%26token%3D9d648dc1-b752-4168-9f7a-4183708f2d58&width=32&dpr=3&quality=100&sign=dbc1908b&sv=2)![](https://docs.de.fi/~gitbook/image?url=https%3A%2F%2F1036063852-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FXOyvZ43P03BZ8mN6KNWT%252Ficon%252F1hV2Waqet2YS2jtkV0f3%252FLogo.png%3Falt%3Dmedia%26token%3D9d648dc1-b752-4168-9f7a-4183708f2d58&width=32&dpr=3&quality=100&sign=dbc1908b&sv=2)\n\nDe.Fi Docs\n\n](/)\n\n-   👋Welcome\n    \n    -   [Introduction](/)\n    -   [Getting Started](/welcome/getting-started)\n-   📈Dashboard\n    \n    -   [The De.Fi Dashboardchevron-right](/dashboard/the-defi-dashboard)\n-   🛡️Security Toolkit\n    \n    -   [Shield](/security-toolkit/shield)\n    -   [Scanner](/security-toolkit/scanner)\n-   🔥De.Fi Ecosystem\n    \n    -   [DEFI Token](/defi-ecosystem/defi-token)\n    -   [Governance](/defi-ecosystem/governance)\n-   🗃️Audits\n    \n    -   [Audit Database](/audits/audit-database)\n    -   [Rekt Database](/audits/rekt-database)\n-   💻API\n    \n    -   [API](/api/api)\n-   📚Resources\n    \n    -   [Brand Assets](/resources/brand-assets)\n-   🔗Links\n    \n    -   [Websitearrow-up-right](https://de.fi)\n    -   [Twitterarrow-up-right](https://twitter.com/DeFi)\n    -   [De.Fi Blogarrow-up-right](https://de.fi/blog/)\n    -   [Telegramarrow-up-right](https://t.me/defi_ann)\n    -   [YouTubearrow-up-right](https://www.youtube.com/channel/UCMCGy1ExKesm8YlcKGAFRGA)\n    -   [Whitepaperarrow-up-right](https://de.fi/whitepaper.pdf)\n\nchevron-upchevron-down\n\n[gitbookPowered by GitBook](https://www.gitbook.com/?utm_source=content&utm_medium=trademark&utm_campaign=XOyvZ43P03BZ8mN6KNWT)\n\nxmark\n\nblock-quoteOn this pagechevron-down\n\n[githubEdit](https://github.com/defiyield-app/defiyield-docs/blob/main/README.md)chevron-down\n\n1.  [👋Welcome](/welcome)\n\n# Introduction\n\n## \n\n[hashtag](#our-mission)\n\nOur Mission\n\nDe.Fi strives to bring DeFi to all, ensuring anyone can make the most out of the Web3 financial revolution, while investing confidently without the fear of getting rekt.\n\nBy becoming essentially the Robinhood of DeFi, we can become bigger and better than our Web2 counterparts, due to no nationalized financial restrictions or adherence to legacy technologies.\n\n## \n\n[hashtag](#the-defiyield-community)\n\n**The** De.Fi **Community**\n\nOur community is comprised of DeFi users of all levels of experience: professional investors, traders, experienced DeFi connoisseurs, large whales, degens, or even newcomers to this space.\n\nOur community, which has grown considerably since our launch, makes the most out of the elements in our ecosystem:\n\n-   **Dashboard:** A security-oriented [**page**](/dashboard/the-defi-dashboard) for users to manage their assets, while being aware of all their associated risks and being able to manage them.\n    \n-   **Security Toolkit:** A set of tools to give users as much control of their own safety as possible. This includes our [**Shield**](/security-toolkit/shield) functionality, [**Smart Contract Scanner**](/security-toolkit/scanner), **Impermanent Loss Calculator** and more always being developed.\n    \n-   **Audits:** We not only perform our own audits, but we make all audits from all auditors available on our [**Audit Database**](/audits/audit-database), as well as a detailed record of all protocol hacks and exploits on any of our supported chains on our [**Rekt Database**](/audits/rekt-database).\n    \n\n## \n\n[hashtag](#official-links)\n\nOfficial Links\n\n-   [**Website**arrow-up-right](https://de.fi/)\n    \n-   [**Twitter**arrow-up-right](https://twitter.com/DeFi)\n    \n-   [**De.Fi Blog**arrow-up-right](https://de.fi/blog/)\n    \n-   [**Telegram**arrow-up-right](https://t.me/defi_ann)\n    \n-   [**YouTube**arrow-up-right](https://www.youtube.com/channel/UCMCGy1ExKesm8YlcKGAFRGA)\n    \n-   [**Whitepaper**arrow-up-right](https://de.fi/whitepaper.pdf)\n    \n\n[NextGetting Startedchevron-right](/welcome/getting-started)\n\nLast updated 2 years ago\n\n-   [Our Mission](#our-mission)\n-   [The De.Fi Community](#the-defiyield-community)\n-   [Official Links](#official-links)",
+            "metadata": {},
+            "title": "https://docs.de.fi (text/html; charset=utf-8)",
+            "time": {
+              "start": 1772129952455,
+              "end": 1772129952638
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d22ca001ZU1wq0QaMVI1WR",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01JGqHMQGQEupRE3quzo5Emx",
+          "state": {
+            "status": "error",
+            "input": {
+              "url": "https://docs.moralis.io/web3-data-api/evm/reference/get-token-spam",
+              "format": "markdown"
+            },
+            "error": "Error: Request failed with status code: 404",
+            "time": {
+              "start": 1772129953391,
+              "end": 1772129953885
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d2675001qf6gwtsTNU4LtZ",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_015ggm87L1QTKNktd9oTXh4U",
+          "state": {
+            "status": "completed",
+            "input": {
+              "url": "https://docs.alchemy.com/reference/alchemy-gettokenmetadata",
+              "format": "markdown"
+            },
+            "output": "alchemy\\_getTokenMetadata - Private Transactions API API | Alchemy Docs\n\n[Skip to content](#main-content)\n\n[\n\n![Alchemy Logo](/docs/images/alchemy-light.svg)![Alchemy Logo](/docs/images/alchemy-dark.svg)\n\n](/docs)\n\nSearch\n\n/\n\n[Go to Dashboard](https://dashboard.alchemy.com/signup?utm_source=docs&utm_medium=referral&utm_content=data_token-api_token-api-endpoints_alchemy-get-token-metadata)\n\n-   [Get Started](/docs/get-started)\n-   [Node](/docs/node)\n-   [Data](/docs/data)\n-   [Wallets](/docs/wallets)\n-   [Rollups](/docs/rollups)\n-   [Chains](/docs/chains)\n\n[Changelog](/docs/changelog)\n\n-   [Get Started](/docs/get-started)\n-   [Node](/docs/node)\n-   [Data](/docs/data)\n-   [Wallets](/docs/wallets)\n-   [Rollups](/docs/rollups)\n-   [Chains](/docs/chains)\n-   [Changelog](/docs/changelog)\n\n### Introduction\n\n[Data API Overview](/docs/data)[Pricing](/docs/reference/pricing-plans)\n\n### Portfolio API\n\n[Portfolio API Overview](/docs/reference/portfolio-apis)\n\nPortfolio API Endpoints\n\n### Token API\n\n[Token API Overview](/docs/reference/token-api-overview)[Token API Quickstart](/docs/reference/token-api-quickstart)\n\nToken API Endpoints\n\n[POSTalchemy\\_getTokenAllowance](/docs/data/token-api/token-api-endpoints/alchemy-get-token-allowance)[POSTalchemy\\_getTokenBalances](/docs/data/token-api/token-api-endpoints/alchemy-get-token-balances)[POSTalchemy\\_getTokenMetadata](/docs/data/token-api/token-api-endpoints/alchemy-get-token-metadata)\n\n### Transfers API\n\n[Transfers API Overview](/docs/reference/transfers-api-quickstart)\n\nTransfers Endpoints\n\nTransfers API Tutorials\n\n### Prices API\n\n[Prices API Quickstart](/docs/reference/prices-api-quickstart)\n\nPrices API Endpoints\n\n[Prices API FAQ](/docs/reference/prices-api-faq)\n\n### NFT API\n\n[NFT API Overview](/docs/reference/nft-api-overview)[NFT API Quickstart](/docs/reference/nft-api-quickstart)\n\n[Solana DAS API](/docs/reference/alchemy-das-apis-for-solana)\n\n[NFT API Endpoints](/docs/reference/nft-api-endpoints)\n\n[NFT API FAQ](/docs/reference/nft-api-faq)\n\n### Webhooks\n\n[Webhooks Overview](/docs/reference/webhooks-overview)\n\n[Webhooks Quickstart Guides](/docs/reference/notify-api-quickstart)\n\n[Webhook Types](/docs/reference/webhook-types)\n\nNotify API Endpoints\n\n### Simulation API\n\n[Transaction Simulation Overview](/docs/reference/simulation)\n\nTransaction Simulation Types\n\nTransaction Simulation Endpoints\n\n### Utility API\n\n[Utility APIs Overview](/docs/reference/utility-api-overview)\n\nTransactions Receipts Endpoints\n\n### Subgraphs\n\n[Alchemy Subgraphs Deprecation Notice](/docs/alchemy-subgraphs/deprecation-notice)\n\n### Beta APIs\n\nBeta API Endpoints\n\n[Go to Dashboard](https://dashboard.alchemy.com/signup?utm_source=docs&utm_medium=referral&utm_content=docs)\n\n### Introduction\n\n[Data API Overview](/docs/data)[Pricing](/docs/reference/pricing-plans)\n\n### Portfolio API\n\n[Portfolio API Overview](/docs/reference/portfolio-apis)\n\nPortfolio API Endpoints\n\n### Token API\n\n[Token API Overview](/docs/reference/token-api-overview)[Token API Quickstart](/docs/reference/token-api-quickstart)\n\nToken API Endpoints\n\n[POSTalchemy\\_getTokenAllowance](/docs/data/token-api/token-api-endpoints/alchemy-get-token-allowance)[POSTalchemy\\_getTokenBalances](/docs/data/token-api/token-api-endpoints/alchemy-get-token-balances)[POSTalchemy\\_getTokenMetadata](/docs/data/token-api/token-api-endpoints/alchemy-get-token-metadata)\n\n### Transfers API\n\n[Transfers API Overview](/docs/reference/transfers-api-quickstart)\n\nTransfers Endpoints\n\nTransfers API Tutorials\n\n### Prices API\n\n[Prices API Quickstart](/docs/reference/prices-api-quickstart)\n\nPrices API Endpoints\n\n[Prices API FAQ](/docs/reference/prices-api-faq)\n\n### NFT API\n\n[NFT API Overview](/docs/reference/nft-api-overview)[NFT API Quickstart](/docs/reference/nft-api-quickstart)\n\n[Solana DAS API](/docs/reference/alchemy-das-apis-for-solana)\n\n[NFT API Endpoints](/docs/reference/nft-api-endpoints)\n\n[NFT API FAQ](/docs/reference/nft-api-faq)\n\n### Webhooks\n\n[Webhooks Overview](/docs/reference/webhooks-overview)\n\n[Webhooks Quickstart Guides](/docs/reference/notify-api-quickstart)\n\n[Webhook Types](/docs/reference/webhook-types)\n\nNotify API Endpoints\n\n### Simulation API\n\n[Transaction Simulation Overview](/docs/reference/simulation)\n\nTransaction Simulation Types\n\nTransaction Simulation Endpoints\n\n### Utility API\n\n[Utility APIs Overview](/docs/reference/utility-api-overview)\n\nTransactions Receipts Endpoints\n\n### Subgraphs\n\n[Alchemy Subgraphs Deprecation Notice](/docs/alchemy-subgraphs/deprecation-notice)\n\n### Beta APIs\n\nBeta API Endpoints\n\n1.  [Token API](/docs/reference/token-api-overview)\n2.  Token API Endpoints\n\nCopy page\n\n# alchemy\\_getTokenMetadata\n\nPOST\n\nhttps://eth-mainnet.g.alchemy.com/v2/{apiKey}\n\nReturns metadata for a given token contract (name, symbol, decimals, logo).\n\n## Path Parameters\n\n### apiKey\n\nstringrequireddefaults to `docs-demo`\n\nFor higher throughput, [create your own API key](https://dashboard.alchemy.com/signup?utm_source=docs&utm_medium=referral&utm_content=data_token-api_token-api-endpoints_alchemy-get-token-metadata)\n\n## Request\n\n### contractAddress\n\nstring`format: \"^0x[0-9a-fA-F]{40}$\"`required\n\nA single 20-byte token contract address.\n\n## Responses\n\n### 200\n\nObject with name, symbol, decimals, and an optional logo URL.\n\nShow 4 properties\n\nPOST`/v2/{apiKey}`\n\ncURL\n\n```\ncurl --request POST \\  --url https://eth-mainnet.g.alchemy.com/v2/docs-demo \\  --header 'Content-Type: application/json' \\  --data '{  \"jsonrpc\": \"2.0\",  \"id\": 1,  \"method\": \"alchemy_getTokenMetadata\",  \"params\": [    \"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\"  ]}'\n```\n\nTry it\n\n200Success\n\n```\n{  \"jsonrpc\": \"2.0\",  \"id\": 1,  \"result\": {    \"name\": \"USD Coin\",    \"symbol\": \"USDC\",    \"decimals\": 6,    \"logo\": \"https://static.alchemyapi.io/images/assets/3408.png\"  }}\n```\n\nWas this page helpful?\n\nYesNo\n\n[Previous](/docs/data/token-api/token-api-endpoints/alchemy-get-token-balances)[\n\nNext\n\nTransfers API Overview\n\nThe Transfers API allows you to easily fetch historical transactions for any address without having to scan the entire chain and index everything for each of your users.\n\n\n\n](/docs/reference/transfers-api-quickstart)",
+            "metadata": {},
+            "title": "https://docs.alchemy.com/reference/alchemy-gettokenmetadata (text/html; charset=utf-8)",
+            "time": {
+              "start": 1772129954156,
+              "end": 1772129954426
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d3173001mLoAEweeO3Sj7V",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01VHz8aicmaxxiLpjJ4dBymp",
+          "state": {
+            "status": "completed",
+            "input": {
+              "url": "https://docs.gopluslabs.io",
+              "format": "markdown"
+            },
+            "output": "Introduction                                               \n\n[Jump to Content](#content)\n\n[![GoPlus Security](https://files.readme.io/97584af-brandmark-white.svg)](/)\n\n[Guides](/docs)[API Reference](/reference)[Changelog](/changelog)[Discussions](/discuss)\n\nv1.0\n\n---\n\n[Log In](/login?redirect_uri=/docs/getting-started)[![GoPlus Security](https://files.readme.io/97584af-brandmark-white.svg)](/)\n\nGuides\n\n[Log In](/login?redirect_uri=/docs/getting-started)\n\nv1.0[Guides](/docs)[API Reference](/reference)[Changelog](/changelog)[Discussions](/discuss)\n\nIntroduction\n\nAll\n\nPages\n\n###### Start typing to search…\n\n## GetTing Started\n\n-   [Introduction](/docs/getting-started)\n-   [GoPlus Security SDK](/docs/goplus-sdk)\n\nPowered by [](https://readme.com?ref_src=hub&project=goplus)\n\n# Introduction\n\nWelcome to the GoPlus Security documentation.\n\n# \n\nWhat is GoPlus Security?\n\n[](#what-is-goplus-security)\n\nWeb3 users today face growing threats such as scam, phishing, and theft, [GoPlus Security](https://gopluslabs.io/) is here to solve this by building an open, permissionless, and user-driven User Security Network for Web3.\n\n# \n\nFeatures\n\n[](#features)\n\n## \n\nGoPlus Security Intelligence\n\n[](#goplus-security-intelligence)\n\nGoPlus Security provides a comprehensive set of APIs that deliver real-time, automated security intelligence. Designed for scalability and ease of integration, these APIs empower developers and platforms with reliable security insights to protect their users. Below is an overview of each security intelligence API:\n\n-   [Token Security API](ref:token-security-api) - A decentralized and user-driven service that offers detailed security analysis of tokens, providing real-time risk assessments.\n-   [Malicious Address API](ref:malicious-address-api) - Free, timely, and comprehensive malicious address library.\n-   [NFT Security API](ref:nft-security-api) - Get comprehensive security assessments of NFTs, helping detect scams or fraudulent activities in NFT transactions.\n-   [Approval Security API](ref:approval-security-api-v2) - Analyze the security risks associated with token approvals to prevent unauthorized or risky transactions.\n-   [dApp Security Info API](ref:dapp-security-info-api) - Aggregates security information from various dApps, offering quick risk alerts and insights to ensure safe interactions.\n-   [Signature Data Decode API](ref:signature-data-decode-api) - Decode and analyze ABI signature data for irregularities or signs of malicious activity.\n-   [Phishing Site Detection API](ref:phishing-site-detection-api) - Detect and block phishing sites before users fall victim to malicious attempts.\n-   [Token Security API for Solana (Beta)](ref:token-security-api-for-solana-beta) - Analyzes token security specifically for the Solana SPL and SPL-2022, providing early insights into potential risks in Solana tokens.\n-   [Transaction Simulation API for Solana](ref:transaction-simulation-for-solana) - Simulates Solana transactions to assess the result and detect any potential risks before they are executed on-chain.\n-   [Transaction Simulation API for EVM](ref:transaction-simulation-api) - Simulates EVM transactions to assess the result and detect any potential risks before they are executed on-chain.\n\n## \n\nGoPlus SafeToken Protocol\n\n[](#goplus-safetoken-protocol)\n\nBuilding on GoPlus Security’s leadership in token security analysis and risk detection, and its deep understanding of security vulnerabilities in token issuance and liquidity management within the DeFi ecosystem, GoPlus has developed the **GoPlus SafeToken Protocol**. This innovative protocol is designed to address these issues at the root, providing secure token issuance templates and efficient liquidity management tools for the entire industry. Below is an overview of SafeToken Factory and SafeToken Locker\n\n-   [GoPlus SafeToken Factory](page:goplus-safetoken-protocol) - Offers free and open-source token contract templates for developers, enabling quick and secure token issuance.\n-   [GoPlus SafeToken Locker](page:goplus-safetoken-locker) - Provides flexible lock-up periods, rewards collection, and broad compatibility with major DEX platforms to protect investor interests and ensure project commitment.\n\nFor documentation on using and integrating the GoPlus Security API with your applications and platforms, check the [API Overview](ref:api-overview).\n\nReady to protect your Web3 operations and assets? Start by reading the [API Overview](ref:api-overview) to understand the fundamentals of integrating GoPlus Security into your applications.\n\nFor any further queries or support, feel free to \\[reach out to our team\\](mailto: [\\[email protected\\]](/cdn-cgi/l/email-protection#7d0e180f0b141e183d1a120d11080e111c1f0e531412)).\n\nThank you for choosing GoPlus Security. A #SaferWeb3 awaits.\n\nUpdated 6 months ago\n\n---\n\nWhat’s Next\n\n-   [API Overview](/reference/api-overview)\n\nAsk AI",
+            "metadata": {},
+            "title": "https://docs.gopluslabs.io (text/html; charset=utf-8)",
+            "time": {
+              "start": 1772129957036,
+              "end": 1772129957420
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d3562001pHZDzeVEonoa81",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_019VkRXUAKChDCrykFGVi4hd",
+          "state": {
+            "status": "error",
+            "input": {
+              "url": "https://api.gopluslabs.io",
+              "format": "markdown"
+            },
+            "error": "Error: Request failed with status code: 404",
+            "time": {
+              "start": 1772129957528,
+              "end": 1772129957819
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d36e90012vqQ36blr5X15l",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01DfYhPUt6wPnRtS7w4EzyCx",
+          "state": {
+            "status": "completed",
+            "input": {
+              "url": "https://honeypot.is/ethereum",
+              "format": "markdown"
+            },
+            "output": "   Honeypot Detector for Ethereum | Honeypot Scanner                                  \n\n[![Logo](assets/img/logo2.png)](/)\n\n-   [](https://t.me/honeypotis)\n\n## Ethereum Honeypot Detector\n\nSwitch to [![](assets/img/bsc.png) BSC](/) [![](assets/img/base.svg) BASE](/base)\n\nToken Address\n\nCheck for honeypot\n\nDetect Honeypot on the Ethereum chain. Honeypot detector simulates a buy and a sell transaction to determine if the token is a honeypot or not. To prevent getting tricked, honeypot detector performs a lot of extra checks to minimize false results. Crypto's most advanced honeypot detection. Detect honeypots with the highest accuracy.\n\nThis is not a foolproof method. Just because it's not a honeypot now, does not mean it won't change!\n\nTrusted By\n\n[![apespace](assets/img/tby/apespace-logo.png)](https://apespace.io) [![dexview](assets/img/tby/dexview.png)](https://dexview.com) [![dextools](https://info.dextools.io/content/themes/dext/img/dextools.png)](https://dextools.io) [![unibot](assets/img/tby/unibotXLogo.png)](https://unibot.app) [![tokensniffer](assets/img/tby/tokensniffer.png)](https://tokensniffer.com)\n\n[![starwallet](assets/img/tby/starwallet.png)](https://t.me/StarWallet_Bot) [![proficy](assets/img/tby/proficy_banner_transparent.png)](https://t.me/ProficyPriceBot) [![cryptach](assets/img/tby/cryptach.png)](https://cryptach.org) [![lotusmarket](https://lotusmarket.io/img/logo.svg)](https://lotusmarket.io)\n\n[![bscheck](assets/img/tby/bsccheck.webp)](https://bscheck.eu) [![cakebot](assets/img/tby/cakebot.png)](https://cakebot.io) [![signai](assets/img/tby/signai_logo.png)](https://app.signai.tech) [![chainscout](assets/img/tby/chainscout.png)](https://t.me/chainscoutbots) [![ttf](assets/img/tby/ttf.png)](https://t.me/ttfbotbot) [![garudalabs](assets/img/tby/garudalabs.png)](https://scan.garudalabs.io/)\n\n[![goodcrypto](assets/img/tby/logo_goodcrypto_x.png)](https://goodcrypto.app/x) [![notifai](assets/img/tby/notifai2.png)](https://notifai.trade) [![Cryptogugu](assets/img/tby/Cryptogugu.png)](https://cryptogugu.com) [![safeanalyzer](assets/img/tby/safeanalyzer.png)](https://t.me/safeanalyzerbot) [![alphagardeners](assets/img/tby/ag.jpg)](https://alphagardeners.xyz) [![pocketuniverse](https://join.pocketuniverse.app/logo.png)](https://pocketuniverse.app)\n\n[![padre](assets/img/tby/padre.svg)](https://padre.gg/) [![mainline](assets/img/tby/mainline.png)](https://getmainline.io/) [![dexcheck](assets/img/tby/dexcheck-light.svg)](https://dexcheck.ai/) [![alpha_dex](assets/img/tby/alpha_dex.png)](https://t.me/alpha_web3_bot?start=Alpha1)\n\n[![listing spy](assets/img/tby/ListingSpy.png)](https://listingspy.net)\n\n#### Contact\n\nTG : [@ishoneypot](https://t.me/ishoneypot)\n\nEmail : [\\[email protected\\]](/cdn-cgi/l/email-protection)\n\n#### Supported Chains\n\n-   Ethereum\n-   Binance Smart Chain\n-   Base\n\nCopyright 2024 Honeypot.is All rights reserved.\n\nDesign Gifted with love by [Husty Designs](https://t.me/husty_network)",
+            "metadata": {},
+            "title": "https://honeypot.is/ethereum (text/html; charset=utf-8)",
+            "time": {
+              "start": 1772129958115,
+              "end": 1772129958169
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d38f4001sZeabD3QFrEU9M",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_017qR1xTZYfU6tBohJ9YLLxD",
+          "state": {
+            "status": "completed",
+            "input": {
+              "url": "https://docs.de.fi/api/api",
+              "format": "markdown"
+            },
+            "output": "API | De.Fi Docs \n\nbars[![](https://docs.de.fi/~gitbook/image?url=https%3A%2F%2F1036063852-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FXOyvZ43P03BZ8mN6KNWT%252Ficon%252F1hV2Waqet2YS2jtkV0f3%252FLogo.png%3Falt%3Dmedia%26token%3D9d648dc1-b752-4168-9f7a-4183708f2d58&width=32&dpr=3&quality=100&sign=dbc1908b&sv=2)![](https://docs.de.fi/~gitbook/image?url=https%3A%2F%2F1036063852-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FXOyvZ43P03BZ8mN6KNWT%252Ficon%252F1hV2Waqet2YS2jtkV0f3%252FLogo.png%3Falt%3Dmedia%26token%3D9d648dc1-b752-4168-9f7a-4183708f2d58&width=32&dpr=3&quality=100&sign=dbc1908b&sv=2)\n\nDe.Fi Docs\n\n](/)\n\nsearch\n\ncircle-xmark\n\n⌘Ctrlk\n\n[App](https://de.fi)[Twitter](https://twitter.com/DeFi)\n\nMoreellipsischevron-down\n\n[![](https://docs.de.fi/~gitbook/image?url=https%3A%2F%2F1036063852-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FXOyvZ43P03BZ8mN6KNWT%252Ficon%252F1hV2Waqet2YS2jtkV0f3%252FLogo.png%3Falt%3Dmedia%26token%3D9d648dc1-b752-4168-9f7a-4183708f2d58&width=32&dpr=3&quality=100&sign=dbc1908b&sv=2)![](https://docs.de.fi/~gitbook/image?url=https%3A%2F%2F1036063852-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FXOyvZ43P03BZ8mN6KNWT%252Ficon%252F1hV2Waqet2YS2jtkV0f3%252FLogo.png%3Falt%3Dmedia%26token%3D9d648dc1-b752-4168-9f7a-4183708f2d58&width=32&dpr=3&quality=100&sign=dbc1908b&sv=2)\n\nDe.Fi Docs\n\n](/)\n\n-   👋Welcome\n    \n    -   [Introduction](/)\n    -   [Getting Started](/welcome/getting-started)\n-   📈Dashboard\n    \n    -   [The De.Fi Dashboardchevron-right](/dashboard/the-defi-dashboard)\n-   🛡️Security Toolkit\n    \n    -   [Shield](/security-toolkit/shield)\n    -   [Scanner](/security-toolkit/scanner)\n-   🔥De.Fi Ecosystem\n    \n    -   [DEFI Token](/defi-ecosystem/defi-token)\n    -   [Governance](/defi-ecosystem/governance)\n-   🗃️Audits\n    \n    -   [Audit Database](/audits/audit-database)\n    -   [Rekt Database](/audits/rekt-database)\n-   💻API\n    \n    -   [API](/api/api)\n-   📚Resources\n    \n    -   [Brand Assets](/resources/brand-assets)\n-   🔗Links\n    \n    -   [Websitearrow-up-right](https://de.fi)\n    -   [Twitterarrow-up-right](https://twitter.com/DeFi)\n    -   [De.Fi Blogarrow-up-right](https://de.fi/blog/)\n    -   [Telegramarrow-up-right](https://t.me/defi_ann)\n    -   [YouTubearrow-up-right](https://www.youtube.com/channel/UCMCGy1ExKesm8YlcKGAFRGA)\n    -   [Whitepaperarrow-up-right](https://de.fi/whitepaper.pdf)\n\nchevron-upchevron-down\n\n[gitbookPowered by GitBook](https://www.gitbook.com/?utm_source=content&utm_medium=trademark&utm_campaign=XOyvZ43P03BZ8mN6KNWT)\n\nxmark\n\nblock-quoteOn this pagechevron-down\n\n[githubEdit](https://github.com/defiyield-app/defiyield-docs/blob/main/api/api.md)chevron-down\n\n1.  [💻API](/api)\n\n# API\n\nThe De.Fi API is the easiest way to integrate our expansive functionality into any app of your choosing. Whether you are interested in querying our audit or Rekt databases, querying a wallet's balances or details about the many blockchains we've integrated, our API is here for you.\n\nOur API supports all the tokens, protocols and blockchains supported by our app - meaning you'll have access to data from 35+ blockchains, 300+ protocols and countless tokens.\n\n## \n\n[hashtag](#querying)\n\nQuerying\n\nQueries should be made to the following URL:\n\n[`https://public-api.de.fi/graphql`arrow-up-right](https://public-api.de.fi/graphql)\n\nYou can test out your queries before setting them up in your app through our handy [**GraphQL playground**arrow-up-right](https://public-api.de.fi/graphql/).\n\nBefore being able to perform queries, make sure you have properly [**authenticated**](/api/api#authentication) them!\n\n## \n\n[hashtag](#available-endpoints)\n\nAvailable Endpoints\n\n#### \n\n[hashtag](#general-endpoints)\n\nGeneral endpoints\n\n-   **credits** - Credit information with regards to your API key.\n    \n-   **chains** - Includes information about the many blockchains we have integrated into our dashboard. **Please use** `**chain_id**` **values from the response for other calls listed below**\n    \n-   **assets** - Paginated data about the many assets we have integrated into our dashboard.\n    \n\n**Please be aware that the values of** `**chain_id**` **properties across the platform (in the response and the query params ) DON'T correspond with the absolute values (56 is for BSC, 137 is for Polygon, etc.) - the platform operates values like 1 is for Ethereum, 2 is for BNB, 3 for Polygon, etc. Please see all the values by calling** `**chains**` **endpoint.**\n\nPortfolio endpoints\n\n-   **assetBalances** - ERC20 balances for any given wallet address\n    \n-   **assetBalancesAdvanced (BETA)** - ERC20 balances for any given wallet address. Allows fetching data for multiple addresses and chains through a single request\n    \n-   **protocols** - Includes information about the many dapps we have integrated into our dashboard ([**list here**](/dashboard/the-defi-dashboard/supported-protocols)).\n    \n-   **protocolBalanceV2 (BETA) -** protocol balances for any given wallet address. Allows fetching data for multiple addresses and chains through a single request\n    \n-   **protocolBalance** - protocol balances for any given wallet address\n    \n\n#### \n\n[hashtag](#security-endpoints)\n\nSecurity endpoints\n\n-   **rekts** - Paginated data about all hacks and exploits in our [**Rekt Database**](/audits/rekt-database).\n    \n-   **shields** **(DEPRECATED)** - Safety information from [**De.Fi Shield**](/security-toolkit/shield) regarding any given wallet address(es).\n    \n-   **shieldAdvanced** - Safety information from [**De.Fi Shield**](/security-toolkit/shield) regarding any given wallet address(es).\n    \n-   **shieldApprovals** - The list of ERC20 approvals regarding any given wallet address(es).\n    \n-   **shieldApprovalsNft** - The list of ERC721 and ERC1155 approvals regarding any given wallet address(es).\n    \n-   **scannerLiquidityAnalysis** - The global liquidity distribution, top 10 LP holders and top 10 liquidity pairs regarding any given token address.\n    \n-   **scannerHolderAnalysis** - Info on the top 10 holders for any given token address.\n    \n-   **scannerProject** - The list of all issues found (both static and dynamic), security score, similar contracts and onchain governance info for any given smart contract address.\n    \n\n#### \n\n[hashtag](#opportunities-endpoints)\n\nOpportunities endpoints\n\n-   **opportunities** - Information regarding any DeFi yield opportunities available based on your preferred search terms.\n    \n-   **opportunityFarms** - List of DeFi yield opportunities.\n    \n\n## \n\n[hashtag](#potential-use-cases)\n\nPotential Use Cases\n\nNeed some ideas on how to use our API endpoints to build something cool? Check below:\n\n#### \n\n[hashtag](#portfolio-dashboard)\n\nPortfolio Dashboard\n\n-   Make a call to the `chains` endpoint to get all the chains supported by De.Fi\n    \n\n-   Make calls to the `assetBalancesAdvanced` endpoint to get ERC20 balances (in case of EVM chains) and `assetBalances` for non-EVM chains (please see the details here [https://public-api.de.fi/graphqlarrow-up-right](https://public-api.de.fi/graphql) )\n    \n\n-   Make a call to `protocols` with `version = V2` for TOP EVM and `version = V1` for the rest of the platforms supported by De.Fi, including non-EVM chains\n    \n\nThe list of platforms supported by the V2 endpoint is constantly expanding! Please reach out to the team if you have any questions or suggestions!\n\n-   Make calls to the `protocolBalanceV2` endpoint to get user positions and balances for the TOP platforms supported by De.Fi\n    \n\n-   Make calls to the `protocolBalance` endpoint for each of the chain-wallet-protocol combinations to get user positions and balances for the rest of the platforms supported by De.Fi, including non-EVM chains\n    \n\n#### \n\n[hashtag](#opportunities-dashboard)\n\nOpportunities Dashboard\n\n-   Make a call to the `opportunityFarms` endpoint to get all platforms and features supported by De.Fi's Explore Yield feature\n    \n-   Make a call to the `opportunities` endpoint to get all the yield opportunities available. It's possible to filter by platform, feature, chain, etc.\n    \n\n#### \n\n[hashtag](#security-dashboard)\n\nSecurity Dashboard\n\n-   Make a call to the `shieldApprovals` endpoint to get all approvals given out by a wallet address\n    \n-   Make a call to the `assetBalances` endpoint with the token addresses returned by the previous call. It will return the list of tokens that are still in the wallet (helps filter out approvals for zero-balance tokens)\n    \n-   Make a call to the `shieldAdvanced` endpoint with the smart contract addresses received prior for more info\n    \n\n#### \n\n[hashtag](#scanner-dashboard)\n\nScanner Dashboard\n\n-   Make calls to the `scannerProject` endpoint with the smart contract addresses received from similar calls to the \"Security Dashboard\" idea. This will return advanced security analysis for each relevant smart contract\n    \n-   Make a call to the `scannerHolderAnalysis` endpoint with the tokens addresses received prior for more holder information for each contract\n    \n-   Make a call to the `scannerLiquidityAnalysis` endpoint with the tokens addresses received prior for more liquidity information for each contract\n    \n\n## \n\n[hashtag](#authentication)\n\nAuthentication\n\nIn order to use our API, you must first get a valid API key. Get one by sending a request to `[[email protected]](/cdn-cgi/l/email-protection)`.\n\nYou will have to use a `X-Api-Key` header with your key on every request. For example, on our GraphQL playground, you should test your key as follows:\n\n![](https://docs.de.fi/~gitbook/image?url=https%3A%2F%2F1036063852-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FXOyvZ43P03BZ8mN6KNWT%252Fuploads%252F67UgKVICRYE3APgn7YCP%252FScreenshot%2520at%2520Oct%252012%252014-34-25.png%3Falt%3Dmedia%26token%3D74a2ea91-32d0-4f9a-90dd-b6f9199def52&width=768&dpr=3&quality=100&sign=c2c10004&sv=2)\n\n## \n\n[hashtag](#pricing-and-rate-limits)\n\nPricing & Rate Limits\n\nIn order to make queries with your API key, you must purchase credits. The more complex your queries, the more credits may be used up when requesting data from our API.\n\nEndpoint\n\nCredit Cost\n\nRate Limit (per minute)\n\nassetBalances\n\n10\n\n20\n\nassets\n\n1\n\n100\n\nassetsPrices\n\n1\n\n100\n\nchains\n\n1\n\n100\n\ncredits\n\n1\n\n100\n\nopportunities\n\n3\n\n100\n\nopportunityFarms\n\n1\n\n100\n\nprotocolBalance\n\n10\n\n20\n\nprotocols\n\n1\n\n100\n\nrekts\n\n3\n\n100\n\nshields\n\n10\n\n20\n\nshieldApprovals\n\n10\n\n20\n\nshieldApprovalsNft\n\n5\n\n20\n\nshieldAdvanced\n\n5\n\n20\n\nscannerLiquidityAnalysis\n\n10\n\n20\n\nscannerHolderAnalysis\n\n5\n\n20\n\nscannerProject\n\n25\n\n20\n\n## \n\n[hashtag](#sdk)\n\nSDK\n\nWe also provide an SDK to facilitate our API's usage if you plan on utilizing it in a Node.js environment. Install it as follows:\n\n`npm i @de-fi/sdk`\n\nThe SDK's documentation can be found [**here**arrow-up-right](https://www.npmjs.com/package/@de-fi/sdk).\n\n[PreviousRekt Databasechevron-left](/audits/rekt-database)[NextBrand Assetschevron-right](/resources/brand-assets)\n\nLast updated 2 years ago\n\n-   [Querying](#querying)\n-   [Available Endpoints](#available-endpoints)\n-   [Potential Use Cases](#potential-use-cases)\n-   [Authentication](#authentication)\n-   [Pricing & Rate Limits](#pricing-and-rate-limits)\n-   [SDK](#sdk)\n\nCopy\n\n```\nquery {\n  chains  {\n    id\n    name\n  }\n}\n```\n\nCopy\n\n```\nquery {\n  assetBalancesAdvanced(\n    chainIds: [1, 2]\n    walletAddresses: [\"...wallet #1...\", \"...wallet #2...\"]) {\n    total\n    wallet\n    chains {\n      chain {\n        id\n      }\n    }\n  }\n}\n```\n\nCopy\n\n```\n query {\n  protocols (version: V2) {\n    name\n    slug\n    features {\n      list \n    }\n  }\n}\n```\n\nCopy\n\n```\nquery {\n  protocolBalanceV2 (\n    chainIds: [1,2]\n    walletAddresses:[\"...wallet #1...\", \"...wallet #2...\"]\n  ){\n    errors\n    balances {\n      protocol {\n        slug \n      }\n      address\n      total\n    }\n\n  }\n}\n```\n\nCopy\n\n```\nquery {\n  protocolBalance ( balances: {\n    chainIds: [1]\n    walletAddress: \"...wallet...\"\n    protocolName: \"Arrakis\"\n  }\n  ){\n    protocol {\n      slug\n    }\n    total\n    chains {\n      total\n    }\n  }\n}\n```",
+            "metadata": {},
+            "title": "https://docs.de.fi/api/api (text/html; charset=utf-8)",
+            "time": {
+              "start": 1772129958809,
+              "end": 1772129959114
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d3baa001EtpKTa7cKzo7Ea",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01NVVrzTABhncH5HRoBdggne",
+          "state": {
+            "status": "error",
+            "input": {
+              "url": "https://docs.moralis.io/web3-data-api/evm/reference/wallet-api/get-wallet-token-balances-price",
+              "format": "markdown"
+            },
+            "error": "Error: Request failed with status code: 404",
+            "time": {
+              "start": 1772129959926,
+              "end": 1772129960087
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d3ff90011hl7v1SG2n6Dag",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01HXJms1aqQkgNmN1CFwWkRS",
+          "state": {
+            "status": "completed",
+            "input": {
+              "url": "https://docs.alchemy.com/reference/token-api-quickstart",
+              "format": "markdown"
+            },
+            "output": "Token API Quickstart | Alchemy Docs\n\n[Skip to content](#main-content)\n\n[\n\n![Alchemy Logo](/docs/images/alchemy-light.svg)![Alchemy Logo](/docs/images/alchemy-dark.svg)\n\n](/docs)\n\nSearch\n\n/\n\n[Go to Dashboard](https://dashboard.alchemy.com/signup?utm_source=docs&utm_medium=referral&utm_content=reference_token-api-quickstart)\n\n-   [Get Started](/docs/get-started)\n-   [Node](/docs/node)\n-   [Data](/docs/data)\n-   [Wallets](/docs/wallets)\n-   [Rollups](/docs/rollups)\n-   [Chains](/docs/chains)\n\n[Changelog](/docs/changelog)\n\n-   [Get Started](/docs/get-started)\n-   [Node](/docs/node)\n-   [Data](/docs/data)\n-   [Wallets](/docs/wallets)\n-   [Rollups](/docs/rollups)\n-   [Chains](/docs/chains)\n-   [Changelog](/docs/changelog)\n\n### Introduction\n\n[Data API Overview](/docs/data)[Pricing](/docs/reference/pricing-plans)\n\n### Portfolio API\n\n[Portfolio API Overview](/docs/reference/portfolio-apis)\n\nPortfolio API Endpoints\n\n### Token API\n\n[Token API Overview](/docs/reference/token-api-overview)[Token API Quickstart](/docs/reference/token-api-quickstart)\n\nToken API Endpoints\n\n### Transfers API\n\n[Transfers API Overview](/docs/reference/transfers-api-quickstart)\n\nTransfers Endpoints\n\nTransfers API Tutorials\n\n### Prices API\n\n[Prices API Quickstart](/docs/reference/prices-api-quickstart)\n\nPrices API Endpoints\n\n[Prices API FAQ](/docs/reference/prices-api-faq)\n\n### NFT API\n\n[NFT API Overview](/docs/reference/nft-api-overview)[NFT API Quickstart](/docs/reference/nft-api-quickstart)\n\n[Solana DAS API](/docs/reference/alchemy-das-apis-for-solana)\n\n[NFT API Endpoints](/docs/reference/nft-api-endpoints)\n\n[NFT API FAQ](/docs/reference/nft-api-faq)\n\n### Webhooks\n\n[Webhooks Overview](/docs/reference/webhooks-overview)\n\n[Webhooks Quickstart Guides](/docs/reference/notify-api-quickstart)\n\n[Webhook Types](/docs/reference/webhook-types)\n\nNotify API Endpoints\n\n### Simulation API\n\n[Transaction Simulation Overview](/docs/reference/simulation)\n\nTransaction Simulation Types\n\nTransaction Simulation Endpoints\n\n### Utility API\n\n[Utility APIs Overview](/docs/reference/utility-api-overview)\n\nTransactions Receipts Endpoints\n\n### Subgraphs\n\n[Alchemy Subgraphs Deprecation Notice](/docs/alchemy-subgraphs/deprecation-notice)\n\n### Beta APIs\n\nBeta API Endpoints\n\n[Go to Dashboard](https://dashboard.alchemy.com/signup?utm_source=docs&utm_medium=referral&utm_content=docs)\n\n### Introduction\n\n[Data API Overview](/docs/data)[Pricing](/docs/reference/pricing-plans)\n\n### Portfolio API\n\n[Portfolio API Overview](/docs/reference/portfolio-apis)\n\nPortfolio API Endpoints\n\n### Token API\n\n[Token API Overview](/docs/reference/token-api-overview)[Token API Quickstart](/docs/reference/token-api-quickstart)\n\nToken API Endpoints\n\n### Transfers API\n\n[Transfers API Overview](/docs/reference/transfers-api-quickstart)\n\nTransfers Endpoints\n\nTransfers API Tutorials\n\n### Prices API\n\n[Prices API Quickstart](/docs/reference/prices-api-quickstart)\n\nPrices API Endpoints\n\n[Prices API FAQ](/docs/reference/prices-api-faq)\n\n### NFT API\n\n[NFT API Overview](/docs/reference/nft-api-overview)[NFT API Quickstart](/docs/reference/nft-api-quickstart)\n\n[Solana DAS API](/docs/reference/alchemy-das-apis-for-solana)\n\n[NFT API Endpoints](/docs/reference/nft-api-endpoints)\n\n[NFT API FAQ](/docs/reference/nft-api-faq)\n\n### Webhooks\n\n[Webhooks Overview](/docs/reference/webhooks-overview)\n\n[Webhooks Quickstart Guides](/docs/reference/notify-api-quickstart)\n\n[Webhook Types](/docs/reference/webhook-types)\n\nNotify API Endpoints\n\n### Simulation API\n\n[Transaction Simulation Overview](/docs/reference/simulation)\n\nTransaction Simulation Types\n\nTransaction Simulation Endpoints\n\n### Utility API\n\n[Utility APIs Overview](/docs/reference/utility-api-overview)\n\nTransactions Receipts Endpoints\n\n### Subgraphs\n\n[Alchemy Subgraphs Deprecation Notice](/docs/alchemy-subgraphs/deprecation-notice)\n\n### Beta APIs\n\nBeta API Endpoints\n\n1.  Token API\n\nCopy page\n\n# Token API Quickstart\n\nA new developer's guide to using the Token API and getting token information. Query Token data using alchemy-web3 (recommended) or fetch.\n\n# How to Query the Token API\n\n## Fetch\n\nYou can easily interact with Alchemy's Token API using simple fetch requests. No additional dependencies required with Node.js 18+.\n\n### Usage\n\n[![token-api-javascript-scripts/alchemy-web3-script.js at main · alchemyplatform/token-api-javascript-scripts](/docs/_next/image?url=https%3A%2F%2Falchemyapi-res.cloudinary.com%2Fimage%2Fupload%2Fv1764179977%2Fdocs%2Fapi-reference%2Fdata%2Ftoken-api%2Ftoken-api-javascript-scripts.png&w=3840&q=75)](https://github.com/alchemyplatform/token-api-javascript-scripts/blob/main/alchemy-web3-script.js)\n\n[![github.com](/docs/_next/image?url=https%3A%2F%2Falchemyapi-res.cloudinary.com%2Fimage%2Fupload%2Fv1764179977%2Fdocs%2Fapi-reference%2Fdata%2Ftoken-api%2Ffavicon.ico&w=3840&q=75)github.com](https://github.com/alchemyplatform/token-api-javascript-scripts/blob/main/alchemy-web3-script.js)\n\n[token-api-javascript-scripts/alchemy-web3-script.js at main · alchemyplatform/token-api-javascript-scripts](https://github.com/alchemyplatform/token-api-javascript-scripts/blob/main/alchemy-web3-script.js)\n\nshell\n\n```\ntouch token-api-script.js\n```\n\nAnd then paste the following code snippet into the file:\n\ntoken-api-script.js\n\n```\n// Replace with your Alchemy API Key\nconst apiKey = \"demo\";\nconst baseURL = `https://eth-mainnet.g.alchemy.com/v2/${apiKey}`;\n \nasync function getTokenData() {\n  try {\n    // The wallet address / token we want to query for:\n    const ownerAddr = \"0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be\";\n    const tokenAddr = \"0x607f4c5bb672230e8672085532f7e901544a7375\";\n \n    // Get token balances\n    const balanceResponse = await fetch(baseURL, {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n      },\n      body: JSON.stringify({\n        jsonrpc: \"2.0\",\n        method: \"alchemy_getTokenBalances\",\n        params: [ownerAddr, [tokenAddr]],\n        id: 1\n      })\n    });\n \n    const balanceData = await balanceResponse.json();\n \n    // Get token metadata\n    const metadataResponse = await fetch(baseURL, {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n      },\n      body: JSON.stringify({\n        jsonrpc: \"2.0\",\n        method: \"alchemy_getTokenMetadata\",\n        params: [tokenAddr],\n        id: 2\n      })\n    });\n \n    const metadataData = await metadataResponse.json();\n \n    console.log(\"Token Balances:\");\n    console.log(balanceData.result);\n    console.log(\"Token Metadata:\");\n    console.log(metadataData.result);\n \n  } catch (error) {\n    console.error('Request failed:', error.message);\n  }\n}\n \ngetTokenData();\n```\n\nFrom your command line, you can execute the script with:\n\nshell\n\n```\nnode token-api-script.js\n```\n\nYou should see output like this:\n\nshell\n\n```\nToken Balances:\n{\n  address: '0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be',\n  tokenBalances: [\n    {\n      contractAddress: '0x607f4c5bb672230e8672085532f7e901544a7375',\n      tokenBalance: '0x0000000000000000000000000000000000000000000000000000000000000000',\n      error: null\n    }\n  ]\n}\nToken Metadata:\n{\n  decimals: 9,\n  logo: 'https://static.alchemyapi.com/images/assets/1637.png',\n  name: 'iExec RLC',\n  symbol: 'RLC'\n}\n```\n\n### Usage\n\n[![token-api-javascript-scripts/fetch-script.js at main · alchemyplatform/token-api-javascript-scripts](/docs/_next/image?url=https%3A%2F%2Falchemyapi-res.cloudinary.com%2Fimage%2Fupload%2Fv1764179977%2Fdocs%2Fapi-reference%2Fdata%2Ftoken-api%2Ftoken-api-javascript-scripts.png&w=3840&q=75)](https://github.com/alchemyplatform/token-api-javascript-scripts/blob/main/fetch-script.js)\n\n[![github.com](/docs/_next/image?url=https%3A%2F%2Falchemyapi-res.cloudinary.com%2Fimage%2Fupload%2Fv1764179977%2Fdocs%2Fapi-reference%2Fdata%2Ftoken-api%2Ffavicon.ico&w=3840&q=75)github.com](https://github.com/alchemyplatform/token-api-javascript-scripts/blob/main/fetch-script.js)\n\n[token-api-javascript-scripts/fetch-script.js at main · alchemyplatform/token-api-javascript-scripts](https://github.com/alchemyplatform/token-api-javascript-scripts/blob/main/fetch-script.js)\n\nshell\n\n```\ntouch fetch-script.js\n```\n\nand then paste the following code snippet into the file to explore the `getNFTs` method:=\n\nfetch-script.js\n\n```\n// alchemy-token-api/fetch-script.js\n \n \n// Replace with your Alchemy API key:\nconst apiKey = \"demo\";\nconst fetchURL = `https://eth-mainnet.g.alchemy.com/v2/${apiKey}`;\n \n// Replace with the wallet address you want to query:\nconst ownerAddr = \"0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be\";\n// Replace with the token contract address you want to query:\nconst tokenAddr = \"0x607f4c5bb672230e8672085532f7e901544a7375\";\n \nvar raw = JSON.stringify({\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"alchemy_getTokenBalances\",\n  \"headers\": {\n    \"Content-Type\": \"application/json\"\n  },\n  \"params\": [\n    `${ownerAddr}`,\n    [\n      `${tokenAddr}`,\n    ]\n  ],\n  \"id\": 42\n});\n \nvar requestOptions = {\n  method: 'POST',\n  body: raw,\n  redirect: 'follow'\n};\n \n// Make the request and print the formatted response:\nfetch(fetchURL, requestOptions)\n  .then(response => response.json())\n  .then(response => JSON.stringify(response, null, 2))\n  .then(result => console.log(result))\n  .catch(error => console.log('error', error));\n```\n\nFrom your command line, you can execute the script with:\n\nshell\n\n```\nnode fetch-script.js\n```\n\nYour output should look like the following:\n\njson\n\n```\n{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 42,\n  \"result\": {\n    \"address\": \"0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be\",\n    \"tokenBalances\": [\n      {\n        \"contractAddress\": \"0x607f4c5bb672230e8672085532f7e901544a7375\",\n        \"tokenBalance\": \"0x00000000000000000000000000000000000000000000000000003c005f81ab00\",\n        \"error\": null\n      }\n    ]\n  }\n}\n```\n\nWas this page helpful?\n\nYesNo\n\n[Previous](/docs/reference/token-api-overview)[\n\nNext\n\nalchemy\\_getTokenAllowance\n\nReturns the token allowance by spender for a given owner.\n\n\n\n](/docs/data/token-api/token-api-endpoints/alchemy-get-token-allowance)\n\nOn this page\n\n-   [How to Query the Token API](#how-to-query-the-token-api)\n-   [Fetch](#fetch)\n-   [Usage](#usage)\n-   [Usage](#usage-1)",
+            "metadata": {},
+            "title": "https://docs.alchemy.com/reference/token-api-quickstart (text/html; charset=utf-8)",
+            "time": {
+              "start": 1772129960567,
+              "end": 1772129960751
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d4a92001A796nZ6pE2c4MP",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01EG8knMUJKzXbWisw3dc1WR",
+          "state": {
+            "status": "completed",
+            "input": {
+              "url": "https://docs.gopluslabs.io/reference/token-security-api",
+              "format": "markdown"
+            },
+            "output": "Get token's security and risk data.                                                         \n\n[Jump to Content](#content)\n\n[![GoPlus Security](https://files.readme.io/97584af-brandmark-white.svg)](/)\n\n[Guides](/docs)[API Reference](/reference)[Changelog](/changelog)[Discussions](/discuss)\n\nv1.0\n\n---\n\n[Log In](/login?redirect_uri=/reference/tokensecurityusingget_1)[![GoPlus Security](https://files.readme.io/97584af-brandmark-white.svg)](/)\n\nAPI Reference\n\n[Log In](/login?redirect_uri=/reference/tokensecurityusingget_1)\n\nv1.0[Guides](/docs)[API Reference](/reference)[Changelog](/changelog)[Discussions](/discuss)\n\nGet token's security and risk data.\n\nAll\n\nPages\n\n###### Start typing to search…\n\nJUMP TO\n\n## OVERVIEW\n\n-   [API Overview](/reference/api-overview)\n\n## GoPlus Security API Documentation\n\n-   [Supported Blockchains](/reference/getchainslistusingget)\n    -   [Get the list of chains supported by different functions.get](/reference/getchainslistusingget)\n    -   [Response Details](/reference/response-details-9)\n-   [Access Token API](/reference/getaccesstokenusingpost)\n    -   [get tokenpost](/reference/getaccesstokenusingpost)\n    -   [Response Details](/reference/response-details-10)\n-   [Token Security API](/reference/tokensecurityusingget_1)\n    -   [Get token's security and risk data.get](/reference/tokensecurityusingget_1)\n    -   [Response Details](/reference/response-details)\n    -   [Supported Locker](/reference/supported-locker)\n    -   [Supported Dex](/reference/supported-dex)\n    -   [Supported Mainstream Tokens](/reference/supported-main-token)\n-   [Token Security API for Solana (Beta)](/reference/solanatokensecurityusingget)\n    -   [Get token's security and risk data.get](/reference/solanatokensecurityusingget)\n    -   [Response Detail](/reference/response-detail-1)\n    -   [Supported Locker](/reference/supported-locker-1)\n-   [Token Security API for Sui](/reference/suitokensecurityusingget)\n    -   [Get token's security and risk data.get](/reference/suitokensecurityusingget)\n    -   [Response Detail](/reference/response-detail-copy)\n-   [NFT Security API](/reference/getnftinfousingget_1)\n    -   [Get NFT's security and risk data.get](/reference/getnftinfousingget_1)\n    -   [Response Details](/reference/response-details-5)\n-   [Malicious Address API](/reference/addresscontractusingget_1)\n    -   [Check if the address is maliciousget](/reference/addresscontractusingget_1)\n    -   [Response Details](/reference/response-details-1)\n-   [Approval Security API (v1)](/reference/approvalcontractusingget)\n    -   [Check if the approval is secure get](/reference/approvalcontractusingget)\n    -   [Response Details](/reference/response-details-2)\n-   [Approval Security API (v2)](/reference/addresstokenapprovelistusingget_1)\n    -   [Returns the ERC-20 approvals of an EOA address and associated risk items.get](/reference/addresstokenapprovelistusingget_1)\n    -   [Returns the ERC-721 approvals of an EOA address and associated risk items.get](/reference/addressnft721approvelistusingget_1)\n    -   [Returns the ERC-1155 approvals of an EOA address and associated risk items.get](/reference/addressnft1155approvelistusingget_1)\n    -   [Response Details](/reference/response-details-3)\n-   [Signature Data Decode API](/reference/getabidatainfousingpost)\n    -   [Get abi decode infopost](/reference/getabidatainfousingpost)\n    -   [Response Details](/reference/response-details-4)\n-   [dApp Security Info API](/reference/getdappinfousingget)\n    -   [Check risk of dapp through URLget](/reference/getdappinfousingget)\n    -   [Response Details](/reference/response-details-6)\n-   [Phishing Site Detection API](/reference/phishingsiteusingget)\n    -   [Check if the the url is a phishing siteget](/reference/phishingsiteusingget)\n-   [Rug-Pull Detection API (Beta)](/reference/getdefiinfousingget)\n    -   [Rug-pull Detection API Betaget](/reference/getdefiinfousingget)\n    -   [Response Details](/reference/response-details-7)\n-   [Transaction Simulation API for EVM](/reference/gettransactionsecurityinfousingpost)\n    -   [Transaction Simulationpost](/reference/gettransactionsecurityinfousingpost)\n    -   [Response Detail](/reference/response-detail-copy-2)\n-   [Transaction Simulation for Solana](/reference/preruntxusingpost)\n    -   [Check for potential risks in the transactionpost](/reference/preruntxusingpost)\n    -   [Response Details](/reference/response-details-11)\n-   [Dust/Shadow Attack Detection (Beta)](/reference/dustattackdetectionusingpost)\n    -   [Dust Attack Detectionpost](/reference/dustattackdetectionusingpost)\n    -   [Responce Detail](/reference/responce-detail)\n-   [Address Scan API](/reference/address-scan-api-1)\n    -   [Start address security scanget](/reference/scanaddressusingget)\n    -   [Send Address Scan Request](/reference/send-address-scan-request)\n    -   [Get address scan resultget](/reference/getscanresultusingget)\n    -   [Get Address Scan Result](/reference/get-address-scan-result)\n-   [Get token locker info](/reference/gettokenlockersusingget)\n    -   [Get token locker infoget](/reference/gettokenlockersusingget)\n-   [Get lpv3 locker info](/reference/getnftlockersusingget)\n    -   [Get lpv3 locker infoget](/reference/getnftlockersusingget)\n-   [Get lpv3 locker infos](/reference/getnftlockerlockinfoslistusingget)\n    -   [get lpv3 locker infosget](/reference/getnftlockerlockinfoslistusingget)\n-   [Get lpv4 locker info](/reference/getv4nftlockersusingget)\n    -   [get v4 nft locker infoget](/reference/getv4nftlockersusingget)\n-   [Get lpv4 locker infos](/reference/getv4nftlockerlockinfoslistusingget)\n    -   [get lpv4 locker infosget](/reference/getv4nftlockerlockinfoslistusingget)\n\n## Resources\n\n-   [API Status Code](/reference/api-status-code)\n-   [API License Agreement](/reference/api-license-agreement-new)\n-   [Support](/reference/support)\n\nPowered by [](https://readme.com?ref_src=hub&project=goplus)\n\n# Get token's security and risk data.\n\nAsk AI\n\nget\n\nhttps://api.gopluslabs.io/api/v1/token\\_security/{chain\\_id}\n\nGet token security information.\n\nLanguage\n\nShellNodeGoPythonJava\n\nResponse\n\nClick `Try It!` to start a request and see the response here!",
+            "metadata": {},
+            "title": "https://docs.gopluslabs.io/reference/token-security-api (text/html; charset=utf-8)",
+            "time": {
+              "start": 1772129963469,
+              "end": 1772129964233
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d4dcf001rvV5i3yyDTObm5",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01YZ4mo4Zikz6hJzsnrU7Cte",
+          "state": {
+            "status": "error",
+            "input": {
+              "url": "https://api.honeypot.is/v2/IsHoneypot",
+              "format": "markdown"
+            },
+            "error": "Error: Request failed with status code: 400",
+            "time": {
+              "start": 1772129964291,
+              "end": 1772129964410
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d5108001PvxDGACQPFvMpq",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01ARTLmpoHSCrdLa5Hxz77GN",
+          "state": {
+            "status": "error",
+            "input": {
+              "url": "https://docs.moralis.io/web3-data-api/evm/token-api",
+              "format": "markdown"
+            },
+            "error": "Error: Request failed with status code: 404",
+            "time": {
+              "start": 1772129964998,
+              "end": 1772129965137
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d5d010018i2fzdGLWGHQry",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01NR5SAnVtFxrSoSfHSX4bPZ",
+          "state": {
+            "status": "error",
+            "input": {
+              "url": "https://github.com/Honeypot-Finance/honeypot_api_docs",
+              "format": "markdown"
+            },
+            "error": "Error: Request failed with status code: 404",
+            "time": {
+              "start": 1772129968224,
+              "end": 1772129968380
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d60620010S2dLuIn6V8GQe",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01G162Q7XukD1WPhBrPfCCfn",
+          "state": {
+            "status": "completed",
+            "input": {
+              "url": "https://docs.moralis.io",
+              "format": "markdown"
+            },
+            "output": "Overview - Moralis\n\n \n\n[Skip to main content](#content-area)\n\n[Moralis home page![light logo](https://mintcdn.com/moralis/GWFD1O4mIZzaStPO/logo/light.png?fit=max&auto=format&n=GWFD1O4mIZzaStPO&q=85&s=66e6da0d81943c4679e0ba921850201d)![dark logo](https://mintcdn.com/moralis/GWFD1O4mIZzaStPO/logo/dark.png?fit=max&auto=format&n=GWFD1O4mIZzaStPO&q=85&s=39f72ccb7cd088ee041f49d8b76acc8c)](/)\n\nSearch...\n\n⌘KAsk AI\n\n-   [Enterprise](https://moralis.com/enterprise/)\n-   [Status](https://status.moralis.io/)\n-   [Start for Free](https://admin.moralis.com/register)\n-   [\n    \n    Start for Free\n    \n    ](https://admin.moralis.com/register)\n\nSearch...\n\nNavigation\n\nIntroduction\n\nOverview\n\n[Get Started\n\n](/)[Data API\n\n](/data-api)[Streams\n\n](/streams)[Datashare\n\n](/datashare)[Data Indexer\n\n](/data-indexer)[RPC Nodes\n\n](/rpc-nodes)[Auth API\n\n](/auth-api/overview)[Changelog\n\n](/changelog)\n\n##### Introduction\n\n-   [\n    \n    Overview\n    \n    \n    \n    ](/)\n\n##### Getting Started\n\n-   [\n    \n    Get Your API Key\n    \n    \n    \n    ](/get-started/get-your-api-key)\n-   [\n    \n    Quickstart Guides\n    \n    \n    \n    ](/get-started/quickstart-guides)\n\n##### Pricing & Resources\n\n-   [\n    \n    Pricing\n    \n    \n    \n    ](/get-started/pricing)\n-   [\n    \n    Supported Chains\n    \n    \n    \n    ](/get-started/supported-chains)\n\n##### Tutorials & Guides\n\n-   [\n    \n    Overview\n    \n    \n    \n    ](/get-started/tutorials/overview)\n-   Data API Tutorials\n    \n-   Streams Tutorials\n    \n-   Migration Guides\n    \n-   Charts & Widgets\n    \n-   Auth API Tutorials\n    \n\nIntroduction\n\n# Overview\n\nOpenAIOpen in ChatGPT\n\nOne platform for real-time blockchain data - APIs, streams, datasets and enterprise indexing powering wallets, compliance, AI, and next-gen finance.\n\nOpenAIOpen in ChatGPT\n\n## \n\n[​\n\n](#moralis-data-platform)\n\nMoralis Data Platform\n\nMoralis is an onchain data platform that provides a complete, production-grade data layer for Web3. It enables teams to fetch, monitor, index, and export blockchain data across 30+ supported chains - without running RPCs, DIY indexers, or custom infrastructure. The platform is built for scale, low latency, and reliability, and is used by both startups and enterprises to power wallets, analytics, automation, and data pipelines.\n\n[\n\n## Data APIs\n\nFetch Crypto Data\n\n\n\n\n\n](/data-api/index)[\n\n## Streams\n\nMonitor Crypto Data\n\n\n\n\n\n](/streams)[\n\n## Datashare\n\nExport Crypto Data\n\n\n\n\n\n](/datashare)[\n\n## Data Indexer\n\nIndex Crypto Data\n\n\n\n\n\n](/data-indexer)\n\n### \n\n[​\n\n](#data-api)\n\nData API\n\nThe [Data API](/data-api/index) provides a **single**, **consistent interface** for accessing decoded and enriched onchain data across EVM and Solana chains. It delivers **low-latency**, **high-throughput APIs** for wallets, tokens, NFTs, prices, DeFi, and raw blockchain data, allowing teams to build multi-chain applications from a single backend. **Best for:** powering user-facing applications, dashboards, and backend services that need fast, reliable onchain reads.\n\n### \n\n[​\n\n](#streams)\n\nStreams\n\n[Streams](/streams/index) enables **real-time access to onchain events** through webhooks, allowing applications to react instantly without polling the blockchain. Teams can subscribe to wallet activity, transfers, contract events, or custom triggers and receive events as they happen onchain. **Best for:** notifications, automation, monitoring, and event-driven workflows.\n\n### \n\n[​\n\n](#datashare)\n\nDatashare\n\n[Datashare](/datashare/index) provides access to **large-scale historical and ongoing onchain datasets**, delivered directly into cloud storage or data warehouses. It is designed for analytics, machine learning, compliance, and reporting workflows, exporting **normalized**, **decoded**, **cross-chain data** in formats optimized for data pipelines. **Best for:** analytics, BI, AI/ML training, compliance, and batch data processing.\n\n### \n\n[​\n\n](#data-indexer)\n\nData Indexer\n\nThe [Data Indexer](/data-indexer/index) is a managed, enterprise-grade indexing solution for building **custom onchain data pipelines**. It combines historical backfills with real-time indexing, supports **custom schemas**, and delivers indexed data directly into your infrastructure - giving teams full control without the operational burden of running indexers in-house. **Best for:** custom data models, internal analytics systems, and enterprise workloads requiring tailored onchain data.\n\n## \n\n[​\n\n](#how-the-platform-fits-together)\n\nHow the platform fits together\n\n-   **Data API →** Read onchain data on demand with low latency\n-   **Streams →** React to onchain events in real time\n-   **Datashare →** Export and analyze onchain data at scale\n-   **Data Indexer →** Build custom, controlled onchain data pipelines\n\nTogether, these products form Moralis’ **onchain data layer**, enabling teams to build, scale, and operate Web3 products on a single platform.\n\n## \n\n[​\n\n](#product-comparison)\n\nProduct comparison\n\nProduct\n\nPrimary purpose\n\nAccess pattern\n\nData type\n\nBest suited for\n\n[Data API](/data-api/index)\n\nRead onchain data\n\nOn-demand (request/response)\n\nDecoded, enriched blockchain data\n\nApps, dashboards, backend services\n\n[Streams](/streams/index)\n\nReact to onchain events\n\nReal-time webhooks\n\nLive wallet & contract events\n\nNotifications, automation, monitoring\n\n[Datashare](/datashare/index)\n\nAnalyze data at scale\n\nBatch & scheduled exports\n\nLarge-scale historical datasets\n\nAnalytics, BI, AI/ML, compliance\n\n[Data Indexer](/data-indexer/index)\n\nBuild custom data pipelines\n\nContinuous indexing\n\nCustom-structured onchain data\n\nEnterprise systems, internal analytics\n\n[Get Your API Key](/get-started/get-your-api-key)\n\n⌘I\n\n[youtube](https://www.youtube.com/channel/UCgWS9Q3P5AxCWyQLT2kQhBw)[x](https://x.com/moralisdevs)[linkedin](https://www.linkedin.com/company/moralisweb3)[discord](https://discord.gg/s3UfDvXQTc)[website](https://moralis.com/)\n\n[Powered by](https://www.mintlify.com?utm_campaign=poweredBy&utm_medium=referral&utm_source=moralis)\n\nAssistant\n\nResponses are generated using AI and may contain mistakes.",
+            "metadata": {},
+            "title": "https://docs.moralis.io (text/html; charset=utf-8)",
+            "time": {
+              "start": 1772129968949,
+              "end": 1772129969111
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d6337001H32TPwX5gW8WGX",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01Mt3mkVHFBYAuQ1qBgoevoX",
+          "state": {
+            "status": "error",
+            "input": {
+              "url": "https://docs.0x.org/0x-swap-api/introduction",
+              "format": "markdown"
+            },
+            "error": "Error: Request failed with status code: 404",
+            "time": {
+              "start": 1772129969419,
+              "end": 1772129969635
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d6bb6001o6YnruFpEulh2M",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_01WG8pMpuxw1y1qNL6kKZrA6",
+          "state": {
+            "status": "error",
+            "input": {
+              "url": "https://docs.moralis.io/web3-data-api/evm/reference/get-wallet-token-balances",
+              "format": "markdown"
+            },
+            "error": "Error: Request failed with status code: 404",
+            "time": {
+              "start": 1772129972130,
+              "end": 1772129972262
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d6fa7001TN9fnEviJUUcM9",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_0115WvYFddPGJxy1QK5CNn7y",
+          "state": {
+            "status": "error",
+            "input": {
+              "url": "https://docs.alchemy.com/docs/how-to-identify-spam-tokens",
+              "format": "markdown"
+            },
+            "error": "Error: Request failed with status code: 404",
+            "time": {
+              "start": 1772129972872,
+              "end": 1772129973351
+            }
+          }
+        },
+        {
+          "id": "prt_c9b2d728e001SD2tutoLVfklIn",
+          "messageID": "msg_c9b2d10a5001FXbuDsk6Gyr7wN",
+          "sessionID": "ses_364d2ef60ffeb5aHdYI9kgtSYB",
+          "type": "tool",
+          "tool": "webfetch",
+          "callID": "toolu_vrtx_012YNyyGUMe3n5hfyGwYQZ5B",
+          "state": {
+            "status": "completed",
+            "input": {
+              "url": "https://docs.gopluslabs.io/reference/api-overview",
+              "format": "markdown"
+            },
+            "output": "API Overview                                                         \n\n[Jump to Content](#content)\n\n[![GoPlus Security](https://files.readme.io/97584af-brandmark-white.svg)](/)\n\n[Guides](/docs)[API Reference](/reference)[Changelog](/changelog)[Discussions](/discuss)\n\nv1.0\n\n---\n\n[Log In](/login?redirect_uri=/reference/api-overview)[![GoPlus Security](https://files.readme.io/97584af-brandmark-white.svg)](/)\n\nAPI Reference\n\n[Log In](/login?redirect_uri=/reference/api-overview)\n\nv1.0[Guides](/docs)[API Reference](/reference)[Changelog](/changelog)[Discussions](/discuss)\n\nAPI Overview\n\nAll\n\nPages\n\n###### Start typing to search…\n\nJUMP TO\n\n## OVERVIEW\n\n-   [API Overview](/reference/api-overview)\n\n## GoPlus Security API Documentation\n\n-   [Supported Blockchains](/reference/getchainslistusingget)\n    -   [Get the list of chains supported by different functions.get](/reference/getchainslistusingget)\n    -   [Response Details](/reference/response-details-9)\n-   [Access Token API](/reference/getaccesstokenusingpost)\n    -   [get tokenpost](/reference/getaccesstokenusingpost)\n    -   [Response Details](/reference/response-details-10)\n-   [Token Security API](/reference/tokensecurityusingget_1)\n    -   [Get token's security and risk data.get](/reference/tokensecurityusingget_1)\n    -   [Response Details](/reference/response-details)\n    -   [Supported Locker](/reference/supported-locker)\n    -   [Supported Dex](/reference/supported-dex)\n    -   [Supported Mainstream Tokens](/reference/supported-main-token)\n-   [Token Security API for Solana (Beta)](/reference/solanatokensecurityusingget)\n    -   [Get token's security and risk data.get](/reference/solanatokensecurityusingget)\n    -   [Response Detail](/reference/response-detail-1)\n    -   [Supported Locker](/reference/supported-locker-1)\n-   [Token Security API for Sui](/reference/suitokensecurityusingget)\n    -   [Get token's security and risk data.get](/reference/suitokensecurityusingget)\n    -   [Response Detail](/reference/response-detail-copy)\n-   [NFT Security API](/reference/getnftinfousingget_1)\n    -   [Get NFT's security and risk data.get](/reference/getnftinfousingget_1)\n    -   [Response Details](/reference/response-details-5)\n-   [Malicious Address API](/reference/addresscontractusingget_1)\n    -   [Check if the address is maliciousget](/reference/addresscontractusingget_1)\n    -   [Response Details](/reference/response-details-1)\n-   [Approval Security API (v1)](/reference/approvalcontractusingget)\n    -   [Check if the approval is secure get](/reference/approvalcontractusingget)\n    -   [Response Details](/reference/response-details-2)\n-   [Approval Security API (v2)](/reference/addresstokenapprovelistusingget_1)\n    -   [Returns the ERC-20 approvals of an EOA address and associated risk items.get](/reference/addresstokenapprovelistusingget_1)\n    -   [Returns the ERC-721 approvals of an EOA address and associated risk items.get](/reference/addressnft721approvelistusingget_1)\n    -   [Returns the ERC-1155 approvals of an EOA address and associated risk items.get](/reference/addressnft1155approvelistusingget_1)\n    -   [Response Details](/reference/response-details-3)\n-   [Signature Data Decode API](/reference/getabidatainfousingpost)\n    -   [Get abi decode infopost](/reference/getabidatainfousingpost)\n    -   [Response Details](/reference/response-details-4)\n-   [dApp Security Info API](/reference/getdappinfousingget)\n    -   [Check risk of dapp through URLget](/reference/getdappinfousingget)\n    -   [Response Details](/reference/response-details-6)\n-   [Phishing Site Detection API](/reference/phishingsiteusingget)\n    -   [Check if the the url is a phishing siteget](/reference/phishingsiteusingget)\n-   [Rug-Pull Detection API (Beta)](/reference/getdefiinfousingget)\n    -   [Rug-pull Detection API Betaget](/reference/getdefiinfousingget)\n    -   [Response Details](/reference/response-details-7)\n-   [Transaction Simulation API for EVM](/reference/gettransactionsecurityinfousingpost)\n    -   [Transaction Simulationpost](/reference/gettransactionsecurityinfousingpost)\n    -   [Response Detail](/reference/response-detail-copy-2)\n-   [Transaction Simulation for Solana](/reference/preruntxusingpost)\n    -   [Check for potential risks in the transactionpost](/reference/preruntxusingpost)\n    -   [Response Details](/reference/response-details-11)\n-   [Dust/Shadow Attack Detection (Beta)](/reference/dustattackdetectionusingpost)\n    -   [Dust Attack Detectionpost](/reference/dustattackdetectionusingpost)\n    -   [Responce Detail](/reference/responce-detail)\n-   [Address Scan API](/reference/address-scan-api-1)\n    -   [Start address security scanget](/reference/scanaddressusingget)\n    -   [Send Address Scan Request](/reference/send-address-scan-request)\n    -   [Get address scan resultget](/reference/getscanresultusingget)\n    -   [Get Address Scan Result](/reference/get-address-scan-result)\n-   [Get token locker info](/reference/gettokenlockersusingget)\n    -   [Get token locker infoget](/reference/gettokenlockersusingget)\n-   [Get lpv3 locker info](/reference/getnftlockersusingget)\n    -   [Get lpv3 locker infoget](/reference/getnftlockersusingget)\n-   [Get lpv3 locker infos](/reference/getnftlockerlockinfoslistusingget)\n    -   [get lpv3 locker infosget](/reference/getnftlockerlockinfoslistusingget)\n-   [Get lpv4 locker info](/reference/getv4nftlockersusingget)\n    -   [get v4 nft locker infoget](/reference/getv4nftlockersusingget)\n-   [Get lpv4 locker infos](/reference/getv4nftlockerlockinfoslistusingget)\n    -   [get lpv4 locker infosget](/reference/getv4nftlockerlockinfoslistusingget)\n\n## Resources\n\n-   [API Status Code](/reference/api-status-code)\n-   [API License Agreement](/reference/api-license-agreement-new)\n-   [Support](/reference/support)\n\nPowered by [](https://readme.com?ref_src=hub&project=goplus)\n\n# API Overview\n\nAsk AI",
+            "metadata": {},
+            "title": "https://docs.gopluslabs.io/reference/api-overview (text/html; charset=utf-8)",
+            "time": {
+              "start": 1772129973651,
+              "end": 1772129973723
+            }
+          }
+        }
+      ]
+    },
+    "title": "Research token security APIs",
+    "time": {
+      "start": 1772129947807,
+      "end": 1772130020902
+    }
+  }
+}

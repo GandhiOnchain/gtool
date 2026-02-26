@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9b2e5960001YvLmMCG6H7XubC",
+  "messageID": "msg_c9b2ce4a5001eGutdgDQHAhO6C",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_012N75JKtDSRZRr3xcMzzQp4",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 82,
+      "limit": 10
+    },
+    "output": "<file>\n00083|   token: RelayCurrency\n00084|   balance: string\n00085|   balanceFormatted: string\n00086|   balanceUsd?: string\n00087|   selected?: boolean\n00088| }\n00089| \n00090| const STREAK_MESSAGES = [\n00091|   \"🔥 Streak alive! Keep it going!\",\n00092|   \"💪 You're on fire! Streak extended!\",\n\n(File has more lines. Use 'offset' parameter to read beyond line 92)\n</file>",
+    "metadata": {
+      "preview": "  token: RelayCurrency\n  balance: string\n  balanceFormatted: string\n  balanceUsd?: string\n  selected?: boolean\n}\n\nconst STREAK_MESSAGES = [\n  \"🔥 Streak alive! Keep it going!\",\n  \"💪 You're on fire! Streak extended!\","
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772130032991,
+      "end": 1772130032992
+    }
+  }
+}
