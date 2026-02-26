@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9a24a1cb001ifPOIgC69O6QWQ",
+  "messageID": "msg_c9a238436001H5Q1bg0hPsoFoj",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_016kFihkKTe3LQfJuZqZMZ4T",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -v -X POST \"https://base-mainnet.g.alchemy.com/v2/oTgEqagb1skfZMORBdRso\" -H \"Content-Type: application/json\" -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"alchemy_getTokenBalances\",\"params\":[\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\"erc20\"]}' 2>&1 | tail -20",
+      "description": "Test Alchemy key verbose"
+    },
+    "output": "> \r\n} [124 bytes data]\n* upload completely sent off: 124 bytes\n{ [5 bytes data]\n* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):\n{ [230 bytes data]\n* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):\n{ [230 bytes data]\n< HTTP/2 403 \r\n< content-type: application/json\r\n< content-length: 36\r\n< x-alchemy-trace-id: d22c9609-f271-4ee5-9f04-fe6b7107c8c0\r\n< date: Thu, 26 Feb 2026 13:30:19 GMT\r\n< server: istio-envoy\r\n< x-envoy-upstream-service-time: 11\r\n< \r\n{ [36 bytes data]\n\r100   160  100    36  100   124   1388   4782 --:--:-- --:--:-- --:--:--  6400\n* Connection #0 to host base-mainnet.g.alchemy.com left intact\nUnspecified origin not on whitelist.",
+    "metadata": {
+      "output": "> \r\n} [124 bytes data]\n* upload completely sent off: 124 bytes\n{ [5 bytes data]\n* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):\n{ [230 bytes data]\n* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):\n{ [230 bytes data]\n< HTTP/2 403 \r\n< content-type: application/json\r\n< content-length: 36\r\n< x-alchemy-trace-id: d22c9609-f271-4ee5-9f04-fe6b7107c8c0\r\n< date: Thu, 26 Feb 2026 13:30:19 GMT\r\n< server: istio-envoy\r\n< x-envoy-upstream-service-time: 11\r\n< \r\n{ [36 bytes data]\n\r100   160  100    36  100   124   1388   4782 --:--:-- --:--:-- --:--:--  6400\n* Connection #0 to host base-mainnet.g.alchemy.com left intact\nUnspecified origin not on whitelist.",
+      "exit": 0,
+      "description": "Test Alchemy key verbose"
+    },
+    "title": "curl -v -X POST \"https://base-mainnet.g.alchemy.com/v2/oTgEqagb1skfZMORBdRso\" -H \"Content-Type: application/json\" -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"alchemy_getTokenBalances\",\"params\":[\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\"erc20\"]}' 2>&1 | tail -20",
+    "time": {
+      "start": 1772112619350,
+      "end": 1772112619384
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a247389001KNqI6Y3KGbvU06",
+  "messageID": "msg_c9a238436001H5Q1bg0hPsoFoj",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Ethplorer works for Ethereum mainnet but not for other chains. The best free solution without any API key is to use **eth_getLogs** to scan Transfer events to the wallet address. But that's slow. The real answer here is: **we need an Alchemy API key**. Let me check if there's an environment-level key already set:",
+  "time": {
+    "start": 1772112609725,
+    "end": 1772112609725
+  }
+}

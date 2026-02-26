@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a23f8380012XIkLyu0wQM0N1",
+  "messageID": "msg_c9a238436001H5Q1bg0hPsoFoj",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "Good — Relay does return `logoURI` in metadata. The issue is that `metadata.logoURI` IS present from Relay but the token selector was only checking it (not using fallbacks). Now let me check the real problem: **no Alchemy key = only native token shown**. The solution is to use a **free public API** for token balances. The best option without any API key is **Ankr's Advanced API** which has a free public endpoint:",
+  "time": {
+    "start": 1772112581706,
+    "end": 1772112581706
+  }
+}

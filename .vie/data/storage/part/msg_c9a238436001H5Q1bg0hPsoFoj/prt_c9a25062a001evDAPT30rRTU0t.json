@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9a25062a001evDAPT30rRTU0t",
+  "messageID": "msg_c9a238436001H5Q1bg0hPsoFoj",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_019tmBJJTyFra1ckyuz5gf3S",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3004,
+      "limit": 40
+    },
+    "output": "<file>\n03005|                   <div className=\"mt-2 p-2 bg-destructive/10 border border-destructive/20 rounded text-xs text-destructive\">\n03006|                     High slippage tolerance set. Transaction may execute at unfavorable rates.\n03007|                   </div>\n03008|                 )}\n03009|               </Card>\n03010|             )}\n03011| \n03012|             {fromChain && toChain && fromToken && toToken && \n03013|              fromChain.id === toChain.id && \n03014|              fromToken.address.toLowerCase() === toToken.address.toLowerCase() && (\n03015|               <Card className=\"p-3 bg-destructive/10 border-destructive\">\n03016|                 <div className=\"text-xs text-destructive text-center\">\n03017|                   Cannot swap the same token to itself. Please select a different token.\n03018|                 </div>\n03019|               </Card>\n03020|             )}\n03021| \n03022|             {fromAmount && fromBalance && parseFloat(fromAmount) > parseFloat(formatUnits(fromBalance.value, fromBalance.decimals)) && (\n03023|               <Card className=\"p-3 bg-destructive/10 border-destructive\">\n03024|                 <div className=\"text-xs text-destructive text-center\">\n03025|                   Insufficient {fromToken?.symbol} balance\n03026|                 </div>\n03027|               </Card>\n03028|             )}\n03029| \n03030|             <Button\n03031|               onClick={executeSwap}\n03032|               disabled={(() => {\n03033|                 if (!quote || isSwapping || !isConnected) return true\n03034| \n03035|                 // Check insufficient balance\n03036|                 if (fromAmount && fromBalance && parseFloat(fromAmount) > parseFloat(formatUnits(fromBalance.value, fromBalance.decimals))) return true\n03037|                 \n03038|                 // Check if same token\n03039|                 if (fromChain && toChain && fromToken && toToken &&\n03040|                     fromChain.id === toChain.id && \n03041|                     fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n03042|                   return true\n03043|                 }\n03044|                 \n\n(File has more lines. Use 'offset' parameter to read beyond line 3044)\n</file>",
+    "metadata": {
+      "preview": "                  <div className=\"mt-2 p-2 bg-destructive/10 border border-destructive/20 rounded text-xs text-destructive\">\n                    High slippage tolerance set. Transaction may execute at unfavorable rates.\n                  </div>\n                )}\n              </Card>\n            )}\n\n            {fromChain && toChain && fromToken && toToken && \n             fromChain.id === toChain.id && \n             fromToken.address.toLowerCase() === toToken.address.toLowerCase() && (\n              <Card className=\"p-3 bg-destructive/10 border-destructive\">\n                <div className=\"text-xs text-destructive text-center\">\n                  Cannot swap the same token to itself. Please select a different token.\n                </div>\n              </Card>\n            )}\n\n            {fromAmount && fromBalance && parseFloat(fromAmount) > parseFloat(formatUnits(fromBalance.value, fromBalance.decimals)) && (\n              <Card className=\"p-3 bg-destructive/10 border-destructive\">\n                <div className=\"text-xs text-destructive text-center\">"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772112644366,
+      "end": 1772112644367
+    }
+  }
+}

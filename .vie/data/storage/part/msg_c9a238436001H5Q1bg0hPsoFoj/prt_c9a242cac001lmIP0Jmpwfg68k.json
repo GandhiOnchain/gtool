@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9a242cac001lmIP0Jmpwfg68k",
+  "messageID": "msg_c9a238436001H5Q1bg0hPsoFoj",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01SwhQBo7eQ7wa9FESjJUCq4",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://api.covalenthq.com/v1/base-mainnet/address/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/balances_v2/?key=cqt_rQ8x3FMkBqBqBqBqBqBqBqBqBqBq\" 2>/dev/null | head -100 || echo \"covalent needs key\"",
+      "description": "Test Covalent API"
+    },
+    "output": "{\"data\":null,\"error\":true,\"error_message\":\"Unable to authenticate request.\",\"error_code\":401}",
+    "metadata": {
+      "output": "{\"data\":null,\"error\":true,\"error_message\":\"Unable to authenticate request.\",\"error_code\":401}",
+      "exit": 0,
+      "description": "Test Covalent API"
+    },
+    "title": "curl -s \"https://api.covalenthq.com/v1/base-mainnet/address/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/balances_v2/?key=cqt_rQ8x3FMkBqBqBqBqBqBqBqBqBqBq\" 2>/dev/null | head -100 || echo \"covalent needs key\"",
+    "time": {
+      "start": 1772112590168,
+      "end": 1772112590287
+    }
+  }
+}

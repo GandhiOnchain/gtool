@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9a24e0c9001xY6NtwCSOtnFyR",
+  "messageID": "msg_c9a238436001H5Q1bg0hPsoFoj",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01ACRffQmaBodm1GkiTktxCy",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 399,
+      "limit": 15
+    },
+    "output": "<file>\n00400|   }, [address, fromChain, isConnected])\n00401| \n00402|   useEffect(() => {\n00403|     if (address && toChain && isConnected && !chainWalletTokens[toChain.id]) {\n00404|       loadTokensForChain(toChain)\n00405|     }\n00406|   }, [address, toChain, isConnected])\n00407| \n00408|   useEffect(() => {\n00409|     if (batchChain) {\n00410|       const vmType = batchChain.vmType || 'evm'\n00411|       // For EVM chains, need EVM wallet connected\n00412|       // For Solana chains, need Solana wallet connected\n00413|       const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n00414|                                 ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)\n\n(File has more lines. Use 'offset' parameter to read beyond line 414)\n</file>",
+    "metadata": {
+      "preview": "  }, [address, fromChain, isConnected])\n\n  useEffect(() => {\n    if (address && toChain && isConnected && !chainWalletTokens[toChain.id]) {\n      loadTokensForChain(toChain)\n    }\n  }, [address, toChain, isConnected])\n\n  useEffect(() => {\n    if (batchChain) {\n      const vmType = batchChain.vmType || 'evm'\n      // For EVM chains, need EVM wallet connected\n      // For Solana chains, need Solana wallet connected\n      const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n                                ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772112634926,
+      "end": 1772112634929
+    }
+  }
+}

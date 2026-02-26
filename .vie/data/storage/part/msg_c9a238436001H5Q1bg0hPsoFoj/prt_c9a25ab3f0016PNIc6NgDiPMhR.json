@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9a25ab3f0016PNIc6NgDiPMhR",
+  "messageID": "msg_c9a238436001H5Q1bg0hPsoFoj",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "text",
+  "text": "The `loadTokensForChain` and `loadBatchWalletTokens` both use `chain.httpRpcUrl` for the public client. Let me update them to prefer the Alchemy RPC URL from config when available:",
+  "time": {
+    "start": 1772112693129,
+    "end": 1772112693129
+  }
+}

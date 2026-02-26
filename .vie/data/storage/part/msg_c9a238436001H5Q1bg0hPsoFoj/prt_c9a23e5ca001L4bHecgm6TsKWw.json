@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9a23e5ca001L4bHecgm6TsKWw",
+  "messageID": "msg_c9a238436001H5Q1bg0hPsoFoj",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01ViEEA2CGRVwC75zGmAJM2L",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s -X POST \"https://api.relay.link/currencies/v2\" -H \"Content-Type: application/json\" -d '{\"chainIds\":[8453],\"defaultList\":true,\"limit\":5}' 2>/dev/null | python3 -c \"import json,sys; data=json.load(sys.stdin); [print(d.get('symbol'), d.get('address'), d.get('metadata',{}).get('logoURI','NO_LOGO')[:60] if d.get('metadata',{}).get('logoURI') else 'NO_LOGO') for d in data[:5]]\"",
+      "description": "Check Relay currencies response with logo info"
+    },
+    "output": "ETH 0x0000000000000000000000000000000000000000 https://assets.relay.link/icons/1/light.png\ncbBTC 0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf https://coin-images.coingecko.com/coins/images/40143/large/c\nUSDC 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 https://coin-images.coingecko.com/coins/images/6319/large/us\nEURC 0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42 https://coin-images.coingecko.com/coins/images/26045/large/e\nmsUSD 0x526728dbc96689597f85ae4cd716d4f7fccbae9d https://coin-images.coingecko.com/coins/images/67504/large/m\n",
+    "metadata": {
+      "output": "ETH 0x0000000000000000000000000000000000000000 https://assets.relay.link/icons/1/light.png\ncbBTC 0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf https://coin-images.coingecko.com/coins/images/40143/large/c\nUSDC 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913 https://coin-images.coingecko.com/coins/images/6319/large/us\nEURC 0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42 https://coin-images.coingecko.com/coins/images/26045/large/e\nmsUSD 0x526728dbc96689597f85ae4cd716d4f7fccbae9d https://coin-images.coingecko.com/coins/images/67504/large/m\n",
+      "exit": 0,
+      "description": "Check Relay currencies response with logo info"
+    },
+    "title": "curl -s -X POST \"https://api.relay.link/currencies/v2\" -H \"Content-Type: application/json\" -d '{\"chainIds\":[8453],\"defaultList\":true,\"limit\":5}' 2>/dev/null | python3 -c \"import json,sys; data=json.load(sys.stdin); [print(d.get('symbol'), d.get('address'), d.get('metadata',{}).get('logoURI','NO_LOGO')[:60] if d.get('metadata',{}).get('logoURI') else 'NO_LOGO') for d in data[:5]]\"",
+    "time": {
+      "start": 1772112572462,
+      "end": 1772112572579
+    }
+  }
+}

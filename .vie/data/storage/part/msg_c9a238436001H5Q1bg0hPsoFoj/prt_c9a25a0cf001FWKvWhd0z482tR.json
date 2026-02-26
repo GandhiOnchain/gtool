@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9a25a0cf001FWKvWhd0z482tR",
+  "messageID": "msg_c9a238436001H5Q1bg0hPsoFoj",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_0181UyWahpQxGyPPdB7n5bDN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 760,
+      "limit": 20
+    },
+    "output": "<file>\n00761|     const chain = fromChain\n00762|     const isEVM = chain.vmType === 'evm' || !chain.vmType\n00763|     \n00764|     if (!isEVM) {\n00765|       return\n00766|     }\n00767| \n00768|     try {\n00769|       const raw = await relayAPI.getCurrencies({\n00770|         chainIds: [chain.id],\n00771|         defaultList: true,\n00772|         limit: 50,\n00773|       })\n00774|       setCurrencies(dedupCurrencies(raw))\n00775|     } catch (error) {\n00776|       console.error('Failed to load wallet tokens:', error)\n00777|     }\n00778|   }\n00779| \n00780|   const loadTokensForChain = async (chain: RelayChain) => {\n\n(File has more lines. Use 'offset' parameter to read beyond line 780)\n</file>",
+    "metadata": {
+      "preview": "    const chain = fromChain\n    const isEVM = chain.vmType === 'evm' || !chain.vmType\n    \n    if (!isEVM) {\n      return\n    }\n\n    try {\n      const raw = await relayAPI.getCurrencies({\n        chainIds: [chain.id],\n        defaultList: true,\n        limit: 50,\n      })\n      setCurrencies(dedupCurrencies(raw))\n    } catch (error) {\n      console.error('Failed to load wallet tokens:', error)\n    }\n  }\n\n  const loadTokensForChain = async (chain: RelayChain) => {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772112683873,
+      "end": 1772112683875
+    }
+  }
+}

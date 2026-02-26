@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9a251285001zRWRmbuIl29iim",
+  "messageID": "msg_c9a238436001H5Q1bg0hPsoFoj",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_015r7LWAdCpsnhrXhxoxkXXC",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3080,
+      "limit": 30
+    },
+    "output": "<file>\n03081|                               address: token.address,\n03082|                               symbol: token.symbol,\n03083|                               name: token.name,\n03084|                               decimals: 18,\n03085|                               metadata: { logoURI: token.logoURI },\n03086|                             })\n03087|                           }\n03088|                         }}\n03089|                       >\n03090|                         <div className=\"flex items-center gap-2\">\n03091|                           <TokenLogo\n03092|                             address={token.address}\n03093|                             chainId={token.chainId}\n03094|                             symbol={token.symbol}\n03095|                             logoURI={token.logoURI}\n03096|                           />\n03097|                           <div>\n03098|                             <div className=\"font-medium\">{token.symbol}</div>\n03099|                             <div className=\"text-muted-foreground text-xs\">{token.name}</div>\n03100|                           </div>\n03101|                         </div>\n03102|                         {token.priceChange24h !== undefined && (\n03103|                           <Badge variant={token.priceChange24h >= 0 ? 'default' : 'destructive'} className=\"text-xs\">\n03104|                             {token.priceChange24h >= 0 ? '+' : ''}{token.priceChange24h.toFixed(2)}%\n03105|                           </Badge>\n03106|                         )}\n03107|                       </div>\n03108|                     ))}\n03109|                   </div>\n03110|                 </ScrollArea>\n\n(File has more lines. Use 'offset' parameter to read beyond line 3110)\n</file>",
+    "metadata": {
+      "preview": "                              address: token.address,\n                              symbol: token.symbol,\n                              name: token.name,\n                              decimals: 18,\n                              metadata: { logoURI: token.logoURI },\n                            })\n                          }\n                        }}\n                      >\n                        <div className=\"flex items-center gap-2\">\n                          <TokenLogo\n                            address={token.address}\n                            chainId={token.chainId}\n                            symbol={token.symbol}\n                            logoURI={token.logoURI}\n                          />\n                          <div>\n                            <div className=\"font-medium\">{token.symbol}</div>\n                            <div className=\"text-muted-foreground text-xs\">{token.name}</div>\n                          </div>"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772112647452,
+      "end": 1772112647454
+    }
+  }
+}

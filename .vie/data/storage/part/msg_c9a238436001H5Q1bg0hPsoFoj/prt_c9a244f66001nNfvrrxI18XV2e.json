@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9a244f66001nNfvrrxI18XV2e",
+  "messageID": "msg_c9a238436001H5Q1bg0hPsoFoj",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01T7LgmcF4kDXLYffrLBYE8k",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s \"https://api.1inch.dev/balance/v1.2/1/balances/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\" 2>/dev/null | head -100",
+      "description": "Test 1inch balance API"
+    },
+    "output": "{\"success\":false,\"error\":\"Unauthorized\"}",
+    "metadata": {
+      "output": "{\"success\":false,\"error\":\"Unauthorized\"}",
+      "exit": 0,
+      "description": "Test 1inch balance API"
+    },
+    "title": "curl -s \"https://api.1inch.dev/balance/v1.2/1/balances/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\" 2>/dev/null | head -100",
+    "time": {
+      "start": 1772112598127,
+      "end": 1772112598155
+    }
+  }
+}

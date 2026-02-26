@@ -22,7 +22,7 @@ import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { Checkbox } from '@/components/ui/checkbox'
 import { toast } from 'sonner'
-import { ArrowDownUp, TrendingUp, Share2, Flame, X, ChevronDown, Wallet, Settings } from 'lucide-react'
+import { ArrowDownUp, TrendingUp, Share2, Flame, X, ChevronDown, Wallet, Settings, RefreshCw } from 'lucide-react'
 import { secureStorage } from '@/lib/security/storage'
 import { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'
 import { quoteRateLimiter } from '@/lib/security/rateLimit'
@@ -406,13 +406,12 @@ export default function RelaySwap() {
   }, [address, toChain, isConnected])
 
   useEffect(() => {
+    setBatchTokens([])
+    setWalletTokens([])
     if (batchChain) {
       const vmType = batchChain.vmType || 'evm'
-      // For EVM chains, need EVM wallet connected
-      // For Solana chains, need Solana wallet connected
-      const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || 
+      const hasRequiredWallet = (vmType === 'svm' && solanaAddress) ||
                                 ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)
-      
       if (hasRequiredWallet) {
         loadBatchWalletTokens()
       }
@@ -778,6 +777,11 @@ export default function RelaySwap() {
     }
   }
 
+  const getChainRpcUrl = (chainId: number, fallback: string): string => {
+    const networkConfig = (config.networks as Record<number, { rpcUrl?: string }>)[chainId]
+    return networkConfig?.rpcUrl || fallback
+  }
+
   const loadTokensForChain = async (chain: RelayChain) => {
     const vmType = chain.vmType || 'evm'
     if (vmType !== 'evm' && vmType !== 'hypevm') return
@@ -785,13 +789,14 @@ export default function RelaySwap() {
 
     const found: WalletToken[] = []
     try {
+      const rpcUrl = getChainRpcUrl(chain.id, chain.httpRpcUrl)
       const chainConfig = defineChain({
         id: chain.id,
         name: chain.displayName,
         nativeCurrency: { name: chain.currency.name, symbol: chain.currency.symbol, decimals: chain.currency.decimals },
-        rpcUrls: { default: { http: [chain.httpRpcUrl] } },
+        rpcUrls: { default: { http: [rpcUrl] } },
       })
-      const publicClient = createPublicClient({ chain: chainConfig, transport: http(chain.httpRpcUrl) })
+      const publicClient = createPublicClient({ chain: chainConfig, transport: http(rpcUrl) })
 
       try {
         const nativeBal = await publicClient.getBalance({ address: address as `0x${string}` })
@@ -887,13 +892,14 @@ export default function RelaySwap() {
 
     try {
       if (vmType === 'evm' || vmType === 'hypevm') {
+        const rpcUrl = getChainRpcUrl(chain.id, chain.httpRpcUrl)
         const chainConfig = defineChain({
           id: chain.id,
           name: chain.displayName,
           nativeCurrency: { name: chain.currency.name, symbol: chain.currency.symbol, decimals: chain.currency.decimals },
-          rpcUrls: { default: { http: [chain.httpRpcUrl] } },
+          rpcUrls: { default: { http: [rpcUrl] } },
         })
-        const publicClient = createPublicClient({ chain: chainConfig, transport: http(chain.httpRpcUrl) })
+        const publicClient = createPublicClient({ chain: chainConfig, transport: http(rpcUrl) })
 
         // Native balance
         try {
@@ -3116,7 +3122,24 @@ export default function RelaySwap() {
           <TabsContent value="batch" className="space-y-2 mt-2">
             <Card className="p-3">
               <div className="space-y-2">
-                <div className="text-sm font-medium">Batch Cleanup</div>
+                <div className="flex items-center justify-between">
+                  <div className="text-sm font-medium">Batch Cleanup</div>
+                  {batchChain && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        setBatchTokens([])
+                        setWalletTokens([])
+                        loadBatchWalletTokens()
+                      }}
+                      disabled={isLoadingBatchTokens}
+                      className="h-6 w-6 p-0"
+                    >
+                      <RefreshCw className={`h-3 w-3 ${isLoadingBatchTokens ? 'animate-spin' : ''}`} />
+                    </Button>
+                  )}
+                </div>
                 
                 <div className="space-y-2">
                   <div className="text-xs text-muted-foreground">Select chain to detect tokens</div>
@@ -3141,7 +3164,7 @@ export default function RelaySwap() {
                 <Separator />
 
                 <div className="text-xs text-muted-foreground">
-                  {isLoadingBatchTokens ? 'Loading tokens...' : batchTokens.length > 0 ? `${batchTokens.length} tokens detected with balance` : batchChain ? 'No tokens with balance detected' : 'Select a chain to detect tokens'}
+                  {isLoadingBatchTokens ? 'Scanning for tokens...' : batchTokens.length > 0 ? `${batchTokens.length} token${batchTokens.length > 1 ? 's' : ''} found` : batchChain ? 'No tokens with balance found' : 'Select a chain to detect tokens'}
                 </div>
 
                 <ScrollArea className="h-40">

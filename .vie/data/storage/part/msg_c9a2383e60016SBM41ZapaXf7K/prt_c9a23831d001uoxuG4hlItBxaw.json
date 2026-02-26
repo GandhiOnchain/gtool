@@ -1,0 +1,7 @@
+{
+  "id": "prt_c9a23831d001uoxuG4hlItBxaw",
+  "type": "text",
+  "text": "while loading tokens, the previously fetched tokens arent going away as you can see. fix it. and add a refresh button to manually fetch tokens when everything fails. also still only native tokens are being shown. is it because of api issue? do you need any api key",
+  "messageID": "msg_c9a2383e60016SBM41ZapaXf7K",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC"
+}

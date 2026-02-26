@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9a241e2c001Qu5DeZ7WFqSDp0",
+  "messageID": "msg_c9a238436001H5Q1bg0hPsoFoj",
+  "sessionID": "ses_3660e5476ffeLj1zWJ3G3zn4RC",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_014og8mQphXTifS2ihbPJEUz",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s -X POST \"https://rpc.ankr.com/multichain\" -H \"Content-Type: application/json\" -d '{\"jsonrpc\":\"2.0\",\"method\":\"ankr_getAccountBalance\",\"params\":{\"walletAddress\":\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\"onlyWhitelisted\":false,\"blockchain\":[\"base\"]},\"id\":1}' 2>/dev/null | head -500",
+      "description": "Test Ankr API response"
+    },
+    "output": "{\"error\":\"message: API key is not allowed to access blockchain, json-rpc code: -32052, rest code: 403\"}",
+    "metadata": {
+      "output": "{\"error\":\"message: API key is not allowed to access blockchain, json-rpc code: -32052, rest code: 403\"}",
+      "exit": 0,
+      "description": "Test Ankr API response"
+    },
+    "title": "curl -s -X POST \"https://rpc.ankr.com/multichain\" -H \"Content-Type: application/json\" -d '{\"jsonrpc\":\"2.0\",\"method\":\"ankr_getAccountBalance\",\"params\":{\"walletAddress\":\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\"onlyWhitelisted\":false,\"blockchain\":[\"base\"]},\"id\":1}' 2>/dev/null | head -500",
+    "time": {
+      "start": 1772112585689,
+      "end": 1772112585835
+    }
+  }
+}
