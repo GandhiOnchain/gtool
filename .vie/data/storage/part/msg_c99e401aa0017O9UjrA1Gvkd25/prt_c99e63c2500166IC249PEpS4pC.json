@@ -1,0 +1,25 @@
+{
+  "id": "prt_c99e63c2500166IC249PEpS4pC",
+  "messageID": "msg_c99e401aa0017O9UjrA1Gvkd25",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_012Rg72Ch2JQpqUiKgnDskFB",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/config.ts",
+      "offset": 629,
+      "limit": 20
+    },
+    "output": "<file>\n00630|   const network = CHAIN_ID_TO_NETWORK[chainId];\n00631|   if (!network) {\n00632|     throw new Error(`Unsupported chainId: ${chainId}. Supported chains: ${Object.keys(CHAIN_ID_TO_NETWORK).join(', ')}`);\n00633|   }\n00634|   return network;\n00635| }\n00636| \n00637| /**\n00638|  * Get network details by Alchemy network\n00639|  * @param network - The Alchemy network to get details for\n00640|  * @returns Network details (name, native gas token symbol, native gas token name)\n00641|  */\n00642| export function getNetworkDetails(network: Network): NetworkDetails {\n00643|   return NETWORK_DETAILS[network];\n00644| }\n00645| \n00646| /**\n00647|  * Create a new Alchemy instance with custom settings\n00648|  * @param apiKey - Your Alchemy API key\n00649|  * @param network - The network to connect to\n\n(File has more lines. Use 'offset' parameter to read beyond line 649)\n</file>",
+    "metadata": {
+      "preview": "  const network = CHAIN_ID_TO_NETWORK[chainId];\n  if (!network) {\n    throw new Error(`Unsupported chainId: ${chainId}. Supported chains: ${Object.keys(CHAIN_ID_TO_NETWORK).join(', ')}`);\n  }\n  return network;\n}\n\n/**\n * Get network details by Alchemy network\n * @param network - The Alchemy network to get details for\n * @returns Network details (name, native gas token symbol, native gas token name)\n */\nexport function getNetworkDetails(network: Network): NetworkDetails {\n  return NETWORK_DETAILS[network];\n}\n\n/**\n * Create a new Alchemy instance with custom settings\n * @param apiKey - Your Alchemy API key\n * @param network - The network to connect to"
+    },
+    "title": "frontend/src/lib/alchemy/config.ts",
+    "time": {
+      "start": 1772108529283,
+      "end": 1772108529285
+    }
+  }
+}

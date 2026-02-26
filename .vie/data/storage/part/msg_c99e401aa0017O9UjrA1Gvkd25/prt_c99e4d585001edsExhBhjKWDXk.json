@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99e4d585001edsExhBhjKWDXk",
+  "messageID": "msg_c99e401aa0017O9UjrA1Gvkd25",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_018tXrzkzAYA22HzpoPGf8bs",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -rn \"getTokensForOwner\\|getTokenBalances\" /home/user/sandbox/workspace/frontend/src/hooks/alchemy/portfolio/ 2>/dev/null | head -10",
+      "description": "Check portfolio hooks"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Check portfolio hooks"
+    },
+    "title": "grep -rn \"getTokensForOwner\\|getTokenBalances\" /home/user/sandbox/workspace/frontend/src/hooks/alchemy/portfolio/ 2>/dev/null | head -10",
+    "time": {
+      "start": 1772108438013,
+      "end": 1772108438015
+    }
+  }
+}

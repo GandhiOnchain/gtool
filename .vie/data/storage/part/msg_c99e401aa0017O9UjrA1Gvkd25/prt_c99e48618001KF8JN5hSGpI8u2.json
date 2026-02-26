@@ -1,0 +1,25 @@
+{
+  "id": "prt_c99e48618001KF8JN5hSGpI8u2",
+  "messageID": "msg_c99e401aa0017O9UjrA1Gvkd25",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01JtbKEMZ9bN6dCYeQTKmJtj",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 388,
+      "limit": 20
+    },
+    "output": "<file>\n00389| \n00390|   useEffect(() => {\n00391|     if (batchChain) {\n00392|       const vmType = batchChain.vmType || 'evm'\n00393|       // For EVM chains, need EVM wallet connected\n00394|       // For Solana chains, need Solana wallet connected\n00395|       const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n00396|                                 ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)\n00397|       \n00398|       if (hasRequiredWallet) {\n00399|         loadBatchWalletTokens()\n00400|       }\n00401|     }\n00402|   }, [address, batchChain, isConnected, solanaAddress])\n00403| \n00404|   // Fetch batch quote when batch tokens or destination changes\n00405|   useEffect(() => {\n00406|     if (batchTokens.length > 0 && toToken && toChain && batchChain && address) {\n00407|       const debounce = setTimeout(() => {\n00408|         fetchBatchQuote()\n\n(File has more lines. Use 'offset' parameter to read beyond line 408)\n</file>",
+    "metadata": {
+      "preview": "\n  useEffect(() => {\n    if (batchChain) {\n      const vmType = batchChain.vmType || 'evm'\n      // For EVM chains, need EVM wallet connected\n      // For Solana chains, need Solana wallet connected\n      const hasRequiredWallet = (vmType === 'svm' && solanaAddress) || \n                                ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)\n      \n      if (hasRequiredWallet) {\n        loadBatchWalletTokens()\n      }\n    }\n  }, [address, batchChain, isConnected, solanaAddress])\n\n  // Fetch batch quote when batch tokens or destination changes\n  useEffect(() => {\n    if (batchTokens.length > 0 && toToken && toChain && batchChain && address) {\n      const debounce = setTimeout(() => {\n        fetchBatchQuote()"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772108417577,
+      "end": 1772108417578
+    }
+  }
+}

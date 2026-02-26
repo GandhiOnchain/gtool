@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99e44c7c001NiQf5ysuO5gFZ2",
+  "messageID": "msg_c99e401aa0017O9UjrA1Gvkd25",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "I can see the first issue: the native token detection uses `currency.metadata?.isNative` but let me check what the Relay API actually returns for native tokens:",
+  "time": {
+    "start": 1772108403871,
+    "end": 1772108403871
+  }
+}

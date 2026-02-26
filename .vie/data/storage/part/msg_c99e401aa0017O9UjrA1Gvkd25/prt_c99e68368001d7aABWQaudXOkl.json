@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99e68368001d7aABWQaudXOkl",
+  "messageID": "msg_c99e401aa0017O9UjrA1Gvkd25",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "All clean. Here's what was wrong and what was fixed:\n\n**Root causes:**\n1. **Only 100 tokens from the default list** — if your token wasn't in Relay's top-100 default list, it was never checked\n2. **Native token detection broken** — code checked `currency.metadata?.isNative` which is often `undefined`; native tokens have address `0x0000000000000000000000000000000000000000`\n3. **Sequential batching of 5** — extremely slow, and still only covered the 100 default tokens\n4. **Solana SPL detection** — was iterating the Relay list instead of querying all token accounts directly\n\n**The fix — 3-tier detection strategy:**\n\n1. **Alchemy `getTokensForOwner`** (primary) — single API call that returns every ERC-20 with a non-zero balance for the wallet, regardless of whether it's in any list. Works for all Alchemy-supported chains\n2. **Native balance** — always fetched directly via `getBalance`, no longer dependent on metadata flags\n3. **RPC multicall fallback** — for chains Alchemy doesn't support, queries Relay's full currency list (500 tokens) in parallel chunks of 50 instead of sequential batches of 5\n4. **Solana** — now uses `getTokenAccountsByOwner` with the SPL token program to get all SPL tokens at once, instead of iterating the Relay list",
+  "time": {
+    "start": 1772108555970,
+    "end": 1772108555970
+  }
+}

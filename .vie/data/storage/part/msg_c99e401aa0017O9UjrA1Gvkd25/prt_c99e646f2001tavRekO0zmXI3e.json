@@ -1,0 +1,11 @@
+{
+  "id": "prt_c99e646f2001tavRekO0zmXI3e",
+  "messageID": "msg_c99e401aa0017O9UjrA1Gvkd25",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "text",
+  "text": "`getAlchemyNetwork` throws on unsupported chains. The check `if (alchemyNetwork)` won't work since it throws. I need to wrap it in try/catch:",
+  "time": {
+    "start": 1772108537275,
+    "end": 1772108537275
+  }
+}

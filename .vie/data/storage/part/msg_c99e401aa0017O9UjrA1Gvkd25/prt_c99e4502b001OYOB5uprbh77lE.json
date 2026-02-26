@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99e4502b001OYOB5uprbh77lE",
+  "messageID": "msg_c99e401aa0017O9UjrA1Gvkd25",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01TVnA1DqkC669GVAq9oBfkE",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"isNative\\|metadata\\|0x0000000000000000000000000000000000000000\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+      "description": "Find native token detection patterns"
+    },
+    "output": "245:    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n254:    token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n581:      if (tokenAddress === '0x0000000000000000000000000000000000000000' || tokenAddress.toLowerCase() === 'sol') {\n698:        const nativeToken = fetchedCurrencies.find(c => c.metadata?.isNative)\n833:              if (currency.metadata?.isNative) {\n891:            if (currency.metadata?.isNative || currency.address === '0x0000000000000000000000000000000000000000') {\n1891:            metadata: approval.asset?.icon_url ? { logoURI: approval.asset.icon_url } : undefined,\n1994:              metadata: approval.token?.logo ? { logoURI: approval.token.logo } : undefined,\n2099:      // Common stablecoins (fallback if metadata missing)\n2199:                  fromTokenLogo: approval.token.metadata?.logoURI,\n2570:                      {fromToken?.metadata?.logoURI && (\n2571:                        <img src={fromToken.metadata.logoURI} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n2716:                      {toToken?.metadata?.logoURI && (\n2717:                        <img src={toToken.metadata.logoURI} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n2929:                              metadata: { logoURI: token.logoURI },\n2992:                          {wt.token.metadata?.logoURI && (\n2993:                            <img src={wt.token.metadata.logoURI} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n3056:                        {toToken?.metadata?.logoURI && (\n3057:                          <img src={toToken.metadata.logoURI} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n3239:                                   {approval.token.metadata?.logoURI ? (\n",
+    "metadata": {
+      "output": "245:    token: fromToken?.address !== '0x0000000000000000000000000000000000000000' ? fromToken?.address as `0x${string}` : undefined,\n254:    token: toToken?.address !== '0x0000000000000000000000000000000000000000' ? toToken?.address as `0x${string}` : undefined,\n581:      if (tokenAddress === '0x0000000000000000000000000000000000000000' || tokenAddress.toLowerCase() === 'sol') {\n698:        const nativeToken = fetchedCurrencies.find(c => c.metadata?.isNative)\n833:              if (currency.metadata?.isNative) {\n891:            if (currency.metadata?.isNative || currency.address === '0x0000000000000000000000000000000000000000') {\n1891:            metadata: approval.asset?.icon_url ? { logoURI: approval.asset.icon_url } : undefined,\n1994:              metadata: approval.token?.logo ? { logoURI: approval.token.logo } : undefined,\n2099:      // Common stablecoins (fallback if metadata missing)\n2199:                  fromTokenLogo: approval.token.metadata?.logoURI,\n2570:                      {fromToken?.metadata?.logoURI && (\n2571:                        <img src={fromToken.metadata.logoURI} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n2716:                      {toToken?.metadata?.logoURI && (\n2717:                        <img src={toToken.metadata.logoURI} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n2929:                              metadata: { logoURI: token.logoURI },\n2992:                          {wt.token.metadata?.logoURI && (\n2993:                            <img src={wt.token.metadata.logoURI} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n3056:                        {toToken?.metadata?.logoURI && (\n3057:                          <img src={toToken.metadata.logoURI} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n3239:                                   {approval.token.metadata?.logoURI ? (\n",
+      "exit": 0,
+      "description": "Find native token detection patterns"
+    },
+    "title": "grep -n \"isNative\\|metadata\\|0x0000000000000000000000000000000000000000\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772108403833,
+      "end": 1772108403841
+    }
+  }
+}

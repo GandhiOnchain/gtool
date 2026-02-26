@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99e4e921001qagntuebcfK150",
+  "messageID": "msg_c99e401aa0017O9UjrA1Gvkd25",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01FC81RXFybVdUvdseUsiM69",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"getAlchemyNetwork\\|Network\\.\" /home/user/sandbox/workspace/frontend/src/lib/alchemy/config.ts | head -20",
+      "description": "Check getAlchemyNetwork function"
+    },
+    "output": "178:  1: Network.ETH_MAINNET,\n181:  10: Network.OPT_MAINNET,\n184:  42161: Network.ARB_MAINNET,\n185:  42170: Network.ARBNOVA_MAINNET,\n188:  137: Network.MATIC_MAINNET,\n191:  8453: Network.BASE_MAINNET,\n192:  84532: Network.BASE_SEPOLIA,\n195:  324: Network.ZKSYNC_MAINNET,\n198:  592: Network.ASTAR_MAINNET,\n201:  59144: Network.LINEA_MAINNET,\n204:  250: Network.FANTOM_MAINNET,\n207:  7000: Network.ZETACHAIN_MAINNET,\n210:  81457: Network.BLAST_MAINNET,\n213:  5000: Network.MANTLE_MAINNET,\n216:  534352: Network.SCROLL_MAINNET,\n219:  100: Network.GNOSIS_MAINNET,\n222:  56: Network.BNB_MAINNET,\n225:  43114: Network.AVAX_MAINNET,\n228:  42220: Network.CELO_MAINNET,\n231:  1088: Network.METIS_MAINNET,\n",
+    "metadata": {
+      "output": "178:  1: Network.ETH_MAINNET,\n181:  10: Network.OPT_MAINNET,\n184:  42161: Network.ARB_MAINNET,\n185:  42170: Network.ARBNOVA_MAINNET,\n188:  137: Network.MATIC_MAINNET,\n191:  8453: Network.BASE_MAINNET,\n192:  84532: Network.BASE_SEPOLIA,\n195:  324: Network.ZKSYNC_MAINNET,\n198:  592: Network.ASTAR_MAINNET,\n201:  59144: Network.LINEA_MAINNET,\n204:  250: Network.FANTOM_MAINNET,\n207:  7000: Network.ZETACHAIN_MAINNET,\n210:  81457: Network.BLAST_MAINNET,\n213:  5000: Network.MANTLE_MAINNET,\n216:  534352: Network.SCROLL_MAINNET,\n219:  100: Network.GNOSIS_MAINNET,\n222:  56: Network.BNB_MAINNET,\n225:  43114: Network.AVAX_MAINNET,\n228:  42220: Network.CELO_MAINNET,\n231:  1088: Network.METIS_MAINNET,\n",
+      "exit": 0,
+      "description": "Check getAlchemyNetwork function"
+    },
+    "title": "grep -n \"getAlchemyNetwork\\|Network\\.\" /home/user/sandbox/workspace/frontend/src/lib/alchemy/config.ts | head -20",
+    "time": {
+      "start": 1772108442806,
+      "end": 1772108442808
+    }
+  }
+}

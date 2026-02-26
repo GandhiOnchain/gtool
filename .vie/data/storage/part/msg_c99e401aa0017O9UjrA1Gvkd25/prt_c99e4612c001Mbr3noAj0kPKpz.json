@@ -1,0 +1,26 @@
+{
+  "id": "prt_c99e4612c001Mbr3noAj0kPKpz",
+  "messageID": "msg_c99e401aa0017O9UjrA1Gvkd25",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01Ne49H4UuUyMaZPVR3nv8fQ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"RelayCurrency\" /home/user/sandbox/workspace/frontend/src/lib/relay/types.ts | head -5",
+      "description": "Find RelayCurrency type"
+    },
+    "output": "1:export interface RelayCurrency {\n34:  featuredTokens?: RelayCurrency[]\n35:  erc20Currencies?: RelayCurrency[]\n43:  currency: RelayCurrency\n",
+    "metadata": {
+      "output": "1:export interface RelayCurrency {\n34:  featuredTokens?: RelayCurrency[]\n35:  erc20Currencies?: RelayCurrency[]\n43:  currency: RelayCurrency\n",
+      "exit": 0,
+      "description": "Find RelayCurrency type"
+    },
+    "title": "grep -n \"RelayCurrency\" /home/user/sandbox/workspace/frontend/src/lib/relay/types.ts | head -5",
+    "time": {
+      "start": 1772108407810,
+      "end": 1772108407822
+    }
+  }
+}

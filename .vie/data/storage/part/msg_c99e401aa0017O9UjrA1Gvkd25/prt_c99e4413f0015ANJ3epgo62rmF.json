@@ -1,0 +1,25 @@
+{
+  "id": "prt_c99e4413f0015ANJ3epgo62rmF",
+  "messageID": "msg_c99e401aa0017O9UjrA1Gvkd25",
+  "sessionID": "ses_369ce0e45ffeLFSUFbEuibj6ko",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01XbWKQxQgvNcetRWt2Z9ei5",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 853,
+      "limit": 50
+    },
+    "output": "<file>\n00854|               if (parseFloat(balanceFormatted) > 0.00000001) {\n00855|                 return {\n00856|                   token: currency,\n00857|                   balance: balance.toString(),\n00858|                   balanceFormatted,\n00859|                 }\n00860|               }\n00861|               return null\n00862|             } catch (e) {\n00863|               return null\n00864|             }\n00865|           })\n00866|           \n00867|           const batchResults = await Promise.all(balancePromises)\n00868|           const validTokens = batchResults.filter((t): t is WalletToken => t !== null)\n00869|           tokensWithBalances.push(...validTokens)\n00870|           \n00871|           if (tokensWithBalances.length > 0) {\n00872|             const sorted = [...tokensWithBalances].sort((a, b) => parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted))\n00873|             setWalletTokens(sorted)\n00874|             setBatchTokens(sorted.slice(0, 10))\n00875|           }\n00876|         }\n00877|       } else if (vmType === 'svm') {\n00878|         // Solana-based chains\n00879|         console.log('Fetching Solana token balances for address:', solanaAddress)\n00880|         \n00881|         if (!solanaAddress) {\n00882|           throw new Error('Solana wallet not connected')\n00883|         }\n00884|         \n00885|         const solanaRpcUrl = chain.httpRpcUrl\n00886|         \n00887|         for (const currency of fetchedCurrencies) {\n00888|           try {\n00889|             let balance = BigInt(0)\n00890|             \n00891|             if (currency.metadata?.isNative || currency.address === '0x0000000000000000000000000000000000000000') {\n00892|               // Native SOL balance\n00893|               const response = await fetch(solanaRpcUrl, {\n00894|                 method: 'POST',\n00895|                 headers: { 'Content-Type': 'application/json' },\n00896|                 body: JSON.stringify({\n00897|                   jsonrpc: '2.0',\n00898|                   id: 1,\n00899|                   method: 'getBalance',\n00900|                   params: [solanaAddress]\n00901|                 })\n00902|               })\n00903|               \n\n(File has more lines. Use 'offset' parameter to read beyond line 903)\n</file>",
+    "metadata": {
+      "preview": "              if (parseFloat(balanceFormatted) > 0.00000001) {\n                return {\n                  token: currency,\n                  balance: balance.toString(),\n                  balanceFormatted,\n                }\n              }\n              return null\n            } catch (e) {\n              return null\n            }\n          })\n          \n          const batchResults = await Promise.all(balancePromises)\n          const validTokens = batchResults.filter((t): t is WalletToken => t !== null)\n          tokensWithBalances.push(...validTokens)\n          \n          if (tokensWithBalances.length > 0) {\n            const sorted = [...tokensWithBalances].sort((a, b) => parseFloat(b.balanceFormatted) - parseFloat(a.balanceFormatted))\n            setWalletTokens(sorted)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772108399537,
+      "end": 1772108399539
+    }
+  }
+}
