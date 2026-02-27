@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ee32631001MwRh8MlMP9wbNk",
+  "messageID": "msg_c9ee29e160011jLFtKLmrGJE6d",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "First, add GoPlus address security to `scanTokenSecurity` — this checks the contract address itself against GoPlus's malicious address database:",
+  "time": {
+    "start": 1772192214184,
+    "end": 1772192214184
+  }
+}

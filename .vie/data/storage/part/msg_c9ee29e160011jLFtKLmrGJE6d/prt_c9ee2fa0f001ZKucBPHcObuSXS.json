@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ee2fa0f001ZKucBPHcObuSXS",
+  "messageID": "msg_c9ee29e160011jLFtKLmrGJE6d",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "The problem is clear: the security scan runs during `loadBatchWalletTokens` and flags tokens in the list — but **there's no security gate at execution time**. A user can manually override the deselection and still execute a flagged token. More importantly, MetaMask uses **eth_phishing_detect / MetaMask's own blocklist** which checks the token contract address against known malicious addresses. I need to integrate that same blocklist.\n\nMetaMask uses the **eth-phishing-detect** package and also queries **chainabuse.com** and **blockaid**. The most accessible equivalent is:\n1. **MetaMask's own phishing list** — `https://phishing.token-list.workers.dev/` \n2. **Blockaid API** — what MetaMask actually uses for \"Malicious\" labels\n3. **GoPlus malicious address check** — `https://api.gopluslabs.io/api/v1/address_security/{address}`\n\nGoPlus has a dedicated **address security** endpoint that checks if a contract address is flagged as malicious/phishing/blacklisted. This is exactly what's needed and it's free.",
+  "time": {
+    "start": 1772192210576,
+    "end": 1772192210576
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ee41a68001Pk0bbW2vzKmFbB",
+  "messageID": "msg_c9ee29e160011jLFtKLmrGJE6d",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "**What was missing and why MetaMask caught it but we didn't:**\n\nMetaMask uses GoPlus's **address security** endpoint (`/api/v1/address_security/{address}`) — a completely different API from the token security endpoint (`/api/v1/token_security/{chainId}`). The token security endpoint analyzes contract mechanics (honeypot, taxes, ownership). The address security endpoint checks the address against **malicious contract databases, phishing registries, blacklists, sanctions lists, and cybercrime reports**. FRT's contract address was in one of those databases — that's what MetaMask's \"Malicious\" label comes from.\n\n**What's now in place — full 5-layer pipeline:**\n\n| Layer | What it catches |\n|---|---|\n| 1. Heuristic | Telegram links, \"claim\", URLs, pipe chars in name/symbol |\n| 2. Moralis | Curated spam/airdrop token database |\n| 3. GoPlus token security | Honeypot, airdrop scam, hidden owner, taxes, no liquidity |\n| 4. Honeypot.is | Live tx simulation (ETH/BSC/Base) |\n| **5. GoPlus address security** | **Malicious contract, phishing, blackmail, fake token, sanctions, cybercrime** |\n\n**Pre-execution gate:** Even if a user manually re-selects a flagged token, clicking \"Batch Swap\" now runs a fresh full scan on all selected tokens. If anything comes back high-risk, execution is blocked, the token is auto-deselected, and the user sees exactly which token was blocked and why — before any wallet prompt appears.",
+  "time": {
+    "start": 1772192284825,
+    "end": 1772192284825
+  }
+}

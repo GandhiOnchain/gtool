@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ee3787e001RaD2yj1PHnvuIF",
+  "messageID": "msg_c9ee29e160011jLFtKLmrGJE6d",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now add the **pre-execution security gate** in `executeBatchSwap` — before submitting any transaction, re-check every selected token and hard-block if any are flagged high-risk:",
+  "time": {
+    "start": 1772192235656,
+    "end": 1772192235656
+  }
+}

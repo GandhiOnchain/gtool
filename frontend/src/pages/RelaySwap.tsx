@@ -1035,6 +1035,56 @@ export default function RelaySwap() {
       }
     }
 
+    // Step 5: GoPlus address security — checks contract against malicious/phishing/blacklist databases
+    // This is what catches tokens MetaMask flags as "Malicious"
+    for (const { address: addr } of tokens) {
+      const key = addr.toLowerCase()
+      const existing = result.get(key)
+      // Skip if already confirmed high-risk
+      if (existing?.riskLevel === 'high' && existing?.isSpam) continue
+      try {
+        const res = await fetch(
+          `https://api.gopluslabs.io/api/v1/address_security/${addr}?chain_id=${chainId}`,
+          { signal: AbortSignal.timeout(6000) }
+        )
+        if (!res.ok) continue
+        const data = await res.json()
+        if (data.code !== 1 || !data.result) continue
+        const r = data.result as Record<string, string>
+
+        const flags: string[] = [...(existing?.flags || [])]
+        let riskLevel: TokenRisk['riskLevel'] = existing?.riskLevel || 'safe'
+        const bump = (level: TokenRisk['riskLevel']) => {
+          const order = ['safe', 'low', 'medium', 'high']
+          if (order.indexOf(level) > order.indexOf(riskLevel)) riskLevel = level
+        }
+
+        if (r.malicious_contract === '1') { flags.push('Malicious contract'); bump('high') }
+        if (r.phishing_activities === '1') { flags.push('Phishing'); bump('high') }
+        if (r.blackmail_activities === '1') { flags.push('Blackmail'); bump('high') }
+        if (r.stealing_attack === '1') { flags.push('Stealing attack'); bump('high') }
+        if (r.fake_token === '1') { flags.push('Fake token'); bump('high') }
+        if (r.honeypot_related_address === '1') { flags.push('Honeypot related'); bump('high') }
+        if (r.mixer === '1') { flags.push('Mixer'); bump('medium') }
+        if (r.sanctioned === '1') { flags.push('Sanctioned'); bump('high') }
+        if (r.money_laundering === '1') { flags.push('Money laundering'); bump('high') }
+        if (r.reinit === '1') { flags.push('Reinitialized contract'); bump('medium') }
+        if (r.cybercrime === '1') { flags.push('Cybercrime'); bump('high') }
+        if (r.number_of_malicious_contracts_created && parseInt(r.number_of_malicious_contracts_created) > 0) {
+          flags.push(`Creator made ${r.number_of_malicious_contracts_created} malicious contracts`); bump('high')
+        }
+
+        if (flags.length > (existing?.flags?.length || 0)) {
+          result.set(key, {
+            isSpam: riskLevel === 'high',
+            isHoneypot: existing?.isHoneypot || false,
+            riskLevel,
+            flags: [...new Set(flags)],
+          })
+        }
+      } catch { /* best-effort */ }
+    }
+
     return result
   }
 
@@ -1831,6 +1881,37 @@ export default function RelaySwap() {
     if (!isConnected) {
       toast.error('Please connect your wallet first')
       return
+    }
+
+    // Pre-execution security gate — re-scan selected tokens and hard-block any flagged high-risk
+    // This catches cases where the user manually re-selected a flagged token
+    const selectedForExec = batchTokens.filter(bt => bt.selected !== false && parseFloat(bt.balanceFormatted) > 0)
+    const alreadyFlagged = selectedForExec.filter(bt => bt.risk?.riskLevel === 'high' || bt.risk?.isSpam)
+    if (alreadyFlagged.length > 0) {
+      const names = alreadyFlagged.map(bt => bt.token.symbol).join(', ')
+      toast.error(`Blocked: ${names} flagged as high-risk. Deselect to proceed.`)
+      return
+    }
+    // Run a fresh address security check on all selected tokens right before execution
+    if (batchChain.vmType === 'evm' || !batchChain.vmType) {
+      const freshScan = await scanTokenSecurity(
+        selectedForExec.map(bt => ({ address: bt.token.address, symbol: bt.token.symbol, name: bt.token.name })),
+        batchChain.id
+      )
+      const newlyFlagged = selectedForExec.filter(bt => {
+        const r = freshScan.get(bt.token.address.toLowerCase())
+        return r?.riskLevel === 'high' || r?.isSpam
+      })
+      if (newlyFlagged.length > 0) {
+        // Update the batch list with fresh risk data
+        setBatchTokens(prev => prev.map(bt => {
+          const r = freshScan.get(bt.token.address.toLowerCase())
+          return r ? { ...bt, risk: r, selected: !(r.isSpam || r.riskLevel === 'high') } : bt
+        }))
+        const names = newlyFlagged.map(bt => bt.token.symbol).join(', ')
+        toast.error(`Security scan blocked: ${names} flagged as malicious. Removed from selection.`)
+        return
+      }
     }
 
     // Check if we need to switch chains

@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ee2e2a20010r9qfV6EpJbi3e",
+  "messageID": "msg_c9ee29e160011jLFtKLmrGJE6d",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now let me look at the `scanTokenSecurity` function and understand what FRT would score — and also check what MetaMask uses for its malicious address database:",
+  "time": {
+    "start": 1772192198901,
+    "end": 1772192198901
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9ee37def001TjrjSzADougP2f",
+  "messageID": "msg_c9ee29e160011jLFtKLmrGJE6d",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01KpAyGfce97zQVQYkE5CYWA",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1870,
+      "limit": 30
+    },
+    "output": "<file>\n01871|       setIsLoadingBatchQuote(false)\n01872|     }\n01873|   }\n01874| \n01875|   const executeBatchSwap = async () => {\n01876|     if (!batchToToken || !batchToChain || !address || batchTokens.length === 0 || !batchChain) {\n01877|       toast.error('Please select chain and tokens to swap')\n01878|       return\n01879|     }\n01880| \n01881|     if (!isConnected) {\n01882|       toast.error('Please connect your wallet first')\n01883|       return\n01884|     }\n01885| \n01886|     // Check if we need to switch chains\n01887|     if (connectedChainId !== batchChain.id) {\n01888|       console.log('Switching chain from', connectedChainId, 'to', batchChain.id)\n01889|       try {\n01890|         await switchChain({ chainId: batchChain.id })\n01891|         toast.success('Chain switched successfully')\n01892|         await new Promise(resolve => setTimeout(resolve, 500))\n01893|       } catch (switchError) {\n01894|         console.error('Failed to switch chain:', switchError)\n01895|         toast.error('Please switch to the correct network in your wallet')\n01896|         return\n01897|       }\n01898|     }\n01899| \n01900|     const execToVMType = batchToChain.vmType || 'evm'\n\n(File has more lines. Use 'offset' parameter to read beyond line 1900)\n</file>",
+    "metadata": {
+      "preview": "      setIsLoadingBatchQuote(false)\n    }\n  }\n\n  const executeBatchSwap = async () => {\n    if (!batchToToken || !batchToChain || !address || batchTokens.length === 0 || !batchChain) {\n      toast.error('Please select chain and tokens to swap')\n      return\n    }\n\n    if (!isConnected) {\n      toast.error('Please connect your wallet first')\n      return\n    }\n\n    // Check if we need to switch chains\n    if (connectedChainId !== batchChain.id) {\n      console.log('Switching chain from', connectedChainId, 'to', batchChain.id)\n      try {\n        await switchChain({ chainId: batchChain.id })"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772192235605,
+      "end": 1772192235606
+    }
+  }
+}

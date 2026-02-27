@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ee340f4001ChvbFiA2T3RW14",
+  "messageID": "msg_c9ee29e160011jLFtKLmrGJE6d",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now add GoPlus address security check as a new step inside `scanTokenSecurity`, right before the `return result`:",
+  "time": {
+    "start": 1772192231453,
+    "end": 1772192231453
+  }
+}
