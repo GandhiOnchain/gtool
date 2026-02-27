@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9edd2bc4001vTjTxjxaAzhTKv",
+  "messageID": "msg_c9edd1f4b001NPou3qcMrHRkUa",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "The screenshot shows **$2.38 network fee** for sending **$0.19 of BRETT** on Base — that's a 12x fee-to-value ratio. The warning triangle and \"Review alert\" confirm MetaMask is flagging it too.\n\nLooking at the image carefully: the token value is only $0.19 but the fee is $2.38. This isn't a gas price issue — Base fees are normally <$0.01. The real problem is the **`value` field in the transaction is wrong** — it's sending ETH as the deposit amount alongside the ERC20 token transfer, which is what's causing the high \"fee\". The Relay multi-input quote is including an ETH deposit step that shouldn't be there, or the `value` from the quote is being misinterpreted as gas.\n\nLet me look at the actual quote structure and what `value` contains:",
+  "time": {
+    "start": 1772191827266,
+    "end": 1772191827266
+  }
+}

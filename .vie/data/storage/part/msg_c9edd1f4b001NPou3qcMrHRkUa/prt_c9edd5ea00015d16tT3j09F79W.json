@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9edd5ea00015d16tT3j09F79W",
+  "messageID": "msg_c9edd1f4b001NPou3qcMrHRkUa",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01KCL2VKsSETMSi6eEFE3tpR",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/relay/types.ts",
+      "offset": 50,
+      "limit": 30
+    },
+    "output": "<file>\n00051|   id: string\n00052|   action: string\n00053|   description: string\n00054|   kind: string\n00055|   requestId?: string\n00056|   items: Array<{\n00057|     status: string\n00058|     data: {\n00059|       from: string\n00060|       to: string\n00061|       data: string\n00062|       value: string\n00063|       maxFeePerGas?: string\n00064|       maxPriorityFeePerGas?: string\n00065|       chainId: number\n00066|     }\n00067|     check?: {\n00068|       endpoint: string\n00069|       method: string\n00070|     }\n00071|   }>\n00072| }\n00073| \n00074| export interface RelayQuote {\n00075|   steps: RelayQuoteStep[]\n00076|   fees: {\n00077|     gas?: RelayAmount\n00078|     relayer?: RelayAmount\n00079|     relayerGas?: RelayAmount\n00080|     relayerService?: RelayAmount\n\n(File has more lines. Use 'offset' parameter to read beyond line 80)\n</file>",
+    "metadata": {
+      "preview": "  id: string\n  action: string\n  description: string\n  kind: string\n  requestId?: string\n  items: Array<{\n    status: string\n    data: {\n      from: string\n      to: string\n      data: string\n      value: string\n      maxFeePerGas?: string\n      maxPriorityFeePerGas?: string\n      chainId: number\n    }\n    check?: {\n      endpoint: string\n      method: string\n    }"
+    },
+    "title": "frontend/src/lib/relay/types.ts",
+    "time": {
+      "start": 1772191834384,
+      "end": 1772191834385
+    }
+  }
+}

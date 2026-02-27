@@ -1887,95 +1887,116 @@ export default function RelaySwap() {
       })
 
       console.log('Fresh batch quote received:', multiQuote)
-      console.log('Steps in quote:', multiQuote.steps.map(s => ({ id: s.id, itemCount: s.items?.length })))
+      console.log('Steps in quote:', multiQuote.steps.map(s => ({ id: s.id, kind: s.kind, itemCount: s.items?.length })))
 
-      // Collect all transactions to execute
-      // NOTE: intentionally omit maxFeePerGas / maxPriorityFeePerGas from the quote —
-      // those values are stale by the time each sequential tx is submitted and cause
-      // the wallet to show inflated fees. Let the wallet/RPC estimate gas at submission time.
-      const transactions: Array<{
+      const { sendTransaction: sendTx, waitForTransactionReceipt } = await import('wagmi/actions')
+      const { wagmiConfig } = await import('@/lib/blockchain/wagmi')
+
+      // Collect ALL transaction-kind steps in order (approve, deposit, swap, etc.)
+      // Skipping approve causes the deposit to revert (no allowance) → MetaMask shows high fee warning
+      const txSteps: Array<{
+        stepId: string
+        stepLabel: string
         to: `0x${string}`
         data: `0x${string}`
         value: bigint
-        requestId?: string
+        checkEndpoint?: string
       }> = []
-      
+
       for (const step of multiQuote.steps) {
-        console.log('Processing step:', step.id, 'items:', step.items?.length)
-        if ((step.id === 'deposit' || step.id === 'swap' || step.kind === 'transaction') && step.items) {
-          for (const item of step.items) {
-            const txData = item.data
-            transactions.push({
-              to: txData.to as `0x${string}`,
-              data: txData.data as `0x${string}`,
-              value: BigInt(txData.value || '0'),
-              requestId: step.requestId,
-            })
-          }
+        if (step.kind !== 'transaction' || !step.items?.length) continue
+        for (const item of step.items) {
+          const d = item.data
+          txSteps.push({
+            stepId: step.id,
+            stepLabel: step.id === 'approve' ? 'Approval' : step.id === 'deposit' ? 'Deposit' : step.action || step.id,
+            to: d.to as `0x${string}`,
+            data: d.data as `0x${string}`,
+            value: BigInt(d.value || '0'),
+            checkEndpoint: item.check?.endpoint,
+          })
         }
       }
 
-      console.log('Total transactions to execute:', transactions.length)
+      console.log('Total tx steps to execute:', txSteps.length, txSteps.map(s => s.stepId))
 
-      if (transactions.length === 0) {
-        console.error('No transactions found in quote steps')
-        toast.error('No transactions to execute. The quote may not have generated valid transactions.')
+      if (txSteps.length === 0) {
+        toast.error('No transactions to execute in quote.')
         setIsSwapping(false)
         return
       }
 
-      console.log(`Executing ${transactions.length} batch swap transactions...`)
-      toast.info(`Submitting ${transactions.length} transaction(s)...`)
-
-      // Use wagmi/actions imperative API — the hook mutation cannot be called
-      // sequentially in a loop reliably (single mutation instance resets state)
-      const { sendTransaction: sendTx, waitForTransactionReceipt } = await import('wagmi/actions')
-      const { wagmiConfig } = await import('@/lib/blockchain/wagmi')
+      toast.info(`Executing ${txSteps.length} step(s)...`)
 
       let confirmedCount = 0
       const failedTxs: number[] = []
 
-      for (let i = 0; i < transactions.length; i++) {
-        const tx = transactions[i]
-        console.log(`Executing transaction ${i + 1}/${transactions.length}`, tx)
+      for (let i = 0; i < txSteps.length; i++) {
+        const step = txSteps[i]
+        console.log(`Step ${i + 1}/${txSteps.length}: ${step.stepId}`, { to: step.to, value: step.value.toString() })
         try {
           const hash = await sendTx(wagmiConfig, {
-            to: tx.to,
-            data: tx.data,
-            value: tx.value,
+            to: step.to,
+            data: step.data,
+            value: step.value,
           })
-          console.log(`Transaction ${i + 1} submitted:`, hash)
-          toast.info(`Transaction ${i + 1}/${transactions.length} submitted, confirming...`)
+          console.log(`Step ${i + 1} (${step.stepId}) submitted:`, hash)
+          toast.info(`${step.stepLabel} ${i + 1}/${txSteps.length} submitted...`)
 
+          // Wait for on-chain confirmation
           await waitForTransactionReceipt(wagmiConfig, { hash })
           confirmedCount++
-          console.log(`Transaction ${i + 1} confirmed`)
-          toast.success(`Transaction ${i + 1}/${transactions.length} confirmed`)
+          console.log(`Step ${i + 1} (${step.stepId}) confirmed`)
+
+          // Poll Relay's check endpoint if available (approve steps don't need this)
+          if (step.checkEndpoint && step.stepId !== 'approve') {
+            let attempts = 0
+            while (attempts < 30) {
+              await new Promise(r => setTimeout(r, 2000))
+              try {
+                const statusRes = await fetch(`https://api.relay.link${step.checkEndpoint}`)
+                if (statusRes.ok) {
+                  const statusData = await statusRes.json()
+                  console.log(`Step ${i + 1} relay status:`, statusData.status)
+                  if (statusData.status === 'success') break
+                  if (statusData.status === 'failure' || statusData.status === 'refunded') {
+                    toast.error(`Step ${i + 1} failed on destination: ${statusData.details || ''}`)
+                    break
+                  }
+                }
+              } catch { /* non-fatal */ }
+              attempts++
+            }
+          }
+
+          toast.success(`${step.stepLabel} confirmed`)
         } catch (error) {
-          console.error(`Transaction ${i + 1} failed:`, error)
+          console.error(`Step ${i + 1} (${step.stepId}) failed:`, error)
           failedTxs.push(i + 1)
-          // User rejected — stop the whole batch
           const msg = error instanceof Error ? error.message.toLowerCase() : ''
           if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {
-            toast.error('Transaction rejected by user')
+            toast.error('Transaction rejected')
             break
           }
-          toast.error(`Transaction ${i + 1} failed — continuing...`)
+          toast.error(`${step.stepLabel} failed`)
+          // For approve failures, stop — deposit will fail without it
+          if (step.stepId === 'approve') break
         }
       }
 
       if (confirmedCount > 0) {
-        toast.success(`Batch swap completed: ${confirmedCount}/${transactions.length} confirmed`)
+        const depositCount = txSteps.filter(s => s.stepId !== 'approve').length
+        toast.success(`Batch swap complete: ${Math.min(confirmedCount, depositCount)} deposit(s) submitted`)
         updateUserStreak()
         setBatchTokens([])
         setBatchQuote(null)
         refetchBalances()
         if (batchChain) setTimeout(() => loadBatchWalletTokens(), 2000)
       } else {
-        toast.error('All batch transactions failed')
+        toast.error('Batch swap failed')
       }
       if (failedTxs.length > 0 && confirmedCount > 0) {
-        toast.warning(`${failedTxs.length} transaction(s) failed: #${failedTxs.join(', #')}`)
+        toast.warning(`${failedTxs.length} step(s) failed`)
       }
     } catch (error) {
       console.error('Batch swap failed:', error)

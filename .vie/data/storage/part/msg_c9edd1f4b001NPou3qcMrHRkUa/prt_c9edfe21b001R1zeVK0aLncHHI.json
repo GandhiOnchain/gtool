@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9edfe21b001R1zeVK0aLncHHI",
+  "messageID": "msg_c9edd1f4b001NPou3qcMrHRkUa",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "**Root cause confirmed:** The step filter `step.id === 'deposit' || step.id === 'swap' || step.kind === 'transaction'` was **skipping `approve` steps**. When an ERC20 token hasn't been approved for the Relay contract, the quote includes an `approve` step first. Without it, the `deposit` transaction reverts because the Relay contract can't pull the tokens. MetaMask detects the simulation failure and shows a worst-case gas estimate ($2.38) with a \"Review alert\" warning — that's not the actual fee, it's MetaMask's fallback when it can't simulate the tx.\n\n**What was fixed:**\n\n1. **Step collection now uses `step.kind === 'transaction'`** — catches every transaction step in order: `approve` → `deposit` → any others. No more skipping approvals.\n\n2. **Approve failures stop the batch** — if an approval fails/is rejected, we don't attempt the deposit (which would fail anyway).\n\n3. **Relay `check.endpoint` polling** — after each deposit step confirms on-chain, we poll Relay's status endpoint to verify the destination execution succeeded, not just the origin tx.\n\n4. **Better step labels** — toast messages now say \"Approval 1/3 submitted...\" and \"Deposit confirmed\" instead of generic \"Transaction 1/3\".",
+  "time": {
+    "start": 1772192006495,
+    "end": 1772192006495
+  }
+}

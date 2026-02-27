@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9eddafd3001dLTZ3yWlTpfXzL",
+  "messageID": "msg_c9edd1f4b001NPou3qcMrHRkUa",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "This is the key insight. The Relay multi-input quote returns **multiple steps** — one of them is an `approve` step (ERC20 approval) and another is the `deposit` step. The current code filters by `step.id === 'deposit' || step.id === 'swap' || step.kind === 'transaction'` — but it's **missing the `approve` step**. \n\nWhen an ERC20 token hasn't been approved for the Relay contract, the quote includes an `approve` step first. The `approve` tx has `value: '0'`. The `deposit` step then has the actual ETH solver fee in `value`. \n\nBut the real issue from the screenshot: **$2.38 on Base for a $0.19 token**. Base gas is ~$0.001. This means the `value` field in the deposit transaction is `~0.00075 ETH` ($2.38 at ~$3200/ETH) — that's the Relay solver fee being sent as ETH with the ERC20 deposit. This is Relay's design: you pay ETH to the solver who executes on the destination chain.\n\nThe actual bug: **we're not checking if the token already has approval**. If there's no approval, Relay includes an `approve` step. But our step filter `step.id === 'deposit' || step.id === 'swap' || step.kind === 'transaction'` might be **skipping the approve step** — meaning the deposit tx fails because the Relay contract can't pull the tokens. The wallet then shows a high fee warning because the simulation fails/reverts.\n\nLet me check what step IDs Relay actually returns and fix the step processing to handle ALL steps:",
+  "time": {
+    "start": 1772191869079,
+    "end": 1772191869079
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "prt_c9eddeeb6001ve62IHbAxLDoAo",
+  "messageID": "msg_c9edde884001Hxdm8l8Znp432z",
+  "sessionID": "ses_361221781ffecqcfa3Zp02swzq",
+  "type": "tool",
+  "tool": "webfetch",
+  "callID": "toolu_vrtx_01NXYfrUiSWvnhkFQriVeGN2",
+  "state": {
+    "status": "completed",
+    "input": {
+      "url": "https://docs.relay.link",
+      "format": "markdown"
+    },
+    "output": "Relay Docs - Relay\n\n[Skip to main content](#content-area)\n\n[Relay home page![light logo](https://mintcdn.com/unevenlabs/4kwoXCaHcjpG2B6s/logo/relay-black.svg?fit=max&auto=format&n=4kwoXCaHcjpG2B6s&q=85&s=af9d50bf980d700e8259fe615ab2dbd2)![dark logo](https://mintcdn.com/unevenlabs/4kwoXCaHcjpG2B6s/logo/relay-white.svg?fit=max&auto=format&n=4kwoXCaHcjpG2B6s&q=85&s=e15df102201fa5852ec1b71b6560b06d)](/)\n\nSearch...\n\n⌘KAsk AI\n\n-   [Support](https://support.relay.link/en/)\n-   [Get in Touch](https://forms.gle/XNeELYavjwoJwPEf7)\n-   [Try Relay](https://www.relay.link/)\n-   [\n    \n    Try Relay\n    \n    ](https://www.relay.link/)\n\nSearch...\n\nNavigation\n\nRelay Docs\n\n[Overview\n\n](/what-is-relay)[API Reference\n\n](/references/api/overview)[RelayKit\n\n](/references/relay-kit/overview)[Relay Protocol\n\n](/references/protocol/overview)\n\n##### Introduction\n\n-   [\n    \n    What is Relay?\n    \n    \n    \n    ](/what-is-relay)\n\n##### Solutions\n\n-   [\n    \n    Wallets & Wallet Providers\n    \n    \n    \n    ](/solutions/wallets-and-wallet-providers)\n-   [\n    \n    Multichain Apps\n    \n    \n    \n    ](/solutions/multichain-apps)\n-   [\n    \n    Chains\n    \n    \n    \n    ](/solutions/chains)\n\n##### Use Cases\n\n-   [\n    \n    Bridging & Onboarding\n    \n    \n    \n    ](/use-cases/bridging)\n-   [\n    \n    Swaps\n    \n    \n    \n    ](/use-cases/cross-chain-swaps)\n-   [\n    \n    Call Execution\n    \n    \n    \n    ](/use-cases/calling)\n\n##### Features\n\n-   [\n    \n    App Fees\n    \n    \n    \n    ](/features/app-fees)\n-   [\n    \n    Fee Sponsorship\n    \n    \n    \n    ](/features/fee-sponsorship)\n-   [\n    \n    Deposit Addresses\n    \n    \n    \n    ](/features/deposit-addresses)\n-   [\n    \n    Gas Top-Up\n    \n    \n    \n    ](/features/gas-top-up)\n-   [\n    \n    Sponsored Execution\n    \n    \n    \n    ](/features/sponsored-execution)\n-   [\n    \n    Fast Fill\n    \n    \n    \n    ](/features/fast-fill)\n-   [\n    \n    Gasless Swaps\n    \n    \n    \n    ](/features/gasless-swaps)\n\n##### Safety & Security\n\n-   [\n    \n    Compliance\n    \n    \n    \n    ](/security/compliance)\n-   [\n    \n    Bounties\n    \n    \n    \n    ](/security/bounties)\n-   [\n    \n    MEV protection\n    \n    \n    \n    ](/security/mev-protection)\n-   [\n    \n    Community Support\n    \n    \n    \n    ](https://support.relay.link/en/collections/12225806-safety-security-loss-prevention)\n-   [\n    \n    Contract Audits\n    \n    \n    \n    ](/references/protocol/audits)\n\n##### Resources\n\n-   [\n    \n    Supported Chains\n    \n    \n    \n    ](/references/api/api_resources/supported-chains)\n-   [\n    \n    Enterprise Partner Program\n    \n    \n    \n    ](/resources/enterprise)\n-   [\n    \n    Integrating using AI\n    \n    \n    \n    ](/resources/developing-with-ai)\n-   [\n    \n    Support\n    \n    \n    \n    ](https://support.relay.link/en/)\n-   [\n    \n    Brand Assets\n    \n    \n    \n    ](/resources/brand-assets)\n\n \n\nWelcome to the Relay Docs\n\n![](https://mintcdn.com/unevenlabs/wB7IbGBFEJO9jb6P/images/rays.png?fit=max&auto=format&n=wB7IbGBFEJO9jb6P&q=85&s=21f9e7a6221bb9da750db87401c8d726)\n\n[\n\n### Quickstart\n\nExecute your first cross-chain transaction in under 5 minutes.\n\nGet started →](/references/api/quickstart)[\n\n### API Reference\n\nIntegrate our unified Quote, Execute, and Status endpoints.\n\nView reference →](/references/api/overview)[\n\n### What is Relay?\n\nLearn how our solver network achieves instant, low-cost settlement.\n\nExplore Relay 101 →](/what-is-relay)\n\nAssistant\n\nResponses are generated using AI and may contain mistakes.",
+    "metadata": {},
+    "title": "https://docs.relay.link (text/html; charset=utf-8)",
+    "time": {
+      "start": 1772191871183,
+      "end": 1772191871335
+    }
+  }
+}

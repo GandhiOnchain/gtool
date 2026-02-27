@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9edd5a1c001TIePn7yAhyJkDG",
+  "messageID": "msg_c9edd1f4b001NPou3qcMrHRkUa",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now let me check the Relay API types to understand what `value` means in the multi-input quote response, and also look at what `item.data` actually contains:",
+  "time": {
+    "start": 1772191835095,
+    "end": 1772191835095
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9edd61120018GPuZY25k4L85k",
+  "messageID": "msg_c9edd1f4b001NPou3qcMrHRkUa",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01Uzht3BMUNphin2w6eY3YvR",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/relay/api.ts",
+      "offset": 182,
+      "limit": 40
+    },
+    "output": "<file>\n00183|     user: string\n00184|     origins: Array<{\n00185|       chainId: number\n00186|       currency: string\n00187|       amount: string\n00188|       user?: string\n00189|     }>\n00190|     destinationCurrency: string\n00191|     destinationChainId: number\n00192|     tradeType: 'EXACT_INPUT' | 'EXACT_OUTPUT'\n00193|     amount?: string\n00194|     recipient?: string\n00195|     refundTo?: string\n00196|     txs?: Array<{\n00197|       to: string\n00198|       data: string\n00199|       value?: string\n00200|     }>\n00201|     txsGasLimit?: number\n00202|     partial?: boolean\n00203|     referrer?: string\n00204|     gasLimitForDepositSpecifiedTxs?: number\n00205|     originGasOverhead?: number\n00206|     slippageTolerance?: string\n00207|   }): Promise<MultiInputQuote> {\n00208|     const response = await fetch(`${this.baseUrl}/execute/swap/multi-input`, {\n00209|       method: 'POST',\n00210|       headers: {\n00211|         'Content-Type': 'application/json',\n00212|       },\n00213|       body: JSON.stringify(params),\n00214|     })\n00215|     if (!response.ok) {\n00216|       const error = await response.text()\n00217|       throw new Error(`Failed to get multi-input quote: ${error}`)\n00218|     }\n00219|     return response.json()\n00220|   }\n00221| \n00222|   async executeSwap(params: {\n\n(File has more lines. Use 'offset' parameter to read beyond line 222)\n</file>",
+    "metadata": {
+      "preview": "    user: string\n    origins: Array<{\n      chainId: number\n      currency: string\n      amount: string\n      user?: string\n    }>\n    destinationCurrency: string\n    destinationChainId: number\n    tradeType: 'EXACT_INPUT' | 'EXACT_OUTPUT'\n    amount?: string\n    recipient?: string\n    refundTo?: string\n    txs?: Array<{\n      to: string\n      data: string\n      value?: string\n    }>\n    txsGasLimit?: number\n    partial?: boolean"
+    },
+    "title": "frontend/src/lib/relay/api.ts",
+    "time": {
+      "start": 1772191835055,
+      "end": 1772191835056
+    }
+  }
+}

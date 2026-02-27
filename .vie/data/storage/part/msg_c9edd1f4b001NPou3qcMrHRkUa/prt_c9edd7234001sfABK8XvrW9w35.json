@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9edd7234001sfABK8XvrW9w35",
+  "messageID": "msg_c9edd1f4b001NPou3qcMrHRkUa",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now I understand the full picture. The `value` in `item.data` is the **ETH amount to send with the transaction** — for ERC20 tokens, Relay's multi-input quote generates an `approve` + `deposit` flow. The `deposit` step sends ETH as a **solver fee/gas prepayment** to the Relay contract alongside the ERC20 transfer calldata. This is by design — Relay needs ETH to pay for the destination chain execution.\n\nThe issue is: for a $0.19 BRETT token, Relay is quoting a ~$2.38 ETH `value` deposit. This is the **relayer fee** being included in the `value` field — it's not a gas fee, it's the actual ETH being sent to the Relay solver contract. This is expected behavior for Relay's architecture.\n\nThe real problem: **the batch is sending the full token balance** (`bt.balance`) for each token. For a tiny $0.19 BRETT position, the relayer fee overhead is disproportionate. But more critically — let me check if the `value` being sent is actually the relayer fee or if there's a bug where we're double-counting it.\n\nLet me look at what the Relay docs say about the multi-input endpoint and check if `gasLimitForDepositSpecifiedTxs` or `originGasOverhead` should be set:",
+  "time": {
+    "start": 1772191848010,
+    "end": 1772191848010
+  }
+}

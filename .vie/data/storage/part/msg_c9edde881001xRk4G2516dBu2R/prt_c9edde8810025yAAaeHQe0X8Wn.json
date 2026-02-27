@@ -1,0 +1,7 @@
+{
+  "id": "prt_c9edde8810025yAAaeHQe0X8Wn",
+  "type": "text",
+  "text": "Research the Relay.link API for the multi-input swap endpoint at https://api.relay.link/execute/swap/multi-input\n\nI need to understand:\n1. What step IDs does the response contain? (e.g. \"approve\", \"deposit\", \"swap\", etc.)\n2. For ERC20 tokens, does it include an approve step before the deposit step?\n3. What is the `value` field in the deposit step - is it the ETH solver fee?\n4. What does the `kind` field on each step contain?\n5. Is there a way to avoid the ETH solver fee for ERC20 batch swaps?\n6. What is the correct way to execute all steps from the multi-input quote response?\n\nCheck the Relay docs at https://docs.relay.link and any relevant API documentation. Return the exact step structure and how to properly execute them all.",
+  "messageID": "msg_c9edde881001xRk4G2516dBu2R",
+  "sessionID": "ses_361221781ffecqcfa3Zp02swzq"
+}

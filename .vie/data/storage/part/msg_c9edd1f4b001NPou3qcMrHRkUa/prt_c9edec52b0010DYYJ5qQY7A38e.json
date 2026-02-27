@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9edec52b0010DYYJ5qQY7A38e",
+  "messageID": "msg_c9edd1f4b001NPou3qcMrHRkUa",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now I have the full picture. The docs confirm:\n\n1. **The `value` in the deposit step IS the ETH solver fee** — it's not a gas fee, it's real ETH sent to the Relay solver to cover destination execution. For a $0.19 BRETT token, this fee is disproportionate but it's Relay's design.\n\n2. **The critical bug**: The step filter `step.id === 'deposit' || step.id === 'swap' || step.kind === 'transaction'` is **wrong** — it should be `step.kind === 'transaction'` to catch ALL transaction steps including `approve`. Currently `approve` steps are being skipped, so the deposit tx fails because the Relay contract has no allowance to pull the ERC20 tokens. When a tx simulation fails, MetaMask shows a high fee warning with \"Review alert\".\n\n3. **The correct approach**: iterate ALL steps by `kind === 'transaction'`, and use the `item.check.endpoint` to poll status after each step rather than `waitForTransactionReceipt`.\n\n4. **The high fee warning** is MetaMask's simulation failure indicator — the tx reverts because there's no approval, so MetaMask can't estimate gas properly and shows a worst-case estimate.",
+  "time": {
+    "start": 1772191934696,
+    "end": 1772191934696
+  }
+}
