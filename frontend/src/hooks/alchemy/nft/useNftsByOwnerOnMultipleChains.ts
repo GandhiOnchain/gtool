@@ -1,8 +1,7 @@
 import { useState, useCallback } from 'react';
-import { alchemy, getAlchemyNetwork, Network } from '../../../lib/alchemy/config';
+import { alchemy, getAlchemyNetwork } from '../../../lib/alchemy/config';
 import { Network as AlchemyNetwork } from 'alchemy-sdk';
 import { GetNftsByWalletResponse, GetNftsForOwnerOptions } from '../types';
-import { isSpamNft, isSafeContractAddress } from '../../../lib/alchemy/spam';
 
 /**
  * Hook for fetching NFTs owned by a specific address
@@ -81,26 +80,10 @@ export function useNftsByOwnerOnMultipleChains() {
       }
 
       const formattedResponse = (response as any as GetNftsByWalletResponse);
-
-      formattedResponse.data.ownedNfts = formattedResponse.data.ownedNfts
-        .filter((nft) => {
-          if (!isSafeContractAddress(nft.contractAddress)) {
-            console.warn('[Security] Blocked NFT with invalid contract address:', nft.contractAddress);
-            return false;
-          }
-          const network = nft.network as Network;
-          if (isSpamNft(network, nft.contractAddress, nft.isSpam, nft.spamClassifications)) {
-            console.warn('[Security] Blocked spam/malicious NFT:', nft.contractAddress, nft.spamClassifications);
-            return false;
-          }
-          return true;
-        })
-        .map((nft) => ({
-          ...nft,
-          balance: nft.balance.startsWith("0x") ? BigInt(nft.balance).toString() : nft.balance,
-        }));
-
-      formattedResponse.data.totalCount = formattedResponse.data.ownedNfts.length;
+      formattedResponse.data.ownedNfts = formattedResponse.data.ownedNfts.map((nft) => ({
+        ...nft,
+        balance: nft.balance.startsWith("0x") ? BigInt(nft.balance).toString() : nft.balance,
+      }));
       setData(formattedResponse);
       return formattedResponse;
     } catch (err) {

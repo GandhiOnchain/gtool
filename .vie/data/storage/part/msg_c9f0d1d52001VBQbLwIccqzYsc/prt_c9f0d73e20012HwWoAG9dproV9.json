@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9f0d73e20012HwWoAG9dproV9",
+  "messageID": "msg_c9f0d1d52001VBQbLwIccqzYsc",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_016131PZJLnHYRWE8LwXE1ns",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cp /tmp/RelaySwap_orig.tsx /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx && cp /tmp/useWriteContractLifecycle_orig.ts /home/user/sandbox/workspace/frontend/src/hooks/useWriteContractLifecycle.ts && cp /tmp/useSimulateWriteContracts_orig.ts /home/user/sandbox/workspace/frontend/src/hooks/useSimulateWriteContracts.ts && cp /tmp/useNftsByOwnerOnMultipleChains_orig.ts /home/user/sandbox/workspace/frontend/src/hooks/alchemy/nft/useNftsByOwnerOnMultipleChains.ts && cp /tmp/useTokenPricesByAddress_orig.ts /home/user/sandbox/workspace/frontend/src/hooks/alchemy/price/useTokenPricesByAddress.ts && cp /tmp/spam_index_orig.ts /home/user/sandbox/workspace/frontend/src/lib/alchemy/spam/index.ts && echo \"all restored\"",
+      "description": "Restore all files to pre-change state"
+    },
+    "output": "all restored\n",
+    "metadata": {
+      "output": "all restored\n",
+      "exit": 0,
+      "description": "Restore all files to pre-change state"
+    },
+    "title": "cp /tmp/RelaySwap_orig.tsx /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx && cp /tmp/useWriteContractLifecycle_orig.ts /home/user/sandbox/workspace/frontend/src/hooks/useWriteContractLifecycle.ts && cp /tmp/useSimulateWriteContracts_orig.ts /home/user/sandbox/workspace/frontend/src/hooks/useSimulateWriteContracts.ts && cp /tmp/useNftsByOwnerOnMultipleChains_orig.ts /home/user/sandbox/workspace/frontend/src/hooks/alchemy/nft/useNftsByOwnerOnMultipleChains.ts && cp /tmp/useTokenPricesByAddress_orig.ts /home/user/sandbox/workspace/frontend/src/hooks/alchemy/price/useTokenPricesByAddress.ts && cp /tmp/spam_index_orig.ts /home/user/sandbox/workspace/frontend/src/lib/alchemy/spam/index.ts && echo \"all restored\"",
+    "time": {
+      "start": 1772194987394,
+      "end": 1772194987400
+    }
+  }
+}

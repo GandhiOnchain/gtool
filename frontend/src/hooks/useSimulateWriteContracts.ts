@@ -307,12 +307,19 @@ export function useSimulateWriteContracts(): UseSimulateWriteContractsReturn {
   }, [effectiveAddress])
 
   /**
-   * Simulates multiple transactions in parallel (independent calls only)
+   * Simulates multiple transactions sequentially
    */
   const simulateMultipleTransactionsSequential = useCallback(async (
     transactions: SimulateWriteCall[]
   ): Promise<CallResult[]> => {
-    return Promise.all(transactions.map(txData => simulateSingleTransaction(txData)))
+    const results: CallResult[] = []
+    
+    for (const txData of transactions) {
+      const result = await simulateSingleTransaction(txData)
+      results.push(result)
+    }
+    
+    return results
   }, [simulateSingleTransaction])
 
   /**

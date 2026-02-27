@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9f0d5cc8001rcw3SsX4E7rwNa",
+  "messageID": "msg_c9f0d1d52001VBQbLwIccqzYsc",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_013TrzaKCSoDY53DjMbUKGwT",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git show 924b6767:frontend/src/pages/RelaySwap.tsx > /tmp/RelaySwap_orig.tsx && git show 924b6767:frontend/src/hooks/useWriteContractLifecycle.ts > /tmp/useWriteContractLifecycle_orig.ts && git show 924b6767:frontend/src/hooks/useSimulateWriteContracts.ts > /tmp/useSimulateWriteContracts_orig.ts && git show 924b6767:frontend/src/hooks/alchemy/nft/useNftsByOwnerOnMultipleChains.ts > /tmp/useNftsByOwnerOnMultipleChains_orig.ts && git show 924b6767:frontend/src/hooks/alchemy/price/useTokenPricesByAddress.ts > /tmp/useTokenPricesByAddress_orig.ts && git show 924b6767:frontend/src/lib/alchemy/spam/index.ts > /tmp/spam_index_orig.ts && echo \"all extracted\"",
+      "description": "Extract all original files from before my changes"
+    },
+    "output": "all extracted\n",
+    "metadata": {
+      "output": "all extracted\n",
+      "exit": 0,
+      "description": "Extract all original files from before my changes"
+    },
+    "title": "cd /home/user/sandbox/workspace && git show 924b6767:frontend/src/pages/RelaySwap.tsx > /tmp/RelaySwap_orig.tsx && git show 924b6767:frontend/src/hooks/useWriteContractLifecycle.ts > /tmp/useWriteContractLifecycle_orig.ts && git show 924b6767:frontend/src/hooks/useSimulateWriteContracts.ts > /tmp/useSimulateWriteContracts_orig.ts && git show 924b6767:frontend/src/hooks/alchemy/nft/useNftsByOwnerOnMultipleChains.ts > /tmp/useNftsByOwnerOnMultipleChains_orig.ts && git show 924b6767:frontend/src/hooks/alchemy/price/useTokenPricesByAddress.ts > /tmp/useTokenPricesByAddress_orig.ts && git show 924b6767:frontend/src/lib/alchemy/spam/index.ts > /tmp/spam_index_orig.ts && echo \"all extracted\"",
+    "time": {
+      "start": 1772194982903,
+      "end": 1772194982917
+    }
+  }
+}
