@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9efd9f2400179q0oYKRgGySlm",
+  "messageID": "msg_c9efc43c1001oUx8FTqbH6nPKN",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01Xd9sAGHob8RpLKtzF7GyJd",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/hooks/useWriteContractLifecycle.ts",
+      "offset": 185,
+      "limit": 30
+    },
+    "output": "<file>\n00186|         return (estimated * GAS_BUFFER_MULTIPLIER) / GAS_DIVISOR\n00187|       } catch {\n00188|         return undefined\n00189|       }\n00190|     }\n00191|   }, [getPublicClient])\n00192| \n00193|   /**\n00194|    * Prepare encoded calldata and estimate gas in parallel.\n00195|    */\n00196|   const prepareWrite = useCallback(async <T extends Abi, N extends ContractFunctionName<T, 'nonpayable' | 'payable'>>(\n00197|     params: WriteContractParams<T, N>\n00198|   ): Promise<PreparedWrite> => {\n00199|     setState(prev => ({ ...prev, status: 'preparing', isLoading: true }))\n00200| \n00201|     const fn = params.abi.find(\n00202|       (item) => item.type === 'function' && item.name === params.functionName\n00203|     )\n00204|     if (params.value && fn && 'stateMutability' in fn && fn.stateMutability !== 'payable') {\n00205|       throw new Error(`Function ${params.functionName} is not payable but value was provided`)\n00206|     }\n00207| \n00208|     const [data, gasLimit] = await Promise.all([\n00209|       Promise.resolve(encodeFunctionData({\n00210|         abi: params.abi,\n00211|         functionName: params.functionName,\n00212|         args: params.args,\n00213|       } as any)),\n00214|       address ? estimateGasForCall(params as WriteContractParams, address as Address) : Promise.resolve(undefined),\n00215|     ])\n\n(File has more lines. Use 'offset' parameter to read beyond line 215)\n</file>",
+    "metadata": {
+      "preview": "        return (estimated * GAS_BUFFER_MULTIPLIER) / GAS_DIVISOR\n      } catch {\n        return undefined\n      }\n    }\n  }, [getPublicClient])\n\n  /**\n   * Prepare encoded calldata and estimate gas in parallel.\n   */\n  const prepareWrite = useCallback(async <T extends Abi, N extends ContractFunctionName<T, 'nonpayable' | 'payable'>>(\n    params: WriteContractParams<T, N>\n  ): Promise<PreparedWrite> => {\n    setState(prev => ({ ...prev, status: 'preparing', isLoading: true }))\n\n    const fn = params.abi.find(\n      (item) => item.type === 'function' && item.name === params.functionName\n    )\n    if (params.value && fn && 'stateMutability' in fn && fn.stateMutability !== 'payable') {\n      throw new Error(`Function ${params.functionName} is not payable but value was provided`)"
+    },
+    "title": "frontend/src/hooks/useWriteContractLifecycle.ts",
+    "time": {
+      "start": 1772193948283,
+      "end": 1772193948285
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "id": "prt_c9efc87f1001UNoe6lZcwj52Qz",
+  "messageID": "msg_c9efc43c1001oUx8FTqbH6nPKN",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01AYXAfnqdFEvg5HMrB6zePe",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Fix gas: estimateGas creates a new publicClient on every call — cache it and run estimation in parallel with prepareWrite",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix gas: estimateGas uses eth_estimateGas which can underestimate for complex calls — use simulateContract gasUsed instead when available",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Fix latency: handleChainSwitch has a hardcoded 2000ms sleep that blocks every tx — replace with event-driven chain confirmation",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Fix latency: prepareWrite and estimateGas run sequentially — run them in parallel",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Fix latency: simulateMultipleTransactionsSequential runs calls one-by-one — run them in parallel with Promise.all",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        },
+        {
+          "content": "Fix gas: sendTransaction retry logic catches errors thrown synchronously but wagmi's sendTransaction is async-via-mutation — errors surface in sendError state, not thrown — fix retry path",
+          "status": "pending",
+          "priority": "high",
+          "id": "6"
+        },
+        {
+          "content": "Run diagnostics and verify all clean",
+          "status": "pending",
+          "priority": "high",
+          "id": "7"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Fix gas: estimateGas creates a new publicClient on every call — cache it and run estimation in parallel with prepareWrite\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Fix gas: estimateGas uses eth_estimateGas which can underestimate for complex calls — use simulateContract gasUsed instead when available\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Fix latency: handleChainSwitch has a hardcoded 2000ms sleep that blocks every tx — replace with event-driven chain confirmation\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Fix latency: prepareWrite and estimateGas run sequentially — run them in parallel\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"4\"\n  },\n  {\n    \"content\": \"Fix latency: simulateMultipleTransactionsSequential runs calls one-by-one — run them in parallel with Promise.all\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"5\"\n  },\n  {\n    \"content\": \"Fix gas: sendTransaction retry logic catches errors thrown synchronously but wagmi's sendTransaction is async-via-mutation — errors surface in sendError state, not thrown — fix retry path\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"6\"\n  },\n  {\n    \"content\": \"Run diagnostics and verify all clean\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"7\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Fix gas: estimateGas creates a new publicClient on every call — cache it and run estimation in parallel with prepareWrite",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix gas: estimateGas uses eth_estimateGas which can underestimate for complex calls — use simulateContract gasUsed instead when available",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Fix latency: handleChainSwitch has a hardcoded 2000ms sleep that blocks every tx — replace with event-driven chain confirmation",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Fix latency: prepareWrite and estimateGas run sequentially — run them in parallel",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Fix latency: simulateMultipleTransactionsSequential runs calls one-by-one — run them in parallel with Promise.all",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        },
+        {
+          "content": "Fix gas: sendTransaction retry logic catches errors thrown synchronously but wagmi's sendTransaction is async-via-mutation — errors surface in sendError state, not thrown — fix retry path",
+          "status": "pending",
+          "priority": "high",
+          "id": "6"
+        },
+        {
+          "content": "Run diagnostics and verify all clean",
+          "status": "pending",
+          "priority": "high",
+          "id": "7"
+        }
+      ]
+    },
+    "title": "7 todos",
+    "time": {
+      "start": 1772193879194,
+      "end": 1772193879195
+    }
+  }
+}

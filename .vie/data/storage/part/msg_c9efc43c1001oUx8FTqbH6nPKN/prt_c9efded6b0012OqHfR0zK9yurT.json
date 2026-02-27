@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9efded6b0012OqHfR0zK9yurT",
+  "messageID": "msg_c9efc43c1001oUx8FTqbH6nPKN",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01G8CG3zeeCJKQP2zCTqsvja",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/hooks/useWriteContractLifecycle.ts",
+      "offset": 295,
+      "limit": 40
+    },
+    "output": "<file>\n00296|       toast.dismiss('tx-confirming')\n00297|       toast.success(successMessageRef.current, { id: 'tx-success', duration: 5000 })\n00298|       onSuccessRef.current?.(sendData!)\n00299|     }\n00300|   }, [sendError, confirmError, isSending, isConfirming, isSuccess, sendData])\n00301| \n00302|   const write = useCallback(async <T extends TAbi, N extends ContractFunctionName<T, 'nonpayable' | 'payable'>>(\n00303|     params: WriteContractParams<T, N>\n00304|   ): Promise<void> => {\n00305|     if (!isConnected || !address) {\n00306|       const error = new BlockchainError('Wallet not connected', 'WALLET_NOT_CONNECTED')\n00307|       setState({ status: 'error', error, txHash: null, isLoading: false })\n00308|       toast.error('Please connect your wallet first', { duration: 5000 })\n00309|       throw error\n00310|     }\n00311| \n00312|     try {\n00313|       setWriteData(params as any)\n00314| \n00315|       const [preparedWrite] = await Promise.all([\n00316|         prepareWrite(params),\n00317|         handleChainSwitch(params.chainId),\n00318|       ])\n00319| \n00320|       await executePreparedWrite(preparedWrite)\n00321|     } catch (error) {\n00322|       console.error('Write contract execution failed:', error)\n00323|     }\n00324|   }, [isConnected, address, handleChainSwitch, prepareWrite, executePreparedWrite])\n00325| \n00326|   const reset = useCallback(() => {\n00327|     setState({ status: 'idle', error: null, txHash: null, isLoading: false })\n00328|     setWriteData(null)\n00329|   }, [])\n00330| \n00331|   return {\n00332|     state,\n00333|     write,\n00334|     reset,\n00335|     isLoading: state.isLoading,\n\n(File has more lines. Use 'offset' parameter to read beyond line 335)\n</file>",
+    "metadata": {
+      "preview": "      toast.dismiss('tx-confirming')\n      toast.success(successMessageRef.current, { id: 'tx-success', duration: 5000 })\n      onSuccessRef.current?.(sendData!)\n    }\n  }, [sendError, confirmError, isSending, isConfirming, isSuccess, sendData])\n\n  const write = useCallback(async <T extends TAbi, N extends ContractFunctionName<T, 'nonpayable' | 'payable'>>(\n    params: WriteContractParams<T, N>\n  ): Promise<void> => {\n    if (!isConnected || !address) {\n      const error = new BlockchainError('Wallet not connected', 'WALLET_NOT_CONNECTED')\n      setState({ status: 'error', error, txHash: null, isLoading: false })\n      toast.error('Please connect your wallet first', { duration: 5000 })\n      throw error\n    }\n\n    try {\n      setWriteData(params as any)\n\n      const [preparedWrite] = await Promise.all(["
+    },
+    "title": "frontend/src/hooks/useWriteContractLifecycle.ts",
+    "time": {
+      "start": 1772193968224,
+      "end": 1772193968226
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9efd7e96001yeKAkmyX6FzrQs",
+  "messageID": "msg_c9efc43c1001oUx8FTqbH6nPKN",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Now fix the sequential simulation in `useSimulateWriteContracts` — run calls in parallel:",
+  "time": {
+    "start": 1772193943668,
+    "end": 1772193943668
+  }
+}

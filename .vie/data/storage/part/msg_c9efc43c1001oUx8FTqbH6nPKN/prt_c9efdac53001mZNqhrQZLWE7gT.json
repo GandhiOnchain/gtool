@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9efdac53001mZNqhrQZLWE7gT",
+  "messageID": "msg_c9efc43c1001oUx8FTqbH6nPKN",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "The `prepareWrite` uses the target chain's RPC directly (not the wallet's current chain), so it can safely run in parallel with `handleChainSwitch`. The gas estimation hits the target chain's RPC regardless of what chain the wallet is on. This is correct. However, `simulateContract` inside `estimateGasForCall` uses `account: from` — if the wallet hasn't switched yet, the simulation still works because it's a read call against the target chain's RPC. This is fine.\n\nBut there's one issue: `Promise.all([prepareWrite, handleChainSwitch])` — if `handleChainSwitch` throws, `prepareWrite` result is discarded. That's correct behavior. Let me verify the `write` function:",
+  "time": {
+    "start": 1772193958975,
+    "end": 1772193958975
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9efc9a5a0018D5vcuoGgYbWt3",
+  "messageID": "msg_c9efc43c1001oUx8FTqbH6nPKN",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Now I'll rewrite `useWriteContractLifecycle` with all fixes applied — parallel gas+encode, simulateContract for accurate gas, event-driven chain switch, and proper async retry:",
+  "time": {
+    "start": 1772193928450,
+    "end": 1772193928450
+  }
+}

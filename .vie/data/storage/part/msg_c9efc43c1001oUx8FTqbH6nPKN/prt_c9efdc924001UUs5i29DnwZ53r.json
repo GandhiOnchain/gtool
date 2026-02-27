@@ -1,0 +1,17 @@
+{
+  "id": "prt_c9efdc924001UUs5i29DnwZ53r",
+  "messageID": "msg_c9efc43c1001oUx8FTqbH6nPKN",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01LxsDbqBva4Sy74AxMEiFWp",
+  "state": {
+    "status": "error",
+    "input": "{\"filePath\": \"/home/user/sandbox/workspace/frontend/src/hooks/useWriteContractLifecycle.ts\", \"offset\": \"[245, 270]\"}",
+    "error": "Model tried to call unavailable tool 'invalid'. Available tools: bash, diagnostics, edit, webfetch, glob, grep, list, read, write, todowrite, todoread, task.",
+    "time": {
+      "start": 1772193958859,
+      "end": 1772193958859
+    }
+  }
+}

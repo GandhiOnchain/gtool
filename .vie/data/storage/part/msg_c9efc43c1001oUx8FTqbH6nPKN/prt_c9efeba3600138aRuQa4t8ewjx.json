@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9efeba3600138aRuQa4t8ewjx",
+  "messageID": "msg_c9efc43c1001oUx8FTqbH6nPKN",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "All clean. Here's a precise breakdown of every root cause found and fixed:\n\n---\n\n**Gas failures — 3 root causes fixed**\n\n1. **Wrong estimation method** — `eth_estimateGas` consistently underestimates for complex contract calls (swaps, multi-step logic). Now uses `simulateContract` → `estimateContractGas` which runs the full EVM trace and returns the actual gas used. Falls back to `eth_estimateGas` only if simulation fails, then to `undefined` (wallet's own estimate) as last resort.\n\n2. **`sendTransaction` errors were uncatchable** — The old code used `sendTransaction` (fire-and-forget mutation) and tried to catch errors synchronously. Wagmi surfaces those errors asynchronously via `sendError` state, so the try/catch never fired and the retry path was dead code. Switched to `sendTransactionAsync` which returns a real Promise — errors throw properly and are caught.\n\n3. **New `publicClient` on every gas call** — Each estimation created a fresh HTTP client, adding connection overhead. Now cached per `chainId` via a `useRef` Map.\n\n---\n\n**Latency — 2 root causes fixed**\n\n4. **Hardcoded 2000ms sleep on chain switch** — `handleChainSwitch` had `await sleep(2000)` blocking every transaction even when no switch was needed. Replaced with `switchChainAsync` (awaitable) + a timeout race. Zero artificial delay.\n\n5. **Sequential simulation fallback** — `simulateMultipleTransactionsSequential` ran calls one-by-one in a `for` loop. Now uses `Promise.all` to run all simulations in parallel.\n\n**Also:** `encodeFunctionData` and gas estimation now run in parallel inside `prepareWrite` via `Promise.all`, shaving another round-trip off the critical path.",
+  "time": {
+    "start": 1772194029253,
+    "end": 1772194029253
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9efde016001VbHu2BzMBrNaxJ",
+  "messageID": "msg_c9efc43c1001oUx8FTqbH6nPKN",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01XPxKHtCdhjqJNThKrLQPhv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/hooks/useWriteContractLifecycle.ts",
+      "offset": 245,
+      "limit": 30
+    },
+    "output": "<file>\n00246|     } catch (switchError) {\n00247|       toast.dismiss('chain-switch-success')\n00248|       const chainError = new ChainSwitchError(currentChainId, targetChainId, switchError)\n00249|       toast.error('Failed to switch network. Please switch manually.')\n00250|       setState({ status: 'error', error: chainError, txHash: null, isLoading: false })\n00251|       throw chainError\n00252|     }\n00253|   }, [currentChainId, switchChainAsync])\n00254| \n00255|   /**\n00256|    * Send the transaction. Gas is already baked into preparedWrite.\n00257|    * Uses sendTransactionAsync so errors are thrown directly (not via state),\n00258|    * enabling proper catch/retry without relying on wagmi's sendError state.\n00259|    */\n00260|   const executePreparedWrite = useCallback(async (preparedWrite: PreparedWrite): Promise<void> => {\n00261|     try {\n00262|       await sendTransactionAsync({\n00263|         to: preparedWrite.to,\n00264|         data: preparedWrite.data,\n00265|         value: preparedWrite.value,\n00266|         gas: preparedWrite.gas,\n00267|       })\n00268|     } catch (error) {\n00269|       const errorObj = error instanceof Error ? error : new Error(String(error))\n00270|       const blockchainError = new BlockchainError('Transaction execution failed', 'TX_EXECUTION_ERROR', errorObj)\n00271|       setState({ status: 'error', error: blockchainError, txHash: null, isLoading: false })\n00272|       throw blockchainError\n00273|     }\n00274|   }, [sendTransactionAsync])\n00275| \n\n(File has more lines. Use 'offset' parameter to read beyond line 275)\n</file>",
+    "metadata": {
+      "preview": "    } catch (switchError) {\n      toast.dismiss('chain-switch-success')\n      const chainError = new ChainSwitchError(currentChainId, targetChainId, switchError)\n      toast.error('Failed to switch network. Please switch manually.')\n      setState({ status: 'error', error: chainError, txHash: null, isLoading: false })\n      throw chainError\n    }\n  }, [currentChainId, switchChainAsync])\n\n  /**\n   * Send the transaction. Gas is already baked into preparedWrite.\n   * Uses sendTransactionAsync so errors are thrown directly (not via state),\n   * enabling proper catch/retry without relying on wagmi's sendError state.\n   */\n  const executePreparedWrite = useCallback(async (preparedWrite: PreparedWrite): Promise<void> => {\n    try {\n      await sendTransactionAsync({\n        to: preparedWrite.to,\n        data: preparedWrite.data,\n        value: preparedWrite.value,"
+    },
+    "title": "frontend/src/hooks/useWriteContractLifecycle.ts",
+    "time": {
+      "start": 1772193965611,
+      "end": 1772193965613
+    }
+  }
+}
