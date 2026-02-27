@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9eebe87a0010cVdKtiJYta1Qz",
+  "messageID": "msg_c9eebd01b001q29z71Cijfgr46",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "The address shown is `0xD072013392c1438F28ec9e9A90...` — this is the **token contract address** being approved, not the Relay spender. Let me look at this properly.",
+  "time": {
+    "start": 1772192790994,
+    "end": 1772192790994
+  }
+}

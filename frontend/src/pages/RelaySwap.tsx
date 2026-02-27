@@ -272,6 +272,7 @@ export default function RelaySwap() {
   const [activeTab, setActiveTab] = useState('swap')
   const [batchQuote, setBatchQuote] = useState<RelayQuote | null>(null)
   const [isLoadingBatchQuote, setIsLoadingBatchQuote] = useState(false)
+  const [isSecurityScanning, setIsSecurityScanning] = useState(false)
   const [externalSearchResults, setExternalSearchResults] = useState<RelayCurrency[]>([])
   const [isSearchingExternal, setIsSearchingExternal] = useState(false)
   const [revokeChain, setRevokeChain] = useState<RelayChain | null>(null)
@@ -1035,21 +1036,19 @@ export default function RelaySwap() {
       }
     }
 
-    // Step 5: GoPlus address security — checks contract against malicious/phishing/blacklist databases
-    // This is what catches tokens MetaMask flags as "Malicious"
-    for (const { address: addr } of tokens) {
+    // Step 5: GoPlus address security — parallel fetch, catches what MetaMask flags as "Malicious"
+    const scanOne = async ({ address: addr }: { address: string }) => {
       const key = addr.toLowerCase()
       const existing = result.get(key)
-      // Skip if already confirmed high-risk
-      if (existing?.riskLevel === 'high' && existing?.isSpam) continue
+      if (existing?.riskLevel === 'high' && existing?.isSpam) return
       try {
         const res = await fetch(
           `https://api.gopluslabs.io/api/v1/address_security/${addr}?chain_id=${chainId}`,
-          { signal: AbortSignal.timeout(6000) }
+          { signal: AbortSignal.timeout(8000) }
         )
-        if (!res.ok) continue
+        if (!res.ok) return
         const data = await res.json()
-        if (data.code !== 1 || !data.result) continue
+        if (data.code !== 1 || !data.result) return
         const r = data.result as Record<string, string>
 
         const flags: string[] = [...(existing?.flags || [])]
@@ -1083,6 +1082,12 @@ export default function RelaySwap() {
           })
         }
       } catch { /* best-effort */ }
+    }
+
+    // Run in parallel with concurrency cap of 5 to avoid rate limiting
+    const CONCURRENCY = 5
+    for (let i = 0; i < tokens.length; i += CONCURRENCY) {
+      await Promise.all(tokens.slice(i, i + CONCURRENCY).map(scanOne))
     }
 
     return result
@@ -1883,8 +1888,7 @@ export default function RelaySwap() {
       return
     }
 
-    // Pre-execution security gate — re-scan selected tokens and hard-block any flagged high-risk
-    // This catches cases where the user manually re-selected a flagged token
+    // Pre-execution security gate — always re-scan right before execution
     const selectedForExec = batchTokens.filter(bt => bt.selected !== false && parseFloat(bt.balanceFormatted) > 0)
     const alreadyFlagged = selectedForExec.filter(bt => bt.risk?.riskLevel === 'high' || bt.risk?.isSpam)
     if (alreadyFlagged.length > 0) {
@@ -1892,25 +1896,28 @@ export default function RelaySwap() {
       toast.error(`Blocked: ${names} flagged as high-risk. Deselect to proceed.`)
       return
     }
-    // Run a fresh address security check on all selected tokens right before execution
     if (batchChain.vmType === 'evm' || !batchChain.vmType) {
-      const freshScan = await scanTokenSecurity(
-        selectedForExec.map(bt => ({ address: bt.token.address, symbol: bt.token.symbol, name: bt.token.name })),
-        batchChain.id
-      )
-      const newlyFlagged = selectedForExec.filter(bt => {
-        const r = freshScan.get(bt.token.address.toLowerCase())
-        return r?.riskLevel === 'high' || r?.isSpam
-      })
-      if (newlyFlagged.length > 0) {
-        // Update the batch list with fresh risk data
-        setBatchTokens(prev => prev.map(bt => {
+      setIsSecurityScanning(true)
+      try {
+        const freshScan = await scanTokenSecurity(
+          selectedForExec.map(bt => ({ address: bt.token.address, symbol: bt.token.symbol, name: bt.token.name })),
+          batchChain.id
+        )
+        const newlyFlagged = selectedForExec.filter(bt => {
           const r = freshScan.get(bt.token.address.toLowerCase())
-          return r ? { ...bt, risk: r, selected: !(r.isSpam || r.riskLevel === 'high') } : bt
-        }))
-        const names = newlyFlagged.map(bt => bt.token.symbol).join(', ')
-        toast.error(`Security scan blocked: ${names} flagged as malicious. Removed from selection.`)
-        return
+          return r?.riskLevel === 'high' || r?.isSpam
+        })
+        if (newlyFlagged.length > 0) {
+          setBatchTokens(prev => prev.map(bt => {
+            const r = freshScan.get(bt.token.address.toLowerCase())
+            return r ? { ...bt, risk: r, selected: !(r.isSpam || r.riskLevel === 'high') } : bt
+          }))
+          const names = newlyFlagged.map(bt => bt.token.symbol).join(', ')
+          toast.error(`Blocked: ${names} flagged as malicious.`)
+          return
+        }
+      } finally {
+        setIsSecurityScanning(false)
       }
     }
 
@@ -2534,156 +2541,80 @@ export default function RelaySwap() {
 
   const revokeApproval = async (approval: typeof approvals[0]) => {
     if (!address || !revokeChain) return
-    
     setIsRevoking(true)
     try {
-      // Check if we need to switch chains
       if (connectedChainId !== revokeChain.id) {
-        console.log('Switching chain to', revokeChain.displayName)
-        try {
-          await switchChain({ chainId: revokeChain.id })
-          toast.success('Chain switched')
-          await new Promise(resolve => setTimeout(resolve, 500))
-        } catch (switchError) {
-          console.error('Failed to switch chain:', switchError)
-          toast.error('Please switch to the correct network')
-          setIsRevoking(false)
-          return
-        }
+        await switchChain({ chainId: revokeChain.id })
+        await new Promise(r => setTimeout(r, 500))
       }
-      
-      // Send approval transaction with 0 allowance
-      sendTransaction({
+      const { sendTransaction: sendTx, waitForTransactionReceipt } = await import('wagmi/actions')
+      const { wagmiConfig } = await import('@/lib/blockchain/wagmi')
+      const hash = await sendTx(wagmiConfig, {
         to: approval.token.address as `0x${string}`,
         data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,
-      }, {
-        onSuccess: (hash) => {
-          console.log('Revoke transaction submitted:', hash)
-          toast.success('Approval revoked successfully')
-          
-          // Reload approvals after a delay
-          setTimeout(() => {
-            loadApprovals()
-          }, 2000)
-          
-          setIsRevoking(false)
-        },
-        onError: (error) => {
-          console.error('Revoke failed:', error)
-          toast.error('Failed to revoke approval')
-          setIsRevoking(false)
-        }
       })
+      toast.info('Revoke submitted, confirming...')
+      await waitForTransactionReceipt(wagmiConfig, { hash })
+      toast.success('Approval revoked')
+      await loadApprovals()
     } catch (error) {
-      console.error('Revoke approval failed:', error)
-      toast.error('Failed to revoke approval')
+      const msg = error instanceof Error ? error.message.toLowerCase() : ''
+      if (!msg.includes('user rejected') && !msg.includes('user denied')) {
+        toast.error('Failed to revoke approval')
+      }
+    } finally {
       setIsRevoking(false)
     }
   }
 
   const batchRevokeApprovals = async () => {
     if (!address || !revokeChain || selectedApprovals.size === 0) return
-    
     setIsRevoking(true)
     try {
-      // Check if we need to switch chains
       if (connectedChainId !== revokeChain.id) {
-        console.log('Switching chain to', revokeChain.displayName)
-        try {
-          await switchChain({ chainId: revokeChain.id })
-          toast.success('Chain switched')
-          await new Promise(resolve => setTimeout(resolve, 500))
-        } catch (switchError) {
-          console.error('Failed to switch chain:', switchError)
-          toast.error('Please switch to the correct network')
-          setIsRevoking(false)
-          return
-        }
+        await switchChain({ chainId: revokeChain.id })
+        await new Promise(r => setTimeout(r, 500))
       }
-      
+      const { sendTransaction: sendTx, waitForTransactionReceipt } = await import('wagmi/actions')
+      const { wagmiConfig } = await import('@/lib/blockchain/wagmi')
+
       const selectedApprovalsArray = Array.from(selectedApprovals).map(idx => approvals[idx])
       let successCount = 0
       let failCount = 0
-      
-      for (const approval of selectedApprovalsArray) {
+
+      for (let i = 0; i < selectedApprovalsArray.length; i++) {
+        const approval = selectedApprovalsArray[i]
         try {
-          const txHash = await new Promise<string>((resolve, reject) => {
-            sendTransaction({
-              to: approval.token.address as `0x${string}`,
-              data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,
-            }, {
-              onSuccess: (hash) => {
-                successCount++
-                
-                // Save revoke transaction to local storage
-                const revokeHistory: SwapHistory = {
-                  id: hash,
-                  type: 'revoke',
-                  fromToken: approval.token.address,
-                  fromTokenSymbol: approval.token.symbol,
-                  fromTokenDecimals: approval.token.decimals,
-                  fromTokenLogo: approval.token.metadata?.logoURI,
-                  toToken: approval.spender,
-                  toTokenSymbol: approval.spenderName || 'Unknown',
-                  toTokenDecimals: 0,
-                  fromAmount: '0',
-                  toAmount: '0',
-                  fromChain: revokeChain.displayName,
-                  fromChainId: revokeChain.id,
-                  fromChainIcon: revokeChain.iconUrl,
-                  toChain: revokeChain.displayName,
-                  toChainId: revokeChain.id,
-                  toChainIcon: revokeChain.iconUrl,
-                  status: 'success',
-                  timestamp: Date.now(),
-                  completedAt: Date.now(),
-                  txHash: hash,
-                }
-                
-                // Get existing revoke history from local storage
-                const existingHistory = localStorage.getItem('revokeHistory')
-                const revokeHistoryArray = existingHistory ? JSON.parse(existingHistory) : []
-                revokeHistoryArray.unshift(revokeHistory)
-                
-                // Keep only last 50 revoke transactions
-                if (revokeHistoryArray.length > 50) {
-                  revokeHistoryArray.splice(50)
-                }
-                
-                localStorage.setItem('revokeHistory', JSON.stringify(revokeHistoryArray))
-                console.log('Saved revoke transaction to localStorage:', hash)
-                
-                resolve(hash)
-              },
-              onError: (error) => {
-                console.error('Revoke failed:', error)
-                failCount++
-                reject(error)
-              }
-            })
+          toast.info(`Revoking ${i + 1}/${selectedApprovalsArray.length}: ${approval.token.symbol}...`)
+          const hash = await sendTx(wagmiConfig, {
+            to: approval.token.address as `0x${string}`,
+            data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,
           })
-          await new Promise(resolve => setTimeout(resolve, 1000))
+          // Wait for on-chain confirmation before moving to next
+          await waitForTransactionReceipt(wagmiConfig, { hash })
+          successCount++
+          console.log(`Revoked ${approval.token.symbol}:`, hash)
         } catch (error) {
-          console.error('Failed to revoke approval:', error)
+          const msg = error instanceof Error ? error.message.toLowerCase() : ''
+          if (msg.includes('user rejected') || msg.includes('user denied')) {
+            toast.error('Revoke cancelled')
+            break
+          }
+          console.error(`Failed to revoke ${approval.token.symbol}:`, error)
+          failCount++
         }
       }
-      
-      if (successCount > 0) {
-        toast.success(`Successfully revoked ${successCount} approval${successCount > 1 ? 's' : ''}`)
-      }
-      if (failCount > 0) {
-        toast.error(`Failed to revoke ${failCount} approval${failCount > 1 ? 's' : ''}`)
-      }
-      
+
+      if (successCount > 0) toast.success(`Revoked ${successCount} approval${successCount > 1 ? 's' : ''}`)
+      if (failCount > 0) toast.error(`Failed to revoke ${failCount} approval${failCount > 1 ? 's' : ''}`)
+
       setSelectedApprovals(new Set())
-      setTimeout(() => {
-        loadApprovals()
-      }, 2000)
-      
-      setIsRevoking(false)
+      // Reload after confirmed — no arbitrary delay needed
+      await loadApprovals()
     } catch (error) {
       console.error('Batch revoke failed:', error)
       toast.error('Failed to revoke approvals')
+    } finally {
       setIsRevoking(false)
     }
   }
@@ -3684,13 +3615,15 @@ export default function RelaySwap() {
 
                 <Button
                   onClick={executeBatchSwap}
-                  disabled={batchTokens.filter(t => t.selected !== false).length === 0 || isSwapping || !isConnected || !batchQuote}
+                  disabled={batchTokens.filter(t => t.selected !== false).length === 0 || isSwapping || isSecurityScanning || !isConnected || !batchQuote}
                   className="w-full h-8 text-xs"
                 >
-                  {isSwapping 
-                    ? (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridging...' : 'Batch Swapping...') 
-                    : isLoadingBatchQuote 
-                    ? 'Loading Quote...' 
+                  {isSecurityScanning
+                    ? 'Scanning...'
+                    : isSwapping
+                    ? (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridging...' : 'Batch Swapping...')
+                    : isLoadingBatchQuote
+                    ? 'Loading Quote...'
                     : (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridge' : 'Batch Swap')}
                 </Button>
               </div>

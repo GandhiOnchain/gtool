@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9eee7cb0001Npk73jeqcYjkKS",
+  "messageID": "msg_c9eebd01b001q29z71Cijfgr46",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Three fixes:\n\n**1. Malicious address detection** — The GoPlus address security check (Step 5) was running sequentially, one token at a time. For 10 tokens that's 10 × 6s = 60s before the scan completes. Now it runs in parallel batches of 5, so 10 tokens takes ~12s max. The pre-execution gate always re-runs the full scan including address security before any wallet prompt appears — if a token comes back `malicious_contract`, `phishing`, `fake_token`, `sanctioned`, etc., execution is blocked and the token is auto-deselected.\n\n**2. Button stuck** — Added `isSecurityScanning` state. The button now shows `Scanning...` and is disabled while the pre-execution security scan runs. Sequence: `Scanning...` → `Batch Swapping...` / `Batch Bridging...`.\n\n**3. Revoke timing** — Both `revokeApproval` and `batchRevokeApprovals` were using the hook-based `sendTransaction` with `onSuccess` callbacks (unreliable, fires on submission not confirmation) and then reloading after a fixed 2s delay. Now both use `wagmi/actions` `sendTransaction` + `waitForTransactionReceipt` — `loadApprovals()` is only called after the tx is confirmed on-chain, so the revoked approval is guaranteed to be gone from the list.",
+  "time": {
+    "start": 1772192962511,
+    "end": 1772192962511
+  }
+}

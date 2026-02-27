@@ -1,0 +1,73 @@
+{
+  "id": "prt_c9eed1060001Kb4U7zZ09qhaQe",
+  "messageID": "msg_c9eebd01b001q29z71Cijfgr46",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_bdrk_018RvuMUZPEjFLPvmmsHJU2d",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Add isScanning state for pre-execution security scan, update button label",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix revoke to use wagmi/actions and wait for receipt before reloading",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Ensure GoPlus address security runs on all tokens including already-loaded ones",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "medium",
+          "id": "4"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Add isScanning state for pre-execution security scan, update button label\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Fix revoke to use wagmi/actions and wait for receipt before reloading\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Ensure GoPlus address security runs on all tokens including already-loaded ones\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"pending\",\n    \"priority\": \"medium\",\n    \"id\": \"4\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Add isScanning state for pre-execution security scan, update button label",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix revoke to use wagmi/actions and wait for receipt before reloading",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Ensure GoPlus address security runs on all tokens including already-loaded ones",
+          "status": "pending",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "medium",
+          "id": "4"
+        }
+      ]
+    },
+    "title": "3 todos",
+    "time": {
+      "start": 1772192864643,
+      "end": 1772192864643
+    }
+  }
+}

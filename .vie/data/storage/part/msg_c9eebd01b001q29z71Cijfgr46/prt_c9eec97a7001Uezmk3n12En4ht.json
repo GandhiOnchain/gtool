@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9eec97a7001Uezmk3n12En4ht",
+  "messageID": "msg_c9eebd01b001q29z71Cijfgr46",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now update `executeBatchSwap` to set `isSecurityScanning` during the pre-execution scan:",
+  "time": {
+    "start": 1772192850349,
+    "end": 1772192850349
+  }
+}

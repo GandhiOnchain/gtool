@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9eec08a7001tLeLJy9Nj7hwjT",
+  "messageID": "msg_c9eebd01b001q29z71Cijfgr46",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01RhwyYEk3qqtJUAdkLt29R3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3683,
+      "limit": 15
+    },
+    "output": "<file>\n03684| \n03685|                 <Button\n03686|                   onClick={executeBatchSwap}\n03687|                   disabled={batchTokens.filter(t => t.selected !== false).length === 0 || isSwapping || !isConnected || !batchQuote}\n03688|                   className=\"w-full h-8 text-xs\"\n03689|                 >\n03690|                   {isSwapping \n03691|                     ? (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridging...' : 'Batch Swapping...') \n03692|                     : isLoadingBatchQuote \n03693|                     ? 'Loading Quote...' \n03694|                     : (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridge' : 'Batch Swap')}\n03695|                 </Button>\n03696|               </div>\n03697|             </Card>\n03698|           </TabsContent>\n\n(File has more lines. Use 'offset' parameter to read beyond line 3698)\n</file>",
+    "metadata": {
+      "preview": "\n                <Button\n                  onClick={executeBatchSwap}\n                  disabled={batchTokens.filter(t => t.selected !== false).length === 0 || isSwapping || !isConnected || !batchQuote}\n                  className=\"w-full h-8 text-xs\"\n                >\n                  {isSwapping \n                    ? (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridging...' : 'Batch Swapping...') \n                    : isLoadingBatchQuote \n                    ? 'Loading Quote...' \n                    : (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridge' : 'Batch Swap')}\n                </Button>\n              </div>\n            </Card>\n          </TabsContent>"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772192796421,
+      "end": 1772192796422
+    }
+  }
+}
