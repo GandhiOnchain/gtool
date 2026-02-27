@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9ed9914d001YiHJcmXIjIKfKx",
+  "messageID": "msg_c9ed97e0f001YLbnGdALxkuepV",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_019ZqwSJGEb7rJjQDTUkVUrs",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1940,
+      "limit": 60
+    },
+    "output": "<file>\n01941|       toast.info(`Submitting ${transactions.length} transaction(s)...`)\n01942| \n01943|       // Use wagmi/actions imperative API — the hook mutation cannot be called\n01944|       // sequentially in a loop reliably (single mutation instance resets state)\n01945|       const { sendTransaction: sendTx, waitForTransactionReceipt } = await import('wagmi/actions')\n01946|       const { wagmiConfig } = await import('@/lib/blockchain/wagmi')\n01947| \n01948|       let confirmedCount = 0\n01949|       const failedTxs: number[] = []\n01950| \n01951|       for (let i = 0; i < transactions.length; i++) {\n01952|         const tx = transactions[i]\n01953|         console.log(`Executing transaction ${i + 1}/${transactions.length}`, tx)\n01954|         try {\n01955|           const hash = await sendTx(wagmiConfig, {\n01956|             to: tx.to,\n01957|             data: tx.data,\n01958|             value: tx.value,\n01959|             ...(tx.maxFeePerGas && { maxFeePerGas: tx.maxFeePerGas }),\n01960|             ...(tx.maxPriorityFeePerGas && { maxPriorityFeePerGas: tx.maxPriorityFeePerGas }),\n01961|           })\n01962|           console.log(`Transaction ${i + 1} submitted:`, hash)\n01963|           toast.info(`Transaction ${i + 1}/${transactions.length} submitted, confirming...`)\n01964| \n01965|           await waitForTransactionReceipt(wagmiConfig, { hash })\n01966|           confirmedCount++\n01967|           console.log(`Transaction ${i + 1} confirmed`)\n01968|           toast.success(`Transaction ${i + 1}/${transactions.length} confirmed`)\n01969|         } catch (error) {\n01970|           console.error(`Transaction ${i + 1} failed:`, error)\n01971|           failedTxs.push(i + 1)\n01972|           // User rejected — stop the whole batch\n01973|           const msg = error instanceof Error ? error.message.toLowerCase() : ''\n01974|           if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {\n01975|             toast.error('Transaction rejected by user')\n01976|             break\n01977|           }\n01978|           toast.error(`Transaction ${i + 1} failed — continuing...`)\n01979|         }\n01980|       }\n01981| \n01982|       if (confirmedCount > 0) {\n01983|         toast.success(`Batch swap completed: ${confirmedCount}/${transactions.length} confirmed`)\n01984|         updateUserStreak()\n01985|         setBatchTokens([])\n01986|         setBatchQuote(null)\n01987|         refetchBalances()\n01988|         if (batchChain) setTimeout(() => loadBatchWalletTokens(), 2000)\n01989|       } else {\n01990|         toast.error('All batch transactions failed')\n01991|       }\n01992|       if (failedTxs.length > 0 && confirmedCount > 0) {\n01993|         toast.warning(`${failedTxs.length} transaction(s) failed: #${failedTxs.join(', #')}`)\n01994|       }\n01995|     } catch (error) {\n01996|       console.error('Batch swap failed:', error)\n01997|       \n01998|       // Parse error message to make it user-friendly\n01999|       let errorMessage = 'Batch swap failed'\n02000|       if (error instanceof Error) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 2000)\n</file>",
+    "metadata": {
+      "preview": "      toast.info(`Submitting ${transactions.length} transaction(s)...`)\n\n      // Use wagmi/actions imperative API — the hook mutation cannot be called\n      // sequentially in a loop reliably (single mutation instance resets state)\n      const { sendTransaction: sendTx, waitForTransactionReceipt } = await import('wagmi/actions')\n      const { wagmiConfig } = await import('@/lib/blockchain/wagmi')\n\n      let confirmedCount = 0\n      const failedTxs: number[] = []\n\n      for (let i = 0; i < transactions.length; i++) {\n        const tx = transactions[i]\n        console.log(`Executing transaction ${i + 1}/${transactions.length}`, tx)\n        try {\n          const hash = await sendTx(wagmiConfig, {\n            to: tx.to,\n            data: tx.data,\n            value: tx.value,\n            ...(tx.maxFeePerGas && { maxFeePerGas: tx.maxFeePerGas }),\n            ...(tx.maxPriorityFeePerGas && { maxPriorityFeePerGas: tx.maxPriorityFeePerGas }),"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772191585194,
+      "end": 1772191585195
+    }
+  }
+}

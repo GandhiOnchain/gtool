@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ed99a6c001yVTo55dnt76ivh",
+  "messageID": "msg_c9ed97e0f001YLbnGdALxkuepV",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now I see the issue clearly. The root cause is:\n\n**The quote is fetched once, then transactions are executed sequentially — but by the time transaction 2, 3, etc. are submitted, the `maxFeePerGas`/`maxPriorityFeePerGas` values from the original quote are stale.** The wallet uses these stale gas price values from the quote, which may be much higher than current network conditions (quotes often include a buffer). Worse — the quote's gas params were computed at quote time for all txs simultaneously, but after tx 1 confirms (which takes time), network gas prices may have changed, making the wallet show inflated fees for subsequent txs.\n\nThe real fix: **strip `maxFeePerGas` and `maxPriorityFeePerGas` from the transaction params entirely** and let the wallet/RPC estimate current gas prices at submission time. The Relay quote's gas estimates are for the deposit value (ETH amount), not for the EIP-1559 fee params — the wallet should always determine its own gas price.",
+  "time": {
+    "start": 1772191599959,
+    "end": 1772191599959
+  }
+}

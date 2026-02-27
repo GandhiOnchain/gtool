@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ed9d29d001x47u2YRJF9ijoE",
+  "messageID": "msg_c9ed97e0f001YLbnGdALxkuepV",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Also update the `sendTx` call to match the simplified type:",
+  "time": {
+    "start": 1772191603592,
+    "end": 1772191603592
+  }
+}

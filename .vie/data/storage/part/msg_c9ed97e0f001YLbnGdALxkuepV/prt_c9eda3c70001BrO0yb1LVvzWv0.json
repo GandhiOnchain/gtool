@@ -1,0 +1,28 @@
+{
+  "id": "prt_c9eda3c70001BrO0yb1LVvzWv0",
+  "messageID": "msg_c9ed97e0f001YLbnGdALxkuepV",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_01AK5G8bbbXe9QerUkpCdxgb",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ❌ ERROR [1662:33] Property 'maxFeePerGas' does not exist on type '{ to: `0x${string}`; data: `0x${string}`; value: bigint; }'. [typescript]\n  ❌ ERROR [1663:41] Property 'maxPriorityFeePerGas' does not exist on type '{ to: `0x${string}`; data: `0x${string}`; value: bigint; }'. [typescript]\n\n──────────────────────────────────────────────────\nSummary: 2 issue(s) found\n  - 2 error(s)\n",
+    "metadata": {
+      "filesChecked": 1,
+      "filesWithIssues": 1,
+      "totalIssues": 2,
+      "errorCount": 2,
+      "warningCount": 0,
+      "checkedFiles": [
+        "frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "title": "Diagnostics: 2 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1772191628603,
+      "end": 1772191639901
+    }
+  }
+}

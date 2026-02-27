@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ed9e305001CD6ik8pcnZ2YFe",
+  "messageID": "msg_c9ed97e0f001YLbnGdALxkuepV",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Also apply the same fix to the single swap `executeSwap` — same problem exists there with stale gas params:",
+  "time": {
+    "start": 1772191607101,
+    "end": 1772191607101
+  }
+}

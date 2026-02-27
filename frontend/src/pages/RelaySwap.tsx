@@ -1636,15 +1636,12 @@ export default function RelaySwap() {
         }
       }
 
-      // Prepare transaction with all fields from the quote
-      // Note: wagmi's sendTransaction automatically uses the connected wallet as 'from'
-      // We've already verified above that txData.from matches the connected address
+      // Prepare transaction — omit maxFeePerGas/maxPriorityFeePerGas from the quote
+      // so the wallet estimates current gas prices rather than using potentially stale values
       const txParams = {
         to: txData.to as `0x${string}`,
         data: txData.data as `0x${string}`,
-        value: BigInt(txData.value),
-        ...(txData.maxFeePerGas && { maxFeePerGas: BigInt(txData.maxFeePerGas) }),
-        ...(txData.maxPriorityFeePerGas && { maxPriorityFeePerGas: BigInt(txData.maxPriorityFeePerGas) }),
+        value: BigInt(txData.value || '0'),
       }
       
       console.log('=== TRANSACTION VALIDATION ===')
@@ -1659,11 +1656,10 @@ export default function RelaySwap() {
        console.log('============================')
        
        console.log('Sending transaction with params:', {
-         from: address, // This will be used by wagmi automatically
-         ...txParams,
+         from: address,
+         to: txParams.to,
+         data: txParams.data,
          value: txParams.value.toString(),
-         maxFeePerGas: txParams.maxFeePerGas?.toString(),
-         maxPriorityFeePerGas: txParams.maxPriorityFeePerGas?.toString(),
        })
        
        sendTransaction(txParams, {
@@ -1894,34 +1890,25 @@ export default function RelaySwap() {
       console.log('Steps in quote:', multiQuote.steps.map(s => ({ id: s.id, itemCount: s.items?.length })))
 
       // Collect all transactions to execute
+      // NOTE: intentionally omit maxFeePerGas / maxPriorityFeePerGas from the quote —
+      // those values are stale by the time each sequential tx is submitted and cause
+      // the wallet to show inflated fees. Let the wallet/RPC estimate gas at submission time.
       const transactions: Array<{
         to: `0x${string}`
         data: `0x${string}`
         value: bigint
-        maxFeePerGas?: bigint
-        maxPriorityFeePerGas?: bigint
         requestId?: string
       }> = []
       
       for (const step of multiQuote.steps) {
         console.log('Processing step:', step.id, 'items:', step.items?.length)
-        
-        // Multi-input quotes might use different step IDs
         if ((step.id === 'deposit' || step.id === 'swap' || step.kind === 'transaction') && step.items) {
           for (const item of step.items) {
             const txData = item.data
-            console.log('Adding transaction:', {
-              to: txData.to,
-              value: txData.value,
-              stepId: step.id,
-            })
-            
             transactions.push({
               to: txData.to as `0x${string}`,
               data: txData.data as `0x${string}`,
-              value: BigInt(txData.value),
-              ...(txData.maxFeePerGas && { maxFeePerGas: BigInt(txData.maxFeePerGas) }),
-              ...(txData.maxPriorityFeePerGas && { maxPriorityFeePerGas: BigInt(txData.maxPriorityFeePerGas) }),
+              value: BigInt(txData.value || '0'),
               requestId: step.requestId,
             })
           }
@@ -1956,8 +1943,6 @@ export default function RelaySwap() {
             to: tx.to,
             data: tx.data,
             value: tx.value,
-            ...(tx.maxFeePerGas && { maxFeePerGas: tx.maxFeePerGas }),
-            ...(tx.maxPriorityFeePerGas && { maxPriorityFeePerGas: tx.maxPriorityFeePerGas }),
           })
           console.log(`Transaction ${i + 1} submitted:`, hash)
           toast.info(`Transaction ${i + 1}/${transactions.length} submitted, confirming...`)
