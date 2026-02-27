@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ed416b7001tp2xVcYrFmVpHM",
+  "messageID": "msg_c9ed3f920001XVbV9W0Cwqpq5s",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "No — I checked the research results and 0x doesn't have a public token security/spam API. Their API is focused on swap quotes and DEX aggregation only. The three layers I integrated (heuristic patterns + Moralis + GoPlus) cover what 0x would provide and more. GoPlus specifically has `is_airdrop_scam` which is the exact type of token in your screenshot.",
+  "time": {
+    "start": 1772191228154,
+    "end": 1772191228154
+  }
+}
