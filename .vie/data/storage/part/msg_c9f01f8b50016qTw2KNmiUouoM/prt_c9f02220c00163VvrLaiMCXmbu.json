@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9f02220c00163VvrLaiMCXmbu",
+  "messageID": "msg_c9f01f8b50016qTw2KNmiUouoM",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "glob",
+  "callID": "toolu_vrtx_017xrBLVuV7ifzfKukqRUEUu",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "**/*.tsx",
+      "path": "/home/user/sandbox/workspace/frontend/src/pages"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n/home/user/sandbox/workspace/frontend/src/pages/NotFound.tsx\n/home/user/sandbox/workspace/frontend/src/pages/Index.tsx",
+    "metadata": {
+      "count": 3,
+      "truncated": false
+    },
+    "title": "frontend/src/pages",
+    "time": {
+      "start": 1772194243896,
+      "end": 1772194243902
+    }
+  }
+}

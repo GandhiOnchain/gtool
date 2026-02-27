@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9f02538e001pWf0tyOReUPXLk",
+  "messageID": "msg_c9f01f8b50016qTw2KNmiUouoM",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Now I have the complete picture. The real issues are in `RelaySwap.tsx`, not in the hooks. Let me identify all root causes:",
+  "time": {
+    "start": 1772194265334,
+    "end": 1772194265334
+  }
+}

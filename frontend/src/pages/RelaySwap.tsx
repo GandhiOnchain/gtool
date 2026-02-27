@@ -223,7 +223,7 @@ export default function RelaySwap() {
   const { address, isConnected, chainId: connectedChainId, connector } = useAccount()
   const { connect, connectors } = useConnect()
   const { disconnect } = useWallet()
-  const { switchChain } = useSwitchChain()
+  const { switchChain, switchChainAsync } = useSwitchChain()
   const [chains, setChains] = useState<RelayChain[]>([])
   const [fromChain, setFromChain] = useState<RelayChain | null>(null)
   const [toChain, setToChain] = useState<RelayChain | null>(null)
@@ -983,19 +983,18 @@ export default function RelaySwap() {
       }
     }
 
-    // Step 4: Honeypot.is — dedicated honeypot simulation (ETH, BSC, Base only)
+    // Step 4: Honeypot.is — dedicated honeypot simulation (ETH, BSC, Base only), run in parallel
     const honeypotChains: Record<number, number> = { 1: 1, 56: 56, 8453: 8453 }
     if (honeypotChains[chainId]) {
-      for (const { address: addr } of tokens) {
-        // Skip if already confirmed high-risk honeypot
+      const checkHoneypot = async ({ address: addr }: { address: string }) => {
         const existing = result.get(addr.toLowerCase())
-        if (existing?.isHoneypot) continue
+        if (existing?.isHoneypot) return
         try {
           const res = await fetch(
             `https://api.honeypot.is/v2/IsHoneypot?address=${addr}&chainID=${chainId}`,
             { signal: AbortSignal.timeout(5000) }
           )
-          if (!res.ok) continue
+          if (!res.ok) return
           const data = await res.json()
           const isHp = data.isHoneypot === true
           const simulationSuccess = data.simulationSuccess === true
@@ -1003,7 +1002,7 @@ export default function RelaySwap() {
           const sellTax = data.simulationResult?.sellTax ?? 0
           const reason = data.honeypotReason as string | undefined
 
-          if (!simulationSuccess && !isHp) continue // couldn't simulate, skip
+          if (!simulationSuccess && !isHp) return
 
           const key = addr.toLowerCase()
           const prev = result.get(key)
@@ -1030,9 +1029,12 @@ export default function RelaySwap() {
               flags: [...new Set(flags)],
             })
           }
-        } catch (e) {
-          // honeypot.is is best-effort
-        }
+        } catch { /* honeypot.is is best-effort */ }
+      }
+      // Run all honeypot checks in parallel (max 10 concurrent to avoid rate limits)
+      const HP_CONCURRENCY = 10
+      for (let i = 0; i < tokens.length; i += HP_CONCURRENCY) {
+        await Promise.all(tokens.slice(i, i + HP_CONCURRENCY).map(checkHoneypot))
       }
     }
 
@@ -1166,23 +1168,25 @@ export default function RelaySwap() {
         console.warn('Alchemy token discovery failed for', chain.displayName)
       }
 
-      // 3b. Moralis fallback — runs when Alchemy finds nothing or fails
-      if (alchemyDetected.length === 0) {
-        const moralisChainMap: Record<number, string> = {
-          1: 'eth', 8453: 'base', 42161: 'arbitrum', 137: 'polygon',
-          10: 'optimism', 56: 'bsc', 43114: 'avalanche',
-        }
-        const moralisChain = moralisChainMap[chain.id]
-        const moralisApiKey = config.moralis.apiKey
-        if (moralisChain && moralisApiKey) {
-          try {
-            const res = await fetch(
-              `https://deep-index.moralis.io/api/v2.2/${address}/erc20?chain=${moralisChain}`,
-              { headers: { accept: 'application/json', 'X-API-Key': moralisApiKey } }
-            )
-            if (res.ok) {
-              const tokens: Array<{ token_address: string; balance: string; decimals: number; symbol: string; name: string; logo?: string; possible_spam?: boolean }> = await res.json()
-              alchemyDetected = tokens
+      // 3b. Moralis — always run to cross-check spam flags, even when Alchemy found tokens
+      const moralisChainMap: Record<number, string> = {
+        1: 'eth', 8453: 'base', 42161: 'arbitrum', 137: 'polygon',
+        10: 'optimism', 56: 'bsc', 43114: 'avalanche',
+      }
+      const moralisChain = moralisChainMap[chain.id]
+      const moralisApiKey = config.moralis.apiKey
+      if (moralisChain && moralisApiKey) {
+        try {
+          const res = await fetch(
+            `https://deep-index.moralis.io/api/v2.2/${address}/erc20?chain=${moralisChain}`,
+            { headers: { accept: 'application/json', 'X-API-Key': moralisApiKey }, signal: AbortSignal.timeout(8000) }
+          )
+          if (res.ok) {
+            const moralisTokens: Array<{ token_address: string; balance: string; decimals: number; symbol: string; name: string; logo?: string; possible_spam?: boolean }> = await res.json()
+
+            if (alchemyDetected.length === 0) {
+              // Use Moralis as primary source when Alchemy found nothing
+              alchemyDetected = moralisTokens
                 .filter(t => !t.possible_spam && t.balance && t.balance !== '0')
                 .map(t => ({
                   address: t.token_address.toLowerCase(),
@@ -1192,11 +1196,29 @@ export default function RelaySwap() {
                   decimals: t.decimals,
                   logo: t.logo || undefined,
                 }))
-              console.log(`Moralis found ${alchemyDetected.length} tokens on ${chain.displayName}`)
+              console.log(`Moralis (primary) found ${alchemyDetected.length} tokens on ${chain.displayName}`)
+            } else {
+              // Cross-check: remove Alchemy-detected tokens that Moralis flags as spam
+              const moralisSpamSet = new Set(
+                moralisTokens
+                  .filter(t => t.possible_spam)
+                  .map(t => t.token_address.toLowerCase())
+              )
+              const before = alchemyDetected.length
+              alchemyDetected = alchemyDetected.filter(t => !moralisSpamSet.has(t.address.toLowerCase()))
+              const removed = before - alchemyDetected.length
+              if (removed > 0) console.warn(`[Security] Moralis flagged and removed ${removed} spam token(s) from Alchemy results on ${chain.displayName}`)
+
+              // Also enrich logos from Moralis for tokens Alchemy found
+              const moralisLogoMap = new Map(moralisTokens.map(t => [t.token_address.toLowerCase(), t.logo]))
+              alchemyDetected = alchemyDetected.map(t => ({
+                ...t,
+                logo: t.logo || moralisLogoMap.get(t.address.toLowerCase()) || undefined,
+              }))
             }
-          } catch (e) {
-            console.warn('Moralis token discovery failed for', chain.displayName)
           }
+        } catch (e) {
+          console.warn('Moralis token discovery failed for', chain.displayName)
         }
       }
 
@@ -1680,9 +1702,8 @@ export default function RelaySwap() {
       if (connectedChainId !== txData.chainId) {
         console.log('Switching chain from', connectedChainId, 'to', txData.chainId)
         try {
-          await switchChain({ chainId: txData.chainId })
+          await switchChainAsync({ chainId: txData.chainId })
           toast.success('Chain switched successfully')
-          await new Promise(resolve => setTimeout(resolve, 500))
         } catch (switchError) {
           console.error('Failed to switch chain:', switchError)
           toast.error('Please switch to the correct network in your wallet')
@@ -1888,51 +1909,13 @@ export default function RelaySwap() {
       return
     }
 
-    // Pre-execution security gate — always re-scan right before execution
+    // Block already-flagged tokens immediately (no API call needed)
     const selectedForExec = batchTokens.filter(bt => bt.selected !== false && parseFloat(bt.balanceFormatted) > 0)
     const alreadyFlagged = selectedForExec.filter(bt => bt.risk?.riskLevel === 'high' || bt.risk?.isSpam)
     if (alreadyFlagged.length > 0) {
       const names = alreadyFlagged.map(bt => bt.token.symbol).join(', ')
       toast.error(`Blocked: ${names} flagged as high-risk. Deselect to proceed.`)
       return
-    }
-    if (batchChain.vmType === 'evm' || !batchChain.vmType) {
-      setIsSecurityScanning(true)
-      try {
-        const freshScan = await scanTokenSecurity(
-          selectedForExec.map(bt => ({ address: bt.token.address, symbol: bt.token.symbol, name: bt.token.name })),
-          batchChain.id
-        )
-        const newlyFlagged = selectedForExec.filter(bt => {
-          const r = freshScan.get(bt.token.address.toLowerCase())
-          return r?.riskLevel === 'high' || r?.isSpam
-        })
-        if (newlyFlagged.length > 0) {
-          setBatchTokens(prev => prev.map(bt => {
-            const r = freshScan.get(bt.token.address.toLowerCase())
-            return r ? { ...bt, risk: r, selected: !(r.isSpam || r.riskLevel === 'high') } : bt
-          }))
-          const names = newlyFlagged.map(bt => bt.token.symbol).join(', ')
-          toast.error(`Blocked: ${names} flagged as malicious.`)
-          return
-        }
-      } finally {
-        setIsSecurityScanning(false)
-      }
-    }
-
-    // Check if we need to switch chains
-    if (connectedChainId !== batchChain.id) {
-      console.log('Switching chain from', connectedChainId, 'to', batchChain.id)
-      try {
-        await switchChain({ chainId: batchChain.id })
-        toast.success('Chain switched successfully')
-        await new Promise(resolve => setTimeout(resolve, 500))
-      } catch (switchError) {
-        console.error('Failed to switch chain:', switchError)
-        toast.error('Please switch to the correct network in your wallet')
-        return
-      }
     }
 
     const execToVMType = batchToChain.vmType || 'evm'
@@ -1946,33 +1929,78 @@ export default function RelaySwap() {
       return
     }
 
-    setIsSwapping(true)
-    try {
-      // Get a fresh quote for execution
-      const origins = batchTokens
-        .filter(bt => bt.selected !== false && parseFloat(bt.balanceFormatted) > 0)
-        .map(bt => ({
-          chainId: batchChain.id,
-          currency: bt.token.address,
-          amount: bt.balance,
-        }))
+    const origins = batchTokens
+      .filter(bt => bt.selected !== false && parseFloat(bt.balanceFormatted) > 0)
+      .map(bt => ({
+        chainId: batchChain.id,
+        currency: bt.token.address,
+        amount: bt.balance,
+      }))
 
-      if (origins.length === 0) {
-        toast.error('No tokens with balance selected')
-        setIsSwapping(false)
+    if (origins.length === 0) {
+      toast.error('No tokens with balance selected')
+      return
+    }
+
+    // Check if we need to switch chains
+    if (connectedChainId !== batchChain.id) {
+      console.log('Switching chain from', connectedChainId, 'to', batchChain.id)
+      try {
+        await switchChainAsync({ chainId: batchChain.id })
+        toast.success('Chain switched successfully')
+      } catch (switchError) {
+        console.error('Failed to switch chain:', switchError)
+        toast.error('Please switch to the correct network in your wallet')
         return
       }
+    }
 
-      console.log('Getting fresh batch swap quote for execution:', origins.length, 'tokens')
+    setIsSwapping(true)
 
-      const multiQuote = await relayAPI.getMultiInputQuote({
-        user: address,
-        origins,
-        destinationCurrency: batchToToken.address,
-        destinationChainId: batchToChain.id,
-        tradeType: 'EXACT_INPUT',
-        recipient: execBatchRecipient,
-      })
+    // Run fresh quote fetch and security re-scan in parallel to minimise latency
+    const isEVMBatch = batchChain.vmType === 'evm' || !batchChain.vmType
+    const unscannedTokens = isEVMBatch
+      ? selectedForExec.filter(bt => !bt.risk)
+      : []
+
+    setIsSecurityScanning(unscannedTokens.length > 0)
+
+    try {
+      const [multiQuote, freshScanMap] = await Promise.all([
+        relayAPI.getMultiInputQuote({
+          user: address,
+          origins,
+          destinationCurrency: batchToToken.address,
+          destinationChainId: batchToChain.id,
+          tradeType: 'EXACT_INPUT',
+          recipient: execBatchRecipient,
+        }),
+        unscannedTokens.length > 0
+          ? scanTokenSecurity(
+              unscannedTokens.map(bt => ({ address: bt.token.address, symbol: bt.token.symbol, name: bt.token.name })),
+              batchChain.id
+            )
+          : Promise.resolve(new Map<string, TokenRisk>()),
+      ])
+      setIsSecurityScanning(false)
+
+      // Block any newly-flagged tokens found during parallel scan
+      if (freshScanMap.size > 0) {
+        const newlyFlagged = unscannedTokens.filter(bt => {
+          const r = freshScanMap.get(bt.token.address.toLowerCase())
+          return r?.riskLevel === 'high' || r?.isSpam
+        })
+        if (newlyFlagged.length > 0) {
+          setBatchTokens(prev => prev.map(bt => {
+            const r = freshScanMap.get(bt.token.address.toLowerCase())
+            return r ? { ...bt, risk: r, selected: !(r.isSpam || r.riskLevel === 'high') } : bt
+          }))
+          const names = newlyFlagged.map(bt => bt.token.symbol).join(', ')
+          toast.error(`Blocked: ${names} flagged as malicious.`)
+          setIsSwapping(false)
+          return
+        }
+      }
 
       console.log('Fresh batch quote received:', multiQuote)
       console.log('Steps in quote:', multiQuote.steps.map(s => ({ id: s.id, kind: s.kind, itemCount: s.items?.length })))
@@ -1981,7 +2009,6 @@ export default function RelaySwap() {
       const { wagmiConfig } = await import('@/lib/blockchain/wagmi')
 
       // Collect ALL transaction-kind steps in order (approve, deposit, swap, etc.)
-      // Skipping approve causes the deposit to revert (no allowance) → MetaMask shows high fee warning
       const txSteps: Array<{
         stepId: string
         stepLabel: string
@@ -2014,6 +2041,33 @@ export default function RelaySwap() {
         return
       }
 
+      // Pre-estimate gas for all steps in parallel before prompting signatures
+      // This avoids wallet showing inflated gas from stale Relay quote fields
+      const { createPublicClient: mkClient, http: mkHttp, defineChain: mkChain } = await import('viem')
+      const gasLimits = await Promise.all(
+        txSteps.map(async (step) => {
+          try {
+            const chainDef = mkChain({
+              id: batchChain.id,
+              name: batchChain.displayName,
+              nativeCurrency: { name: batchChain.currency.name, symbol: batchChain.currency.symbol, decimals: batchChain.currency.decimals },
+              rpcUrls: { default: { http: [batchChain.httpRpcUrl] } },
+            })
+            const client = mkClient({ chain: chainDef, transport: mkHttp(batchChain.httpRpcUrl) })
+            const estimated = await client.estimateGas({
+              account: address as `0x${string}`,
+              to: step.to,
+              data: step.data,
+              value: step.value,
+            })
+            // 1.3x buffer
+            return (estimated * 130n) / 100n
+          } catch {
+            return undefined
+          }
+        })
+      )
+
       toast.info(`Executing ${txSteps.length} step(s)...`)
 
       let confirmedCount = 0
@@ -2021,12 +2075,13 @@ export default function RelaySwap() {
 
       for (let i = 0; i < txSteps.length; i++) {
         const step = txSteps[i]
-        console.log(`Step ${i + 1}/${txSteps.length}: ${step.stepId}`, { to: step.to, value: step.value.toString() })
+        console.log(`Step ${i + 1}/${txSteps.length}: ${step.stepId}`, { to: step.to, value: step.value.toString(), gas: gasLimits[i]?.toString() })
         try {
           const hash = await sendTx(wagmiConfig, {
             to: step.to,
             data: step.data,
             value: step.value,
+            gas: gasLimits[i],
           })
           console.log(`Step ${i + 1} (${step.stepId}) submitted:`, hash)
           toast.info(`${step.stepLabel} ${i + 1}/${txSteps.length} submitted...`)

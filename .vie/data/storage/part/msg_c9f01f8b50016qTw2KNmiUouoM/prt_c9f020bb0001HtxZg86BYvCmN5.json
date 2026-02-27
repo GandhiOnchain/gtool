@@ -1,0 +1,24 @@
+{
+  "id": "prt_c9f020bb0001HtxZg86BYvCmN5",
+  "messageID": "msg_c9f01f8b50016qTw2KNmiUouoM",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "list",
+  "callID": "toolu_vrtx_016jj5f6bnFrFZEZW9gTbREY",
+  "state": {
+    "status": "completed",
+    "input": {
+      "path": "/home/user/sandbox/workspace/frontend/src/components"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/src/components/\n  examples/\n    AlchemyExample.tsx\n    SwapWidgetExample.tsx\n  ui/\n    accordion.tsx\n    alert-dialog.tsx\n    alert.tsx\n    aspect-ratio.tsx\n    avatar.tsx\n    badge.tsx\n    breadcrumb.tsx\n    button.tsx\n    calendar.tsx\n    card.tsx\n    carousel.tsx\n    chart.tsx\n    checkbox.tsx\n    collapsible.tsx\n    command.tsx\n    context-menu.tsx\n    dialog.tsx\n    drawer.tsx\n    dropdown-menu.tsx\n    form.tsx\n    glassmorphic-loading-skeleton.tsx\n    hover-card.tsx\n    input.tsx\n    label.tsx\n    menubar.tsx\n    navigation-menu.tsx\n    pagination.tsx\n    popover.tsx\n    progress.tsx\n    radio-group.tsx\n    resizable.tsx\n    scroll-area.tsx\n    select.tsx\n    separator.tsx\n    sheet.tsx\n    sidebar.tsx\n    skeleton.tsx\n    slider.tsx\n    sonner.tsx\n    switch.tsx\n    table.tsx\n    tabs.tsx\n    textarea.tsx\n    toast.tsx\n    toaster.tsx\n    toggle-group.tsx\n    toggle.tsx\n    tooltip.tsx\n    use-toast.ts\n  ErrorBoundary.tsx\n  Layout.tsx\n  RouteSync.tsx\n  ThemeSelector.tsx\n  ThemeSync.tsx\n  TransactionPreview.tsx\n",
+    "metadata": {
+      "count": 57,
+      "truncated": false
+    },
+    "title": "frontend/src/components",
+    "time": {
+      "start": 1772194237818,
+      "end": 1772194237823
+    }
+  }
+}
