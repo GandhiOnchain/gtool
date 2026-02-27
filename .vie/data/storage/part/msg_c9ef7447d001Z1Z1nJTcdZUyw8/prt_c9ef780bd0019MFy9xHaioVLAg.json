@@ -1,0 +1,24 @@
+{
+  "id": "prt_c9ef780bd0019MFy9xHaioVLAg",
+  "messageID": "msg_c9ef7447d001Z1Z1nJTcdZUyw8",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "list",
+  "callID": "toolu_vrtx_01Wp3aApbMy2Zd7udi3UMy5y",
+  "state": {
+    "status": "completed",
+    "input": {
+      "path": "/home/user/sandbox/workspace/frontend/src/hooks/alchemy"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/src/hooks/alchemy/\n  nft/\n    useNftMetadataByTokenIdBatchOnSpecificChain.ts\n    useNftsByOwnerOnMultipleChains.ts\n    useOwnersByContractOnSpecificChain.ts\n  price/\n    useTokenPricesByAddress.ts\n    useTokenPricesBySymbol.ts\n  types/\n    index.ts\n    nft.types.ts\n    price.types.ts\n",
+    "metadata": {
+      "count": 8,
+      "truncated": false
+    },
+    "title": "frontend/src/hooks/alchemy",
+    "time": {
+      "start": 1772193546803,
+      "end": 1772193546809
+    }
+  }
+}

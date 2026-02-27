@@ -1,0 +1,23 @@
+{
+  "id": "prt_c9ef7c03d001irAB0EviPAxjUk",
+  "messageID": "msg_c9ef7447d001Z1Z1nJTcdZUyw8",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_019RoxGNr83DerRoYANCVYgZ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/spam/additional-spam-tokens/index.ts"
+    },
+    "output": "<file>\n00001| import { Network } from \"../../config\";\n00002| import { SpamScore } from \"../types\";\n00003| \n00004| export const ADDITIONAL_SPAM_TOKENS: Partial<Record<Network, Record<string, SpamScore>>> = {};\n</file>",
+    "metadata": {
+      "preview": "import { Network } from \"../../config\";\nimport { SpamScore } from \"../types\";\n\nexport const ADDITIONAL_SPAM_TOKENS: Partial<Record<Network, Record<string, SpamScore>>> = {};"
+    },
+    "title": "frontend/src/lib/alchemy/spam/additional-spam-tokens/index.ts",
+    "time": {
+      "start": 1772193563239,
+      "end": 1772193563241
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "prt_c9ef7c26b0018OLB7kBvoZkudf",
+  "messageID": "msg_c9ef7447d001Z1Z1nJTcdZUyw8",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01TTt2gSvBGNsbFqTc7FiWJQ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/spam/initial-spam-tokens/index.ts"
+    },
+    "output": "<file>\n00001| import { Network } from \"../../config\";\n00002| import { SpamScore } from \"../types\";\n00003| import ethereumSpamTokens from \"./ethereum.json\" assert { type: \"json\" };\n00004| import baseSpamTokens from \"./base.json\" assert { type: \"json\" };\n00005| import optimismSpamTokens from \"./optimism.json\" assert { type: \"json\" };\n00006| import polygonSpamTokens from \"./polygon.json\" assert { type: \"json\" };\n00007| import bscSpamTokens from \"./bsc.json\" assert { type: \"json\" };\n00008| \n00009| export const INITIAL_SPAM_TOKENS: Partial<Record<Network, Record<string, SpamScore>>> = {\n00010|   [Network.ETH_MAINNET]: ethereumSpamTokens as Record<string, SpamScore>,\n00011|   [Network.BASE_MAINNET]: baseSpamTokens as Record<string, SpamScore>,\n00012|   [Network.OPT_MAINNET]: optimismSpamTokens as Record<string, SpamScore>,\n00013|   [Network.MATIC_MAINNET]: polygonSpamTokens as Record<string, SpamScore>,\n00014|   [Network.BNB_MAINNET]: bscSpamTokens as Record<string, SpamScore>,\n00015| }\n</file>",
+    "metadata": {
+      "preview": "import { Network } from \"../../config\";\nimport { SpamScore } from \"../types\";\nimport ethereumSpamTokens from \"./ethereum.json\" assert { type: \"json\" };\nimport baseSpamTokens from \"./base.json\" assert { type: \"json\" };\nimport optimismSpamTokens from \"./optimism.json\" assert { type: \"json\" };\nimport polygonSpamTokens from \"./polygon.json\" assert { type: \"json\" };\nimport bscSpamTokens from \"./bsc.json\" assert { type: \"json\" };\n\nexport const INITIAL_SPAM_TOKENS: Partial<Record<Network, Record<string, SpamScore>>> = {\n  [Network.ETH_MAINNET]: ethereumSpamTokens as Record<string, SpamScore>,\n  [Network.BASE_MAINNET]: baseSpamTokens as Record<string, SpamScore>,\n  [Network.OPT_MAINNET]: optimismSpamTokens as Record<string, SpamScore>,\n  [Network.MATIC_MAINNET]: polygonSpamTokens as Record<string, SpamScore>,\n  [Network.BNB_MAINNET]: bscSpamTokens as Record<string, SpamScore>,\n}"
+    },
+    "title": "frontend/src/lib/alchemy/spam/initial-spam-tokens/index.ts",
+    "time": {
+      "start": 1772193563654,
+      "end": 1772193563659
+    }
+  }
+}

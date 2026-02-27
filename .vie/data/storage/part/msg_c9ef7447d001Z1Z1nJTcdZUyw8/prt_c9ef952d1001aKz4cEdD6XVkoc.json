@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ef952d1001aKz4cEdD6XVkoc",
+  "messageID": "msg_c9ef7447d001Z1Z1nJTcdZUyw8",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "All clean. Here's what was fixed:\n\n**Gas failures in batch transactions**\n- `useWriteContractLifecycle` now estimates gas on-chain before submitting, applying a **1.3x buffer** to the estimate\n- If the tx still fails with a gas-related error, it automatically retries with a **1.5x buffer**\n- Uses the chain's configured RPC for estimation so it's accurate per-network\n\n**Malicious token bypass**\n- Added `isSpamNft()` — checks Alchemy's live `isSpam` flag and `spamClassifications` array on each NFT, not just the static lists. If either is set, the token is blocked\n- Added `isSafeContractAddress()` — validates EVM address format and rejects the zero address before any token is displayed or priced\n- `useNftsByOwnerOnMultipleChains` now filters every NFT through both checks before returning results, with console warnings for blocked items\n- `useTokenPricesByAddress` now strips invalid and known-spam addresses before hitting the Alchemy price API",
+  "time": {
+    "start": 1772193672009,
+    "end": 1772193672009
+  }
+}

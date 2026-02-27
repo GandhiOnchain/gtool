@@ -1,0 +1,24 @@
+{
+  "id": "prt_c9ef7b800001P3aBZ4zt0FJPEL",
+  "messageID": "msg_c9ef7447d001Z1Z1nJTcdZUyw8",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "list",
+  "callID": "toolu_vrtx_01F2P7Y8BK9uL3E2cUoVd7xR",
+  "state": {
+    "status": "completed",
+    "input": {
+      "path": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/spam/initial-spam-tokens"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/spam/initial-spam-tokens/\n  base.json\n  bsc.json\n  ethereum.json\n  index.ts\n  optimism.json\n  polygon.json\n",
+    "metadata": {
+      "count": 6,
+      "truncated": false
+    },
+    "title": "frontend/src/lib/alchemy/spam/initial-spam-tokens",
+    "time": {
+      "start": 1772193560974,
+      "end": 1772193560979
+    }
+  }
+}

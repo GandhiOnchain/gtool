@@ -1,0 +1,19 @@
+{
+  "id": "prt_c9ef774e8001YD1BrfHVmZmGWK",
+  "messageID": "msg_c9ef7447d001Z1Z1nJTcdZUyw8",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01QWXv34DQbQyseTkinuygxX",
+  "state": {
+    "status": "error",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/hooks/alchemy/portfolio/useTokensByOwnerOnMultipleChains.ts"
+    },
+    "error": "Error: ENOENT: no such file or directory, scandir '/home/user/sandbox/workspace/frontend/src/hooks/alchemy/portfolio'",
+    "time": {
+      "start": 1772193543854,
+      "end": 1772193543855
+    }
+  }
+}

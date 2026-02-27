@@ -1,0 +1,19 @@
+{
+  "id": "prt_c9ef7a41c001lcRnj05peauT6X",
+  "messageID": "msg_c9ef7447d001Z1Z1nJTcdZUyw8",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01W1RzhuuzvTbUW9v5f7ujFa",
+  "state": {
+    "status": "error",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/spam/additional-spam-tokens"
+    },
+    "error": "Error: File not found: /home/user/sandbox/workspace/frontend/src/lib/alchemy/spam/additional-spam-tokens\n\nDid you mean one of these?\n/home/user/sandbox/workspace/frontend/src/lib/alchemy/spam/additional-spam-tokens",
+    "time": {
+      "start": 1772193556470,
+      "end": 1772193556470
+    }
+  }
+}

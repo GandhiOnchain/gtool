@@ -1,0 +1,49 @@
+{
+  "id": "prt_c9ef7949d001XL9xPZGi9srubW",
+  "messageID": "msg_c9ef7447d001Z1Z1nJTcdZUyw8",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_011tJHcUv3GbKocgtPQXzVfv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Fix batch transaction gas failures: add gas estimation with buffer + retry with higher gas on failure",
+          "status": "pending",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix malicious token bypass: enforce spam/malicious token filtering in all token-fetching paths and add contract address validation",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Fix batch transaction gas failures: add gas estimation with buffer + retry with higher gas on failure\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Fix malicious token bypass: enforce spam/malicious token filtering in all token-fetching paths and add contract address validation\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Fix batch transaction gas failures: add gas estimation with buffer + retry with higher gas on failure",
+          "status": "pending",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix malicious token bypass: enforce spam/malicious token filtering in all token-fetching paths and add contract address validation",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "title": "2 todos",
+    "time": {
+      "start": 1772193554122,
+      "end": 1772193554123
+    }
+  }
+}

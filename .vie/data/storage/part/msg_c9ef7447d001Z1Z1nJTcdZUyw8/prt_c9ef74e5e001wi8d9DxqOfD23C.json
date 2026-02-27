@@ -1,0 +1,23 @@
+{
+  "id": "prt_c9ef74e5e001wi8d9DxqOfD23C",
+  "messageID": "msg_c9ef7447d001Z1Z1nJTcdZUyw8",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01BXgU3Nfuus2Kchmxvu5uoF",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/alchemy/spam/index.ts"
+    },
+    "output": "<file>\n00001| // The Alchemy hooks in the codebase automatically filter out these spam tokens\n00002| \n00003| import { Network } from \"../config\";\n00004| import { INITIAL_SPAM_TOKENS } from \"./initial-spam-tokens\";\n00005| import { ADDITIONAL_SPAM_TOKENS } from \"./additional-spam-tokens\";\n00006| \n00007| export const isSpamToken = (network: Network, address?: string | null) => {\n00008|   if (!address) return false;\n00009| \n00010|   if (network == Network.MATIC_MAINNET_OLD) {\n00011|     network = Network.MATIC_MAINNET\n00012|   }\n00013|   \n00014|   return INITIAL_SPAM_TOKENS[network]?.[address.toLowerCase()] \n00015|     || ADDITIONAL_SPAM_TOKENS[network]?.[address.toLowerCase()];\n00016| };\n</file>",
+    "metadata": {
+      "preview": "// The Alchemy hooks in the codebase automatically filter out these spam tokens\n\nimport { Network } from \"../config\";\nimport { INITIAL_SPAM_TOKENS } from \"./initial-spam-tokens\";\nimport { ADDITIONAL_SPAM_TOKENS } from \"./additional-spam-tokens\";\n\nexport const isSpamToken = (network: Network, address?: string | null) => {\n  if (!address) return false;\n\n  if (network == Network.MATIC_MAINNET_OLD) {\n    network = Network.MATIC_MAINNET\n  }\n  \n  return INITIAL_SPAM_TOKENS[network]?.[address.toLowerCase()] \n    || ADDITIONAL_SPAM_TOKENS[network]?.[address.toLowerCase()];\n};"
+    },
+    "title": "frontend/src/lib/alchemy/spam/index.ts",
+    "time": {
+      "start": 1772193534084,
+      "end": 1772193534086
+    }
+  }
+}

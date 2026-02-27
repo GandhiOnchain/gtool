@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react';
-import { alchemy, getAlchemyNetwork } from '../../../lib/alchemy/config';
+import { alchemy, getAlchemyNetwork, Network } from '../../../lib/alchemy/config';
 import { Network as AlchemyNetwork } from 'alchemy-sdk';
 import { GetTokenPriceByAddressResponse } from '../types';
+import { isSpamToken, isSafeContractAddress } from '../../../lib/alchemy/spam';
 
 /**
  * Hook for fetching current token price by address
@@ -61,8 +62,26 @@ export function useTokenPricesByAddress() {
     setError(null);
 
     try {
+      // Filter out invalid or known-spam addresses before hitting the API
+      const safeAddresses = params.addresses.filter(({ chainId, address }) => {
+        if (!isSafeContractAddress(address)) {
+          console.warn('[Security] Blocked price fetch for invalid address:', address);
+          return false;
+        }
+        try {
+          const network = getAlchemyNetwork(chainId) as unknown as Network;
+          if (isSpamToken(network, address)) {
+            console.warn('[Security] Blocked price fetch for known spam token:', address);
+            return false;
+          }
+        } catch {
+          // Unknown chain — allow through, API will handle it
+        }
+        return true;
+      });
+
       // Convert chainIds to Alchemy Networks
-      const tokenRequests = params.addresses.map(({ chainId, address }) => ({
+      const tokenRequests = safeAddresses.map(({ chainId, address }) => ({
         network: getAlchemyNetwork(chainId) as unknown as AlchemyNetwork,
         address,
       }));

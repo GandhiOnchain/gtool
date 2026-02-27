@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ef87ac9001tLxRyRDtHhSIIY",
+  "messageID": "msg_c9ef7447d001Z1Z1nJTcdZUyw8",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "The `OwnedNftResponseWithoutMetadata` already has `isSpam` and `spamClassifications` fields. The NFT hook just isn't filtering on them. Now I'll fix the spam filter to also check Alchemy's live `isSpam` flag, and harden the NFT hook:",
+  "time": {
+    "start": 1772193622405,
+    "end": 1772193622405
+  }
+}

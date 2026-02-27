@@ -1,0 +1,19 @@
+{
+  "id": "prt_c9ef76285001HZChNY72cexA0T",
+  "messageID": "msg_c9ef7447d001Z1Z1nJTcdZUyw8",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01Ud7CDoya5v2AAkBZCctthZ",
+  "state": {
+    "status": "error",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/hooks/useTokenBalancesByOwnerOnMultipleChains.ts"
+    },
+    "error": "Error: File not found: /home/user/sandbox/workspace/frontend/src/hooks/useTokenBalancesByOwnerOnMultipleChains.ts",
+    "time": {
+      "start": 1772193539849,
+      "end": 1772193539852
+    }
+  }
+}

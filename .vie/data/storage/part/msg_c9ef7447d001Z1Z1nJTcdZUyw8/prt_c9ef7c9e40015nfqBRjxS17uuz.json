@@ -1,0 +1,23 @@
+{
+  "id": "prt_c9ef7c9e40015nfqBRjxS17uuz",
+  "messageID": "msg_c9ef7447d001Z1Z1nJTcdZUyw8",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01God564zGRvuoGtpn4kbHBr",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/hooks/alchemy/nft/useNftMetadataByTokenIdBatchOnSpecificChain.ts"
+    },
+    "output": "<file>\n00001| import { useState, useCallback } from 'react';\n00002| import { alchemy, createAlchemyInstance, getAlchemyNetwork } from '../../../lib/alchemy/config';\n00003| import { GetNftMetadataBatchResponse, NftMetadataBatchToken } from '../types';\n00004| \n00005| /**\n00006|  * Hook for fetching NFT metadata for multiple tokens in batch\n00007|  *\n00008|  * @example\n00009|  * ```typescript\n00010|  * const { data, isLoading, error, fetchNftMetadataBatch } = useNftMetadataByTokenIdBatch();\n00011|  *\n00012|  * useEffect(() => {\n00013|  *   fetchNftMetadataBatchOnSpecificChain({\n00014|  *     tokens: [\n00015|  *       { contractAddress: '0x123...abc', tokenId: '1' },\n00016|  *       { contractAddress: '0x456...def', tokenId: '42' },\n00017|  *     ],\n00018|  *     chainId: 1 // Ethereum mainnet\n00019|  *   });\n00020|  * }, [fetchNftMetadataBatch]);\n00021|  * ```\n00022|  */\n00023| export function useNftMetadataByTokenIdBatchOnSpecificChain() {\n00024|   const [data, setData] = useState<GetNftMetadataBatchResponse | null>(null);\n00025|   const [isLoading, setIsLoading] = useState(false);\n00026|   const [error, setError] = useState<Error | null>(null);\n00027| \n00028|   /**\n00029|    * Fetch metadata for multiple NFTs in a single batch request\n00030|    *\n00031|    * @param params - Object containing all parameters:\n00032|    *   - tokens: NftMetadataBatchToken[] - Array of NFT token identifiers:\n00033|    *     * contractAddress: string - The NFT contract address (e.g., '0x123...abc')\n00034|    *     * tokenId: BigNumberish - The token ID within the contract (e.g., '1', '42', or BigNumber)\n00035|    *     * tokenType?: NftTokenType.ERC721 | NftTokenType.ERC1155 - Optional token type\n00036|    * @returns Promise<GetNftMetadataBatchResponse> - See type definition above for structure\n00037|    */\n00038|   const fetchNftMetadataBatchOnSpecificChain = useCallback(async (params: {\n00039|     tokens: NftMetadataBatchToken[];\n00040|     chainId: number;\n00041|   }): Promise<GetNftMetadataBatchResponse> => {\n00042|     setIsLoading(true);\n00043|     setError(null);\n00044| \n00045|     try {\n00046|       const network = getAlchemyNetwork(params.chainId);\n00047|       const alchemyForNetwork = createAlchemyInstance(alchemy.config.apiKey, network);\n00048| \n00049|       const response = await alchemyForNetwork.nft.getNftMetadataBatch(params.tokens);\n00050|       setData(response);\n00051|       return response;\n00052|     } catch (err) {\n00053|       const error = err instanceof Error ? err : new Error('Failed to fetch NFT metadata batch');\n00054|       setError(error);\n00055|       throw error;\n00056|     } finally {\n00057|       setIsLoading(false);\n00058|     }\n00059|   }, []);\n00060| \n00061|   return {\n00062|     data,\n00063|     isLoading,\n00064|     error,\n00065|     fetchNftMetadataBatchOnSpecificChain,\n00066|   };\n00067| }\n</file>",
+    "metadata": {
+      "preview": "import { useState, useCallback } from 'react';\nimport { alchemy, createAlchemyInstance, getAlchemyNetwork } from '../../../lib/alchemy/config';\nimport { GetNftMetadataBatchResponse, NftMetadataBatchToken } from '../types';\n\n/**\n * Hook for fetching NFT metadata for multiple tokens in batch\n *\n * @example\n * ```typescript\n * const { data, isLoading, error, fetchNftMetadataBatch } = useNftMetadataByTokenIdBatch();\n *\n * useEffect(() => {\n *   fetchNftMetadataBatchOnSpecificChain({\n *     tokens: [\n *       { contractAddress: '0x123...abc', tokenId: '1' },\n *       { contractAddress: '0x456...def', tokenId: '42' },\n *     ],\n *     chainId: 1 // Ethereum mainnet\n *   });\n * }, [fetchNftMetadataBatch]);"
+    },
+    "title": "frontend/src/hooks/alchemy/nft/useNftMetadataByTokenIdBatchOnSpecificChain.ts",
+    "time": {
+      "start": 1772193566885,
+      "end": 1772193566886
+    }
+  }
+}

@@ -6,11 +6,18 @@ import {
   type ContractFunctionName,
   type ContractFunctionArgs,
   encodeFunctionData,
+  createPublicClient,
+  http,
 } from 'viem'
 import { useSendTransaction, useWaitForTransactionReceipt, useSwitchChain, useChainId } from 'wagmi'
 import { toast } from 'sonner'
 import { useWallet } from './useWallet'
 import { BlockchainError, ChainSwitchError } from '../lib/blockchain/types'
+import { getChainById, getRpcUrl } from '../lib/blockchain/chains'
+
+const GAS_BUFFER_MULTIPLIER = 130n
+const GAS_RETRY_MULTIPLIER = 150n
+const GAS_DIVISOR = 100n
 
 /**
  * Parameters for writing to a contract
@@ -286,15 +293,68 @@ export function useWriteContractLifecycle<
   }, [currentChainId, switchChain])
 
   /**
-   * Execute the prepared write transaction
+   * Estimate gas for a prepared write, returning a buffered gas limit
    */
-  const executePreparedWrite = useCallback(async (preparedWrite: PreparedWrite): Promise<void> => {
+  const estimateGas = useCallback(async (
+    preparedWrite: PreparedWrite,
+    chainId: number,
+    from: Address,
+    multiplier: bigint = GAS_BUFFER_MULTIPLIER
+  ): Promise<bigint | undefined> => {
     try {
-      sendTransaction({
+      const chain = getChainById(chainId)
+      if (!chain) return undefined
+      const publicClient = createPublicClient({ chain, transport: http(getRpcUrl(chainId)) })
+      const estimated = await publicClient.estimateGas({
+        account: from,
         to: preparedWrite.to,
         data: preparedWrite.data,
         value: preparedWrite.value,
       })
+      return (estimated * multiplier) / GAS_DIVISOR
+    } catch {
+      return undefined
+    }
+  }, [])
+
+  /**
+   * Execute the prepared write transaction
+   */
+  const executePreparedWrite = useCallback(async (
+    preparedWrite: PreparedWrite,
+    chainId?: number
+  ): Promise<void> => {
+    try {
+      let gasLimit: bigint | undefined
+      if (chainId && address) {
+        gasLimit = await estimateGas(preparedWrite, chainId, address as Address)
+      }
+
+      try {
+        sendTransaction({
+          to: preparedWrite.to,
+          data: preparedWrite.data,
+          value: preparedWrite.value,
+          gas: gasLimit,
+        })
+      } catch (firstErr: any) {
+        const isGasErr = firstErr?.message?.toLowerCase().includes('gas') ||
+          firstErr?.message?.toLowerCase().includes('intrinsic') ||
+          firstErr?.message?.toLowerCase().includes('underpriced')
+
+        if (isGasErr && chainId && address) {
+          console.warn('Gas estimation too low, retrying with higher gas limit:', firstErr.message)
+          const retryGas = await estimateGas(preparedWrite, chainId, address as Address, GAS_RETRY_MULTIPLIER)
+          sendTransaction({
+            to: preparedWrite.to,
+            data: preparedWrite.data,
+            value: preparedWrite.value,
+            gas: retryGas,
+          })
+        } else {
+          throw firstErr
+        }
+      }
     } catch (error) {
       const errorObj = error instanceof Error ? error : new Error(String(error))
       const blockchainError = new BlockchainError('Transaction execution failed', 'TX_EXECUTION_ERROR', errorObj)
@@ -308,7 +368,7 @@ export function useWriteContractLifecycle<
       
       throw blockchainError
     }
-  }, [sendTransaction])
+  }, [sendTransaction, estimateGas, address])
 
   // Update state based on transaction lifecycle
   useEffect(() => {
@@ -384,8 +444,8 @@ export function useWriteContractLifecycle<
       // Prepare the write transaction
       const preparedWrite = await prepareWrite(params)
       
-      // Execute the transaction
-      await executePreparedWrite(preparedWrite)
+      // Execute the transaction with gas estimation
+      await executePreparedWrite(preparedWrite, params.chainId)
     } catch (error) {
       // Errors are already handled in the individual functions
       console.error('Write contract execution failed:', error)
