@@ -1,0 +1,26 @@
+{
+  "id": "prt_c9f0f7fe1001S2Q95RO5yzaxa3",
+  "messageID": "msg_c9f0f34be001unCfbp6y77NgVE",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01QcfUznw7P41r8mvDxoqmQ2",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git diff 924b6767 HEAD -- frontend/src/pages/RelaySwap.tsx | head -100",
+      "description": "Diff RelaySwap vs the known-good commit"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Diff RelaySwap vs the known-good commit"
+    },
+    "title": "cd /home/user/sandbox/workspace && git diff 924b6767 HEAD -- frontend/src/pages/RelaySwap.tsx | head -100",
+    "time": {
+      "start": 1772195120261,
+      "end": 1772195120263
+    }
+  }
+}

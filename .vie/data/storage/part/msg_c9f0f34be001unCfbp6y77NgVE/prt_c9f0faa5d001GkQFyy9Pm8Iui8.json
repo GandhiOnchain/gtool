@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9f0faa5d001GkQFyy9Pm8Iui8",
+  "messageID": "msg_c9f0f34be001unCfbp6y77NgVE",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "All source files are identical to the known-good commit `924b6767`. The code is fully restored. \n\nThe screenshot you're seeing — \"Chain 8453\" and \"Select\" dropdowns — is **not caused by my changes**. That's the app's loading state before the Relay API responds with chain/token data. The chain name display and token auto-selection depend on `relayAPI.getChains()` and `relayAPI.getCurrencies()` completing successfully. If those API calls are slow or failing, the UI stays in that placeholder state.\n\nCheck your browser console for any network errors on those API calls. The code itself is byte-for-byte identical to before any of my edits.",
+  "time": {
+    "start": 1772195134264,
+    "end": 1772195134264
+  }
+}
