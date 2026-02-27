@@ -1,0 +1,29 @@
+{
+  "id": "prt_c9ed07918001JXJhFxn3i6dPmv",
+  "messageID": "msg_c9ecf1ef6001d7oiREOOFB40AG",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "diagnostics",
+  "callID": "toolu_01Bff61UvdyYibxHx9T25TMC",
+  "state": {
+    "status": "completed",
+    "input": {},
+    "output": "Found issues in 1 file(s):\n\n📄 src/pages/RelaySwap.tsx\n  ⚠️ WARN [1:1] Unexpected control character [oxlint]\n\n──────────────────────────────────────────────────\nSummary: 1 issue(s) found\n  - 1 warning(s)\n",
+    "metadata": {
+      "filesChecked": 2,
+      "filesWithIssues": 1,
+      "totalIssues": 1,
+      "errorCount": 0,
+      "warningCount": 1,
+      "checkedFiles": [
+        ".attachments/image.png",
+        "frontend/src/pages/RelaySwap.tsx"
+      ]
+    },
+    "title": "Diagnostics: 1 issue(s) in 1 file(s)",
+    "time": {
+      "start": 1772190989089,
+      "end": 1772191005256
+    }
+  }
+}

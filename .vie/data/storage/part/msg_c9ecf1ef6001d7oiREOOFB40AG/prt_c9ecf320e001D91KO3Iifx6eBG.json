@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ecf320e001D91KO3Iifx6eBG",
+  "messageID": "msg_c9ecf1ef6001d7oiREOOFB40AG",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "The token in the image has a Telegram link and \"claim\" text in its name — classic airdrop spam. GoPlus alone isn't catching it because it passes contract-level checks. I need to add heuristic/name-based spam detection on top of the security APIs.\n\nLet me look at the current scanning code and expand it:",
+  "time": {
+    "start": 1772190908434,
+    "end": 1772190908434
+  }
+}

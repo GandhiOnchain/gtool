@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ed00b1f002UNQYvHorvNzBwC",
+  "messageID": "msg_c9ecf1ef6001d7oiREOOFB40AG",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now update `loadBatchWalletTokens` to call `scanTokenSecurity` instead of `scanTokensWithGoPlus`:",
+  "time": {
+    "start": 1772190966892,
+    "end": 1772190966892
+  }
+}

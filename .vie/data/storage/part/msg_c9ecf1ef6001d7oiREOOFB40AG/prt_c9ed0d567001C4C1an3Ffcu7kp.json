@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ed0d567001C4C1an3Ffcu7kp",
+  "messageID": "msg_c9ecf1ef6001d7oiREOOFB40AG",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "The control character warning is from the regex pattern `/[^\\x00-\\x7F]/` in the spam patterns array — the linter flags the `\\x00` range. Let me fix that regex:",
+  "time": {
+    "start": 1772191015367,
+    "end": 1772191015367
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_c9ed04970001aD21qPLgkmlsyV",
+  "messageID": "msg_c9ecf1ef6001d7oiREOOFB40AG",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01LaHXRG9DB6WwmR1mZ5WZ1u",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3885,
+      "limit": 30
+    },
+    "output": "<file>\n03886|                                 }\n03887|                                 \n03888|                                 balance = balanceBigInt.toString()\n03889|                                 balanceFormatted = formatUnits(balanceBigInt, currency.decimals)\n03890|                               }\n03891|                             }\n03892|                           } catch (e) {\n03893|                             console.error('Failed to fetch balance for manually added token:', e)\n03894|                             // Continue with 0 balance\n03895|                           }\n03896|                           \n03897|                           const newToken: WalletToken = {\n03898|                             token: currency,\n03899|                             balance,\n03900|                             balanceFormatted,\n03901|                             selected: true,\n03902|                           }\n03903|                           \n03904|                           setBatchTokens([...batchTokens, newToken])\n03905|                           toast.success(`Added ${currency.symbol} to batch swap${balanceFormatted !== '0' ? ` (Balance: ${balanceFormatted})` : ''}`)\n03906|                         } else if (selectingFor === 'batchTo') {\n03907|                           setBatchToToken(currency)\n03908|                         } else if (selectingFor === 'from') {\n03909|                           setFromToken(currency)\n03910|                           if (toToken && toChain && fromChain && \n03911|                               fromChain.id === toChain.id && \n03912|                               currency.address.toLowerCase() === toToken.address.toLowerCase()) {\n03913|                             setToToken(null)\n03914|                           }\n03915|                         } else {\n\n(File has more lines. Use 'offset' parameter to read beyond line 3915)\n</file>",
+    "metadata": {
+      "preview": "                                }\n                                \n                                balance = balanceBigInt.toString()\n                                balanceFormatted = formatUnits(balanceBigInt, currency.decimals)\n                              }\n                            }\n                          } catch (e) {\n                            console.error('Failed to fetch balance for manually added token:', e)\n                            // Continue with 0 balance\n                          }\n                          \n                          const newToken: WalletToken = {\n                            token: currency,\n                            balance,\n                            balanceFormatted,\n                            selected: true,\n                          }\n                          \n                          setBatchTokens([...batchTokens, newToken])\n                          toast.success(`Added ${currency.symbol} to batch swap${balanceFormatted !== '0' ? ` (Balance: ${balanceFormatted})` : ''}`)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772190976973,
+      "end": 1772190976974
+    }
+  }
+}

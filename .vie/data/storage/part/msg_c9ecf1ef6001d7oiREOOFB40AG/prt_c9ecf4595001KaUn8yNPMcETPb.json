@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ecf4595001KaUn8yNPMcETPb",
+  "messageID": "msg_c9ecf1ef6001d7oiREOOFB40AG",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now I have a clear picture. The token in the screenshot has `t.me/s/US_POOL | claim until 07.01.26` as its name — a Telegram link + claim scam. GoPlus won't flag this because the contract itself may be technically valid. I need to add:\n\n1. **Heuristic name/symbol scanning** — Telegram links, \"claim\", \"airdrop\", emoji, URLs, etc.\n2. **Moralis `possible_spam` flag** — already have the API key, it catches airdrop spam well\n3. **GoPlus `airdrop_scam`** field — GoPlus actually has this field, I'm not checking it\n4. **Token age + low holder count** heuristics from GoPlus data\n\nLet me rewrite `scanTokensWithGoPlus` into a comprehensive `scanTokenSecurity` function:",
+  "time": {
+    "start": 1772190956038,
+    "end": 1772190956038
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ed1135f001tiBaptYzsh3CsA",
+  "messageID": "msg_c9ecf1ef6001d7oiREOOFB40AG",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "All clean. Here's what the security pipeline now does, in order:\n\n**Layer 1 — Heuristic (instant, zero latency)**\nCatches the exact token in your screenshot and similar scams by pattern-matching the name/symbol:\n- Telegram links (`t.me/`, `telegram`)\n- \"claim\", \"airdrop\", \"giveaway\", \"reward\", \"distribution\", \"whitelist\", \"promo\"\n- URLs (`http://`, `www.`, `.com`, `.io`, `.net`)\n- Pipe characters `|` (used in scam names like `t.me/x | claim until...`)\n- Non-ASCII / emoji in symbol\n- Symbol longer than 12 chars\n- Discord links\n\n**Layer 2 — Moralis `possible_spam` flag**\nMoralis maintains a curated spam database. Runs in batches of 25, covers ETH/Base/Arbitrum/Polygon/Optimism/BSC/Avalanche.\n\n**Layer 3 — GoPlus contract security**\nFull contract analysis: honeypot, `is_airdrop_scam`, hidden owner, self-destruct, sell tax, creator holds majority supply, no liquidity pool, unverified contract, etc. Now also checks `is_airdrop_scam` which GoPlus specifically has for this type of token.\n\n**Behavior:**\n- Any layer flagging a token → auto-deselected, red border, badge shows the reason\n- Manually added tokens get instant heuristic check + async full scan\n- Flags are deduplicated and merged across all three layers",
+  "time": {
+    "start": 1772191039669,
+    "end": 1772191039669
+  }
+}

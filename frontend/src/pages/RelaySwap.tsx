@@ -824,66 +824,164 @@ export default function RelaySwap() {
     }
   }
 
-  const scanTokensWithGoPlus = async (
-    tokenAddresses: string[],
+  // Heuristic spam patterns — catches airdrop/Telegram/claim scams by name/symbol
+  const SPAM_PATTERNS = [
+    /t\.me\//i, /telegram/i, /discord\.gg\//i, /claim/i, /airdrop/i,
+    /visit\s/i, /http[s]?:\/\//i, /www\./i, /\.com/i, /\.io/i, /\.net/i,
+    /\bfree\b/i, /\breward/i, /\bbonus\b/i, /\bwhitelist\b/i, /\bgiveaway/i,
+    /\bpromo\b/i, /\bpool\b.*\bclaim/i, /distribution/i, /\bvoucher/i,
+    /\|/, // pipe chars used in scam names like "t.me/x | claim"
+  ]
+  const SPAM_SYMBOL_PATTERNS = [
+    /t\.me/i, /http/i, /www\./i, /\.com/i,
+    // eslint-disable-next-line no-control-regex
+    /[^\u0000-\u007F]/, // non-ASCII / emoji in symbol
+  ]
+
+  const heuristicSpamCheck = (symbol: string, name: string): { isSpam: boolean; flags: string[] } => {
+    const flags: string[] = []
+    for (const p of SPAM_PATTERNS) {
+      if (p.test(name)) { flags.push('Spam name pattern'); break }
+    }
+    for (const p of SPAM_SYMBOL_PATTERNS) {
+      if (p.test(symbol)) { flags.push('Spam symbol pattern'); break }
+    }
+    // Unusually long symbol (legit tokens rarely exceed 10 chars)
+    if (symbol.length > 12) flags.push('Suspicious symbol length')
+    // Name contains multiple spaces or special chars typical of scam tokens
+    if ((name.match(/\|/g) || []).length >= 1) flags.push('Suspicious name format')
+    return { isSpam: flags.length > 0, flags }
+  }
+
+  const scanTokenSecurity = async (
+    tokens: Array<{ address: string; symbol: string; name: string }>,
     chainId: number
   ): Promise<Map<string, TokenRisk>> => {
     const result = new Map<string, TokenRisk>()
-    if (tokenAddresses.length === 0) return result
+    if (tokens.length === 0) return result
 
+    // Step 1: Heuristic scan (instant, no API)
+    for (const { address: addr, symbol, name } of tokens) {
+      const h = heuristicSpamCheck(symbol, name)
+      if (h.isSpam) {
+        result.set(addr.toLowerCase(), {
+          isSpam: true, isHoneypot: false, riskLevel: 'high', flags: h.flags,
+        })
+      }
+    }
+
+    // Step 2: Moralis spam flag (fast, uses existing key)
+    const moralisChainMap: Record<number, string> = {
+      1: 'eth', 8453: 'base', 42161: 'arbitrum', 137: 'polygon',
+      10: 'optimism', 56: 'bsc', 43114: 'avalanche',
+    }
+    const moralisChain = moralisChainMap[chainId]
+    const moralisApiKey = config.moralis.apiKey
+    if (moralisChain && moralisApiKey) {
+      const BATCH = 25
+      for (let i = 0; i < tokens.length; i += BATCH) {
+        const batch = tokens.slice(i, i + BATCH)
+        try {
+          const addrs = batch.map(t => t.address).join(',')
+          const res = await fetch(
+            `https://deep-index.moralis.io/api/v2.2/erc20/metadata?chain=${moralisChain}&addresses=${addrs}`,
+            { headers: { accept: 'application/json', 'X-API-Key': moralisApiKey }, signal: AbortSignal.timeout(6000) }
+          )
+          if (res.ok) {
+            const data: Array<{ address: string; possible_spam: boolean; verified_contract: boolean }> = await res.json()
+            for (const item of data) {
+              const key = item.address.toLowerCase()
+              if (item.possible_spam) {
+                const existing = result.get(key)
+                result.set(key, {
+                  isSpam: true,
+                  isHoneypot: existing?.isHoneypot || false,
+                  riskLevel: 'high',
+                  flags: [...(existing?.flags || []), 'Flagged by Moralis'],
+                })
+              }
+            }
+          }
+        } catch (e) {
+          console.warn('Moralis spam scan failed:', e)
+        }
+      }
+    }
+
+    // Step 3: GoPlus contract security (comprehensive, free)
     const BATCH = 50
-    for (let i = 0; i < tokenAddresses.length; i += BATCH) {
-      const batch = tokenAddresses.slice(i, i + BATCH)
+    for (let i = 0; i < tokens.length; i += BATCH) {
+      const batch = tokens.slice(i, i + BATCH)
       try {
         const res = await fetch(
-          `https://api.gopluslabs.io/api/v1/token_security/${chainId}?contract_addresses=${batch.join(',')}`,
-          { signal: AbortSignal.timeout(8000) }
+          `https://api.gopluslabs.io/api/v1/token_security/${chainId}?contract_addresses=${batch.map(t => t.address).join(',')}`,
+          { signal: AbortSignal.timeout(10000) }
         )
         if (!res.ok) continue
         const data = await res.json()
         if (data.code !== 1 || !data.result) continue
 
         for (const [addr, info] of Object.entries(data.result as Record<string, Record<string, string>>)) {
-          const flags: string[] = []
-          let riskLevel: TokenRisk['riskLevel'] = 'safe'
+          const key = addr.toLowerCase()
+          const existing = result.get(key)
+          const flags: string[] = [...(existing?.flags || [])]
+          let riskLevel: TokenRisk['riskLevel'] = existing?.riskLevel || 'safe'
+
+          const bump = (level: TokenRisk['riskLevel']) => {
+            const order = ['safe', 'low', 'medium', 'high']
+            if (order.indexOf(level) > order.indexOf(riskLevel)) riskLevel = level
+          }
 
           const isHoneypot = info.is_honeypot === '1'
-          const isOpenSource = info.is_open_source === '1'
-          const isProxy = info.is_proxy === '1'
+          const isAirdropScam = info.is_airdrop_scam === '1'
           const canTakeBackOwnership = info.can_take_back_ownership === '1'
           const ownerChangeBalance = info.owner_change_balance === '1'
           const hiddenOwner = info.hidden_owner === '1'
           const selfDestruct = info.selfdestruct === '1'
-          const externalCall = info.external_call === '1'
-          const buyTax = parseFloat(info.buy_tax || '0')
-          const sellTax = parseFloat(info.sell_tax || '0')
-          const isBlacklisted = info.is_blacklisted === '1'
-          const isWhitelisted = info.is_whitelisted === '1'
+          const honeypotWithSameCreator = info.honeypot_with_same_creator === '1'
           const transferPausable = info.transfer_pausable === '1'
           const isMintable = info.is_mintable === '1'
-          const honeypotWithSameCreator = info.honeypot_with_same_creator === '1'
+          const isOpenSource = info.is_open_source === '1'
+          const buyTax = parseFloat(info.buy_tax || '0')
+          const sellTax = parseFloat(info.sell_tax || '0')
+          const holderCount = parseInt(info.holder_count || '0')
+          const lpHolderCount = parseInt(info.lp_holder_count || '0')
+          const creatorPercent = parseFloat(info.creator_percent || '0')
 
-          if (isHoneypot) { flags.push('Honeypot'); riskLevel = 'high' }
-          if (hiddenOwner) { flags.push('Hidden owner'); riskLevel = 'high' }
-          if (canTakeBackOwnership) { flags.push('Owner can reclaim'); riskLevel = 'high' }
-          if (selfDestruct) { flags.push('Self-destruct'); riskLevel = 'high' }
-          if (honeypotWithSameCreator) { flags.push('Creator made honeypots'); riskLevel = 'high' }
-          if (ownerChangeBalance) { flags.push('Owner can change balance'); if (riskLevel === 'safe') riskLevel = 'medium' }
-          if (transferPausable) { flags.push('Transfers pausable'); if (riskLevel === 'safe') riskLevel = 'medium' }
-          if (isMintable) { flags.push('Mintable'); if (riskLevel === 'safe') riskLevel = 'low' }
-          if (!isOpenSource) { flags.push('Unverified contract'); if (riskLevel === 'safe') riskLevel = 'low' }
-          if (sellTax > 10) { flags.push(`Sell tax ${sellTax}%`); if (riskLevel === 'safe') riskLevel = 'medium' }
-          else if (sellTax > 5) { flags.push(`Sell tax ${sellTax}%`); if (riskLevel === 'safe') riskLevel = 'low' }
-          if (buyTax > 10) { flags.push(`Buy tax ${buyTax}%`); if (riskLevel === 'safe') riskLevel = 'medium' }
+          if (isHoneypot && !flags.includes('Honeypot')) { flags.push('Honeypot'); bump('high') }
+          if (isAirdropScam && !flags.includes('Airdrop scam')) { flags.push('Airdrop scam'); bump('high') }
+          if (hiddenOwner && !flags.includes('Hidden owner')) { flags.push('Hidden owner'); bump('high') }
+          if (canTakeBackOwnership) { flags.push('Owner can reclaim'); bump('high') }
+          if (selfDestruct) { flags.push('Self-destruct'); bump('high') }
+          if (honeypotWithSameCreator) { flags.push('Creator made honeypots'); bump('high') }
+          if (ownerChangeBalance) { flags.push('Owner can change balance'); bump('medium') }
+          if (transferPausable) { flags.push('Transfers pausable'); bump('medium') }
+          if (sellTax > 10) { flags.push(`Sell tax ${sellTax}%`); bump('medium') }
+          else if (sellTax > 5) { flags.push(`Sell tax ${sellTax}%`); bump('low') }
+          if (buyTax > 10) { flags.push(`Buy tax ${buyTax}%`); bump('medium') }
+          if (isMintable) { flags.push('Mintable'); bump('low') }
+          if (!isOpenSource) { flags.push('Unverified contract'); bump('low') }
+          // Very few holders + creator holds most supply = likely scam
+          if (holderCount > 0 && holderCount < 50 && creatorPercent > 50) {
+            flags.push('Creator holds majority'); bump('high')
+          }
+          // No liquidity pool
+          if (lpHolderCount === 0 && holderCount > 0) { flags.push('No liquidity'); bump('medium') }
 
-          const isSpam = riskLevel === 'high' || isHoneypot
+          const isSpam = riskLevel === 'high' || isHoneypot || isAirdropScam
 
-          result.set(addr.toLowerCase(), { isSpam, isHoneypot, riskLevel, flags })
+          result.set(key, {
+            isSpam,
+            isHoneypot: existing?.isHoneypot || isHoneypot,
+            riskLevel,
+            flags: [...new Set(flags)],
+          })
         }
       } catch (e) {
         console.warn('GoPlus scan failed for batch:', e)
       }
     }
+
     return result
   }
 
@@ -1122,13 +1220,13 @@ export default function RelaySwap() {
         t => !t.token.metadata?.isNative && !isNativeAddress(t.token.address)
       )
 
-      // GoPlus security scan — only for EVM chains
+      // Multi-layer security scan — only for EVM chains
       let riskMap = new Map<string, TokenRisk>()
       const vmType_ = chain.vmType || 'evm'
       if ((vmType_ === 'evm' || vmType_ === 'hypevm') && erc20Only.length > 0) {
-        const addrs = erc20Only.map(t => t.token.address)
-        riskMap = await scanTokensWithGoPlus(addrs, chain.id)
-        console.log(`GoPlus scanned ${riskMap.size} tokens on ${chain.displayName}`)
+        const scanInputs = erc20Only.map(t => ({ address: t.token.address, symbol: t.token.symbol, name: t.token.name }))
+        riskMap = await scanTokenSecurity(scanInputs, chain.id)
+        console.log(`Security scan complete: ${riskMap.size} tokens assessed on ${chain.displayName}`)
       }
 
       const withRisk = erc20Only.map(t => ({
@@ -3797,15 +3895,36 @@ export default function RelaySwap() {
                             // Continue with 0 balance
                           }
                           
+                          const heuristicResult = heuristicSpamCheck(currency.symbol, currency.name)
                           const newToken: WalletToken = {
                             token: currency,
                             balance,
                             balanceFormatted,
-                            selected: true,
+                            selected: !heuristicResult.isSpam,
+                            risk: heuristicResult.isSpam
+                              ? { isSpam: true, isHoneypot: false, riskLevel: 'high', flags: heuristicResult.flags }
+                              : undefined,
                           }
                           
                           setBatchTokens([...batchTokens, newToken])
-                          toast.success(`Added ${currency.symbol} to batch swap${balanceFormatted !== '0' ? ` (Balance: ${balanceFormatted})` : ''}`)
+                          if (heuristicResult.isSpam) {
+                            toast.warning(`${currency.symbol} flagged as spam and deselected`)
+                          } else {
+                            toast.success(`Added ${currency.symbol} to batch swap${balanceFormatted !== '0' ? ` (Balance: ${balanceFormatted})` : ''}`)
+                          }
+                          // Run full security scan in background and update
+                          if (batchChain) {
+                            scanTokenSecurity([{ address: currency.address, symbol: currency.symbol, name: currency.name }], batchChain.id)
+                              .then(riskMap => {
+                                const risk = riskMap.get(currency.address.toLowerCase())
+                                if (risk) {
+                                  setBatchTokens(prev => prev.map(t =>
+                                    t.token.address.toLowerCase() === currency.address.toLowerCase() ? { ...t, risk, selected: !risk.isSpam } : t
+                                  ))
+                                }
+                              })
+                              .catch(() => {})
+                          }
                         } else if (selectingFor === 'batchTo') {
                           setBatchToToken(currency)
                         } else if (selectingFor === 'from') {
