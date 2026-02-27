@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ed619f20017n23AM67tP5E3D",
+  "messageID": "msg_c9ed5be93001w8pal6MCmqiUkJ",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Good — `wagmiConfig` is exported. Now rewrite `executeBatchSwap` to use `sendTransaction` and `waitForTransactionReceipt` from `wagmi/actions` imperatively:",
+  "time": {
+    "start": 1772191377851,
+    "end": 1772191377851
+  }
+}

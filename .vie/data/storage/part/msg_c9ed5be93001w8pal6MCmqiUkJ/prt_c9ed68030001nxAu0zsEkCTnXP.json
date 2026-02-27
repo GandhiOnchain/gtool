@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ed68030001nxAu0zsEkCTnXP",
+  "messageID": "msg_c9ed5be93001w8pal6MCmqiUkJ",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now add honeypot.is as Layer 4 in `scanTokenSecurity`. It supports Ethereum (1), BSC (56), and Base (8453):",
+  "time": {
+    "start": 1772191386198,
+    "end": 1772191386198
+  }
+}

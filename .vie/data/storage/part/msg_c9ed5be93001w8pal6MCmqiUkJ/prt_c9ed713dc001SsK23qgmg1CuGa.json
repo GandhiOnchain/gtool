@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ed713dc001SsK23qgmg1CuGa",
+  "messageID": "msg_c9ed5be93001w8pal6MCmqiUkJ",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "**Batch execution fix — root cause:**\n`useSendTransaction` from wagmi is a single React mutation instance. Calling it multiple times in a loop with `onSuccess`/`onError` callbacks is broken — each new call resets the mutation state and the previous callbacks may never fire. The fix uses `sendTransaction` from `wagmi/actions` which is a proper async function that returns a hash directly, then `waitForTransactionReceipt` to confirm each one before moving to the next. User rejection now also stops the whole batch immediately.\n\n**Honeypot.is — Layer 4:**\nAdded for Ethereum, BSC, and Base (the 3 chains it supports). It actually *simulates* buy/sell transactions against the contract, so it catches honeypots that GoPlus might miss due to contract obfuscation. It also surfaces simulated buy/sell tax values independently of GoPlus. Runs per-token (not batched, as the API requires individual calls) and is best-effort with a 5s timeout.\n\n**Full security pipeline now:**\n1. Heuristic (instant) — name/symbol patterns, Telegram links, claim scams\n2. Moralis — curated spam database\n3. GoPlus — contract analysis, `is_airdrop_scam`, honeypot, taxes, ownership\n4. Honeypot.is — live transaction simulation (ETH/BSC/Base)",
+  "time": {
+    "start": 1772191429818,
+    "end": 1772191429818
+  }
+}

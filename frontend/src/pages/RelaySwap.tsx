@@ -982,6 +982,59 @@ export default function RelaySwap() {
       }
     }
 
+    // Step 4: Honeypot.is — dedicated honeypot simulation (ETH, BSC, Base only)
+    const honeypotChains: Record<number, number> = { 1: 1, 56: 56, 8453: 8453 }
+    if (honeypotChains[chainId]) {
+      for (const { address: addr } of tokens) {
+        // Skip if already confirmed high-risk honeypot
+        const existing = result.get(addr.toLowerCase())
+        if (existing?.isHoneypot) continue
+        try {
+          const res = await fetch(
+            `https://api.honeypot.is/v2/IsHoneypot?address=${addr}&chainID=${chainId}`,
+            { signal: AbortSignal.timeout(5000) }
+          )
+          if (!res.ok) continue
+          const data = await res.json()
+          const isHp = data.isHoneypot === true
+          const simulationSuccess = data.simulationSuccess === true
+          const buyTax = data.simulationResult?.buyTax ?? 0
+          const sellTax = data.simulationResult?.sellTax ?? 0
+          const reason = data.honeypotReason as string | undefined
+
+          if (!simulationSuccess && !isHp) continue // couldn't simulate, skip
+
+          const key = addr.toLowerCase()
+          const prev = result.get(key)
+          const flags = [...(prev?.flags || [])]
+          let riskLevel: TokenRisk['riskLevel'] = prev?.riskLevel || 'safe'
+          const bump = (level: TokenRisk['riskLevel']) => {
+            const order = ['safe', 'low', 'medium', 'high']
+            if (order.indexOf(level) > order.indexOf(riskLevel)) riskLevel = level
+          }
+
+          if (isHp) {
+            flags.push(reason ? `Honeypot: ${reason}` : 'Honeypot (honeypot.is)')
+            bump('high')
+          }
+          if (sellTax > 10) { flags.push(`Sell tax ${sellTax}% (sim)`); bump('medium') }
+          else if (sellTax > 5) { flags.push(`Sell tax ${sellTax}% (sim)`); bump('low') }
+          if (buyTax > 10) { flags.push(`Buy tax ${buyTax}% (sim)`); bump('medium') }
+
+          if (flags.length > (prev?.flags.length || 0)) {
+            result.set(key, {
+              isSpam: isHp || riskLevel === 'high',
+              isHoneypot: prev?.isHoneypot || isHp,
+              riskLevel,
+              flags: [...new Set(flags)],
+            })
+          }
+        } catch (e) {
+          // honeypot.is is best-effort
+        }
+      }
+    }
+
     return result
   }
 
@@ -1886,93 +1939,58 @@ export default function RelaySwap() {
 
       console.log(`Executing ${transactions.length} batch swap transactions...`)
       toast.info(`Submitting ${transactions.length} transaction(s)...`)
-      
-      // Execute transactions sequentially and wait for each to complete
-      let successCount = 0
+
+      // Use wagmi/actions imperative API — the hook mutation cannot be called
+      // sequentially in a loop reliably (single mutation instance resets state)
+      const { sendTransaction: sendTx, waitForTransactionReceipt } = await import('wagmi/actions')
+      const { wagmiConfig } = await import('@/lib/blockchain/wagmi')
+
       let confirmedCount = 0
-      const failedTxs: string[] = []
-      const submittedHashes: string[] = []
-      
+      const failedTxs: number[] = []
+
       for (let i = 0; i < transactions.length; i++) {
         const tx = transactions[i]
-        console.log(`Executing transaction ${i + 1}/${transactions.length}`)
-        
+        console.log(`Executing transaction ${i + 1}/${transactions.length}`, tx)
         try {
-          // Submit transaction and get hash
-          const hash = await new Promise<string>((resolve, reject) => {
-            sendTransaction(tx, {
-              onSuccess: (hash) => {
-                console.log(`Transaction ${i + 1} submitted:`, hash)
-                successCount++
-                resolve(hash)
-              },
-              onError: (error) => {
-                console.error(`Transaction ${i + 1} failed:`, error)
-                failedTxs.push(`Transaction ${i + 1}`)
-                reject(error)
-              }
-            })
+          const hash = await sendTx(wagmiConfig, {
+            to: tx.to,
+            data: tx.data,
+            value: tx.value,
+            ...(tx.maxFeePerGas && { maxFeePerGas: tx.maxFeePerGas }),
+            ...(tx.maxPriorityFeePerGas && { maxPriorityFeePerGas: tx.maxPriorityFeePerGas }),
           })
-          
-          submittedHashes.push(hash)
-          toast.info(`Transaction ${i + 1}/${transactions.length} submitted, waiting for confirmation...`)
-          
-          // Wait a bit between transactions
-          if (i < transactions.length - 1) {
-            await new Promise(resolve => setTimeout(resolve, 2000))
-          }
+          console.log(`Transaction ${i + 1} submitted:`, hash)
+          toast.info(`Transaction ${i + 1}/${transactions.length} submitted, confirming...`)
+
+          await waitForTransactionReceipt(wagmiConfig, { hash })
+          confirmedCount++
+          console.log(`Transaction ${i + 1} confirmed`)
+          toast.success(`Transaction ${i + 1}/${transactions.length} confirmed`)
         } catch (error) {
-          console.error(`Failed to execute transaction ${i + 1}:`, error)
-          // Continue with next transaction even if one fails
-        }
-      }
-
-      // Wait for all submitted transactions to be confirmed
-      if (submittedHashes.length > 0) {
-        toast.info(`Waiting for ${submittedHashes.length} transaction(s) to confirm...`)
-        
-        for (let i = 0; i < submittedHashes.length; i++) {
-          try {
-            // Wait for transaction receipt
-            const { waitForTransactionReceipt } = await import('wagmi/actions')
-            const { wagmiConfig } = await import('@/lib/blockchain/wagmi')
-            
-            await waitForTransactionReceipt(wagmiConfig, {
-              hash: submittedHashes[i] as `0x${string}`,
-            })
-            
-            confirmedCount++
-            console.log(`Transaction ${i + 1} confirmed`)
-          } catch (error) {
-            console.error(`Transaction ${i + 1} confirmation failed:`, error)
+          console.error(`Transaction ${i + 1} failed:`, error)
+          failedTxs.push(i + 1)
+          // User rejected — stop the whole batch
+          const msg = error instanceof Error ? error.message.toLowerCase() : ''
+          if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {
+            toast.error('Transaction rejected by user')
+            break
           }
+          toast.error(`Transaction ${i + 1} failed — continuing...`)
         }
       }
 
-      // Only update streak and clear tokens if at least one transaction confirmed
       if (confirmedCount > 0) {
-        toast.success(`Batch swap completed: ${confirmedCount}/${transactions.length} transaction(s) confirmed`)
+        toast.success(`Batch swap completed: ${confirmedCount}/${transactions.length} confirmed`)
         updateUserStreak()
         setBatchTokens([])
         setBatchQuote(null)
-        
-        // Refetch balances to show updated amounts
         refetchBalances()
-        
-        // Reload batch wallet tokens to update the list
-        if (batchChain) {
-          setTimeout(() => {
-            loadBatchWalletTokens()
-          }, 2000)
-        }
-      } else if (successCount > 0) {
-        toast.warning(`${successCount} transaction(s) submitted but none confirmed yet`)
+        if (batchChain) setTimeout(() => loadBatchWalletTokens(), 2000)
       } else {
-        toast.error('All batch swap transactions failed')
+        toast.error('All batch transactions failed')
       }
-      
-      if (failedTxs.length > 0) {
-        toast.warning(`${failedTxs.length} transaction(s) failed to submit`)
+      if (failedTxs.length > 0 && confirmedCount > 0) {
+        toast.warning(`${failedTxs.length} transaction(s) failed: #${failedTxs.join(', #')}`)
       }
     } catch (error) {
       console.error('Batch swap failed:', error)

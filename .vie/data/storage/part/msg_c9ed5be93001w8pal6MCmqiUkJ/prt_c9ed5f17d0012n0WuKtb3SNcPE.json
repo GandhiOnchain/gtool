@@ -1,0 +1,11 @@
+{
+  "id": "prt_c9ed5f17d0012n0WuKtb3SNcPE",
+  "messageID": "msg_c9ed5be93001w8pal6MCmqiUkJ",
+  "sessionID": "ses_36508ab06ffeFm8HXnVC3yjmH2",
+  "type": "text",
+  "text": "Now I can see the root cause of the batch execution failure. The `sendTransaction` from wagmi is a **fire-and-forget** hook — wrapping it in a `Promise` with `onSuccess`/`onError` callbacks is unreliable because wagmi's mutation callbacks don't always fire in the expected order when called sequentially in a loop. The second `sendTransaction` call while the first is still pending will often fail or be ignored because wagmi's `useSendTransaction` is a single mutation instance — calling it again before the previous resolves resets the state.\n\nThe fix: use `wagmi/actions` `sendTransaction` (the imperative action version) instead of the hook's mutation, which properly returns a promise.",
+  "time": {
+    "start": 1772191353149,
+    "end": 1772191353149
+  }
+}
