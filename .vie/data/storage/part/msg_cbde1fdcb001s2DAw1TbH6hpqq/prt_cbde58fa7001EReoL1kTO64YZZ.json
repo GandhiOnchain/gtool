@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde58fa7001EReoL1kTO64YZZ",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_018NYd7itWFdemNSveiL2dTt",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1490,
+      "limit": 75
+    },
+    "output": "<file>\n01491|       const userAddress = fromVMType === 'svm' ? solanaAddress : address\n01492|       \n01493|       if (!userAddress) {\n01494|         toast.error(`Please connect your ${fromVMType === 'svm' ? 'Solana' : 'EVM'} wallet`)\n01495|         setIsLoadingQuote(false)\n01496|         return\n01497|       }\n01498| \n01499|       if (isCrossVM && toVMType === 'svm' && !solanaAddress) {\n01500|         toast.error('Farcaster Solana wallet not connected. Cannot get quote for Solana destination.')\n01501|         setIsLoadingQuote(false)\n01502|         return\n01503|       }\n01504|       \n01505|       const crossVMRecipient = isCrossVM\n01506|         ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined\n01507|         : undefined\n01508| \n01509|       const quoteParams = {\n01510|         user: userAddress,\n01511|         originChainId: fromChain.id,\n01512|         destinationChainId: toChain.id,\n01513|         originCurrency: fromToken.address,\n01514|         destinationCurrency: toToken.address,\n01515|         amount: amountInWei.toString(),\n01516|         tradeType: 'EXACT_INPUT' as const,\n01517|         slippageTolerance: slippageBps,\n01518|         recipient: crossVMRecipient,\n01519|         includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n01520|         useExternalLiquidity: isCrossVM ? true : undefined,\n01521|       }\n01522|       \n01523|       const quoteData = await relayAPI.getQuote(quoteParams)\n01524|       \n01525|       setQuote(quoteData)\n01526|       if (quoteData.details.currencyOut) {\n01527|         const outFormatted = quoteData.details.currencyOut.amountFormatted\n01528|         setToAmount(outFormatted)\n01529|         if (toTokenPrice > 0 && outFormatted) {\n01530|           setToUsdAmount((parseFloat(outFormatted) * toTokenPrice).toFixed(2))\n01531|         }\n01532|       }\n01533|     } catch (error) {\n01534|       console.error('Failed to fetch quote:', error)\n01535|       \n01536|       // Parse error message to make it user-friendly\n01537|       let errorMessage = 'Failed to get quote'\n01538|       if (error instanceof Error) {\n01539|         const msg = error.message.toLowerCase()\n01540|         if (msg.includes('amount_too_low') || msg.includes('amount must be greater')) {\n01541|           errorMessage = 'Amount is too low. Please enter a larger amount.'\n01542|         } else if (msg.includes('insufficient')) {\n01543|           errorMessage = 'Insufficient balance for this swap.'\n01544|         } else if (msg.includes('slippage')) {\n01545|           errorMessage = 'Slippage tolerance too low. Try increasing it.'\n01546|         } else if (msg.includes('liquidity')) {\n01547|           errorMessage = 'Not enough liquidity for this swap.'\n01548|         } else if (msg.includes('network') || msg.includes('timeout')) {\n01549|           errorMessage = 'Network error. Please try again.'\n01550|         } else {\n01551|           errorMessage = 'Unable to get quote. Please try a different amount or token.'\n01552|         }\n01553|       }\n01554|       \n01555|       toast.error(errorMessage)\n01556|       setQuote(null)\n01557|     } finally {\n01558|       setIsLoadingQuote(false)\n01559|     }\n01560|   }\n01561| \n01562|   const executeSwap = async () => {\n01563|     if (!quote || !quote.steps || quote.steps.length === 0) {\n01564|       toast.error('No quote available')\n01565|       return\n\n(File has more lines. Use 'offset' parameter to read beyond line 1565)\n</file>",
+    "metadata": {
+      "preview": "      const userAddress = fromVMType === 'svm' ? solanaAddress : address\n      \n      if (!userAddress) {\n        toast.error(`Please connect your ${fromVMType === 'svm' ? 'Solana' : 'EVM'} wallet`)\n        setIsLoadingQuote(false)\n        return\n      }\n\n      if (isCrossVM && toVMType === 'svm' && !solanaAddress) {\n        toast.error('Farcaster Solana wallet not connected. Cannot get quote for Solana destination.')\n        setIsLoadingQuote(false)\n        return\n      }\n      \n      const crossVMRecipient = isCrossVM\n        ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined\n        : undefined\n\n      const quoteParams = {\n        user: userAddress,"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712464669,
+      "end": 1772712464670
+    }
+  }
+}

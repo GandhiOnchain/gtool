@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde410cc002auD3JitqtKhhFg",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now add the official hooks after the wagmi hooks. Find the right place — after `useWalletClient`:",
+  "time": {
+    "start": 1772712369008,
+    "end": 1772712369008
+  }
+}

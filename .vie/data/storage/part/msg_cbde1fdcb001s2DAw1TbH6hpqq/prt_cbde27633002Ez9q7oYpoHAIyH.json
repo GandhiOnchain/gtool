@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde27633002Ez9q7oYpoHAIyH",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "`@relayprotocol/relay-kit-hooks` is not installed. Also need `@relayprotocol/relay-sdk` for `createClient`/`getClient`. Let me also check what the SDK's `createClient` requires before installing:",
+  "time": {
+    "start": 1772712263554,
+    "end": 1772712263554
+  }
+}

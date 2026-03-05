@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde48c5d001VHrkDyEYuDT2pa",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now remove `loadChains()` from the init effect and replace with chains-driven effect:",
+  "time": {
+    "start": 1772712401051,
+    "end": 1772712401051
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde42a1c001HDaQzW3Bu69ol3",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now add the official hooks after the state declarations. I'll add `useTokenPrice`, `useTokenList` (for from/to currencies), and `useQuote` after the existing state:",
+  "time": {
+    "start": 1772712374435,
+    "end": 1772712374435
+  }
+}

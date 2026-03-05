@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde6b86e001ZkVYx1hRP75LIt",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now remove the `loadChains` function since it's replaced by `useRelayChains`:",
+  "time": {
+    "start": 1772712542592,
+    "end": 1772712542592
+  }
+}

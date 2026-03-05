@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde4e384001ZgEnwDrYPXDB4n",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01R9L27ZjFW7TpZxNZShx1CH",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 480,
+      "limit": 80
+    },
+    "output": "<file>\n00481|     if (batchChain) {\n00482|       const vmType = batchChain.vmType || 'evm'\n00483|       const hasRequiredWallet = (vmType === 'svm' && solanaAddress) ||\n00484|                                 ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)\n00485|       if (hasRequiredWallet) {\n00486|         loadBatchWalletTokens()\n00487|       }\n00488|     }\n00489|   }, [address, batchChain, isConnected, solanaAddress])\n00490| \n00491|   // Fetch batch quote when batch tokens or destination changes\n00492|   useEffect(() => {\n00493|     const toVMType = batchToChain?.vmType || 'evm'\n00494|     const hasDestWallet = toVMType === 'svm' ? !!solanaAddress : true\n00495|     const selectedBatch = batchTokens.filter(bt => bt.selected !== false)\n00496|     if (selectedBatch.length > 0 && batchToToken && batchToChain && batchChain && address && hasDestWallet) {\n00497|       const debounce = setTimeout(() => {\n00498|         fetchBatchQuote()\n00499|       }, 500)\n00500|       return () => clearTimeout(debounce)\n00501|     } else {\n00502|       setBatchQuote(null)\n00503|     }\n00504|   }, [batchTokens, batchToToken, batchToChain, batchChain, address, solanaAddress])\n00505| \n00506|   // Load approvals when revoke chain changes\n00507|   useEffect(() => {\n00508|     if (revokeChain && address && isConnected) {\n00509|       loadApprovals()\n00510|     } else {\n00511|       setApprovals([])\n00512|     }\n00513|   }, [revokeChain, address, isConnected])\n00514| \n00515| \n00516| \n00517|   // External token search when contract address is pasted\n00518|   useEffect(() => {\n00519|     const searchExternally = async () => {\n00520|       // Check if the search term looks like a contract address (0x followed by 40 hex chars)\n00521|       const isContractAddress = /^0x[a-fA-F0-9]{40}$/.test(tokenSearchTerm.trim())\n00522|       \n00523|       if (isContractAddress && tokenSearchTerm.trim().length === 42) {\n00524|         setIsSearchingExternal(true)\n00525|         try {\n00526|           const chainId = selectingFor === 'from' \n00527|             ? fromChain?.id \n00528|             : selectingFor === 'to' \n00529|             ? toChain?.id \n00530|             : batchChain?.id\n00531|           \n00532|           if (!chainId) {\n00533|             console.log('No chain selected for external search')\n00534|             setIsSearchingExternal(false)\n00535|             return\n00536|           }\n00537|           \n00538|           console.log('Searching externally for token:', tokenSearchTerm, 'on chain:', chainId)\n00539|           \n00540|           const results = await relayAPI.getCurrencies({\n00541|             address: tokenSearchTerm.trim(),\n00542|             chainIds: [chainId],\n00543|             useExternalSearch: true,\n00544|             limit: 10,\n00545|           })\n00546|           \n00547|           console.log('External search results:', results)\n00548|           setExternalSearchResults(results)\n00549|         } catch (error) {\n00550|           console.error('External search failed:', error)\n00551|           setExternalSearchResults([])\n00552|         } finally {\n00553|           setIsSearchingExternal(false)\n00554|         }\n00555|       } else {\n00556|         setExternalSearchResults([])\n00557|       }\n00558|     }\n00559|     \n00560|     const debounce = setTimeout(searchExternally, 300)\n\n(File has more lines. Use 'offset' parameter to read beyond line 560)\n</file>",
+    "metadata": {
+      "preview": "    if (batchChain) {\n      const vmType = batchChain.vmType || 'evm'\n      const hasRequiredWallet = (vmType === 'svm' && solanaAddress) ||\n                                ((vmType === 'evm' || vmType === 'hypevm') && address && isConnected)\n      if (hasRequiredWallet) {\n        loadBatchWalletTokens()\n      }\n    }\n  }, [address, batchChain, isConnected, solanaAddress])\n\n  // Fetch batch quote when batch tokens or destination changes\n  useEffect(() => {\n    const toVMType = batchToChain?.vmType || 'evm'\n    const hasDestWallet = toVMType === 'svm' ? !!solanaAddress : true\n    const selectedBatch = batchTokens.filter(bt => bt.selected !== false)\n    if (selectedBatch.length > 0 && batchToToken && batchToChain && batchChain && address && hasDestWallet) {\n      const debounce = setTimeout(() => {\n        fetchBatchQuote()\n      }, 500)\n      return () => clearTimeout(debounce)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712420668,
+      "end": 1772712420669
+    }
+  }
+}

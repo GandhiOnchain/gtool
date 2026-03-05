@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde36503001UZ9h4PdKFY0YWv",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now I also need to check the wagmi adapter since `executeQuote` needs a wallet:",
+  "time": {
+    "start": 1772712323475,
+    "end": 1772712323475
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "id": "prt_cbde95f1c0010gtnJe36gC93Uu",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_bdrk_01FXDCDLx5CVpMsvc2fT2wwG",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Read all Relay hook docs",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Install packages and initialize client",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Wire up all official hooks",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Fix TypeScript errors from diagnostics",
+          "status": "completed",
+          "priority": "high",
+          "id": "4"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Read all Relay hook docs\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Install packages and initialize client\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Wire up all official hooks\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Fix TypeScript errors from diagnostics\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"4\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Read all Relay hook docs",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Install packages and initialize client",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Wire up all official hooks",
+          "status": "completed",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Fix TypeScript errors from diagnostics",
+          "status": "completed",
+          "priority": "high",
+          "id": "4"
+        }
+      ]
+    },
+    "title": "0 todos",
+    "time": {
+      "start": 1772712714161,
+      "end": 1772712714162
+    }
+  }
+}

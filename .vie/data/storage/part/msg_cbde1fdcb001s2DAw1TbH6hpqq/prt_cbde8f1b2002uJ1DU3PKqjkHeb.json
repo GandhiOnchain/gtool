@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde8f1b2002uJ1DU3PKqjkHeb",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "That's fine — `outFormatted` is checked for truthiness before `setToAmount`. The error at line 604 is different. Let me check:",
+  "time": {
+    "start": 1772712687819,
+    "end": 1772712687819
+  }
+}

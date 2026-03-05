@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde562ae001VIJCg7Eb06HvLw",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01URaKXZh4uXfhSnnCuRFFTZ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1760,
+      "limit": 30
+    },
+    "output": "<file>\n01761| \n01762|         if (isApprove) {\n01763|           // Approval must be confirmed on-chain before the deposit/swap can proceed\n01764|           toast.info('Approving token spend...')\n01765|           try {\n01766|             const approveHash = await sendTxAction(wagmiConfig, txParams)\n01767|             console.log('Approval tx submitted:', approveHash)\n01768|             toast.info('Waiting for approval confirmation...')\n01769|             await waitForReceipt(wagmiConfig, { hash: approveHash })\n01770|             console.log('Approval confirmed')\n01771|             toast.success('Token approved')\n01772|             // Brief pause so the allowance propagates before the next step\n01773|             await new Promise(resolve => setTimeout(resolve, 1500))\n01774|           } catch (approveErr) {\n01775|             console.error('Approval failed:', approveErr)\n01776|             const msg = approveErr instanceof Error ? approveErr.message.toLowerCase() : ''\n01777|             if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {\n01778|               toast.error('Approval rejected')\n01779|             } else {\n01780|               toast.error('Token approval failed. Please try again.')\n01781|             }\n01782|             setIsSwapping(false)\n01783|             return\n01784|           }\n01785|         } else {\n01786|           // Main swap/deposit step — use the reactive sendTransaction so the useEffect\n01787|           // can monitor status via requestId after confirmation\n01788|           if (isLast && step.requestId) {\n01789|             mainRequestId = step.requestId\n01790|             mainChainId = stepData.chainId\n\n(File has more lines. Use 'offset' parameter to read beyond line 1790)\n</file>",
+    "metadata": {
+      "preview": "\n        if (isApprove) {\n          // Approval must be confirmed on-chain before the deposit/swap can proceed\n          toast.info('Approving token spend...')\n          try {\n            const approveHash = await sendTxAction(wagmiConfig, txParams)\n            console.log('Approval tx submitted:', approveHash)\n            toast.info('Waiting for approval confirmation...')\n            await waitForReceipt(wagmiConfig, { hash: approveHash })\n            console.log('Approval confirmed')\n            toast.success('Token approved')\n            // Brief pause so the allowance propagates before the next step\n            await new Promise(resolve => setTimeout(resolve, 1500))\n          } catch (approveErr) {\n            console.error('Approval failed:', approveErr)\n            const msg = approveErr instanceof Error ? approveErr.message.toLowerCase() : ''\n            if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {\n              toast.error('Approval rejected')\n            } else {\n              toast.error('Token approval failed. Please try again.')"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712453502,
+      "end": 1772712453503
+    }
+  }
+}

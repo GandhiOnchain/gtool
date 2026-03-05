@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde3f5010019gmYsGouNlxAh8",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_011Dm2E43pQHZNkrkfVDqwBZ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 258,
+      "limit": 30
+    },
+    "output": "<file>\n00259|   const [batchChain, setBatchChain] = useState<RelayChain | null>(null)\n00260|   const [batchToChain, setBatchToChain] = useState<RelayChain | null>(null)\n00261|   const [batchToToken, setBatchToToken] = useState<RelayCurrency | null>(null)\n00262|   const [batchToCurrencies, setBatchToCurrencies] = useState<RelayCurrency[]>([])\n00263|   const [recipientAddress, setRecipientAddress] = useState('')\n00264|   const [fromTokenPrice, setFromTokenPrice] = useState<number>(0)\n00265|   const [toTokenPrice, setToTokenPrice] = useState<number>(0)\n00266|   const [currentSwapRequestId, setCurrentSwapRequestId] = useState<string | null>(null)\n00267|   const [currentSwapChainId, setCurrentSwapChainId] = useState<number | null>(null)\n00268|   const [solanaAddress, setSolanaAddress] = useState<string | null>(null)\n00269|   const [customBalances, setCustomBalances] = useState<{\n00270|     from?: { value: bigint; decimals: number; symbol: string }\n00271|     to?: { value: bigint; decimals: number; symbol: string }\n00272|   }>({})\n00273|   const [inputMode, setInputMode] = useState<'token' | 'usd'>('token')\n00274|   const [toInputMode, setToInputMode] = useState<'token' | 'usd'>('token')\n00275|   const [usdAmount, setUsdAmount] = useState('')\n00276|   const [toUsdAmount, setToUsdAmount] = useState('')\n00277|   const [activeTab, setActiveTab] = useState('swap')\n00278|   const [batchQuote, setBatchQuote] = useState<RelayQuote | null>(null)\n00279|   const [isLoadingBatchQuote, setIsLoadingBatchQuote] = useState(false)\n00280|   const [isSecurityScanning, setIsSecurityScanning] = useState(false)\n00281|   const [externalSearchResults, setExternalSearchResults] = useState<RelayCurrency[]>([])\n00282|   const [isSearchingExternal, setIsSearchingExternal] = useState(false)\n00283|   const [revokeChain, setRevokeChain] = useState<RelayChain | null>(null)\n00284|   const [approvals, setApprovals] = useState<Array<{\n00285|     token: RelayCurrency\n00286|     spender: string\n00287|     spenderName?: string\n00288|     allowance: string\n\n(File has more lines. Use 'offset' parameter to read beyond line 288)\n</file>",
+    "metadata": {
+      "preview": "  const [batchChain, setBatchChain] = useState<RelayChain | null>(null)\n  const [batchToChain, setBatchToChain] = useState<RelayChain | null>(null)\n  const [batchToToken, setBatchToToken] = useState<RelayCurrency | null>(null)\n  const [batchToCurrencies, setBatchToCurrencies] = useState<RelayCurrency[]>([])\n  const [recipientAddress, setRecipientAddress] = useState('')\n  const [fromTokenPrice, setFromTokenPrice] = useState<number>(0)\n  const [toTokenPrice, setToTokenPrice] = useState<number>(0)\n  const [currentSwapRequestId, setCurrentSwapRequestId] = useState<string | null>(null)\n  const [currentSwapChainId, setCurrentSwapChainId] = useState<number | null>(null)\n  const [solanaAddress, setSolanaAddress] = useState<string | null>(null)\n  const [customBalances, setCustomBalances] = useState<{\n    from?: { value: bigint; decimals: number; symbol: string }\n    to?: { value: bigint; decimals: number; symbol: string }\n  }>({})\n  const [inputMode, setInputMode] = useState<'token' | 'usd'>('token')\n  const [toInputMode, setToInputMode] = useState<'token' | 'usd'>('token')\n  const [usdAmount, setUsdAmount] = useState('')\n  const [toUsdAmount, setToUsdAmount] = useState('')\n  const [activeTab, setActiveTab] = useState('swap')\n  const [batchQuote, setBatchQuote] = useState<RelayQuote | null>(null)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712359333,
+      "end": 1772712359335
+    }
+  }
+}

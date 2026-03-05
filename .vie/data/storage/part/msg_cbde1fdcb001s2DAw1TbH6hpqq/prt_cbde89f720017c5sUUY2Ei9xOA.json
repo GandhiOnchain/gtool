@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde89f720017c5sUUY2Ei9xOA",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01R1rmt3oxYnmT3WcFUZewo1",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2920,
+      "limit": 50
+    },
+    "output": "<file>\n02921|                   <div className=\"space-y-2\">\n02922|                     <div className=\"text-xs font-medium\">\n02923|                       Recipient Address ({toChain.displayName}) <span className=\"text-destructive\">*</span>\n02924|                     </div>\n02925|                     <Input\n02926|                       placeholder={`Enter ${toChain.displayName} address`}\n02927|                       value={recipientAddress}\n02928|                       onChange={(e) => setRecipientAddress(e.target.value)}\n02929|                       className=\"h-8 text-xs\"\n02930|                     />\n02931|                   </div>\n02932|                 </Card>\n02933|               )\n02934|             })()}\n02935| \n02936|             {quote && (\n02937|               <Card className=\"p-3 bg-card\">\n02938|                 <div className=\"space-y-1.5 text-xs\">\n02939|                   <div className=\"flex justify-between items-center\">\n02940|                     <span className=\"text-muted-foreground\">Rate</span>\n02941|                     <span className=\"font-mono\">{quote.details.rate || '0'}</span>\n02942|                   </div>\n02943|                   <div className=\"flex justify-between items-center\">\n02944|                     <span className=\"text-muted-foreground\">Gas</span>\n02945|                     <span className=\"font-mono\">${quote.fees.gas?.amountUsd || '0'}</span>\n02946|                   </div>\n02947|                   <div className=\"flex justify-between items-center\">\n02948|                     <span className=\"text-muted-foreground\">Relayer</span>\n02949|                     <span className=\"font-mono\">${quote.fees.relayer?.amountUsd || '0'}</span>\n02950|                   </div>\n02951|                   <div className=\"flex justify-between items-center\">\n02952|                     <span className=\"text-muted-foreground\">Time</span>\n02953|                     <span className=\"font-mono\">{quote.details.timeEstimate || 0}s</span>\n02954|                   </div>\n02955|                   {quote.details.totalImpact && (\n02956|                     <div className=\"flex justify-between items-center\">\n02957|                       <span className=\"text-muted-foreground\">Impact</span>\n02958|                       <span className={`font-mono ${parseFloat(quote.details.totalImpact.percent) < 0 ? 'text-destructive' : ''}`}>\n02959|                         {quote.details.totalImpact.percent}\n02960|                       </span>\n02961|                     </div>\n02962|                   )}\n02963|                 </div>\n02964|                 {quote.details.totalImpact && Math.abs(parseFloat(quote.details.totalImpact.percent)) > 5 && (\n02965|                   <div className=\"mt-2 p-2 bg-destructive/10 border border-destructive/20 rounded text-xs text-destructive\">\n02966|                     High price impact detected. You may receive significantly less than expected.\n02967|                   </div>\n02968|                 )}\n02969|                 {parseFloat(slippage) > 1 && (\n02970|                   <div className=\"mt-2 p-2 bg-destructive/10 border border-destructive/20 rounded text-xs text-destructive\">\n\n(File has more lines. Use 'offset' parameter to read beyond line 2970)\n</file>",
+    "metadata": {
+      "preview": "                  <div className=\"space-y-2\">\n                    <div className=\"text-xs font-medium\">\n                      Recipient Address ({toChain.displayName}) <span className=\"text-destructive\">*</span>\n                    </div>\n                    <Input\n                      placeholder={`Enter ${toChain.displayName} address`}\n                      value={recipientAddress}\n                      onChange={(e) => setRecipientAddress(e.target.value)}\n                      className=\"h-8 text-xs\"\n                    />\n                  </div>\n                </Card>\n              )\n            })()}\n\n            {quote && (\n              <Card className=\"p-3 bg-card\">\n                <div className=\"space-y-1.5 text-xs\">\n                  <div className=\"flex justify-between items-center\">\n                    <span className=\"text-muted-foreground\">Rate</span>"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712665345,
+      "end": 1772712665347
+    }
+  }
+}

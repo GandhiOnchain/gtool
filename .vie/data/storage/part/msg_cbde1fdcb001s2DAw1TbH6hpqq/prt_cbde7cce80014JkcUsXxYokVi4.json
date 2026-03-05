@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbde7cce80014JkcUsXxYokVi4",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01PiKVKxbu9AuXt5hvEAEMmk",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_types/src/",
+      "description": "List type source files"
+    },
+    "output": "fetcher.d.ts\nfetcher.d.ts.map\nhooks\nindex.d.ts\nindex.d.ts.map\n",
+    "metadata": {
+      "output": "fetcher.d.ts\nfetcher.d.ts.map\nhooks\nindex.d.ts\nindex.d.ts.map\n",
+      "exit": 0,
+      "description": "List type source files"
+    },
+    "title": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_types/src/",
+    "time": {
+      "start": 1772712611240,
+      "end": 1772712611241
+    }
+  }
+}

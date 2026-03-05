@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde8db4d001t65LksY35M5ZfW",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now fix the `setToAmount` call with `string | undefined`:",
+  "time": {
+    "start": 1772712681924,
+    "end": 1772712681924
+  }
+}

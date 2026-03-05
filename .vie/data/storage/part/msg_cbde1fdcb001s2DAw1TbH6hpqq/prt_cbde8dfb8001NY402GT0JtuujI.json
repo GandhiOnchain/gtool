@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde8dfb8001NY402GT0JtuujI",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01TXmFkcHPpX7oScEednboY5",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 600,
+      "limit": 10
+    },
+    "output": "<file>\n00601|     }\n00602|     \n00603|     loadBatchChainCurrencies()\n00604|   }, [batchChain])\n00605| \n00606|   // Sync toAmount from quote\n00607|   useEffect(() => {\n00608|     const outFormatted = quote?.details?.currencyOut?.amountFormatted\n00609|     if (outFormatted) {\n00610|       setToAmount(outFormatted)\n\n(File has more lines. Use 'offset' parameter to read beyond line 610)\n</file>",
+    "metadata": {
+      "preview": "    }\n    \n    loadBatchChainCurrencies()\n  }, [batchChain])\n\n  // Sync toAmount from quote\n  useEffect(() => {\n    const outFormatted = quote?.details?.currencyOut?.amountFormatted\n    if (outFormatted) {\n      setToAmount(outFormatted)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712681773,
+      "end": 1772712681774
+    }
+  }
+}

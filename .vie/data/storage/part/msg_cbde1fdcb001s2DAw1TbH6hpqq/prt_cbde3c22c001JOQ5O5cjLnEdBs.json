@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde3c22c001JOQ5O5cjLnEdBs",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now replace `loadChains` with `useRelayChains`. First find the state declarations and the `loadChains` call:",
+  "time": {
+    "start": 1772712350345,
+    "end": 1772712350345
+  }
+}

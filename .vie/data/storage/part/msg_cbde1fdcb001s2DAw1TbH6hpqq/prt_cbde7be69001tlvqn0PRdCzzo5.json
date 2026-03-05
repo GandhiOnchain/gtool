@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbde7be69001tlvqn0PRdCzzo5",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01Eg76UuiAoV6Lx4EG5ERP5S",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_types/",
+      "description": "List type definition files"
+    },
+    "output": "src\ntsconfig.build.tsbuildinfo\n",
+    "metadata": {
+      "output": "src\ntsconfig.build.tsbuildinfo\n",
+      "exit": 0,
+      "description": "List type definition files"
+    },
+    "title": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_types/",
+    "time": {
+      "start": 1772712607626,
+      "end": 1772712607627
+    }
+  }
+}

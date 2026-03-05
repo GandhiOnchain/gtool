@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbde913a6001df447HI70Krp7h",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_014sBqp6E4LCBXivjmuAypoE",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"setCurrentSwapRequestId\\|setToAmount\" src/pages/RelaySwap.tsx | head -20",
+      "description": "Find setCurrentSwapRequestId and setToAmount calls"
+    },
+    "output": "237:  const [toAmount, setToAmount] = useState('')\n264:  const [currentSwapRequestId, setCurrentSwapRequestId] = useState<string | null>(null)\n610:      setToAmount(outFormatted)\n615:      setToAmount('')\n629:      setToAmount('')\n632:      setCurrentSwapRequestId(null)\n638:      setCurrentSwapRequestId(null)\n643:      setCurrentSwapRequestId(null)\n1485:              setCurrentSwapRequestId(requestId)\n2391:    setToAmount(tempAmount)\n2840:                            setToAmount(value)\n2859:                              setToAmount(tokenAmt)\n2865:                              setToAmount('')\n",
+    "metadata": {
+      "output": "237:  const [toAmount, setToAmount] = useState('')\n264:  const [currentSwapRequestId, setCurrentSwapRequestId] = useState<string | null>(null)\n610:      setToAmount(outFormatted)\n615:      setToAmount('')\n629:      setToAmount('')\n632:      setCurrentSwapRequestId(null)\n638:      setCurrentSwapRequestId(null)\n643:      setCurrentSwapRequestId(null)\n1485:              setCurrentSwapRequestId(requestId)\n2391:    setToAmount(tempAmount)\n2840:                            setToAmount(value)\n2859:                              setToAmount(tokenAmt)\n2865:                              setToAmount('')\n",
+      "exit": 0,
+      "description": "Find setCurrentSwapRequestId and setToAmount calls"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"setCurrentSwapRequestId\\|setToAmount\" src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772712695286,
+      "end": 1772712695291
+    }
+  }
+}

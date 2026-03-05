@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde47659002AVFYcR4i6PBnFN",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now handle the execution status effect — replace the manual `monitorSwapStatus` polling with a `useEffect` on `executionStatus`:",
+  "time": {
+    "start": 1772712393801,
+    "end": 1772712393801
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde4a377001LyX8gystTnGro3",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now find and update the `toAmount` sync effect — it currently reads from `quote.details.currencyOut`. The `useQuote` hook returns the same shape, so just update the reference:",
+  "time": {
+    "start": 1772712405836,
+    "end": 1772712405836
+  }
+}

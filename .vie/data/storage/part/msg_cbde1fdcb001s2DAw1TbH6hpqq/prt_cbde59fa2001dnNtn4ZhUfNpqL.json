@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde59fa2001dnNtn4ZhUfNpqL",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01M2MqbimwnX48Rh75Mm61Ej",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1455,
+      "limit": 40
+    },
+    "output": "<file>\n01456|       toast.error('Failed to search token')\n01457|     }\n01458|   }\n01459| \n01460|   const fetchQuote = async () => {\n01461|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) return\n01462|     const fromVMType_ = fromChain.vmType || 'evm'\n01463|     if (fromVMType_ === 'svm' ? !solanaAddress : !address) return\n01464| \n01465|     if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n01466|       setQuote(null)\n01467|       setToAmount('')\n01468|       setToUsdAmount('')\n01469|       return\n01470|     }\n01471| \n01472|     if (!quoteRateLimiter.check('quote')) {\n01473|       toast.error('Too many quote requests. Please wait a moment.')\n01474|       return\n01475|     }\n01476| \n01477|     setIsLoadingQuote(true)\n01478|     try {\n01479|       const amountInWei = parseUnits(fromAmount, fromToken.decimals)\n01480|       const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()\n01481|       \n01482|       const includedSources = Object.entries(enabledSources)\n01483|         .filter(([_, enabled]) => enabled)\n01484|         .map(([source]) => source)\n01485|       \n01486|       const fromVMType = fromChain.vmType || 'evm'\n01487|       const toVMType = toChain.vmType || 'evm'\n01488|       const isCrossVM = fromVMType !== toVMType\n01489|       \n01490|       // Use the appropriate address based on the origin chain type\n01491|       const userAddress = fromVMType === 'svm' ? solanaAddress : address\n01492|       \n01493|       if (!userAddress) {\n01494|         toast.error(`Please connect your ${fromVMType === 'svm' ? 'Solana' : 'EVM'} wallet`)\n01495|         setIsLoadingQuote(false)\n\n(File has more lines. Use 'offset' parameter to read beyond line 1495)\n</file>",
+    "metadata": {
+      "preview": "      toast.error('Failed to search token')\n    }\n  }\n\n  const fetchQuote = async () => {\n    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) return\n    const fromVMType_ = fromChain.vmType || 'evm'\n    if (fromVMType_ === 'svm' ? !solanaAddress : !address) return\n\n    if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n      setQuote(null)\n      setToAmount('')\n      setToUsdAmount('')\n      return\n    }\n\n    if (!quoteRateLimiter.check('quote')) {\n      toast.error('Too many quote requests. Please wait a moment.')\n      return\n    }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712468720,
+      "end": 1772712468721
+    }
+  }
+}

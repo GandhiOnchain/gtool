@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde47b510015eKVqkFiKanBeQ",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01XNK9karH7WyoDhkuvLEQe3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 380,
+      "limit": 50
+    },
+    "output": "<file>\n00381| \n00382|   // Detect Solana wallet via Farcaster SDK\n00383|   useEffect(() => {\n00384|     const detectSolanaWallet = async () => {\n00385|       try {\n00386|         const solanaProvider = await sdk.wallet.getSolanaProvider()\n00387|         if (solanaProvider) {\n00388|           const result = await solanaProvider.request({ method: 'connect' })\n00389|           if (result.publicKey) {\n00390|             console.log('Farcaster Solana wallet connected:', result.publicKey)\n00391|             setSolanaAddress(result.publicKey)\n00392|           }\n00393|         }\n00394|       } catch (error) {\n00395|         console.log('Farcaster Solana wallet not available:', error)\n00396|       }\n00397|     }\n00398| \n00399|     detectSolanaWallet()\n00400|   }, [])\n00401| \n00402|   useEffect(() => {\n00403|     loadChains()\n00404|     loadUserData()\n00405|     loadTrendingTokens()\n00406|     loadSwapSources()\n00407|   }, [])\n00408| \n00409|   useEffect(() => {\n00410|     if (chains.length > 0 && !batchChain) {\n00411|       const baseChain = chains.find(c => c.id === 8453) || chains[0]\n00412|       setBatchChain(baseChain)\n00413|     }\n00414|     if (chains.length > 0 && !batchToChain) {\n00415|       const baseChain = chains.find(c => c.id === 8453) || chains[0]\n00416|       setBatchToChain(baseChain)\n00417|     }\n00418|   }, [chains])\n00419| \n00420|   useEffect(() => {\n00421|     if (!batchToChain) return\n00422|     const loadBatchToCurrencies = async () => {\n00423|       try {\n00424|         const raw = await relayAPI.getCurrencies({ chainIds: [batchToChain.id], limit: 100 })\n00425|         const fetched = dedupCurrencies(raw)\n00426|         setBatchToCurrencies(fetched)\n00427|         if (!batchToToken || batchToToken.chainId !== batchToChain.id) {\n00428|           const native = fetched.find(c => c.metadata?.isNative || isNativeAddress(c.address))\n00429|           setBatchToToken(native || fetched[0] || null)\n00430|         }\n\n(File has more lines. Use 'offset' parameter to read beyond line 430)\n</file>",
+    "metadata": {
+      "preview": "\n  // Detect Solana wallet via Farcaster SDK\n  useEffect(() => {\n    const detectSolanaWallet = async () => {\n      try {\n        const solanaProvider = await sdk.wallet.getSolanaProvider()\n        if (solanaProvider) {\n          const result = await solanaProvider.request({ method: 'connect' })\n          if (result.publicKey) {\n            console.log('Farcaster Solana wallet connected:', result.publicKey)\n            setSolanaAddress(result.publicKey)\n          }\n        }\n      } catch (error) {\n        console.log('Farcaster Solana wallet not available:', error)\n      }\n    }\n\n    detectSolanaWallet()\n  }, [])"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712393745,
+      "end": 1772712393746
+    }
+  }
+}

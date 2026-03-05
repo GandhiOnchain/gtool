@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbde7b14e001LniHLnZTqMgDXR",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01V5HbjK88VdQvDVRbLZjiEB",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_types/index.d.ts 2>/dev/null | head -100",
+      "description": "Check relay-kit-hooks type definitions"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Check relay-kit-hooks type definitions"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_types/index.d.ts 2>/dev/null | head -100",
+    "time": {
+      "start": 1772712604256,
+      "end": 1772712604257
+    }
+  }
+}

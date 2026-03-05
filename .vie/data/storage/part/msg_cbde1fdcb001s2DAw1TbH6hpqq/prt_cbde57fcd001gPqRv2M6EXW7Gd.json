@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde57fcd001gPqRv2M6EXW7Gd",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01XtB966jM8RzdSsv14By2Hm",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1850,
+      "limit": 60
+    },
+    "output": "<file>\n01851|           lastStatus = status.status\n01852|           \n01853|           if (status.status === 'waiting') {\n01854|             toast.info('Waiting for transaction confirmation...')\n01855|           } else if (status.status === 'pending') {\n01856|             toast.info('Processing swap...')\n01857|           } else if (status.status === 'submitted') {\n01858|             toast.info('Swap submitted to destination chain...')\n01859|           } else if (status.status === 'delayed') {\n01860|             toast.warning('Swap is taking longer than expected...')\n01861|           }\n01862|         }\n01863|         \n01864|         if (status.status === 'success') {\n01865|           toast.success('Swap completed successfully!')\n01866|           setIsSwapping(false)\n01867|           updateUserStreak()\n01868|           setFromAmount('')\n01869|           setToAmount('')\n01870|           setUsdAmount('')\n01871|           setToUsdAmount('')\n01872|           \n01873|           // Refetch balances to show updated amounts\n01874|           refetchBalances()\n01875|           \n01876|           return\n01877|         } else if (status.status === 'failure') {\n01878|           toast.error(`Swap failed: ${status.details || 'Unknown error'}`)\n01879|           console.error('Swap failure details:', status)\n01880|           setIsSwapping(false)\n01881|           return\n01882|         } else if (status.status === 'refunded') {\n01883|           toast.error(`Swap was refunded: ${status.details || 'Transaction could not be completed'}`)\n01884|           console.error('Swap refund details:', status)\n01885|           setIsSwapping(false)\n01886|           return\n01887|         }\n01888| \n01889|         attempts++\n01890|         if (attempts < maxAttempts) {\n01891|           setTimeout(checkStatus, 2000)\n01892|         } else {\n01893|           toast.error('Swap status check timeout - please check your transaction history')\n01894|           setIsSwapping(false)\n01895|         }\n01896|       } catch (error) {\n01897|         console.error('Failed to check status:', error)\n01898|         attempts++\n01899|         if (attempts < maxAttempts) {\n01900|           setTimeout(checkStatus, 2000)\n01901|         } else {\n01902|           toast.error('Failed to monitor swap status')\n01903|           setIsSwapping(false)\n01904|         }\n01905|       }\n01906|     }\n01907| \n01908|     checkStatus()\n01909|   }\n01910| \n\n(File has more lines. Use 'offset' parameter to read beyond line 1910)\n</file>",
+    "metadata": {
+      "preview": "          lastStatus = status.status\n          \n          if (status.status === 'waiting') {\n            toast.info('Waiting for transaction confirmation...')\n          } else if (status.status === 'pending') {\n            toast.info('Processing swap...')\n          } else if (status.status === 'submitted') {\n            toast.info('Swap submitted to destination chain...')\n          } else if (status.status === 'delayed') {\n            toast.warning('Swap is taking longer than expected...')\n          }\n        }\n        \n        if (status.status === 'success') {\n          toast.success('Swap completed successfully!')\n          setIsSwapping(false)\n          updateUserStreak()\n          setFromAmount('')\n          setToAmount('')\n          setUsdAmount('')"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712460487,
+      "end": 1772712460488
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde57097001REfSA5m2JOpUpe",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01KRbiLAwv1X31fkyZ6dRpJB",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1790,
+      "limit": 60
+    },
+    "output": "<file>\n01791|           }\n01792| \n01793|           sendTransaction(txParams, {\n01794|             onSuccess: (hash) => {\n01795|               console.log('Swap tx submitted:', hash)\n01796|               toast.success('Transaction submitted - waiting for confirmation...')\n01797|               if (mainRequestId) {\n01798|                 setCurrentSwapRequestId(mainRequestId)\n01799|                 setCurrentSwapChainId(mainChainId)\n01800|               } else {\n01801|                 setIsSwapping(false)\n01802|               }\n01803|             },\n01804|             onError: (error) => {\n01805|               console.error('Swap tx failed:', error)\n01806|               const msg = error instanceof Error ? error.message.toLowerCase() : ''\n01807|               let errorMessage = 'Transaction failed'\n01808|               if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {\n01809|                 errorMessage = 'Transaction rejected'\n01810|               } else if (msg.includes('insufficient funds') || msg.includes('insufficient balance')) {\n01811|                 errorMessage = 'Insufficient balance to cover this swap and gas fees'\n01812|               } else if (msg.includes('nonce')) {\n01813|                 errorMessage = 'Transaction nonce error. Please try again.'\n01814|               } else if (msg.includes('network') || msg.includes('timeout')) {\n01815|                 errorMessage = 'Network error. Please try again.'\n01816|               }\n01817|               toast.error(errorMessage)\n01818|               setIsSwapping(false)\n01819|             }\n01820|           })\n01821|           // Return after dispatching the reactive sendTransaction — the onSuccess/onError callbacks handle the rest\n01822|           return\n01823|         }\n01824|       }\n01825|     } catch (error) {\n01826|       console.error('Swap execution failed:', error)\n01827|       const errorMessage = error instanceof Error ? error.message : 'Failed to execute swap'\n01828|       toast.error(errorMessage)\n01829|       setIsSwapping(false)\n01830|     }\n01831|   }\n01832| \n01833|   const monitorSwapStatus = async (requestId: string) => {\n01834|     const maxAttempts = 60\n01835|     let attempts = 0\n01836|     let lastStatus = ''\n01837| \n01838|     const checkStatus = async () => {\n01839|       try {\n01840|         const status = await relayAPI.getStatus(requestId)\n01841|         \n01842|         console.log(`Swap status check ${attempts + 1}/${maxAttempts}:`, {\n01843|           status: status.status,\n01844|           details: status.details,\n01845|           inTxHashes: status.inTxHashes,\n01846|           txHashes: status.txHashes,\n01847|         })\n01848| \n01849|         // Show status updates to user\n01850|         if (status.status !== lastStatus) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 1850)\n</file>",
+    "metadata": {
+      "preview": "          }\n\n          sendTransaction(txParams, {\n            onSuccess: (hash) => {\n              console.log('Swap tx submitted:', hash)\n              toast.success('Transaction submitted - waiting for confirmation...')\n              if (mainRequestId) {\n                setCurrentSwapRequestId(mainRequestId)\n                setCurrentSwapChainId(mainChainId)\n              } else {\n                setIsSwapping(false)\n              }\n            },\n            onError: (error) => {\n              console.error('Swap tx failed:', error)\n              const msg = error instanceof Error ? error.message.toLowerCase() : ''\n              let errorMessage = 'Transaction failed'\n              if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {\n                errorMessage = 'Transaction rejected'\n              } else if (msg.includes('insufficient funds') || msg.includes('insufficient balance')) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712456690,
+      "end": 1772712456691
+    }
+  }
+}

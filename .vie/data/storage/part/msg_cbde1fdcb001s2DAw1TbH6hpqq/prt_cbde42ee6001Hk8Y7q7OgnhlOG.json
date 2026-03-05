@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde42ee6001Hk8Y7q7OgnhlOG",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01QK6GTihaL1w3GUWFBV4K1C",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 290,
+      "limit": 20
+    },
+    "output": "<file>\n00291|   const [isRevoking, setIsRevoking] = useState(false)\n00292|   const [selectedApprovals, setSelectedApprovals] = useState<Set<number>>(new Set())\n00293|   const [debugInfo, setDebugInfo] = useState<string>('')\n00294|   const [chainSearch, setChainSearch] = useState('')\n00295| \n00296|   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n00297|   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n00298| \n00299|   // EVM balance hooks - only used for EVM chains\n00300|   const { data: evmFromBalance, refetch: refetchFromBalance } = useBalance({\n00301|     address: address as `0x${string}` | undefined,\n00302|     chainId: fromChain?.id,\n00303|     token: fromToken?.address && !isNativeAddress(fromToken.address) ? fromToken.address as `0x${string}` : undefined,\n00304|     query: {\n00305|       enabled: fromChain?.vmType === 'evm' || !fromChain?.vmType,\n00306|     },\n00307|   })\n00308| \n00309|   const { data: evmToBalance, refetch: refetchToBalance } = useBalance({\n00310|     address: address as `0x${string}` | undefined,\n\n(File has more lines. Use 'offset' parameter to read beyond line 310)\n</file>",
+    "metadata": {
+      "preview": "  const [isRevoking, setIsRevoking] = useState(false)\n  const [selectedApprovals, setSelectedApprovals] = useState<Set<number>>(new Set())\n  const [debugInfo, setDebugInfo] = useState<string>('')\n  const [chainSearch, setChainSearch] = useState('')\n\n  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n  const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n\n  // EVM balance hooks - only used for EVM chains\n  const { data: evmFromBalance, refetch: refetchFromBalance } = useBalance({\n    address: address as `0x${string}` | undefined,\n    chainId: fromChain?.id,\n    token: fromToken?.address && !isNativeAddress(fromToken.address) ? fromToken.address as `0x${string}` : undefined,\n    query: {\n      enabled: fromChain?.vmType === 'evm' || !fromChain?.vmType,\n    },\n  })\n\n  const { data: evmToBalance, refetch: refetchToBalance } = useBalance({\n    address: address as `0x${string}` | undefined,"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712374366,
+      "end": 1772712374367
+    }
+  }
+}

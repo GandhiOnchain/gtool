@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde92612001FZ5Q4XE2Tg3xb6",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01HgLHNB3VE7C7m6XjTKeSTW",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1478,
+      "limit": 15
+    },
+    "output": "<file>\n01479|           toast.info('Approving token spend...')\n01480|         } else if (currentStep?.id === 'deposit' || currentStep?.id === 'swap') {\n01481|           toast.info('Transaction submitted - waiting for confirmation...')\n01482|           if (txHashes && txHashes.length > 0) {\n01483|             const requestId = currentStep?.requestId\n01484|             if (requestId) {\n01485|               setCurrentSwapRequestId(requestId)\n01486|               setCurrentSwapChainId(fromChain.id)\n01487|             }\n01488|           }\n01489|         }\n01490|       })\n01491|     } catch (error) {\n01492|       console.error('Swap execution failed:', error)\n01493|       const msg = error instanceof Error ? error.message.toLowerCase() : ''\n\n(File has more lines. Use 'offset' parameter to read beyond line 1493)\n</file>",
+    "metadata": {
+      "preview": "          toast.info('Approving token spend...')\n        } else if (currentStep?.id === 'deposit' || currentStep?.id === 'swap') {\n          toast.info('Transaction submitted - waiting for confirmation...')\n          if (txHashes && txHashes.length > 0) {\n            const requestId = currentStep?.requestId\n            if (requestId) {\n              setCurrentSwapRequestId(requestId)\n              setCurrentSwapChainId(fromChain.id)\n            }\n          }\n        }\n      })\n    } catch (error) {\n      console.error('Swap execution failed:', error)\n      const msg = error instanceof Error ? error.message.toLowerCase() : ''"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712699746,
+      "end": 1772712699747
+    }
+  }
+}

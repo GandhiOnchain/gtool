@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde52da00011SctVezGNskTxL",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01Nidrkkkw21Bo5ycDbuzdL7",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1570,
+      "limit": 30
+    },
+    "output": "<file>\n01571|     }\n01572| \n01573|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {\n01574|       toast.error('Missing swap parameters')\n01575|       return\n01576|     }\n01577| \n01578|     // Validate that token chainIds match selected chains\n01579|     if (fromToken.chainId !== fromChain.id) {\n01580|       console.error('Token chainId mismatch:', {\n01581|         fromTokenChainId: fromToken.chainId,\n01582|         fromChainId: fromChain.id,\n01583|         fromToken: fromToken.symbol\n01584|       })\n01585|       toast.error(`${fromToken.symbol} is not available on ${fromChain.displayName}. Please select a different token.`)\n01586|       return\n01587|     }\n01588| \n01589|     if (toToken.chainId !== toChain.id) {\n01590|       console.error('Token chainId mismatch:', {\n01591|         toTokenChainId: toToken.chainId,\n01592|         toChainId: toChain.id,\n01593|         toToken: toToken.symbol\n01594|       })\n01595|       toast.error(`${toToken.symbol} is not available on ${toChain.displayName}. Please select a different token.`)\n01596|       return\n01597|     }\n01598| \n01599|     // Check if trying to swap same token on same chain\n01600|     if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 1600)\n</file>",
+    "metadata": {
+      "preview": "    }\n\n    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {\n      toast.error('Missing swap parameters')\n      return\n    }\n\n    // Validate that token chainIds match selected chains\n    if (fromToken.chainId !== fromChain.id) {\n      console.error('Token chainId mismatch:', {\n        fromTokenChainId: fromToken.chainId,\n        fromChainId: fromChain.id,\n        fromToken: fromToken.symbol\n      })\n      toast.error(`${fromToken.symbol} is not available on ${fromChain.displayName}. Please select a different token.`)\n      return\n    }\n\n    if (toToken.chainId !== toChain.id) {\n      console.error('Token chainId mismatch:', {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712439521,
+      "end": 1772712439523
+    }
+  }
+}

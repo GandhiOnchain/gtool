@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde90cd6001nRBLFXgmMjcvD2",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The error at line 604 in the diagnostics is about `setToAmount` receiving `string | undefined`. But `outFormatted` is checked — this must be a different line. Let me check the executeQuote progress callback where `requestId` might be undefined:",
+  "time": {
+    "start": 1772712695368,
+    "end": 1772712695368
+  }
+}

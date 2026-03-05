@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde4f01c001jWk1OQe1nS97Dm",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01R8ppjutPoJ4MY82nmXkjVp",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 560,
+      "limit": 80
+    },
+    "output": "<file>\n00561|     return () => clearTimeout(debounce)\n00562|   }, [tokenSearchTerm, selectingFor, fromChain, toChain, batchChain])\n00563| \n00564|   // Fetch Solana balance for from chain\n00565|   useEffect(() => {\n00566|     if (fromChain && fromToken && fromChain.vmType === 'svm' && solanaAddress) {\n00567|       fetchSolanaBalance(fromToken.address, fromToken.decimals, fromToken.symbol, 'from')\n00568|     }\n00569|   }, [fromChain, fromToken, solanaAddress])\n00570| \n00571|   // Fetch Solana balance for to chain\n00572|   useEffect(() => {\n00573|     if (toChain && toToken && toChain.vmType === 'svm' && solanaAddress) {\n00574|       fetchSolanaBalance(toToken.address, toToken.decimals, toToken.symbol, 'to')\n00575|     }\n00576|   }, [toChain, toToken, solanaAddress])\n00577| \n00578|   // Load currencies for batch chain\n00579|   useEffect(() => {\n00580|     const loadBatchChainCurrencies = async () => {\n00581|       if (batchChain) {\n00582|         try {\n00583|           console.log('Loading currencies for batch chain:', batchChain.displayName)\n00584|           const raw = await relayAPI.getCurrencies({\n00585|             chainIds: [batchChain.id],\n00586|             limit: 100,\n00587|           })\n00588|           const fetchedCurrencies = dedupCurrencies(raw)\n00589|           console.log('Loaded', fetchedCurrencies.length, 'currencies for batch chain')\n00590|           setCurrencies(fetchedCurrencies)\n00591|         } catch (error) {\n00592|           console.error('Failed to load batch chain currencies:', error)\n00593|         }\n00594|       }\n00595|     }\n00596|     \n00597|     loadBatchChainCurrencies()\n00598|   }, [batchChain])\n00599| \n00600|   // Handle transaction confirmation and indexing\n00601|   useEffect(() => {\n00602|     const handleTransactionConfirmation = async () => {\n00603|       if (isTxSuccess && txHash && currentSwapRequestId && currentSwapChainId) {\n00604|         console.log('Transaction confirmed on-chain:', txHash)\n00605|         toast.success('Transaction confirmed')\n00606|         \n00607|         // Refetch balances immediately after transaction confirmation\n00608|         setTimeout(() => {\n00609|           refetchBalances()\n00610|         }, 1000) // Wait 1 second for blockchain state to update\n00611|         \n00612|         // Index the transaction with Relay after confirmation\n00613|         try {\n00614|           console.log('Indexing confirmed transaction with Relay:', txHash, 'on chain', currentSwapChainId)\n00615|           await relayAPI.indexSingleTransaction({\n00616|             txHash,\n00617|             chainId: currentSwapChainId,\n00618|           })\n00619|           console.log('Transaction indexed successfully')\n00620|         } catch (indexError) {\n00621|           console.error('Failed to index transaction:', indexError)\n00622|           // Continue anyway - Relay may auto-detect the transaction\n00623|         }\n00624|         \n00625|         // Start monitoring the swap status\n00626|         console.log('Starting swap status monitoring with requestId:', currentSwapRequestId)\n00627|         monitorSwapStatus(currentSwapRequestId)\n00628|         \n00629|         // Clear the current swap state\n00630|         setCurrentSwapRequestId(null)\n00631|         setCurrentSwapChainId(null)\n00632|       }\n00633|     }\n00634|     \n00635|     handleTransactionConfirmation()\n00636|   }, [isTxSuccess, txHash, currentSwapRequestId, currentSwapChainId])\n00637| \n00638|   const refetchBalances = async () => {\n00639|     console.log('Refetching balances after swap...')\n00640|     \n\n(File has more lines. Use 'offset' parameter to read beyond line 640)\n</file>",
+    "metadata": {
+      "preview": "    return () => clearTimeout(debounce)\n  }, [tokenSearchTerm, selectingFor, fromChain, toChain, batchChain])\n\n  // Fetch Solana balance for from chain\n  useEffect(() => {\n    if (fromChain && fromToken && fromChain.vmType === 'svm' && solanaAddress) {\n      fetchSolanaBalance(fromToken.address, fromToken.decimals, fromToken.symbol, 'from')\n    }\n  }, [fromChain, fromToken, solanaAddress])\n\n  // Fetch Solana balance for to chain\n  useEffect(() => {\n    if (toChain && toToken && toChain.vmType === 'svm' && solanaAddress) {\n      fetchSolanaBalance(toToken.address, toToken.decimals, toToken.symbol, 'to')\n    }\n  }, [toChain, toToken, solanaAddress])\n\n  // Load currencies for batch chain\n  useEffect(() => {\n    const loadBatchChainCurrencies = async () => {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712423686,
+      "end": 1772712423687
+    }
+  }
+}

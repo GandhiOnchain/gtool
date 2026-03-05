@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde3eda90011dVhCFeMCuncqF",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now find where `fromTokenPrice`/`toTokenPrice` state is declared and add `useTokenPrice` hooks. First let me find the exact location:",
+  "time": {
+    "start": 1772712359393,
+    "end": 1772712359393
+  }
+}

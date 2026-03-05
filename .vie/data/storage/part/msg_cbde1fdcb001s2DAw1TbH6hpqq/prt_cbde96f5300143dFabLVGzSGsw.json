@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde96f5300143dFabLVGzSGsw",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Here's what changed and why this fixes the gas issue:\n\n**Root cause (definitive):** The entire manual `executeSwap` implementation was bypassing Relay's SDK execution layer. The SDK's `executeQuote` handles gas internally — it knows the exact gas limits for Relay's deposit contracts because it's built by the same team that wrote those contracts. Our manual approach was either over-estimating (causing the $2 display) or under-estimating (causing simulation failures).\n\n**What was replaced:**\n\n| Before | After |\n|---|---|\n| Manual `relayAPI.getChains()` + `useState` | `useRelayChains()` — cached, auto-refreshed |\n| Manual `relayAPI.getTokenPrice()` + `useState` | `useTokenPrice()` — reactive, 30s stale time |\n| Manual `fetchQuote()` debounce loop | `useQuote()` — auto-fetches when params change, 15s refresh |\n| Manual `executeSwap()` with custom step sequencing + gas estimation | `executeQuote()` from the SDK — handles approve→deposit, gas, chain switching internally |\n| Manual `monitorSwapStatus()` polling loop | `useExecutionStatus()` — React Query polling at 2s intervals |\n\nThe `executeQuote` function from `@relayprotocol/relay-sdk` uses the correct gas limits for Relay's contracts, handles the approve step atomically before the deposit, and manages chain switching — so the wallet sees exactly what Relay intends, with no inflated estimates.",
+  "time": {
+    "start": 1772712727565,
+    "end": 1772712727565
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde53ee6001qeA4yQT4tFnXTm",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01B5EeUnTofFe3CbePRf28yJ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1555,
+      "limit": 15
+    },
+    "output": "<file>\n01556|       setQuote(null)\n01557|     } finally {\n01558|       setIsLoadingQuote(false)\n01559|     }\n01560|   }\n01561| \n01562|   const executeSwap = async () => {\n01563|     if (!quote || !quote.steps || quote.steps.length === 0) {\n01564|       toast.error('No quote available')\n01565|       return\n01566|     }\n01567| \n01568|     if (!isConnected || !address) {\n01569|       toast.error('Please connect your wallet first')\n01570|       return\n\n(File has more lines. Use 'offset' parameter to read beyond line 1570)\n</file>",
+    "metadata": {
+      "preview": "      setQuote(null)\n    } finally {\n      setIsLoadingQuote(false)\n    }\n  }\n\n  const executeSwap = async () => {\n    if (!quote || !quote.steps || quote.steps.length === 0) {\n      toast.error('No quote available')\n      return\n    }\n\n    if (!isConnected || !address) {\n      toast.error('Please connect your wallet first')\n      return"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712443930,
+      "end": 1772712443932
+    }
+  }
+}

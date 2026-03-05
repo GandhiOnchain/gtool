@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import * as React from 'react'
 import { sdk } from '@farcaster/miniapp-sdk'
-import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'
+import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useWalletClient } from 'wagmi'
 import { useWallet } from '@/hooks/useWallet'
 import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem, getAddress } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
+import { useRelayChains, useTokenList, useTokenPrice, useQuote, useExecutionStatus } from '@relayprotocol/relay-kit-hooks'
+import { getClient } from '@relayprotocol/relay-sdk'
 
 import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
 import { config } from '@/config'
@@ -224,15 +226,15 @@ export default function RelaySwap() {
   const { connect, connectors } = useConnect()
   const { disconnect } = useWallet()
   const { switchChain } = useSwitchChain()
-  const [chains, setChains] = useState<RelayChain[]>([])
+  const { data: walletClient } = useWalletClient()
+  const { chains: relayChains } = useRelayChains()
+  const chains: RelayChain[] = ((relayChains || []) as RelayChain[]).filter((c: RelayChain) => !c.disabled && c.vmType !== 'bvm')
   const [fromChain, setFromChain] = useState<RelayChain | null>(null)
   const [toChain, setToChain] = useState<RelayChain | null>(null)
   const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)
   const [toToken, setToToken] = useState<RelayCurrency | null>(null)
   const [fromAmount, setFromAmount] = useState('')
   const [toAmount, setToAmount] = useState('')
-  const [quote, setQuote] = useState<RelayQuote | null>(null)
-  const [isLoadingQuote, setIsLoadingQuote] = useState(false)
   const [isSwapping, setIsSwapping] = useState(false)
   const [slippage, setSlippage] = useState('0.1')
   const [searchTerm, setSearchTerm] = useState('')
@@ -259,8 +261,6 @@ export default function RelaySwap() {
   const [batchToToken, setBatchToToken] = useState<RelayCurrency | null>(null)
   const [batchToCurrencies, setBatchToCurrencies] = useState<RelayCurrency[]>([])
   const [recipientAddress, setRecipientAddress] = useState('')
-  const [fromTokenPrice, setFromTokenPrice] = useState<number>(0)
-  const [toTokenPrice, setToTokenPrice] = useState<number>(0)
   const [currentSwapRequestId, setCurrentSwapRequestId] = useState<string | null>(null)
   const [currentSwapChainId, setCurrentSwapChainId] = useState<number | null>(null)
   const [solanaAddress, setSolanaAddress] = useState<string | null>(null)
@@ -295,6 +295,68 @@ export default function RelaySwap() {
 
   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()
   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
+
+  const { data: fromTokenPriceData } = useTokenPrice(
+    undefined,
+    fromToken ? { address: fromToken.address, chainId: fromToken.chainId } : undefined,
+    { enabled: !!fromToken, staleTime: 30000 }
+  )
+  const fromTokenPrice = fromTokenPriceData?.price ?? 0
+
+  const { data: toTokenPriceData } = useTokenPrice(
+    undefined,
+    toToken ? { address: toToken.address, chainId: toToken.chainId } : undefined,
+    { enabled: !!toToken, staleTime: 30000 }
+  )
+  const toTokenPrice = toTokenPriceData?.price ?? 0
+
+  const quoteEnabled = !!(
+    fromToken && toToken && fromAmount && parseFloat(fromAmount) > 0 &&
+    fromChain && toChain &&
+    !(fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) &&
+    ((fromChain.vmType === 'svm' ? !!solanaAddress : !!address))
+  )
+
+  const fromVMTypeForQuote = fromChain?.vmType || 'evm'
+  const toVMTypeForQuote = toChain?.vmType || 'evm'
+  const isCrossVMForQuote = fromVMTypeForQuote !== toVMTypeForQuote
+  const quoteUserAddress = fromVMTypeForQuote === 'svm' ? (solanaAddress ?? undefined) : (address ?? undefined)
+  const quoteCrossVMRecipient = isCrossVMForQuote
+    ? (toVMTypeForQuote === 'svm' ? (solanaAddress ?? undefined) : (recipientAddress || undefined))
+    : undefined
+
+  const includedSources = Object.entries(enabledSources).filter(([_, v]) => v).map(([k]) => k)
+
+  const { data: quote, isLoading: isLoadingQuote, executeQuote } = useQuote(
+    getClient() ?? undefined,
+    walletClient ?? undefined,
+    quoteEnabled && quoteUserAddress ? {
+      user: quoteUserAddress,
+      originChainId: fromChain!.id,
+      destinationChainId: toChain!.id,
+      originCurrency: fromToken!.address,
+      destinationCurrency: toToken!.address,
+      amount: (() => { try { return parseUnits(fromAmount, fromToken!.decimals).toString() } catch { return '0' } })(),
+      tradeType: 'EXACT_INPUT' as const,
+      slippageTolerance: Math.floor(parseFloat(slippage) * 100).toString(),
+      recipient: quoteCrossVMRecipient,
+      includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
+      useExternalLiquidity: isCrossVMForQuote ? true : undefined,
+    } : undefined,
+    undefined,
+    undefined,
+    { enabled: quoteEnabled, refetchInterval: 15000 }
+  )
+
+  const { data: executionStatusData } = useExecutionStatus(
+    undefined,
+    currentSwapRequestId ? { requestId: currentSwapRequestId } : undefined,
+    undefined,
+    undefined,
+    { enabled: !!currentSwapRequestId, refetchInterval: 2000 }
+  )
+  const executionStatus = executionStatusData?.status
+  const executionDetails = executionStatusData?.details
 
   // EVM balance hooks - only used for EVM chains
   const { data: evmFromBalance, refetch: refetchFromBalance } = useBalance({
@@ -344,7 +406,6 @@ export default function RelaySwap() {
   }, [])
 
   useEffect(() => {
-    loadChains()
     loadUserData()
     loadTrendingTokens()
     loadSwapSources()
@@ -380,29 +441,7 @@ export default function RelaySwap() {
   }, [batchToChain])
 
   useEffect(() => {
-    if (fromToken && fromChain) {
-      fetchTokenPrice(fromToken.address, fromChain.id, 'from')
-    }
-  }, [fromToken, fromChain])
-
-  // Update USD amount when price changes
-  useEffect(() => {
-    if (inputMode === 'usd' && usdAmount && fromTokenPrice > 0) {
-      setFromAmount((parseFloat(usdAmount) / fromTokenPrice).toString())
-    } else if (inputMode === 'token' && fromAmount && fromTokenPrice > 0) {
-      setUsdAmount((parseFloat(fromAmount) * fromTokenPrice).toFixed(2))
-    }
-  }, [fromTokenPrice])
-
-  useEffect(() => {
-    if (toToken && toChain) {
-      fetchTokenPrice(toToken.address, toChain.id, 'to')
-    }
-  }, [toToken, toChain])
-
-  useEffect(() => {
     if (fromChain) {
-      // Clear fromToken if it doesn't belong to the new chain
       if (fromToken && fromToken.chainId !== fromChain.id) {
         setFromToken(null)
       }
@@ -412,26 +451,12 @@ export default function RelaySwap() {
 
   useEffect(() => {
     if (toChain) {
-      // Clear toToken if it doesn't belong to the new chain
       if (toToken && toToken.chainId !== toChain.id) {
         setToToken(null)
       }
       loadCurrencies(toChain.id, 'to')
     }
   }, [toChain])
-
-  useEffect(() => {
-    const fromVMType = fromChain?.vmType || 'evm'
-    const toVMType = toChain?.vmType || 'evm'
-    const hasFromWallet = fromVMType === 'svm' ? !!solanaAddress : !!address
-    const hasToWallet = toVMType === 'svm' ? !!solanaAddress : true
-    if (fromToken && toToken && fromAmount && fromChain && toChain && hasFromWallet && hasToWallet) {
-      const debounce = setTimeout(() => {
-        fetchQuote()
-      }, 500)
-      return () => clearTimeout(debounce)
-    }
-  }, [fromToken, toToken, fromAmount, fromChain, toChain, address, solanaAddress])
 
   useEffect(() => {
     if (address && chains.length > 0) {
@@ -578,43 +603,47 @@ export default function RelaySwap() {
     loadBatchChainCurrencies()
   }, [batchChain])
 
-  // Handle transaction confirmation and indexing
+  // Sync toAmount from quote
   useEffect(() => {
-    const handleTransactionConfirmation = async () => {
-      if (isTxSuccess && txHash && currentSwapRequestId && currentSwapChainId) {
-        console.log('Transaction confirmed on-chain:', txHash)
-        toast.success('Transaction confirmed')
-        
-        // Refetch balances immediately after transaction confirmation
-        setTimeout(() => {
-          refetchBalances()
-        }, 1000) // Wait 1 second for blockchain state to update
-        
-        // Index the transaction with Relay after confirmation
-        try {
-          console.log('Indexing confirmed transaction with Relay:', txHash, 'on chain', currentSwapChainId)
-          await relayAPI.indexSingleTransaction({
-            txHash,
-            chainId: currentSwapChainId,
-          })
-          console.log('Transaction indexed successfully')
-        } catch (indexError) {
-          console.error('Failed to index transaction:', indexError)
-          // Continue anyway - Relay may auto-detect the transaction
-        }
-        
-        // Start monitoring the swap status
-        console.log('Starting swap status monitoring with requestId:', currentSwapRequestId)
-        monitorSwapStatus(currentSwapRequestId)
-        
-        // Clear the current swap state
-        setCurrentSwapRequestId(null)
-        setCurrentSwapChainId(null)
+    const outFormatted = quote?.details?.currencyOut?.amountFormatted
+    if (outFormatted) {
+      setToAmount(outFormatted)
+      if (toTokenPrice > 0) {
+        setToUsdAmount((parseFloat(outFormatted) * toTokenPrice).toFixed(2))
       }
+    } else if (!quote) {
+      setToAmount('')
+      setToUsdAmount('')
     }
-    
-    handleTransactionConfirmation()
-  }, [isTxSuccess, txHash, currentSwapRequestId, currentSwapChainId])
+  }, [quote, toTokenPrice])
+
+  // Monitor execution status via useExecutionStatus hook
+  useEffect(() => {
+    if (!executionStatus || !currentSwapRequestId) return
+    console.log('Execution status update:', executionStatus)
+    if (executionStatus === 'success') {
+      toast.success('Swap completed successfully!')
+      setIsSwapping(false)
+      updateUserStreak()
+      setFromAmount('')
+      setToAmount('')
+      setUsdAmount('')
+      setToUsdAmount('')
+      setCurrentSwapRequestId(null)
+      setCurrentSwapChainId(null)
+      refetchBalances()
+    } else if (executionStatus === 'failure') {
+      toast.error(`Swap failed: ${executionDetails || 'Unknown error'}`)
+      setIsSwapping(false)
+      setCurrentSwapRequestId(null)
+      setCurrentSwapChainId(null)
+    } else if (executionStatus === 'refund') {
+      toast.error('Swap was refunded')
+      setIsSwapping(false)
+      setCurrentSwapRequestId(null)
+      setCurrentSwapChainId(null)
+    }
+  }, [executionStatus, currentSwapRequestId])
 
   const refetchBalances = async () => {
     console.log('Refetching balances after swap...')
@@ -717,33 +746,8 @@ export default function RelaySwap() {
     }
   }
 
-  const loadChains = async () => {
-    try {
-      const { chains: fetchedChains } = await relayAPI.getChains()
-      const activeChains = fetchedChains.filter(c => !c.disabled && c.vmType !== 'bvm')
-      setChains(activeChains)
-      if (activeChains.length > 0) {
-        const baseChain = activeChains.find(c => c.id === 8453) || activeChains[0]
-        setFromChain(baseChain)
-        setToChain(activeChains.find(c => c.id !== baseChain.id) || activeChains[1])
-      }
-    } catch (error) {
-      console.error('Failed to load chains:', error)
-      toast.error('Failed to load chains')
-    }
-  }
-
-  const fetchTokenPrice = async (tokenAddress: string, chainId: number, type: 'from' | 'to') => {
-    try {
-      const priceData = await relayAPI.getTokenPrice({ address: tokenAddress, chainId })
-      if (type === 'from') {
-        setFromTokenPrice(priceData.price)
-      } else {
-        setToTokenPrice(priceData.price)
-      }
-    } catch (error) {
-      console.error('Failed to fetch token price:', error)
-    }
+  const fetchTokenPrice = async (_tokenAddress: string, _chainId: number, _type: 'from' | 'to') => {
+    // Replaced by useTokenPrice hooks
   }
 
   const dedupCurrencies = (currencies: RelayCurrency[]): RelayCurrency[] => {
@@ -1434,455 +1438,74 @@ export default function RelaySwap() {
     }
   }
 
-  const fetchQuote = async () => {
-    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) return
-    const fromVMType_ = fromChain.vmType || 'evm'
-    if (fromVMType_ === 'svm' ? !solanaAddress : !address) return
-
-    if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {
-      setQuote(null)
-      setToAmount('')
-      setToUsdAmount('')
-      return
-    }
-
-    if (!quoteRateLimiter.check('quote')) {
-      toast.error('Too many quote requests. Please wait a moment.')
-      return
-    }
-
-    setIsLoadingQuote(true)
-    try {
-      const amountInWei = parseUnits(fromAmount, fromToken.decimals)
-      const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()
-      
-      const includedSources = Object.entries(enabledSources)
-        .filter(([_, enabled]) => enabled)
-        .map(([source]) => source)
-      
-      const fromVMType = fromChain.vmType || 'evm'
-      const toVMType = toChain.vmType || 'evm'
-      const isCrossVM = fromVMType !== toVMType
-      
-      // Use the appropriate address based on the origin chain type
-      const userAddress = fromVMType === 'svm' ? solanaAddress : address
-      
-      if (!userAddress) {
-        toast.error(`Please connect your ${fromVMType === 'svm' ? 'Solana' : 'EVM'} wallet`)
-        setIsLoadingQuote(false)
-        return
-      }
-
-      if (isCrossVM && toVMType === 'svm' && !solanaAddress) {
-        toast.error('Farcaster Solana wallet not connected. Cannot get quote for Solana destination.')
-        setIsLoadingQuote(false)
-        return
-      }
-      
-      const crossVMRecipient = isCrossVM
-        ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined
-        : undefined
-
-      const quoteParams = {
-        user: userAddress,
-        originChainId: fromChain.id,
-        destinationChainId: toChain.id,
-        originCurrency: fromToken.address,
-        destinationCurrency: toToken.address,
-        amount: amountInWei.toString(),
-        tradeType: 'EXACT_INPUT' as const,
-        slippageTolerance: slippageBps,
-        recipient: crossVMRecipient,
-        includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
-        useExternalLiquidity: isCrossVM ? true : undefined,
-      }
-      
-      const quoteData = await relayAPI.getQuote(quoteParams)
-      
-      setQuote(quoteData)
-      if (quoteData.details.currencyOut) {
-        const outFormatted = quoteData.details.currencyOut.amountFormatted
-        setToAmount(outFormatted)
-        if (toTokenPrice > 0 && outFormatted) {
-          setToUsdAmount((parseFloat(outFormatted) * toTokenPrice).toFixed(2))
-        }
-      }
-    } catch (error) {
-      console.error('Failed to fetch quote:', error)
-      
-      // Parse error message to make it user-friendly
-      let errorMessage = 'Failed to get quote'
-      if (error instanceof Error) {
-        const msg = error.message.toLowerCase()
-        if (msg.includes('amount_too_low') || msg.includes('amount must be greater')) {
-          errorMessage = 'Amount is too low. Please enter a larger amount.'
-        } else if (msg.includes('insufficient')) {
-          errorMessage = 'Insufficient balance for this swap.'
-        } else if (msg.includes('slippage')) {
-          errorMessage = 'Slippage tolerance too low. Try increasing it.'
-        } else if (msg.includes('liquidity')) {
-          errorMessage = 'Not enough liquidity for this swap.'
-        } else if (msg.includes('network') || msg.includes('timeout')) {
-          errorMessage = 'Network error. Please try again.'
-        } else {
-          errorMessage = 'Unable to get quote. Please try a different amount or token.'
-        }
-      }
-      
-      toast.error(errorMessage)
-      setQuote(null)
-    } finally {
-      setIsLoadingQuote(false)
-    }
-  }
-
   const executeSwap = async () => {
-    if (!quote || !quote.steps || quote.steps.length === 0) {
+    if (!quote) {
       toast.error('No quote available')
       return
     }
-
     if (!isConnected || !address) {
       toast.error('Please connect your wallet first')
       return
     }
-
     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {
       toast.error('Missing swap parameters')
       return
     }
-
-    // Validate that token chainIds match selected chains
-    if (fromToken.chainId !== fromChain.id) {
-      console.error('Token chainId mismatch:', {
-        fromTokenChainId: fromToken.chainId,
-        fromChainId: fromChain.id,
-        fromToken: fromToken.symbol
-      })
-      toast.error(`${fromToken.symbol} is not available on ${fromChain.displayName}. Please select a different token.`)
-      return
-    }
-
-    if (toToken.chainId !== toChain.id) {
-      console.error('Token chainId mismatch:', {
-        toTokenChainId: toToken.chainId,
-        toChainId: toChain.id,
-        toToken: toToken.symbol
-      })
-      toast.error(`${toToken.symbol} is not available on ${toChain.displayName}. Please select a different token.`)
-      return
-    }
-
-    // Check if trying to swap same token on same chain
     if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {
       toast.error('Cannot swap the same token to itself')
       return
     }
-
     const fromVMType = fromChain.vmType || 'evm'
     const toVMType = toChain.vmType || 'evm'
     const isCrossVM = fromVMType !== toVMType
-    
     if (isCrossVM && toVMType === 'svm' && !solanaAddress) {
       toast.error('Farcaster Solana wallet not connected')
       return
     }
-    
     if (isCrossVM && toVMType !== 'svm' && !recipientAddress) {
       toast.error(`Recipient address required for ${toChain.displayName}`)
       return
     }
+    if (!walletClient) {
+      toast.error('Wallet client not ready. Please reconnect.')
+      return
+    }
 
     setIsSwapping(true)
-
     try {
-      // Get a fresh quote right before executing to ensure transaction data is current
-      console.log('Getting fresh quote for execution...')
-      const amountInWei = parseUnits(fromAmount, fromToken.decimals)
-      const slippageBps = Math.floor(parseFloat(slippage) * 100).toString()
-      
-      const includedSources = Object.entries(enabledSources)
-        .filter(([_, enabled]) => enabled)
-        .map(([source]) => source)
-      
-      // Use the appropriate address based on the origin chain type
-      const fromVMType = fromChain.vmType || 'evm'
-      const userAddress = fromVMType === 'svm' ? solanaAddress : address
-      
-      if (!userAddress) {
-        toast.error(`Please connect your ${fromVMType === 'svm' ? 'Solana' : 'EVM'} wallet`)
-        setIsSwapping(false)
-        return
-      }
-      
-      const execCrossVMRecipient = isCrossVM
-        ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined
-        : undefined
-
-      const quoteParams = {
-        user: userAddress,
-        originChainId: fromChain.id,
-        destinationChainId: toChain.id,
-        originCurrency: fromToken.address,
-        destinationCurrency: toToken.address,
-        amount: amountInWei.toString(),
-        tradeType: 'EXACT_INPUT' as const,
-        slippageTolerance: slippageBps,
-        recipient: execCrossVMRecipient,
-        includedSwapSources: includedSources.length > 0 ? includedSources : undefined,
-        useExternalLiquidity: isCrossVM ? true : undefined,
-      }
-      
-      console.log('=== EXECUTE SWAP DEBUG ===')
-      console.log('From Chain:', fromChain.displayName, 'ID:', fromChain.id, 'vmType:', fromChain.vmType)
-      console.log('To Chain:', toChain.displayName, 'ID:', toChain.id, 'vmType:', toChain.vmType)
-      console.log('From Token:', fromToken.symbol, 'Address:', fromToken.address, 'ChainId:', fromToken.chainId)
-      console.log('To Token:', toToken.symbol, 'Address:', toToken.address, 'ChainId:', toToken.chainId)
-      console.log('ChainId Match Check:')
-      console.log('  - fromToken.chainId === fromChain.id?', fromToken.chainId === fromChain.id)
-      console.log('  - toToken.chainId === toChain.id?', toToken.chainId === toChain.id)
-      console.log('Recipient:', recipientAddress)
-      console.log('Is Cross-VM:', isCrossVM)
-      console.log('Quote Params:', JSON.stringify(quoteParams, null, 2))
-      console.log('=========================')
-      
-      const freshQuote = await relayAPI.getQuote(quoteParams)
-      console.log('Fresh quote received:', freshQuote)
-      console.log('Steps:', freshQuote.steps.map(s => ({ id: s.id, kind: s.kind, items: s.items?.length })))
-
-      const { sendTransaction: sendTxAction, waitForTransactionReceipt: waitForReceipt } = await import('wagmi/actions')
-      const { wagmiConfig } = await import('@/lib/blockchain/wagmi')
-
-      const safeValue = (v: string | undefined | null): bigint => {
-        if (!v || v === '0x0' || v === '0x' || v === '0') return 0n
-        try { return BigInt(v) } catch { return 0n }
-      }
-
-      const estimateApproveGas = async (stepData: { to: string; data: string; value: string; chainId: number; from: string }, chain: RelayChain): Promise<bigint | undefined> => {
-        try {
-          const chainConfig = defineChain({
-            id: stepData.chainId,
-            name: chain.displayName,
-            nativeCurrency: { name: chain.currency.name, symbol: chain.currency.symbol, decimals: chain.currency.decimals },
-            rpcUrls: { default: { http: [chain.httpRpcUrl] } },
-          })
-          const publicClient = createPublicClient({ chain: chainConfig, transport: http(chain.httpRpcUrl) })
-          const estimated = await publicClient.estimateGas({
-            account: stepData.from as `0x${string}`,
-            to: stepData.to as `0x${string}`,
-            data: stepData.data as `0x${string}`,
-            value: safeValue(stepData.value),
-          })
-          return (estimated * 110n) / 100n
-        } catch (e) {
-          console.warn('Approve gas estimation failed, wallet will estimate:', e)
-          return undefined
-        }
-      }
-
-      // Collect all transaction steps in order (approve first, then deposit/swap)
-      const allTxSteps = freshQuote.steps.filter(s => s.kind === 'transaction' && s.items?.length > 0)
-
-      if (allTxSteps.length === 0) {
-        throw new Error('No transaction steps found in quote')
-      }
-
-      // Switch chain once before executing steps
-      const firstStepChainId = allTxSteps[0].items[0].data.chainId
-      if (connectedChainId !== firstStepChainId) {
-        console.log('Switching chain from', connectedChainId, 'to', firstStepChainId)
-        try {
-          await switchChain({ chainId: firstStepChainId })
-          await new Promise(resolve => setTimeout(resolve, 800))
-        } catch (switchError) {
-          console.error('Failed to switch chain:', switchError)
-          toast.error('Please switch to the correct network in your wallet')
-          setIsSwapping(false)
-          return
-        }
-      }
-
-      // Execute each step sequentially
-      let mainRequestId: string | null = null
-      let mainChainId: number | null = null
-
-      for (let i = 0; i < allTxSteps.length; i++) {
-        const step = allTxSteps[i]
-        const stepData = step.items[0].data
-        const isApprove = step.id === 'approve'
-        const isLast = i === allTxSteps.length - 1
-
-        console.log(`Executing step ${i + 1}/${allTxSteps.length}: ${step.id}`)
-
-        if (stepData.from.toLowerCase() !== address.toLowerCase()) {
-          toast.error('Wallet address mismatch. Please reconnect your wallet.')
-          setIsSwapping(false)
-          return
-        }
-
-        const txValue = safeValue(stepData.value)
-        // Only pre-estimate gas for approve steps (standard ERC-20 call, simulates cleanly).
-        // For deposit/swap steps, let the wallet estimate — Relay's deposit contract requires
-        // specific solver state to simulate correctly, so our estimate would be inflated and
-        // cause the wallet to display a much higher fee than Relay's quoted amount.
-        const gasLimit = isApprove ? await estimateApproveGas(stepData, fromChain) : undefined
-
-        const txParams: { to: `0x${string}`; data: `0x${string}`; value: bigint; gas?: bigint } = {
-          to: stepData.to as `0x${string}`,
-          data: stepData.data as `0x${string}`,
-          value: txValue,
-          ...(gasLimit !== undefined ? { gas: gasLimit } : {}),
-        }
-
-        console.log(`Step ${step.id} params:`, { to: txParams.to, value: txValue.toString(), gas: gasLimit?.toString() })
-
-        if (isApprove) {
-          // Approval must be confirmed on-chain before the deposit/swap can proceed
+      await executeQuote((progress) => {
+        const { currentStep, txHashes } = progress
+        if (currentStep?.id === 'approve') {
           toast.info('Approving token spend...')
-          try {
-            const approveHash = await sendTxAction(wagmiConfig, txParams)
-            console.log('Approval tx submitted:', approveHash)
-            toast.info('Waiting for approval confirmation...')
-            await waitForReceipt(wagmiConfig, { hash: approveHash })
-            console.log('Approval confirmed')
-            toast.success('Token approved')
-            // Brief pause so the allowance propagates before the next step
-            await new Promise(resolve => setTimeout(resolve, 1500))
-          } catch (approveErr) {
-            console.error('Approval failed:', approveErr)
-            const msg = approveErr instanceof Error ? approveErr.message.toLowerCase() : ''
-            if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {
-              toast.error('Approval rejected')
-            } else {
-              toast.error('Token approval failed. Please try again.')
+        } else if (currentStep?.id === 'deposit' || currentStep?.id === 'swap') {
+          toast.info('Transaction submitted - waiting for confirmation...')
+          if (txHashes && txHashes.length > 0) {
+            const requestId = currentStep?.requestId
+            if (requestId) {
+              setCurrentSwapRequestId(requestId)
+              setCurrentSwapChainId(fromChain.id)
             }
-            setIsSwapping(false)
-            return
           }
-        } else {
-          // Main swap/deposit step — use the reactive sendTransaction so the useEffect
-          // can monitor status via requestId after confirmation
-          if (isLast && step.requestId) {
-            mainRequestId = step.requestId
-            mainChainId = stepData.chainId
-          }
-
-          sendTransaction(txParams, {
-            onSuccess: (hash) => {
-              console.log('Swap tx submitted:', hash)
-              toast.success('Transaction submitted - waiting for confirmation...')
-              if (mainRequestId) {
-                setCurrentSwapRequestId(mainRequestId)
-                setCurrentSwapChainId(mainChainId)
-              } else {
-                setIsSwapping(false)
-              }
-            },
-            onError: (error) => {
-              console.error('Swap tx failed:', error)
-              const msg = error instanceof Error ? error.message.toLowerCase() : ''
-              let errorMessage = 'Transaction failed'
-              if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {
-                errorMessage = 'Transaction rejected'
-              } else if (msg.includes('insufficient funds') || msg.includes('insufficient balance')) {
-                errorMessage = 'Insufficient balance to cover this swap and gas fees'
-              } else if (msg.includes('nonce')) {
-                errorMessage = 'Transaction nonce error. Please try again.'
-              } else if (msg.includes('network') || msg.includes('timeout')) {
-                errorMessage = 'Network error. Please try again.'
-              }
-              toast.error(errorMessage)
-              setIsSwapping(false)
-            }
-          })
-          // Return after dispatching the reactive sendTransaction — the onSuccess/onError callbacks handle the rest
-          return
         }
-      }
+      })
     } catch (error) {
       console.error('Swap execution failed:', error)
-      const errorMessage = error instanceof Error ? error.message : 'Failed to execute swap'
+      const msg = error instanceof Error ? error.message.toLowerCase() : ''
+      let errorMessage = 'Swap failed'
+      if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {
+        errorMessage = 'Transaction rejected'
+      } else if (msg.includes('insufficient funds') || msg.includes('insufficient balance')) {
+        errorMessage = 'Insufficient balance to cover this swap and gas fees'
+      } else if (msg.includes('amount_too_low') || msg.includes('amount must be greater')) {
+        errorMessage = 'Amount is too low. Please enter a larger amount.'
+      } else if (msg.includes('liquidity')) {
+        errorMessage = 'Not enough liquidity for this swap.'
+      } else if (msg.includes('slippage')) {
+        errorMessage = 'Slippage tolerance too low. Try increasing it.'
+      }
       toast.error(errorMessage)
       setIsSwapping(false)
     }
-  }
-
-  const monitorSwapStatus = async (requestId: string) => {
-    const maxAttempts = 60
-    let attempts = 0
-    let lastStatus = ''
-
-    const checkStatus = async () => {
-      try {
-        const status = await relayAPI.getStatus(requestId)
-        
-        console.log(`Swap status check ${attempts + 1}/${maxAttempts}:`, {
-          status: status.status,
-          details: status.details,
-          inTxHashes: status.inTxHashes,
-          txHashes: status.txHashes,
-        })
-
-        // Show status updates to user
-        if (status.status !== lastStatus) {
-          lastStatus = status.status
-          
-          if (status.status === 'waiting') {
-            toast.info('Waiting for transaction confirmation...')
-          } else if (status.status === 'pending') {
-            toast.info('Processing swap...')
-          } else if (status.status === 'submitted') {
-            toast.info('Swap submitted to destination chain...')
-          } else if (status.status === 'delayed') {
-            toast.warning('Swap is taking longer than expected...')
-          }
-        }
-        
-        if (status.status === 'success') {
-          toast.success('Swap completed successfully!')
-          setIsSwapping(false)
-          updateUserStreak()
-          setFromAmount('')
-          setToAmount('')
-          setUsdAmount('')
-          setToUsdAmount('')
-          
-          // Refetch balances to show updated amounts
-          refetchBalances()
-          
-          return
-        } else if (status.status === 'failure') {
-          toast.error(`Swap failed: ${status.details || 'Unknown error'}`)
-          console.error('Swap failure details:', status)
-          setIsSwapping(false)
-          return
-        } else if (status.status === 'refunded') {
-          toast.error(`Swap was refunded: ${status.details || 'Transaction could not be completed'}`)
-          console.error('Swap refund details:', status)
-          setIsSwapping(false)
-          return
-        }
-
-        attempts++
-        if (attempts < maxAttempts) {
-          setTimeout(checkStatus, 2000)
-        } else {
-          toast.error('Swap status check timeout - please check your transaction history')
-          setIsSwapping(false)
-        }
-      } catch (error) {
-        console.error('Failed to check status:', error)
-        attempts++
-        if (attempts < maxAttempts) {
-          setTimeout(checkStatus, 2000)
-        } else {
-          toast.error('Failed to monitor swap status')
-          setIsSwapping(false)
-        }
-      }
-    }
-
-    checkStatus()
   }
 
   const fetchBatchQuote = async () => {
@@ -3315,30 +2938,30 @@ export default function RelaySwap() {
                 <div className="space-y-1.5 text-xs">
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">Rate</span>
-                    <span className="font-mono">{quote.details.rate || '0'}</span>
+                    <span className="font-mono">{quote.details?.rate || '0'}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">Gas</span>
-                    <span className="font-mono">${quote.fees.gas?.amountUsd || '0'}</span>
+                    <span className="font-mono">${quote.fees?.gas?.amountUsd || '0'}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">Relayer</span>
-                    <span className="font-mono">${quote.fees.relayer?.amountUsd || '0'}</span>
+                    <span className="font-mono">${quote.fees?.relayer?.amountUsd || '0'}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">Time</span>
-                    <span className="font-mono">{quote.details.timeEstimate || 0}s</span>
+                    <span className="font-mono">{quote.details?.timeEstimate || 0}s</span>
                   </div>
-                  {quote.details.totalImpact && (
+                  {quote.details?.totalImpact && (
                     <div className="flex justify-between items-center">
                       <span className="text-muted-foreground">Impact</span>
-                      <span className={`font-mono ${parseFloat(quote.details.totalImpact.percent) < 0 ? 'text-destructive' : ''}`}>
+                      <span className={`font-mono ${parseFloat(quote.details.totalImpact.percent ?? '0') < 0 ? 'text-destructive' : ''}`}>
                         {quote.details.totalImpact.percent}
                       </span>
                     </div>
                   )}
                 </div>
-                {quote.details.totalImpact && Math.abs(parseFloat(quote.details.totalImpact.percent)) > 5 && (
+                {quote.details?.totalImpact && Math.abs(parseFloat(quote.details.totalImpact.percent ?? '0')) > 5 && (
                   <div className="mt-2 p-2 bg-destructive/10 border border-destructive/20 rounded text-xs text-destructive">
                     High price impact detected. You may receive significantly less than expected.
                   </div>

@@ -6,6 +6,9 @@ import { wagmiConfig } from '../blockchain/wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { config } from '../../config'
 import { JSONStringifyBigIntHelper } from '../blockchain/bigint'
+import { createClient, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'
+
+createClient({ baseApiUrl: MAINNET_RELAY_API })
 
 // Create a single query client instance
 const queryClient = new QueryClient({

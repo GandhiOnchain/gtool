@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde2e028001trE6fSr7kFIyFq",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now initialize the Relay client at app startup in `AuthProvider`:",
+  "time": {
+    "start": 1772712293020,
+    "end": 1772712293020
+  }
+}

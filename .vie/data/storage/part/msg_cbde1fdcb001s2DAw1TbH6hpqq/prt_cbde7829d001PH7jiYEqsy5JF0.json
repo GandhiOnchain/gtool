@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbde7829d001PH7jiYEqsy5JF0",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_011b3GeACEpi3BmqMtuBr5a1",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && cat node_modules/@relayprotocol/relay-kit-hooks/dist/index.d.ts 2>/dev/null | head -200",
+      "description": "Check relay-kit-hooks type signatures"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Check relay-kit-hooks type signatures"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && cat node_modules/@relayprotocol/relay-kit-hooks/dist/index.d.ts 2>/dev/null | head -200",
+    "time": {
+      "start": 1772712592406,
+      "end": 1772712592407
+    }
+  }
+}

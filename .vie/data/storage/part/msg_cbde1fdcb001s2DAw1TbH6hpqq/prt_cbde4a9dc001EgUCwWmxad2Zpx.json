@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde4a9dc001EgUCwWmxad2Zpx",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_018As6A4Bgq6jKAxG6N94dwo",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 430,
+      "limit": 80
+    },
+    "output": "<file>\n00431|         console.warn('Failed to load batch destination currencies:', e)\n00432|       }\n00433|     }\n00434|     loadBatchToCurrencies()\n00435|   }, [batchToChain])\n00436| \n00437|   useEffect(() => {\n00438|     if (fromToken && fromChain) {\n00439|       fetchTokenPrice(fromToken.address, fromChain.id, 'from')\n00440|     }\n00441|   }, [fromToken, fromChain])\n00442| \n00443|   // Update USD amount when price changes\n00444|   useEffect(() => {\n00445|     if (inputMode === 'usd' && usdAmount && fromTokenPrice > 0) {\n00446|       setFromAmount((parseFloat(usdAmount) / fromTokenPrice).toString())\n00447|     } else if (inputMode === 'token' && fromAmount && fromTokenPrice > 0) {\n00448|       setUsdAmount((parseFloat(fromAmount) * fromTokenPrice).toFixed(2))\n00449|     }\n00450|   }, [fromTokenPrice])\n00451| \n00452|   useEffect(() => {\n00453|     if (toToken && toChain) {\n00454|       fetchTokenPrice(toToken.address, toChain.id, 'to')\n00455|     }\n00456|   }, [toToken, toChain])\n00457| \n00458|   useEffect(() => {\n00459|     if (fromChain) {\n00460|       // Clear fromToken if it doesn't belong to the new chain\n00461|       if (fromToken && fromToken.chainId !== fromChain.id) {\n00462|         setFromToken(null)\n00463|       }\n00464|       loadCurrencies(fromChain.id, 'from')\n00465|     }\n00466|   }, [fromChain])\n00467| \n00468|   useEffect(() => {\n00469|     if (toChain) {\n00470|       // Clear toToken if it doesn't belong to the new chain\n00471|       if (toToken && toToken.chainId !== toChain.id) {\n00472|         setToToken(null)\n00473|       }\n00474|       loadCurrencies(toChain.id, 'to')\n00475|     }\n00476|   }, [toChain])\n00477| \n00478|   useEffect(() => {\n00479|     const fromVMType = fromChain?.vmType || 'evm'\n00480|     const toVMType = toChain?.vmType || 'evm'\n00481|     const hasFromWallet = fromVMType === 'svm' ? !!solanaAddress : !!address\n00482|     const hasToWallet = toVMType === 'svm' ? !!solanaAddress : true\n00483|     if (fromToken && toToken && fromAmount && fromChain && toChain && hasFromWallet && hasToWallet) {\n00484|       const debounce = setTimeout(() => {\n00485|         fetchQuote()\n00486|       }, 500)\n00487|       return () => clearTimeout(debounce)\n00488|     }\n00489|   }, [fromToken, toToken, fromAmount, fromChain, toChain, address, solanaAddress])\n00490| \n00491|   useEffect(() => {\n00492|     if (address && chains.length > 0) {\n00493|       loadUserStreak()\n00494|     }\n00495|   }, [address, chains])\n00496| \n00497| \n00498| \n00499|   useEffect(() => {\n00500|     if (address && fromChain && isConnected) {\n00501|       loadWalletTokens()\n00502|       if (!chainWalletTokens[fromChain.id]) {\n00503|         loadTokensForChain(fromChain)\n00504|       }\n00505|     }\n00506|   }, [address, fromChain, isConnected])\n00507| \n00508|   useEffect(() => {\n00509|     if (address && toChain && isConnected && !chainWalletTokens[toChain.id]) {\n00510|       loadTokensForChain(toChain)\n\n(File has more lines. Use 'offset' parameter to read beyond line 510)\n</file>",
+    "metadata": {
+      "preview": "        console.warn('Failed to load batch destination currencies:', e)\n      }\n    }\n    loadBatchToCurrencies()\n  }, [batchToChain])\n\n  useEffect(() => {\n    if (fromToken && fromChain) {\n      fetchTokenPrice(fromToken.address, fromChain.id, 'from')\n    }\n  }, [fromToken, fromChain])\n\n  // Update USD amount when price changes\n  useEffect(() => {\n    if (inputMode === 'usd' && usdAmount && fromTokenPrice > 0) {\n      setFromAmount((parseFloat(usdAmount) / fromTokenPrice).toString())\n    } else if (inputMode === 'token' && fromAmount && fromTokenPrice > 0) {\n      setUsdAmount((parseFloat(fromAmount) * fromTokenPrice).toFixed(2))\n    }\n  }, [fromTokenPrice])"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712405808,
+      "end": 1772712405810
+    }
+  }
+}

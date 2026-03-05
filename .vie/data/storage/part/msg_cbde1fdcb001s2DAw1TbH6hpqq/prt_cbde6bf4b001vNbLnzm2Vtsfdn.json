@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbde6bf4b001vNbLnzm2Vtsfdn",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01RrFkiFiMiJiBWLMcZYomaZ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1530,
+      "limit": 30
+    },
+    "output": "<file>\n01531|     if (!batchToToken || !batchToChain || !address || batchTokens.length === 0 || !batchChain) {\n01532|       return\n01533|     }\n01534| \n01535|     const toVMType = batchToChain.vmType || 'evm'\n01536|     const isCrossVM = (batchChain.vmType || 'evm') !== toVMType\n01537|     const batchRecipient = isCrossVM\n01538|       ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined\n01539|       : undefined\n01540| \n01541|     if (isCrossVM && toVMType === 'svm' && !solanaAddress) {\n01542|       console.log('Batch quote skipped: Solana destination requires Solana wallet')\n01543|       setBatchQuote(null)\n01544|       return\n01545|     }\n01546| \n01547|     setIsLoadingBatchQuote(true)\n01548|     try {\n01549|       const selectedTokens = batchTokens.filter(bt => {\n01550|         if (bt.selected === false) return false\n01551|         const bal = BigInt(bt.balance || '0')\n01552|         return bal > 0n\n01553|       })\n01554|       const origins = selectedTokens.map(bt => ({\n01555|         chainId: batchChain.id,\n01556|         currency: bt.token.address,\n01557|         amount: bt.balance,\n01558|       }))\n01559| \n01560|       if (origins.length === 0) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 1560)\n</file>",
+    "metadata": {
+      "preview": "    if (!batchToToken || !batchToChain || !address || batchTokens.length === 0 || !batchChain) {\n      return\n    }\n\n    const toVMType = batchToChain.vmType || 'evm'\n    const isCrossVM = (batchChain.vmType || 'evm') !== toVMType\n    const batchRecipient = isCrossVM\n      ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined\n      : undefined\n\n    if (isCrossVM && toVMType === 'svm' && !solanaAddress) {\n      console.log('Batch quote skipped: Solana destination requires Solana wallet')\n      setBatchQuote(null)\n      return\n    }\n\n    setIsLoadingBatchQuote(true)\n    try {\n      const selectedTokens = batchTokens.filter(bt => {\n        if (bt.selected === false) return false"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772712542494,
+      "end": 1772712542498
+    }
+  }
+}

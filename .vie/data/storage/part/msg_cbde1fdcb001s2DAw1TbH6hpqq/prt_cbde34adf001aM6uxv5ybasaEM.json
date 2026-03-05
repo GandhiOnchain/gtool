@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde34adf001aM6uxv5ybasaEM",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "I have enough context now. The key refactor is replacing `fetchQuote`/`executeSwap`/`monitorSwapStatus` with `useQuote` + `executeQuote`, and `loadChains` with `useRelayChains`, `loadCurrencies` with `useTokenList`, and `fetchTokenPrice` with `useTokenPrice`. Let me also check what `executeQuote`'s `onProgress` callback looks like:",
+  "time": {
+    "start": 1772712319303,
+    "end": 1772712319303
+  }
+}

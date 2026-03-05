@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbde5a96c001G46TgPRuoTlwLD",
+  "messageID": "msg_cbde1fdcb001s2DAw1TbH6hpqq",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now replace `fetchQuote`, `executeSwap`, and `monitorSwapStatus` all at once:",
+  "time": {
+    "start": 1772712534511,
+    "end": 1772712534511
+  }
+}
