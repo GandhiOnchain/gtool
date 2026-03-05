@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf1fdb1d002AQKPGNbvCHaHLU",
+  "messageID": "msg_cbf1f9628001idYR5zwX3LTqRC",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Both keys are now set in `env.json`. Alchemy will power RPC connections across all supported chains, and Moralis is available for use via `config.moralis.apiKey`.",
+  "time": {
+    "start": 1772733062951,
+    "end": 1772733062951
+  }
+}
