@@ -3517,15 +3517,17 @@ export default function RelaySwap() {
                     </div>
                     <ChevronDown className="h-3 w-3" />
                   </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={loadApprovals}
-                    disabled={isLoadingApprovals || !revokeChain}
-                    className="h-8 w-8 p-0 flex-shrink-0"
-                  >
-                    <RefreshCw className={`h-3.5 w-3.5 ${isLoadingApprovals ? 'animate-spin' : ''}`} />
-                  </Button>
+                  {revokeChain && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={loadApprovals}
+                      disabled={isLoadingApprovals}
+                      className="h-8 w-8 p-0 flex-shrink-0"
+                    >
+                      <RefreshCw className={`h-3.5 w-3.5 ${isLoadingApprovals ? 'animate-spin' : ''}`} />
+                    </Button>
+                  )}
                 </div>
               </div>
             </Card>

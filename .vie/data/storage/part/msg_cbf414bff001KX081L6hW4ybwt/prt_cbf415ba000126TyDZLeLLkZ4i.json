@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbf415ba000126TyDZLeLLkZ4i",
+  "messageID": "msg_cbf414bff001KX081L6hW4ybwt",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_019FbXBctM3d1QPBb7RuMvxs",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3480,
+      "limit": 35
+    },
+    "output": "<file>\n03481|                 >\n03482|                   {isSecurityScanning\n03483|                     ? 'Scanning...'\n03484|                     : isSwapping\n03485|                     ? (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridging...' : 'Batch Swapping...')\n03486|                     : isLoadingBatchQuote\n03487|                     ? 'Loading Quote...'\n03488|                     : (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridge' : 'Batch Swap')}\n03489|                 </Button>\n03490|               </div>\n03491|             </Card>\n03492|           </TabsContent>\n03493| \n03494| \n03495|           <TabsContent value=\"revoke\" className=\"space-y-2 mt-2\">\n03496|             <Card className=\"p-3\">\n03497|               <div className=\"space-y-2\">\n03498|                 <div className=\"text-sm font-medium\">Revoke Token Approvals</div>\n03499|                 <div className=\"text-xs text-muted-foreground\">\n03500|                   Select a chain to view and revoke token approvals\n03501|                 </div>\n03502|                 \n03503|                 <div className=\"flex gap-2\">\n03504|                   <Button\n03505|                     variant=\"outline\"\n03506|                     onClick={() => {\n03507|                       setSelectingFor('revoke')\n03508|                       setIsChainSelectOpen(true)\n03509|                     }}\n03510|                     className=\"flex-1 justify-between h-8 text-xs\"\n03511|                   >\n03512|                     <div className=\"flex items-center gap-1.5\">\n03513|                       {revokeChain?.iconUrl && (\n03514|                         <img src={getChainIconUrl(revokeChain)} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n03515|                       )}\n\n(File has more lines. Use 'offset' parameter to read beyond line 3515)\n</file>",
+    "metadata": {
+      "preview": "                >\n                  {isSecurityScanning\n                    ? 'Scanning...'\n                    : isSwapping\n                    ? (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridging...' : 'Batch Swapping...')\n                    : isLoadingBatchQuote\n                    ? 'Loading Quote...'\n                    : (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridge' : 'Batch Swap')}\n                </Button>\n              </div>\n            </Card>\n          </TabsContent>\n\n\n          <TabsContent value=\"revoke\" className=\"space-y-2 mt-2\">\n            <Card className=\"p-3\">\n              <div className=\"space-y-2\">\n                <div className=\"text-sm font-medium\">Revoke Token Approvals</div>\n                <div className=\"text-xs text-muted-foreground\">\n                  Select a chain to view and revoke token approvals"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772735257860,
+      "end": 1772735257861
+    }
+  }
+}

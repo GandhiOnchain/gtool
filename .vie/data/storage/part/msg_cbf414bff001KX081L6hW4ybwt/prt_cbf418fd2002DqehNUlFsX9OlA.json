@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf418fd2002DqehNUlFsX9OlA",
+  "messageID": "msg_cbf414bff001KX081L6hW4ybwt",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Done. The refresh button now only renders when `revokeChain` is set.",
+  "time": {
+    "start": 1772735271501,
+    "end": 1772735271501
+  }
+}
