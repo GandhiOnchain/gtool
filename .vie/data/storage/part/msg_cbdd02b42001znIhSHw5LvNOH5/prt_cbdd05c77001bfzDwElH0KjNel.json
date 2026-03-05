@@ -1,0 +1,23 @@
+{
+  "id": "prt_cbdd05c77001bfzDwElH0KjNel",
+  "messageID": "msg_cbdd02b42001znIhSHw5LvNOH5",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01GjmUdPLruZXcoKVki88u4y",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/components/Layout.tsx"
+    },
+    "output": "<file>\n00001| import { ReactNode } from \"react\";\n00002| import { Link } from \"react-router-dom\";\n00003| import { ThemeSelector } from \"@/components/ThemeSelector\";\n00004| import { cn } from \"@/lib/utils\";\n00005| \n00006| interface LayoutProps {\n00007|   children: ReactNode;\n00008|   appName?: string;\n00009|   showHeader?: boolean;\n00010|   stickyHeader?: boolean;\n00011| }\n00012| \n00013| export function Layout({\n00014|   children,\n00015|   appName = \"App Name\",\n00016|   showHeader = true,\n00017|   stickyHeader = false\n00018| }: LayoutProps) {\n00019|   return (\n00020|     <div className=\"min-h-screen flex flex-col bg-background\">\n00021|       {showHeader && (\n00022|         <header className={cn(\n00023|           \"w-full border-b border-border bg-background\",\n00024|           stickyHeader && \"sticky top-0 z-50\"\n00025|         )}>\n00026|           <div className=\"px-4 md:px-8\">\n00027|             <div className=\"mx-auto max-w-7xl\">\n00028|               <div className={cn(\n00029|                 \"flex items-center justify-between\",\n00030|                 appName ? \"h-16\" : \"h-12\"\n00031|               )}>\n00032|                 {appName && (\n00033|                   <Link to=\"/\" className=\"text-xl font-bold\">\n00034|                     {appName}\n00035|                   </Link>\n00036|                 )}\n00037|                 <div className={cn(\n00038|                   \"flex items-center gap-2\",\n00039|                   !appName && \"ml-auto\"\n00040|                 )}>\n00041|                   <ThemeSelector />\n00042|                 </div>\n00043|               </div>\n00044|             </div>\n00045|           </div>\n00046|         </header>\n00047|       )}\n00048| \n00049|       <main className=\"flex-1\">{children}</main>\n00050|     </div>\n00051|   );\n00052| }\n00053| \n</file>",
+    "metadata": {
+      "preview": "import { ReactNode } from \"react\";\nimport { Link } from \"react-router-dom\";\nimport { ThemeSelector } from \"@/components/ThemeSelector\";\nimport { cn } from \"@/lib/utils\";\n\ninterface LayoutProps {\n  children: ReactNode;\n  appName?: string;\n  showHeader?: boolean;\n  stickyHeader?: boolean;\n}\n\nexport function Layout({\n  children,\n  appName = \"App Name\",\n  showHeader = true,\n  stickyHeader = false\n}: LayoutProps) {\n  return (\n    <div className=\"min-h-screen flex flex-col bg-background\">"
+    },
+    "title": "frontend/src/components/Layout.tsx",
+    "time": {
+      "start": 1772711074975,
+      "end": 1772711074976
+    }
+  }
+}

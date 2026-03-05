@@ -1,0 +1,24 @@
+{
+  "id": "prt_cbdd06b88001y47K5eeRsjiE0z",
+  "messageID": "msg_cbdd02b42001znIhSHw5LvNOH5",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "list",
+  "callID": "toolu_bdrk_01NW9XABYxjBrXaRVYWyBdqX",
+  "state": {
+    "status": "completed",
+    "input": {
+      "path": "/home/user/sandbox/workspace/frontend/src/lib"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/src/lib/\n  alchemy/\n    spam/\n      additional-spam-tokens/\n        index.ts\n      initial-spam-tokens/\n        base.json\n        bsc.json\n        ethereum.json\n        index.ts\n        optimism.json\n        polygon.json\n      index.ts\n      types.ts\n    config.ts\n  blockchain/\n    bigint.ts\n    chains.ts\n    events.ts\n    signatureUtils.ts\n    types.ts\n    wagmi.ts\n  providers/\n    AuthProvider.tsx\n    ThemeProvider.tsx\n  relay/\n    api.ts\n    types.ts\n  security/\n    rateLimit.ts\n    storage.ts\n    validation.ts\n  tokenLogos.ts\n  utils.ts\n",
+    "metadata": {
+      "count": 25,
+      "truncated": false
+    },
+    "title": "frontend/src/lib",
+    "time": {
+      "start": 1772711078800,
+      "end": 1772711078805
+    }
+  }
+}

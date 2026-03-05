@@ -1,0 +1,24 @@
+{
+  "id": "prt_cbdd04eec0018kwB8goXaSOSN6",
+  "messageID": "msg_cbdd02b42001znIhSHw5LvNOH5",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "list",
+  "callID": "toolu_bdrk_017xesxw19UqLfPRYq8AFymj",
+  "state": {
+    "status": "completed",
+    "input": {
+      "path": "/home/user/sandbox/workspace/frontend/src/pages"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/src/pages/\n  Index.tsx\n  NotFound.tsx\n  RelaySwap.tsx\n  RelaySwap.tsx.backup\n",
+    "metadata": {
+      "count": 4,
+      "truncated": false
+    },
+    "title": "frontend/src/pages",
+    "time": {
+      "start": 1772711071485,
+      "end": 1772711071497
+    }
+  }
+}
