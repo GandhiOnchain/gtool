@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbdb46260020Msgtx6MqWgWgP",
+  "messageID": "msg_cbbda437c001OGxcHUUE1tS9bL",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Now rewrite the token select dialog to show wallet tokens prominently with risk badges, trigger loading on open, and show all security flags:",
+  "time": {
+    "start": 1772678302054,
+    "end": 1772678302054
+  }
+}

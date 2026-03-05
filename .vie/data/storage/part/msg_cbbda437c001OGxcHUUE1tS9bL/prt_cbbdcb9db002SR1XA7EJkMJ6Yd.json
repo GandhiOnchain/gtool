@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbdcb9db002SR1XA7EJkMJ6Yd",
+  "messageID": "msg_cbbda437c001OGxcHUUE1tS9bL",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Here's what was done:\n\n**Token dropdown — wallet balances not showing**\n\nThe root cause: `chainWalletTokens[chainId]` was only populated when `fromChain`/`toChain` changed via a `useEffect`, which runs asynchronously. By the time the user opens the token dialog, the scan often hasn't finished. The dialog was rendering against an empty map.\n\nFix: when the dialog opens, it now immediately triggers `loadTokensForChain` for the active chain if not already loaded or loading. A `loadingWalletChains` set tracks in-progress chains so it doesn't double-fire. The dialog shows a spinner while loading.\n\nThe list is now split into two sections — **\"In your wallet\"** (tokens with balance > 0, shown first) and **\"All tokens\"** (the Relay currency list, excluding duplicates already shown above). Wallet tokens are matched by exact `chainId:address` key so there's no false-positive deduplication.\n\n**Security badges in token dropdown**\n\nEvery token row in the dropdown now shows the same risk badges as the batch list:\n- `High Risk` / `Honeypot` (red) for `riskLevel === 'high'`\n- `Caution` (yellow) for `riskLevel === 'medium'`  \n- `Low Risk` (muted) for `riskLevel === 'low'` or any flags present\n- All flags joined with `·` shown as subtext below the token name (not just the first one)\n\nRisk data comes from `wt.risk` on wallet tokens (already scanned during `loadBatchWalletTokens`) and is shown in the swap/bridge dropdown too, not just the batch tab.",
+  "time": {
+    "start": 1772678341010,
+    "end": 1772678341010
+  }
+}

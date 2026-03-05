@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbdadbee002i6QfIpns3qT4iE",
+  "messageID": "msg_cbbda437c001OGxcHUUE1tS9bL",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Now I have everything I need. The two issues are clear:\n\n1. **Token dropdown doesn't show wallet balances** — `chainWalletTokens` is only populated for `fromChain` and `toChain` via `loadTokensForChain`, but that function calls `fetchWalletTokens` which does the full heavy Alchemy/Moralis/RPC scan. The token dialog opens instantly but `chainWalletTokens[chainId]` is often empty because the scan hasn't finished. The `activeWalletTokenMap` is built from this, so balances don't show.\n\n2. **Security badges in token dropdown** — the token select dialog shows tokens from `filteredCurrencies` (Relay currency list) but has no risk info — only the batch list has risk badges. Need to add risk badges + all flags tooltip to the token dropdown too.",
+  "time": {
+    "start": 1772678216998,
+    "end": 1772678216998
+  }
+}

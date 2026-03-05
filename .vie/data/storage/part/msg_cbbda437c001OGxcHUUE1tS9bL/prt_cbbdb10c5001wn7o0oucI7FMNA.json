@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbbdb10c5001wn7o0oucI7FMNA",
+  "messageID": "msg_cbbda437c001OGxcHUUE1tS9bL",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01W5gzmW8oKqopF6MDsk9PRg",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 440,
+      "limit": 20
+    },
+    "output": "<file>\n00441| \n00442| \n00443|   useEffect(() => {\n00444|     if (address && fromChain && isConnected) {\n00445|       loadWalletTokens()\n00446|       if (!chainWalletTokens[fromChain.id]) {\n00447|         loadTokensForChain(fromChain)\n00448|       }\n00449|     }\n00450|   }, [address, fromChain, isConnected])\n00451| \n00452|   useEffect(() => {\n00453|     if (address && toChain && isConnected && !chainWalletTokens[toChain.id]) {\n00454|       loadTokensForChain(toChain)\n00455|     }\n00456|   }, [address, toChain, isConnected])\n00457| \n00458|   useEffect(() => {\n00459|     setBatchTokens([])\n00460|     setWalletTokens([])\n\n(File has more lines. Use 'offset' parameter to read beyond line 460)\n</file>",
+    "metadata": {
+      "preview": "\n\n  useEffect(() => {\n    if (address && fromChain && isConnected) {\n      loadWalletTokens()\n      if (!chainWalletTokens[fromChain.id]) {\n        loadTokensForChain(fromChain)\n      }\n    }\n  }, [address, fromChain, isConnected])\n\n  useEffect(() => {\n    if (address && toChain && isConnected && !chainWalletTokens[toChain.id]) {\n      loadTokensForChain(toChain)\n    }\n  }, [address, toChain, isConnected])\n\n  useEffect(() => {\n    setBatchTokens([])\n    setWalletTokens([])"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772678222300,
+      "end": 1772678222301
+    }
+  }
+}

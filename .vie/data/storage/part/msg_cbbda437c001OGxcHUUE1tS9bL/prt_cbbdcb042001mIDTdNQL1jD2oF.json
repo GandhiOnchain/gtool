@@ -1,0 +1,49 @@
+{
+  "id": "prt_cbbdcb042001mIDTdNQL1jD2oF",
+  "messageID": "msg_cbbda437c001OGxcHUUE1tS9bL",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01MgcRewaEQAX1ek7khVvsNx",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Fix token dropdown: wallet tokens with balance not showing",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add security badges + all flags to token select dropdown",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Fix token dropdown: wallet tokens with balance not showing\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Add security badges + all flags to token select dropdown\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Fix token dropdown: wallet tokens with balance not showing",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add security badges + all flags to token select dropdown",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "title": "0 todos",
+    "time": {
+      "start": 1772678328440,
+      "end": 1772678328441
+    }
+  }
+}

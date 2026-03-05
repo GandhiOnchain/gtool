@@ -253,6 +253,7 @@ export default function RelaySwap() {
   const [swapSources, setSwapSources] = useState<string[]>([])
   const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})
   const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)
+  const [loadingWalletChains, setLoadingWalletChains] = useState<Set<number>>(new Set())
   const [batchChain, setBatchChain] = useState<RelayChain | null>(null)
   const [batchToChain, setBatchToChain] = useState<RelayChain | null>(null)
   const [batchToToken, setBatchToToken] = useState<RelayCurrency | null>(null)
@@ -1308,11 +1309,14 @@ export default function RelaySwap() {
   }
 
   const loadTokensForChain = async (chain: RelayChain) => {
+    setLoadingWalletChains(prev => new Set(prev).add(chain.id))
     try {
       const tokens = await fetchWalletTokens(chain)
       setChainWalletTokens(prev => ({ ...prev, [chain.id]: tokens }))
     } catch (e) {
       console.warn('loadTokensForChain failed:', e)
+    } finally {
+      setLoadingWalletChains(prev => { const s = new Set(prev); s.delete(chain.id); return s })
     }
   }
 
@@ -3895,16 +3899,17 @@ export default function RelaySwap() {
 
         <Dialog open={isTokenSelectOpen} onOpenChange={(open) => {
           setIsTokenSelectOpen(open)
-          if (open) {
-            console.log('Token selector opened for:', selectingFor)
-            console.log('Active currencies:', activeCurrencies.length)
-            console.log('From currencies:', fromCurrencies.length)
-            console.log('To currencies:', toCurrencies.length)
+          if (open && address && isConnected && activeChainId) {
+            const activeRelayChain = chains.find(c => c.id === activeChainId)
+            if (activeRelayChain && !chainWalletTokens[activeChainId] && !loadingWalletChains.has(activeChainId)) {
+              loadTokensForChain(activeRelayChain)
+            }
           }
+          if (!open) setTokenSearchTerm('')
         }}>
           <DialogContent className="max-w-[380px]">
             <DialogHeader>
-              <DialogTitle className="text-sm">Select Token ({selectingFor})</DialogTitle>
+              <DialogTitle className="text-sm">Select Token</DialogTitle>
             </DialogHeader>
             <div className="space-y-2">
               <Input
@@ -3912,169 +3917,183 @@ export default function RelaySwap() {
                 value={tokenSearchTerm}
                 onChange={(e) => setTokenSearchTerm(e.target.value)}
                 className="h-8 text-xs"
+                autoFocus
               />
               {(isSearchingExternal || externalSearchResults.length > 0) && (
                 <div className="text-xs text-muted-foreground px-1">
                   {isSearchingExternal ? 'Searching for token...' : `Found ${externalSearchResults.length} external token(s)`}
                 </div>
               )}
-              <ScrollArea className="h-[300px]">
+              <ScrollArea className="h-[340px]">
                 <div className="space-y-1">
-                  {filteredCurrencies.length === 0 ? (
-                    <div className="text-xs text-muted-foreground text-center p-4">
-                      {/* Empty state - no message shown when searching */}
-                    </div>
-                  ) : (
-                    filteredCurrencies.map((currency) => {
-                    const walletToken = activeWalletTokenMap.get(`${currency.chainId}:${currency.address.toLowerCase()}`)
-                    return (
-                    <div
-                      key={`${currency.chainId}-${currency.address}`}
-                      onClick={async () => {
-                        if (selectingFor === 'batch') {
-                          // Add token to batch tokens if not already added
-                          const alreadyAdded = batchTokens.some(
-                            wt => wt.token.address.toLowerCase() === currency.address.toLowerCase() &&
-                                  wt.token.chainId === currency.chainId
-                          )
-                          
-                          if (alreadyAdded) {
-                            toast.info(`${currency.symbol} already added`)
-                            setIsTokenSelectOpen(false)
-                            setTokenSearchTerm('')
-                            return
-                          }
-                          
-                          // Try to fetch the actual balance for this token
-                          let balance = '0'
-                          let balanceFormatted = '0'
-                          
+                  {(() => {
+                    // Wallet tokens with balance — shown first as a dedicated section
+                    const walletTokensWithBal = activeChainId
+                      ? (chainWalletTokens[activeChainId] || []).filter(wt => {
+                          const bal = parseFloat(wt.balanceFormatted)
+                          if (bal <= 0) return false
+                          const term = tokenSearchTerm.toLowerCase()
+                          if (!term) return true
+                          return wt.token.symbol.toLowerCase().includes(term) ||
+                            wt.token.name.toLowerCase().includes(term) ||
+                            wt.token.address.toLowerCase().includes(term)
+                        })
+                      : []
+
+                    const walletAddrs = new Set(walletTokensWithBal.map(wt => `${wt.token.chainId}:${wt.token.address.toLowerCase()}`))
+
+                    // Relay currency list — exclude tokens already shown in wallet section
+                    const relayList = filteredCurrencies.filter(c => !walletAddrs.has(`${c.chainId}:${c.address.toLowerCase()}`))
+
+                    const isLoadingWallet = activeChainId ? loadingWalletChains.has(activeChainId) : false
+
+                    const handleSelect = async (currency: RelayCurrency, walletToken?: WalletToken) => {
+                      if (selectingFor === 'batch') {
+                        const alreadyAdded = batchTokens.some(
+                          wt => wt.token.address.toLowerCase() === currency.address.toLowerCase() &&
+                                wt.token.chainId === currency.chainId
+                        )
+                        if (alreadyAdded) {
+                          toast.info(`${currency.symbol} already added`)
+                          setIsTokenSelectOpen(false)
+                          return
+                        }
+                        let balance = walletToken?.balance || '0'
+                        let balanceFormatted = walletToken?.balanceFormatted || '0'
+                        if (!walletToken) {
                           try {
                             const vmType = batchChain?.vmType || 'evm'
-                            
-                            if (vmType === 'evm' || vmType === 'hypevm') {
+                            if ((vmType === 'evm' || vmType === 'hypevm') && batchChain) {
                               const { createPublicClient, http, defineChain } = await import('viem')
-                              
-                              if (batchChain) {
-                                const chainConfig = defineChain({
-                                  id: batchChain.id,
-                                  name: batchChain.displayName,
-                                  nativeCurrency: {
-                                    name: batchChain.currency.name,
-                                    symbol: batchChain.currency.symbol,
-                                    decimals: batchChain.currency.decimals,
-                                  },
-                                  rpcUrls: {
-                                    default: { http: [batchChain.httpRpcUrl] },
-                                  },
-                                })
-                                
-                                const publicClient = createPublicClient({
-                                  chain: chainConfig,
-                                  transport: http(batchChain.httpRpcUrl),
-                                })
-                                
-                                let balanceBigInt = BigInt(0)
-                                
-                                if (currency.metadata?.isNative) {
-                                  balanceBigInt = await publicClient.getBalance({
-                                    address: address as `0x${string}`,
-                                  })
-                                } else {
-                                  balanceBigInt = await publicClient.readContract({
-                                    address: currency.address as `0x${string}`,
-                                    abi: [{
-                                      name: 'balanceOf',
-                                      type: 'function',
-                                      stateMutability: 'view',
-                                      inputs: [{ name: 'account', type: 'address' }],
-                                      outputs: [{ name: 'balance', type: 'uint256' }],
-                                    }],
-                                    functionName: 'balanceOf',
-                                    args: [address as `0x${string}`],
-                                  })
-                                }
-                                
-                                balance = balanceBigInt.toString()
-                                balanceFormatted = formatUnits(balanceBigInt, currency.decimals)
-                              }
-                            }
-                          } catch (e) {
-                            console.error('Failed to fetch balance for manually added token:', e)
-                            // Continue with 0 balance
-                          }
-                          
-                          const heuristicResult = heuristicSpamCheck(currency.symbol, currency.name)
-                          const newToken: WalletToken = {
-                            token: currency,
-                            balance,
-                            balanceFormatted,
-                            selected: !heuristicResult.isSpam,
-                            risk: heuristicResult.isSpam
-                              ? { isSpam: true, isHoneypot: false, riskLevel: 'high', flags: heuristicResult.flags }
-                              : undefined,
-                          }
-                          
-                          setBatchTokens([...batchTokens, newToken])
-                          if (heuristicResult.isSpam) {
-                            toast.warning(`${currency.symbol} flagged as spam and deselected`)
-                          } else {
-                            toast.success(`Added ${currency.symbol} to batch swap${balanceFormatted !== '0' ? ` (Balance: ${balanceFormatted})` : ''}`)
-                          }
-                          // Run full security scan in background and update
-                          if (batchChain) {
-                            scanTokenSecurity([{ address: currency.address, symbol: currency.symbol, name: currency.name }], batchChain.id)
-                              .then(riskMap => {
-                                const risk = riskMap.get(currency.address.toLowerCase())
-                                if (risk) {
-                                  setBatchTokens(prev => prev.map(t =>
-                                    t.token.address.toLowerCase() === currency.address.toLowerCase() ? { ...t, risk, selected: !risk.isSpam } : t
-                                  ))
-                                }
+                              const chainConfig = defineChain({
+                                id: batchChain.id, name: batchChain.displayName,
+                                nativeCurrency: { name: batchChain.currency.name, symbol: batchChain.currency.symbol, decimals: batchChain.currency.decimals },
+                                rpcUrls: { default: { http: [batchChain.httpRpcUrl] } },
                               })
-                              .catch(() => {})
-                          }
-                        } else if (selectingFor === 'batchTo') {
-                          setBatchToToken(currency)
-                        } else if (selectingFor === 'from') {
-                          setFromToken(currency)
-                          if (toToken && toChain && fromChain && 
-                              fromChain.id === toChain.id && 
-                              currency.address.toLowerCase() === toToken.address.toLowerCase()) {
-                            setToToken(null)
-                          }
-                        } else {
-                          setToToken(currency)
-                          if (fromToken && fromChain && toChain && 
-                              fromChain.id === toChain.id && 
-                              currency.address.toLowerCase() === fromToken.address.toLowerCase()) {
-                            setFromToken(null)
-                          }
+                              const pc = createPublicClient({ chain: chainConfig, transport: http(batchChain.httpRpcUrl) })
+                              const bal = currency.metadata?.isNative
+                                ? await pc.getBalance({ address: address as `0x${string}` })
+                                : await pc.readContract({ address: currency.address as `0x${string}`, abi: [{ name: 'balanceOf', type: 'function', stateMutability: 'view', inputs: [{ name: 'account', type: 'address' }], outputs: [{ name: 'balance', type: 'uint256' }] }] as const, functionName: 'balanceOf', args: [address as `0x${string}`] })
+                              balance = bal.toString()
+                              balanceFormatted = formatUnits(bal, currency.decimals)
+                            }
+                          } catch { /* use 0 */ }
                         }
-                        setIsTokenSelectOpen(false)
-                        setTokenSearchTerm('')
-                      }}
-                      className="flex items-center gap-2 p-2 rounded hover:bg-accent cursor-pointer"
-                    >
-                      <TokenLogo
-                        address={currency.metadata?.isNative || isNativeAddress(currency.address) ? undefined : currency.address}
-                        chainId={currency.chainId}
-                        symbol={currency.symbol}
-                        logoURI={currency.metadata?.logoURI}
-                      />
-                      <div className="flex-1 min-w-0">
-                        <div className="text-xs font-medium">{currency.symbol}</div>
-                        <div className="text-xs text-muted-foreground truncate">{currency.name}</div>
-                      </div>
-                      {walletToken && parseFloat(walletToken.balanceFormatted) > 0 && (
-                        <div className="text-xs text-right flex-shrink-0">
-                          <div className="font-medium">{parseFloat(walletToken.balanceFormatted).toFixed(4)}</div>
+                        const heuristicResult = heuristicSpamCheck(currency.symbol, currency.name)
+                        const newToken: WalletToken = {
+                          token: currency, balance, balanceFormatted,
+                          selected: !heuristicResult.isSpam,
+                          risk: heuristicResult.isSpam ? { isSpam: true, isHoneypot: false, riskLevel: 'high', flags: heuristicResult.flags } : undefined,
+                        }
+                        setBatchTokens([...batchTokens, newToken])
+                        if (heuristicResult.isSpam) toast.warning(`${currency.symbol} flagged as spam and deselected`)
+                        else toast.success(`Added ${currency.symbol}${parseFloat(balanceFormatted) > 0 ? ` (${parseFloat(balanceFormatted).toFixed(4)})` : ''}`)
+                        if (batchChain) {
+                          scanTokenSecurity([{ address: currency.address, symbol: currency.symbol, name: currency.name }], batchChain.id)
+                            .then(riskMap => {
+                              const risk = riskMap.get(currency.address.toLowerCase())
+                              if (risk) setBatchTokens(prev => prev.map(t => t.token.address.toLowerCase() === currency.address.toLowerCase() ? { ...t, risk, selected: !risk.isSpam } : t))
+                            }).catch(() => {})
+                        }
+                      } else if (selectingFor === 'batchTo') {
+                        setBatchToToken(currency)
+                      } else if (selectingFor === 'from') {
+                        setFromToken(currency)
+                        if (toToken && toChain && fromChain && fromChain.id === toChain.id && currency.address.toLowerCase() === toToken.address.toLowerCase()) setToToken(null)
+                      } else {
+                        setToToken(currency)
+                        if (fromToken && fromChain && toChain && fromChain.id === toChain.id && currency.address.toLowerCase() === fromToken.address.toLowerCase()) setFromToken(null)
+                      }
+                      setIsTokenSelectOpen(false)
+                      setTokenSearchTerm('')
+                    }
+
+                    const TokenRow = ({ currency, walletToken, risk }: { currency: RelayCurrency; walletToken?: WalletToken; risk?: TokenRisk }) => {
+                      const isHighRisk = risk?.riskLevel === 'high' || risk?.isSpam
+                      const isMedRisk = !isHighRisk && risk?.riskLevel === 'medium'
+                      const isLowRisk = !isHighRisk && !isMedRisk && (risk?.riskLevel === 'low' || (risk?.flags && risk.flags.length > 0))
+                      return (
+                        <div
+                          onClick={() => handleSelect(currency, walletToken)}
+                          className={`flex items-center gap-2 p-2 rounded cursor-pointer transition-colors hover:bg-accent/60 ${isHighRisk ? 'border border-destructive/40 bg-destructive/5' : isMedRisk ? 'border border-yellow-500/30 bg-yellow-500/5' : ''}`}
+                        >
+                          <TokenLogo
+                            address={currency.metadata?.isNative || isNativeAddress(currency.address) ? undefined : currency.address}
+                            chainId={currency.chainId} symbol={currency.symbol} logoURI={currency.metadata?.logoURI}
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1 flex-wrap">
+                              <span className="text-xs font-medium">{currency.symbol}</span>
+                              {isHighRisk && (
+                                <Badge variant="destructive" className="text-[8px] h-3.5 px-1 leading-none">
+                                  {risk?.isHoneypot ? 'Honeypot' : 'High Risk'}
+                                </Badge>
+                              )}
+                              {isMedRisk && (
+                                <Badge className="text-[8px] h-3.5 px-1 leading-none bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
+                                  Caution
+                                </Badge>
+                              )}
+                              {isLowRisk && (
+                                <Badge className="text-[8px] h-3.5 px-1 leading-none bg-muted text-muted-foreground border-border">
+                                  Low Risk
+                                </Badge>
+                              )}
+                            </div>
+                            {risk && risk.flags.length > 0 ? (
+                              <div className="text-[10px] text-muted-foreground truncate">
+                                {risk.flags.join(' · ')}
+                              </div>
+                            ) : (
+                              <div className="text-xs text-muted-foreground truncate">{currency.name}</div>
+                            )}
+                          </div>
+                          {walletToken && parseFloat(walletToken.balanceFormatted) > 0 && (
+                            <div className="text-xs text-right flex-shrink-0">
+                              <div className="font-medium">{parseFloat(walletToken.balanceFormatted).toFixed(4)}</div>
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
+                      )
+                    }
+
+                    return (
+                      <>
+                        {/* Wallet tokens section */}
+                        {(walletTokensWithBal.length > 0 || isLoadingWallet) && (
+                          <div className="mb-1">
+                            <div className="text-[10px] text-muted-foreground px-1 pb-1 uppercase tracking-wide flex items-center gap-1">
+                              In your wallet
+                              {isLoadingWallet && <RefreshCw className="h-2.5 w-2.5 animate-spin" />}
+                            </div>
+                            {walletTokensWithBal.map(wt => (
+                              <TokenRow key={`wallet-${wt.token.chainId}-${wt.token.address}`} currency={wt.token} walletToken={wt} risk={wt.risk} />
+                            ))}
+                          </div>
+                        )}
+                        {isLoadingWallet && walletTokensWithBal.length === 0 && (
+                          <div className="text-xs text-muted-foreground text-center py-2 flex items-center justify-center gap-1">
+                            <RefreshCw className="h-3 w-3 animate-spin" /> Loading wallet tokens...
+                          </div>
+                        )}
+                        {/* All tokens section */}
+                        {relayList.length > 0 && (
+                          <>
+                            {walletTokensWithBal.length > 0 && (
+                              <div className="text-[10px] text-muted-foreground px-1 pb-1 pt-1 uppercase tracking-wide">All tokens</div>
+                            )}
+                            {relayList.map(currency => {
+                              const wt = activeWalletTokenMap.get(`${currency.chainId}:${currency.address.toLowerCase()}`)
+                              return <TokenRow key={`${currency.chainId}-${currency.address}`} currency={currency} walletToken={wt} />
+                            })}
+                          </>
+                        )}
+                        {walletTokensWithBal.length === 0 && relayList.length === 0 && !isLoadingWallet && (
+                          <div className="text-xs text-muted-foreground text-center p-4">No tokens found</div>
+                        )}
+                      </>
                     )
-                    })
-                  )}
+                  })()}
                 </div>
               </ScrollArea>
             </div>

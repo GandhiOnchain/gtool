@@ -1,0 +1,49 @@
+{
+  "id": "prt_cbbdafcbd001wAEbvfAat1jM7j",
+  "messageID": "msg_cbbda437c001OGxcHUUE1tS9bL",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01JAqPHqbjSBjCJEmsdCHaoF",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Fix token dropdown: wallet tokens with balance not showing — activeWalletTokenMap misses tokens because chainWalletTokens scan is async and slow. Show wallet tokens at top as a separate section.",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add security badges + all flags to token select dropdown (not just batch list)",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Fix token dropdown: wallet tokens with balance not showing — activeWalletTokenMap misses tokens because chainWalletTokens scan is async and slow. Show wallet tokens at top as a separate section.\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Add security badges + all flags to token select dropdown (not just batch list)\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Fix token dropdown: wallet tokens with balance not showing — activeWalletTokenMap misses tokens because chainWalletTokens scan is async and slow. Show wallet tokens at top as a separate section.",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Add security badges + all flags to token select dropdown (not just batch list)",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "title": "2 todos",
+    "time": {
+      "start": 1772678216968,
+      "end": 1772678216968
+    }
+  }
+}
