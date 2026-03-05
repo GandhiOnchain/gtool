@@ -20,7 +20,8 @@
     "title": "frontend/src/hooks/alchemy/nft/useNftsByOwnerOnMultipleChains.ts",
     "time": {
       "start": 1772193627932,
-      "end": 1772193627936
+      "end": 1772193627936,
+      "compacted": 1772676618791
     }
   }
 }

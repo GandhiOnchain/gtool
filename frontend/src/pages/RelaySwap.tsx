@@ -3118,61 +3118,31 @@ export default function RelaySwap() {
                   <div className="relative">
                     <Input
                       type="number"
-                      placeholder={inputMode === 'token' ? '0.0' : '$0.00'}
-                      value={inputMode === 'token' ? toAmount : (toAmount && toTokenPrice > 0 ? (parseFloat(toAmount) * toTokenPrice).toFixed(2) : '')}
+                      placeholder="0.0"
+                      value={toAmount}
                       onChange={(e) => {
                         const value = sanitizeInput(e.target.value)
-                        if (inputMode === 'token') {
-                          if (!value || validateAmount(value, toToken?.decimals || 18)) {
-                            setToAmount(value)
-                            if (value && toTokenPrice > 0 && fromTokenPrice > 0 && toToken && fromToken) {
-                              const usdValue = parseFloat(value) * toTokenPrice
-                              const fromTokenAmount = usdValue / fromTokenPrice
-                              setFromAmount(fromTokenAmount.toString())
-                              setUsdAmount(usdValue.toFixed(2))
-                            } else {
-                              setFromAmount('')
-                              setUsdAmount('')
-                            }
-                          }
-                        } else {
-                          if (!value || validateAmount(value, 2)) {
-                            const usdValue = value
-                            if (usdValue && toTokenPrice > 0) {
-                              const toTokenAmount = parseFloat(usdValue) / toTokenPrice
-                              setToAmount(toTokenAmount.toString())
-                              if (fromTokenPrice > 0) {
-                                setFromAmount((parseFloat(usdValue) / fromTokenPrice).toString())
-                              }
-                              setUsdAmount(usdValue)
-                            } else {
-                              setToAmount('')
-                              setFromAmount('')
-                              setUsdAmount('')
-                            }
+                        if (!value || validateAmount(value, toToken?.decimals || 18)) {
+                          setToAmount(value)
+                          if (value && toTokenPrice > 0 && fromTokenPrice > 0) {
+                            const usdValue = parseFloat(value) * toTokenPrice
+                            setFromAmount((usdValue / fromTokenPrice).toString())
+                            setUsdAmount(usdValue.toFixed(2))
+                          } else {
+                            setFromAmount('')
+                            setUsdAmount('')
                           }
                         }
                       }}
                       className="text-lg h-10 pr-16"
                     />
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setInputMode(inputMode === 'token' ? 'usd' : 'token')}
-                      className="absolute right-1 top-1 h-8 px-2 text-xs"
-                      disabled={!toTokenPrice}
-                    >
-                      {inputMode === 'token' ? toToken?.symbol || 'TOKEN' : 'USD'}
-                    </Button>
+                    <div className="absolute right-1 top-1 h-8 px-2 text-xs flex items-center text-muted-foreground pointer-events-none">
+                      {toToken?.symbol || 'TOKEN'}
+                    </div>
                   </div>
-                  {toAmount && toTokenPrice > 0 && inputMode === 'token' && (
+                  {toAmount && toTokenPrice > 0 && (
                     <div className="text-xs text-muted-foreground px-1">
                       ≈ ${(parseFloat(toAmount) * toTokenPrice).toFixed(2)}
-                    </div>
-                  )}
-                  {toAmount && toTokenPrice > 0 && inputMode === 'usd' && (
-                    <div className="text-xs text-muted-foreground px-1">
-                      ≈ {(parseFloat(toAmount)).toFixed(6)} {toToken?.symbol}
                     </div>
                   )}
                 </div>

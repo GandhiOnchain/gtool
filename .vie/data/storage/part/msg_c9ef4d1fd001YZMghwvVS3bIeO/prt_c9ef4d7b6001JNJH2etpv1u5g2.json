@@ -17,7 +17,8 @@
     "title": "frontend/src/env.json",
     "time": {
       "start": 1772193372862,
-      "end": 1772193372869
+      "end": 1772193372869,
+      "compacted": 1772676618794
     }
   }
 }

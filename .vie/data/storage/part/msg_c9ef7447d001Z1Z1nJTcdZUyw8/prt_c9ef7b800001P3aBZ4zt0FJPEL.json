@@ -18,7 +18,8 @@
     "title": "frontend/src/lib/alchemy/spam/initial-spam-tokens",
     "time": {
       "start": 1772193560974,
-      "end": 1772193560979
+      "end": 1772193560979,
+      "compacted": 1772676618792
     }
   }
 }

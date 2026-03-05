@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbc52f0b0014xHcT7rv2mtJhW",
+  "messageID": "msg_cbbc4f2970011FYaVuJ0yPNDjB",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Clear picture. The `to` section shares `inputMode` with `from` — one toggle controls both. The fix: the `to` section should **always show the token amount** (`toAmount`) regardless of `inputMode`, with the USD equivalent shown as a subtext. The toggle button on the `to` side should be removed (it's read-only output).",
+  "time": {
+    "start": 1772676797752,
+    "end": 1772676797752
+  }
+}

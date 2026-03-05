@@ -17,7 +17,8 @@
     "title": "frontend/src/hooks/alchemy/price/useTokenPricesByAddress.ts",
     "time": {
       "start": 1772193567236,
-      "end": 1772193567237
+      "end": 1772193567237,
+      "compacted": 1772676618792
     }
   }
 }

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbc598920018Hx0YV0fVRFWar",
+  "messageID": "msg_cbbc4f2970011FYaVuJ0yPNDjB",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "The `to` section now always shows the token amount (ETH, SOL, etc.) regardless of what mode the `from` input is in. The USD equivalent is shown as subtext below. The toggle button on the `to` side is gone — it was the source of the confusion.",
+  "time": {
+    "start": 1772676815414,
+    "end": 1772676815414
+  }
+}

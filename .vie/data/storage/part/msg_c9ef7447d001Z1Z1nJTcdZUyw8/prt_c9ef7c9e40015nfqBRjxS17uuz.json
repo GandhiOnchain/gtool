@@ -17,7 +17,8 @@
     "title": "frontend/src/hooks/alchemy/nft/useNftMetadataByTokenIdBatchOnSpecificChain.ts",
     "time": {
       "start": 1772193566885,
-      "end": 1772193566886
+      "end": 1772193566886,
+      "compacted": 1772676618792
     }
   }
 }
