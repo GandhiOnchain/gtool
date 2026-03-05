@@ -3502,50 +3502,110 @@ export default function RelaySwap() {
                     {batchTokens.map((wt, i) => {
                       const risk = wt.risk
                       const isHighRisk = risk?.riskLevel === 'high' || risk?.isSpam
-                      const isMedRisk = risk?.riskLevel === 'medium'
-                      const riskColor = isHighRisk ? 'border-destructive/50 bg-destructive/5' : isMedRisk ? 'border-yellow-500/40 bg-yellow-500/5' : wt.selected !== false ? 'border-accent/50 bg-accent/5' : 'border-border'
+                      const isMedRisk = !isHighRisk && risk?.riskLevel === 'medium'
+                      const isLowRisk = !isHighRisk && !isMedRisk && risk?.riskLevel === 'low'
+                      const hasAnyRisk = isHighRisk || isMedRisk || isLowRisk
+
+                      const borderColor = isHighRisk
+                        ? 'border-destructive/60 bg-destructive/5'
+                        : isMedRisk
+                        ? 'border-yellow-500/50 bg-yellow-500/5'
+                        : isLowRisk
+                        ? 'border-blue-500/30 bg-blue-500/5'
+                        : wt.selected !== false
+                        ? 'border-accent/40 bg-accent/5'
+                        : 'border-border'
+
+                      // Categorise flags for display
+                      const taxFlags = (risk?.flags || []).filter(f => f.toLowerCase().includes('tax'))
+                      const criticalFlags = (risk?.flags || []).filter(f =>
+                        ['honeypot', 'malicious', 'phishing', 'blackmail', 'stealing', 'fake', 'sanctioned', 'cybercrime', 'money laundering', 'airdrop scam', 'hidden owner', 'self-destruct', 'creator made'].some(k => f.toLowerCase().includes(k))
+                      )
+                      const warningFlags = (risk?.flags || []).filter(f => !taxFlags.includes(f) && !criticalFlags.includes(f))
+
                       return (
                         <div
                           key={`${wt.token.chainId}-${wt.token.address}-${i}`}
-                          className={`flex items-center gap-2 p-2 border rounded cursor-pointer transition-colors ${riskColor} ${wt.selected === false ? 'opacity-50' : ''}`}
-                          onClick={() => setBatchTokens(batchTokens.map((t, idx) => idx === i ? { ...t, selected: !t.selected } : t))}
+                          className={`border rounded transition-colors ${borderColor} ${wt.selected === false ? 'opacity-50' : ''}`}
                         >
-                          <Checkbox
-                            checked={wt.selected !== false}
-                            onCheckedChange={() => setBatchTokens(batchTokens.map((t, idx) => idx === i ? { ...t, selected: !t.selected } : t))}
-                            onClick={e => e.stopPropagation()}
-                            className="flex-shrink-0"
-                          />
-                          <TokenLogo
-                            address={wt.token.metadata?.isNative || isNativeAddress(wt.token.address) ? undefined : wt.token.address}
-                            chainId={wt.token.chainId}
-                            symbol={wt.token.symbol}
-                            logoURI={wt.token.metadata?.logoURI}
-                            size={4}
-                          />
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-1 flex-wrap">
-                              <span className="text-xs font-medium">{wt.token.symbol}</span>
-                              {isHighRisk && (
-                                <Badge variant="destructive" className="text-[8px] h-3.5 px-1 leading-none whitespace-nowrap">
-                                  {risk?.isHoneypot ? 'Honeypot' : 'High Risk'}
-                                </Badge>
+                          <div
+                            className="flex items-center gap-2 p-2 cursor-pointer"
+                            onClick={() => setBatchTokens(batchTokens.map((t, idx) => idx === i ? { ...t, selected: !t.selected } : t))}
+                          >
+                            <Checkbox
+                              checked={wt.selected !== false}
+                              onCheckedChange={() => setBatchTokens(batchTokens.map((t, idx) => idx === i ? { ...t, selected: !t.selected } : t))}
+                              onClick={e => e.stopPropagation()}
+                              className="flex-shrink-0"
+                            />
+                            <TokenLogo
+                              address={wt.token.metadata?.isNative || isNativeAddress(wt.token.address) ? undefined : wt.token.address}
+                              chainId={wt.token.chainId}
+                              symbol={wt.token.symbol}
+                              logoURI={wt.token.metadata?.logoURI}
+                              size={4}
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-1 flex-wrap">
+                                <span className="text-xs font-medium">{wt.token.symbol}</span>
+                                {isHighRisk && (
+                                  <Badge variant="destructive" className="text-[8px] h-3.5 px-1 leading-none whitespace-nowrap">
+                                    {risk?.isHoneypot ? 'Honeypot' : 'High Risk'}
+                                  </Badge>
+                                )}
+                                {isMedRisk && (
+                                  <Badge className="text-[8px] h-3.5 px-1 leading-none whitespace-nowrap bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
+                                    Caution
+                                  </Badge>
+                                )}
+                                {isLowRisk && (
+                                  <Badge className="text-[8px] h-3.5 px-1 leading-none whitespace-nowrap bg-blue-500/20 text-blue-400 border-blue-500/30">
+                                    Low Risk
+                                  </Badge>
+                                )}
+                              </div>
+                              <div className="text-xs text-muted-foreground truncate">{wt.token.name}</div>
+                            </div>
+                            <div className="text-right flex-shrink-0">
+                              <div className="text-xs font-medium">{parseFloat(wt.balanceFormatted).toFixed(4)}</div>
+                            </div>
+                          </div>
+
+                          {/* Security detail panel — shown for any token with risk flags */}
+                          {hasAnyRisk && risk && risk.flags.length > 0 && (
+                            <div className={`mx-2 mb-2 rounded px-2 py-1.5 text-[10px] space-y-1 ${isHighRisk ? 'bg-destructive/10' : isMedRisk ? 'bg-yellow-500/10' : 'bg-blue-500/10'}`}>
+                              {criticalFlags.length > 0 && (
+                                <div className="space-y-0.5">
+                                  {criticalFlags.map((f, fi) => (
+                                    <div key={fi} className="flex items-start gap-1 text-destructive font-medium">
+                                      <span className="mt-px">✕</span><span>{f}</span>
+                                    </div>
+                                  ))}
+                                </div>
                               )}
-                              {isMedRisk && !isHighRisk && (
-                                <Badge className="text-[8px] h-3.5 px-1 leading-none whitespace-nowrap bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
-                                  Caution
-                                </Badge>
+                              {taxFlags.length > 0 && (
+                                <div className="space-y-0.5">
+                                  {taxFlags.map((f, fi) => (
+                                    <div key={fi} className="flex items-start gap-1 text-yellow-400">
+                                      <span className="mt-px">⚠</span><span>{f}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                              {warningFlags.length > 0 && (
+                                <div className="space-y-0.5">
+                                  {warningFlags.map((f, fi) => (
+                                    <div key={fi} className="flex items-start gap-1 text-muted-foreground">
+                                      <span className="mt-px">·</span><span>{f}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                              {isHighRisk && wt.selected !== false && (
+                                <div className="text-destructive font-medium pt-0.5">Deselect to proceed with batch swap</div>
                               )}
                             </div>
-                            {risk && risk.flags.length > 0 ? (
-                              <div className="text-[10px] text-muted-foreground truncate">{risk.flags[0]}{risk.flags.length > 1 ? ` +${risk.flags.length - 1}` : ''}</div>
-                            ) : (
-                              <div className="text-xs text-muted-foreground truncate">{wt.token.name}</div>
-                            )}
-                          </div>
-                          <div className="text-right flex-shrink-0">
-                            <div className="text-xs font-medium">{parseFloat(wt.balanceFormatted).toFixed(4)}</div>
-                          </div>
+                          )}
                         </div>
                       )
                     })}
@@ -3899,7 +3959,8 @@ export default function RelaySwap() {
 
         <Dialog open={isTokenSelectOpen} onOpenChange={(open) => {
           setIsTokenSelectOpen(open)
-          if (open && address && isConnected && activeChainId) {
+          const showsWallet = selectingFor === 'from' || selectingFor === 'batch'
+          if (open && showsWallet && address && isConnected && activeChainId) {
             const activeRelayChain = chains.find(c => c.id === activeChainId)
             if (activeRelayChain && !chainWalletTokens[activeChainId] && !loadingWalletChains.has(activeChainId)) {
               loadTokensForChain(activeRelayChain)
@@ -3927,8 +3988,10 @@ export default function RelaySwap() {
               <ScrollArea className="h-[340px]">
                 <div className="space-y-1">
                   {(() => {
-                    // Wallet tokens with balance — shown first as a dedicated section
-                    const walletTokensWithBal = activeChainId
+                    const showWalletSection = selectingFor === 'from' || selectingFor === 'batch'
+
+                    // Wallet tokens with balance — only for from/batch
+                    const walletTokensWithBal = showWalletSection && activeChainId
                       ? (chainWalletTokens[activeChainId] || []).filter(wt => {
                           const bal = parseFloat(wt.balanceFormatted)
                           if (bal <= 0) return false
@@ -3945,7 +4008,7 @@ export default function RelaySwap() {
                     // Relay currency list — exclude tokens already shown in wallet section
                     const relayList = filteredCurrencies.filter(c => !walletAddrs.has(`${c.chainId}:${c.address.toLowerCase()}`))
 
-                    const isLoadingWallet = activeChainId ? loadingWalletChains.has(activeChainId) : false
+                    const isLoadingWallet = showWalletSection && activeChainId ? loadingWalletChains.has(activeChainId) : false
 
                     const handleSelect = async (currency: RelayCurrency, walletToken?: WalletToken) => {
                       if (selectingFor === 'batch') {

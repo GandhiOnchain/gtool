@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbe2da31002DiHRdJQu0zfyjt",
+  "messageID": "msg_cbbe137730011Pk1gKGxwaP5hh",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "All clean. Here's what was done:\n\n**`to` section wallet tokens removed**\n\n- `loadTokensForChain` is now only triggered on dialog open when `selectingFor === 'from'` or `selectingFor === 'batch'`\n- The wallet section (balances, loading spinner, \"In your wallet\" header) is only rendered for those same two cases — `to` and `batchTo` get a clean Relay currency list with no wallet data\n\n**Batch security — significantly improved**\n\nEach batch token now has an expandable security detail panel that appears directly below the token row whenever any risk flags exist. Flags are split into three visual tiers:\n\n- **Critical** (red `✕`) — honeypot, malicious contract, phishing, fake token, sanctioned, airdrop scam, hidden owner, self-destruct, etc.\n- **Tax warnings** (yellow `⚠`) — buy tax %, sell tax % from simulation\n- **Cautions** (muted `·`) — mintable, unverified contract, transfers pausable, no liquidity, owner can change balance, etc.\n\nThe border and background of each token card is color-coded: red for high risk, yellow for medium, blue for low. High-risk tokens that are still selected show an inline message: \"Deselect to proceed with batch swap\" — making it clear exactly what's blocking execution.",
+  "time": {
+    "start": 1772678741107,
+    "end": 1772678741107
+  }
+}

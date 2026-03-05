@@ -1,0 +1,49 @@
+{
+  "id": "prt_cbbe295b80015NkZEuIZ4wI2V1",
+  "messageID": "msg_cbbe137730011Pk1gKGxwaP5hh",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01NPgVrNaQmnnERqopbcGx13",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Fix: to/batchTo token dropdown should not show wallet section or trigger wallet load",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Improve batch security UI: show all flags expanded, low-risk warnings, unverified contract notice, sell/buy tax prominently",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Fix: to/batchTo token dropdown should not show wallet section or trigger wallet load\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Improve batch security UI: show all flags expanded, low-risk warnings, unverified contract notice, sell/buy tax prominently\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Fix: to/batchTo token dropdown should not show wallet section or trigger wallet load",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Improve batch security UI: show all flags expanded, low-risk warnings, unverified contract notice, sell/buy tax prominently",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "title": "0 todos",
+    "time": {
+      "start": 1772678714892,
+      "end": 1772678714892
+    }
+  }
+}

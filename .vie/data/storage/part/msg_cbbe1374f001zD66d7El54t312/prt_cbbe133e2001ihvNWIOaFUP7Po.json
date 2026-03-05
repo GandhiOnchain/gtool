@@ -1,0 +1,7 @@
+{
+  "id": "prt_cbbe133e2001ihvNWIOaFUP7Po",
+  "type": "text",
+  "text": "the token dropdown in to section should not load the wallet tokens. only from section should load if available. fix it.\n\nalso the cautions and warnings i said are for the batch transactions while selecting tokens. security can be better. room for improvement. figure it out and get it done.",
+  "messageID": "msg_cbbe1374f001zD66d7El54t312",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG"
+}
