@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbedca48a002QvBlZ75y34xkn5",
+  "messageID": "msg_cbedc30fe001hS7AW3UDzqaaKE",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "`adaptViemWallet` is the default adapter. I'll create a custom adapter that wraps it but overrides `handleSendTransactionStep` to pre-estimate gas via a public RPC before sending:",
+  "time": {
+    "start": 1772728658975,
+    "end": 1772728658975
+  }
+}

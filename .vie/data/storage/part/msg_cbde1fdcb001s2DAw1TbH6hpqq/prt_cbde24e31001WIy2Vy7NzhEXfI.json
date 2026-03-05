@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && cat package.json | grep -i relay",
     "time": {
       "start": 1772712251278,
-      "end": 1772712251280
+      "end": 1772712251280,
+      "compacted": 1772727993763
     }
   }
 }

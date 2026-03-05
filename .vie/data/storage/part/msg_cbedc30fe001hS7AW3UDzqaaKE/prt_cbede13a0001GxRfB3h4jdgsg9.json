@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbede13a0001GxRfB3h4jdgsg9",
+  "messageID": "msg_cbedc30fe001hS7AW3UDzqaaKE",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01EAbx6U2KQh2GDvchtbUo9a",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 229,
+      "limit": 60
+    },
+    "output": "<file>\n00230|   const { data: rawWalletClient } = useWalletClient()\n00231| \n00232|   const walletClient: AdaptedWallet | undefined = React.useMemo(() => {\n00233|     if (!rawWalletClient) return undefined\n00234|     const base = adaptViemWallet(rawWalletClient)\n00235|     return {\n00236|       ...base,\n00237|       handleSendTransactionStep: async (chainId, item, step) => {\n00238|         const { to, data, value, from } = item.data\n00239|         const safeVal = (v: string | undefined | null): bigint => {\n00240|           if (!v || v === '0x0' || v === '0x' || v === '0') return 0n\n00241|           try { return BigInt(v) } catch { return 0n }\n00242|         }\n00243|         const isApprove = step.id === 'approve'\n00244|         let gasLimit: bigint | undefined\n00245|         if (isApprove) {\n00246|           try {\n00247|             const relayChain = chains.find(c => c.id === chainId)\n00248|             if (relayChain?.httpRpcUrl) {\n00249|               const chainConfig = defineChain({\n00250|                 id: chainId,\n00251|                 name: relayChain.displayName,\n00252|                 nativeCurrency: { name: relayChain.currency.name, symbol: relayChain.currency.symbol, decimals: relayChain.currency.decimals },\n00253|                 rpcUrls: { default: { http: [relayChain.httpRpcUrl] } },\n00254|               })\n00255|               const publicClient = createPublicClient({ chain: chainConfig, transport: http(relayChain.httpRpcUrl) })\n00256|               const estimated = await publicClient.estimateGas({\n00257|                 account: from,\n00258|                 to: to as `0x${string}`,\n00259|                 data: data as `0x${string}`,\n00260|                 value: safeVal(value),\n00261|               })\n00262|               gasLimit = (estimated * 110n) / 100n\n00263|             }\n00264|           } catch (e) {\n00265|             console.warn('Gas pre-estimation failed for approve, wallet will estimate:', e)\n00266|           }\n00267|         }\n00268|         return base.handleSendTransactionStep(chainId, {\n00269|           ...item,\n00270|           data: {\n00271|             ...item.data,\n00272|             ...(gasLimit !== undefined ? { gas: gasLimit.toString() } : {}),\n00273|           },\n00274|         }, step)\n00275|       },\n00276|     }\n00277|   }, [rawWalletClient, chains])\n00278|   const { chains: relayChains, viemChains } = useRelayChains()\n00279|   const chains: RelayChain[] = ((relayChains || []) as unknown as RelayChain[]).filter((c: RelayChain) => !c.disabled && c.vmType !== 'bvm')\n00280| \n00281|   useEffect(() => {\n00282|     if (viemChains && viemChains.length > 0) {\n00283|       createClient({\n00284|         baseApiUrl: MAINNET_RELAY_API,\n00285|         chains: relayChains as unknown as Parameters<typeof createClient>[0]['chains'],\n00286|       })\n00287|     }\n00288|   }, [viemChains])\n00289|   const [fromChain, setFromChain] = useState<RelayChain | null>(null)\n\n(File has more lines. Use 'offset' parameter to read beyond line 289)\n</file>",
+    "metadata": {
+      "preview": "  const { data: rawWalletClient } = useWalletClient()\n\n  const walletClient: AdaptedWallet | undefined = React.useMemo(() => {\n    if (!rawWalletClient) return undefined\n    const base = adaptViemWallet(rawWalletClient)\n    return {\n      ...base,\n      handleSendTransactionStep: async (chainId, item, step) => {\n        const { to, data, value, from } = item.data\n        const safeVal = (v: string | undefined | null): bigint => {\n          if (!v || v === '0x0' || v === '0x' || v === '0') return 0n\n          try { return BigInt(v) } catch { return 0n }\n        }\n        const isApprove = step.id === 'approve'\n        let gasLimit: bigint | undefined\n        if (isApprove) {\n          try {\n            const relayChain = chains.find(c => c.id === chainId)\n            if (relayChain?.httpRpcUrl) {\n              const chainConfig = defineChain({"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772728751332,
+      "end": 1772728751333
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbedcaa87001zfHlUNBVtb6Bqu",
+  "messageID": "msg_cbedc30fe001hS7AW3UDzqaaKE",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01P5GWxyErFw7NrmM333cyxz",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 296,
+      "limit": 20
+    },
+    "output": "<file>\n00297|     riskLevel?: 'high' | 'medium' | 'low'\n00298|   }>>([])\n00299|   const [isLoadingApprovals, setIsLoadingApprovals] = useState(false)\n00300|   const [isRevoking, setIsRevoking] = useState(false)\n00301|   const [selectedApprovals, setSelectedApprovals] = useState<Set<number>>(new Set())\n00302|   const [debugInfo, setDebugInfo] = useState<string>('')\n00303|   const [chainSearch, setChainSearch] = useState('')\n00304| \n00305|   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n00306|   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n00307| \n00308|   const { data: fromTokenPriceData } = useTokenPrice(\n00309|     undefined,\n00310|     fromToken ? { address: fromToken.address, chainId: fromToken.chainId } : undefined,\n00311|     { enabled: !!fromToken, staleTime: 30000 }\n00312|   )\n00313|   const fromTokenPrice = fromTokenPriceData?.price ?? 0\n00314| \n00315|   const { data: toTokenPriceData } = useTokenPrice(\n00316|     undefined,\n\n(File has more lines. Use 'offset' parameter to read beyond line 316)\n</file>",
+    "metadata": {
+      "preview": "    riskLevel?: 'high' | 'medium' | 'low'\n  }>>([])\n  const [isLoadingApprovals, setIsLoadingApprovals] = useState(false)\n  const [isRevoking, setIsRevoking] = useState(false)\n  const [selectedApprovals, setSelectedApprovals] = useState<Set<number>>(new Set())\n  const [debugInfo, setDebugInfo] = useState<string>('')\n  const [chainSearch, setChainSearch] = useState('')\n\n  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n  const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n\n  const { data: fromTokenPriceData } = useTokenPrice(\n    undefined,\n    fromToken ? { address: fromToken.address, chainId: fromToken.chainId } : undefined,\n    { enabled: !!fromToken, staleTime: 30000 }\n  )\n  const fromTokenPrice = fromTokenPriceData?.price ?? 0\n\n  const { data: toTokenPriceData } = useTokenPrice(\n    undefined,"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772728658909,
+      "end": 1772728658910
+    }
+  }
+}

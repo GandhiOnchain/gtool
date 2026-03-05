@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbedd6c61001QQkq0Dt0J1kiLw",
+  "messageID": "msg_cbedc30fe001hS7AW3UDzqaaKE",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now update `useQuote` to use the adapted wallet and fix the `walletClient` reference in `executeSwap`:",
+  "time": {
+    "start": 1772728711817,
+    "end": 1772728711817
+  }
+}

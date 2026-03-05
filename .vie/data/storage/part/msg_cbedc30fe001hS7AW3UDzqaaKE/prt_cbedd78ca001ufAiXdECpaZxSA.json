@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbedd78ca001ufAiXdECpaZxSA",
+  "messageID": "msg_cbedc30fe001hS7AW3UDzqaaKE",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_017otFqpTgDNs7q1TkPzmawK",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 370,
+      "limit": 20
+    },
+    "output": "<file>\n00371|     fromToken && toToken && fromAmount && parseFloat(fromAmount) > 0 &&\n00372|     fromChain && toChain &&\n00373|     !(fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) &&\n00374|     ((fromChain.vmType === 'svm' ? !!solanaAddress : !!address))\n00375|   )\n00376| \n00377|   const fromVMTypeForQuote = fromChain?.vmType || 'evm'\n00378|   const toVMTypeForQuote = toChain?.vmType || 'evm'\n00379|   const isCrossVMForQuote = fromVMTypeForQuote !== toVMTypeForQuote\n00380|   const quoteUserAddress = fromVMTypeForQuote === 'svm' ? (solanaAddress ?? undefined) : (address ?? undefined)\n00381|   const quoteCrossVMRecipient = isCrossVMForQuote\n00382|     ? (toVMTypeForQuote === 'svm' ? (solanaAddress ?? undefined) : (recipientAddress || undefined))\n00383|     : undefined\n00384| \n00385|   const includedSources = Object.entries(enabledSources).filter(([_, v]) => v).map(([k]) => k)\n00386| \n00387|   const { data: quote, isLoading: isLoadingQuote, executeQuote } = useQuote(\n00388|     getClient() ?? undefined,\n00389|     walletClient ?? undefined,\n00390|     quoteEnabled && quoteUserAddress ? {\n\n(File has more lines. Use 'offset' parameter to read beyond line 390)\n</file>",
+    "metadata": {
+      "preview": "    fromToken && toToken && fromAmount && parseFloat(fromAmount) > 0 &&\n    fromChain && toChain &&\n    !(fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) &&\n    ((fromChain.vmType === 'svm' ? !!solanaAddress : !!address))\n  )\n\n  const fromVMTypeForQuote = fromChain?.vmType || 'evm'\n  const toVMTypeForQuote = toChain?.vmType || 'evm'\n  const isCrossVMForQuote = fromVMTypeForQuote !== toVMTypeForQuote\n  const quoteUserAddress = fromVMTypeForQuote === 'svm' ? (solanaAddress ?? undefined) : (address ?? undefined)\n  const quoteCrossVMRecipient = isCrossVMForQuote\n    ? (toVMTypeForQuote === 'svm' ? (solanaAddress ?? undefined) : (recipientAddress || undefined))\n    : undefined\n\n  const includedSources = Object.entries(enabledSources).filter(([_, v]) => v).map(([k]) => k)\n\n  const { data: quote, isLoading: isLoadingQuote, executeQuote } = useQuote(\n    getClient() ?? undefined,\n    walletClient ?? undefined,\n    quoteEnabled && quoteUserAddress ? {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772728711723,
+      "end": 1772728711725
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbede85ec001LBkx5MZzdCOBOr",
+  "messageID": "msg_cbedc30fe001hS7AW3UDzqaaKE",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "All clean. Here's what this fixes:\n\n**Root cause:** The SDK's default `adaptViemWallet` sends the approve transaction through the wagmi wallet client's transport — which is the Farcaster Mini App connector. That connector runs its own `eth_estimateGas` simulation, gets an inflated result, and MetaMask displays the $1.94 fee with \"likely to fail\".\n\n**Fix:** A custom `AdaptedWallet` that wraps `adaptViemWallet` but overrides `handleSendTransactionStep` for approve steps only. For approvals, it pre-estimates gas via a **direct public RPC** (bypassing the wallet connector entirely), adds a 10% buffer, and passes the explicit `gas` field to the SDK's base handler. The wallet then skips its own estimation and shows the correct fee. Deposit/swap steps are passed through unchanged — the SDK handles those correctly already.",
+  "time": {
+    "start": 1772728786108,
+    "end": 1772728786108
+  }
+}

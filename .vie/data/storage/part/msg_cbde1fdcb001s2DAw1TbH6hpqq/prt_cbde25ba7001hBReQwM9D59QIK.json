@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && grep -i \"relay\" package.json",
     "time": {
       "start": 1772712254772,
-      "end": 1772712254773
+      "end": 1772712254773,
+      "compacted": 1772727993763
     }
   }
 }

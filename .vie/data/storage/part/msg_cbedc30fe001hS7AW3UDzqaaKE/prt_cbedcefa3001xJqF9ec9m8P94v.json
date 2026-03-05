@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbedcefa3001xJqF9ec9m8P94v",
+  "messageID": "msg_cbedc30fe001hS7AW3UDzqaaKE",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "That's not clean. Let me do it properly — import `adaptViemWallet` at the top and build the adapted wallet with a `useMemo`:",
+  "time": {
+    "start": 1772728678272,
+    "end": 1772728678272
+  }
+}

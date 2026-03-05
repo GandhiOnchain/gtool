@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbedd1aa8002H7gAF2boqfmuEa",
+  "messageID": "msg_cbedc30fe001hS7AW3UDzqaaKE",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now build the adapted wallet with gas pre-estimation override, and replace `walletClient` references:",
+  "time": {
+    "start": 1772728704116,
+    "end": 1772728704116
+  }
+}

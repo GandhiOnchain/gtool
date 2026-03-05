@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbede1fc0001jE327lYvVzdaYE",
+  "messageID": "msg_cbedc30fe001hS7AW3UDzqaaKE",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Move the `walletClient` memo after `chains` is declared:",
+  "time": {
+    "start": 1772728763861,
+    "end": 1772728763861
+  }
+}

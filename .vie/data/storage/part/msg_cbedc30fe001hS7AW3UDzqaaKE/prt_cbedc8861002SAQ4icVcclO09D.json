@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbedc8861002SAQ4icVcclO09D",
+  "messageID": "msg_cbedc30fe001hS7AW3UDzqaaKE",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The `TransactionStepItem.data` has `gas?: string` and `maxFeePerGas?: string`. The SDK passes these through to the wallet. The issue is the Farcaster/MetaMask wallet ignores the SDK's gas values and re-simulates.\n\nThe solution is to create a custom `AdaptedWallet` that wraps the viem `WalletClient` but in `handleSendTransactionStep` uses a **direct public RPC** to estimate gas (bypassing the wallet connector's simulation), then sends with an explicit `gas` limit. This is exactly what we need:",
+  "time": {
+    "start": 1772728654124,
+    "end": 1772728654124
+  }
+}

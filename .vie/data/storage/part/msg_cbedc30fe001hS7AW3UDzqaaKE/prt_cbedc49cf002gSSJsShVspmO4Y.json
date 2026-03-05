@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbedc49cf002gSSJsShVspmO4Y",
+  "messageID": "msg_cbedc30fe001hS7AW3UDzqaaKE",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "This is the same pattern as before — \"Interacting with: RelayAppr...\" means it's an **approval transaction**, and the $1.94 fee is inflated. The SDK's `executeQuote` is internally calling `sendTransaction` through the wagmi wallet client, which triggers MetaMask's own simulation.\n\nThe issue is that the SDK uses the viem `WalletClient` we pass in — and that wallet client's transport goes through the Farcaster Mini App connector, which does its own gas simulation. The SDK doesn't set a `gas` limit on the approve tx, so MetaMask re-estimates and shows an inflated value.\n\nLet me check how the SDK sends transactions and if we can intercept with a custom `AdaptedWallet`:",
+  "time": {
+    "start": 1772728640465,
+    "end": 1772728640465
+  }
+}

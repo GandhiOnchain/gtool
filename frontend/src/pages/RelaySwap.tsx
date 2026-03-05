@@ -7,7 +7,8 @@ import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAb
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
 import { useRelayChains, useTokenList, useTokenPrice, useQuote, useExecutionStatus } from '@relayprotocol/relay-kit-hooks'
-import { getClient, createClient, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'
+import { getClient, createClient, MAINNET_RELAY_API, adaptViemWallet } from '@relayprotocol/relay-sdk'
+import type { AdaptedWallet } from '@relayprotocol/relay-sdk'
 
 import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
 import { config } from '@/config'
@@ -226,9 +227,56 @@ export default function RelaySwap() {
   const { connect, connectors } = useConnect()
   const { disconnect } = useWallet()
   const { switchChain } = useSwitchChain()
-  const { data: walletClient } = useWalletClient()
+  const { data: rawWalletClient } = useWalletClient()
   const { chains: relayChains, viemChains } = useRelayChains()
   const chains: RelayChain[] = ((relayChains || []) as unknown as RelayChain[]).filter((c: RelayChain) => !c.disabled && c.vmType !== 'bvm')
+
+  const walletClient: AdaptedWallet | undefined = React.useMemo(() => {
+    if (!rawWalletClient) return undefined
+    const base = adaptViemWallet(rawWalletClient)
+    return {
+      ...base,
+      handleSendTransactionStep: async (chainId, item, step) => {
+        const { to, data, value, from } = item.data
+        const safeVal = (v: string | undefined | null): bigint => {
+          if (!v || v === '0x0' || v === '0x' || v === '0') return 0n
+          try { return BigInt(v) } catch { return 0n }
+        }
+        const isApprove = step.id === 'approve'
+        let gasLimit: bigint | undefined
+        if (isApprove) {
+          try {
+            const relayChain = chains.find(c => c.id === chainId)
+            if (relayChain?.httpRpcUrl) {
+              const chainConfig = defineChain({
+                id: chainId,
+                name: relayChain.displayName,
+                nativeCurrency: { name: relayChain.currency.name, symbol: relayChain.currency.symbol, decimals: relayChain.currency.decimals },
+                rpcUrls: { default: { http: [relayChain.httpRpcUrl] } },
+              })
+              const publicClient = createPublicClient({ chain: chainConfig, transport: http(relayChain.httpRpcUrl) })
+              const estimated = await publicClient.estimateGas({
+                account: from,
+                to: to as `0x${string}`,
+                data: data as `0x${string}`,
+                value: safeVal(value),
+              })
+              gasLimit = (estimated * 110n) / 100n
+            }
+          } catch (e) {
+            console.warn('Gas pre-estimation failed for approve, wallet will estimate:', e)
+          }
+        }
+        return base.handleSendTransactionStep(chainId, {
+          ...item,
+          data: {
+            ...item.data,
+            ...(gasLimit !== undefined ? { gas: gasLimit.toString() } : {}),
+          },
+        }, step)
+      },
+    }
+  }, [rawWalletClient, chains])
 
   useEffect(() => {
     if (viemChains && viemChains.length > 0) {
@@ -338,7 +386,7 @@ export default function RelaySwap() {
 
   const { data: quote, isLoading: isLoadingQuote, executeQuote } = useQuote(
     getClient() ?? undefined,
-    walletClient ?? undefined,
+    walletClient,
     quoteEnabled && quoteUserAddress ? {
       user: quoteUserAddress,
       originChainId: fromChain!.id,
@@ -1475,7 +1523,7 @@ export default function RelaySwap() {
       toast.error(`Recipient address required for ${toChain.displayName}`)
       return
     }
-    if (!walletClient) {
+    if (!rawWalletClient) {
       toast.error('Wallet client not ready. Please reconnect.')
       return
     }

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbedcc1c6001aKZb53pi4TpU5j",
+  "messageID": "msg_cbedc30fe001hS7AW3UDzqaaKE",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now I'll create the adapted wallet and wire it into `useQuote`. The key is overriding `handleSendTransactionStep` to estimate gas via public RPC and pass it explicitly:",
+  "time": {
+    "start": 1772728666750,
+    "end": 1772728666750
+  }
+}

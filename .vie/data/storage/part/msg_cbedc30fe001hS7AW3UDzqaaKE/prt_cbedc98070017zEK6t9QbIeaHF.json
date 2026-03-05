@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbedc98070017zEK6t9QbIeaHF",
+  "messageID": "msg_cbedc30fe001hS7AW3UDzqaaKE",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01Grzzyc6BAYZi7Y2cn42o5s",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/utils/viemWallet.d.ts",
+      "description": "Read viemWallet adapter source"
+    },
+    "output": "import type { AdaptedWallet } from '../types/index.js';\nimport type { WalletClient } from 'viem';\nexport declare function isViemWalletClient(wallet: WalletClient | AdaptedWallet): wallet is WalletClient;\nexport declare const adaptViemWallet: (wallet: WalletClient) => AdaptedWallet;\n//# sourceMappingURL=viemWallet.d.ts.map",
+    "metadata": {
+      "output": "import type { AdaptedWallet } from '../types/index.js';\nimport type { WalletClient } from 'viem';\nexport declare function isViemWalletClient(wallet: WalletClient | AdaptedWallet): wallet is WalletClient;\nexport declare const adaptViemWallet: (wallet: WalletClient) => AdaptedWallet;\n//# sourceMappingURL=viemWallet.d.ts.map",
+      "exit": 0,
+      "description": "Read viemWallet adapter source"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/utils/viemWallet.d.ts",
+    "time": {
+      "start": 1772728654096,
+      "end": 1772728654097
+    }
+  }
+}

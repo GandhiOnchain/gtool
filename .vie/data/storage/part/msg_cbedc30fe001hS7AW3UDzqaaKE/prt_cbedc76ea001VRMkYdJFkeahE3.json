@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbedc76ea001VRMkYdJFkeahE3",
+  "messageID": "msg_cbedc30fe001hS7AW3UDzqaaKE",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01JZZVTvSUUsqnUXenVHAtr5",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/types/TransactionStepItem.d.ts",
+      "description": "Read TransactionStepItem type"
+    },
+    "output": "import type { Execute } from './Execute.js';\nexport type TransactionStepItem = Pick<NonNullable<Execute['steps'][0]['items']>[0], 'status' | 'orderIds' | 'orderIndexes' | 'orderData' | 'check' | 'progressState' | 'txHashes' | 'internalTxHashes' | 'receipt' | 'checkStatus'> & {\n    data: {\n        chainId?: number;\n        data: any;\n        from: `0x${string}`;\n        to: `0x${string}`;\n        value: string;\n        maxFeePerGas?: string;\n        maxPriorityFeePerGas?: string;\n        gas?: string;\n        instructions?: {\n            keys: {\n                pubkey: string;\n                isSigner: boolean;\n                isWritable: boolean;\n            }[];\n            programId: string;\n            data: string;\n        }[];\n        addressLookupTableAddresses?: string[];\n        psbt?: string;\n        parameter?: {\n            owner_address: string;\n            contract_address: string;\n            data: string;\n        };\n        type?: string;\n    };\n};\n//# sourceMappingURL=TransactionStepItem.d.ts.map",
+    "metadata": {
+      "output": "import type { Execute } from './Execute.js';\nexport type TransactionStepItem = Pick<NonNullable<Execute['steps'][0]['items']>[0], 'status' | 'orderIds' | 'orderIndexes' | 'orderData' | 'check' | 'progressState' | 'txHashes' | 'internalTxHashes' | 'receipt' | 'checkStatus'> & {\n    data: {\n        chainId?: number;\n        data: any;\n        from: `0x${string}`;\n        to: `0x${string}`;\n        value: string;\n        maxFeePerGas?: string;\n        maxPriorityFeePerGas?: string;\n        gas?: string;\n        instructions?: {\n            keys: {\n                pubkey: string;\n                isSigner: boolean;\n                isWritable: boolean;\n            }[];\n            programId: string;\n            data: string;\n        }[];\n        addressLookupTableAddresses?: string[];\n        psbt?: string;\n        parameter?: {\n            owner_address: string;\n            contract_address: string;\n            data: string;\n        };\n        type?: string;\n    };\n};\n//# sourceMappingURL=TransactionStepItem.d.ts.map",
+      "exit": 0,
+      "description": "Read TransactionStepItem type"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/types/TransactionStepItem.d.ts",
+    "time": {
+      "start": 1772728645622,
+      "end": 1772728645623
+    }
+  }
+}
