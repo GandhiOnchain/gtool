@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbed1158200166eCriaMgTj0wV",
+  "messageID": "msg_cbed0d1640010sPcDIKQHSDlnp",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01SYMphnQbkznBDRoAQW7P6L",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/blockchain/chains.ts",
+      "offset": 1,
+      "limit": 30
+    },
+    "output": "<file>\n00002| import { config } from '../../config'\n00003| \n00004| // Define chains based on config\n00005| export const base = defineChain({\n00006|   id: 8453,\n00007|   name: 'Base',\n00008|   nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },\n00009|   rpcUrls: {\n00010|     default: { http: [config.networks[8453].rpcUrl] },\n00011|   },\n00012|   blockExplorers: {\n00013|     default: { \n00014|       name: 'BaseScan', \n00015|       url: config.networks[8453].explorerUrl,\n00016|       apiUrl: 'https://api.basescan.org/api'\n00017|     },\n00018|   },\n00019|   contracts: {\n00020|     multicall3: {\n00021|       address: '0xca11bde05977b3631167028862be2a173976ca11',\n00022|       blockCreated: 5022,\n00023|     },\n00024|   },\n00025| })\n00026| \n00027| export const baseSepolia = defineChain({\n00028|   id: 84532,\n00029|   name: 'Base Sepolia',\n00030|   nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },\n00031|   rpcUrls: {\n\n(File has more lines. Use 'offset' parameter to read beyond line 31)\n</file>",
+    "metadata": {
+      "preview": "import { config } from '../../config'\n\n// Define chains based on config\nexport const base = defineChain({\n  id: 8453,\n  name: 'Base',\n  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },\n  rpcUrls: {\n    default: { http: [config.networks[8453].rpcUrl] },\n  },\n  blockExplorers: {\n    default: { \n      name: 'BaseScan', \n      url: config.networks[8453].explorerUrl,\n      apiUrl: 'https://api.basescan.org/api'\n    },\n  },\n  contracts: {\n    multicall3: {\n      address: '0xca11bde05977b3631167028862be2a173976ca11',"
+    },
+    "title": "frontend/src/lib/blockchain/chains.ts",
+    "time": {
+      "start": 1772727899575,
+      "end": 1772727899575
+    }
+  }
+}

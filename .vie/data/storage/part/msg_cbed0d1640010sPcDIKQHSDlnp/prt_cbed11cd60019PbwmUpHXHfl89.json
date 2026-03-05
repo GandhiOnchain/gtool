@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbed11cd60019PbwmUpHXHfl89",
+  "messageID": "msg_cbed0d1640010sPcDIKQHSDlnp",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The fix is to re-initialize the Relay client with chains once `useRelayChains` returns them. The `useRelayChains` hook returns `viemChains` which are already viem-compatible. I'll do this in `RelaySwap.tsx` with a `useEffect`:",
+  "time": {
+    "start": 1772727903983,
+    "end": 1772727903983
+  }
+}

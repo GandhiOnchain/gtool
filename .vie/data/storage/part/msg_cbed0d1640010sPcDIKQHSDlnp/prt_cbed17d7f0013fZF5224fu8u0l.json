@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbed17d7f0013fZF5224fu8u0l",
+  "messageID": "msg_cbed0d1640010sPcDIKQHSDlnp",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now add a `useEffect` that re-initializes the client with the full chain list once `useRelayChains` resolves:",
+  "time": {
+    "start": 1772727927612,
+    "end": 1772727927612
+  }
+}

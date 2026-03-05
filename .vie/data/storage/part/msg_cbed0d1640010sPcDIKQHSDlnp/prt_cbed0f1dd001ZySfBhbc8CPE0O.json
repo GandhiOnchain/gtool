@@ -1,0 +1,23 @@
+{
+  "id": "prt_cbed0f1dd001ZySfBhbc8CPE0O",
+  "messageID": "msg_cbed0d1640010sPcDIKQHSDlnp",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_01Y8H5azg9VVqw9ukCnkqYxP",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/lib/providers/AuthProvider.tsx"
+    },
+    "output": "<file>\n00001| import React from 'react'\n00002| import { PrivyProvider } from '@privy-io/react-auth'\n00003| import { WagmiProvider as PrivyWagmiProvider } from '@privy-io/wagmi'\n00004| import { WagmiProvider } from 'wagmi'\n00005| import { wagmiConfig } from '../blockchain/wagmi'\n00006| import { QueryClient, QueryClientProvider } from '@tanstack/react-query'\n00007| import { config } from '../../config'\n00008| import { JSONStringifyBigIntHelper } from '../blockchain/bigint'\n00009| import { createClient, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'\n00010| \n00011| createClient({ baseApiUrl: MAINNET_RELAY_API })\n00012| \n00013| // Create a single query client instance\n00014| const queryClient = new QueryClient({\n00015|   defaultOptions: {\n00016|     queries: {\n00017|       retry: (failureCount, error) => {\n00018|         // Don't retry on 4xx errors\n00019|         if (error && typeof error === 'object' && 'status' in error && \n00020|             typeof error.status === 'number' && error.status >= 400 && error.status < 500) {\n00021|           return false\n00022|         }\n00023|         return failureCount < 3\n00024|       },\n00025|       staleTime: 1000 * 60 * 5, // 5 minutes\n00026|       refetchOnWindowFocus: false,\n00027|       queryKeyHashFn: (key) => {\n00028|         return JSON.stringify(key, JSONStringifyBigIntHelper)\n00029|       },\n00030|     },\n00031|   },\n00032| })\n00033| \n00034| export interface AuthProviderProps {\n00035|   children: React.ReactNode\n00036| }\n00037| \n00038| export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {\n00039|   // If Privy is not configured, use standard Wagmi with InjectedConnector\n00040|   if (!config.privy.appId) {\n00041|     return (\n00042|       <React.StrictMode>\n00043|         <QueryClientProvider client={queryClient}>\n00044|           <WagmiProvider config={wagmiConfig}>\n00045|             {children}\n00046|           </WagmiProvider>\n00047|         </QueryClientProvider>\n00048|       </React.StrictMode>\n00049|     )\n00050|   }\n00051| \n00052|   // Otherwise use Privy + Wagmi\n00053|   return (\n00054|     <React.StrictMode>\n00055|       <QueryClientProvider client={queryClient}>\n00056|         <PrivyProvider appId={config.privy.appId!} clientId={config.privy.clientId!}>\n00057|           <PrivyWagmiProvider config={wagmiConfig}>\n00058|             {children}\n00059|           </PrivyWagmiProvider>\n00060|         </PrivyProvider>\n00061|       </QueryClientProvider>\n00062|     </React.StrictMode>\n00063|   )\n00064| }\n00065| \n00066| // Export query client for use in other parts of the app\n00067| export { queryClient } \n</file>",
+    "metadata": {
+      "preview": "import React from 'react'\nimport { PrivyProvider } from '@privy-io/react-auth'\nimport { WagmiProvider as PrivyWagmiProvider } from '@privy-io/wagmi'\nimport { WagmiProvider } from 'wagmi'\nimport { wagmiConfig } from '../blockchain/wagmi'\nimport { QueryClient, QueryClientProvider } from '@tanstack/react-query'\nimport { config } from '../../config'\nimport { JSONStringifyBigIntHelper } from '../blockchain/bigint'\nimport { createClient, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'\n\ncreateClient({ baseApiUrl: MAINNET_RELAY_API })\n\n// Create a single query client instance\nconst queryClient = new QueryClient({\n  defaultOptions: {\n    queries: {\n      retry: (failureCount, error) => {\n        // Don't retry on 4xx errors\n        if (error && typeof error === 'object' && 'status' in error && \n            typeof error.status === 'number' && error.status >= 400 && error.status < 500) {"
+    },
+    "title": "frontend/src/lib/providers/AuthProvider.tsx",
+    "time": {
+      "start": 1772727890427,
+      "end": 1772727890428
+    }
+  }
+}

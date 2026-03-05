@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbed16ac8002Fn0k8mt15TkguX",
+  "messageID": "msg_cbed0d1640010sPcDIKQHSDlnp",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now also re-initialize the client in `RelaySwap` once `useRelayChains` returns the full Relay chain list (which includes all chains Relay supports, not just our wagmi subset):",
+  "time": {
+    "start": 1772727924686,
+    "end": 1772727924686
+  }
+}

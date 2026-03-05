@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbed14abf001lAQlyHxeKl6icT",
+  "messageID": "msg_cbed0d1640010sPcDIKQHSDlnp",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01CZcCdjhkg5z31AwucXevYp",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -rn \"convertViemChainToRelayChain\" node_modules/@relayprotocol/relay-sdk/_types/ | head -5",
+      "description": "Find convertViemChainToRelayChain"
+    },
+    "output": "node_modules/@relayprotocol/relay-sdk/_types/src/utils/chain.d.ts:4:export declare const convertViemChainToRelayChain: (chain: Chain) => RelayChain & Required<Pick<RelayChain, 'viemChain'>>;\nnode_modules/@relayprotocol/relay-sdk/_types/src/utils/index.d.ts:9:export { convertViemChainToRelayChain, type RelayAPIChain } from './chain.js';\nnode_modules/@relayprotocol/relay-sdk/_types/src/client.d.ts:7811:        convertViemChainToRelayChain: (chain: import(\"viem/chains\").Chain) => RelayChain & Required<Pick<RelayChain, \"viemChain\">>;\n",
+    "metadata": {
+      "output": "node_modules/@relayprotocol/relay-sdk/_types/src/utils/chain.d.ts:4:export declare const convertViemChainToRelayChain: (chain: Chain) => RelayChain & Required<Pick<RelayChain, 'viemChain'>>;\nnode_modules/@relayprotocol/relay-sdk/_types/src/utils/index.d.ts:9:export { convertViemChainToRelayChain, type RelayAPIChain } from './chain.js';\nnode_modules/@relayprotocol/relay-sdk/_types/src/client.d.ts:7811:        convertViemChainToRelayChain: (chain: import(\"viem/chains\").Chain) => RelayChain & Required<Pick<RelayChain, \"viemChain\">>;\n",
+      "exit": 0,
+      "description": "Find convertViemChainToRelayChain"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -rn \"convertViemChainToRelayChain\" node_modules/@relayprotocol/relay-sdk/_types/ | head -5",
+    "time": {
+      "start": 1772727913234,
+      "end": 1772727913267
+    }
+  }
+}

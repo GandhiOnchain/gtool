@@ -6,9 +6,13 @@ import { wagmiConfig } from '../blockchain/wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { config } from '../../config'
 import { JSONStringifyBigIntHelper } from '../blockchain/bigint'
-import { createClient, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'
+import { createClient, MAINNET_RELAY_API, convertViemChainToRelayChain } from '@relayprotocol/relay-sdk'
+import { supportedChains } from '../blockchain/wagmi'
 
-createClient({ baseApiUrl: MAINNET_RELAY_API })
+createClient({
+  baseApiUrl: MAINNET_RELAY_API,
+  chains: supportedChains.map(convertViemChainToRelayChain),
+})
 
 // Create a single query client instance
 const queryClient = new QueryClient({

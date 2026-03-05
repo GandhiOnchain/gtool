@@ -7,7 +7,7 @@ import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAb
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
 import { useRelayChains, useTokenList, useTokenPrice, useQuote, useExecutionStatus } from '@relayprotocol/relay-kit-hooks'
-import { getClient } from '@relayprotocol/relay-sdk'
+import { getClient, createClient, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'
 
 import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
 import { config } from '@/config'
@@ -227,8 +227,17 @@ export default function RelaySwap() {
   const { disconnect } = useWallet()
   const { switchChain } = useSwitchChain()
   const { data: walletClient } = useWalletClient()
-  const { chains: relayChains } = useRelayChains()
+  const { chains: relayChains, viemChains } = useRelayChains()
   const chains: RelayChain[] = ((relayChains || []) as unknown as RelayChain[]).filter((c: RelayChain) => !c.disabled && c.vmType !== 'bvm')
+
+  useEffect(() => {
+    if (viemChains && viemChains.length > 0) {
+      createClient({
+        baseApiUrl: MAINNET_RELAY_API,
+        chains: relayChains as unknown as Parameters<typeof createClient>[0]['chains'],
+      })
+    }
+  }, [viemChains])
   const [fromChain, setFromChain] = useState<RelayChain | null>(null)
   const [toChain, setToChain] = useState<RelayChain | null>(null)
   const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)

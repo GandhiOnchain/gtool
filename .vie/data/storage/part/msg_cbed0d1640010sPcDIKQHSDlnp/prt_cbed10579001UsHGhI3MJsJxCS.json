@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbed10579001UsHGhI3MJsJxCS",
+  "messageID": "msg_cbed0d1640010sPcDIKQHSDlnp",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The problem is clear. `createClient` is called once at module load with no `chains` — so the SDK has no chain definitions. The SDK needs chains passed in via `convertViemChainToRelayChain`. The fix: initialize the client with the chains from our wagmi config, and re-initialize it once `useRelayChains` returns the full chain list.\n\nThe cleanest approach: use `useRelayChains`'s `viemChains` to re-initialize the client inside the component after chains load.",
+  "time": {
+    "start": 1772727899632,
+    "end": 1772727899632
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbed151380011KW86hoE0h2y45",
+  "messageID": "msg_cbed0d1640010sPcDIKQHSDlnp",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Good. Now the fix: update `AuthProvider` to use `convertViemChainToRelayChain` with our existing viem chains, and also re-initialize in `RelaySwap` once `useRelayChains` returns the full list:",
+  "time": {
+    "start": 1772727919063,
+    "end": 1772727919063
+  }
+}
