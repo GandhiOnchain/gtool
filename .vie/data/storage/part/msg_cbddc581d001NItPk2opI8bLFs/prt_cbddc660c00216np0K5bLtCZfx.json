@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbddc660c00216np0K5bLtCZfx",
+  "messageID": "msg_cbddc581d001NItPk2opI8bLFs",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The quote shows $0.000318 gas but MetaMask shows ~$2. This means our `estimateGas` call is returning a huge number — likely because the public RPC is estimating against the wrong state or the 130% buffer is compounding an already-inflated estimate.\n\nThe real fix: **don't estimate gas at all for the swap/deposit step**. Relay's quote already contains the correct `gas` field in `txData`. Use that directly. Only the wallet's *display* of the fee is wrong because it's using its own gas price × our gas limit.\n\nLet me check what Relay actually returns in the step data:",
+  "time": {
+    "start": 1772711869646,
+    "end": 1772711869646
+  }
+}

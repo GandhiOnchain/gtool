@@ -1658,7 +1658,7 @@ export default function RelaySwap() {
         try { return BigInt(v) } catch { return 0n }
       }
 
-      const estimateGasForStep = async (stepData: { to: string; data: string; value: string; chainId: number; from: string }, chain: RelayChain): Promise<bigint | undefined> => {
+      const estimateApproveGas = async (stepData: { to: string; data: string; value: string; chainId: number; from: string }, chain: RelayChain): Promise<bigint | undefined> => {
         try {
           const chainConfig = defineChain({
             id: stepData.chainId,
@@ -1673,9 +1673,9 @@ export default function RelaySwap() {
             data: stepData.data as `0x${string}`,
             value: safeValue(stepData.value),
           })
-          return (estimated * 130n) / 100n
+          return (estimated * 110n) / 100n
         } catch (e) {
-          console.warn('Gas estimation failed for step, wallet will estimate:', e)
+          console.warn('Approve gas estimation failed, wallet will estimate:', e)
           return undefined
         }
       }
@@ -1720,8 +1720,12 @@ export default function RelaySwap() {
           return
         }
 
-        const gasLimit = await estimateGasForStep(stepData, fromChain)
         const txValue = safeValue(stepData.value)
+        // Only pre-estimate gas for approve steps (standard ERC-20 call, simulates cleanly).
+        // For deposit/swap steps, let the wallet estimate — Relay's deposit contract requires
+        // specific solver state to simulate correctly, so our estimate would be inflated and
+        // cause the wallet to display a much higher fee than Relay's quoted amount.
+        const gasLimit = isApprove ? await estimateApproveGas(stepData, fromChain) : undefined
 
         const txParams: { to: `0x${string}`; data: `0x${string}`; value: bigint; gas?: bigint } = {
           to: stepData.to as `0x${string}`,

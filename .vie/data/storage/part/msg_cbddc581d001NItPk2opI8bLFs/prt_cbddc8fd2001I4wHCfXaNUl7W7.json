@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbddc8fd2001I4wHCfXaNUl7W7",
+  "messageID": "msg_cbddc581d001NItPk2opI8bLFs",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The type doesn't include `gas` — but Relay does return it. The issue is clear: **we're passing our own inflated `gas` estimate, and MetaMask multiplies that by the current network `baseFee + priorityFee` to show the fee**. Our 130% buffered estimate is way too high.\n\nThe fix: **remove all gas estimation entirely**. Pass only `to`, `data`, `value`. Let the wallet estimate gas naturally — the \"high gas fee\" warning was from the simulation failing (the approve-before-deposit bug), which is now fixed. The gas display issue is a separate cosmetic problem caused by our own inflated estimate.",
+  "time": {
+    "start": 1772711900251,
+    "end": 1772711900251
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdddc0ac0013IsHOCoponPDvR",
+  "messageID": "msg_cbddc581d001NItPk2opI8bLFs",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Clean. Here's the summary of what was actually wrong:\n\n**The $2 fee was caused by our own gas estimation.** Relay's deposit contract requires specific solver-side state to simulate correctly — when `estimateGas` runs against it via a public RPC, it either fails and returns a fallback (very high) value, or over-estimates because the simulation doesn't have the solver's context. That inflated gas limit × current network gas price = the $2 MetaMask was showing.\n\n**What's fixed now:**\n- **Approve steps** → gas pre-estimated via public RPC with 10% buffer (standard ERC-20 `approve` simulates cleanly)\n- **Deposit/swap steps** → no gas override, wallet estimates naturally from the actual calldata — which will match what Relay's quote shows since the wallet uses the same RPC and current gas price",
+  "time": {
+    "start": 1772711958861,
+    "end": 1772711958861
+  }
+}

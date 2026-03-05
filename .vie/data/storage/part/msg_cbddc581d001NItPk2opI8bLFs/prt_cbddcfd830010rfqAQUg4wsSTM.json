@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbddcfd830010rfqAQUg4wsSTM",
+  "messageID": "msg_cbddc581d001NItPk2opI8bLFs",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Wait — that still won't fix the $2 display. The problem is that MetaMask computes `gasLimit × gasPrice` for the fee display. If our `estimateGas` returns e.g. 500k gas units and the current Base gas price is ~0.004 gwei, that's still tiny. But if it's returning something like 2M gas units × 1 gwei = $2, the estimate itself is wrong.\n\nThe real issue: **our `estimateGas` is being called against `fromChain.httpRpcUrl` which is the Relay chain's public RPC — but the transaction is a Relay deposit contract call that requires specific on-chain state to simulate correctly**. It will over-estimate or fail.\n\nThe correct approach: **don't estimate at all for the deposit/swap step. Only estimate for the approve step** (which is a standard ERC-20 call that simulates cleanly).",
+  "time": {
+    "start": 1772711913930,
+    "end": 1772711913930
+  }
+}

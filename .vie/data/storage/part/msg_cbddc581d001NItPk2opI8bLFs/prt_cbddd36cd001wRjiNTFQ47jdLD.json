@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbddd36cd001wRjiNTFQ47jdLD",
+  "messageID": "msg_cbddc581d001NItPk2opI8bLFs",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now update the approve step to use `estimateApproveGas` and the deposit/swap step to pass **no gas** (let the wallet estimate naturally for the deposit):",
+  "time": {
+    "start": 1772711928133,
+    "end": 1772711928133
+  }
+}
