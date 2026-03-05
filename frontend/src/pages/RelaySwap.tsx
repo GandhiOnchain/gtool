@@ -10,6 +10,8 @@ import { useRelayChains, useTokenList, useTokenPrice, useQuote, useExecutionStat
 import { getClient, createClient, MAINNET_RELAY_API, adaptViemWallet } from '@relayprotocol/relay-sdk'
 import type { AdaptedWallet } from '@relayprotocol/relay-sdk'
 
+createClient({ baseApiUrl: MAINNET_RELAY_API, chains: [], useGasFeeEstimations: false })
+
 import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
 import { config } from '@/config'
 import { Network as AlchemyNetwork } from 'alchemy-sdk'
@@ -1804,6 +1806,7 @@ export default function RelaySwap() {
             to: step.to,
             data: step.data,
             value: step.value,
+            chainId: batchChain.id as Parameters<typeof sendTx>[1]['chainId'],
           })
           console.log(`Step ${i + 1} (${step.stepId}) submitted:`, hash)
           toast.info(`${step.stepLabel} ${i + 1}/${txSteps.length} submitted...`)
@@ -2335,11 +2338,16 @@ export default function RelaySwap() {
       const hash = await sendTx(wagmiConfig, {
         to: approval.token.address as `0x${string}`,
         data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,
+        chainId: revokeChain.id as Parameters<typeof sendTx>[1]['chainId'],
       })
       toast.info('Revoke submitted, confirming...')
       await waitForTransactionReceipt(wagmiConfig, { hash })
+      setApprovals(prev => prev.filter(a =>
+        !(a.token.address.toLowerCase() === approval.token.address.toLowerCase() &&
+          a.spender.toLowerCase() === approval.spender.toLowerCase())
+      ))
       toast.success('Approval revoked')
-      await loadApprovals()
+      loadApprovals()
     } catch (error) {
       const msg = error instanceof Error ? error.message.toLowerCase() : ''
       if (!msg.includes('user rejected') && !msg.includes('user denied')) {
@@ -2364,6 +2372,7 @@ export default function RelaySwap() {
       const selectedApprovalsArray = Array.from(selectedApprovals).map(idx => approvals[idx])
       let successCount = 0
       let failCount = 0
+      const revokedKeys = new Set<string>()
 
       for (let i = 0; i < selectedApprovalsArray.length; i++) {
         const approval = selectedApprovalsArray[i]
@@ -2372,9 +2381,10 @@ export default function RelaySwap() {
           const hash = await sendTx(wagmiConfig, {
             to: approval.token.address as `0x${string}`,
             data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,
+            chainId: revokeChain.id as Parameters<typeof sendTx>[1]['chainId'],
           })
-          // Wait for on-chain confirmation before moving to next
           await waitForTransactionReceipt(wagmiConfig, { hash })
+          revokedKeys.add(`${approval.token.address.toLowerCase()}:${approval.spender.toLowerCase()}`)
           successCount++
           console.log(`Revoked ${approval.token.symbol}:`, hash)
         } catch (error) {
@@ -2388,12 +2398,17 @@ export default function RelaySwap() {
         }
       }
 
+      if (revokedKeys.size > 0) {
+        setApprovals(prev => prev.filter(a =>
+          !revokedKeys.has(`${a.token.address.toLowerCase()}:${a.spender.toLowerCase()}`)
+        ))
+      }
+
       if (successCount > 0) toast.success(`Revoked ${successCount} approval${successCount > 1 ? 's' : ''}`)
       if (failCount > 0) toast.error(`Failed to revoke ${failCount} approval${failCount > 1 ? 's' : ''}`)
 
       setSelectedApprovals(new Set())
-      // Reload after confirmed — no arbitrary delay needed
-      await loadApprovals()
+      loadApprovals()
     } catch (error) {
       console.error('Batch revoke failed:', error)
       toast.error('Failed to revoke approvals')
@@ -3485,22 +3500,33 @@ export default function RelaySwap() {
                   Select a chain to view and revoke token approvals
                 </div>
                 
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setSelectingFor('revoke')
-                    setIsChainSelectOpen(true)
-                  }}
-                  className="w-full justify-between h-8 text-xs"
-                >
-                  <div className="flex items-center gap-1.5">
-                    {revokeChain?.iconUrl && (
-                      <img src={getChainIconUrl(revokeChain)} alt="" className="h-4 w-4 rounded-full" />
-                    )}
-                    <span>{revokeChain?.displayName || 'Select Chain'}</span>
-                  </div>
-                  <ChevronDown className="h-3 w-3" />
-                </Button>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setSelectingFor('revoke')
+                      setIsChainSelectOpen(true)
+                    }}
+                    className="flex-1 justify-between h-8 text-xs"
+                  >
+                    <div className="flex items-center gap-1.5">
+                      {revokeChain?.iconUrl && (
+                        <img src={getChainIconUrl(revokeChain)} alt="" className="h-4 w-4 rounded-full" />
+                      )}
+                      <span>{revokeChain?.displayName || 'Select Chain'}</span>
+                    </div>
+                    <ChevronDown className="h-3 w-3" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={loadApprovals}
+                    disabled={isLoadingApprovals || !revokeChain}
+                    className="h-8 w-8 p-0 flex-shrink-0"
+                  >
+                    <RefreshCw className={`h-3.5 w-3.5 ${isLoadingApprovals ? 'animate-spin' : ''}`} />
+                  </Button>
+                </div>
               </div>
             </Card>
 

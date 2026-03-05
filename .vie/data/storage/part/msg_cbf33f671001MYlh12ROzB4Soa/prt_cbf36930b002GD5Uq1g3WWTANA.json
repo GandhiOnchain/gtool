@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf36930b002GD5Uq1g3WWTANA",
+  "messageID": "msg_cbf33f671001MYlh12ROzB4Soa",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "All clean. Here's a summary of all fixes:\n\n**Gas still high:**\n- `createClient({ useGasFeeEstimations: false })` was only called inside a `useEffect` that fires when `viemChains` loads — meaning the first quote execution could use a stale client with `useGasFeeEstimations: true`. Now it's called at module level immediately on import, so the flag is always set before any quote runs.\n\n**Batch transactions not popping up:**\n- `sendTx` in the batch swap loop wasn't passing `chainId`, so wagmi used whatever chain the wallet was currently on. Now `chainId: batchChain.id` is passed explicitly, forcing the wallet to prompt on the correct chain.\n\n**Revoke shows stale approvals after success:**\n- After tx confirmation, the revoked approval is now immediately removed from state optimistically, then `loadApprovals()` runs in the background to sync. Previously it awaited `loadApprovals()` which re-fetches from Moralis (which returns historical events, not current state), so the revoked approval would reappear.\n\n**Refresh button:**\n- Added a `RefreshCw` button next to the chain selector in the revoke tab, matching the same pattern as the batch tab.",
+  "time": {
+    "start": 1772734559054,
+    "end": 1772734559054
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbf34081b001TKvNblu2y4EFPr",
+  "messageID": "msg_cbf33f671001MYlh12ROzB4Soa",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01LTw9ppQeLoGTYFAoukpeth",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1550,
+      "limit": 60
+    },
+    "output": "<file>\n01551| \n01552|         if (currentStep?.id === 'approve') {\n01553|           toast.info('Approving token spend...')\n01554|         } else if (currentStep?.id === 'deposit' || currentStep?.id === 'swap') {\n01555|           if (txHashes && txHashes.length > 0) {\n01556|             toast.info('Transaction submitted - waiting for confirmation...')\n01557|             const requestId = currentStep?.requestId\n01558|             if (requestId) {\n01559|               setCurrentSwapRequestId(requestId)\n01560|               setCurrentSwapChainId(fromChain.id)\n01561|             }\n01562|           }\n01563|         }\n01564|       })\n01565| \n01566|       if (result === undefined) {\n01567|         toast.error('Quote not ready. Please wait a moment and try again.')\n01568|         setIsSwapping(false)\n01569|         return\n01570|       }\n01571| \n01572|       await result\n01573|     } catch (error) {\n01574|       console.error('Swap execution failed:', error)\n01575|       const msg = error instanceof Error ? error.message : String(error)\n01576|       toast.error(parseSwapError(msg))\n01577|       setIsSwapping(false)\n01578|     }\n01579|   }\n01580| \n01581|   const fetchBatchQuote = async () => {\n01582|     if (!batchToToken || !batchToChain || !address || batchTokens.length === 0 || !batchChain) {\n01583|       return\n01584|     }\n01585| \n01586|     const toVMType = batchToChain.vmType || 'evm'\n01587|     const isCrossVM = (batchChain.vmType || 'evm') !== toVMType\n01588|     const batchRecipient = isCrossVM\n01589|       ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined\n01590|       : undefined\n01591| \n01592|     if (isCrossVM && toVMType === 'svm' && !solanaAddress) {\n01593|       console.log('Batch quote skipped: Solana destination requires Solana wallet')\n01594|       setBatchQuote(null)\n01595|       return\n01596|     }\n01597| \n01598|     setIsLoadingBatchQuote(true)\n01599|     try {\n01600|       const selectedTokens = batchTokens.filter(bt => {\n01601|         if (bt.selected === false) return false\n01602|         const bal = BigInt(bt.balance || '0')\n01603|         return bal > 0n\n01604|       })\n01605|       const origins = selectedTokens.map(bt => ({\n01606|         chainId: batchChain.id,\n01607|         currency: bt.token.address,\n01608|         amount: bt.balance,\n01609|       }))\n01610| \n\n(File has more lines. Use 'offset' parameter to read beyond line 1610)\n</file>",
+    "metadata": {
+      "preview": "\n        if (currentStep?.id === 'approve') {\n          toast.info('Approving token spend...')\n        } else if (currentStep?.id === 'deposit' || currentStep?.id === 'swap') {\n          if (txHashes && txHashes.length > 0) {\n            toast.info('Transaction submitted - waiting for confirmation...')\n            const requestId = currentStep?.requestId\n            if (requestId) {\n              setCurrentSwapRequestId(requestId)\n              setCurrentSwapChainId(fromChain.id)\n            }\n          }\n        }\n      })\n\n      if (result === undefined) {\n        toast.error('Quote not ready. Please wait a moment and try again.')\n        setIsSwapping(false)\n        return\n      }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772734384609,
+      "end": 1772734384611
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf364ad9001BbfLVtMg6t0kLw",
+  "messageID": "msg_cbf33f671001MYlh12ROzB4Soa",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01A8iaU2UxQCvMiSUEMJYLg6",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/.oxlintrc.json | python3 -c \"import json,sys; d=json.load(sys.stdin); print(json.dumps(d.get('overrides', []), indent=2))\" 2>/dev/null | head -30",
+      "description": "Check oxlint overrides for file patterns"
+    },
+    "output": "[\n  {\n    \"files\": [\n      \"src/vite-env.d.ts\",\n      \"src/hooks/alchemy/price/useTokenPricesByAddress.ts\",\n      \"src/hooks/alchemy/price/useTokenPricesBySymbol.ts\",\n      \"src/hooks/alchemy/price/useHistoricalTokenPrices.ts\",\n      \"src/hooks/alchemy/price/useHistoricalTokenPricesBySymbol.ts\",\n      \"src/hooks/alchemy/portfolio/useTokensByOwnerOnMultipleChains.ts\",\n      \"src/hooks/alchemy/portfolio/useTokenBalancesByOwnerOnMultipleChains.ts\",\n      \"src/hooks/alchemy/nft/useNftsByOwnerOnMultipleChains.ts\",\n      \"src/hooks/alchemy/nft/useOwnersByContractOnSpecificChain.ts\",\n      \"src/hooks/alchemy/nft/useNftMetadataByTokenIdBatchOnSpecificChain.ts\",\n      \"src/hooks/useQueryEvents.ts\",\n      \"src/hooks/useSimulateWriteContracts.ts\",\n      \"src/hooks/useWallet.ts\",\n      \"src/hooks/useWatchEvent.ts\",\n      \"src/hooks/useWriteContractLifecycle.ts\",\n      \"src/lib/utils.ts\",\n      \"src/lib/blockchain/signatureUtils.ts\",\n      \"src/lib/blockchain/events.ts\",\n      \"src/lib/blockchain/types.ts\",\n      \"src/components/ui/chart.tsx\",\n      \"src/config.ts\",\n      \"src/hooks/alchemy/types/price.types.ts\",\n      \"src/hooks/alchemy/types/portfolio.types.ts\",\n      \"src/hooks/alchemy/types/nft.types.ts\",\n      \"src/lib/alchemy/config.ts\"\n    ],\n    \"rules\": {\n",
+    "metadata": {
+      "output": "[\n  {\n    \"files\": [\n      \"src/vite-env.d.ts\",\n      \"src/hooks/alchemy/price/useTokenPricesByAddress.ts\",\n      \"src/hooks/alchemy/price/useTokenPricesBySymbol.ts\",\n      \"src/hooks/alchemy/price/useHistoricalTokenPrices.ts\",\n      \"src/hooks/alchemy/price/useHistoricalTokenPricesBySymbol.ts\",\n      \"src/hooks/alchemy/portfolio/useTokensByOwnerOnMultipleChains.ts\",\n      \"src/hooks/alchemy/portfolio/useTokenBalancesByOwnerOnMultipleChains.ts\",\n      \"src/hooks/alchemy/nft/useNftsByOwnerOnMultipleChains.ts\",\n      \"src/hooks/alchemy/nft/useOwnersByContractOnSpecificChain.ts\",\n      \"src/hooks/alchemy/nft/useNftMetadataByTokenIdBatchOnSpecificChain.ts\",\n      \"src/hooks/useQueryEvents.ts\",\n      \"src/hooks/useSimulateWriteContracts.ts\",\n      \"src/hooks/useWallet.ts\",\n      \"src/hooks/useWatchEvent.ts\",\n      \"src/hooks/useWriteContractLifecycle.ts\",\n      \"src/lib/utils.ts\",\n      \"src/lib/blockchain/signatureUtils.ts\",\n      \"src/lib/blockchain/events.ts\",\n      \"src/lib/blockchain/types.ts\",\n      \"src/components/ui/chart.tsx\",\n      \"src/config.ts\",\n      \"src/hooks/alchemy/types/price.types.ts\",\n      \"src/hooks/alchemy/types/portfolio.types.ts\",\n      \"src/hooks/alchemy/types/nft.types.ts\",\n      \"src/lib/alchemy/config.ts\"\n    ],\n    \"rules\": {\n",
+      "exit": 0,
+      "description": "Check oxlint overrides for file patterns"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/.oxlintrc.json | python3 -c \"import json,sys; d=json.load(sys.stdin); print(json.dumps(d.get('overrides', []), indent=2))\" 2>/dev/null | head -30",
+    "time": {
+      "start": 1772734532612,
+      "end": 1772734532633
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf364fe00012pzktTltqFEp0j",
+  "messageID": "msg_cbf33f671001MYlh12ROzB4Soa",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "The `RelaySwap.tsx` file is not in the override list, so `typescript/no-explicit-any` is enforced. I need to use a proper type cast. The cleanest solution is to extract a helper type from the wagmi config:",
+  "time": {
+    "start": 1772734537123,
+    "end": 1772734537123
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbf35c5c80019aY6S2Mv5zrF6Z",
+  "messageID": "msg_cbf33f671001MYlh12ROzB4Soa",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01YQxLr2rXHv37pp69Vcdnjg",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2337,
+      "limit": 8
+    },
+    "output": "<file>\n02338|       const hash = await sendTx(wagmiConfig, {\n02339|         to: approval.token.address as `0x${string}`,\n02340|         data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,\n02341|         chainId: revokeChain.id,\n02342|       })\n02343|       toast.info('Revoke submitted, confirming...')\n02344|       await waitForTransactionReceipt(wagmiConfig, { hash })\n02345|       setApprovals(prev => prev.filter(a =>\n\n(File has more lines. Use 'offset' parameter to read beyond line 2345)\n</file>",
+    "metadata": {
+      "preview": "      const hash = await sendTx(wagmiConfig, {\n        to: approval.token.address as `0x${string}`,\n        data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,\n        chainId: revokeChain.id,\n      })\n      toast.info('Revoke submitted, confirming...')\n      await waitForTransactionReceipt(wagmiConfig, { hash })\n      setApprovals(prev => prev.filter(a =>"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772734498703,
+      "end": 1772734498704
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbf341eb7001nlNYy6wCaI73ww",
+  "messageID": "msg_cbf33f671001MYlh12ROzB4Soa",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_012RYnNRJS8vwg22wbhxMj84",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1980,
+      "limit": 30
+    },
+    "output": "<file>\n01981|       toast.success(randomMessage, {\n01982|         duration: 3000,\n01983|       })\n01984|     }\n01985|   }\n01986| \n01987|   const loadUserData = () => {\n01988|     if (address) {\n01989|       loadUserStreak()\n01990|     }\n01991|   }\n01992| \n01993|   const loadApprovals = async () => {\n01994|     if (!address || !revokeChain) return\n01995|     \n01996|     setIsLoadingApprovals(true)\n01997|     setDebugInfo('Fetching approvals from API...')\n01998|     \n01999|     try {\n02000|       console.log('🔍 Loading approvals for:', revokeChain.displayName, address)\n02001|       \n02002|       // Try multiple methods to fetch approvals\n02003|       const chainId = revokeChain.id\n02004|       let data = null\n02005|       \n02006|       // Method 1: Try direct API call (might work in some environments)\n02007|       try {\n02008|         console.log('Method 1: Trying direct API call...')\n02009|         const directUrl = `https://api.revoke.cash/v1/allowances/${chainId}/${address}`\n02010|         const directResponse = await fetch(directUrl)\n\n(File has more lines. Use 'offset' parameter to read beyond line 2010)\n</file>",
+    "metadata": {
+      "preview": "      toast.success(randomMessage, {\n        duration: 3000,\n      })\n    }\n  }\n\n  const loadUserData = () => {\n    if (address) {\n      loadUserStreak()\n    }\n  }\n\n  const loadApprovals = async () => {\n    if (!address || !revokeChain) return\n    \n    setIsLoadingApprovals(true)\n    setDebugInfo('Fetching approvals from API...')\n    \n    try {\n      console.log('🔍 Loading approvals for:', revokeChain.displayName, address)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772734390509,
+      "end": 1772734390510
+    }
+  }
+}

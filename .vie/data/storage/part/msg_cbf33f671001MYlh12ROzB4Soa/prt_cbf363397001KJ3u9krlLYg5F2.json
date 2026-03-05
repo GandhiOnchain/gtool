@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf363397001KJ3u9krlLYg5F2",
+  "messageID": "msg_cbf33f671001MYlh12ROzB4Soa",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01BPwDsMVDFL6W84i6zFZy35",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"as any\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+      "description": "Find all as any usages"
+    },
+    "output": "1809:            chainId: batchChain.id as any,\n2341:        chainId: revokeChain.id as any,\n2384:            chainId: revokeChain.id as any,\n",
+    "metadata": {
+      "output": "1809:            chainId: batchChain.id as any,\n2341:        chainId: revokeChain.id as any,\n2384:            chainId: revokeChain.id as any,\n",
+      "exit": 0,
+      "description": "Find all as any usages"
+    },
+    "title": "grep -n \"as any\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772734526728,
+      "end": 1772734526733
+    }
+  }
+}

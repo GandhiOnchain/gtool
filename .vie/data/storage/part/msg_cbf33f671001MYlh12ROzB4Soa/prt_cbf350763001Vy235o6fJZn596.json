@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf350763001Vy235o6fJZn596",
+  "messageID": "msg_cbf33f671001MYlh12ROzB4Soa",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now fix batch revoke the same way — optimistically remove confirmed revokes:",
+  "time": {
+    "start": 1772734460900,
+    "end": 1772734460900
+  }
+}

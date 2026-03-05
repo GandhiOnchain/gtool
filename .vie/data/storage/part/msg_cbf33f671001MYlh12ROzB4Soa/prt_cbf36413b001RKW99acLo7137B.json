@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf36413b001RKW99acLo7137B",
+  "messageID": "msg_cbf33f671001MYlh12ROzB4Soa",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01B4dMd9w7NPGTtutVcmBLVF",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/.oxlintrc.json | grep -A5 \"no-explicit-any\\|@typescript\"",
+      "description": "Check oxlint config for any rules"
+    },
+    "output": "      \"typescript/no-explicit-any\": \"error\",\n      \"import/no-self-import\": \"error\",\n      \"oxc/only-used-in-recursion\": \"off\",\n      \"unicorn/no-useless-spread\": \"off\",\n      \"react/exhaustive-deps\": \"off\",\n      \"no-floating-promises\": \"off\",\n--\n              \"typescript/no-explicit-any\": \"off\",\n              \"typescript/no-unsafe-type-assertion\": \"off\",\n              \"typescript/no-unsafe-call\": \"off\",\n              \"typescript/no-unsafe-member-access\": \"off\",\n              \"typescript/no-unsafe-assignment\": \"off\",\n              \"typescript/no-unsafe-argument\": \"off\",\n",
+    "metadata": {
+      "output": "      \"typescript/no-explicit-any\": \"error\",\n      \"import/no-self-import\": \"error\",\n      \"oxc/only-used-in-recursion\": \"off\",\n      \"unicorn/no-useless-spread\": \"off\",\n      \"react/exhaustive-deps\": \"off\",\n      \"no-floating-promises\": \"off\",\n--\n              \"typescript/no-explicit-any\": \"off\",\n              \"typescript/no-unsafe-type-assertion\": \"off\",\n              \"typescript/no-unsafe-call\": \"off\",\n              \"typescript/no-unsafe-member-access\": \"off\",\n              \"typescript/no-unsafe-assignment\": \"off\",\n              \"typescript/no-unsafe-argument\": \"off\",\n",
+      "exit": 0,
+      "description": "Check oxlint config for any rules"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/.oxlintrc.json | grep -A5 \"no-explicit-any\\|@typescript\"",
+    "time": {
+      "start": 1772734530197,
+      "end": 1772734530198
+    }
+  }
+}

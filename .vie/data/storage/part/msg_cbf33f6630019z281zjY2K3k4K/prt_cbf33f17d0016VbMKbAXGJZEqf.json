@@ -1,0 +1,7 @@
+{
+  "id": "prt_cbf33f17d0016VbMKbAXGJZEqf",
+  "type": "text",
+  "text": "the gas is still high and transactions are still failing. also batch transactions are failing to pop up.\n\nin revoke tab, some approvals are still shown after revoking. it says revoke successful and immediately shows the approval still there. this shouldnt happen and refreshed approvals should be shown after the confirmation of transactions. also add a refresh button for manual refreshing.\\",
+  "messageID": "msg_cbf33f6630019z281zjY2K3k4K",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5"
+}

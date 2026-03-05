@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf347a8c00198wyE6T05u2Jww",
+  "messageID": "msg_cbf33f671001MYlh12ROzB4Soa",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "The `createClient` is called inside a `useEffect` that only fires when `viemChains` changes. But `getClient()` used in `useQuote` may return a client created earlier (without `useGasFeeEstimations: false`). The real fix is to call `createClient` at module level or ensure it's called immediately. Also, the `walletClient` override already strips gas fields — but the issue is the SDK's `adaptViemWallet` base still reads from `stepData` which is `stepItem.data`. Since we pass `{ ...item, data: { ...item.data, gas: undefined, maxFeePerGas: undefined, maxPriorityFeePerGas: undefined } }`, the base receives the cleaned data. That should work.\n\nThe real remaining gas issue: the `useGasFeeEstimations: false` only takes effect when `viemChains` is populated. If `getClient()` is called before that effect runs, it uses the default client (with `useGasFeeEstimations: true`). Fix: initialize the client at module level with `useGasFeeEstimations: false`.",
+  "time": {
+    "start": 1772734421122,
+    "end": 1772734421122
+  }
+}

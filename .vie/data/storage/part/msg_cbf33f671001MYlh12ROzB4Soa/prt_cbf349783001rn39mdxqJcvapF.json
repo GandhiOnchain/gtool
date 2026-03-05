@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbf349783001rn39mdxqJcvapF",
+  "messageID": "msg_cbf33f671001MYlh12ROzB4Soa",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_017eTXGGZnfAsYNjCjSjQ6EN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1,
+      "limit": 15
+    },
+    "output": "<file>\n00002| import * as React from 'react'\n00003| import { sdk } from '@farcaster/miniapp-sdk'\n00004| import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useWalletClient } from 'wagmi'\n00005| import { useWallet } from '@/hooks/useWallet'\n00006| import { parseUnits, formatUnits, createPublicClient, http, defineChain, getAddress } from 'viem'\n00007| import { relayAPI } from '@/lib/relay/api'\n00008| import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\n00009| import { useRelayChains, useTokenList, useTokenPrice, useQuote, useExecutionStatus } from '@relayprotocol/relay-kit-hooks'\n00010| import { getClient, createClient, MAINNET_RELAY_API, adaptViemWallet } from '@relayprotocol/relay-sdk'\n00011| import type { AdaptedWallet } from '@relayprotocol/relay-sdk'\n00012| \n00013| import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'\n00014| import { config } from '@/config'\n00015| import { Network as AlchemyNetwork } from 'alchemy-sdk'\n00016| import { Button } from '@/components/ui/button'\n\n(File has more lines. Use 'offset' parameter to read beyond line 16)\n</file>",
+    "metadata": {
+      "preview": "import * as React from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useWalletClient } from 'wagmi'\nimport { useWallet } from '@/hooks/useWallet'\nimport { parseUnits, formatUnits, createPublicClient, http, defineChain, getAddress } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\nimport { useRelayChains, useTokenList, useTokenPrice, useQuote, useExecutionStatus } from '@relayprotocol/relay-kit-hooks'\nimport { getClient, createClient, MAINNET_RELAY_API, adaptViemWallet } from '@relayprotocol/relay-sdk'\nimport type { AdaptedWallet } from '@relayprotocol/relay-sdk'\n\nimport { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'\nimport { config } from '@/config'\nimport { Network as AlchemyNetwork } from 'alchemy-sdk'\nimport { Button } from '@/components/ui/button'"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772734421114,
+      "end": 1772734421115
+    }
+  }
+}

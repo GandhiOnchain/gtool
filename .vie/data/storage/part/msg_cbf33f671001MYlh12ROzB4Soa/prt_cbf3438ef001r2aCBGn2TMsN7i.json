@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf3438ef001r2aCBGn2TMsN7i",
+  "messageID": "msg_cbf33f671001MYlh12ROzB4Soa",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I have a complete picture. Let me identify all the issues:\n\n1. **Gas still high**: The `walletClient` override strips gas fields from `item.data`, but the SDK's `adaptViemWallet` reads from `stepData` (which is `stepItem.data`), not `item.data`. Our override passes `item` with modified `data`, but the base `handleSendTransactionStep` receives `stepItem` as the second arg — so `stepData = stepItem.data` which IS our modified data. That should work. But `useGasFeeEstimations: false` should also work. Let me check if `createClient` is being called before `viemChains` is ready, meaning the client gets created without the flag first.\n\n2. **Batch transactions not popping up**: The batch swap uses `sendTx` from `wagmi/actions` which requires the wallet to be on the correct chain. But the chain switch happens before `setIsSwapping(true)`, and then a fresh quote is fetched — but the `sendTx` call doesn't specify `chainId`, so wagmi may use the wrong chain.\n\n3. **Revoke shows stale approvals**: `loadApprovals` calls the revoke.cash API first (which always fails due to CORS), then falls back to Moralis. The Moralis API returns historical approval events, not current state — so revoked approvals still appear. Need to optimistically remove revoked approvals from state immediately after confirmation, then reload.\n\n4. **No refresh button on revoke tab**.",
+  "time": {
+    "start": 1772734409588,
+    "end": 1772734409588
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbf3405360010TlskAtGJWvR1Q",
+  "messageID": "msg_cbf33f671001MYlh12ROzB4Soa",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01G2rzAs5E2btrTFUnkbx61K",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 240,
+      "limit": 50
+    },
+    "output": "<file>\n00241|     if (!rawWalletClient) return undefined\n00242|     const base = adaptViemWallet(rawWalletClient)\n00243|     return {\n00244|       ...base,\n00245|       handleSendTransactionStep: async (chainId, item, step) => {\n00246|         return base.handleSendTransactionStep(chainId, {\n00247|           ...item,\n00248|           data: {\n00249|             ...item.data,\n00250|             maxFeePerGas: undefined,\n00251|             maxPriorityFeePerGas: undefined,\n00252|             gas: undefined,\n00253|           },\n00254|         }, step)\n00255|       },\n00256|     }\n00257|   }, [rawWalletClient])\n00258| \n00259|   useEffect(() => {\n00260|     if (viemChains && viemChains.length > 0) {\n00261|       createClient({\n00262|         baseApiUrl: MAINNET_RELAY_API,\n00263|         chains: relayChains as unknown as Parameters<typeof createClient>[0]['chains'],\n00264|         useGasFeeEstimations: false,\n00265|       })\n00266|     }\n00267|   }, [viemChains])\n00268|   const [fromChain, setFromChain] = useState<RelayChain | null>(null)\n00269|   const [toChain, setToChain] = useState<RelayChain | null>(null)\n00270|   const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n00271|   const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n00272|   const [fromAmount, setFromAmount] = useState('')\n00273|   const [toAmount, setToAmount] = useState('')\n00274|   const [isSwapping, setIsSwapping] = useState(false)\n00275|   const [slippage, setSlippage] = useState('0.1')\n00276|   const [searchTerm, setSearchTerm] = useState('')\n00277|   const [tokenSearchTerm, setTokenSearchTerm] = useState('')\n00278|   const [isChainSelectOpen, setIsChainSelectOpen] = useState(false)\n00279|   const [isTokenSelectOpen, setIsTokenSelectOpen] = useState(false)\n00280|   const [selectingFor, setSelectingFor] = useState<'from' | 'to' | 'batch' | 'batchTo' | 'revoke'>('from')\n00281|   const [currencies, setCurrencies] = useState<RelayCurrency[]>([])\n00282|   const [fromCurrencies, setFromCurrencies] = useState<RelayCurrency[]>([])\n00283|   const [toCurrencies, setToCurrencies] = useState<RelayCurrency[]>([])\n00284|   const [trendingTokens, setTrendingTokens] = useState<TrendingToken[]>([])\n00285|   const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 })\n00286|   const [showSettings, setShowSettings] = useState(false)\n00287|   const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])\n00288|   const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])\n00289|   const [chainWalletTokens, setChainWalletTokens] = useState<Record<number, WalletToken[]>>({})\n00290|   const [contractAddressSearch, setContractAddressSearch] = useState('')\n\n(File has more lines. Use 'offset' parameter to read beyond line 290)\n</file>",
+    "metadata": {
+      "preview": "    if (!rawWalletClient) return undefined\n    const base = adaptViemWallet(rawWalletClient)\n    return {\n      ...base,\n      handleSendTransactionStep: async (chainId, item, step) => {\n        return base.handleSendTransactionStep(chainId, {\n          ...item,\n          data: {\n            ...item.data,\n            maxFeePerGas: undefined,\n            maxPriorityFeePerGas: undefined,\n            gas: undefined,\n          },\n        }, step)\n      },\n    }\n  }, [rawWalletClient])\n\n  useEffect(() => {\n    if (viemChains && viemChains.length > 0) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772734383858,
+      "end": 1772734383859
+    }
+  }
+}

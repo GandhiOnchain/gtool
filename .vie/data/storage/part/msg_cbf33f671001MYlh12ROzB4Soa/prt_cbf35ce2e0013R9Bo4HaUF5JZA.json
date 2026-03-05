@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf35ce2e0013R9Bo4HaUF5JZA",
+  "messageID": "msg_cbf33f671001MYlh12ROzB4Soa",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "The wagmi `sendTransaction` action expects `chainId` to be one of the configured chain IDs as a literal type. Cast them:",
+  "time": {
+    "start": 1772734502987,
+    "end": 1772734502987
+  }
+}
