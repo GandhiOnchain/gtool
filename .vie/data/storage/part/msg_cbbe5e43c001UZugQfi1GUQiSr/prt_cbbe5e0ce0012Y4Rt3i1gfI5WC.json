@@ -1,0 +1,7 @@
+{
+  "id": "prt_cbbe5e0ce0012Y4Rt3i1gfI5WC",
+  "type": "text",
+  "text": "the transactions in swap/bridge tab and the bundled transactions in batch tab are failing due to high gas fee. analyze the issue and fix it.",
+  "messageID": "msg_cbbe5e43c001UZugQfi1GUQiSr",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG"
+}

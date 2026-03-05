@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbe61c74001GR9KKjR1Yv9B2I",
+  "messageID": "msg_cbbe5e460001lipC2GGwAx2qyd",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Now I see the swap tab issue clearly. `sendTransaction` is called with no `gas` field and the Relay quote's `maxFeePerGas`/`maxPriorityFeePerGas` are stale. Let me also check what chain data is available from the Relay quote for the swap tab:",
+  "time": {
+    "start": 1772678949828,
+    "end": 1772678949828
+  }
+}

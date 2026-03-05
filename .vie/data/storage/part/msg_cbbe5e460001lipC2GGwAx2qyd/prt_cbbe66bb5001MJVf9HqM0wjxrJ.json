@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbe66bb5001MJVf9HqM0wjxrJ",
+  "messageID": "msg_cbbe5e460001lipC2GGwAx2qyd",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "**Fix 1 — swap/bridge tab**: estimate gas using `fromChain.httpRpcUrl` before calling `sendTransaction`:",
+  "time": {
+    "start": 1772678980692,
+    "end": 1772678980692
+  }
+}

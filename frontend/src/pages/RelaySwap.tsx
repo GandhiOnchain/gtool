@@ -1702,33 +1702,46 @@ export default function RelaySwap() {
         }
       }
 
-      // Prepare transaction — omit maxFeePerGas/maxPriorityFeePerGas from the quote
-      // so the wallet estimates current gas prices rather than using potentially stale values
+      const txValue = txData.value && txData.value !== '0x0' && txData.value !== '0' && txData.value !== ''
+        ? BigInt(txData.value)
+        : 0n
+
+      // Estimate gas using the origin chain's own RPC so the wallet shows accurate fees.
+      // We never forward maxFeePerGas/maxPriorityFeePerGas from the Relay quote — those
+      // are stale by the time the user signs and cause wallets to display inflated fees.
+      let gasEstimate: bigint | undefined
+      try {
+        const { createPublicClient: mkC, http: mkH, defineChain: mkDC } = await import('viem')
+        const originChain = chains.find(c => c.id === txData.chainId) || fromChain
+        const chainDef = mkDC({
+          id: originChain.id,
+          name: originChain.displayName,
+          nativeCurrency: { name: originChain.currency.name, symbol: originChain.currency.symbol, decimals: originChain.currency.decimals },
+          rpcUrls: { default: { http: [originChain.httpRpcUrl] } },
+        })
+        const pc = mkC({ chain: chainDef, transport: mkH(originChain.httpRpcUrl) })
+        const estimated = await pc.estimateGas({
+          account: address as `0x${string}`,
+          to: txData.to as `0x${string}`,
+          data: txData.data as `0x${string}`,
+          value: txValue,
+        })
+        gasEstimate = (estimated * 130n) / 100n
+        console.log('Gas estimated:', estimated.toString(), '→ with buffer:', gasEstimate.toString())
+      } catch (e) {
+        console.warn('Gas estimation failed, letting wallet decide:', e)
+      }
+
       const txParams = {
         to: txData.to as `0x${string}`,
         data: txData.data as `0x${string}`,
-        value: BigInt(txData.value || '0'),
+        value: txValue,
+        gas: gasEstimate,
       }
-      
-      console.log('=== TRANSACTION VALIDATION ===')
-      console.log('Quote requested by:', address)
-      console.log('Transaction from (in quote):', txData.from)
-      console.log('Transaction to:', txData.to)
-       console.log('Transaction value (expected):', txData.value)
-       console.log('Transaction value (sending):', txParams.value.toString())
-       console.log('Transaction data match:', txData.data === txParams.data)
-       console.log('Amount in quote params:', amountInWei.toString())
-       console.log('RequestId:', executionStep.requestId)
-       console.log('============================')
-       
-       console.log('Sending transaction with params:', {
-         from: address,
-         to: txParams.to,
-         data: txParams.data,
-         value: txParams.value.toString(),
-       })
-       
-       sendTransaction(txParams, {
+
+      console.log('Sending transaction:', { to: txParams.to, value: txParams.value.toString(), gas: gasEstimate?.toString() })
+
+      sendTransaction(txParams, {
          onSuccess: (hash) => {
            console.log('Transaction submitted successfully:', hash)
            toast.success('Transaction submitted - waiting for confirmation...')
@@ -2028,6 +2041,12 @@ export default function RelaySwap() {
         checkEndpoint?: string
       }> = []
 
+      // Safe bigint conversion — handles '0x0', '0', '', undefined, null
+      const toValue = (v: string | undefined | null): bigint => {
+        if (!v || v === '0x0' || v === '0x' || v === '0') return 0n
+        try { return BigInt(v) } catch { return 0n }
+      }
+
       for (const step of multiQuote.steps) {
         if (step.kind !== 'transaction' || !step.items?.length) continue
         for (const item of step.items) {
@@ -2037,8 +2056,7 @@ export default function RelaySwap() {
             stepLabel: step.id === 'approve' ? 'Approval' : step.id === 'deposit' ? 'Deposit' : step.action || step.id,
             to: d.to as `0x${string}`,
             data: d.data as `0x${string}`,
-            // Relay sometimes sends '0x0' or missing value — normalise to 0n
-            value: d.value && d.value !== '0x0' ? BigInt(d.value) : 0n,
+            value: toValue(d.value),
             checkEndpoint: item.check?.endpoint,
           })
         }
@@ -2052,26 +2070,37 @@ export default function RelaySwap() {
         return
       }
 
-      // Estimate gas for every step using the chain's RPC before prompting any signatures.
-      // We deliberately do NOT pass maxFeePerGas/maxPriorityFeePerGas from the Relay quote —
-      // those values are stale by the time the user signs and cause wallets to show inflated fees.
-      // Letting the wallet/node pick current gas prices is always more accurate.
-      const gasLimits = await Promise.all(
-        txSteps.map(async (step) => {
-          try {
-            const estimated = await publicClient.estimateGas({
-              account: address as `0x${string}`,
-              to: step.to,
-              data: step.data,
-              value: step.value,
-            })
-            return (estimated * 130n) / 100n  // 1.3x buffer
-          } catch (e) {
-            console.warn(`Gas estimation failed for step ${step.stepId}:`, e)
-            return undefined
-          }
-        })
-      )
+      // Static gas fallbacks per step type — used when live estimation fails.
+      // Approve: ERC-20 approve is always ~46k. We use 80k to be safe.
+      // Deposit/swap: Relay deposits are typically 120-250k. We use 350k as a safe ceiling.
+      // These are only used as a last resort — live estimation is always preferred.
+      const GAS_FALLBACK: Record<string, bigint> = {
+        approve: 80_000n,
+        deposit: 350_000n,
+        swap: 350_000n,
+      }
+
+      // Estimate gas for every step sequentially (not parallel) so that approve steps
+      // are estimated before deposit steps — parallel estimation of deposits fails because
+      // the simulated allowance is still 0 when the approve hasn't been sent yet.
+      const gasLimits: (bigint | undefined)[] = []
+      for (const step of txSteps) {
+        try {
+          const estimated = await publicClient.estimateGas({
+            account: address as `0x${string}`,
+            to: step.to,
+            data: step.data,
+            value: step.value,
+          })
+          const withBuffer = (estimated * 130n) / 100n
+          console.log(`Gas estimated for ${step.stepId}: ${estimated} → ${withBuffer} (with buffer)`)
+          gasLimits.push(withBuffer)
+        } catch (e) {
+          const fallback = GAS_FALLBACK[step.stepId]
+          console.warn(`Gas estimation failed for ${step.stepId}, using fallback ${fallback}:`, e)
+          gasLimits.push(fallback)
+        }
+      }
 
       toast.info(`Executing ${txSteps.length} step(s)...`)
 

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbe6e70c002u9JJRYrW87yseS",
+  "messageID": "msg_cbbe5e460001lipC2GGwAx2qyd",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Now I can see the exact issues in the batch tab:\n\n1. **Value normalisation** — `d.value && d.value !== '0x0'` misses `'0'`, `'0x'`, `''`, `undefined` — all of which Relay can send for zero-value steps\n2. **Approve gas estimation fails** — `estimateGas` for an approve call requires the current allowance to be 0 (which it is), but some RPCs reject the simulation if the spender isn't whitelisted. When it fails, `gasLimits[i]` is `undefined` and the wallet uses its own estimate which can be wrong. ERC-20 approves are always ~46k gas — use a safe static fallback\n3. **Deposit gas estimation fails** — when the approve hasn't propagated yet (we estimate all steps in parallel before any tx is sent), the deposit simulation reverts because allowance is 0. Need to use the quote's own gas hint as fallback, or a generous static fallback for deposit steps",
+  "time": {
+    "start": 1772679020728,
+    "end": 1772679020728
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbbe6357d001dPnpvv07ka6Jpn",
+  "messageID": "msg_cbbe5e460001lipC2GGwAx2qyd",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01NTEuvg7c6jtMrkL3VMXQgP",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && rg -n \"httpRpcUrl\" frontend/src/pages/RelaySwap.tsx | head -20",
+      "description": "Find all httpRpcUrl usages"
+    },
+    "output": "1107:      const publicRpc = chain.httpRpcUrl\n2017:        rpcUrls: { default: { http: [batchChain.httpRpcUrl] } },\n2019:      const publicClient = mkClient({ chain: chainDef, transport: mkHttp(batchChain.httpRpcUrl) })\n2816:              rpcUrls: [chain.httpRpcUrl],\n4034:                                rpcUrls: { default: { http: [batchChain.httpRpcUrl] } },\n4036:                              const pc = createPublicClient({ chain: chainConfig, transport: http(batchChain.httpRpcUrl) })\n",
+    "metadata": {
+      "output": "1107:      const publicRpc = chain.httpRpcUrl\n2017:        rpcUrls: { default: { http: [batchChain.httpRpcUrl] } },\n2019:      const publicClient = mkClient({ chain: chainDef, transport: mkHttp(batchChain.httpRpcUrl) })\n2816:              rpcUrls: [chain.httpRpcUrl],\n4034:                                rpcUrls: { default: { http: [batchChain.httpRpcUrl] } },\n4036:                              const pc = createPublicClient({ chain: chainConfig, transport: http(batchChain.httpRpcUrl) })\n",
+      "exit": 0,
+      "description": "Find all httpRpcUrl usages"
+    },
+    "title": "cd /home/user/sandbox/workspace && rg -n \"httpRpcUrl\" frontend/src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772678952533,
+      "end": 1772678952536
+    }
+  }
+}

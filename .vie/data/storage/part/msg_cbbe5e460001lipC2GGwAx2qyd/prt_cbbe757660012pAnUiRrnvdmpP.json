@@ -1,0 +1,49 @@
+{
+  "id": "prt_cbbe757660012pAnUiRrnvdmpP",
+  "messageID": "msg_cbbe5e460001lipC2GGwAx2qyd",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01KnDahYQiPhFVmPUBVhyQkL",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Swap tab: add gas estimation using fromChain.httpRpcUrl before sendTransaction, strip stale Relay gas price fields",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Batch tab: fix value normalisation (0x0/0/empty), fix approve gas estimation (use static 60k limit as fallback), ensure gas always set",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Swap tab: add gas estimation using fromChain.httpRpcUrl before sendTransaction, strip stale Relay gas price fields\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Batch tab: fix value normalisation (0x0/0/empty), fix approve gas estimation (use static 60k limit as fallback), ensure gas always set\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Swap tab: add gas estimation using fromChain.httpRpcUrl before sendTransaction, strip stale Relay gas price fields",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Batch tab: fix value normalisation (0x0/0/empty), fix approve gas estimation (use static 60k limit as fallback), ensure gas always set",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "title": "0 todos",
+    "time": {
+      "start": 1772679026606,
+      "end": 1772679026607
+    }
+  }
+}

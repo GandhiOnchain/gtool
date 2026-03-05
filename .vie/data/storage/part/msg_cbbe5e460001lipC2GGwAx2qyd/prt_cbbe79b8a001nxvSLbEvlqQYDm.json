@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbe79b8a001nxvSLbEvlqQYDm",
+  "messageID": "msg_cbbe5e460001lipC2GGwAx2qyd",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "All clean. Here's exactly what was wrong and what was fixed:\n\n---\n\n**Swap/bridge tab**\n\nThe `sendTransaction` call had no `gas` field at all. Relay's quote response includes `maxFeePerGas` and `maxPriorityFeePerGas` in `txData` — these are set at quote-fetch time and are stale by the time the user signs (often seconds to minutes later). Some wallets read these fields from the transaction object and display them as the fee, causing the \"high gas fee\" warning.\n\nFix: before calling `sendTransaction`, a `publicClient` is built using `originChain.httpRpcUrl` (the Relay chain's own RPC, not wagmiConfig) and `estimateGas` is called against it with a 1.3x buffer. The result is passed as `gas`. `maxFeePerGas`/`maxPriorityFeePerGas` are never forwarded — the wallet picks current network prices itself.\n\n---\n\n**Batch tab — two bugs**\n\n**Bug 1 — value normalisation**: The check `d.value && d.value !== '0x0'` missed other zero representations Relay sends: `'0'`, `'0x'`, `''`, `undefined`. Any of these would cause `BigInt(d.value)` to throw, crashing the step collection. Fixed with a `toValue()` helper that handles all cases.\n\n**Bug 2 — gas estimation order**: All steps were estimated in parallel with `Promise.all`. This means the deposit step's simulation runs before the approve tx has been sent — the simulated allowance is still 0, so the deposit simulation reverts and `estimateGas` throws. The fallback was `undefined`, so the wallet used its own estimate which was wrong.\n\nFixed two ways:\n1. Estimation now runs **sequentially** (for loop, not `Promise.all`) so approve is estimated first, then deposit\n2. **Static fallbacks** are used when estimation still fails: `80_000n` for approve (ERC-20 approve is always ~46k gas), `350_000n` for deposit/swap (Relay deposits are typically 120–250k). These are safe ceilings that ensure the tx never runs out of gas while not being so high that wallets flag them.",
+  "time": {
+    "start": 1772679057311,
+    "end": 1772679057311
+  }
+}

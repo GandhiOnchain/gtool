@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbe63e590016e27zvseWjhYnI",
+  "messageID": "msg_cbbe5e460001lipC2GGwAx2qyd",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Good — `fromChain.httpRpcUrl` is available. Now I have the full picture for both issues:\n\n**Swap/bridge tab**: `sendTransaction` is called with no `gas` field. The Relay quote's `txData` contains `maxFeePerGas` and `maxPriorityFeePerGas` that were set at quote time — wallets that read these from the transaction object display inflated fees. No gas estimation is done at all.\n\n**Batch tab**: Gas estimation was added in a previous session but it uses `batchChain.httpRpcUrl` directly via a `defineChain` — this is correct. But the issue is that `estimateGas` can fail silently (returns `undefined`) for approve steps because the allowance isn't set yet, so the wallet falls back to its own estimate which can be wrong. Also the `value` normalisation `d.value !== '0x0'` misses other zero representations like `'0'`, `''`, `undefined`.",
+  "time": {
+    "start": 1772678963955,
+    "end": 1772678963955
+  }
+}
