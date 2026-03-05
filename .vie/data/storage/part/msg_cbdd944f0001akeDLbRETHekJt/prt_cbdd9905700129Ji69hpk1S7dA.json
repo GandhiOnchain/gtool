@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdd9905700129Ji69hpk1S7dA",
+  "messageID": "msg_cbdd944f0001akeDLbRETHekJt",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now I need to see what imports are available at the top for `waitForTransactionReceipt`:",
+  "time": {
+    "start": 1772711679357,
+    "end": 1772711679357
+  }
+}

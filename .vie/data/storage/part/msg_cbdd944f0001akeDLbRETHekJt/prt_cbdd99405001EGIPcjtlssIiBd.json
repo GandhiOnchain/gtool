@@ -1,0 +1,17 @@
+{
+  "id": "prt_cbdd99405001EGIPcjtlssIiBd",
+  "messageID": "msg_cbdd944f0001akeDLbRETHekJt",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_019eTe3M9GGfdi2evxKBRESW",
+  "state": {
+    "status": "error",
+    "input": "{\"filePath\": \"/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\", \"offset\": \"1, \", \"limit\": 15}",
+    "error": "Model tried to call unavailable tool 'invalid'. Available tools: bash, diagnostics, edit, webfetch, glob, grep, list, read, write, todowrite, todoread, task.",
+    "time": {
+      "start": 1772711679320,
+      "end": 1772711679321
+    }
+  }
+}

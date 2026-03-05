@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdd94e21001nlyO4ov8CNiKCg",
+  "messageID": "msg_cbdd944f0001akeDLbRETHekJt",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "This is a **different issue** than gas estimation. The screenshot shows:\n\n- \"This transaction is likely to fail\" — this is MetaMask's **simulation** failing\n- \"Interacting with: RelayAppr...\" — this is an **approval transaction** (ERC-20 approve), not the swap itself\n- $2.05 network fee — that's normal for Base\n\nThe simulation is failing because the **approval step** is being sent but the token contract is rejecting the simulated call. This happens when the quote's `approve` step has a stale or incorrect `from` address, or the token doesn't have enough balance to simulate against.\n\nLet me look at how the approval step is handled:",
+  "time": {
+    "start": 1772711666649,
+    "end": 1772711666649
+  }
+}

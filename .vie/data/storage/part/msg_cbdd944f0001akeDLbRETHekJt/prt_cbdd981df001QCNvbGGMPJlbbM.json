@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbdd981df001QCNvbGGMPJlbbM",
+  "messageID": "msg_cbdd944f0001akeDLbRETHekJt",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01343ZjWHc7mmETuBioWXY6s",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1539,
+      "limit": 20
+    },
+    "output": "<file>\n01540|     if (!quote || !quote.steps || quote.steps.length === 0) {\n01541|       toast.error('No quote available')\n01542|       return\n01543|     }\n01544| \n01545|     if (!isConnected || !address) {\n01546|       toast.error('Please connect your wallet first')\n01547|       return\n01548|     }\n01549| \n01550|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {\n01551|       toast.error('Missing swap parameters')\n01552|       return\n01553|     }\n01554| \n01555|     // Validate that token chainIds match selected chains\n01556|     if (fromToken.chainId !== fromChain.id) {\n01557|       console.error('Token chainId mismatch:', {\n01558|         fromTokenChainId: fromToken.chainId,\n01559|         fromChainId: fromChain.id,\n\n(File has more lines. Use 'offset' parameter to read beyond line 1559)\n</file>",
+    "metadata": {
+      "preview": "    if (!quote || !quote.steps || quote.steps.length === 0) {\n      toast.error('No quote available')\n      return\n    }\n\n    if (!isConnected || !address) {\n      toast.error('Please connect your wallet first')\n      return\n    }\n\n    if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {\n      toast.error('Missing swap parameters')\n      return\n    }\n\n    // Validate that token chainIds match selected chains\n    if (fromToken.chainId !== fromChain.id) {\n      console.error('Token chainId mismatch:', {\n        fromTokenChainId: fromToken.chainId,\n        fromChainId: fromChain.id,"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772711674688,
+      "end": 1772711674689
+    }
+  }
+}

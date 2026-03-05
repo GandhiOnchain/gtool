@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdd96ead001Z9IAZzJYmDuQKV",
+  "messageID": "msg_cbdd944f0001akeDLbRETHekJt",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The critical bug is on line 1654: **`s.kind === 'transaction'` matches the `approve` step first** (since it comes before `deposit`/`swap` in the steps array). So the code is sending the approval transaction through `sendTransaction` as if it's the main swap — but the approval step needs to be handled separately first, then the deposit/swap step.\n\nThe fix: handle the full step sequence properly — execute `approve` first if present, wait for it, then execute the main `deposit`/`swap` step.",
+  "time": {
+    "start": 1772711674774,
+    "end": 1772711674774
+  }
+}

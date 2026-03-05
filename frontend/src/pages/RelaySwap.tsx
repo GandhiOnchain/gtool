@@ -1648,52 +1648,52 @@ export default function RelaySwap() {
       
       const freshQuote = await relayAPI.getQuote(quoteParams)
       console.log('Fresh quote received:', freshQuote)
+      console.log('Steps:', freshQuote.steps.map(s => ({ id: s.id, kind: s.kind, items: s.items?.length })))
 
-      // For same-chain swaps, look for 'swap' step; for cross-chain, look for 'deposit' step
-      const isSameChain = fromChain.id === toChain.id
-      const executionStep = freshQuote.steps.find(s => 
-        s.id === 'deposit' || s.id === 'swap' || s.kind === 'transaction'
-      )
-      
-      if (!executionStep || !executionStep.items || executionStep.items.length === 0) {
-        console.error('No execution step found in quote. Available steps:', freshQuote.steps.map(s => ({ id: s.id, kind: s.kind })))
-        throw new Error(`No ${isSameChain ? 'swap' : 'deposit'} step found in quote`)
-      }
-      
-      console.log('Using execution step:', executionStep.id, 'kind:', executionStep.kind)
+      const { sendTransaction: sendTxAction, waitForTransactionReceipt: waitForReceipt } = await import('wagmi/actions')
+      const { wagmiConfig } = await import('@/lib/blockchain/wagmi')
 
-      const txData = executionStep.items[0].data
-      
-      console.log('Executing swap transaction:', {
-        from: txData.from,
-        to: txData.to,
-        value: txData.value,
-        data: txData.data?.slice(0, 20) + '...',
-        chainId: txData.chainId,
-        connectedChainId,
-        recipientAddress,
-        requestId: executionStep.requestId,
-      })
-      
-      // CRITICAL: Verify the transaction 'from' address matches the connected wallet
-      // Relay will refund if these don't match
-      if (txData.from.toLowerCase() !== address.toLowerCase()) {
-        console.error('Address mismatch!', {
-          txDataFrom: txData.from,
-          connectedAddress: address,
-        })
-        toast.error('Wallet address mismatch. Please ensure you are using the same wallet that requested the quote.')
-        setIsSwapping(false)
-        return
+      const safeValue = (v: string | undefined | null): bigint => {
+        if (!v || v === '0x0' || v === '0x' || v === '0') return 0n
+        try { return BigInt(v) } catch { return 0n }
       }
 
-      // Check if we need to switch chains
-      if (connectedChainId !== txData.chainId) {
-        console.log('Switching chain from', connectedChainId, 'to', txData.chainId)
+      const estimateGasForStep = async (stepData: { to: string; data: string; value: string; chainId: number; from: string }, chain: RelayChain): Promise<bigint | undefined> => {
         try {
-          await switchChain({ chainId: txData.chainId })
-          toast.success('Chain switched successfully')
-          await new Promise(resolve => setTimeout(resolve, 500))
+          const chainConfig = defineChain({
+            id: stepData.chainId,
+            name: chain.displayName,
+            nativeCurrency: { name: chain.currency.name, symbol: chain.currency.symbol, decimals: chain.currency.decimals },
+            rpcUrls: { default: { http: [chain.httpRpcUrl] } },
+          })
+          const publicClient = createPublicClient({ chain: chainConfig, transport: http(chain.httpRpcUrl) })
+          const estimated = await publicClient.estimateGas({
+            account: stepData.from as `0x${string}`,
+            to: stepData.to as `0x${string}`,
+            data: stepData.data as `0x${string}`,
+            value: safeValue(stepData.value),
+          })
+          return (estimated * 130n) / 100n
+        } catch (e) {
+          console.warn('Gas estimation failed for step, wallet will estimate:', e)
+          return undefined
+        }
+      }
+
+      // Collect all transaction steps in order (approve first, then deposit/swap)
+      const allTxSteps = freshQuote.steps.filter(s => s.kind === 'transaction' && s.items?.length > 0)
+
+      if (allTxSteps.length === 0) {
+        throw new Error('No transaction steps found in quote')
+      }
+
+      // Switch chain once before executing steps
+      const firstStepChainId = allTxSteps[0].items[0].data.chainId
+      if (connectedChainId !== firstStepChainId) {
+        console.log('Switching chain from', connectedChainId, 'to', firstStepChainId)
+        try {
+          await switchChain({ chainId: firstStepChainId })
+          await new Promise(resolve => setTimeout(resolve, 800))
         } catch (switchError) {
           console.error('Failed to switch chain:', switchError)
           toast.error('Please switch to the correct network in your wallet')
@@ -1702,86 +1702,99 @@ export default function RelaySwap() {
         }
       }
 
-      const safeValue = (v: string | undefined | null): bigint => {
-        if (!v || v === '0x0' || v === '0x' || v === '0') return 0n
-        try { return BigInt(v) } catch { return 0n }
-      }
+      // Execute each step sequentially
+      let mainRequestId: string | null = null
+      let mainChainId: number | null = null
 
-      const txValue = safeValue(txData.value)
+      for (let i = 0; i < allTxSteps.length; i++) {
+        const step = allTxSteps[i]
+        const stepData = step.items[0].data
+        const isApprove = step.id === 'approve'
+        const isLast = i === allTxSteps.length - 1
 
-      // Estimate gas via a direct public RPC call (not through the wallet connector).
-      // This bypasses the Farcaster Mini App wallet's own simulation which can incorrectly
-      // flag the tx as "high gas fee" when it re-estimates using stale or inflated values.
-      // By pre-computing the gas limit ourselves and passing it explicitly, the wallet
-      // skips its own estimation entirely.
-      let gasLimit: bigint | undefined
-      try {
-        const chainConfig = defineChain({
-          id: txData.chainId,
-          name: fromChain.displayName,
-          nativeCurrency: { name: fromChain.currency.name, symbol: fromChain.currency.symbol, decimals: fromChain.currency.decimals },
-          rpcUrls: { default: { http: [fromChain.httpRpcUrl] } },
-        })
-        const publicClient = createPublicClient({ chain: chainConfig, transport: http(fromChain.httpRpcUrl) })
-        const estimated = await publicClient.estimateGas({
-          account: address as `0x${string}`,
-          to: txData.to as `0x${string}`,
-          data: txData.data as `0x${string}`,
-          value: txValue,
-        })
-        // Add 20% buffer so the tx doesn't run out of gas on-chain
-        gasLimit = (estimated * 120n) / 100n
-        console.log('Gas estimated via public RPC:', estimated.toString(), '→ with buffer:', gasLimit.toString())
-      } catch (gasErr) {
-        console.warn('Gas estimation failed, letting wallet estimate:', gasErr)
-      }
+        console.log(`Executing step ${i + 1}/${allTxSteps.length}: ${step.id}`)
 
-      const txParams: {
-        to: `0x${string}`
-        data: `0x${string}`
-        value: bigint
-        gas?: bigint
-      } = {
-        to: txData.to as `0x${string}`,
-        data: txData.data as `0x${string}`,
-        value: txValue,
-        ...(gasLimit !== undefined ? { gas: gasLimit } : {}),
-      }
-
-      console.log('Sending transaction:', { to: txParams.to, value: txParams.value.toString(), gas: gasLimit?.toString() })
-
-      sendTransaction(txParams, {
-         onSuccess: (hash) => {
-           console.log('Transaction submitted successfully:', hash)
-           toast.success('Transaction submitted - waiting for confirmation...')
-           
-           if (executionStep.requestId) {
-             setCurrentSwapRequestId(executionStep.requestId)
-             setCurrentSwapChainId(txData.chainId)
-           } else {
-             console.warn('No requestId found in execution step')
-             setIsSwapping(false)
-           }
-         },
-        onError: (error) => {
-          console.error('Transaction failed:', error)
-          const msg = error instanceof Error ? error.message.toLowerCase() : ''
-          let errorMessage = 'Transaction failed'
-          if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {
-            errorMessage = 'Transaction rejected'
-          } else if (msg.includes('insufficient funds') || msg.includes('insufficient balance')) {
-            errorMessage = 'Insufficient balance to cover this swap and gas fees'
-          } else if (msg.includes('gas') || msg.includes('fee')) {
-            errorMessage = 'Gas estimation failed. Please try again.'
-          } else if (msg.includes('nonce')) {
-            errorMessage = 'Transaction nonce error. Please try again.'
-          } else if (msg.includes('network') || msg.includes('timeout')) {
-            errorMessage = 'Network error. Please try again.'
-          }
-          toast.error(errorMessage)
+        if (stepData.from.toLowerCase() !== address.toLowerCase()) {
+          toast.error('Wallet address mismatch. Please reconnect your wallet.')
           setIsSwapping(false)
+          return
         }
-      })
+
+        const gasLimit = await estimateGasForStep(stepData, fromChain)
+        const txValue = safeValue(stepData.value)
+
+        const txParams: { to: `0x${string}`; data: `0x${string}`; value: bigint; gas?: bigint } = {
+          to: stepData.to as `0x${string}`,
+          data: stepData.data as `0x${string}`,
+          value: txValue,
+          ...(gasLimit !== undefined ? { gas: gasLimit } : {}),
+        }
+
+        console.log(`Step ${step.id} params:`, { to: txParams.to, value: txValue.toString(), gas: gasLimit?.toString() })
+
+        if (isApprove) {
+          // Approval must be confirmed on-chain before the deposit/swap can proceed
+          toast.info('Approving token spend...')
+          try {
+            const approveHash = await sendTxAction(wagmiConfig, txParams)
+            console.log('Approval tx submitted:', approveHash)
+            toast.info('Waiting for approval confirmation...')
+            await waitForReceipt(wagmiConfig, { hash: approveHash })
+            console.log('Approval confirmed')
+            toast.success('Token approved')
+            // Brief pause so the allowance propagates before the next step
+            await new Promise(resolve => setTimeout(resolve, 1500))
+          } catch (approveErr) {
+            console.error('Approval failed:', approveErr)
+            const msg = approveErr instanceof Error ? approveErr.message.toLowerCase() : ''
+            if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {
+              toast.error('Approval rejected')
+            } else {
+              toast.error('Token approval failed. Please try again.')
+            }
+            setIsSwapping(false)
+            return
+          }
+        } else {
+          // Main swap/deposit step — use the reactive sendTransaction so the useEffect
+          // can monitor status via requestId after confirmation
+          if (isLast && step.requestId) {
+            mainRequestId = step.requestId
+            mainChainId = stepData.chainId
+          }
+
+          sendTransaction(txParams, {
+            onSuccess: (hash) => {
+              console.log('Swap tx submitted:', hash)
+              toast.success('Transaction submitted - waiting for confirmation...')
+              if (mainRequestId) {
+                setCurrentSwapRequestId(mainRequestId)
+                setCurrentSwapChainId(mainChainId)
+              } else {
+                setIsSwapping(false)
+              }
+            },
+            onError: (error) => {
+              console.error('Swap tx failed:', error)
+              const msg = error instanceof Error ? error.message.toLowerCase() : ''
+              let errorMessage = 'Transaction failed'
+              if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {
+                errorMessage = 'Transaction rejected'
+              } else if (msg.includes('insufficient funds') || msg.includes('insufficient balance')) {
+                errorMessage = 'Insufficient balance to cover this swap and gas fees'
+              } else if (msg.includes('nonce')) {
+                errorMessage = 'Transaction nonce error. Please try again.'
+              } else if (msg.includes('network') || msg.includes('timeout')) {
+                errorMessage = 'Network error. Please try again.'
+              }
+              toast.error(errorMessage)
+              setIsSwapping(false)
+            }
+          })
+          // Return after dispatching the reactive sendTransaction — the onSuccess/onError callbacks handle the rest
+          return
+        }
+      }
     } catch (error) {
       console.error('Swap execution failed:', error)
       const errorMessage = error instanceof Error ? error.message : 'Failed to execute swap'

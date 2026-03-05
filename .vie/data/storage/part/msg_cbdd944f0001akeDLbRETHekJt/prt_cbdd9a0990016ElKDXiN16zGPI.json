@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbdd9a0990016ElKDXiN16zGPI",
+  "messageID": "msg_cbdd944f0001akeDLbRETHekJt",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_011mexMCoQrkgqYn4mwmPVii",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 0,
+      "limit": 15
+    },
+    "output": "<file>\n00001| import { useEffect, useState } from 'react'\n00002| import * as React from 'react'\n00003| import { sdk } from '@farcaster/miniapp-sdk'\n00004| import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'\n00005| import { useWallet } from '@/hooks/useWallet'\n00006| import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem, getAddress } from 'viem'\n00007| import { relayAPI } from '@/lib/relay/api'\n00008| import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\n00009| \n00010| import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'\n00011| import { config } from '@/config'\n00012| import { Network as AlchemyNetwork } from 'alchemy-sdk'\n00013| import { Button } from '@/components/ui/button'\n00014| import { Input } from '@/components/ui/input'\n00015| import { Card } from '@/components/ui/card'\n\n(File has more lines. Use 'offset' parameter to read beyond line 15)\n</file>",
+    "metadata": {
+      "preview": "import { useEffect, useState } from 'react'\nimport * as React from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'\nimport { useWallet } from '@/hooks/useWallet'\nimport { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem, getAddress } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\n\nimport { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'\nimport { config } from '@/config'\nimport { Network as AlchemyNetwork } from 'alchemy-sdk'\nimport { Button } from '@/components/ui/button'\nimport { Input } from '@/components/ui/input'\nimport { Card } from '@/components/ui/card'"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772711682554,
+      "end": 1772711682555
+    }
+  }
+}

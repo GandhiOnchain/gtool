@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdda9c02002tXsdiHxVacuTkK",
+  "messageID": "msg_cbdd944f0001akeDLbRETHekJt",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The fix addresses the actual root cause. Here's what was happening and what changed:\n\n**Root cause:** The step-finding logic `s.id === 'deposit' || s.id === 'swap' || s.kind === 'transaction'` was matching the **`approve` step first** (it has `kind === 'transaction'`). So the code was sending the approval tx through the reactive `sendTransaction` hook — but the wallet's simulation of an ERC-20 `approve` call against a token you may not have sufficient allowance for yet shows \"This transaction is likely to fail.\"\n\n**What changed:**\n\n1. **Proper step sequencing** — all `transaction`-kind steps are now collected in order. `approve` steps are executed first using `wagmi/actions` `sendTxAction` + `waitForReceipt` (awaited synchronously), then the main `deposit`/`swap` step follows\n2. **Approval is confirmed on-chain** before the deposit is sent — with a 1.5s propagation delay so the allowance is readable by the next tx\n3. **Gas pre-estimated via public RPC** for every step with a 30% buffer, so the wallet skips its own simulation entirely\n4. The main swap step still uses the reactive `sendTransaction` hook so the existing `requestId` monitoring flow works unchanged",
+  "time": {
+    "start": 1772711754334,
+    "end": 1772711754334
+  }
+}
