@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdd3f90d002n78x07nxJEuvlp",
+  "messageID": "msg_cbdd3c542001ZIO5myS5rMK0au",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Both keys are set in `env.json`. Alchemy will power token discovery and RPC calls; Moralis will handle the spam scanning fallback and approval fetching.",
+  "time": {
+    "start": 1772711312550,
+    "end": 1772711312550
+  }
+}
