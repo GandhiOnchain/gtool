@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf154f22001sIfpTJ0BeBdeRo",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Found it. `chains` is built via `configureViemChain(chain)`. Let me check what that does to `iconUrl`:",
+  "time": {
+    "start": 1772732372375,
+    "end": 1772732372375
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf149db0001YR9WpaVuwJUSTr",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The hook returns `iconUrl` correctly. The problem must be that `useRelayChains` returns two different `chains` arrays — the raw API response chains (in `data.chains`) and the processed `chains` (SDK `RelayChain` objects with `viemChain` attached). Let me check which one we're using:",
+  "time": {
+    "start": 1772732327846,
+    "end": 1772732327846
+  }
+}

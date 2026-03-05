@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf162649001agGxnuWM3JXDd2",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Add a helper function right before the component and replace all usages with it:",
+  "time": {
+    "start": 1772732428747,
+    "end": 1772732428747
+  }
+}

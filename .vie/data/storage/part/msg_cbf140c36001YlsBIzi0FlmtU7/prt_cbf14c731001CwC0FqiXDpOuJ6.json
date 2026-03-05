@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf14c731001CwC0FqiXDpOuJ6",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "There are **two** `chains` properties returned:\n1. `data.chains` — raw API response (all fields optional, `iconUrl?: string | null`)\n2. `chains` — processed SDK `RelayChain` objects with `viemChain` attached\n\nWe're destructuring `chains` from the hook result — that's the processed SDK `RelayChain[]`. Let me check if the SDK's `RelayChain` type has `iconUrl`:",
+  "time": {
+    "start": 1772732338462,
+    "end": 1772732338462
+  }
+}

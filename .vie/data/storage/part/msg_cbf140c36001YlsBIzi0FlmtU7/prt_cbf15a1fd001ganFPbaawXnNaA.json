@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf15a1fd001ganFPbaawXnNaA",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01WwVu35e3s7GRNTGB8Tmfni",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_cjs/src/chain-utils/configureViemChain.js",
+      "description": "Read full configureViemChain implementation"
+    },
+    "output": "\"use strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nexports.configureViemChain = void 0;\nconst viemChains = require(\"viem/chains\");\nconst servers_js_1 = require(\"../constants/servers.js\");\nconst viemChainMap = Object.values(viemChains).reduce((chains, chain) => {\n    chains[chain.id] = chain;\n    return chains;\n}, {});\nconst configureViemChain = (chain) => {\n    let viemChain;\n    const overriddenChains = [999, 1337];\n    const staticChain = overriddenChains.includes(chain.id)\n        ? undefined\n        : viemChainMap[chain.id];\n    if (staticChain) {\n        viemChain = staticChain;\n    }\n    else {\n        viemChain = {\n            id: chain.id,\n            name: chain.displayName,\n            nativeCurrency: {\n                name: chain.currency.name ?? 'Ethereum',\n                decimals: chain.currency.decimals ?? 18,\n                symbol: chain.currency.symbol ?? 'ETH'\n            },\n            rpcUrls: {\n                default: {\n                    http: [chain.httpRpcUrl],\n                    webSocket: [chain.wsRpcUrl]\n                },\n                public: {\n                    http: [chain.httpRpcUrl],\n                    webSocket: [chain.wsRpcUrl]\n                }\n            },\n            blockExplorers: {\n                etherscan: {\n                    name: chain.explorerName,\n                    url: chain.explorerUrl\n                },\n                default: {\n                    name: chain.explorerName,\n                    url: chain.explorerUrl\n                }\n            }\n        };\n    }\n    return {\n        ...chain,\n        viemChain,\n        icon: {\n            dark: `${servers_js_1.ASSETS_RELAY_API}/icons/${chain.id}/dark.png`,\n            light: chain.iconUrl ?? `${servers_js_1.ASSETS_RELAY_API}/icons/${chain.id}/light.png`,\n            squaredDark: `${servers_js_1.ASSETS_RELAY_API}/icons/square/${chain.id}/dark.png`,\n            squaredLight: `${servers_js_1.ASSETS_RELAY_API}/icons/square/${chain.id}/light.png`\n        }\n    };\n};\nexports.configureViemChain = configureViemChain;\n//# sourceMappingURL=configureViemChain.js.map",
+    "metadata": {
+      "output": "\"use strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nexports.configureViemChain = void 0;\nconst viemChains = require(\"viem/chains\");\nconst servers_js_1 = require(\"../constants/servers.js\");\nconst viemChainMap = Object.values(viemChains).reduce((chains, chain) => {\n    chains[chain.id] = chain;\n    return chains;\n}, {});\nconst configureViemChain = (chain) => {\n    let viemChain;\n    const overriddenChains = [999, 1337];\n    const staticChain = overriddenChains.includes(chain.id)\n        ? undefined\n        : viemChainMap[chain.id];\n    if (staticChain) {\n        viemChain = staticChain;\n    }\n    else {\n        viemChain = {\n            id: chain.id,\n            name: chain.displayName,\n            nativeCurrency: {\n                name: chain.currency.name ?? 'Ethereum',\n                decimals: chain.currency.decimals ?? 18,\n                symbol: chain.currency.symbol ?? 'ETH'\n            },\n            rpcUrls: {\n                default: {\n                    http: [chain.httpRpcUrl],\n                    webSocket: [chain.wsRpcUrl]\n                },\n                public: {\n                    http: [chain.httpRpcUrl],\n                    webSocket: [chain.wsRpcUrl]\n                }\n            },\n            blockExplorers: {\n                etherscan: {\n                    name: chain.explorerName,\n                    url: chain.explorerUrl\n                },\n                default: {\n                    name: chain.explorerName,\n                    url: chain.explorerUrl\n                }\n            }\n        };\n    }\n    return {\n        ...chain,\n        viemChain,\n        icon: {\n            dark: `${servers_js_1.ASSETS_RELAY_API}/icons/${chain.id}/dark.png`,\n            light: chain.iconUrl ?? `${servers_js_1.ASSETS_RELAY_API}/icons/${chain.id}/light.png`,\n            squaredDark: `${servers_js_1.ASSETS_RELAY_API}/icons/square/${chain.id}/dark.png`,\n            squaredLight: `${servers_js_1.ASSETS_RELAY_API}/icons/square/${chain.id}/light.png`\n        }\n    };\n};\nexports.configureViemChain = configureViemChain;\n//# sourceMappingURL=configureViemChain.js.map",
+      "exit": 0,
+      "description": "Read full configureViemChain implementation"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_cjs/src/chain-utils/configureViemChain.js",
+    "time": {
+      "start": 1772732392153,
+      "end": 1772732392154
+    }
+  }
+}

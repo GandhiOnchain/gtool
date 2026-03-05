@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf15ad65001aZ89W6htdDqul0",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The SDK spreads `...chain` so `iconUrl` is preserved. The data is there. The issue must be something else — the `chains` array from `useRelayChains` defaults to `[convertViemChainToRelayChain(mainnet)]` while loading, and `mainnet` from viem doesn't have `iconUrl`. So on initial render before the API resolves, `fromChain` gets set to the mainnet fallback which has no `iconUrl`.\n\nBut more importantly — looking at the screenshot again, the chain **name** \"Ethereum\" shows correctly but the icon is missing. This means `iconUrl` is `undefined` or `null` on the chain object being used. Let me check what `ASSETS_RELAY_API` is and whether the URL actually loads:",
+  "time": {
+    "start": 1772732400139,
+    "end": 1772732400139
+  }
+}

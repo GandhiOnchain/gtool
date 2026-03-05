@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf15c0c800165mdz4Oe7wt3VP",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_0159x4XzXTYzZonfrP77a99y",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -r \"ASSETS_RELAY_API\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_cjs/src/constants/servers.js",
+      "description": "Check ASSETS_RELAY_API value"
+    },
+    "output": "exports.DEV_RELAY_WS = exports.MAINNET_RELAY_WS = exports.ASSETS_RELAY_API = exports.TESTNET_RELAY_API = exports.MAINNET_RELAY_API = void 0;\nexports.ASSETS_RELAY_API = 'https://assets.relay.link';\n",
+    "metadata": {
+      "output": "exports.DEV_RELAY_WS = exports.MAINNET_RELAY_WS = exports.ASSETS_RELAY_API = exports.TESTNET_RELAY_API = exports.MAINNET_RELAY_API = void 0;\nexports.ASSETS_RELAY_API = 'https://assets.relay.link';\n",
+      "exit": 0,
+      "description": "Check ASSETS_RELAY_API value"
+    },
+    "title": "grep -r \"ASSETS_RELAY_API\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_cjs/src/constants/servers.js",
+    "time": {
+      "start": 1772732400106,
+      "end": 1772732400109
+    }
+  }
+}

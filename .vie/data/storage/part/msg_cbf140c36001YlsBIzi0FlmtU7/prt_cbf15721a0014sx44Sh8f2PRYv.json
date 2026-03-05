@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf15721a0014sx44Sh8f2PRYv",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01UgCp3rTYqmCuyxJVLYmNDe",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_cjs/src/chain-utils/index.js | grep -A20 \"configureViemChain\"",
+      "description": "Check configureViemChain implementation"
+    },
+    "output": "exports.fetchChainConfigs = exports.configureDynamicChains = exports.configureViemChain = void 0;\nvar configureViemChain_js_1 = require(\"./configureViemChain.js\");\nObject.defineProperty(exports, \"configureViemChain\", { enumerable: true, get: function () { return configureViemChain_js_1.configureViemChain; } });\nvar configureDynamicChains_js_1 = require(\"./configureDynamicChains.js\");\nObject.defineProperty(exports, \"configureDynamicChains\", { enumerable: true, get: function () { return configureDynamicChains_js_1.configureDynamicChains; } });\nvar fetchChainConfigs_js_1 = require(\"./fetchChainConfigs.js\");\nObject.defineProperty(exports, \"fetchChainConfigs\", { enumerable: true, get: function () { return fetchChainConfigs_js_1.fetchChainConfigs; } });\n//# sourceMappingURL=index.js.map\n",
+    "metadata": {
+      "output": "exports.fetchChainConfigs = exports.configureDynamicChains = exports.configureViemChain = void 0;\nvar configureViemChain_js_1 = require(\"./configureViemChain.js\");\nObject.defineProperty(exports, \"configureViemChain\", { enumerable: true, get: function () { return configureViemChain_js_1.configureViemChain; } });\nvar configureDynamicChains_js_1 = require(\"./configureDynamicChains.js\");\nObject.defineProperty(exports, \"configureDynamicChains\", { enumerable: true, get: function () { return configureDynamicChains_js_1.configureDynamicChains; } });\nvar fetchChainConfigs_js_1 = require(\"./fetchChainConfigs.js\");\nObject.defineProperty(exports, \"fetchChainConfigs\", { enumerable: true, get: function () { return fetchChainConfigs_js_1.fetchChainConfigs; } });\n//# sourceMappingURL=index.js.map\n",
+      "exit": 0,
+      "description": "Check configureViemChain implementation"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_cjs/src/chain-utils/index.js | grep -A20 \"configureViemChain\"",
+    "time": {
+      "start": 1772732381071,
+      "end": 1772732381074
+    }
+  }
+}

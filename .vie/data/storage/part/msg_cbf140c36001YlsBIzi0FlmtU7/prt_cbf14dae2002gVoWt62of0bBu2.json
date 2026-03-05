@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf14dae2002gVoWt62of0bBu2",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The SDK `RelayChain` has `iconUrl`. So the data is there. The issue must be that `fromChain` is being set from `chains` which is the SDK type, but our local `RelayChain` interface might not match perfectly after the cast. Let me just log what's actually in `fromChain` at runtime — but more practically, let me check if `iconUrl` is actually `null` for Ethereum in the SDK's processed chain:",
+  "time": {
+    "start": 1772732345221,
+    "end": 1772732345221
+  }
+}

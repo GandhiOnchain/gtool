@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf142ab90019orFUhZiw7DOOa",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01RRxnEAqCkKAzV72BWTpjqg",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"iconUrl\" src/pages/RelaySwap.tsx | head -20",
+      "description": "Find all iconUrl usages"
+    },
+    "output": "2623:                      {chains.find(c => c.id === connectedChainId)?.iconUrl && (\n2624:                        <img src={chains.find(c => c.id === connectedChainId)?.iconUrl} alt=\"\" className=\"h-3.5 w-3.5 rounded-full\" />\n2659:                              {chain.iconUrl\n2660:                                ? <img src={chain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full flex-shrink-0\" />\n2741:                      {fromChain?.iconUrl && (\n2742:                        <img src={fromChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n2887:                      {toChain?.iconUrl && (\n2888:                        <img src={toChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n3180:                        {batchChain?.iconUrl && (\n3181:                          <img src={batchChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n3365:                        {batchToChain?.iconUrl && (\n3366:                          <img src={batchToChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n3510:                    {revokeChain?.iconUrl && (\n3511:                      <img src={revokeChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n3672:                      {chain.iconUrl && (\n3673:                        <img src={chain.iconUrl} alt=\"\" className=\"h-5 w-5 rounded-full\" />\n",
+    "metadata": {
+      "output": "2623:                      {chains.find(c => c.id === connectedChainId)?.iconUrl && (\n2624:                        <img src={chains.find(c => c.id === connectedChainId)?.iconUrl} alt=\"\" className=\"h-3.5 w-3.5 rounded-full\" />\n2659:                              {chain.iconUrl\n2660:                                ? <img src={chain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full flex-shrink-0\" />\n2741:                      {fromChain?.iconUrl && (\n2742:                        <img src={fromChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n2887:                      {toChain?.iconUrl && (\n2888:                        <img src={toChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n3180:                        {batchChain?.iconUrl && (\n3181:                          <img src={batchChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n3365:                        {batchToChain?.iconUrl && (\n3366:                          <img src={batchToChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n3510:                    {revokeChain?.iconUrl && (\n3511:                      <img src={revokeChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n3672:                      {chain.iconUrl && (\n3673:                        <img src={chain.iconUrl} alt=\"\" className=\"h-5 w-5 rounded-full\" />\n",
+      "exit": 0,
+      "description": "Find all iconUrl usages"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"iconUrl\" src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772732296571,
+      "end": 1772732296578
+    }
+  }
+}

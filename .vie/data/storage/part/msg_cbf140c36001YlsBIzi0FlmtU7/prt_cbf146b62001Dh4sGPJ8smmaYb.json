@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf146b62001Dh4sGPJ8smmaYb",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "`iconUrl` is present in the API response. The issue is the cast `as unknown as RelayChain[]` — the SDK's `RelayChain` type from `useRelayChains` has `iconUrl?: string | null` but our local `RelayChain` interface has `iconUrl?: string`. The `null` value from the API is being treated as falsy correctly... but wait — the SDK's `RelayChain` type from `relay-kit-hooks` is different from our local one. Let me check what the hook actually returns:",
+  "time": {
+    "start": 1772732316002,
+    "end": 1772732316002
+  }
+}

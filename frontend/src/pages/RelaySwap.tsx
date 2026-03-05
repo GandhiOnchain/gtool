@@ -216,6 +216,12 @@ function TokenRow({ token, chainId }: { token: { address: string; symbol: string
 const SOLANA_NATIVE_ADDRESS = '11111111111111111111111111111111'
 const EVM_NATIVE_ADDRESS = '0x0000000000000000000000000000000000000000'
 
+const getChainIconUrl = (chain: RelayChain | null | undefined): string | undefined => {
+  if (!chain) return undefined
+  if (chain.iconUrl) return chain.iconUrl
+  return `https://assets.relay.link/icons/${chain.id}/light.png`
+}
+
 const getNativeAddress = (vmType?: string) =>
   vmType === 'svm' ? SOLANA_NATIVE_ADDRESS : EVM_NATIVE_ADDRESS
 
@@ -472,12 +478,13 @@ export default function RelaySwap() {
   }, [])
 
   useEffect(() => {
-    if (chains.length === 0) return
+    if (chains.length < 2) return
     const baseChain = chains.find(c => c.id === 8453) || chains[0]
-    if (!fromChain) setFromChain(baseChain)
-    if (!toChain) setToChain(chains.find(c => c.id !== baseChain.id) || chains[1] || null)
-    if (!batchChain) setBatchChain(baseChain)
-    if (!batchToChain) setBatchToChain(baseChain)
+    const secondChain = chains.find(c => c.id !== baseChain.id) || chains[1]
+    if (!fromChain || !fromChain.iconUrl) setFromChain(baseChain)
+    if (!toChain || !toChain.iconUrl) setToChain(secondChain)
+    if (!batchChain || !batchChain.iconUrl) setBatchChain(baseChain)
+    if (!batchToChain || !batchToChain.iconUrl) setBatchToChain(baseChain)
   }, [chains])
 
   useEffect(() => {
@@ -2620,8 +2627,8 @@ export default function RelaySwap() {
                 <DropdownMenu onOpenChange={(open) => { if (!open) setChainSearch('') }}>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="sm" className="h-7 gap-1.5 px-2 text-xs">
-                      {chains.find(c => c.id === connectedChainId)?.iconUrl && (
-                        <img src={chains.find(c => c.id === connectedChainId)?.iconUrl} alt="" className="h-3.5 w-3.5 rounded-full" />
+                      {getChainIconUrl(chains.find(c => c.id === connectedChainId)) && (
+                        <img src={getChainIconUrl(chains.find(c => c.id === connectedChainId))} alt="" className="h-3.5 w-3.5 rounded-full" />
                       )}
                       {chains.find(c => c.id === connectedChainId)?.displayName || `Chain ${connectedChainId}`}
                       <ChevronDown className="h-3 w-3 opacity-60" />
@@ -2656,8 +2663,8 @@ export default function RelaySwap() {
                                 }
                               }}
                             >
-                              {chain.iconUrl
-                                ? <img src={chain.iconUrl} alt="" className="h-4 w-4 rounded-full flex-shrink-0" />
+                              {getChainIconUrl(chain)
+                                ? <img src={getChainIconUrl(chain)} alt="" className="h-4 w-4 rounded-full flex-shrink-0" />
                                 : <div className="h-4 w-4 rounded-full bg-muted flex-shrink-0" />
                               }
                               <span className="flex-1 truncate text-xs">{chain.displayName}</span>
@@ -2738,8 +2745,8 @@ export default function RelaySwap() {
                     className="flex-1 justify-between h-10 text-xs"
                   >
                     <div className="flex items-center gap-1.5">
-                      {fromChain?.iconUrl && (
-                        <img src={fromChain.iconUrl} alt="" className="h-4 w-4 rounded-full" />
+                      {getChainIconUrl(fromChain) && (
+                        <img src={getChainIconUrl(fromChain)} alt="" className="h-4 w-4 rounded-full" />
                       )}
                       <span>{fromChain?.displayName || 'Select'}</span>
                     </div>
@@ -2884,8 +2891,8 @@ export default function RelaySwap() {
                     className="flex-1 justify-between h-10 text-xs"
                   >
                     <div className="flex items-center gap-1.5">
-                      {toChain?.iconUrl && (
-                        <img src={toChain.iconUrl} alt="" className="h-4 w-4 rounded-full" />
+                      {getChainIconUrl(toChain) && (
+                        <img src={getChainIconUrl(toChain)} alt="" className="h-4 w-4 rounded-full" />
                       )}
                       <span>{toChain?.displayName || 'Select'}</span>
                     </div>
@@ -3177,8 +3184,8 @@ export default function RelaySwap() {
                       className="flex-1 justify-between h-8 text-xs"
                     >
                       <div className="flex items-center gap-1.5">
-                        {batchChain?.iconUrl && (
-                          <img src={batchChain.iconUrl} alt="" className="h-4 w-4 rounded-full" />
+                          {getChainIconUrl(batchChain) && (
+                          <img src={getChainIconUrl(batchChain)} alt="" className="h-4 w-4 rounded-full" />
                         )}
                         <span>{batchChain?.displayName || 'Select Chain'}</span>
                       </div>
@@ -3362,8 +3369,8 @@ export default function RelaySwap() {
                       className="flex-1 justify-between h-8 text-xs"
                     >
                       <div className="flex items-center gap-1.5">
-                        {batchToChain?.iconUrl && (
-                          <img src={batchToChain.iconUrl} alt="" className="h-4 w-4 rounded-full" />
+                          {getChainIconUrl(batchToChain) && (
+                          <img src={getChainIconUrl(batchToChain)} alt="" className="h-4 w-4 rounded-full" />
                         )}
                         <span>{batchToChain?.displayName || 'Select'}</span>
                       </div>
@@ -3508,7 +3515,7 @@ export default function RelaySwap() {
                 >
                   <div className="flex items-center gap-1.5">
                     {revokeChain?.iconUrl && (
-                      <img src={revokeChain.iconUrl} alt="" className="h-4 w-4 rounded-full" />
+                      <img src={getChainIconUrl(revokeChain)} alt="" className="h-4 w-4 rounded-full" />
                     )}
                     <span>{revokeChain?.displayName || 'Select Chain'}</span>
                   </div>
@@ -3669,8 +3676,8 @@ export default function RelaySwap() {
                       }}
                       className="flex items-center gap-2 p-2 rounded hover:bg-accent cursor-pointer"
                     >
-                      {chain.iconUrl && (
-                        <img src={chain.iconUrl} alt="" className="h-5 w-5 rounded-full" />
+                      {getChainIconUrl(chain) && (
+                        <img src={getChainIconUrl(chain)} alt="" className="h-5 w-5 rounded-full" />
                       )}
                       <div className="text-xs">{chain.displayName}</div>
                     </div>

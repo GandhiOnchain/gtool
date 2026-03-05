@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbf16a7980017hLm8tnwBrNhpw",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01AcFWU9Xt5kqzq6MNvbRuZw",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2746,
+      "limit": 8
+    },
+    "output": "<file>\n02747|                     <div className=\"flex items-center gap-1.5\">\n02748|                       {fromChain?.iconUrl && (\n02749|                         <img src={fromChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n02750|                       )}\n02751|                       <span>{fromChain?.displayName || 'Select'}</span>\n02752|                     </div>\n02753|                     <ChevronDown className=\"h-3 w-3\" />\n02754|                   </Button>\n\n(File has more lines. Use 'offset' parameter to read beyond line 2754)\n</file>",
+    "metadata": {
+      "preview": "                    <div className=\"flex items-center gap-1.5\">\n                      {fromChain?.iconUrl && (\n                        <img src={fromChain.iconUrl} alt=\"\" className=\"h-4 w-4 rounded-full\" />\n                      )}\n                      <span>{fromChain?.displayName || 'Select'}</span>\n                    </div>\n                    <ChevronDown className=\"h-3 w-3\" />\n                  </Button>"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772732459176,
+      "end": 1772732459177
+    }
+  }
+}

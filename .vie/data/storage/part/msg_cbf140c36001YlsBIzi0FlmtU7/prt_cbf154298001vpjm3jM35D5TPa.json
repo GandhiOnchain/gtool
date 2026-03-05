@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf154298001vpjm3jM35D5TPa",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_012wWTeRN21Fqy5KWowAehYH",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_cjs/src/hooks/useRelayChains.js | head -60",
+      "description": "Read useRelayChains implementation"
+    },
+    "output": "\"use strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nexports.queryRelayChains = void 0;\nconst tslib_1 = require(\"tslib\");\nconst relay_sdk_1 = require(\"@relayprotocol/relay-sdk\");\nconst chain_utils_1 = require(\"@relayprotocol/relay-sdk/chain-utils\");\nconst fetcher_js_1 = tslib_1.__importDefault(require(\"../fetcher.js\"));\nconst react_query_1 = require(\"@tanstack/react-query\");\nconst react_1 = require(\"react\");\nconst chains_1 = require(\"viem/chains\");\nconst queryRelayChains = function (baseApiUrl = relay_sdk_1.MAINNET_RELAY_API, options, headers) {\n    const url = new URL(`${baseApiUrl}/chains`);\n    (0, relay_sdk_1.setParams)(url, options ?? {});\n    return (0, fetcher_js_1.default)(url.href, headers);\n};\nexports.queryRelayChains = queryRelayChains;\nfunction default_1(baseApiUrl, options, queryOptions) {\n    const response = react_query_1.useQuery({\n        queryKey: ['useRelayChains', baseApiUrl, options],\n        queryFn: () => (0, exports.queryRelayChains)(baseApiUrl, options),\n        retry: false,\n        ...queryOptions\n    });\n    return (0, react_1.useMemo)(() => {\n        const chains = response?.data?.chains?.map((chain) => (0, chain_utils_1.configureViemChain)(chain));\n        return {\n            ...response,\n            viemChains: chains?.map((chain) => chain.viemChain),\n            chains: chains ? chains : [(0, relay_sdk_1.convertViemChainToRelayChain)(chains_1.mainnet)]\n        };\n    }, [response.data, response.data?.chains, response.error, response.isLoading]);\n}\nexports.default = default_1;\n//# sourceMappingURL=useRelayChains.js.map",
+    "metadata": {
+      "output": "\"use strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nexports.queryRelayChains = void 0;\nconst tslib_1 = require(\"tslib\");\nconst relay_sdk_1 = require(\"@relayprotocol/relay-sdk\");\nconst chain_utils_1 = require(\"@relayprotocol/relay-sdk/chain-utils\");\nconst fetcher_js_1 = tslib_1.__importDefault(require(\"../fetcher.js\"));\nconst react_query_1 = require(\"@tanstack/react-query\");\nconst react_1 = require(\"react\");\nconst chains_1 = require(\"viem/chains\");\nconst queryRelayChains = function (baseApiUrl = relay_sdk_1.MAINNET_RELAY_API, options, headers) {\n    const url = new URL(`${baseApiUrl}/chains`);\n    (0, relay_sdk_1.setParams)(url, options ?? {});\n    return (0, fetcher_js_1.default)(url.href, headers);\n};\nexports.queryRelayChains = queryRelayChains;\nfunction default_1(baseApiUrl, options, queryOptions) {\n    const response = react_query_1.useQuery({\n        queryKey: ['useRelayChains', baseApiUrl, options],\n        queryFn: () => (0, exports.queryRelayChains)(baseApiUrl, options),\n        retry: false,\n        ...queryOptions\n    });\n    return (0, react_1.useMemo)(() => {\n        const chains = response?.data?.chains?.map((chain) => (0, chain_utils_1.configureViemChain)(chain));\n        return {\n            ...response,\n            viemChains: chains?.map((chain) => chain.viemChain),\n            chains: chains ? chains : [(0, relay_sdk_1.convertViemChainToRelayChain)(chains_1.mainnet)]\n        };\n    }, [response.data, response.data?.chains, response.error, response.isLoading]);\n}\nexports.default = default_1;\n//# sourceMappingURL=useRelayChains.js.map",
+      "exit": 0,
+      "description": "Read useRelayChains implementation"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_cjs/src/hooks/useRelayChains.js | head -60",
+    "time": {
+      "start": 1772732368016,
+      "end": 1772732368021
+    }
+  }
+}

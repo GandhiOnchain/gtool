@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf14a66a0015nwHR6KzNLXnTw",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01CdZ7k1UJmL9KPxzPhXWbqk",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -A5 \"export default function\" node_modules/@relayprotocol/relay-kit-hooks/_types/src/hooks/useRelayChains.d.ts | tail -10",
+      "description": "Check useRelayChains return structure"
+    },
+    "output": "export default function (baseApiUrl?: string, options?: ChainsQuery, queryOptions?: Partial<QueryOptions>): import(\"@tanstack/react-query\").UseQueryResult<{\n    chains?: {\n        id?: number | undefined;\n        name?: string | undefined;\n        displayName?: string | undefined;\n        httpRpcUrl?: string | undefined;\n",
+    "metadata": {
+      "output": "export default function (baseApiUrl?: string, options?: ChainsQuery, queryOptions?: Partial<QueryOptions>): import(\"@tanstack/react-query\").UseQueryResult<{\n    chains?: {\n        id?: number | undefined;\n        name?: string | undefined;\n        displayName?: string | undefined;\n        httpRpcUrl?: string | undefined;\n",
+      "exit": 0,
+      "description": "Check useRelayChains return structure"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -A5 \"export default function\" node_modules/@relayprotocol/relay-kit-hooks/_types/src/hooks/useRelayChains.d.ts | tail -10",
+    "time": {
+      "start": 1772732327824,
+      "end": 1772732327826
+    }
+  }
+}

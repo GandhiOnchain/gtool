@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf153346001foSL34zK7FwmRN",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01PEc33XDNczpB7GCaPy4bCw",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_cjs/ && ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_esm/",
+      "description": "List relay-kit-hooks build files"
+    },
+    "output": "package.json\nsrc\ntsconfig.build.tsbuildinfo\npackage.json\nsrc\ntsconfig.build.tsbuildinfo\n",
+    "metadata": {
+      "output": "package.json\nsrc\ntsconfig.build.tsbuildinfo\npackage.json\nsrc\ntsconfig.build.tsbuildinfo\n",
+      "exit": 0,
+      "description": "List relay-kit-hooks build files"
+    },
+    "title": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_cjs/ && ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_esm/",
+    "time": {
+      "start": 1772732363820,
+      "end": 1772732363822
+    }
+  }
+}

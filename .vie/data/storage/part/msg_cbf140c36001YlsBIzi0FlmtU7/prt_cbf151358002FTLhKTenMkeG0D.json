@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf151358002FTLhKTenMkeG0D",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The API returns `iconUrl` correctly. The issue is in how we're using the `chains` from `useRelayChains`. The hook returns two separate `chains` properties — the destructured `{ chains }` is the **SDK-processed** `RelayChain[]`, but looking at the type signature more carefully, the hook returns `data` (raw API response with `data.chains`) AND a separate top-level `chains` property. Let me verify which one has `iconUrl`:",
+  "time": {
+    "start": 1772732358852,
+    "end": 1772732358852
+  }
+}

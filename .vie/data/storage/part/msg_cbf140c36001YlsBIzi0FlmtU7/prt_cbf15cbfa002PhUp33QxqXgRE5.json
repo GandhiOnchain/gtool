@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf15cbfa002PhUp33QxqXgRE5",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "So `iconUrl` for Ethereum would be `https://assets.relay.link/icons/1/light.png`. The SDK also adds an `icon` object with `icon.light`. The issue is our code checks `chain.iconUrl` but the SDK-processed chain also has `chain.icon.light` which is always set. The `iconUrl` from the raw API is `https://assets.relay.link/icons/1/light.png` — same URL. So `iconUrl` should be present.\n\nThe real issue: when `fromChain` is set from the `chains` effect, the chains array might still be the **fallback** `[mainnet]` (before API resolves), and `convertViemChainToRelayChain(mainnet)` doesn't set `iconUrl`. Then when the real chains load, `fromChain` is already set so the effect doesn't re-run (`!fromChain` guard).\n\nFix: use `chain.icon?.light` as fallback when `iconUrl` is missing, and also re-set `fromChain`/`toChain` when the real chains load (not just when they're null):",
+  "time": {
+    "start": 1772732408993,
+    "end": 1772732408993
+  }
+}

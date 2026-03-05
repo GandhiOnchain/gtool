@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf15ef50001KrnYpgXUqrJYqc",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The fix is two-part:\n\n1. Remove the `!fromChain` guard so chains get updated when real data loads (replacing the fallback mainnet)\n2. Add `iconUrl` fallback using `chain.icon?.light` in all icon renders",
+  "time": {
+    "start": 1772732416010,
+    "end": 1772732416010
+  }
+}

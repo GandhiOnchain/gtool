@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf1488e7001gRHAK2sAzrF2H4",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The SDK type has `iconUrl?: string | null`. Our local `RelayChain` type has `iconUrl?: string`. The cast works fine — `null` is falsy so `chain.iconUrl &&` guards work. The real issue is something else. Let me check what `useRelayChains` actually returns for the `chains` array vs the raw API response:",
+  "time": {
+    "start": 1772732322757,
+    "end": 1772732322757
+  }
+}

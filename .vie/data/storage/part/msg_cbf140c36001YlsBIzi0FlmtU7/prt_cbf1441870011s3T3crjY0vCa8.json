@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf1441870011s3T3crjY0vCa8",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The `iconUrl` is present in the data — the issue is that `useRelayChains` returns chains typed from the SDK which has `iconUrl?: string | null`, but our local `RelayChain` type has `iconUrl?: string`. The cast `as unknown as RelayChain[]` may be losing the `iconUrl` if the SDK's chain object uses a different field name. Let me check:",
+  "time": {
+    "start": 1772732308726,
+    "end": 1772732308726
+  }
+}

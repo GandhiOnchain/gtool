@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf1677f9001ZQ8d4Bkh7jHBge",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now replace all remaining `iconUrl` usages in JSX with `getChainIconUrl`:",
+  "time": {
+    "start": 1772732449402,
+    "end": 1772732449402
+  }
+}

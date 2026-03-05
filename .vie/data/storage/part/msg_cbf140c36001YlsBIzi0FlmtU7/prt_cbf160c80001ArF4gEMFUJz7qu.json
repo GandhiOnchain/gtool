@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf160c80001ArF4gEMFUJz7qu",
+  "messageID": "msg_cbf140c36001YlsBIzi0FlmtU7",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now add a helper to get the chain icon URL with fallback, and replace all `chain.iconUrl` usages:",
+  "time": {
+    "start": 1772732421416,
+    "end": 1772732421416
+  }
+}
