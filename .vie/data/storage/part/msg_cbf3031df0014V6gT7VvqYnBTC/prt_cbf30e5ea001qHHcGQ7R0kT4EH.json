@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf30e5ea001qHHcGQ7R0kT4EH",
+  "messageID": "msg_cbf3031df0014V6gT7VvqYnBTC",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01QpxRV1edWX8p13tTdn6azT",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -r \"useGasFeeEstimations\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/ | grep -v \".map\" | head -20",
+      "description": "Find useGasFeeEstimations in relay-sdk"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/viemWallet.js:                    client.useGasFeeEstimations && {\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/viemWallet.js:                    client.useGasFeeEstimations && {\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/viemWallet.js:                    client.useGasFeeEstimations && {\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js:        Object.defineProperty(this, \"useGasFeeEstimations\", {\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js:        this.useGasFeeEstimations = options.useGasFeeEstimations ?? true;\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js:        this.useGasFeeEstimations =\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js:            options.useGasFeeEstimations !== undefined\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js:                ? options.useGasFeeEstimations\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js:                : this.useGasFeeEstimations;\n",
+    "metadata": {
+      "output": "/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/viemWallet.js:                    client.useGasFeeEstimations && {\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/viemWallet.js:                    client.useGasFeeEstimations && {\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/viemWallet.js:                    client.useGasFeeEstimations && {\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js:        Object.defineProperty(this, \"useGasFeeEstimations\", {\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js:        this.useGasFeeEstimations = options.useGasFeeEstimations ?? true;\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js:        this.useGasFeeEstimations =\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js:            options.useGasFeeEstimations !== undefined\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js:                ? options.useGasFeeEstimations\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js:                : this.useGasFeeEstimations;\n",
+      "exit": 0,
+      "description": "Find useGasFeeEstimations in relay-sdk"
+    },
+    "title": "grep -r \"useGasFeeEstimations\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/ | grep -v \".map\" | head -20",
+    "time": {
+      "start": 1772734179161,
+      "end": 1772734179175
+    }
+  }
+}

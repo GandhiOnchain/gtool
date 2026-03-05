@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf30be29001EM2tTy4zOxxGFD",
+  "messageID": "msg_cbf3031df0014V6gT7VvqYnBTC",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01MbVrtTPQJhyeNGJ7y6y9vk",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/",
+      "description": "List relay-kit-hooks package files"
+    },
+    "output": "LICENSE\n_cjs\n_esm\n_types\nnode_modules\npackage.json\nreadme.md\n",
+    "metadata": {
+      "output": "LICENSE\n_cjs\n_esm\n_types\nnode_modules\npackage.json\nreadme.md\n",
+      "exit": 0,
+      "description": "List relay-kit-hooks package files"
+    },
+    "title": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/",
+    "time": {
+      "start": 1772734168938,
+      "end": 1772734168940
+    }
+  }
+}

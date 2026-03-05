@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf30da1b001JB08moEUcGLi3D",
+  "messageID": "msg_cbf3031df0014V6gT7VvqYnBTC",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "This is the critical finding. The SDK's `handleSendTransactionStep` only applies gas fields when `client.useGasFeeEstimations` is true. Let me check how the client is created:",
+  "time": {
+    "start": 1772734180455,
+    "end": 1772734180455
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf30b2f1001YCrzL6fWDo4Ofv",
+  "messageID": "msg_cbf3031df0014V6gT7VvqYnBTC",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01SWNhjzRAbk8L2AXWKTpXtn",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && cat node_modules/@relayprotocol/relay-kit-hooks/dist/index.js 2>/dev/null | head -5 || ls node_modules/@relayprotocol/relay-kit-hooks/dist/ 2>/dev/null || ls node_modules/@relayprotocol/relay-kit-hooks/ 2>/dev/null",
+      "description": "Check relay-kit-hooks package structure"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Check relay-kit-hooks package structure"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && cat node_modules/@relayprotocol/relay-kit-hooks/dist/index.js 2>/dev/null | head -5 || ls node_modules/@relayprotocol/relay-kit-hooks/dist/ 2>/dev/null || ls node_modules/@relayprotocol/relay-kit-hooks/ 2>/dev/null",
+    "time": {
+      "start": 1772734166304,
+      "end": 1772734166305
+    }
+  }
+}

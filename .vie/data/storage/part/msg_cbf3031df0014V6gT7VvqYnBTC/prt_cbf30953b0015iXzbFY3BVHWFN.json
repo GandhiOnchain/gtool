@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf30953b0015iXzbFY3BVHWFN",
+  "messageID": "msg_cbf3031df0014V6gT7VvqYnBTC",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01YBydrSdB9Hf8f4mo88ZUSy",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "rg \"gas\\b\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -30",
+      "description": "Find all gas references in RelaySwap"
+    },
+    "output": "            gas: undefined,\n      if (msg.includes('insufficient funds') || msg.includes('insufficient balance')) return 'Insufficient balance to cover this swap and gas fees'\n            // current gas prices; calldata validity is independent of gas price.\n                    <span className=\"font-mono\">${quote.fees?.gas?.amountUsd || '0'}</span>\n                          ${batchQuote.fees.gas?.amountUsd || '0'}\n",
+    "metadata": {
+      "output": "            gas: undefined,\n      if (msg.includes('insufficient funds') || msg.includes('insufficient balance')) return 'Insufficient balance to cover this swap and gas fees'\n            // current gas prices; calldata validity is independent of gas price.\n                    <span className=\"font-mono\">${quote.fees?.gas?.amountUsd || '0'}</span>\n                          ${batchQuote.fees.gas?.amountUsd || '0'}\n",
+      "exit": 0,
+      "description": "Find all gas references in RelaySwap"
+    },
+    "title": "rg \"gas\\b\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -30",
+    "time": {
+      "start": 1772734158279,
+      "end": 1772734158284
+    }
+  }
+}

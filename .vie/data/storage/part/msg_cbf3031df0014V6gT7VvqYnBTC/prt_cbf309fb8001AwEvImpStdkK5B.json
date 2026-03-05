@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf309fb8001AwEvImpStdkK5B",
+  "messageID": "msg_cbf3031df0014V6gT7VvqYnBTC",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Found it. `slippage` is `'0.1'` (meaning 0.1%), and `Math.floor(0.1 * 100) = 10`. The Relay API `slippageTolerance` is in **basis points** where `50` = 0.5%. So `10` = 0.1% which is actually correct numerically. That's not the gas issue.\n\nLet me look more carefully at what the Relay SDK's `useQuote` hook actually does with the `walletClient` — specifically whether it uses the `walletClient` for quote fetching or only for execution, and whether there's a `gas` field in the step data that's being forwarded:",
+  "time": {
+    "start": 1772734167142,
+    "end": 1772734167142
+  }
+}

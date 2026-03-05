@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf30f06a002PxBn4ODlMUyPmc",
+  "messageID": "msg_cbf3031df0014V6gT7VvqYnBTC",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "**Found the root cause.** `useGasFeeEstimations` defaults to `true` in the Relay SDK client. This means the SDK's `adaptViemWallet` **will forward the stale `maxFeePerGas`, `maxPriorityFeePerGas`, and `gas` from the quote** directly to the wallet. These are set at quote time and become stale by execution time, causing inflated gas fees.\n\nThe fix is to pass `useGasFeeEstimations: false` when creating the Relay client, so the SDK lets the wallet estimate gas natively.",
+  "time": {
+    "start": 1772734187807,
+    "end": 1772734187807
+  }
+}

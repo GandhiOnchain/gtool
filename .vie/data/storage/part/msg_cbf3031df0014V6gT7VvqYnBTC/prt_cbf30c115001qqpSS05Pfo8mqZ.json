@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf30c115001qqpSS05Pfo8mqZ",
+  "messageID": "msg_cbf3031df0014V6gT7VvqYnBTC",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01G57fGsNwAksvjsU1CCcwgW",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/",
+      "description": "List relay-sdk package files"
+    },
+    "output": "LICENSE\n_cjs\n_esm\n_types\npackage.json\nreadme.md\n",
+    "metadata": {
+      "output": "LICENSE\n_cjs\n_esm\n_types\npackage.json\nreadme.md\n",
+      "exit": 0,
+      "description": "List relay-sdk package files"
+    },
+    "title": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/",
+    "time": {
+      "start": 1772734169551,
+      "end": 1772734169552
+    }
+  }
+}

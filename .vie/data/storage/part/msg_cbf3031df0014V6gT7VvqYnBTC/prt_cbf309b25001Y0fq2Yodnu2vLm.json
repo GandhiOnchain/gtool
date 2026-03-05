@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf309b25001Y0fq2Yodnu2vLm",
+  "messageID": "msg_cbf3031df0014V6gT7VvqYnBTC",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01ARNifxNB3Fw6Z7uicn5fFV",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "rg \"slippage\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "description": "Find all slippage references"
+    },
+    "output": "  const [slippage, setSlippage] = useState('0.1')\n      slippageTolerance: Math.floor(parseFloat(slippage) * 100).toString(),\n      if (msg.includes('slippage')) return 'Slippage tolerance too low. Try increasing it.'\n        } else if (msg.includes('slippage')) {\n                {parseFloat(slippage) > 1 && (\n                    High slippage tolerance set. Transaction may execute at unfavorable rates.\n                      variant={slippage === val ? 'default' : 'outline'}\n                    value={slippage}\n",
+    "metadata": {
+      "output": "  const [slippage, setSlippage] = useState('0.1')\n      slippageTolerance: Math.floor(parseFloat(slippage) * 100).toString(),\n      if (msg.includes('slippage')) return 'Slippage tolerance too low. Try increasing it.'\n        } else if (msg.includes('slippage')) {\n                {parseFloat(slippage) > 1 && (\n                    High slippage tolerance set. Transaction may execute at unfavorable rates.\n                      variant={slippage === val ? 'default' : 'outline'}\n                    value={slippage}\n",
+      "exit": 0,
+      "description": "Find all slippage references"
+    },
+    "title": "rg \"slippage\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772734159871,
+      "end": 1772734159874
+    }
+  }
+}

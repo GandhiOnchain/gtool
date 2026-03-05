@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbf30eaff0011H64Uglxc3tdDC",
+  "messageID": "msg_cbf3031df0014V6gT7VvqYnBTC",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01QfvSFfP2FfxsSzzmaZ3sSu",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -r \"useGasFeeEstimations\\|createClient\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js | head -20",
+      "description": "Check createClient defaults for useGasFeeEstimations"
+    },
+    "output": "        Object.defineProperty(this, \"useGasFeeEstimations\", {\n        this.useGasFeeEstimations = options.useGasFeeEstimations ?? true;\n        this.useGasFeeEstimations =\n            options.useGasFeeEstimations !== undefined\n                ? options.useGasFeeEstimations\n                : this.useGasFeeEstimations;\n * - Docs: https://docs.relay.link/references/sdk/createClient\n * import { createClient, LogLevel, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'\n * const relayClient = createClient({\nexport function createClient(options) {\n",
+    "metadata": {
+      "output": "        Object.defineProperty(this, \"useGasFeeEstimations\", {\n        this.useGasFeeEstimations = options.useGasFeeEstimations ?? true;\n        this.useGasFeeEstimations =\n            options.useGasFeeEstimations !== undefined\n                ? options.useGasFeeEstimations\n                : this.useGasFeeEstimations;\n * - Docs: https://docs.relay.link/references/sdk/createClient\n * import { createClient, LogLevel, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'\n * const relayClient = createClient({\nexport function createClient(options) {\n",
+      "exit": 0,
+      "description": "Check createClient defaults for useGasFeeEstimations"
+    },
+    "title": "grep -r \"useGasFeeEstimations\\|createClient\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js | head -20",
+    "time": {
+      "start": 1772734180440,
+      "end": 1772734180442
+    }
+  }
+}

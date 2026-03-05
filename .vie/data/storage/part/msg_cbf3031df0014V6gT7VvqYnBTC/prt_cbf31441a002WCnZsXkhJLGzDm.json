@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf31441a002WCnZsXkhJLGzDm",
+  "messageID": "msg_cbf3031df0014V6gT7VvqYnBTC",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Clean. Here's the actual root cause:\n\n**`useGasFeeEstimations` defaults to `true` in the Relay SDK.** This caused the SDK's `adaptViemWallet` to forward the quote's stale `maxFeePerGas`, `maxPriorityFeePerGas`, and `gas` values directly to the wallet at execution time. Since these are computed at quote time (potentially seconds/minutes earlier), the base fee may have moved — MetaMask then either inflates the gas to compensate or simulates the tx as failing.\n\nSetting `useGasFeeEstimations: false` on `createClient` tells the SDK to omit those fields entirely, letting the wallet (MetaMask) estimate current gas prices from chain state at the moment of submission.",
+  "time": {
+    "start": 1772734206731,
+    "end": 1772734206731
+  }
+}

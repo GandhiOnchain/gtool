@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf3078c6001VqSYAwHO4jfyTP",
+  "messageID": "msg_cbf3031df0014V6gT7VvqYnBTC",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I have the full picture. The batch swap path correctly only passes `to`, `data`, `value` — that's fine. The real issue is in the **`useQuote` / `executeQuote` path** (the main swap). The `walletClient` adapter strips gas fields, but the `useQuote` hook from `@relayprotocol/relay-kit-hooks` also passes a `slippageTolerance` that is computed as `Math.floor(parseFloat(slippage) * 100)` — meaning `0.1%` becomes `\"10\"` (basis points), but the Relay API expects it in **basis points already** (so `0.5%` = `50`). Let me verify the default slippage value and what the API expects:",
+  "time": {
+    "start": 1772734158298,
+    "end": 1772734158298
+  }
+}

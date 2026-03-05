@@ -261,6 +261,7 @@ export default function RelaySwap() {
       createClient({
         baseApiUrl: MAINNET_RELAY_API,
         chains: relayChains as unknown as Parameters<typeof createClient>[0]['chains'],
+        useGasFeeEstimations: false,
       })
     }
   }, [viemChains])

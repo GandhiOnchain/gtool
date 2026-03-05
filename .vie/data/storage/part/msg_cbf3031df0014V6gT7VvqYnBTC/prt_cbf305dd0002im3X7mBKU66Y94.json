@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf305dd0002im3X7mBKU66Y94",
+  "messageID": "msg_cbf3031df0014V6gT7VvqYnBTC",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I can see the real issue. The `RelayQuoteStep` type shows the step data includes `gas` field (not typed but present in the actual API response), and the batch swap path in `executeBatchSwap` manually extracts `d.to`, `d.data`, `d.value` but **does NOT strip `gas`, `maxFeePerGas`, `maxPriorityFeePerGas`** when calling `sendTx`. These stale quote-time gas values get forwarded directly to the wallet, causing inflated fees.\n\nAlso, the `RelayQuoteStep` type is missing the `gas` field. Let me check what fields the Relay API actually returns in step data:",
+  "time": {
+    "start": 1772734149324,
+    "end": 1772734149324
+  }
+}
