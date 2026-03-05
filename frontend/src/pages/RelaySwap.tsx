@@ -1536,6 +1536,16 @@ export default function RelaySwap() {
       return
     }
 
+    if (fromChain.vmType !== 'svm' && connectedChainId !== fromChain.id) {
+      try {
+        await switchChain({ chainId: fromChain.id })
+        await new Promise(resolve => setTimeout(resolve, 500))
+      } catch {
+        toast.error('Please switch to the correct network in your wallet')
+        return
+      }
+    }
+
     setIsSwapping(true)
 
     const parseSwapError = (rawMsg: string): string => {
