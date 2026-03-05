@@ -268,7 +268,9 @@ export default function RelaySwap() {
     to?: { value: bigint; decimals: number; symbol: string }
   }>({})
   const [inputMode, setInputMode] = useState<'token' | 'usd'>('token')
+  const [toInputMode, setToInputMode] = useState<'token' | 'usd'>('token')
   const [usdAmount, setUsdAmount] = useState('')
+  const [toUsdAmount, setToUsdAmount] = useState('')
   const [activeTab, setActiveTab] = useState('swap')
   const [batchQuote, setBatchQuote] = useState<RelayQuote | null>(null)
   const [isLoadingBatchQuote, setIsLoadingBatchQuote] = useState(false)
@@ -1436,6 +1438,7 @@ export default function RelaySwap() {
     if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {
       setQuote(null)
       setToAmount('')
+      setToUsdAmount('')
       return
     }
 
@@ -1494,7 +1497,11 @@ export default function RelaySwap() {
       
       setQuote(quoteData)
       if (quoteData.details.currencyOut) {
-        setToAmount(quoteData.details.currencyOut.amountFormatted)
+        const outFormatted = quoteData.details.currencyOut.amountFormatted
+        setToAmount(outFormatted)
+        if (toTokenPrice > 0 && outFormatted) {
+          setToUsdAmount((parseFloat(outFormatted) * toTokenPrice).toFixed(2))
+        }
       }
     } catch (error) {
       console.error('Failed to fetch quote:', error)
@@ -1785,6 +1792,7 @@ export default function RelaySwap() {
           setFromAmount('')
           setToAmount('')
           setUsdAmount('')
+          setToUsdAmount('')
           
           // Refetch balances to show updated amounts
           refetchBalances()
@@ -3118,31 +3126,64 @@ export default function RelaySwap() {
                   <div className="relative">
                     <Input
                       type="number"
-                      placeholder="0.0"
-                      value={toAmount}
+                      placeholder={toInputMode === 'token' ? '0.0' : '$0.00'}
+                      value={toInputMode === 'token' ? toAmount : toUsdAmount}
                       onChange={(e) => {
                         const value = sanitizeInput(e.target.value)
-                        if (!value || validateAmount(value, toToken?.decimals || 18)) {
-                          setToAmount(value)
-                          if (value && toTokenPrice > 0 && fromTokenPrice > 0) {
-                            const usdValue = parseFloat(value) * toTokenPrice
-                            setFromAmount((usdValue / fromTokenPrice).toString())
-                            setUsdAmount(usdValue.toFixed(2))
-                          } else {
-                            setFromAmount('')
-                            setUsdAmount('')
+                        if (toInputMode === 'token') {
+                          if (!value || validateAmount(value, toToken?.decimals || 18)) {
+                            setToAmount(value)
+                            if (value && toTokenPrice > 0) {
+                              const usdVal = (parseFloat(value) * toTokenPrice).toFixed(2)
+                              setToUsdAmount(usdVal)
+                              if (fromTokenPrice > 0) {
+                                setFromAmount((parseFloat(value) * toTokenPrice / fromTokenPrice).toString())
+                                setUsdAmount(usdVal)
+                              }
+                            } else {
+                              setToUsdAmount('')
+                              setFromAmount('')
+                              setUsdAmount('')
+                            }
+                          }
+                        } else {
+                          if (!value || validateAmount(value, 2)) {
+                            setToUsdAmount(value)
+                            if (value && toTokenPrice > 0) {
+                              const tokenAmt = (parseFloat(value) / toTokenPrice).toString()
+                              setToAmount(tokenAmt)
+                              if (fromTokenPrice > 0) {
+                                setFromAmount((parseFloat(value) / fromTokenPrice).toString())
+                                setUsdAmount(value)
+                              }
+                            } else {
+                              setToAmount('')
+                              setFromAmount('')
+                              setUsdAmount('')
+                            }
                           }
                         }
                       }}
                       className="text-lg h-10 pr-16"
                     />
-                    <div className="absolute right-1 top-1 h-8 px-2 text-xs flex items-center text-muted-foreground pointer-events-none">
-                      {toToken?.symbol || 'TOKEN'}
-                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setToInputMode(toInputMode === 'token' ? 'usd' : 'token')}
+                      className="absolute right-1 top-1 h-8 px-2 text-xs"
+                      disabled={!toTokenPrice}
+                    >
+                      {toInputMode === 'token' ? toToken?.symbol || 'TOKEN' : 'USD'}
+                    </Button>
                   </div>
-                  {toAmount && toTokenPrice > 0 && (
+                  {toAmount && toTokenPrice > 0 && toInputMode === 'token' && (
                     <div className="text-xs text-muted-foreground px-1">
                       ≈ ${(parseFloat(toAmount) * toTokenPrice).toFixed(2)}
+                    </div>
+                  )}
+                  {toUsdAmount && toTokenPrice > 0 && toInputMode === 'usd' && (
+                    <div className="text-xs text-muted-foreground px-1">
+                      ≈ {toAmount ? parseFloat(toAmount).toFixed(6) : '0'} {toToken?.symbol}
                     </div>
                   )}
                 </div>

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbc7d606001yjC5tktxvZhMJZ",
+  "messageID": "msg_cbbc69f8f001fg8nB5ZuIlAR2X",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Done. The `from` and `to` sections now have fully independent input modes:\n\n- Each has its own toggle button (token ↔ USD)\n- Switching one doesn't affect the other\n- When you type a USD amount in `to`, it calculates how much of the `from` token you need and triggers a quote\n- The quote response always updates both `toAmount` and `toUsdAmount` so whichever mode you're in shows the correct value",
+  "time": {
+    "start": 1772676963625,
+    "end": 1772676963625
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbc6ce7b001NYW4s2kE8fX0Cs",
+  "messageID": "msg_cbbc69f8f001fg8nB5ZuIlAR2X",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "The fix is simple: give the `to` section its own independent `inputMode` state instead of sharing the `from` section's.",
+  "time": {
+    "start": 1772676894750,
+    "end": 1772676894750
+  }
+}

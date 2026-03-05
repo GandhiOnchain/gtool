@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbc6dff3002mX7tNZ1GODsKPC",
+  "messageID": "msg_cbbc69f8f001fg8nB5ZuIlAR2X",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Now find where `toAmount` is set from the quote response so we also update `toUsdAmount`:",
+  "time": {
+    "start": 1772676899736,
+    "end": 1772676899736
+  }
+}

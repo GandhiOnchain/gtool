@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbbc6e274001VGr3lPG8ShjOVL",
+  "messageID": "msg_cbbc69f8f001fg8nB5ZuIlAR2X",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_0138TVHpXJUnFhSERFTBFvAD",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && rg -n \"setToAmount\" frontend/src/pages/RelaySwap.tsx",
+      "description": "Find all setToAmount calls"
+    },
+    "output": "233:  const [toAmount, setToAmount] = useState('')\n1440:      setToAmount('')\n1499:        setToAmount(quoteData.details.currencyOut.amountFormatted)\n1788:          setToAmount('')\n2680:    setToAmount(tempAmount)\n3128:                          setToAmount(value)\n",
+    "metadata": {
+      "output": "233:  const [toAmount, setToAmount] = useState('')\n1440:      setToAmount('')\n1499:        setToAmount(quoteData.details.currencyOut.amountFormatted)\n1788:          setToAmount('')\n2680:    setToAmount(tempAmount)\n3128:                          setToAmount(value)\n",
+      "exit": 0,
+      "description": "Find all setToAmount calls"
+    },
+    "title": "cd /home/user/sandbox/workspace && rg -n \"setToAmount\" frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772676899717,
+      "end": 1772676899720
+    }
+  }
+}

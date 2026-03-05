@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbc74be900190Vfz5IQWBvxu0",
+  "messageID": "msg_cbbc69f8f001fg8nB5ZuIlAR2X",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Also clear `toUsdAmount` when the quote/amounts are reset:",
+  "time": {
+    "start": 1772676926866,
+    "end": 1772676926866
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbbc77ec7001DWx6z6EYtdJt5V",
+  "messageID": "msg_cbbc69f8f001fg8nB5ZuIlAR2X",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01LKVqSap78vqYrBSsF7kb5s",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1792,
+      "limit": 6
+    },
+    "output": "<file>\n01793|           setToAmount('')\n01794|           setUsdAmount('')\n01795|           \n01796|           // Refetch balances to show updated amounts\n01797|           refetchBalances()\n01798|           \n\n(File has more lines. Use 'offset' parameter to read beyond line 1798)\n</file>",
+    "metadata": {
+      "preview": "          setToAmount('')\n          setUsdAmount('')\n          \n          // Refetch balances to show updated amounts\n          refetchBalances()\n          "
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772676939508,
+      "end": 1772676939509
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbbc6ef18001JXWXIPO8XmYxeh",
+  "messageID": "msg_cbbc69f8f001fg8nB5ZuIlAR2X",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01KQWD52vB19tkt7d2pubw52",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1495,
+      "limit": 6
+    },
+    "output": "<file>\n01496|       \n01497|       setQuote(quoteData)\n01498|       if (quoteData.details.currencyOut) {\n01499|         setToAmount(quoteData.details.currencyOut.amountFormatted)\n01500|       }\n01501|     } catch (error) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 1501)\n</file>",
+    "metadata": {
+      "preview": "      \n      setQuote(quoteData)\n      if (quoteData.details.currencyOut) {\n        setToAmount(quoteData.details.currencyOut.amountFormatted)\n      }\n    } catch (error) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772676902748,
+      "end": 1772676902749
+    }
+  }
+}

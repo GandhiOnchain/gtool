@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbbc7709f001S6UuLcW4BhTLVF",
+  "messageID": "msg_cbbc69f8f001fg8nB5ZuIlAR2X",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01VEqeGVsnBTxtNDqLQbeU2p",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1784,
+      "limit": 8
+    },
+    "output": "<file>\n01785|           }\n01786|         }\n01787|         \n01788|         if (status.status === 'success') {\n01789|           toast.success('Swap completed successfully!')\n01790|           setIsSwapping(false)\n01791|           updateUserStreak()\n01792|           setFromAmount('')\n\n(File has more lines. Use 'offset' parameter to read beyond line 1792)\n</file>",
+    "metadata": {
+      "preview": "          }\n        }\n        \n        if (status.status === 'success') {\n          toast.success('Swap completed successfully!')\n          setIsSwapping(false)\n          updateUserStreak()\n          setFromAmount('')"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772676935922,
+      "end": 1772676935923
+    }
+  }
+}

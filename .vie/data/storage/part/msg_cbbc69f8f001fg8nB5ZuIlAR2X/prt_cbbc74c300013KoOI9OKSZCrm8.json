@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbbc74c300013KoOI9OKSZCrm8",
+  "messageID": "msg_cbbc69f8f001fg8nB5ZuIlAR2X",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01G5ab6NCfNBGyn5SHvfzFHo",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1436,
+      "limit": 8
+    },
+    "output": "<file>\n01437| \n01438|     if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n01439|       setQuote(null)\n01440|       setToAmount('')\n01441|       return\n01442|     }\n01443| \n01444|     if (!quoteRateLimiter.check('quote')) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 1444)\n</file>",
+    "metadata": {
+      "preview": "\n    if (fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) {\n      setQuote(null)\n      setToAmount('')\n      return\n    }\n\n    if (!quoteRateLimiter.check('quote')) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772676926808,
+      "end": 1772676926810
+    }
+  }
+}
