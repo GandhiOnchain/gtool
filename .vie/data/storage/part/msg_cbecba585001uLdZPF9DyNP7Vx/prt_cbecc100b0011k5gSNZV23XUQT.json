@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbecc100b0011k5gSNZV23XUQT",
+  "messageID": "msg_cbecba585001uLdZPF9DyNP7Vx",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now I see the full picture. The `ProgressData` has an `error` field. The `executeQuote` returns `undefined` when there's no quote/wallet — and the `onProgress` callback receives errors via `progress.error`. The swap is likely failing silently because:\n\n1. `executeQuote` returns `undefined` (no quote loaded yet or wallet not ready) — we're not handling this\n2. Errors come through `progress.error` in the callback, not as thrown exceptions\n\nLet me fix the `executeSwap` to handle both cases properly:",
+  "time": {
+    "start": 1772727585967,
+    "end": 1772727585967
+  }
+}

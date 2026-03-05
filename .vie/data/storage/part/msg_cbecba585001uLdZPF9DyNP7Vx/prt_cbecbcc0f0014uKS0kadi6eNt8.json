@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbecbcc0f0014uKS0kadi6eNt8",
+  "messageID": "msg_cbecba585001uLdZPF9DyNP7Vx",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The problem is `executeQuote` is `undefined` when the quote hasn't loaded yet, or the `onProgress` callback signature is wrong. Also, `executeQuote` from `useQuote` may not throw — it might resolve silently. Let me check the exact return type:",
+  "time": {
+    "start": 1772727556678,
+    "end": 1772727556678
+  }
+}

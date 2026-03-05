@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbecbd77c001J6iNChIoJHn2GD",
+  "messageID": "msg_cbecba585001uLdZPF9DyNP7Vx",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01L7r1qW6vGkwUWxtvMAAvar",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_types/src/hooks/useQuote.d.ts | grep -A5 \"executeQuote\"",
+      "description": "Check executeQuote return type"
+    },
+    "output": "    executeQuote: (onProgress: onProgress) => Promise<{\n        data: Execute;\n        abortController?: AbortController;\n    }> | undefined;\n};\nexport {};\n",
+    "metadata": {
+      "output": "    executeQuote: (onProgress: onProgress) => Promise<{\n        data: Execute;\n        abortController?: AbortController;\n    }> | undefined;\n};\nexport {};\n",
+      "exit": 0,
+      "description": "Check executeQuote return type"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_types/src/hooks/useQuote.d.ts | grep -A5 \"executeQuote\"",
+    "time": {
+      "start": 1772727556562,
+      "end": 1772727556566
+    }
+  }
+}

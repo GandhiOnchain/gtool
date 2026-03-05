@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbecbe319001oWSS6Q96ghadZT",
+  "messageID": "msg_cbecba585001uLdZPF9DyNP7Vx",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "`executeQuote` returns `Promise | undefined` — it returns `undefined` when there's no quote or no wallet. Also the `onProgress` type is `(data: ProgressData) => void`. Let me check `ProgressData`:",
+  "time": {
+    "start": 1772727561308,
+    "end": 1772727561308
+  }
+}

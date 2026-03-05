@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbecbfa11001bO5Bzv8KO8YL66",
+  "messageID": "msg_cbecba585001uLdZPF9DyNP7Vx",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01TPKykLYjPWCN4q8w3vVgmx",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/types/Progress.d.ts",
+      "description": "Read ProgressData type"
+    },
+    "output": "import type { Execute, ExecuteStep, ExecuteStepItem } from '../types/Execute.js';\nexport type ProgressData = {\n    steps: Execute['steps'];\n    fees?: Execute['fees'];\n    breakdown?: Execute['breakdown'];\n    details?: Execute['details'];\n    currentStep?: ExecuteStep | null;\n    currentStepItem?: ExecuteStepItem;\n    txHashes?: {\n        txHash: string;\n        chainId: number;\n        isBatchTx?: boolean;\n    }[];\n    error?: Execute['error'];\n    refunded?: Execute['refunded'];\n};\n//# sourceMappingURL=Progress.d.ts.map",
+    "metadata": {
+      "output": "import type { Execute, ExecuteStep, ExecuteStepItem } from '../types/Execute.js';\nexport type ProgressData = {\n    steps: Execute['steps'];\n    fees?: Execute['fees'];\n    breakdown?: Execute['breakdown'];\n    details?: Execute['details'];\n    currentStep?: ExecuteStep | null;\n    currentStepItem?: ExecuteStepItem;\n    txHashes?: {\n        txHash: string;\n        chainId: number;\n        isBatchTx?: boolean;\n    }[];\n    error?: Execute['error'];\n    refunded?: Execute['refunded'];\n};\n//# sourceMappingURL=Progress.d.ts.map",
+      "exit": 0,
+      "description": "Read ProgressData type"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/types/Progress.d.ts",
+    "time": {
+      "start": 1772727565124,
+      "end": 1772727565125
+    }
+  }
+}

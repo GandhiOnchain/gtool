@@ -1,0 +1,26 @@
+{
+  "id": "prt_cbecbeb490010HO3rDiC9AR4xm",
+  "messageID": "msg_cbecba585001uLdZPF9DyNP7Vx",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_01LMwtRp7dzDGQZWDZfZKHpW",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -r \"ProgressData\" node_modules/@relayprotocol/relay-sdk/_types/src/ 2>/dev/null | head -5",
+      "description": "Find ProgressData type definition"
+    },
+    "output": "node_modules/@relayprotocol/relay-sdk/_types/src/types/Progress.d.ts:export type ProgressData = {\nnode_modules/@relayprotocol/relay-sdk/_types/src/actions/execute.d.ts:import type { AdaptedWallet, ProgressData, Execute } from '../types/index.js';\nnode_modules/@relayprotocol/relay-sdk/_types/src/actions/execute.d.ts:    onProgress?: (data: ProgressData) => any;\n",
+    "metadata": {
+      "output": "node_modules/@relayprotocol/relay-sdk/_types/src/types/Progress.d.ts:export type ProgressData = {\nnode_modules/@relayprotocol/relay-sdk/_types/src/actions/execute.d.ts:import type { AdaptedWallet, ProgressData, Execute } from '../types/index.js';\nnode_modules/@relayprotocol/relay-sdk/_types/src/actions/execute.d.ts:    onProgress?: (data: ProgressData) => any;\n",
+      "exit": 0,
+      "description": "Find ProgressData type definition"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -r \"ProgressData\" node_modules/@relayprotocol/relay-sdk/_types/src/ 2>/dev/null | head -5",
+    "time": {
+      "start": 1772727561254,
+      "end": 1772727561277
+    }
+  }
+}

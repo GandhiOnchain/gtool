@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbecbbefd001fNicyuj7fxMGTK",
+  "messageID": "msg_cbecba585001uLdZPF9DyNP7Vx",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_013uQz1mHf1er36TnegbFAFY",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1460,
+      "limit": 60
+    },
+    "output": "<file>\n01461|     if (isCrossVM && toVMType === 'svm' && !solanaAddress) {\n01462|       toast.error('Farcaster Solana wallet not connected')\n01463|       return\n01464|     }\n01465|     if (isCrossVM && toVMType !== 'svm' && !recipientAddress) {\n01466|       toast.error(`Recipient address required for ${toChain.displayName}`)\n01467|       return\n01468|     }\n01469|     if (!walletClient) {\n01470|       toast.error('Wallet client not ready. Please reconnect.')\n01471|       return\n01472|     }\n01473| \n01474|     setIsSwapping(true)\n01475|     try {\n01476|       await executeQuote((progress) => {\n01477|         const { currentStep, txHashes } = progress\n01478|         if (currentStep?.id === 'approve') {\n01479|           toast.info('Approving token spend...')\n01480|         } else if (currentStep?.id === 'deposit' || currentStep?.id === 'swap') {\n01481|           toast.info('Transaction submitted - waiting for confirmation...')\n01482|           if (txHashes && txHashes.length > 0) {\n01483|             const requestId = currentStep?.requestId\n01484|             if (requestId) {\n01485|               setCurrentSwapRequestId(requestId)\n01486|               setCurrentSwapChainId(fromChain.id)\n01487|             }\n01488|           }\n01489|         }\n01490|       })\n01491|     } catch (error) {\n01492|       console.error('Swap execution failed:', error)\n01493|       const msg = error instanceof Error ? error.message.toLowerCase() : ''\n01494|       let errorMessage = 'Swap failed'\n01495|       if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {\n01496|         errorMessage = 'Transaction rejected'\n01497|       } else if (msg.includes('insufficient funds') || msg.includes('insufficient balance')) {\n01498|         errorMessage = 'Insufficient balance to cover this swap and gas fees'\n01499|       } else if (msg.includes('amount_too_low') || msg.includes('amount must be greater')) {\n01500|         errorMessage = 'Amount is too low. Please enter a larger amount.'\n01501|       } else if (msg.includes('liquidity')) {\n01502|         errorMessage = 'Not enough liquidity for this swap.'\n01503|       } else if (msg.includes('slippage')) {\n01504|         errorMessage = 'Slippage tolerance too low. Try increasing it.'\n01505|       }\n01506|       toast.error(errorMessage)\n01507|       setIsSwapping(false)\n01508|     }\n01509|   }\n01510| \n01511|   const fetchBatchQuote = async () => {\n01512|     if (!batchToToken || !batchToChain || !address || batchTokens.length === 0 || !batchChain) {\n01513|       return\n01514|     }\n01515| \n01516|     const toVMType = batchToChain.vmType || 'evm'\n01517|     const isCrossVM = (batchChain.vmType || 'evm') !== toVMType\n01518|     const batchRecipient = isCrossVM\n01519|       ? (toVMType === 'svm' ? solanaAddress : recipientAddress) || undefined\n01520|       : undefined\n\n(File has more lines. Use 'offset' parameter to read beyond line 1520)\n</file>",
+    "metadata": {
+      "preview": "    if (isCrossVM && toVMType === 'svm' && !solanaAddress) {\n      toast.error('Farcaster Solana wallet not connected')\n      return\n    }\n    if (isCrossVM && toVMType !== 'svm' && !recipientAddress) {\n      toast.error(`Recipient address required for ${toChain.displayName}`)\n      return\n    }\n    if (!walletClient) {\n      toast.error('Wallet client not ready. Please reconnect.')\n      return\n    }\n\n    setIsSwapping(true)\n    try {\n      await executeQuote((progress) => {\n        const { currentStep, txHashes } = progress\n        if (currentStep?.id === 'approve') {\n          toast.info('Approving token spend...')\n        } else if (currentStep?.id === 'deposit' || currentStep?.id === 'swap') {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772727549992,
+      "end": 1772727549994
+    }
+  }
+}

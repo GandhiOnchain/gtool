@@ -228,7 +228,7 @@ export default function RelaySwap() {
   const { switchChain } = useSwitchChain()
   const { data: walletClient } = useWalletClient()
   const { chains: relayChains } = useRelayChains()
-  const chains: RelayChain[] = ((relayChains || []) as RelayChain[]).filter((c: RelayChain) => !c.disabled && c.vmType !== 'bvm')
+  const chains: RelayChain[] = ((relayChains || []) as unknown as RelayChain[]).filter((c: RelayChain) => !c.disabled && c.vmType !== 'bvm')
   const [fromChain, setFromChain] = useState<RelayChain | null>(null)
   const [toChain, setToChain] = useState<RelayChain | null>(null)
   const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)
@@ -1472,14 +1472,43 @@ export default function RelaySwap() {
     }
 
     setIsSwapping(true)
+
+    const parseSwapError = (rawMsg: string): string => {
+      const msg = rawMsg.toLowerCase()
+      if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) return 'Transaction rejected'
+      if (msg.includes('insufficient funds') || msg.includes('insufficient balance')) return 'Insufficient balance to cover this swap and gas fees'
+      if (msg.includes('amount_too_low') || msg.includes('amount must be greater')) return 'Amount is too low. Please enter a larger amount.'
+      if (msg.includes('liquidity')) return 'Not enough liquidity for this swap.'
+      if (msg.includes('slippage')) return 'Slippage tolerance too low. Try increasing it.'
+      if (msg.includes('network') || msg.includes('timeout')) return 'Network error. Please try again.'
+      return rawMsg.length > 0 ? rawMsg : 'Swap failed. Please try again.'
+    }
+
     try {
-      await executeQuote((progress) => {
-        const { currentStep, txHashes } = progress
+      const result = executeQuote((progress) => {
+        console.log('Swap progress:', progress)
+        const { currentStep, txHashes, error } = progress
+
+        if (error) {
+          console.error('Swap progress error:', error)
+          const msg = typeof error === 'string' ? error : error?.message || JSON.stringify(error)
+          toast.error(parseSwapError(msg))
+          setIsSwapping(false)
+          return
+        }
+
+        if (currentStep?.error) {
+          console.error('Step error:', currentStep.error)
+          toast.error(parseSwapError(currentStep.error))
+          setIsSwapping(false)
+          return
+        }
+
         if (currentStep?.id === 'approve') {
           toast.info('Approving token spend...')
         } else if (currentStep?.id === 'deposit' || currentStep?.id === 'swap') {
-          toast.info('Transaction submitted - waiting for confirmation...')
           if (txHashes && txHashes.length > 0) {
+            toast.info('Transaction submitted - waiting for confirmation...')
             const requestId = currentStep?.requestId
             if (requestId) {
               setCurrentSwapRequestId(requestId)
@@ -1488,22 +1517,18 @@ export default function RelaySwap() {
           }
         }
       })
+
+      if (result === undefined) {
+        toast.error('Quote not ready. Please wait a moment and try again.')
+        setIsSwapping(false)
+        return
+      }
+
+      await result
     } catch (error) {
       console.error('Swap execution failed:', error)
-      const msg = error instanceof Error ? error.message.toLowerCase() : ''
-      let errorMessage = 'Swap failed'
-      if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {
-        errorMessage = 'Transaction rejected'
-      } else if (msg.includes('insufficient funds') || msg.includes('insufficient balance')) {
-        errorMessage = 'Insufficient balance to cover this swap and gas fees'
-      } else if (msg.includes('amount_too_low') || msg.includes('amount must be greater')) {
-        errorMessage = 'Amount is too low. Please enter a larger amount.'
-      } else if (msg.includes('liquidity')) {
-        errorMessage = 'Not enough liquidity for this swap.'
-      } else if (msg.includes('slippage')) {
-        errorMessage = 'Slippage tolerance too low. Try increasing it.'
-      }
-      toast.error(errorMessage)
+      const msg = error instanceof Error ? error.message : String(error)
+      toast.error(parseSwapError(msg))
       setIsSwapping(false)
     }
   }

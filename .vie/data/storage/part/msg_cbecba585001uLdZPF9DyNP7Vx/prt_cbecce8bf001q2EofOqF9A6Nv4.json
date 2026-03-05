@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbecce8bf001q2EofOqF9A6Nv4",
+  "messageID": "msg_cbecba585001uLdZPF9DyNP7Vx",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Clean. Here's what was wrong and what's fixed:\n\n**Root cause of \"Swap failed\":** `executeQuote` returns `undefined` when the quote isn't ready or the wallet client isn't available — the previous code was `await`-ing `undefined`, which resolves immediately without executing anything, then the `catch` block ran with no error, showing the generic \"Swap failed\" message.\n\n**What changed:**\n1. **Check for `undefined` return** — if `executeQuote()` returns `undefined`, show \"Quote not ready\" and bail early\n2. **Handle errors via `progress.error` and `currentStep.error`** — the SDK delivers errors through the `onProgress` callback, not as thrown exceptions. These are now caught and shown with proper messages\n3. **Log the full progress object** — `console.log('Swap progress:', progress)` so you can see exactly what the SDK is reporting in the browser console\n4. **Await the returned promise** — `const result = executeQuote(...)` then `await result` — this is the correct pattern per the SDK docs",
+  "time": {
+    "start": 1772727632207,
+    "end": 1772727632207
+  }
+}
