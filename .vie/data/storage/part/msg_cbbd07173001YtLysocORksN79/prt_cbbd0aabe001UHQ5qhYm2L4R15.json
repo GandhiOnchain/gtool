@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbd0aabe001UHQ5qhYm2L4R15",
+  "messageID": "msg_cbbd07173001YtLysocORksN79",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Now let me read the relay API to understand what `getMultiInputQuote` actually sends and what the response looks like:",
+  "time": {
+    "start": 1772677542285,
+    "end": 1772677542285
+  }
+}

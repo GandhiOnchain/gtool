@@ -1851,7 +1851,11 @@ export default function RelaySwap() {
 
     setIsLoadingBatchQuote(true)
     try {
-      const selectedTokens = batchTokens.filter(bt => bt.selected !== false && parseFloat(bt.balanceFormatted) > 0)
+      const selectedTokens = batchTokens.filter(bt => {
+        if (bt.selected === false) return false
+        const bal = BigInt(bt.balance || '0')
+        return bal > 0n
+      })
       const origins = selectedTokens.map(bt => ({
         chainId: batchChain.id,
         currency: bt.token.address,
@@ -1873,6 +1877,7 @@ export default function RelaySwap() {
         destinationChainId: batchToChain.id,
         tradeType: 'EXACT_INPUT',
         recipient: batchRecipient,
+        partial: true,
       })
 
       console.log('Batch quote received:', multiQuote)
@@ -1880,6 +1885,12 @@ export default function RelaySwap() {
     } catch (error) {
       console.error('Failed to fetch batch quote:', error)
       setBatchQuote(null)
+      const msg = error instanceof Error ? error.message : 'Failed to get batch quote'
+      const friendly = msg.includes('amount') ? 'One or more token amounts are too low for a quote.'
+        : msg.includes('liquidity') ? 'Not enough liquidity for this batch.'
+        : msg.includes('currency') ? 'One or more tokens are not supported on this route.'
+        : `Quote failed: ${msg}`
+      toast.error(friendly)
     } finally {
       setIsLoadingBatchQuote(false)
     }
@@ -1987,9 +1998,23 @@ export default function RelaySwap() {
 
       const { sendTransaction: sendTx, waitForTransactionReceipt } = await import('wagmi/actions')
       const { wagmiConfig } = await import('@/lib/blockchain/wagmi')
+      const { createPublicClient: mkClient, http: mkHttp, defineChain: mkChain } = await import('viem')
+
+      // Build a public client using the Relay chain's own RPC for accurate gas estimation.
+      // This works even for chains not in wagmiConfig.
+      const chainDef = mkChain({
+        id: batchChain.id,
+        name: batchChain.displayName,
+        nativeCurrency: {
+          name: batchChain.currency.name,
+          symbol: batchChain.currency.symbol,
+          decimals: batchChain.currency.decimals,
+        },
+        rpcUrls: { default: { http: [batchChain.httpRpcUrl] } },
+      })
+      const publicClient = mkClient({ chain: chainDef, transport: mkHttp(batchChain.httpRpcUrl) })
 
       // Collect ALL transaction-kind steps in order (approve, deposit, swap, etc.)
-      // Skipping approve causes the deposit to revert (no allowance) → MetaMask shows high fee warning
       const txSteps: Array<{
         stepId: string
         stepLabel: string
@@ -2008,7 +2033,8 @@ export default function RelaySwap() {
             stepLabel: step.id === 'approve' ? 'Approval' : step.id === 'deposit' ? 'Deposit' : step.action || step.id,
             to: d.to as `0x${string}`,
             data: d.data as `0x${string}`,
-            value: BigInt(d.value || '0'),
+            // Relay sometimes sends '0x0' or missing value — normalise to 0n
+            value: d.value && d.value !== '0x0' ? BigInt(d.value) : 0n,
             checkEndpoint: item.check?.endpoint,
           })
         }
@@ -2022,6 +2048,27 @@ export default function RelaySwap() {
         return
       }
 
+      // Estimate gas for every step using the chain's RPC before prompting any signatures.
+      // We deliberately do NOT pass maxFeePerGas/maxPriorityFeePerGas from the Relay quote —
+      // those values are stale by the time the user signs and cause wallets to show inflated fees.
+      // Letting the wallet/node pick current gas prices is always more accurate.
+      const gasLimits = await Promise.all(
+        txSteps.map(async (step) => {
+          try {
+            const estimated = await publicClient.estimateGas({
+              account: address as `0x${string}`,
+              to: step.to,
+              data: step.data,
+              value: step.value,
+            })
+            return (estimated * 130n) / 100n  // 1.3x buffer
+          } catch (e) {
+            console.warn(`Gas estimation failed for step ${step.stepId}:`, e)
+            return undefined
+          }
+        })
+      )
+
       toast.info(`Executing ${txSteps.length} step(s)...`)
 
       let confirmedCount = 0
@@ -2029,12 +2076,19 @@ export default function RelaySwap() {
 
       for (let i = 0; i < txSteps.length; i++) {
         const step = txSteps[i]
-        console.log(`Step ${i + 1}/${txSteps.length}: ${step.stepId}`, { to: step.to, value: step.value.toString() })
+        console.log(`Step ${i + 1}/${txSteps.length}: ${step.stepId}`, {
+          to: step.to,
+          value: step.value.toString(),
+          gas: gasLimits[i]?.toString(),
+        })
         try {
           const hash = await sendTx(wagmiConfig, {
             to: step.to,
             data: step.data,
             value: step.value,
+            gas: gasLimits[i],
+            // Explicitly omit maxFeePerGas / maxPriorityFeePerGas so the wallet
+            // uses current network prices instead of the stale values from the quote
           })
           console.log(`Step ${i + 1} (${step.stepId}) submitted:`, hash)
           toast.info(`${step.stepLabel} ${i + 1}/${txSteps.length} submitted...`)
@@ -2043,6 +2097,12 @@ export default function RelaySwap() {
           await waitForTransactionReceipt(wagmiConfig, { hash })
           confirmedCount++
           console.log(`Step ${i + 1} (${step.stepId}) confirmed`)
+
+          // After an approve, wait briefly for the allowance to propagate before
+          // sending the deposit — otherwise the deposit reverts on the allowance check
+          if (step.stepId === 'approve') {
+            await new Promise(r => setTimeout(r, 1500))
+          }
 
           // Poll Relay's check endpoint if available (approve steps don't need this)
           if (step.checkEndpoint && step.stepId !== 'approve') {

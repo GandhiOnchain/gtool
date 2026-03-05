@@ -1,0 +1,7 @@
+{
+  "id": "prt_cbbd06de60019EtC36joNM5hCl",
+  "type": "text",
+  "text": "the quote fails to load for batch swap. and if loads, the transactions are failed because of high gas fee. check how bundled transactions are handled and fix them. make it work.",
+  "messageID": "msg_cbbd07156001dxbh7bZJapdrnC",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG"
+}

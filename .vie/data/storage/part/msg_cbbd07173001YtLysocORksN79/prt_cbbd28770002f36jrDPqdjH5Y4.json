@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbbd28770002f36jrDPqdjH5Y4",
+  "messageID": "msg_cbbd07173001YtLysocORksN79",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "All clean. Here's exactly what was wrong and what was fixed:\n\n**Quote failing**\n\n- `fetchBatchQuote` was filtering with `parseFloat(bt.balanceFormatted) > 0` — but manually-added tokens have `balance: '0'` as a string, and `parseFloat('0') > 0` is false so they'd be excluded. Worse, tokens with very small balances could have `balanceFormatted` round to `'0.000000'`. Fixed to use `BigInt(bt.balance) > 0n` which is exact.\n- Added `partial: true` to the `getMultiInputQuote` call — this tells Relay to return a quote even if some tokens can't be routed, instead of failing the whole request.\n- Quote errors were silently swallowed (`setBatchQuote(null)` with no user feedback). Now surfaces a friendly error toast with the actual failure reason from the API.\n\n**High gas / failing transactions**\n\n- `sendTx` was called with no `gas` field at all. Relay's quote includes `maxFeePerGas` and `maxPriorityFeePerGas` in `item.data` — these are set at quote time and are stale by the time the user signs. Some wallets pick these up verbatim and show inflated fees. Fixed by estimating gas fresh against the chain's own RPC (using `batchChain.httpRpcUrl` directly, not wagmiConfig) with a 1.3x buffer, and explicitly omitting the Relay gas price fields so the wallet uses current network prices.\n- After an `approve` step confirmed, the `deposit` tx was sent immediately. The allowance takes 1-2 blocks to propagate on some chains — sending the deposit before that causes it to revert on the allowance check, which wallets display as a high-gas failure. Fixed with a 1.5s wait after approve confirmation.\n- Gas estimation was previously done via wagmiConfig's transports, which only covers the 16 statically configured chains. If `batchChain` is any other Relay-supported chain, estimation would fail silently. Fixed by building a `publicClient` directly from `batchChain.httpRpcUrl`.",
+  "time": {
+    "start": 1772677675587,
+    "end": 1772677675587
+  }
+}

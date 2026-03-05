@@ -1,0 +1,85 @@
+{
+  "id": "prt_cbbd1818b001iO5jWkhyZsDIAw",
+  "messageID": "msg_cbbd07173001YtLysocORksN79",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01TP34z4sw23Y7NxxpZyw223",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Quote fails: fetchBatchQuote sends bt.balance (raw wei string) but some tokens have balance='0' from manual adds — filter those out properly",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Quote fails: no error surfaced to user when getMultiInputQuote fails — add proper error toast with the actual API error message",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Gas high/fail: sendTx passes no gas limit — Relay quote has stale maxFeePerGas/maxPriorityFeePerGas in item.data that wallets use verbatim, causing inflated fees. Must strip those fields and estimate gas fresh.",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Gas high/fail: after approve step, deposit tx is sent immediately without waiting for allowance to propagate — causes deposit to revert with out-of-gas on the approval check",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Gas high/fail: wagmiConfig only has static chains — if batchChain is a Relay chain not in wagmiConfig, sendTx silently uses wrong RPC for gas estimation",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Quote fails: fetchBatchQuote sends bt.balance (raw wei string) but some tokens have balance='0' from manual adds — filter those out properly\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Quote fails: no error surfaced to user when getMultiInputQuote fails — add proper error toast with the actual API error message\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Gas high/fail: sendTx passes no gas limit — Relay quote has stale maxFeePerGas/maxPriorityFeePerGas in item.data that wallets use verbatim, causing inflated fees. Must strip those fields and estimate gas fresh.\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Gas high/fail: after approve step, deposit tx is sent immediately without waiting for allowance to propagate — causes deposit to revert with out-of-gas on the approval check\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"4\"\n  },\n  {\n    \"content\": \"Gas high/fail: wagmiConfig only has static chains — if batchChain is a Relay chain not in wagmiConfig, sendTx silently uses wrong RPC for gas estimation\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"5\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Quote fails: fetchBatchQuote sends bt.balance (raw wei string) but some tokens have balance='0' from manual adds — filter those out properly",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Quote fails: no error surfaced to user when getMultiInputQuote fails — add proper error toast with the actual API error message",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Gas high/fail: sendTx passes no gas limit — Relay quote has stale maxFeePerGas/maxPriorityFeePerGas in item.data that wallets use verbatim, causing inflated fees. Must strip those fields and estimate gas fresh.",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Gas high/fail: after approve step, deposit tx is sent immediately without waiting for allowance to propagate — causes deposit to revert with out-of-gas on the approval check",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        },
+        {
+          "content": "Gas high/fail: wagmiConfig only has static chains — if batchChain is a Relay chain not in wagmiConfig, sendTx silently uses wrong RPC for gas estimation",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        }
+      ]
+    },
+    "title": "3 todos",
+    "time": {
+      "start": 1772677595754,
+      "end": 1772677595754
+    }
+  }
+}
