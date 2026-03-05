@@ -1,0 +1,49 @@
+{
+  "id": "prt_cbdcc7c7c001G5A8R0Tq70PXJG",
+  "messageID": "msg_cbdcaa7f7001g2vo26CJk3meG4",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_bdrk_01F3LmgGm8NRwoZk9UeZ55X1",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Remove gas estimation that causes MetaMask simulation failures. Pass Relay tx data exactly as-is. The revert is from stale calldata, not gas.",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Ensure quote freshness: re-fetch quote right before each step execution in batch, not once for all steps",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Remove gas estimation that causes MetaMask simulation failures. Pass Relay tx data exactly as-is. The revert is from stale calldata, not gas.\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Ensure quote freshness: re-fetch quote right before each step execution in batch, not once for all steps\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Remove gas estimation that causes MetaMask simulation failures. Pass Relay tx data exactly as-is. The revert is from stale calldata, not gas.",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Ensure quote freshness: re-fetch quote right before each step execution in batch, not once for all steps",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "title": "2 todos",
+    "time": {
+      "start": 1772710821123,
+      "end": 1772710821124
+    }
+  }
+}

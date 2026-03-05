@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdcd56cd001maqFZNBD6RLP2X",
+  "messageID": "msg_cbdcaa7f7001g2vo26CJk3meG4",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "The quote is already fetched fresh right before execution. The issue is that between the quote fetch and the user signing (which can take 10-30 seconds if they read the MetaMask dialog), the `maxFeePerGas` in the quote becomes stale. The solution is to **not pass `maxFeePerGas`/`maxPriorityFeePerGas` at all** — let the wallet use current network prices — but also ensure the calldata itself is fresh.\n\nWait — re-reading the Relay docs response example: `maxFeePerGas: \"12205661344\"` — these are in wei as decimal strings. The issue is that when we pass these to MetaMask, MetaMask uses them for simulation. If the current base fee is higher than `maxFeePerGas`, the simulation fails with \"insufficient gas price\" which MetaMask shows as \"likely to fail.\"\n\n**The correct fix**: Don't pass `maxFeePerGas`/`maxPriorityFeePerGas` at all. Let the wallet pick current prices. The Relay quote's gas price fields are just suggestions — the transaction will succeed regardless of gas price as long as it's above the network minimum. The calldata itself doesn't depend on gas price.",
+  "time": {
+    "start": 1772710888870,
+    "end": 1772710888870
+  }
+}

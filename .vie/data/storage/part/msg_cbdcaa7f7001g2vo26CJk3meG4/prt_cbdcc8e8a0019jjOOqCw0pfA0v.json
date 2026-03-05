@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdcc8e8a0019jjOOqCw0pfA0v",
+  "messageID": "msg_cbdcaa7f7001g2vo26CJk3meG4",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Fix the batch execution — remove gas estimation, pass tx data exactly as Relay provides including gas price fields:",
+  "time": {
+    "start": 1772710847995,
+    "end": 1772710847996
+  }
+}

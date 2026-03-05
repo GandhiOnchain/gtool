@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdcc26830010stulP2oL9hKzM",
+  "messageID": "msg_cbdcaa7f7001g2vo26CJk3meG4",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Now I see the real issue. The Relay quote's `item.data` contains `maxFeePerGas` and `maxPriorityFeePerGas`. When we call `sendTx(wagmiConfig, { to, data, value, gas })` — wagmi's `sendTransaction` action passes the transaction to the wallet **as-is**. The wallet (MetaMask) then does its own simulation. If the simulation reverts, it shows \"likely to fail.\"\n\nThe revert is happening because **the Relay approve step's `data` field contains a permit/approval calldata that is time-sensitive** — it was generated at quote time and may have expired, or the nonce is wrong. This is the core issue.\n\nThe correct approach per Relay docs: **use `usePermit` or send the transaction exactly as Relay provides it, including the gas price fields**. Relay's `maxFeePerGas`/`maxPriorityFeePerGas` are not stale — they're set to ensure the transaction is valid. By stripping them, we're causing the wallet to use different gas prices which can cause the simulation to fail on some RPCs.\n\nThe real fix: **pass the Relay-provided gas fields through exactly**, and only add our `gas` limit on top. Also, the `gas` field in the Relay response type is missing — let me check if Relay actually provides a `gas` field:",
+  "time": {
+    "start": 1772710807137,
+    "end": 1772710807137
+  }
+}

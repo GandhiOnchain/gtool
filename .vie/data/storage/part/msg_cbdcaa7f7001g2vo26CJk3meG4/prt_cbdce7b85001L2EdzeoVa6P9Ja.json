@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdce7b85001L2EdzeoVa6P9Ja",
+  "messageID": "msg_cbdcaa7f7001g2vo26CJk3meG4",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "The root cause was misdiagnosed in previous attempts. Here's the actual analysis:\n\n---\n\n**What \"This transaction is likely to fail\" actually means**\n\nMetaMask's \"likely to fail\" warning is **not about gas price being too high**. It means MetaMask simulated the transaction against the current chain state and the simulation **reverted**. The gas fee warning shown alongside it is a consequence — MetaMask inflates the fee estimate when it can't simulate properly.\n\n**The real cause: stale `maxFeePerGas` in the Relay quote**\n\nRelay's quote response includes `maxFeePerGas` and `maxPriorityFeePerGas` in each step's `data`. These are set at quote-fetch time. EIP-1559 transactions have a rule: if `maxFeePerGas < current base fee`, the transaction is invalid and **cannot be included in any block**. MetaMask detects this during simulation and shows \"likely to fail.\"\n\nBy the time the user sees the MetaMask dialog (which can be 10-60 seconds after the quote was fetched), the network's base fee may have risen above the quoted `maxFeePerGas`. MetaMask then simulates the tx as invalid.\n\n**The fix**\n\nStrip `maxFeePerGas` and `maxPriorityFeePerGas` entirely from what we pass to `sendTransaction`. When these fields are absent, MetaMask uses the **current** network gas prices — which are always valid. The Relay calldata (`to`, `data`, `value`) is completely independent of gas price and remains valid regardless.\n\nThis applies to both the swap/bridge tab and the batch tab. Both now send only `{ to, data, value }` and let the wallet handle gas pricing.",
+  "time": {
+    "start": 1772710958732,
+    "end": 1772710958732
+  }
+}

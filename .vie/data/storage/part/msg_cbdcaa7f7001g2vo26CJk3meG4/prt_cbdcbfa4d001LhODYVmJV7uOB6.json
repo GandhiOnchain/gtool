@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdcbfa4d001LhODYVmJV7uOB6",
+  "messageID": "msg_cbdcaa7f7001g2vo26CJk3meG4",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "This is the critical insight from the Relay docs. The quote response **does not include a `gas` field** in `item.data` — only `maxFeePerGas` and `maxPriorityFeePerGas`. The Relay API intentionally provides these gas price fields for the wallet to use. The issue is that **we are overriding them with our own `gas` limit estimate, but the wallet is still reading the stale `maxFeePerGas`/`maxPriorityFeePerGas` from somewhere**.\n\nThe real problem: MetaMask says \"likely to fail\" — this is a **revert simulation**, not a gas price issue. The transaction is reverting. Looking at the screenshot again: it's an **approve** step on Base, interacting with \"RelayAppr...\" — this is the Relay approval contract. The approve is reverting because **we're sending the wrong `gas` limit** — our `estimateGas` call is failing (because the approve simulation itself fails on the RPC), falling back to `80_000n`, but the actual issue is the transaction data or `to` address is wrong.\n\nLet me look at this more carefully — the Relay multi-input quote approve step sends pre-encoded calldata. We must send it **exactly as-is** without any modification:",
+  "time": {
+    "start": 1772710794044,
+    "end": 1772710794044
+  }
+}

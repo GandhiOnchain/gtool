@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdcb3c6d00146fwq81FdyHfNg",
+  "messageID": "msg_cbdcaa7f7001g2vo26CJk3meG4",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "The type doesn't have a `gas` field on the step data. Let me check what Relay actually returns in the approve step — specifically whether it includes a `gas` field that we're ignoring:",
+  "time": {
+    "start": 1772710741355,
+    "end": 1772710741355
+  }
+}

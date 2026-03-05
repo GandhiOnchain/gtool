@@ -1702,44 +1702,23 @@ export default function RelaySwap() {
         }
       }
 
-      const txValue = txData.value && txData.value !== '0x0' && txData.value !== '0' && txData.value !== ''
-        ? BigInt(txData.value)
-        : 0n
-
-      // Estimate gas using the origin chain's own RPC so the wallet shows accurate fees.
-      // We never forward maxFeePerGas/maxPriorityFeePerGas from the Relay quote — those
-      // are stale by the time the user signs and cause wallets to display inflated fees.
-      let gasEstimate: bigint | undefined
-      try {
-        const { createPublicClient: mkC, http: mkH, defineChain: mkDC } = await import('viem')
-        const originChain = chains.find(c => c.id === txData.chainId) || fromChain
-        const chainDef = mkDC({
-          id: originChain.id,
-          name: originChain.displayName,
-          nativeCurrency: { name: originChain.currency.name, symbol: originChain.currency.symbol, decimals: originChain.currency.decimals },
-          rpcUrls: { default: { http: [originChain.httpRpcUrl] } },
-        })
-        const pc = mkC({ chain: chainDef, transport: mkH(originChain.httpRpcUrl) })
-        const estimated = await pc.estimateGas({
-          account: address as `0x${string}`,
-          to: txData.to as `0x${string}`,
-          data: txData.data as `0x${string}`,
-          value: txValue,
-        })
-        gasEstimate = (estimated * 130n) / 100n
-        console.log('Gas estimated:', estimated.toString(), '→ with buffer:', gasEstimate.toString())
-      } catch (e) {
-        console.warn('Gas estimation failed, letting wallet decide:', e)
+      const safeValue = (v: string | undefined | null): bigint => {
+        if (!v || v === '0x0' || v === '0x' || v === '0') return 0n
+        try { return BigInt(v) } catch { return 0n }
       }
 
+      // Send only to/data/value — never forward Relay's maxFeePerGas/maxPriorityFeePerGas.
+      // Those values are set at quote time and become stale within seconds. If the current
+      // base fee exceeds the quoted maxFeePerGas, MetaMask simulates the tx as failing and
+      // shows "This transaction is likely to fail". Letting the wallet pick current gas
+      // prices avoids this entirely — the calldata validity is independent of gas price.
       const txParams = {
         to: txData.to as `0x${string}`,
         data: txData.data as `0x${string}`,
-        value: txValue,
-        gas: gasEstimate,
+        value: safeValue(txData.value),
       }
 
-      console.log('Sending transaction:', { to: txParams.to, value: txParams.value.toString(), gas: gasEstimate?.toString() })
+      console.log('Sending transaction:', { to: txParams.to, value: txParams.value.toString() })
 
       sendTransaction(txParams, {
          onSuccess: (hash) => {
@@ -2015,21 +1994,12 @@ export default function RelaySwap() {
 
       const { sendTransaction: sendTx, waitForTransactionReceipt } = await import('wagmi/actions')
       const { wagmiConfig } = await import('@/lib/blockchain/wagmi')
-      const { createPublicClient: mkClient, http: mkHttp, defineChain: mkChain } = await import('viem')
 
-      // Build a public client using the Relay chain's own RPC for accurate gas estimation.
-      // This works even for chains not in wagmiConfig.
-      const chainDef = mkChain({
-        id: batchChain.id,
-        name: batchChain.displayName,
-        nativeCurrency: {
-          name: batchChain.currency.name,
-          symbol: batchChain.currency.symbol,
-          decimals: batchChain.currency.decimals,
-        },
-        rpcUrls: { default: { http: [batchChain.httpRpcUrl] } },
-      })
-      const publicClient = mkClient({ chain: chainDef, transport: mkHttp(batchChain.httpRpcUrl) })
+      // Safe bigint conversion — handles '0x0', '0', '', undefined, null
+      const toValue = (v: string | undefined | null): bigint => {
+        if (!v || v === '0x0' || v === '0x' || v === '0') return 0n
+        try { return BigInt(v) } catch { return 0n }
+      }
 
       // Collect ALL transaction-kind steps in order (approve, deposit, swap, etc.)
       const txSteps: Array<{
@@ -2041,12 +2011,6 @@ export default function RelaySwap() {
         checkEndpoint?: string
       }> = []
 
-      // Safe bigint conversion — handles '0x0', '0', '', undefined, null
-      const toValue = (v: string | undefined | null): bigint => {
-        if (!v || v === '0x0' || v === '0x' || v === '0') return 0n
-        try { return BigInt(v) } catch { return 0n }
-      }
-
       for (const step of multiQuote.steps) {
         if (step.kind !== 'transaction' || !step.items?.length) continue
         for (const item of step.items) {
@@ -2056,6 +2020,10 @@ export default function RelaySwap() {
             stepLabel: step.id === 'approve' ? 'Approval' : step.id === 'deposit' ? 'Deposit' : step.action || step.id,
             to: d.to as `0x${string}`,
             data: d.data as `0x${string}`,
+            // Never forward Relay's maxFeePerGas/maxPriorityFeePerGas — they are set at
+            // quote time and become stale. If the current base fee exceeds the quoted
+            // maxFeePerGas, MetaMask simulates the tx as failing. Let the wallet pick
+            // current gas prices; calldata validity is independent of gas price.
             value: toValue(d.value),
             checkEndpoint: item.check?.endpoint,
           })
@@ -2070,38 +2038,6 @@ export default function RelaySwap() {
         return
       }
 
-      // Static gas fallbacks per step type — used when live estimation fails.
-      // Approve: ERC-20 approve is always ~46k. We use 80k to be safe.
-      // Deposit/swap: Relay deposits are typically 120-250k. We use 350k as a safe ceiling.
-      // These are only used as a last resort — live estimation is always preferred.
-      const GAS_FALLBACK: Record<string, bigint> = {
-        approve: 80_000n,
-        deposit: 350_000n,
-        swap: 350_000n,
-      }
-
-      // Estimate gas for every step sequentially (not parallel) so that approve steps
-      // are estimated before deposit steps — parallel estimation of deposits fails because
-      // the simulated allowance is still 0 when the approve hasn't been sent yet.
-      const gasLimits: (bigint | undefined)[] = []
-      for (const step of txSteps) {
-        try {
-          const estimated = await publicClient.estimateGas({
-            account: address as `0x${string}`,
-            to: step.to,
-            data: step.data,
-            value: step.value,
-          })
-          const withBuffer = (estimated * 130n) / 100n
-          console.log(`Gas estimated for ${step.stepId}: ${estimated} → ${withBuffer} (with buffer)`)
-          gasLimits.push(withBuffer)
-        } catch (e) {
-          const fallback = GAS_FALLBACK[step.stepId]
-          console.warn(`Gas estimation failed for ${step.stepId}, using fallback ${fallback}:`, e)
-          gasLimits.push(fallback)
-        }
-      }
-
       toast.info(`Executing ${txSteps.length} step(s)...`)
 
       let confirmedCount = 0
@@ -2112,16 +2048,12 @@ export default function RelaySwap() {
         console.log(`Step ${i + 1}/${txSteps.length}: ${step.stepId}`, {
           to: step.to,
           value: step.value.toString(),
-          gas: gasLimits[i]?.toString(),
         })
         try {
           const hash = await sendTx(wagmiConfig, {
             to: step.to,
             data: step.data,
             value: step.value,
-            gas: gasLimits[i],
-            // Explicitly omit maxFeePerGas / maxPriorityFeePerGas so the wallet
-            // uses current network prices instead of the stale values from the quote
           })
           console.log(`Step ${i + 1} (${step.stepId}) submitted:`, hash)
           toast.info(`${step.stepLabel} ${i + 1}/${txSteps.length} submitted...`)

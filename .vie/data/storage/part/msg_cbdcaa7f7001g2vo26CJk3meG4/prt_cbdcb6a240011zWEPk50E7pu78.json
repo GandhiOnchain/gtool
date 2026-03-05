@@ -1,0 +1,21 @@
+{
+  "id": "prt_cbdcb6a240011zWEPk50E7pu78",
+  "messageID": "msg_cbdcaa7f7001g2vo26CJk3meG4",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "webfetch",
+  "callID": "toolu_bdrk_01QhCH8H7Sm9J7MPcDpe4KsX",
+  "state": {
+    "status": "error",
+    "input": {
+      "url": "https://docs.relay.link/references/api/quote",
+      "format": "markdown",
+      "timeout": 15
+    },
+    "error": "Error: Request failed with status code: 404",
+    "time": {
+      "start": 1772710750858,
+      "end": 1772710751485
+    }
+  }
+}

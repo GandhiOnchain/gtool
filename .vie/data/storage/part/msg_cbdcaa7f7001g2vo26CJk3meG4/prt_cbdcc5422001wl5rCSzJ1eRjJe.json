@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdcc5422001wl5rCSzJ1eRjJe",
+  "messageID": "msg_cbdcaa7f7001g2vo26CJk3meG4",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "The type doesn't have a `gas` field. Relay doesn't provide one. Now I understand the full picture:\n\n**The actual root cause**: MetaMask's \"likely to fail\" warning comes from its own simulation. The simulation fails because:\n1. We're passing a `gas` limit (our estimate or fallback) that MetaMask uses to simulate\n2. MetaMask simulates with the current block state — if the approve calldata contains a deadline/nonce that's already been used or expired, it reverts\n3. **The real fix**: Don't estimate gas at all for steps where estimation fails. Pass `undefined` for gas and let MetaMask handle it. The \"high gas fee\" the user sees is MetaMask's own inflated estimate when it can't simulate properly — not something we control with a `gas` field.\n\nThe actual problem is **the quote is stale**. The approve step's calldata was generated at quote time. By the time the user clicks \"Batch Swap\", the quote may be minutes old. The fix is to **always fetch a fresh quote immediately before execution** and use that data directly — which we already do. But we also need to ensure we're not adding a `gas` field that causes MetaMask to simulate with wrong state.\n\nThe correct approach: **remove all gas estimation entirely** and pass the transaction exactly as Relay provides it — `to`, `data`, `value` only. Let the wallet handle gas. The \"high gas fee\" warning is MetaMask's simulation failure, not an actual gas price problem. The solution is to ensure the quote is fresh and the calldata is valid.",
+  "time": {
+    "start": 1772710821159,
+    "end": 1772710821159
+  }
+}

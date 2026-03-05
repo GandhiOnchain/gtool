@@ -1,0 +1,21 @@
+{
+  "id": "prt_cbdcba6e1001OYr8ubg51GPYuD",
+  "messageID": "msg_cbdcaa7f7001g2vo26CJk3meG4",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "tool",
+  "tool": "webfetch",
+  "callID": "toolu_bdrk_017k1Yd2gZZo9dn49GQBd2ru",
+  "state": {
+    "status": "error",
+    "input": {
+      "url": "https://docs.relay.link/references/api/execute/swap",
+      "format": "markdown",
+      "timeout": 15
+    },
+    "error": "Error: Request failed with status code: 404",
+    "time": {
+      "start": 1772710766813,
+      "end": 1772710767193
+    }
+  }
+}

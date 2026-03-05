@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdcd984d001XcOJS5W8zOZdMb",
+  "messageID": "msg_cbdcaa7f7001g2vo26CJk3meG4",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Same fix for batch — don't pass the gas price fields:",
+  "time": {
+    "start": 1772710904889,
+    "end": 1772710904889
+  }
+}

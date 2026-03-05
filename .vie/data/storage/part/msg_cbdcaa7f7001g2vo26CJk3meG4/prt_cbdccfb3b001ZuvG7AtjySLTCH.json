@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdccfb3b001ZuvG7AtjySLTCH",
+  "messageID": "msg_cbdcaa7f7001g2vo26CJk3meG4",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Now fix the swap tab the same way — pass Relay's gas price fields through instead of stripping them:",
+  "time": {
+    "start": 1772710864294,
+    "end": 1772710864294
+  }
+}

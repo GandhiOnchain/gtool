@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdcddb7d001QwwNjWiW7i3o5m",
+  "messageID": "msg_cbdcaa7f7001g2vo26CJk3meG4",
+  "sessionID": "ses_3610c85d4ffeyQoC4J9ft8WIfG",
+  "type": "text",
+  "text": "Also update the `sendTx` call to not pass the removed fields:",
+  "time": {
+    "start": 1772710913801,
+    "end": 1772710913801
+  }
+}
