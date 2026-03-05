@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbf2e87160013rQE4C7d1tKJNU",
+  "messageID": "msg_cbf2e751f001jvZtQuxDdYmDPz",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01YJ1q636GxjSgTrM3kJ3CXd",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 395,
+      "limit": 25
+    },
+    "output": "<file>\n00396|   const { data: quote, isLoading: isLoadingQuote, executeQuote } = useQuote(\n00397|     getClient() ?? undefined,\n00398|     walletClient,\n00399|     quoteEnabled && quoteUserAddress ? {\n00400|       user: quoteUserAddress,\n00401|       originChainId: fromChain!.id,\n00402|       destinationChainId: toChain!.id,\n00403|       originCurrency: fromToken!.address,\n00404|       destinationCurrency: toToken!.address,\n00405|       amount: (() => { try { return parseUnits(fromAmount, fromToken!.decimals).toString() } catch { return '0' } })(),\n00406|       tradeType: 'EXACT_INPUT' as const,\n00407|       slippageTolerance: Math.floor(parseFloat(slippage) * 100).toString(),\n00408|       recipient: quoteCrossVMRecipient,\n00409|       includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n00410|       useExternalLiquidity: isCrossVMForQuote ? true : undefined,\n00411|     } : undefined,\n00412|     undefined,\n00413|     undefined,\n00414|     { enabled: quoteEnabled, refetchInterval: 15000 }\n00415|   )\n00416| \n00417|   const { data: executionStatusData } = useExecutionStatus(\n00418|     undefined,\n00419|     currentSwapRequestId ? { requestId: currentSwapRequestId } : undefined,\n00420|     undefined,\n\n(File has more lines. Use 'offset' parameter to read beyond line 420)\n</file>",
+    "metadata": {
+      "preview": "  const { data: quote, isLoading: isLoadingQuote, executeQuote } = useQuote(\n    getClient() ?? undefined,\n    walletClient,\n    quoteEnabled && quoteUserAddress ? {\n      user: quoteUserAddress,\n      originChainId: fromChain!.id,\n      destinationChainId: toChain!.id,\n      originCurrency: fromToken!.address,\n      destinationCurrency: toToken!.address,\n      amount: (() => { try { return parseUnits(fromAmount, fromToken!.decimals).toString() } catch { return '0' } })(),\n      tradeType: 'EXACT_INPUT' as const,\n      slippageTolerance: Math.floor(parseFloat(slippage) * 100).toString(),\n      recipient: quoteCrossVMRecipient,\n      includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n      useExternalLiquidity: isCrossVMForQuote ? true : undefined,\n    } : undefined,\n    undefined,\n    undefined,\n    { enabled: quoteEnabled, refetchInterval: 15000 }\n  )"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772734023780,
+      "end": 1772734023781
+    }
+  }
+}

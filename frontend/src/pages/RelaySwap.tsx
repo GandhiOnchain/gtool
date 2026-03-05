@@ -3,7 +3,7 @@ import * as React from 'react'
 import { sdk } from '@farcaster/miniapp-sdk'
 import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useWalletClient } from 'wagmi'
 import { useWallet } from '@/hooks/useWallet'
-import { parseUnits, formatUnits, createPublicClient, http, defineChain, parseAbiItem, getAddress } from 'viem'
+import { parseUnits, formatUnits, createPublicClient, http, defineChain, getAddress } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
 import { useRelayChains, useTokenList, useTokenPrice, useQuote, useExecutionStatus } from '@relayprotocol/relay-kit-hooks'
@@ -243,49 +243,18 @@ export default function RelaySwap() {
     return {
       ...base,
       handleSendTransactionStep: async (chainId, item, step) => {
-        const { to, data, value, from } = item.data
-        const safeVal = (v: string | undefined | null): bigint => {
-          if (!v || v === '0x0' || v === '0x' || v === '0') return 0n
-          try { return BigInt(v) } catch { return 0n }
-        }
-
-        const relayChain = chains.find(c => c.id === chainId)
-        let gasLimit: bigint | undefined
-
-        if (relayChain?.httpRpcUrl) {
-          try {
-            const chainConfig = defineChain({
-              id: chainId,
-              name: relayChain.displayName,
-              nativeCurrency: { name: relayChain.currency.name, symbol: relayChain.currency.symbol, decimals: relayChain.currency.decimals },
-              rpcUrls: { default: { http: [relayChain.httpRpcUrl] } },
-            })
-            const publicClient = createPublicClient({ chain: chainConfig, transport: http(relayChain.httpRpcUrl) })
-            const estimated = await publicClient.estimateGas({
-              account: from,
-              to: to as `0x${string}`,
-              data: data as `0x${string}`,
-              value: safeVal(value),
-            })
-            gasLimit = (estimated * 120n) / 100n
-            console.log(`Gas estimated for ${step.id}: ${estimated} → buffered: ${gasLimit}`)
-          } catch (e) {
-            console.warn(`Gas estimation failed for ${step.id}, wallet will estimate:`, e)
-          }
-        }
-
         return base.handleSendTransactionStep(chainId, {
           ...item,
           data: {
             ...item.data,
             maxFeePerGas: undefined,
             maxPriorityFeePerGas: undefined,
-            ...(gasLimit !== undefined ? { gas: gasLimit.toString() } : {}),
+            gas: undefined,
           },
         }, step)
       },
     }
-  }, [rawWalletClient, chains])
+  }, [rawWalletClient])
 
   useEffect(() => {
     if (viemChains && viemChains.length > 0) {

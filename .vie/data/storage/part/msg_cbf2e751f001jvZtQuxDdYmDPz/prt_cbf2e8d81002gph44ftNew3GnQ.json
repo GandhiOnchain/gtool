@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf2e8d81002gph44ftNew3GnQ",
+  "messageID": "msg_cbf2e751f001jvZtQuxDdYmDPz",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Two issues here:\n\n1. **The custom `handleSendTransactionStep` is re-estimating gas** using a public RPC that may not simulate correctly, producing inflated gas limits ($2.71 fee). The Relay SDK already includes correct gas in the quote — we should just strip stale `maxFeePerGas`/`maxPriorityFeePerGas` and let the wallet estimate gas natively, not override it.\n\n2. **The `estimateGas` call itself can fail** (causing the \"likely to fail\" warning) because it's simulating against a public RPC without the proper state context that Relay's relayer has.\n\nThe fix: remove the custom gas estimation entirely — just strip the stale gas price fields and pass through.",
+  "time": {
+    "start": 1772734039173,
+    "end": 1772734039173
+  }
+}

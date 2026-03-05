@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf2f1eca002lf2db82zhMweAF",
+  "messageID": "msg_cbf2e751f001jvZtQuxDdYmDPz",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Clean. Here's what was wrong:\n\n- **Root cause**: The custom `handleSendTransactionStep` was re-estimating gas using a public RPC. That RPC doesn't have the same state context as Relay's relayer, so `estimateGas` would either fail (causing the \"likely to fail\" warning) or return an inflated value (causing the $2.71 fee).\n- **Fix**: Strip stale `maxFeePerGas`, `maxPriorityFeePerGas`, and `gas` from the quote data, then let the wallet estimate gas natively from current chain state. The Relay SDK quote already encodes the correct calldata — gas estimation just needs to happen at submission time, not quote time.",
+  "time": {
+    "start": 1772734066803,
+    "end": 1772734066803
+  }
+}
