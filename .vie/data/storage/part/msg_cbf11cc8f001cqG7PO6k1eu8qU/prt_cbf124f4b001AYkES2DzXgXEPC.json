@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf124f4b001AYkES2DzXgXEPC",
+  "messageID": "msg_cbf11cc8f001cqG7PO6k1eu8qU",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now fix Issue 2 — the stale `maxFeePerGas`/`maxPriorityFeePerGas`. The SDK passes these from the quote into `handleSendTransactionStep`. We need to strip them for **all** steps (not just approve), and also fetch fresh gas prices from the chain's public RPC:",
+  "time": {
+    "start": 1772732188846,
+    "end": 1772732188846
+  }
+}

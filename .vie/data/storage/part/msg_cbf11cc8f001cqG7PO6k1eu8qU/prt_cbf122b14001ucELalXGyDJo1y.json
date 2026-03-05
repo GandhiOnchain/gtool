@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf122b14001ucELalXGyDJo1y",
+  "messageID": "msg_cbf11cc8f001cqG7PO6k1eu8qU",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The `chains` effect sets `batchChain`/`batchToChain` but never sets `fromChain`/`toChain`. That was previously done inside `loadChains`. Fix that first:",
+  "time": {
+    "start": 1772732168930,
+    "end": 1772732168930
+  }
+}

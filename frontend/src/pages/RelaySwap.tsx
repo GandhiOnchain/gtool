@@ -242,35 +242,38 @@ export default function RelaySwap() {
           if (!v || v === '0x0' || v === '0x' || v === '0') return 0n
           try { return BigInt(v) } catch { return 0n }
         }
-        const isApprove = step.id === 'approve'
+
+        const relayChain = chains.find(c => c.id === chainId)
         let gasLimit: bigint | undefined
-        if (isApprove) {
+
+        if (relayChain?.httpRpcUrl) {
           try {
-            const relayChain = chains.find(c => c.id === chainId)
-            if (relayChain?.httpRpcUrl) {
-              const chainConfig = defineChain({
-                id: chainId,
-                name: relayChain.displayName,
-                nativeCurrency: { name: relayChain.currency.name, symbol: relayChain.currency.symbol, decimals: relayChain.currency.decimals },
-                rpcUrls: { default: { http: [relayChain.httpRpcUrl] } },
-              })
-              const publicClient = createPublicClient({ chain: chainConfig, transport: http(relayChain.httpRpcUrl) })
-              const estimated = await publicClient.estimateGas({
-                account: from,
-                to: to as `0x${string}`,
-                data: data as `0x${string}`,
-                value: safeVal(value),
-              })
-              gasLimit = (estimated * 110n) / 100n
-            }
+            const chainConfig = defineChain({
+              id: chainId,
+              name: relayChain.displayName,
+              nativeCurrency: { name: relayChain.currency.name, symbol: relayChain.currency.symbol, decimals: relayChain.currency.decimals },
+              rpcUrls: { default: { http: [relayChain.httpRpcUrl] } },
+            })
+            const publicClient = createPublicClient({ chain: chainConfig, transport: http(relayChain.httpRpcUrl) })
+            const estimated = await publicClient.estimateGas({
+              account: from,
+              to: to as `0x${string}`,
+              data: data as `0x${string}`,
+              value: safeVal(value),
+            })
+            gasLimit = (estimated * 120n) / 100n
+            console.log(`Gas estimated for ${step.id}: ${estimated} → buffered: ${gasLimit}`)
           } catch (e) {
-            console.warn('Gas pre-estimation failed for approve, wallet will estimate:', e)
+            console.warn(`Gas estimation failed for ${step.id}, wallet will estimate:`, e)
           }
         }
+
         return base.handleSendTransactionStep(chainId, {
           ...item,
           data: {
             ...item.data,
+            maxFeePerGas: undefined,
+            maxPriorityFeePerGas: undefined,
             ...(gasLimit !== undefined ? { gas: gasLimit.toString() } : {}),
           },
         }, step)
@@ -469,14 +472,12 @@ export default function RelaySwap() {
   }, [])
 
   useEffect(() => {
-    if (chains.length > 0 && !batchChain) {
-      const baseChain = chains.find(c => c.id === 8453) || chains[0]
-      setBatchChain(baseChain)
-    }
-    if (chains.length > 0 && !batchToChain) {
-      const baseChain = chains.find(c => c.id === 8453) || chains[0]
-      setBatchToChain(baseChain)
-    }
+    if (chains.length === 0) return
+    const baseChain = chains.find(c => c.id === 8453) || chains[0]
+    if (!fromChain) setFromChain(baseChain)
+    if (!toChain) setToChain(chains.find(c => c.id !== baseChain.id) || chains[1] || null)
+    if (!batchChain) setBatchChain(baseChain)
+    if (!batchToChain) setBatchToChain(baseChain)
   }, [chains])
 
   useEffect(() => {

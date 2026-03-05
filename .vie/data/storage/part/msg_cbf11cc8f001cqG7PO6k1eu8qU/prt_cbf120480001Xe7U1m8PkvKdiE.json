@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbf120480001Xe7U1m8PkvKdiE",
+  "messageID": "msg_cbf11cc8f001cqG7PO6k1eu8qU",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_016YP5Wmugi846KEEvLM3aby",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 440,
+      "limit": 30
+    },
+    "output": "<file>\n00441|   useEffect(() => {\n00442|     sdk.actions.ready().catch(() => {})\n00443|   }, [])\n00444| \n00445|   // Detect Solana wallet via Farcaster SDK\n00446|   useEffect(() => {\n00447|     const detectSolanaWallet = async () => {\n00448|       try {\n00449|         const solanaProvider = await sdk.wallet.getSolanaProvider()\n00450|         if (solanaProvider) {\n00451|           const result = await solanaProvider.request({ method: 'connect' })\n00452|           if (result.publicKey) {\n00453|             console.log('Farcaster Solana wallet connected:', result.publicKey)\n00454|             setSolanaAddress(result.publicKey)\n00455|           }\n00456|         }\n00457|       } catch (error) {\n00458|         console.log('Farcaster Solana wallet not available:', error)\n00459|       }\n00460|     }\n00461| \n00462|     detectSolanaWallet()\n00463|   }, [])\n00464| \n00465|   useEffect(() => {\n00466|     loadUserData()\n00467|     loadTrendingTokens()\n00468|     loadSwapSources()\n00469|   }, [])\n00470| \n\n(File has more lines. Use 'offset' parameter to read beyond line 470)\n</file>",
+    "metadata": {
+      "preview": "  useEffect(() => {\n    sdk.actions.ready().catch(() => {})\n  }, [])\n\n  // Detect Solana wallet via Farcaster SDK\n  useEffect(() => {\n    const detectSolanaWallet = async () => {\n      try {\n        const solanaProvider = await sdk.wallet.getSolanaProvider()\n        if (solanaProvider) {\n          const result = await solanaProvider.request({ method: 'connect' })\n          if (result.publicKey) {\n            console.log('Farcaster Solana wallet connected:', result.publicKey)\n            setSolanaAddress(result.publicKey)\n          }\n        }\n      } catch (error) {\n        console.log('Farcaster Solana wallet not available:', error)\n      }\n    }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772732155348,
+      "end": 1772732155349
+    }
+  }
+}

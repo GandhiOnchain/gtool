@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf12e2ed001Ij3PPJaBVYmKfR",
+  "messageID": "msg_cbf11cc8f001cqG7PO6k1eu8qU",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Both fixes are clean. Here's what was wrong:\n\n**Issue 1 — Chains/tokens not loading:** `loadChains` was removed but nothing replaced its job of setting `fromChain` and `toChain` on initial load. The `chains` effect only set `batchChain`/`batchToChain`. Fixed by adding `setFromChain`/`setToChain` to that same effect — once `useRelayChains` resolves, Base is set as `fromChain` and the next chain as `toChain`, which triggers the existing `loadCurrencies` effects.\n\n**Issue 2 — High gas / likely to fail:** The SDK passes `maxFeePerGas` and `maxPriorityFeePerGas` from the quote into `handleSendTransactionStep`. These are set at quote time and go stale within seconds. The wallet uses them to simulate the tx — if the current base fee exceeds the quoted `maxFeePerGas`, the simulation fails and shows \"likely to fail\". Fixed by:\n- Stripping `maxFeePerGas` and `maxPriorityFeePerGas` from **all** steps (not just approve)\n- Pre-estimating gas via a direct public RPC for all steps with a 20% buffer\n- The wallet then uses its own current gas price × our accurate gas limit = correct fee display",
+  "time": {
+    "start": 1772732219237,
+    "end": 1772732219237
+  }
+}

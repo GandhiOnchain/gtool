@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbf11e36e001OLc9T8QLzBRIz6",
+  "messageID": "msg_cbf11cc8f001cqG7PO6k1eu8qU",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Two separate issues. Let me tackle both.\n\n**Issue 1 - Chains/tokens not loading:** The `loadCurrencies` effect runs on `fromChain`/`toChain` change, but `fromChain`/`toChain` are never initialized because `loadChains` was removed and nothing sets them from `useRelayChains`.\n\n**Issue 2 - High gas/likely to fail:** \"Site suggested ~2 sec\" means the SDK is passing its own `maxFeePerGas`/`maxPriorityFeePerGas` from the quote (which are stale), and the wallet is using those. The wallet simulation fails because the stale gas price is too low for current network conditions.\n\nLet me fix both:",
+  "time": {
+    "start": 1772732151617,
+    "end": 1772732151617
+  }
+}

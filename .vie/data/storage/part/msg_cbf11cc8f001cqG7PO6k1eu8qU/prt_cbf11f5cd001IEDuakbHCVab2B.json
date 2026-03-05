@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbf11f5cd001IEDuakbHCVab2B",
+  "messageID": "msg_cbf11cc8f001cqG7PO6k1eu8qU",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01UnuQkLJRdE5yTELoeNY3xd",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 278,
+      "limit": 20
+    },
+    "output": "<file>\n00279|   }, [rawWalletClient, chains])\n00280| \n00281|   useEffect(() => {\n00282|     if (viemChains && viemChains.length > 0) {\n00283|       createClient({\n00284|         baseApiUrl: MAINNET_RELAY_API,\n00285|         chains: relayChains as unknown as Parameters<typeof createClient>[0]['chains'],\n00286|       })\n00287|     }\n00288|   }, [viemChains])\n00289|   const [fromChain, setFromChain] = useState<RelayChain | null>(null)\n00290|   const [toChain, setToChain] = useState<RelayChain | null>(null)\n00291|   const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n00292|   const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n00293|   const [fromAmount, setFromAmount] = useState('')\n00294|   const [toAmount, setToAmount] = useState('')\n00295|   const [isSwapping, setIsSwapping] = useState(false)\n00296|   const [slippage, setSlippage] = useState('0.1')\n00297|   const [searchTerm, setSearchTerm] = useState('')\n00298|   const [tokenSearchTerm, setTokenSearchTerm] = useState('')\n\n(File has more lines. Use 'offset' parameter to read beyond line 298)\n</file>",
+    "metadata": {
+      "preview": "  }, [rawWalletClient, chains])\n\n  useEffect(() => {\n    if (viemChains && viemChains.length > 0) {\n      createClient({\n        baseApiUrl: MAINNET_RELAY_API,\n        chains: relayChains as unknown as Parameters<typeof createClient>[0]['chains'],\n      })\n    }\n  }, [viemChains])\n  const [fromChain, setFromChain] = useState<RelayChain | null>(null)\n  const [toChain, setToChain] = useState<RelayChain | null>(null)\n  const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n  const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n  const [fromAmount, setFromAmount] = useState('')\n  const [toAmount, setToAmount] = useState('')\n  const [isSwapping, setIsSwapping] = useState(false)\n  const [slippage, setSlippage] = useState('0.1')\n  const [searchTerm, setSearchTerm] = useState('')\n  const [tokenSearchTerm, setTokenSearchTerm] = useState('')"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772732151574,
+      "end": 1772732151575
+    }
+  }
+}
