@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdd63fa6001yagzhDs26LG3sx",
+  "messageID": "msg_cbdd5d63e001nsE0nCpNKYTcGY",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now I understand the full picture. The issue is that `sendTransaction` from wagmi's `useSendTransaction` hook triggers the Farcaster Mini App connector to **simulate the transaction**, and the simulation fails or shows a high gas warning because:\n\n1. The Farcaster wallet connector re-estimates gas using the RPC\n2. The `gas` field is not being passed, so the wallet uses its own (often inflated) estimate\n\nThe fix: fetch current gas fees from the chain and pass `gas` (from Relay's quote `fees.gas`) + fresh `maxFeePerGas`/`maxPriorityFeePerGas` from the chain. Also improve the error message parsing to handle the \"high gas\" case gracefully.",
+  "time": {
+    "start": 1772711467348,
+    "end": 1772711467348
+  }
+}

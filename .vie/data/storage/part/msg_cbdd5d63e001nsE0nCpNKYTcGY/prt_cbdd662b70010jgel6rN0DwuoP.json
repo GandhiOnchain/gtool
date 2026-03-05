@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdd662b70010jgel6rN0DwuoP",
+  "messageID": "msg_cbdd5d63e001nsE0nCpNKYTcGY",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now I have everything I need. The problem is clear:\n\n1. `sendTransaction` is called without a `gas` limit — wagmi/the Farcaster connector does its own `eth_estimateGas` call, which can fail or return an inflated value\n2. The `onError` handler passes the raw wallet error message (which contains the \"high gas fee\" text) directly to the toast\n\nThe fix: **estimate gas via viem's `publicClient.estimateGas`** using the chain's own RPC (bypassing the wallet's simulation), then pass that `gas` value explicitly. Also improve error message handling.",
+  "time": {
+    "start": 1772711489148,
+    "end": 1772711489148
+  }
+}

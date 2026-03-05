@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdd612b00027CHucmnMIo4Uam",
+  "messageID": "msg_cbdd5d63e001nsE0nCpNKYTcGY",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now I have a clear picture of the issue. The root cause is:\n\n**Relay's quote response includes `maxFeePerGas` and `maxPriorityFeePerGas` in `txData`**. Even though `executeSwap` strips them, the **Farcaster Mini App wagmi connector** (`miniAppConnector`) may be doing its own gas estimation using the RPC transport — and the RPC URLs use Alchemy. When wagmi calls `eth_estimateGas` or `eth_feeHistory` through the connector, the Farcaster wallet sees the simulation result and flags it as \"high gas fee.\"\n\nThe real fix is to **explicitly set a `gas` limit** from the quote data (so the wallet doesn't re-estimate), and also **explicitly pass `maxFeePerGas` / `maxPriorityFeePerGas` fetched fresh from the chain** rather than from the stale quote. Let me look at what gas data Relay provides:",
+  "time": {
+    "start": 1772711456793,
+    "end": 1772711456793
+  }
+}

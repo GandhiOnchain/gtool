@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdd6f63f002FgbwVyU9gfmH8u",
+  "messageID": "msg_cbdd5d63e001nsE0nCpNKYTcGY",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Clean. Here's what was wrong and what was fixed:\n\n**Root cause:** `sendTransaction` was called without a `gas` limit. The Farcaster Mini App wallet connector then ran its own `eth_estimateGas` simulation internally — and either the simulation failed (returning an inflated/incorrect estimate) or the wallet's UI flagged it as \"high gas fee\" based on that stale simulation result.\n\n**Fix:**\n1. **Pre-estimate gas via a direct public RPC call** (using viem's `createPublicClient` pointed at the chain's own HTTP RPC, bypassing the wallet connector entirely). A 20% buffer is added on top.\n2. **Pass `gas` explicitly** in `txParams` — when the wallet receives a pre-set gas limit, it skips its own estimation and simulation, eliminating the false \"high gas fee\" warning.\n3. **Improved error message parsing** in `onError` — raw wallet error strings (which contain the \"high gas fee\" text) are now mapped to clean, user-friendly messages instead of being shown verbatim.",
+  "time": {
+    "start": 1772711512356,
+    "end": 1772711512356
+  }
+}

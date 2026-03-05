@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdd60084001VBFpb77xHqaUTp",
+  "messageID": "msg_cbdd5d63e001nsE0nCpNKYTcGY",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "Now let me check the wagmi config to understand how transactions are being sent — specifically if `gas` is being estimated or if there's a `gasPrice` being set somewhere:",
+  "time": {
+    "start": 1772711446494,
+    "end": 1772711446494
+  }
+}

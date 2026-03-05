@@ -1,0 +1,25 @@
+{
+  "id": "prt_cbdd62cca001NwBWAHq0IyhIXb",
+  "messageID": "msg_cbdd5d63e001nsE0nCpNKYTcGY",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_015SzRvQ8MaqxchGBzdvfvJB",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1510,
+      "limit": 40
+    },
+    "output": "<file>\n01511|       console.error('Failed to fetch quote:', error)\n01512|       \n01513|       // Parse error message to make it user-friendly\n01514|       let errorMessage = 'Failed to get quote'\n01515|       if (error instanceof Error) {\n01516|         const msg = error.message.toLowerCase()\n01517|         if (msg.includes('amount_too_low') || msg.includes('amount must be greater')) {\n01518|           errorMessage = 'Amount is too low. Please enter a larger amount.'\n01519|         } else if (msg.includes('insufficient')) {\n01520|           errorMessage = 'Insufficient balance for this swap.'\n01521|         } else if (msg.includes('slippage')) {\n01522|           errorMessage = 'Slippage tolerance too low. Try increasing it.'\n01523|         } else if (msg.includes('liquidity')) {\n01524|           errorMessage = 'Not enough liquidity for this swap.'\n01525|         } else if (msg.includes('network') || msg.includes('timeout')) {\n01526|           errorMessage = 'Network error. Please try again.'\n01527|         } else {\n01528|           errorMessage = 'Unable to get quote. Please try a different amount or token.'\n01529|         }\n01530|       }\n01531|       \n01532|       toast.error(errorMessage)\n01533|       setQuote(null)\n01534|     } finally {\n01535|       setIsLoadingQuote(false)\n01536|     }\n01537|   }\n01538| \n01539|   const executeSwap = async () => {\n01540|     if (!quote || !quote.steps || quote.steps.length === 0) {\n01541|       toast.error('No quote available')\n01542|       return\n01543|     }\n01544| \n01545|     if (!isConnected || !address) {\n01546|       toast.error('Please connect your wallet first')\n01547|       return\n01548|     }\n01549| \n01550|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 1550)\n</file>",
+    "metadata": {
+      "preview": "      console.error('Failed to fetch quote:', error)\n      \n      // Parse error message to make it user-friendly\n      let errorMessage = 'Failed to get quote'\n      if (error instanceof Error) {\n        const msg = error.message.toLowerCase()\n        if (msg.includes('amount_too_low') || msg.includes('amount must be greater')) {\n          errorMessage = 'Amount is too low. Please enter a larger amount.'\n        } else if (msg.includes('insufficient')) {\n          errorMessage = 'Insufficient balance for this swap.'\n        } else if (msg.includes('slippage')) {\n          errorMessage = 'Slippage tolerance too low. Try increasing it.'\n        } else if (msg.includes('liquidity')) {\n          errorMessage = 'Not enough liquidity for this swap.'\n        } else if (msg.includes('network') || msg.includes('timeout')) {\n          errorMessage = 'Network error. Please try again.'\n        } else {\n          errorMessage = 'Unable to get quote. Please try a different amount or token.'\n        }\n      }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772711456629,
+      "end": 1772711456640
+    }
+  }
+}

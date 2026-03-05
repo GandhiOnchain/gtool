@@ -1707,26 +1707,54 @@ export default function RelaySwap() {
         try { return BigInt(v) } catch { return 0n }
       }
 
-      // Send only to/data/value — never forward Relay's maxFeePerGas/maxPriorityFeePerGas.
-      // Those values are set at quote time and become stale within seconds. If the current
-      // base fee exceeds the quoted maxFeePerGas, MetaMask simulates the tx as failing and
-      // shows "This transaction is likely to fail". Letting the wallet pick current gas
-      // prices avoids this entirely — the calldata validity is independent of gas price.
-      const txParams = {
-        to: txData.to as `0x${string}`,
-        data: txData.data as `0x${string}`,
-        value: safeValue(txData.value),
+      const txValue = safeValue(txData.value)
+
+      // Estimate gas via a direct public RPC call (not through the wallet connector).
+      // This bypasses the Farcaster Mini App wallet's own simulation which can incorrectly
+      // flag the tx as "high gas fee" when it re-estimates using stale or inflated values.
+      // By pre-computing the gas limit ourselves and passing it explicitly, the wallet
+      // skips its own estimation entirely.
+      let gasLimit: bigint | undefined
+      try {
+        const chainConfig = defineChain({
+          id: txData.chainId,
+          name: fromChain.displayName,
+          nativeCurrency: { name: fromChain.currency.name, symbol: fromChain.currency.symbol, decimals: fromChain.currency.decimals },
+          rpcUrls: { default: { http: [fromChain.httpRpcUrl] } },
+        })
+        const publicClient = createPublicClient({ chain: chainConfig, transport: http(fromChain.httpRpcUrl) })
+        const estimated = await publicClient.estimateGas({
+          account: address as `0x${string}`,
+          to: txData.to as `0x${string}`,
+          data: txData.data as `0x${string}`,
+          value: txValue,
+        })
+        // Add 20% buffer so the tx doesn't run out of gas on-chain
+        gasLimit = (estimated * 120n) / 100n
+        console.log('Gas estimated via public RPC:', estimated.toString(), '→ with buffer:', gasLimit.toString())
+      } catch (gasErr) {
+        console.warn('Gas estimation failed, letting wallet estimate:', gasErr)
       }
 
-      console.log('Sending transaction:', { to: txParams.to, value: txParams.value.toString() })
+      const txParams: {
+        to: `0x${string}`
+        data: `0x${string}`
+        value: bigint
+        gas?: bigint
+      } = {
+        to: txData.to as `0x${string}`,
+        data: txData.data as `0x${string}`,
+        value: txValue,
+        ...(gasLimit !== undefined ? { gas: gasLimit } : {}),
+      }
+
+      console.log('Sending transaction:', { to: txParams.to, value: txParams.value.toString(), gas: gasLimit?.toString() })
 
       sendTransaction(txParams, {
          onSuccess: (hash) => {
            console.log('Transaction submitted successfully:', hash)
            toast.success('Transaction submitted - waiting for confirmation...')
            
-           // Store the requestId and chainId to use after transaction confirmation
-           // The useEffect will handle indexing and monitoring after the tx is confirmed
            if (executionStep.requestId) {
              setCurrentSwapRequestId(executionStep.requestId)
              setCurrentSwapChainId(txData.chainId)
@@ -1737,7 +1765,19 @@ export default function RelaySwap() {
          },
         onError: (error) => {
           console.error('Transaction failed:', error)
-          const errorMessage = error instanceof Error ? error.message : 'Transaction failed'
+          const msg = error instanceof Error ? error.message.toLowerCase() : ''
+          let errorMessage = 'Transaction failed'
+          if (msg.includes('user rejected') || msg.includes('user denied') || msg.includes('rejected')) {
+            errorMessage = 'Transaction rejected'
+          } else if (msg.includes('insufficient funds') || msg.includes('insufficient balance')) {
+            errorMessage = 'Insufficient balance to cover this swap and gas fees'
+          } else if (msg.includes('gas') || msg.includes('fee')) {
+            errorMessage = 'Gas estimation failed. Please try again.'
+          } else if (msg.includes('nonce')) {
+            errorMessage = 'Transaction nonce error. Please try again.'
+          } else if (msg.includes('network') || msg.includes('timeout')) {
+            errorMessage = 'Network error. Please try again.'
+          }
           toast.error(errorMessage)
           setIsSwapping(false)
         }

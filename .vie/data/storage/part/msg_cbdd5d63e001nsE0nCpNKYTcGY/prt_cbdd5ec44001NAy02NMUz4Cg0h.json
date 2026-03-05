@@ -1,0 +1,11 @@
+{
+  "id": "prt_cbdd5ec44001NAy02NMUz4Cg0h",
+  "messageID": "msg_cbdd5d63e001nsE0nCpNKYTcGY",
+  "sessionID": "ses_3423060a8ffe05I6DMBUw6JPt9",
+  "type": "text",
+  "text": "The `executeSwap` already strips gas params correctly. The issue is likely in the **error handler** — it's passing the raw wallet error message directly to the toast, which includes the wallet's \"high gas fee\" simulation warning. Let me check the full error handling and also the Farcaster Mini App context, which has stricter transaction constraints.",
+  "time": {
+    "start": 1772711442288,
+    "end": 1772711442288
+  }
+}
