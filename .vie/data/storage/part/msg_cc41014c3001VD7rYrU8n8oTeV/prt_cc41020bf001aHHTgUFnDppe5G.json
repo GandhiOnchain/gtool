@@ -20,7 +20,8 @@
     "title": "find /home/user/sandbox/workspace/frontend/src -name \"*.tsx\" | xargs grep -l -i \"batch\" 2>/dev/null",
     "time": {
       "start": 1772815918343,
-      "end": 1772815918365
+      "end": 1772815918365,
+      "compacted": 1772816919475
     }
   }
 }

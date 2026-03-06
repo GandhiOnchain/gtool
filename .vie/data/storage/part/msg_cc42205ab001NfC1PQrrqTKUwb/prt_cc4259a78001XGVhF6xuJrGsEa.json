@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc4259a78001XGVhF6xuJrGsEa",
+  "messageID": "msg_cc42205ab001NfC1PQrrqTKUwb",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "All clean. Here's what was upgraded:\n\n**Scanner improvements:**\n- **`buildVerdict()`** — new function that generates a single plain-English sentence explaining the most critical risk (e.g. \"Cannot sell — funds will be trapped\", \"90% sell tax — effectively unsellable\", \"Creator controls >80% supply — extreme rug risk\")\n- **GoPlus extraction** now pulls: transfer tax, proxy flag, LP lock details (percent + expiry date), DEX name, top-10 holder concentration from the holders array, and LP top-10 concentration\n- **Honeypot.is** expanded to Arbitrum + Polygon, now also checks max buy/sell limits (another honeypot signal)\n- **Contract age** — new Step 6 queries block explorer APIs to get deployment timestamp, flags contracts deployed today (high), <7 days (medium), <30 days (low)\n- **Tax thresholds** tightened: >20% sell tax → high risk, ≥90% → \"unsellable\" flag\n- **Creator concentration** now has graduated thresholds: >30% medium, >80% high\n\n**UI panel redesign:**\n- **Verdict banner** at the top — one sentence, color-coded\n- **Taxes section** — buy/sell/transfer shown inline with color coding (green/yellow/red by severity), source attribution\n- **Holders section** — holder count, creator %, top-10 % each color-coded by threshold\n- **Liquidity section** — shows DEX name, lock status with % and expiry date, or \"No liquidity pool\" in red\n- **Contract section** — age, verified/unverified, mintable, proxy, pausable, balance-editable, hidden owner all as inline chips\n- **Alerts section** — critical flags (honeypot, phishing, etc.) shown separately with ✕ prefix",
+  "time": {
+    "start": 1772817335999,
+    "end": 1772817335999
+  }
+}

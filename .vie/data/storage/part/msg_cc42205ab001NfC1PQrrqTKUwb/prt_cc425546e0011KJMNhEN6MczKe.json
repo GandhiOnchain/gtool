@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc425546e0011KJMNhEN6MczKe",
+  "messageID": "msg_cc42205ab001NfC1PQrrqTKUwb",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01QmZpbKcKnXU6YCAYYT23fV",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1340,
+      "limit": 15
+    },
+    "output": "<file>\n01341|           const partial: Partial<TokenRisk> = {\n01342|             ...existing,\n01343|             riskLevel: rl.val,\n01344|             flags: [...new Set(flags)],\n01345|             contract: {\n01346|               ...(existing?.contract || {}),\n01347|               deployedAt,\n01348|               agedays,\n01349|             },\n01350|           }\n01351|           partial.verdict = buildVerdict(partial)\n01352|           result.set(key, partial as TokenRisk)\n01353|         } catch { /* best-effort */ }\n01354|       }))\n01355|     }\n\n(File has more lines. Use 'offset' parameter to read beyond line 1355)\n</file>",
+    "metadata": {
+      "preview": "          const partial: Partial<TokenRisk> = {\n            ...existing,\n            riskLevel: rl.val,\n            flags: [...new Set(flags)],\n            contract: {\n              ...(existing?.contract || {}),\n              deployedAt,\n              agedays,\n            },\n          }\n          partial.verdict = buildVerdict(partial)\n          result.set(key, partial as TokenRisk)\n        } catch { /* best-effort */ }\n      }))\n    }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772817307255,
+      "end": 1772817307258
+    }
+  }
+}

@@ -87,6 +87,39 @@ interface TokenRisk {
   isHoneypot: boolean
   riskLevel: 'safe' | 'low' | 'medium' | 'high'
   flags: string[]
+  taxes?: {
+    buyTax?: number
+    sellTax?: number
+    transferTax?: number
+    source?: 'goplus' | 'honeypot.is'
+  }
+  holders?: {
+    count?: number
+    top10Percent?: number
+    creatorPercent?: number
+    lpHolderCount?: number
+    lpTop10Percent?: number
+  }
+  contract?: {
+    isOpenSource?: boolean
+    isMintable?: boolean
+    isProxy?: boolean
+    canSelfDestruct?: boolean
+    transferPausable?: boolean
+    ownerCanChangeBalance?: boolean
+    canTakeBackOwnership?: boolean
+    hiddenOwner?: boolean
+    deployedAt?: number
+    agedays?: number
+  }
+  liquidity?: {
+    hasLiquidity?: boolean
+    isLiquidityLocked?: boolean
+    lockPercent?: number
+    lockUntil?: string
+    dexName?: string
+  }
+  verdict?: string
 }
 
 interface WalletToken {
@@ -893,6 +926,32 @@ export default function RelaySwap() {
     return { isSpam: flags.length > 0, flags }
   }
 
+  const buildVerdict = (risk: Partial<TokenRisk>): string => {
+    if (risk.isHoneypot) return 'Cannot sell — funds will be trapped'
+    if (risk.flags?.some(f => /sanctioned|cybercrime|money laundering|blackmail|stealing|phishing|malicious/i.test(f)))
+      return 'Flagged by law enforcement / security databases'
+    if (risk.flags?.some(f => /fake token/i.test(f))) return 'Impersonating a legitimate token'
+    if (risk.flags?.some(f => /airdrop scam/i.test(f))) return 'Airdrop scam — designed to steal approvals'
+    if (risk.flags?.some(f => /creator made honeypots/i.test(f))) return 'Deployer has a history of honeypots'
+    if (risk.flags?.some(f => /hidden owner/i.test(f))) return 'Contract owner is concealed — rug risk'
+    if (risk.flags?.some(f => /owner can reclaim/i.test(f))) return 'Owner can reclaim contract at any time'
+    if (risk.flags?.some(f => /self-destruct/i.test(f))) return 'Contract can be destroyed, wiping balances'
+    if (risk.taxes?.sellTax && risk.taxes.sellTax >= 90) return `${risk.taxes.sellTax}% sell tax — effectively unsellable`
+    if (risk.taxes?.sellTax && risk.taxes.sellTax > 20) return `High sell tax (${risk.taxes.sellTax}%) — most value lost on exit`
+    if (risk.holders?.creatorPercent && risk.holders.creatorPercent > 80) return 'Creator controls >80% supply — extreme rug risk'
+    if (!risk.liquidity?.hasLiquidity) return 'No liquidity pool — cannot swap'
+    if (risk.contract?.transferPausable) return 'Transfers can be frozen by owner'
+    if (risk.contract?.ownerCanChangeBalance) return 'Owner can inflate or deflate your balance'
+    if (risk.taxes?.sellTax && risk.taxes.sellTax > 10) return `Sell tax ${risk.taxes.sellTax}% — significant exit cost`
+    if (risk.taxes?.buyTax && risk.taxes.buyTax > 10) return `Buy tax ${risk.taxes.buyTax}% — significant entry cost`
+    if (risk.holders?.top10Percent && risk.holders.top10Percent > 80) return 'Top 10 wallets hold >80% — dump risk'
+    if (risk.contract?.isMintable) return 'New tokens can be minted at any time'
+    if (!risk.contract?.isOpenSource) return 'Contract not verified — code is hidden'
+    if (risk.contract?.agedays !== undefined && risk.contract.agedays < 7) return `Very new contract (${risk.contract.agedays}d old) — unproven`
+    if (risk.riskLevel === 'low') return 'Minor concerns — proceed with caution'
+    return 'No critical issues detected'
+  }
+
   const scanTokenSecurity = async (
     tokens: Array<{ address: string; symbol: string; name: string }>,
     chainId: number
@@ -900,17 +959,23 @@ export default function RelaySwap() {
     const result = new Map<string, TokenRisk>()
     if (tokens.length === 0) return result
 
+    const mkBump = (riskLevel: { val: TokenRisk['riskLevel'] }) => (level: TokenRisk['riskLevel']) => {
+      const order = ['safe', 'low', 'medium', 'high']
+      if (order.indexOf(level) > order.indexOf(riskLevel.val)) riskLevel.val = level
+    }
+
     // Step 1: Heuristic scan (instant, no API)
     for (const { address: addr, symbol, name } of tokens) {
       const h = heuristicSpamCheck(symbol, name)
       if (h.isSpam) {
         result.set(addr.toLowerCase(), {
           isSpam: true, isHoneypot: false, riskLevel: 'high', flags: h.flags,
+          verdict: 'Spam token detected by name/symbol pattern',
         })
       }
     }
 
-    // Step 2: Moralis spam flag (fast, uses existing key)
+    // Step 2: Moralis spam + verified flag
     const moralisChainMap: Record<number, string> = {
       1: 'eth', 8453: 'base', 42161: 'arbitrum', 137: 'polygon',
       10: 'optimism', 56: 'bsc', 43114: 'avalanche',
@@ -931,13 +996,15 @@ export default function RelaySwap() {
             const data: Array<{ address: string; possible_spam: boolean; verified_contract: boolean }> = await res.json()
             for (const item of data) {
               const key = item.address.toLowerCase()
+              const existing = result.get(key)
               if (item.possible_spam) {
-                const existing = result.get(key)
                 result.set(key, {
+                  ...existing,
                   isSpam: true,
                   isHoneypot: existing?.isHoneypot || false,
                   riskLevel: 'high',
-                  flags: [...(existing?.flags || []), 'Flagged by Moralis'],
+                  flags: [...new Set([...(existing?.flags || []), 'Flagged by Moralis'])],
+                  verdict: existing?.verdict,
                 })
               }
             }
@@ -948,14 +1015,14 @@ export default function RelaySwap() {
       }
     }
 
-    // Step 3: GoPlus contract security (comprehensive, free)
+    // Step 3: GoPlus token_security — deepest source, extracts all structured data
     const BATCH = 50
     for (let i = 0; i < tokens.length; i += BATCH) {
       const batch = tokens.slice(i, i + BATCH)
       try {
         const res = await fetch(
           `https://api.gopluslabs.io/api/v1/token_security/${chainId}?contract_addresses=${batch.map(t => t.address).join(',')}`,
-          { signal: AbortSignal.timeout(10000) }
+          { signal: AbortSignal.timeout(12000) }
         )
         if (!res.ok) continue
         const data = await res.json()
@@ -965,12 +1032,8 @@ export default function RelaySwap() {
           const key = addr.toLowerCase()
           const existing = result.get(key)
           const flags: string[] = [...(existing?.flags || [])]
-          let riskLevel: TokenRisk['riskLevel'] = existing?.riskLevel || 'safe'
-
-          const bump = (level: TokenRisk['riskLevel']) => {
-            const order = ['safe', 'low', 'medium', 'high']
-            if (order.indexOf(level) > order.indexOf(riskLevel)) riskLevel = level
-          }
+          const rl = { val: existing?.riskLevel || 'safe' as TokenRisk['riskLevel'] }
+          const bump = mkBump(rl)
 
           const isHoneypot = info.is_honeypot === '1'
           const isAirdropScam = info.is_airdrop_scam === '1'
@@ -981,101 +1044,194 @@ export default function RelaySwap() {
           const honeypotWithSameCreator = info.honeypot_with_same_creator === '1'
           const transferPausable = info.transfer_pausable === '1'
           const isMintable = info.is_mintable === '1'
+          const isProxy = info.is_proxy === '1'
           const isOpenSource = info.is_open_source === '1'
           const buyTax = parseFloat(info.buy_tax || '0')
           const sellTax = parseFloat(info.sell_tax || '0')
+          const transferTax = parseFloat(info.transfer_tax || '0')
           const holderCount = parseInt(info.holder_count || '0')
           const lpHolderCount = parseInt(info.lp_holder_count || '0')
           const creatorPercent = parseFloat(info.creator_percent || '0')
+          const top10HolderPercent = parseFloat(info.holder_count ? '0' : '0')
+          const lpTop10Percent = parseFloat(info.lp_holder_count ? '0' : '0')
 
-          if (isHoneypot && !flags.includes('Honeypot')) { flags.push('Honeypot'); bump('high') }
-          if (isAirdropScam && !flags.includes('Airdrop scam')) { flags.push('Airdrop scam'); bump('high') }
-          if (hiddenOwner && !flags.includes('Hidden owner')) { flags.push('Hidden owner'); bump('high') }
-          if (canTakeBackOwnership) { flags.push('Owner can reclaim'); bump('high') }
-          if (selfDestruct) { flags.push('Self-destruct'); bump('high') }
-          if (honeypotWithSameCreator) { flags.push('Creator made honeypots'); bump('high') }
-          if (ownerChangeBalance) { flags.push('Owner can change balance'); bump('medium') }
-          if (transferPausable) { flags.push('Transfers pausable'); bump('medium') }
-          if (sellTax > 10) { flags.push(`Sell tax ${sellTax}%`); bump('medium') }
+          // Parse top holder concentration from holders array if present
+          let top10Pct = 0
+          try {
+            const holders = JSON.parse(info.holders || '[]') as Array<{ percent: string }>
+            top10Pct = holders.slice(0, 10).reduce((s, h) => s + parseFloat(h.percent || '0'), 0) * 100
+          } catch { /* non-fatal */ }
+
+          let lpLocked = false
+          let lpLockPct = 0
+          let lpLockUntil = ''
+          let dexName = ''
+          try {
+            const lpHolders = JSON.parse(info.lp_holders || '[]') as Array<{ is_locked: number; percent: string; tag?: string; locked_detail?: Array<{ end_time: string }> }>
+            for (const lp of lpHolders) {
+              if (lp.is_locked === 1) {
+                lpLocked = true
+                lpLockPct += parseFloat(lp.percent || '0') * 100
+                const endTime = lp.locked_detail?.[0]?.end_time
+                if (endTime && !lpLockUntil) lpLockUntil = endTime
+              }
+            }
+            const dexInfo = JSON.parse(info.dex || '[]') as Array<{ name: string }>
+            dexName = dexInfo[0]?.name || ''
+          } catch { /* non-fatal */ }
+
+          // Critical flags
+          if (isHoneypot) { if (!flags.includes('Honeypot')) flags.push('Honeypot'); bump('high') }
+          if (isAirdropScam) { if (!flags.includes('Airdrop scam')) flags.push('Airdrop scam'); bump('high') }
+          if (hiddenOwner) { if (!flags.includes('Hidden owner')) flags.push('Hidden owner'); bump('high') }
+          if (canTakeBackOwnership) { if (!flags.includes('Owner can reclaim')) flags.push('Owner can reclaim'); bump('high') }
+          if (selfDestruct) { if (!flags.includes('Self-destruct')) flags.push('Self-destruct'); bump('high') }
+          if (honeypotWithSameCreator) { if (!flags.includes('Creator made honeypots')) flags.push('Creator made honeypots'); bump('high') }
+
+          // Medium flags
+          if (ownerChangeBalance) { if (!flags.includes('Owner can change balance')) flags.push('Owner can change balance'); bump('medium') }
+          if (transferPausable) { if (!flags.includes('Transfers pausable')) flags.push('Transfers pausable'); bump('medium') }
+          if (sellTax >= 90) { flags.push(`Sell tax ${sellTax}% — unsellable`); bump('high') }
+          else if (sellTax > 20) { flags.push(`Sell tax ${sellTax}%`); bump('high') }
+          else if (sellTax > 10) { flags.push(`Sell tax ${sellTax}%`); bump('medium') }
           else if (sellTax > 5) { flags.push(`Sell tax ${sellTax}%`); bump('low') }
-          if (buyTax > 10) { flags.push(`Buy tax ${buyTax}%`); bump('medium') }
-          if (isMintable) { flags.push('Mintable'); bump('low') }
-          if (!isOpenSource) { flags.push('Unverified contract'); bump('low') }
-          // Very few holders + creator holds most supply = likely scam
+          if (buyTax > 20) { flags.push(`Buy tax ${buyTax}%`); bump('high') }
+          else if (buyTax > 10) { flags.push(`Buy tax ${buyTax}%`); bump('medium') }
+          else if (buyTax > 5) { flags.push(`Buy tax ${buyTax}%`); bump('low') }
+          if (transferTax > 5) { flags.push(`Transfer tax ${transferTax}%`); bump('medium') }
+
+          // Holder concentration
           if (holderCount > 0 && holderCount < 50 && creatorPercent > 50) {
             flags.push('Creator holds majority'); bump('high')
+          } else if (creatorPercent > 80) {
+            flags.push(`Creator holds ${creatorPercent.toFixed(0)}%`); bump('high')
+          } else if (creatorPercent > 30) {
+            flags.push(`Creator holds ${creatorPercent.toFixed(0)}%`); bump('medium')
           }
-          // No liquidity pool
-          if (lpHolderCount === 0 && holderCount > 0) { flags.push('No liquidity'); bump('medium') }
+          if (top10Pct > 80) { flags.push(`Top 10 hold ${top10Pct.toFixed(0)}%`); bump('medium') }
 
-          const isSpam = riskLevel === 'high' || isHoneypot || isAirdropScam
+          // Liquidity
+          if (lpHolderCount === 0 && holderCount > 0) { flags.push('No liquidity pool'); bump('medium') }
+          else if (lpLocked && lpLockPct < 50) { flags.push(`Only ${lpLockPct.toFixed(0)}% LP locked`); bump('low') }
 
-          result.set(key, {
+          // Contract properties
+          if (isMintable) { if (!flags.includes('Mintable')) flags.push('Mintable'); bump('low') }
+          if (isProxy) { if (!flags.includes('Proxy contract')) flags.push('Proxy contract'); bump('low') }
+          if (!isOpenSource) { if (!flags.includes('Unverified contract')) flags.push('Unverified contract'); bump('low') }
+
+          const isSpam = rl.val === 'high' || isHoneypot || isAirdropScam
+
+          const partial: Partial<TokenRisk> = {
             isSpam,
             isHoneypot: existing?.isHoneypot || isHoneypot,
-            riskLevel,
+            riskLevel: rl.val,
             flags: [...new Set(flags)],
-          })
+            taxes: {
+              buyTax: buyTax || undefined,
+              sellTax: sellTax || undefined,
+              transferTax: transferTax || undefined,
+              source: 'goplus',
+            },
+            holders: {
+              count: holderCount || undefined,
+              top10Percent: top10Pct || top10HolderPercent || undefined,
+              creatorPercent: creatorPercent || undefined,
+              lpHolderCount: lpHolderCount || undefined,
+              lpTop10Percent: lpTop10Percent || undefined,
+            },
+            contract: {
+              isOpenSource,
+              isMintable,
+              isProxy,
+              canSelfDestruct: selfDestruct,
+              transferPausable,
+              ownerCanChangeBalance: ownerChangeBalance,
+              canTakeBackOwnership,
+              hiddenOwner,
+              ...existing?.contract,
+            },
+            liquidity: {
+              hasLiquidity: lpHolderCount > 0,
+              isLiquidityLocked: lpLocked,
+              lockPercent: lpLockPct || undefined,
+              lockUntil: lpLockUntil || undefined,
+              dexName: dexName || undefined,
+            },
+          }
+          partial.verdict = buildVerdict(partial)
+
+          result.set(key, partial as TokenRisk)
         }
       } catch (e) {
         console.warn('GoPlus scan failed for batch:', e)
       }
     }
 
-    // Step 4: Honeypot.is — dedicated honeypot simulation (ETH, BSC, Base only)
-    const honeypotChains: Record<number, number> = { 1: 1, 56: 56, 8453: 8453 }
+    // Step 4: Honeypot.is — live buy/sell simulation (ETH, BSC, Base, Arbitrum, Polygon)
+    const honeypotChains: Record<number, number> = { 1: 1, 56: 56, 8453: 8453, 42161: 42161, 137: 137 }
     if (honeypotChains[chainId]) {
-      for (const { address: addr } of tokens) {
-        // Skip if already confirmed high-risk honeypot
-        const existing = result.get(addr.toLowerCase())
-        if (existing?.isHoneypot) continue
+      const toSim = tokens.filter(t => !result.get(t.address.toLowerCase())?.isHoneypot)
+      await Promise.all(toSim.map(async ({ address: addr }) => {
         try {
           const res = await fetch(
             `https://api.honeypot.is/v2/IsHoneypot?address=${addr}&chainID=${chainId}`,
-            { signal: AbortSignal.timeout(5000) }
+            { signal: AbortSignal.timeout(6000) }
           )
-          if (!res.ok) continue
+          if (!res.ok) return
           const data = await res.json()
           const isHp = data.isHoneypot === true
           const simulationSuccess = data.simulationSuccess === true
-          const buyTax = data.simulationResult?.buyTax ?? 0
-          const sellTax = data.simulationResult?.sellTax ?? 0
-          const reason = data.honeypotReason as string | undefined
+          if (!simulationSuccess && !isHp) return
 
-          if (!simulationSuccess && !isHp) continue // couldn't simulate, skip
+          const simBuyTax: number = data.simulationResult?.buyTax ?? 0
+          const simSellTax: number = data.simulationResult?.sellTax ?? 0
+          const reason: string | undefined = data.honeypotReason
+          const maxBuy: number = data.simulationResult?.maxBuy?.token ?? 0
+          const maxSell: number = data.simulationResult?.maxSell?.token ?? 0
 
           const key = addr.toLowerCase()
           const prev = result.get(key)
           const flags = [...(prev?.flags || [])]
-          let riskLevel: TokenRisk['riskLevel'] = prev?.riskLevel || 'safe'
-          const bump = (level: TokenRisk['riskLevel']) => {
-            const order = ['safe', 'low', 'medium', 'high']
-            if (order.indexOf(level) > order.indexOf(riskLevel)) riskLevel = level
-          }
+          const rl = { val: prev?.riskLevel || 'safe' as TokenRisk['riskLevel'] }
+          const bump = mkBump(rl)
 
           if (isHp) {
-            flags.push(reason ? `Honeypot: ${reason}` : 'Honeypot (honeypot.is)')
+            flags.push(reason ? `Honeypot: ${reason}` : 'Honeypot (simulated)')
             bump('high')
           }
-          if (sellTax > 10) { flags.push(`Sell tax ${sellTax}% (sim)`); bump('medium') }
-          else if (sellTax > 5) { flags.push(`Sell tax ${sellTax}% (sim)`); bump('low') }
-          if (buyTax > 10) { flags.push(`Buy tax ${buyTax}% (sim)`); bump('medium') }
+          if (simSellTax >= 90) { flags.push(`Sell tax ${simSellTax}% (sim) — unsellable`); bump('high') }
+          else if (simSellTax > 20) { flags.push(`Sell tax ${simSellTax}% (sim)`); bump('high') }
+          else if (simSellTax > 10) { flags.push(`Sell tax ${simSellTax}% (sim)`); bump('medium') }
+          else if (simSellTax > 5) { flags.push(`Sell tax ${simSellTax}% (sim)`); bump('low') }
+          if (simBuyTax > 20) { flags.push(`Buy tax ${simBuyTax}% (sim)`); bump('high') }
+          else if (simBuyTax > 10) { flags.push(`Buy tax ${simBuyTax}% (sim)`); bump('medium') }
+          if (maxBuy > 0 && maxBuy < 0.001) { flags.push('Max buy limit very low'); bump('medium') }
+          if (maxSell > 0 && maxSell < 0.001) { flags.push('Max sell limit very low'); bump('medium') }
 
-          if (flags.length > (prev?.flags.length || 0)) {
-            result.set(key, {
-              isSpam: isHp || riskLevel === 'high',
-              isHoneypot: prev?.isHoneypot || isHp,
-              riskLevel,
-              flags: [...new Set(flags)],
-            })
+          const existingTaxes = prev?.taxes || {}
+          const bestSellTax = simSellTax || existingTaxes.sellTax || 0
+          const bestBuyTax = simBuyTax || existingTaxes.buyTax || 0
+
+          const partial: Partial<TokenRisk> = {
+            ...prev,
+            isHoneypot: prev?.isHoneypot || isHp,
+            isSpam: isHp || rl.val === 'high',
+            riskLevel: rl.val,
+            flags: [...new Set(flags)],
+            taxes: {
+              ...existingTaxes,
+              sellTax: bestSellTax || undefined,
+              buyTax: bestBuyTax || undefined,
+              source: simSellTax > 0 ? 'honeypot.is' : existingTaxes.source,
+            },
           }
-        } catch (e) {
-          // honeypot.is is best-effort
-        }
-      }
+          partial.verdict = buildVerdict(partial)
+          result.set(key, partial as TokenRisk)
+        } catch { /* best-effort */ }
+      }))
     }
 
-    // Step 5: GoPlus address security — parallel fetch, catches what MetaMask flags as "Malicious"
+    // Step 5: GoPlus address_security — catches MetaMask-flagged malicious contracts
     const scanOne = async ({ address: addr }: { address: string }) => {
       const key = addr.toLowerCase()
       const existing = result.get(key)
@@ -1091,11 +1247,8 @@ export default function RelaySwap() {
         const r = data.result as Record<string, string>
 
         const flags: string[] = [...(existing?.flags || [])]
-        let riskLevel: TokenRisk['riskLevel'] = existing?.riskLevel || 'safe'
-        const bump = (level: TokenRisk['riskLevel']) => {
-          const order = ['safe', 'low', 'medium', 'high']
-          if (order.indexOf(level) > order.indexOf(riskLevel)) riskLevel = level
-        }
+        const rl = { val: existing?.riskLevel || 'safe' as TokenRisk['riskLevel'] }
+        const bump = mkBump(rl)
 
         if (r.malicious_contract === '1') { flags.push('Malicious contract'); bump('high') }
         if (r.phishing_activities === '1') { flags.push('Phishing'); bump('high') }
@@ -1113,20 +1266,99 @@ export default function RelaySwap() {
         }
 
         if (flags.length > (existing?.flags?.length || 0)) {
-          result.set(key, {
-            isSpam: riskLevel === 'high',
+          const partial: Partial<TokenRisk> = {
+            ...existing,
+            isSpam: rl.val === 'high',
             isHoneypot: existing?.isHoneypot || false,
-            riskLevel,
+            riskLevel: rl.val,
             flags: [...new Set(flags)],
-          })
+          }
+          partial.verdict = buildVerdict(partial)
+          result.set(key, partial as TokenRisk)
         }
       } catch { /* best-effort */ }
     }
 
-    // Run in parallel with concurrency cap of 5 to avoid rate limiting
     const CONCURRENCY = 5
     for (let i = 0; i < tokens.length; i += CONCURRENCY) {
       await Promise.all(tokens.slice(i, i + CONCURRENCY).map(scanOne))
+    }
+
+    // Step 6: Contract age check via public RPC (creationBlock → timestamp)
+    const ageChainExplorers: Record<number, string> = {
+      1: 'https://api.etherscan.io/api',
+      8453: 'https://api.basescan.org/api',
+      42161: 'https://api.arbiscan.io/api',
+      137: 'https://api.polygonscan.com/api',
+      10: 'https://api-optimistic.etherscan.io/api',
+      56: 'https://api.bscscan.com/api',
+    }
+    const explorerApi = ageChainExplorers[chainId]
+    if (explorerApi) {
+      const toCheck = tokens.filter(t => {
+        const r = result.get(t.address.toLowerCase())
+        return !r?.contract?.agedays
+      })
+      await Promise.all(toCheck.map(async ({ address: addr }) => {
+        try {
+          const res = await fetch(
+            `${explorerApi}?module=contract&action=getcontractcreation&contractaddresses=${addr}&apikey=YourApiKeyToken`,
+            { signal: AbortSignal.timeout(5000) }
+          )
+          if (!res.ok) return
+          const data = await res.json()
+          if (data.status !== '1' || !data.result?.[0]?.txHash) return
+          const txHash = data.result[0].txHash
+          const txRes = await fetch(
+            `${explorerApi}?module=proxy&action=eth_getTransactionByHash&txhash=${txHash}&apikey=YourApiKeyToken`,
+            { signal: AbortSignal.timeout(5000) }
+          )
+          if (!txRes.ok) return
+          const txData = await txRes.json()
+          const blockNum = parseInt(txData.result?.blockNumber, 16)
+          if (!blockNum) return
+
+          const blockRes = await fetch(
+            `${explorerApi}?module=proxy&action=eth_getBlockByNumber&tag=0x${blockNum.toString(16)}&boolean=false&apikey=YourApiKeyToken`,
+            { signal: AbortSignal.timeout(5000) }
+          )
+          if (!blockRes.ok) return
+          const blockData = await blockRes.json()
+          const deployedAt = parseInt(blockData.result?.timestamp, 16)
+          if (!deployedAt) return
+
+          const agedays = Math.floor((Date.now() / 1000 - deployedAt) / 86400)
+          const key = addr.toLowerCase()
+          const existing = result.get(key)
+          const flags = [...(existing?.flags || [])]
+          const rl = { val: existing?.riskLevel || 'safe' as TokenRisk['riskLevel'] }
+          const bump = mkBump(rl)
+
+          if (agedays < 1) { flags.push('Deployed today'); bump('high') }
+          else if (agedays < 7) { flags.push(`Contract ${agedays}d old`); bump('medium') }
+          else if (agedays < 30) { flags.push(`Contract ${agedays}d old`); bump('low') }
+
+          const partial: Partial<TokenRisk> = {
+            ...existing,
+            riskLevel: rl.val,
+            flags: [...new Set(flags)],
+            contract: {
+              ...existing?.contract,
+              deployedAt,
+              agedays,
+            },
+          }
+          partial.verdict = buildVerdict(partial)
+          result.set(key, partial as TokenRisk)
+        } catch { /* best-effort */ }
+      }))
+    }
+
+    // Final pass: ensure every entry has a verdict
+    for (const [key, risk] of result.entries()) {
+      if (!risk.verdict) {
+        result.set(key, { ...risk, verdict: buildVerdict(risk) })
+      }
     }
 
     return result
@@ -3237,7 +3469,7 @@ export default function RelaySwap() {
                       // Categorise flags for display
                       const taxFlags = (risk?.flags || []).filter(f => f.toLowerCase().includes('tax'))
                       const criticalFlags = (risk?.flags || []).filter(f =>
-                        ['honeypot', 'malicious', 'phishing', 'blackmail', 'stealing', 'fake', 'sanctioned', 'cybercrime', 'money laundering', 'airdrop scam', 'hidden owner', 'self-destruct', 'creator made'].some(k => f.toLowerCase().includes(k))
+                        ['honeypot', 'malicious', 'phishing', 'blackmail', 'stealing', 'fake', 'sanctioned', 'cybercrime', 'money laundering', 'airdrop scam', 'hidden owner', 'self-destruct', 'creator made', 'unsellable'].some(k => f.toLowerCase().includes(k))
                       )
                       const warningFlags = (risk?.flags || []).filter(f => !taxFlags.includes(f) && !criticalFlags.includes(f))
 
@@ -3289,39 +3521,142 @@ export default function RelaySwap() {
                             </div>
                           </div>
 
-                          {/* Security detail panel — shown for any token with risk flags */}
-                          {hasAnyRisk && risk && risk.flags.length > 0 && (
-                            <div className={`mx-2 mb-2 rounded px-2 py-1.5 text-[10px] space-y-1 ${isHighRisk ? 'bg-destructive/10' : isMedRisk ? 'bg-yellow-500/10' : 'bg-blue-500/10'}`}>
-                              {criticalFlags.length > 0 && (
-                                <div className="space-y-0.5">
-                                  {criticalFlags.map((f, fi) => (
-                                    <div key={fi} className="flex items-start gap-1 text-destructive font-medium">
-                                      <span className="mt-px">✕</span><span>{f}</span>
-                                    </div>
-                                  ))}
+                          {/* Security detail panel */}
+                          {hasAnyRisk && risk && (
+                            <div className={`mx-2 mb-2 rounded text-[10px] overflow-hidden border ${isHighRisk ? 'border-destructive/30' : isMedRisk ? 'border-yellow-500/30' : 'border-blue-500/20'}`}>
+                              {/* Verdict banner */}
+                              {risk.verdict && (
+                                <div className={`px-2 py-1 font-medium ${isHighRisk ? 'bg-destructive/20 text-destructive' : isMedRisk ? 'bg-yellow-500/15 text-yellow-400' : 'bg-blue-500/10 text-blue-400'}`}>
+                                  {risk.verdict}
                                 </div>
                               )}
-                              {taxFlags.length > 0 && (
-                                <div className="space-y-0.5">
-                                  {taxFlags.map((f, fi) => (
-                                    <div key={fi} className="flex items-start gap-1 text-yellow-400">
-                                      <span className="mt-px">⚠</span><span>{f}</span>
+
+                              <div className="px-2 py-1.5 space-y-2">
+                                {/* Tax section */}
+                                {(risk.taxes?.sellTax || risk.taxes?.buyTax || risk.taxes?.transferTax) ? (
+                                  <div className="space-y-0.5">
+                                    <div className="text-muted-foreground font-medium uppercase tracking-wide text-[9px]">Taxes</div>
+                                    <div className="flex gap-3 flex-wrap">
+                                      {risk.taxes.buyTax !== undefined && risk.taxes.buyTax > 0 && (
+                                        <span className={`${risk.taxes.buyTax > 10 ? 'text-destructive' : risk.taxes.buyTax > 5 ? 'text-yellow-400' : 'text-muted-foreground'}`}>
+                                          Buy {risk.taxes.buyTax}%
+                                        </span>
+                                      )}
+                                      {risk.taxes.sellTax !== undefined && risk.taxes.sellTax > 0 && (
+                                        <span className={`${risk.taxes.sellTax > 10 ? 'text-destructive' : risk.taxes.sellTax > 5 ? 'text-yellow-400' : 'text-muted-foreground'}`}>
+                                          Sell {risk.taxes.sellTax}%
+                                        </span>
+                                      )}
+                                      {risk.taxes.transferTax !== undefined && risk.taxes.transferTax > 0 && (
+                                        <span className="text-yellow-400">Transfer {risk.taxes.transferTax}%</span>
+                                      )}
+                                      {risk.taxes.source && (
+                                        <span className="text-muted-foreground/60">via {risk.taxes.source}</span>
+                                      )}
                                     </div>
-                                  ))}
-                                </div>
-                              )}
-                              {warningFlags.length > 0 && (
-                                <div className="space-y-0.5">
-                                  {warningFlags.map((f, fi) => (
-                                    <div key={fi} className="flex items-start gap-1 text-muted-foreground">
-                                      <span className="mt-px">·</span><span>{f}</span>
+                                  </div>
+                                ) : null}
+
+                                {/* Holder stats */}
+                                {(risk.holders?.count || risk.holders?.creatorPercent || risk.holders?.top10Percent) ? (
+                                  <div className="space-y-0.5">
+                                    <div className="text-muted-foreground font-medium uppercase tracking-wide text-[9px]">Holders</div>
+                                    <div className="flex gap-3 flex-wrap">
+                                      {risk.holders.count !== undefined && (
+                                        <span className={`${risk.holders.count < 50 ? 'text-destructive' : risk.holders.count < 200 ? 'text-yellow-400' : 'text-muted-foreground'}`}>
+                                          {risk.holders.count.toLocaleString()} holders
+                                        </span>
+                                      )}
+                                      {risk.holders.creatorPercent !== undefined && risk.holders.creatorPercent > 0 && (
+                                        <span className={`${risk.holders.creatorPercent > 50 ? 'text-destructive' : risk.holders.creatorPercent > 20 ? 'text-yellow-400' : 'text-muted-foreground'}`}>
+                                          Creator {risk.holders.creatorPercent.toFixed(1)}%
+                                        </span>
+                                      )}
+                                      {risk.holders.top10Percent !== undefined && risk.holders.top10Percent > 0 && (
+                                        <span className={`${risk.holders.top10Percent > 80 ? 'text-destructive' : risk.holders.top10Percent > 60 ? 'text-yellow-400' : 'text-muted-foreground'}`}>
+                                          Top10 {risk.holders.top10Percent.toFixed(0)}%
+                                        </span>
+                                      )}
                                     </div>
-                                  ))}
-                                </div>
-                              )}
-                              {isHighRisk && wt.selected !== false && (
-                                <div className="text-destructive font-medium pt-0.5">Deselect to proceed with batch swap</div>
-                              )}
+                                  </div>
+                                ) : null}
+
+                                {/* Liquidity */}
+                                {risk.liquidity && (
+                                  <div className="space-y-0.5">
+                                    <div className="text-muted-foreground font-medium uppercase tracking-wide text-[9px]">Liquidity</div>
+                                    <div className="flex gap-3 flex-wrap">
+                                      {!risk.liquidity.hasLiquidity ? (
+                                        <span className="text-destructive">No liquidity pool</span>
+                                      ) : (
+                                        <>
+                                          {risk.liquidity.dexName && <span className="text-muted-foreground">{risk.liquidity.dexName}</span>}
+                                          {risk.liquidity.isLiquidityLocked ? (
+                                            <span className="text-green-400">
+                                              {risk.liquidity.lockPercent ? `${risk.liquidity.lockPercent.toFixed(0)}% locked` : 'Locked'}
+                                              {risk.liquidity.lockUntil ? ` until ${new Date(parseInt(risk.liquidity.lockUntil) * 1000).toLocaleDateString()}` : ''}
+                                            </span>
+                                          ) : (
+                                            <span className="text-yellow-400">LP not locked</span>
+                                          )}
+                                        </>
+                                      )}
+                                    </div>
+                                  </div>
+                                )}
+
+                                {/* Contract properties */}
+                                {risk.contract && (
+                                  <div className="space-y-0.5">
+                                    <div className="text-muted-foreground font-medium uppercase tracking-wide text-[9px]">Contract</div>
+                                    <div className="flex gap-2 flex-wrap">
+                                      {risk.contract.agedays !== undefined && (
+                                        <span className={`${risk.contract.agedays < 7 ? 'text-destructive' : risk.contract.agedays < 30 ? 'text-yellow-400' : 'text-muted-foreground'}`}>
+                                          {risk.contract.agedays < 1 ? 'Deployed today' : `${risk.contract.agedays}d old`}
+                                        </span>
+                                      )}
+                                      <span className={risk.contract.isOpenSource ? 'text-green-400' : 'text-destructive'}>
+                                        {risk.contract.isOpenSource ? 'Verified' : 'Unverified'}
+                                      </span>
+                                      {risk.contract.isMintable && <span className="text-yellow-400">Mintable</span>}
+                                      {risk.contract.isProxy && <span className="text-yellow-400">Proxy</span>}
+                                      {risk.contract.canSelfDestruct && <span className="text-destructive">Self-destruct</span>}
+                                      {risk.contract.transferPausable && <span className="text-destructive">Pausable</span>}
+                                      {risk.contract.ownerCanChangeBalance && <span className="text-destructive">Balance editable</span>}
+                                      {risk.contract.hiddenOwner && <span className="text-destructive">Hidden owner</span>}
+                                    </div>
+                                  </div>
+                                )}
+
+                                {/* Critical flags not covered above */}
+                                {criticalFlags.length > 0 && (
+                                  <div className="space-y-0.5">
+                                    <div className="text-muted-foreground font-medium uppercase tracking-wide text-[9px]">Alerts</div>
+                                    {criticalFlags.map((f, fi) => (
+                                      <div key={fi} className="flex items-start gap-1 text-destructive font-medium">
+                                        <span className="mt-px flex-shrink-0">✕</span><span>{f}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {/* Warning flags */}
+                                {warningFlags.filter(f => !f.toLowerCase().includes('tax') && !f.toLowerCase().includes('holder') && !f.toLowerCase().includes('liquidity') && !f.toLowerCase().includes('contract') && !f.toLowerCase().includes('verified') && !f.toLowerCase().includes('mintable') && !f.toLowerCase().includes('proxy') && !f.toLowerCase().includes('old') && !f.toLowerCase().includes('today')).length > 0 && (
+                                  <div className="space-y-0.5">
+                                    {warningFlags.filter(f => !f.toLowerCase().includes('tax') && !f.toLowerCase().includes('holder') && !f.toLowerCase().includes('liquidity') && !f.toLowerCase().includes('contract') && !f.toLowerCase().includes('verified') && !f.toLowerCase().includes('mintable') && !f.toLowerCase().includes('proxy') && !f.toLowerCase().includes('old') && !f.toLowerCase().includes('today')).map((f, fi) => (
+                                      <div key={fi} className="flex items-start gap-1 text-muted-foreground">
+                                        <span className="mt-px flex-shrink-0">·</span><span>{f}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {isHighRisk && wt.selected !== false && (
+                                  <div className="text-destructive font-medium border-t border-destructive/20 pt-1 mt-1">
+                                    Deselect to proceed with batch swap
+                                  </div>
+                                )}
+                              </div>
                             </div>
                           )}
                         </div>

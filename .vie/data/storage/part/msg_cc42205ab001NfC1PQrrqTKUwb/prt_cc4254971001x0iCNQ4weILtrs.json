@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc4254971001x0iCNQ4weILtrs",
+  "messageID": "msg_cc42205ab001NfC1PQrrqTKUwb",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01YELxBvzXzQ8L2HDF9eLbgy",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1145,
+      "limit": 15
+    },
+    "output": "<file>\n01146|               canSelfDestruct: selfDestruct,\n01147|               transferPausable,\n01148|               ownerCanChangeBalance: ownerChangeBalance,\n01149|               canTakeBackOwnership,\n01150|               hiddenOwner,\n01151|               ...(existing?.contract || {}),\n01152|             },\n01153|             liquidity: {\n01154|               hasLiquidity: lpHolderCount > 0,\n01155|               isLiquidityLocked: lpLocked,\n01156|               lockPercent: lpLockPct || undefined,\n01157|               lockUntil: lpLockUntil || undefined,\n01158|               dexName: dexName || undefined,\n01159|             },\n01160|           }\n\n(File has more lines. Use 'offset' parameter to read beyond line 1160)\n</file>",
+    "metadata": {
+      "preview": "              canSelfDestruct: selfDestruct,\n              transferPausable,\n              ownerCanChangeBalance: ownerChangeBalance,\n              canTakeBackOwnership,\n              hiddenOwner,\n              ...(existing?.contract || {}),\n            },\n            liquidity: {\n              hasLiquidity: lpHolderCount > 0,\n              isLiquidityLocked: lpLocked,\n              lockPercent: lpLockPct || undefined,\n              lockUntil: lpLockUntil || undefined,\n              dexName: dexName || undefined,\n            },\n          }"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772817304595,
+      "end": 1772817304597
+    }
+  }
+}

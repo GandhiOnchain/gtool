@@ -1,0 +1,97 @@
+{
+  "id": "prt_cc42249bd001PvBiHlbl8l8tJI",
+  "messageID": "msg_cc42205ab001NfC1PQrrqTKUwb",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_bdrk_012r9w7z3HYz5moAoBBC2mor",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Expand TokenRisk interface with richer metadata (taxes, holder stats, liquidity, contract age)",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Upgrade scanTokenSecurity with deeper GoPlus data extraction + new heuristics",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Add token age check via contract deployment block (etherscan/blockscout)",
+          "status": "pending",
+          "priority": "medium",
+          "id": "3"
+        },
+        {
+          "content": "Add liquidity concentration check (top LP holders)",
+          "status": "pending",
+          "priority": "medium",
+          "id": "4"
+        },
+        {
+          "content": "Redesign security UI panel — structured sections for taxes, contract risks, holder stats, verdict",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "6"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Expand TokenRisk interface with richer metadata (taxes, holder stats, liquidity, contract age)\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Upgrade scanTokenSecurity with deeper GoPlus data extraction + new heuristics\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Add token age check via contract deployment block (etherscan/blockscout)\",\n    \"status\": \"pending\",\n    \"priority\": \"medium\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Add liquidity concentration check (top LP holders)\",\n    \"status\": \"pending\",\n    \"priority\": \"medium\",\n    \"id\": \"4\"\n  },\n  {\n    \"content\": \"Redesign security UI panel — structured sections for taxes, contract risks, holder stats, verdict\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"5\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"6\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Expand TokenRisk interface with richer metadata (taxes, holder stats, liquidity, contract age)",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Upgrade scanTokenSecurity with deeper GoPlus data extraction + new heuristics",
+          "status": "pending",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Add token age check via contract deployment block (etherscan/blockscout)",
+          "status": "pending",
+          "priority": "medium",
+          "id": "3"
+        },
+        {
+          "content": "Add liquidity concentration check (top LP holders)",
+          "status": "pending",
+          "priority": "medium",
+          "id": "4"
+        },
+        {
+          "content": "Redesign security UI panel — structured sections for taxes, contract risks, holder stats, verdict",
+          "status": "pending",
+          "priority": "high",
+          "id": "5"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "6"
+        }
+      ]
+    },
+    "title": "6 todos",
+    "time": {
+      "start": 1772817109925,
+      "end": 1772817109925
+    }
+  }
+}
