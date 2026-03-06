@@ -7,8 +7,7 @@ import { parseUnits, formatUnits, createPublicClient, http, defineChain, getAddr
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
 import { useRelayChains, useTokenList, useTokenPrice, useQuote, useExecutionStatus } from '@relayprotocol/relay-kit-hooks'
-import { getClient, createClient, MAINNET_RELAY_API, adaptViemWallet } from '@relayprotocol/relay-sdk'
-import type { AdaptedWallet } from '@relayprotocol/relay-sdk'
+import { getClient, createClient, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'
 
 import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
 import { config } from '@/config'
@@ -237,52 +236,14 @@ export default function RelaySwap() {
   const { chains: relayChains, viemChains } = useRelayChains()
   const chains: RelayChain[] = ((relayChains || []) as unknown as RelayChain[]).filter((c: RelayChain) => !c.disabled && c.vmType !== 'bvm')
 
-  const walletClient: AdaptedWallet | undefined = React.useMemo(() => {
-    if (!rawWalletClient) return undefined
-    const base = adaptViemWallet(rawWalletClient)
-
-    const sendTxClean = async (chainId: number, stepItem: { data: Record<string, unknown> }) => {
-      const client = getClient()
-      const chain = client?.chains?.find((c) => c.id === chainId)?.viemChain
-      if (!chain) throw new Error(`Chain ${chainId} not found in relay client`)
-      const { createWalletClient: createWC, custom: customTransport, hexToBigInt } = await import('viem')
-      const wc = createWC({
-        account: rawWalletClient.account ?? (stepItem.data.from as `0x${string}`),
-        chain,
-        transport: customTransport(rawWalletClient.transport, { retryCount: 10, retryDelay: 200 }),
-      })
-      const rawValue = (stepItem.data.value as string) || '0'
-      const value = /^0x/i.test(rawValue) ? hexToBigInt(rawValue as `0x${string}`) : BigInt(rawValue)
-      return wc.sendTransaction({
-        chain,
-        account: rawWalletClient.account ?? (stepItem.data.from as `0x${string}`),
-        to: stepItem.data.to as `0x${string}`,
-        data: stepItem.data.data as `0x${string}`,
-        value,
-      })
-    }
-
-    return {
-      ...base,
-      supportsAtomicBatch: async () => false,
-      handleSendTransactionStep: async (chainId, stepItem) =>
-        sendTxClean(chainId, stepItem as { data: Record<string, unknown> }),
-      handleBatchTransactionStep: async (chainId, items) => {
-        for (const item of items) {
-          await sendTxClean(chainId, item as { data: Record<string, unknown> })
-        }
-        return 'batch'
-      },
-    }
-  }, [rawWalletClient])
+  const walletClient = rawWalletClient ?? undefined
 
   useEffect(() => {
     if (viemChains && viemChains.length > 0) {
-      const client = createClient({
+      createClient({
         baseApiUrl: MAINNET_RELAY_API,
         chains: relayChains as unknown as Parameters<typeof createClient>[0]['chains'],
       })
-      client.configure({ useGasFeeEstimations: false })
     }
   }, [viemChains])
   const [fromChain, setFromChain] = useState<RelayChain | null>(null)

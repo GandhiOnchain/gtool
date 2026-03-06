@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc3e2da13002CuQojIp163S0Gl",
+  "messageID": "msg_cc3e12b0b001XVAKM2sU3W0Eh4",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Clean. Here's what was wrong and why this is the correct fix:\n\n**The actual problem**: Every attempt to \"fix\" gas was making things worse by wrapping the SDK's wallet adapter with custom code. The docs show one clear pattern: pass `walletClient.data` (raw viem WalletClient) directly — the SDK calls `adaptViemWallet` internally and handles everything. Our custom `AdaptedWallet` wrapper was:\n\n1. Breaking the SDK's internal chain lookup (`client.chains.find(c => c.id === chainId)?.viemChain`) by creating a new wallet client outside the SDK's chain registry\n2. Incorrectly handling `handleBatchTransactionStep` (returning `'batch'` string instead of a proper call bundle ID)\n3. Interfering with `handleConfirmTransactionStep` (inherited from base but operating on a different wallet client context)\n4. The `useGasFeeEstimations: false` was an undocumented internal property we were trying to abuse\n\n**The correct implementation** (exactly as the docs show):\n- `createClient({ baseApiUrl, chains })` — nothing else\n- `walletClient.data` passed directly to `useQuote` — no wrapping, no adapting\n- The SDK's `adaptViemWallet` runs internally, uses the correct chain from the relay client registry, and sends transactions through the wallet's own transport",
+  "time": {
+    "start": 1772812956796,
+    "end": 1772812956796
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc3e223d6001FxpD1qZcojKr2c",
+  "messageID": "msg_cc3e12b0b001XVAKM2sU3W0Eh4",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_019ScU8rNRGwwGcZsr9fkwoX",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 230,
+      "limit": 45
+    },
+    "output": "<file>\n00231| export default function RelaySwap() {\n00232|   const { address, isConnected, chainId: connectedChainId, connector } = useAccount()\n00233|   const { connect, connectors } = useConnect()\n00234|   const { disconnect } = useWallet()\n00235|   const { switchChain } = useSwitchChain()\n00236|   const { data: rawWalletClient } = useWalletClient()\n00237|   const { chains: relayChains, viemChains } = useRelayChains()\n00238|   const chains: RelayChain[] = ((relayChains || []) as unknown as RelayChain[]).filter((c: RelayChain) => !c.disabled && c.vmType !== 'bvm')\n00239| \n00240|   const walletClient: AdaptedWallet | undefined = React.useMemo(() => {\n00241|     if (!rawWalletClient) return undefined\n00242|     const base = adaptViemWallet(rawWalletClient)\n00243| \n00244|     const sendTxClean = async (chainId: number, stepItem: { data: Record<string, unknown> }) => {\n00245|       const client = getClient()\n00246|       const chain = client?.chains?.find((c) => c.id === chainId)?.viemChain\n00247|       if (!chain) throw new Error(`Chain ${chainId} not found in relay client`)\n00248|       const { createWalletClient: createWC, custom: customTransport, hexToBigInt } = await import('viem')\n00249|       const wc = createWC({\n00250|         account: rawWalletClient.account ?? (stepItem.data.from as `0x${string}`),\n00251|         chain,\n00252|         transport: customTransport(rawWalletClient.transport, { retryCount: 10, retryDelay: 200 }),\n00253|       })\n00254|       const rawValue = (stepItem.data.value as string) || '0'\n00255|       const value = /^0x/i.test(rawValue) ? hexToBigInt(rawValue as `0x${string}`) : BigInt(rawValue)\n00256|       return wc.sendTransaction({\n00257|         chain,\n00258|         account: rawWalletClient.account ?? (stepItem.data.from as `0x${string}`),\n00259|         to: stepItem.data.to as `0x${string}`,\n00260|         data: stepItem.data.data as `0x${string}`,\n00261|         value,\n00262|       })\n00263|     }\n00264| \n00265|     return {\n00266|       ...base,\n00267|       supportsAtomicBatch: async () => false,\n00268|       handleSendTransactionStep: async (chainId, stepItem) =>\n00269|         sendTxClean(chainId, stepItem as { data: Record<string, unknown> }),\n00270|       handleBatchTransactionStep: async (chainId, items) => {\n00271|         for (const item of items) {\n00272|           await sendTxClean(chainId, item as { data: Record<string, unknown> })\n00273|         }\n00274|         return 'batch'\n00275|       },\n\n(File has more lines. Use 'offset' parameter to read beyond line 275)\n</file>",
+    "metadata": {
+      "preview": "export default function RelaySwap() {\n  const { address, isConnected, chainId: connectedChainId, connector } = useAccount()\n  const { connect, connectors } = useConnect()\n  const { disconnect } = useWallet()\n  const { switchChain } = useSwitchChain()\n  const { data: rawWalletClient } = useWalletClient()\n  const { chains: relayChains, viemChains } = useRelayChains()\n  const chains: RelayChain[] = ((relayChains || []) as unknown as RelayChain[]).filter((c: RelayChain) => !c.disabled && c.vmType !== 'bvm')\n\n  const walletClient: AdaptedWallet | undefined = React.useMemo(() => {\n    if (!rawWalletClient) return undefined\n    const base = adaptViemWallet(rawWalletClient)\n\n    const sendTxClean = async (chainId: number, stepItem: { data: Record<string, unknown> }) => {\n      const client = getClient()\n      const chain = client?.chains?.find((c) => c.id === chainId)?.viemChain\n      if (!chain) throw new Error(`Chain ${chainId} not found in relay client`)\n      const { createWalletClient: createWC, custom: customTransport, hexToBigInt } = await import('viem')\n      const wc = createWC({\n        account: rawWalletClient.account ?? (stepItem.data.from as `0x${string}`),"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772812903847,
+      "end": 1772812903849
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc3e2455f001LeXJuqCOnyw5PK",
+  "messageID": "msg_cc3e12b0b001XVAKM2sU3W0Eh4",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I have the full picture from the docs. The correct pattern is:\n\n1. `createClient` with just `baseApiUrl` and `chains` — no undocumented options\n2. Pass `walletClient.data` (raw viem WalletClient) directly — no custom adapter\n3. The SDK handles everything internally via `adaptViemWallet`\n\nThe gas issue is caused by our custom adapter breaking the SDK's internal chain lookup and transaction flow. Let me strip everything back to exactly what the docs show:",
+  "time": {
+    "start": 1772812915941,
+    "end": 1772812915941
+  }
+}

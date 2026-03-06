@@ -1,0 +1,22 @@
+{
+  "id": "prt_cc3e1c7a1001ddeGxbm3FO6akC",
+  "messageID": "msg_cc3e12b0b001XVAKM2sU3W0Eh4",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "webfetch",
+  "callID": "toolu_bdrk_01Pay91m2gP1ViaT71E4QMpU",
+  "state": {
+    "status": "completed",
+    "input": {
+      "url": "https://docs.relay.link/references/relay-kit/sdk/createClient",
+      "format": "markdown"
+    },
+    "output": "createClient - Relay\n\n[Skip to main content](#content-area)\n\n[Relay home page![light logo](https://mintcdn.com/unevenlabs/4kwoXCaHcjpG2B6s/logo/relay-black.svg?fit=max&auto=format&n=4kwoXCaHcjpG2B6s&q=85&s=af9d50bf980d700e8259fe615ab2dbd2)![dark logo](https://mintcdn.com/unevenlabs/4kwoXCaHcjpG2B6s/logo/relay-white.svg?fit=max&auto=format&n=4kwoXCaHcjpG2B6s&q=85&s=e15df102201fa5852ec1b71b6560b06d)](/)\n\nSearch...\n\n⌘KAsk AI\n\n-   [Support](https://support.relay.link/en/)\n-   [Get in Touch](https://forms.gle/XNeELYavjwoJwPEf7)\n-   [Try Relay](https://www.relay.link/)\n-   [\n    \n    Try Relay\n    \n    ](https://www.relay.link/)\n\nSearch...\n\nNavigation\n\nSDK\n\ncreateClient\n\n[Overview\n\n](/what-is-relay)[API Reference\n\n](/references/api/overview)[RelayKit\n\n](/references/relay-kit/overview)[Relay Protocol\n\n](/references/protocol/overview)\n\n##### RelayKit\n\n-   [\n    \n    Overview\n    \n    \n    \n    ](/references/relay-kit/overview)\n-   SDK\n    \n    -   [\n        \n        Installation\n        \n        \n        \n        ](/references/relay-kit/sdk/installation)\n    -   [\n        \n        createClient\n        \n        \n        \n        ](/references/relay-kit/sdk/createClient)\n    -   Actions\n        \n    -   [\n        \n        Adapters\n        \n        \n        \n        ](/references/relay-kit/sdk/adapters)\n    -   [\n        \n        Typescript API Typings\n        \n        \n        \n        ](/references/relay-kit/sdk/api-types)\n    -   [\n        \n        Chain Utils\n        \n        \n        \n        ](/references/relay-kit/sdk/chain-utils)\n-   Hooks\n    \n-   UI\n    \n\n \n\nOn this page\n\n-   [Options](#options)\n\nSDK\n\n# createClient\n\nCopy page\n\nCopy page\n\nThis method is used to create the Relay client globally in your application. The client can then be retrieved with the `getClient` method.\n\n## \n\n[​\n\n](#options)\n\nOptions\n\nProperty\n\nDescription\n\nRequired\n\n**baseApiUrl**\n\nThe base API url to use when making requests. You can use the `MAINNET_RELAY_API` or the `TESTNET_RELAY_API` constants exported by the package, or pass in your own proxy API url to protect your API key on the client.\n\n✅\n\n**apiKey**\n\nA Relay API key to use when making requests. Only pass in this property when the Relay client instance is used exclusively server-side. Otherwise you’ll leak your key to the client.\n\n❌\n\n**chains**\n\nA list of Relay Chains, by default a list of backup chains is configured\n\n❌\n\n**source**\n\nThe source to associate your onchain activity with, should map to a domain\n\n❌\n\n**logLevel**\n\nThe level at which to log, refer to the `LogLevel` enum exported by the package\n\n❌\n\n**pollingInterval**\n\nHow often to poll status and check apis, this value is in milliseconds\n\n❌\n\n**maxPollingAttemptsBeforeTimeout**\n\nThe source to associate your onchain activity with, should be set to a domain\n\n❌\n\nCopy\n\nAsk AI\n\n```\nimport {\n  createClient,\n  convertViemChainToRelayChain,\n  MAINNET_RELAY_API,\n} from \"@relayprotocol/relay-sdk\";\nimport { mainnet } from \"viem/chains\";\n\ncreateClient({\n  baseApiUrl: MAINNET_RELAY_API,\n  source: \"YOUR.SOURCE\",\n  chains: [convertViemChainToRelayChain(mainnet)],\n});\n```\n\nWas this page helpful?\n\nYesNo\n\n[Installation](/references/relay-kit/sdk/installation)[getQuote](/references/relay-kit/sdk/actions/getQuote)\n\n⌘I\n\n[twitter](https://twitter.com/RelayProtocol)[discord](https://discord.com/invite/relayprotocol)\n\n[Powered by](https://www.mintlify.com?utm_campaign=poweredBy&utm_medium=referral&utm_source=unevenlabs)\n\nAssistant\n\nResponses are generated using AI and may contain mistakes.",
+    "metadata": {},
+    "title": "https://docs.relay.link/references/relay-kit/sdk/createClient (text/html; charset=utf-8)",
+    "time": {
+      "start": 1772812880073,
+      "end": 1772812880682
+    }
+  }
+}
