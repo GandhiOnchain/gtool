@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc1837451001LIGwTmP0EzEHb0",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I see it clearly. `useQuote` calls `client?.actions?.execute({ wallet, quote: response.data, onProgress })`. The `wallet` here is our custom `walletClient` (the AdaptedWallet override). The `execute` action calls `isViemWalletClient(wallet)` — if false, uses it as AdaptedWallet directly. Our override has `handleSendTransactionStep` that strips gas fields and calls `base.handleSendTransactionStep`.\n\n**But the base `handleSendTransactionStep` still checks `client.useGasFeeEstimations`**. Let me verify the timing — `configure` is called in a `useEffect` which runs after the first render. If `executeQuote` is called before `viemChains` loads (unlikely but possible), the client might not have `useGasFeeEstimations: false` yet.\n\nThe real fix: **don't rely on `configure` timing at all**. Since our custom `handleSendTransactionStep` already strips `gas`, `maxFeePerGas`, `maxPriorityFeePerGas` from `item.data` before calling `base`, the base will see `undefined` for those fields and the `&&` check will be falsy regardless of `useGasFeeEstimations`. So our override IS correct.\n\nThe screenshot shows `$2.72` fee on an **approval** transaction to `RelayAppr...`. This is the ERC-20 `approve()` call. The high fee on approval is NOT from gas price — it's from **gas limit**. The Relay quote sets a very high gas limit for the approval step. Let me check what gas limit the quote returns for approvals:",
+  "time": {
+    "start": 1772773157396,
+    "end": 1772773157396
+  }
+}

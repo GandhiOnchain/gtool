@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc184d93d001LE6VFyjFSfHS3b",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01CNCMYhdpM3DfrrbAMf5M9d",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"rawWalletClient\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -10",
+      "description": "Find rawWalletClient usages"
+    },
+    "output": "235:  const { data: rawWalletClient } = useWalletClient()\n239:  const walletClient = rawWalletClient ?? undefined\n1486:    if (!rawWalletClient) {\n",
+    "metadata": {
+      "output": "235:  const { data: rawWalletClient } = useWalletClient()\n239:  const walletClient = rawWalletClient ?? undefined\n1486:    if (!rawWalletClient) {\n",
+      "exit": 0,
+      "description": "Find rawWalletClient usages"
+    },
+    "title": "grep -n \"rawWalletClient\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -10",
+    "time": {
+      "start": 1772773235540,
+      "end": 1772773235551
+    }
+  }
+}

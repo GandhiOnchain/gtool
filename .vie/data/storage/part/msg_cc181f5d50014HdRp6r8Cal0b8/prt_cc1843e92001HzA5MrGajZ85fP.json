@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc1843e92001HzA5MrGajZ85fP",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "The custom `walletClient` override looks correct. But there's a subtle issue: **`useQuote` receives `walletClient` as the second parameter**. Looking at the hook signature: `useQuote(client, wallet, options, ...)`. The `wallet` is our custom AdaptedWallet. When `executeQuote` is called, it calls `client?.actions?.execute({ wallet, quote })`. \n\n**But `client` here is `getClient() ?? undefined`** — the relay client. The `execute` action then calls `isViemWalletClient(wallet)` on our custom wallet. Our custom wallet has `...base` spread — `base` is from `adaptViemWallet` which does NOT have `extend` or `getPermissions`. So `isViemWalletClient` returns false, and our wallet is used as-is (AdaptedWallet). Our `handleSendTransactionStep` is called. ✅\n\n**The actual root cause**: The `configure` call happens in a `useEffect` — but `createClient` is called for the first time inside that same effect. The `createClient` function: if `_client` is null, creates new with default `useGasFeeEstimations: true`. Then we immediately call `configure({ useGasFeeEstimations: false })`. This should work.\n\n**Unless** — `useRelayChains` from `@relayprotocol/relay-kit-hooks` internally calls `createClient` or `getClient` and creates the client first with defaults. Let me check:",
+  "time": {
+    "start": 1772773206741,
+    "end": 1772773206741
+  }
+}

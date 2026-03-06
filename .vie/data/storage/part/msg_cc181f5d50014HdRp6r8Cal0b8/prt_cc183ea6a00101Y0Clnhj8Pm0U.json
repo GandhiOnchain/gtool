@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc183ea6a00101Y0Clnhj8Pm0U",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_013ok3WGoBi3mvkCNhWPFwEU",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -rn \"useGasFeeEstimations\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_esm/ 2>/dev/null | head -10",
+      "description": "Check if relay-kit-hooks uses useGasFeeEstimations"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Check if relay-kit-hooks uses useGasFeeEstimations"
+    },
+    "title": "grep -rn \"useGasFeeEstimations\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_esm/ 2>/dev/null | head -10",
+    "time": {
+      "start": 1772773175021,
+      "end": 1772773175036
+    }
+  }
+}

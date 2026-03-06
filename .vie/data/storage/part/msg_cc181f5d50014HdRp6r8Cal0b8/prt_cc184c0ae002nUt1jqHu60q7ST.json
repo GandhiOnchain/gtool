@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc184c0ae002nUt1jqHu60q7ST",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now check the `useQuote` call — it passes `walletClient` which is now the raw viem WalletClient. The hook signature accepts `wallet` as viem WalletClient or AdaptedWallet. Also check the `executeSwap` function which checks `rawWalletClient`:",
+  "time": {
+    "start": 1772773232546,
+    "end": 1772773232546
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc182e284001YQYdRyZKClJ0CW",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01BoSXhkjL2woWCocKxz2Vnq",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -rn \"depositGasLimit\\|gas\\b\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/actions/execute.js 2>/dev/null | head -30",
+      "description": "Check execute action for gas handling"
+    },
+    "output": "9: * @param data.depositGasLimit A gas limit to use in base units (wei, etc)\n15:    const { quote, wallet, depositGasLimit, onProgress } = data;\n63:            }, _quote, depositGasLimit\n66:                        gasLimit: depositGasLimit\n",
+    "metadata": {
+      "output": "9: * @param data.depositGasLimit A gas limit to use in base units (wei, etc)\n15:    const { quote, wallet, depositGasLimit, onProgress } = data;\n63:            }, _quote, depositGasLimit\n66:                        gasLimit: depositGasLimit\n",
+      "exit": 0,
+      "description": "Check execute action for gas handling"
+    },
+    "title": "grep -rn \"depositGasLimit\\|gas\\b\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/actions/execute.js 2>/dev/null | head -30",
+    "time": {
+      "start": 1772773107850,
+      "end": 1772773107853
+    }
+  }
+}

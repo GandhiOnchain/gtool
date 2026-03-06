@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc18311d6001bmP3qU7Ph6D1jA",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_012orP7Lqv1WBTjeH6pkLwkw",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/executeSteps/",
+      "description": "List executeSteps directory"
+    },
+    "output": "index.js\nindex.js.map\nsignatureStep.js\nsignatureStep.js.map\ntransactionStep.js\ntransactionStep.js.map\nwebsocketHandlers.js\nwebsocketHandlers.js.map\n",
+    "metadata": {
+      "output": "index.js\nindex.js.map\nsignatureStep.js\nsignatureStep.js.map\ntransactionStep.js\ntransactionStep.js.map\nwebsocketHandlers.js\nwebsocketHandlers.js.map\n",
+      "exit": 0,
+      "description": "List executeSteps directory"
+    },
+    "title": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/executeSteps/",
+    "time": {
+      "start": 1772773119204,
+      "end": 1772773119207
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc18471b4001kPmHepvZvIsAqu",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I have the complete picture. The issue is clear: **our custom `walletClient` override calls `base.handleSendTransactionStep`**, but `base` is `adaptViemWallet(rawWalletClient)` — which internally calls `getClient()` to check `useGasFeeEstimations`. The `getClient()` call happens at **execution time**, not at adapter creation time. So if `configure({ useGasFeeEstimations: false })` has been called by then, it should work.\n\n**The real problem**: The `walletClient` passed to `useQuote` is our custom AdaptedWallet. But `useQuote` calls `client?.actions?.execute({ wallet, quote })`. The `execute` action checks `isViemWalletClient(wallet)` — our wallet has `...base` spread which includes `transport` (from `adaptViemWallet`). Let me check if `adaptViemWallet` result has `extend` or `getPermissions`:\n\nLooking at the `adaptViemWallet` source — it returns an object with: `vmType`, `getChainId`, `transport`, `address`, `handleSignMessageStep`, `handleSendTransactionStep`, `handleConfirmTransactionStep`, `switchChain`, `supportsAtomicBatch`, `handleBatchTransactionStep`, `isEOA`. No `extend` or `getPermissions`. So `isViemWalletClient` returns false. ✅\n\n**The actual fix needed**: Stop fighting the SDK internals. The cleanest approach is to **not use `adaptViemWallet` at all** and instead pass the raw `rawWalletClient` (viem WalletClient) directly to `useQuote`. The SDK will call `adaptViemWallet` internally, and since `useGasFeeEstimations: false` is set on the client, gas fields won't be forwarded. Our custom override is actually redundant and potentially causing issues.",
+  "time": {
+    "start": 1772773223350,
+    "end": 1772773223350
+  }
+}

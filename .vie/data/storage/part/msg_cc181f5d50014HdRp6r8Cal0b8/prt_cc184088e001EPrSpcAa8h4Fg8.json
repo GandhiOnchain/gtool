@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc184088e001EPrSpcAa8h4Fg8",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Good — lines 91-93 (the `handleSendTransactionStep`) DO check `useGasFeeEstimations`. Lines 196-197 are in `handleBatchTransactionStep` which doesn't check it, but that's a different path.\n\nSo our override strips gas fields before calling base — base sees `undefined` — no gas forwarded. This should work. **But the issue is: our `walletClient` is built from `adaptViemWallet(rawWalletClient)` which creates a NEW adapted wallet. When `useQuote` calls `execute({ wallet: ourCustomWallet })`, the execute action calls `isViemWalletClient(ourCustomWallet)`.**\n\nLet me check what `isViemWalletClient` checks:\n\nThe code shows: `wallet.extend !== undefined && wallet.getPermissions !== undefined`. Our custom wallet spreads `...base` which comes from `adaptViemWallet` — that doesn't have `extend` or `getPermissions`. So it's treated as AdaptedWallet. ✅\n\n**The real issue**: Let me look at what `rawWalletClient` is. It comes from `useWalletClient()` which returns a viem WalletClient. When we call `adaptViemWallet(rawWalletClient)`, the base's `handleSendTransactionStep` creates a new `viemClient` using `wallet.transport` (the raw wallet's transport). This viemClient sends the transaction. The gas fields we strip are from `stepData` — but the **wallet itself** (MetaMask) may be adding its own gas estimation on top.\n\nWait — $2.72 on Base is NOT a MetaMask gas estimation issue. MetaMask estimates gas correctly on Base. The issue must be that the quote's `gas` field IS being forwarded. Let me verify by checking if `configure` is actually being called correctly:",
+  "time": {
+    "start": 1772773193928,
+    "end": 1772773193928
+  }
+}

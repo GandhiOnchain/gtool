@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc184b152002vLab31cNTJ3C0r",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now remove the unused `AdaptedWallet` and `adaptViemWallet` imports:",
+  "time": {
+    "start": 1772773227156,
+    "end": 1772773227156
+  }
+}

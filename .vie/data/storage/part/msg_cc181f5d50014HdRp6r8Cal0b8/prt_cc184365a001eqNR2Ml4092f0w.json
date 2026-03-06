@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc184365a001eqNR2Ml4092f0w",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01VQp4eG6MbjDHRGo8KZzGTo",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 240,
+      "limit": 20
+    },
+    "output": "<file>\n00241|     if (!rawWalletClient) return undefined\n00242|     const base = adaptViemWallet(rawWalletClient)\n00243|     return {\n00244|       ...base,\n00245|       handleSendTransactionStep: async (chainId, item, step) => {\n00246|         return base.handleSendTransactionStep(chainId, {\n00247|           ...item,\n00248|           data: {\n00249|             ...item.data,\n00250|             maxFeePerGas: undefined,\n00251|             maxPriorityFeePerGas: undefined,\n00252|             gas: undefined,\n00253|           },\n00254|         }, step)\n00255|       },\n00256|     }\n00257|   }, [rawWalletClient])\n00258| \n00259|   useEffect(() => {\n00260|     if (viemChains && viemChains.length > 0) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 260)\n</file>",
+    "metadata": {
+      "preview": "    if (!rawWalletClient) return undefined\n    const base = adaptViemWallet(rawWalletClient)\n    return {\n      ...base,\n      handleSendTransactionStep: async (chainId, item, step) => {\n        return base.handleSendTransactionStep(chainId, {\n          ...item,\n          data: {\n            ...item.data,\n            maxFeePerGas: undefined,\n            maxPriorityFeePerGas: undefined,\n            gas: undefined,\n          },\n        }, step)\n      },\n    }\n  }, [rawWalletClient])\n\n  useEffect(() => {\n    if (viemChains && viemChains.length > 0) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772773193895,
+      "end": 1772773193897
+    }
+  }
+}

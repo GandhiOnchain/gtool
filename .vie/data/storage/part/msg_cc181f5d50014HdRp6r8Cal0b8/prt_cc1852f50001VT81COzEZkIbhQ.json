@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc1852f50001VT81COzEZkIbhQ",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Clean. Here's what was actually wrong and what was fixed:\n\n**Root cause of high gas / failing transactions:**\n\nAll previous attempts to strip gas fields were fighting the SDK from the outside. The real issue was that we were wrapping `adaptViemWallet` in a custom override — but `adaptViemWallet` internally calls `getClient().useGasFeeEstimations` at execution time. The wrapping was adding complexity without reliably intercepting the gas fields because the base's `sendTransaction` call inside `adaptViemWallet` still ran with whatever the client's `useGasFeeEstimations` flag was at that moment.\n\n**The fix:** Pass the raw viem `WalletClient` directly to `useQuote`. The SDK's `execute` action detects it's a viem WalletClient via `isViemWalletClient` (checks for `extend` and `getPermissions`), calls `adaptViemWallet` internally, and then respects `useGasFeeEstimations: false` set on the client — so `gas`, `maxFeePerGas`, `maxPriorityFeePerGas` from the quote are never forwarded to the wallet. MetaMask then estimates gas natively from current chain state, giving correct fees.\n\n**Multiple toasts on rejection:** Fixed with the `swapErrorShown` flag — once any error toast fires (from progress callback or outer catch), subsequent ones are suppressed.",
+  "time": {
+    "start": 1772773266005,
+    "end": 1772773266005
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc183330c0019mPPAdoVs55BFr",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I have the full picture. The SDK's `handleSendTransactionStep` in `viemWallet.js` reads `stepData` directly from `stepItem.data`. Our custom override passes `{ ...item, data: { ...item.data, gas: undefined, maxFeePerGas: undefined, maxPriorityFeePerGas: undefined } }` — but the base `adaptViemWallet`'s `handleSendTransactionStep` signature is `(chainId, stepItem)` — it reads `stepItem.data`. So our override correctly nullifies those fields before passing to base.\n\n**But wait** — `useGasFeeEstimations` is checked in the base. Since we call `client.configure({ useGasFeeEstimations: false })` AFTER `createClient`, and `configure` preserves the value only if `options.useGasFeeEstimations !== undefined` — we pass `false` explicitly, so it should work.\n\nThe real issue: **our custom `walletClient` override calls `base.handleSendTransactionStep`** — but `base` is `adaptViemWallet(rawWalletClient)` which creates its own internal `viemClient` using `wallet.transport`. The `base` reads `stepData` from the item we pass. We pass `gas: undefined` — so the spread `...(stepData.gas && client.useGasFeeEstimations && { gas: ... })` evaluates to nothing. That should work.\n\nLet me check what `useQuote` actually passes as the wallet — it receives our `walletClient` (the override). But `useQuote` passes it to `execute` which calls `isViemWalletClient(wallet)` — if our override doesn't have `extend` and `getPermissions`, it won't be treated as a viem wallet client, so it uses it as-is (AdaptedWallet). That's correct.\n\nThe real problem must be elsewhere. Let me check what `useQuote` hook actually does with the wallet parameter:",
+  "time": {
+    "start": 1772773142052,
+    "end": 1772773142052
+  }
+}

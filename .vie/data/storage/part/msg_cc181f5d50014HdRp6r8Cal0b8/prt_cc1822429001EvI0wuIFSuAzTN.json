@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc1822429001EvI0wuIFSuAzTN",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_012DvbQHZBkF5XU1epBQVbJe",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"handleSendTransactionStep\\|useGasFeeEstimations\\|gas\\b\\|maxFee\\|maxPriority\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js | head -40",
+      "description": "Check relay-sdk client for gas handling"
+    },
+    "output": "69:        Object.defineProperty(this, \"useGasFeeEstimations\", {\n114:        this.useGasFeeEstimations = options.useGasFeeEstimations ?? true;\n159:        this.useGasFeeEstimations =\n160:            options.useGasFeeEstimations !== undefined\n161:                ? options.useGasFeeEstimations\n162:                : this.useGasFeeEstimations;\n",
+    "metadata": {
+      "output": "69:        Object.defineProperty(this, \"useGasFeeEstimations\", {\n114:        this.useGasFeeEstimations = options.useGasFeeEstimations ?? true;\n159:        this.useGasFeeEstimations =\n160:            options.useGasFeeEstimations !== undefined\n161:                ? options.useGasFeeEstimations\n162:                : this.useGasFeeEstimations;\n",
+      "exit": 0,
+      "description": "Check relay-sdk client for gas handling"
+    },
+    "title": "grep -n \"handleSendTransactionStep\\|useGasFeeEstimations\\|gas\\b\\|maxFee\\|maxPriority\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js | head -40",
+    "time": {
+      "start": 1772773059924,
+      "end": 1772773059928
+    }
+  }
+}

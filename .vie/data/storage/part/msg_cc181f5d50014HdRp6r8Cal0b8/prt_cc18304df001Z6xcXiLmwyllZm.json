@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc18304df001Z6xcXiLmwyllZm",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01FJ2haaduqdq978XBPkwTQD",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/",
+      "description": "List relay-sdk utils directory"
+    },
+    "output": "apiKey.js\napiKey.js.map\naxios.js\naxios.js.map\ncaliburExecutor.js\ncaliburExecutor.js.map\nchain.js\nchain.js.map\nexecuteSteps\ngetCurrentStepData.js\ngetCurrentStepData.js.map\ngetTenderlyDetails.js\ngetTenderlyDetails.js.map\nhyperliquid.js\nhyperliquid.js.map\nindex.js\nindex.js.map\nlogger.js\nlogger.js.map\nparams.js\nparams.js.map\npollApi.js\npollApi.js.map\nprepareBatchTransaction.js\nprepareBatchTransaction.js.map\nprepareCallTransaction.js\nprepareCallTransaction.js.map\nrepeatUntilOk.js\nrepeatUntilOk.js.map\nrequest.js\nrequest.js.map\nsimulateContract.js\nsimulateContract.js.map\nstructuredClone.js\nstructuredClone.js.map\ntransaction.js\ntransaction.js.map\nviemWallet.js\nviemWallet.js.map\nwebsocket.js\nwebsocket.js.map\n",
+    "metadata": {
+      "output": "apiKey.js\napiKey.js.map\naxios.js\naxios.js.map\ncaliburExecutor.js\ncaliburExecutor.js.map\nchain.js\nchain.js.map\nexecuteSteps\ngetCurrentStepData.js\ngetCurrentStepData.js.map\ngetTenderlyDetails.js\ngetTenderlyDetails.js.map\nhyperliquid.js\nhyperliquid.js.map\nindex.js\nindex.js.map\nlogger.js\nlogger.js.map\nparams.js\nparams.js.map\npollApi.js\npollApi.js.map\nprepareBatchTransaction.js\nprepareBatchTransaction.js.map\nprepareCallTransaction.js\nprepareCallTransaction.js.map\nrepeatUntilOk.js\nrepeatUntilOk.js.map\nrequest.js\nrequest.js.map\nsimulateContract.js\nsimulateContract.js.map\nstructuredClone.js\nstructuredClone.js.map\ntransaction.js\ntransaction.js.map\nviemWallet.js\nviemWallet.js.map\nwebsocket.js\nwebsocket.js.map\n",
+      "exit": 0,
+      "description": "List relay-sdk utils directory"
+    },
+    "title": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/",
+    "time": {
+      "start": 1772773115961,
+      "end": 1772773115966
+    }
+  }
+}

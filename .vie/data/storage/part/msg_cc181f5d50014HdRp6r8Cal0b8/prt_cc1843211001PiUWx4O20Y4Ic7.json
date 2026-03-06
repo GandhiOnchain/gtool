@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc1843211001PiUWx4O20Y4Ic7",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01BDqzSpNSSvWiDBHEH1ByMs",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 258,
+      "limit": 15
+    },
+    "output": "<file>\n00259|   useEffect(() => {\n00260|     if (viemChains && viemChains.length > 0) {\n00261|       const client = createClient({\n00262|         baseApiUrl: MAINNET_RELAY_API,\n00263|         chains: relayChains as unknown as Parameters<typeof createClient>[0]['chains'],\n00264|       })\n00265|       client.configure({ useGasFeeEstimations: false })\n00266|     }\n00267|   }, [viemChains])\n00268|   const [fromChain, setFromChain] = useState<RelayChain | null>(null)\n00269|   const [toChain, setToChain] = useState<RelayChain | null>(null)\n00270|   const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n00271|   const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n00272|   const [fromAmount, setFromAmount] = useState('')\n00273|   const [toAmount, setToAmount] = useState('')\n\n(File has more lines. Use 'offset' parameter to read beyond line 273)\n</file>",
+    "metadata": {
+      "preview": "  useEffect(() => {\n    if (viemChains && viemChains.length > 0) {\n      const client = createClient({\n        baseApiUrl: MAINNET_RELAY_API,\n        chains: relayChains as unknown as Parameters<typeof createClient>[0]['chains'],\n      })\n      client.configure({ useGasFeeEstimations: false })\n    }\n  }, [viemChains])\n  const [fromChain, setFromChain] = useState<RelayChain | null>(null)\n  const [toChain, setToChain] = useState<RelayChain | null>(null)\n  const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n  const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n  const [fromAmount, setFromAmount] = useState('')\n  const [toAmount, setToAmount] = useState('')"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772773193305,
+      "end": 1772773193308
+    }
+  }
+}

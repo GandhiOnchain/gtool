@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc1820819001GfIrL7503zeSHF",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "The screenshot shows \"RelayAppr...\" (RelayApprover) contract, $2.72 fee, \"likely to fail\" — this is an **approval step**, not the swap itself. The issue is the approval transaction is being sent with a stale/wrong gas limit from the quote data. Let me read the docs and the full wallet adapter code carefully.",
+  "time": {
+    "start": 1772773059950,
+    "end": 1772773059950
+  }
+}

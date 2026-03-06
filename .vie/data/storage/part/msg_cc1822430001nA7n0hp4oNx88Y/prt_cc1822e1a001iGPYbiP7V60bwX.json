@@ -1,0 +1,22 @@
+{
+  "id": "prt_cc1822e1a001iGPYbiP7V60bwX",
+  "messageID": "msg_cc1822430001nA7n0hp4oNx88Y",
+  "sessionID": "ses_33e7ddbd8ffejYZBKXGOfrPFUJ",
+  "type": "tool",
+  "tool": "webfetch",
+  "callID": "toolu_vrtx_01BRwkPy2TJ4aPAjGSSWjjdb",
+  "state": {
+    "status": "completed",
+    "input": {
+      "url": "https://docs.relay.link/references/relay-kit/sdk/api-types",
+      "format": "markdown"
+    },
+    "output": "Typescript API Typings - Relay\n\n[Skip to main content](#content-area)\n\n[Relay home page![light logo](https://mintcdn.com/unevenlabs/4kwoXCaHcjpG2B6s/logo/relay-black.svg?fit=max&auto=format&n=4kwoXCaHcjpG2B6s&q=85&s=af9d50bf980d700e8259fe615ab2dbd2)![dark logo](https://mintcdn.com/unevenlabs/4kwoXCaHcjpG2B6s/logo/relay-white.svg?fit=max&auto=format&n=4kwoXCaHcjpG2B6s&q=85&s=e15df102201fa5852ec1b71b6560b06d)](/)\n\nSearch...\n\n⌘KAsk AI\n\n-   [Support](https://support.relay.link/en/)\n-   [Get in Touch](https://forms.gle/XNeELYavjwoJwPEf7)\n-   [Try Relay](https://www.relay.link/)\n-   [\n    \n    Try Relay\n    \n    ](https://www.relay.link/)\n\nSearch...\n\nNavigation\n\nSDK\n\nTypescript API Typings\n\n[Overview\n\n](/what-is-relay)[API Reference\n\n](/references/api/overview)[RelayKit\n\n](/references/relay-kit/overview)[Relay Protocol\n\n](/references/protocol/overview)\n\n##### RelayKit\n\n-   [\n    \n    Overview\n    \n    \n    \n    ](/references/relay-kit/overview)\n-   SDK\n    \n    -   [\n        \n        Installation\n        \n        \n        \n        ](/references/relay-kit/sdk/installation)\n    -   [\n        \n        createClient\n        \n        \n        \n        ](/references/relay-kit/sdk/createClient)\n    -   Actions\n        \n    -   [\n        \n        Adapters\n        \n        \n        \n        ](/references/relay-kit/sdk/adapters)\n    -   [\n        \n        Typescript API Typings\n        \n        \n        \n        ](/references/relay-kit/sdk/api-types)\n    -   [\n        \n        Chain Utils\n        \n        \n        \n        ](/references/relay-kit/sdk/chain-utils)\n-   Hooks\n    \n-   UI\n    \n\n \n\nSDK\n\n# Typescript API Typings\n\nCopy page\n\nTypescript API Typings Typescript Types that facilitate API interaction\n\nCopy page\n\nThe Relay SDK comes with built in API types to facilitate interacting with Relay APIs. The API types are useful for parsing API responses and determining what parameters an api accepts. Note that the types are exposed as part of the Relay SDK package, leaving where and how you use it up to you. There’s no requirement for React, or anything else, except for Typescript. Below we’ll dig into some examples:\n\nCopy\n\nAsk AI\n\n```\nimport { paths } from '@relayprotocol/relay-sdk'\n\nconst parameters: paths['/execute/call']['post']['requestBody']['content']['application/json'] = {\n  ...\n}\n```\n\nWith the Typescript types imported you can easily discover what query parameters an API might allow or what response an API will return.\n\nWas this page helpful?\n\nYesNo\n\n[Adapters](/references/relay-kit/sdk/adapters)[Chain Utils](/references/relay-kit/sdk/chain-utils)\n\n⌘I\n\n[twitter](https://twitter.com/RelayProtocol)[discord](https://discord.com/invite/relayprotocol)\n\n[Powered by](https://www.mintlify.com?utm_campaign=poweredBy&utm_medium=referral&utm_source=unevenlabs)\n\nAssistant\n\nResponses are generated using AI and may contain mistakes.",
+    "metadata": {},
+    "title": "https://docs.relay.link/references/relay-kit/sdk/api-types (text/html; charset=utf-8)",
+    "time": {
+      "start": 1772773060642,
+      "end": 1772773060754
+    }
+  }
+}

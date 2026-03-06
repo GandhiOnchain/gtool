@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc18362110015PbsQEDJbCDA62",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01BsNH4BDdSTRPYiUbJxyGDY",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"walletClient\\|wallet\\b\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_esm/src/hooks/useQuote.js 2>/dev/null | head -30",
+      "description": "Check how useQuote uses the wallet"
+    },
+    "output": "25:export default function (client, wallet, options, onRequest, onResponse, queryOptions, onError, config, baseApiUrl) {\n60:        if (!wallet) {\n61:            throw new Error('Missing a valid wallet');\n67:            wallet,\n72:    }, [response.data, wallet, client]);\n",
+    "metadata": {
+      "output": "25:export default function (client, wallet, options, onRequest, onResponse, queryOptions, onError, config, baseApiUrl) {\n60:        if (!wallet) {\n61:            throw new Error('Missing a valid wallet');\n67:            wallet,\n72:    }, [response.data, wallet, client]);\n",
+      "exit": 0,
+      "description": "Check how useQuote uses the wallet"
+    },
+    "title": "grep -n \"walletClient\\|wallet\\b\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_esm/src/hooks/useQuote.js 2>/dev/null | head -30",
+    "time": {
+      "start": 1772773141024,
+      "end": 1772773141031
+    }
+  }
+}

@@ -7,8 +7,7 @@ import { parseUnits, formatUnits, createPublicClient, http, defineChain, getAddr
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
 import { useRelayChains, useTokenList, useTokenPrice, useQuote, useExecutionStatus } from '@relayprotocol/relay-kit-hooks'
-import { getClient, createClient, MAINNET_RELAY_API, adaptViemWallet } from '@relayprotocol/relay-sdk'
-import type { AdaptedWallet } from '@relayprotocol/relay-sdk'
+import { getClient, createClient, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'
 
 import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
 import { config } from '@/config'
@@ -237,24 +236,7 @@ export default function RelaySwap() {
   const { chains: relayChains, viemChains } = useRelayChains()
   const chains: RelayChain[] = ((relayChains || []) as unknown as RelayChain[]).filter((c: RelayChain) => !c.disabled && c.vmType !== 'bvm')
 
-  const walletClient: AdaptedWallet | undefined = React.useMemo(() => {
-    if (!rawWalletClient) return undefined
-    const base = adaptViemWallet(rawWalletClient)
-    return {
-      ...base,
-      handleSendTransactionStep: async (chainId, item, step) => {
-        return base.handleSendTransactionStep(chainId, {
-          ...item,
-          data: {
-            ...item.data,
-            maxFeePerGas: undefined,
-            maxPriorityFeePerGas: undefined,
-            gas: undefined,
-          },
-        }, step)
-      },
-    }
-  }, [rawWalletClient])
+  const walletClient = rawWalletClient ?? undefined
 
   useEffect(() => {
     if (viemChains && viemChains.length > 0) {

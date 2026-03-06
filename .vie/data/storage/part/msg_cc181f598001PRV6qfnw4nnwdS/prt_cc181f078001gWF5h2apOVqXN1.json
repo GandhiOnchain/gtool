@@ -1,0 +1,7 @@
+{
+  "id": "prt_cc181f078001gWF5h2apOVqXN1",
+  "type": "text",
+  "text": "the transactions are still failing and the fees are still high\n\nstudy these links again if helpful\n\nhttps://docs.relay.link/references/api/api_resources/supported-routes\n\nhttps://docs.relay.link/references/relay-kit/sdk/api-types\n\nhttps://docs.relay.link/references/relay-kit/sdk/actions/getQuote\n\nhttps://docs.relay.link/references/relay-kit/sdk/actions/execute\n\nhttps://docs.relay.link/references/relay-kit/sdk/actions/executeGaslessBatch\n\nhttps://docs.relay.link/references/relay-kit/hooks/useQuote\n\nhttps://docs.relay.link/references/relay-kit/hooks/useTokenPrice\n\nhttps://docs.relay.link/references/relay-kit/hooks/useExecutionStatus\n\nhttps://docs.relay.link/references/relay-kit/hooks/useRequests",
+  "messageID": "msg_cc181f598001PRV6qfnw4nnwdS",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5"
+}

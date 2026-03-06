@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc184d4f1001tJw1HwICSCTO5p",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Good. `walletClient` is used at line 350 (passed to `useQuote`). Now check the `executeSwap` guard that checks `rawWalletClient`:",
+  "time": {
+    "start": 1772773235598,
+    "end": 1772773235598
+  }
+}

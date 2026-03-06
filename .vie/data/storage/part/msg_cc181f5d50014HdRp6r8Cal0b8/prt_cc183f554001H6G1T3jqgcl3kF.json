@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc183f554001H6G1T3jqgcl3kF",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Line 196-197 — there's a **second place** in `viemWallet.js` that forwards `gas` **without checking `useGasFeeEstimations`**! That's in `handleBatchTransactionStep`. But more importantly, let me see lines 91-93 vs 196-197 in context:",
+  "time": {
+    "start": 1772773180187,
+    "end": 1772773180187
+  }
+}

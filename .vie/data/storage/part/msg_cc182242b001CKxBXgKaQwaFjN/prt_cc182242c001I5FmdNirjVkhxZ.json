@@ -1,0 +1,7 @@
+{
+  "id": "prt_cc182242c001I5FmdNirjVkhxZ",
+  "type": "text",
+  "text": "Please fetch and read the following URLs and return their full content:\n1. https://docs.relay.link/references/relay-kit/sdk/actions/execute\n2. https://docs.relay.link/references/relay-kit/hooks/useQuote\n3. https://docs.relay.link/references/relay-kit/sdk/api-types\n\nFocus on: how executeQuote works, what the walletClient adapter should do, what fields are in step item data (gas, maxFeePerGas, maxPriorityFeePerGas), and any notes about useGasFeeEstimations or gas handling. Return the raw content.",
+  "messageID": "msg_cc182242b001CKxBXgKaQwaFjN",
+  "sessionID": "ses_33e7ddbd8ffejYZBKXGOfrPFUJ"
+}

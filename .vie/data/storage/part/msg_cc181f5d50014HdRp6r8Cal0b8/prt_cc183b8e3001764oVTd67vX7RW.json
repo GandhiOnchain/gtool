@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc183b8e3001764oVTd67vX7RW",
+  "messageID": "msg_cc181f5d50014HdRp6r8Cal0b8",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I understand the full flow. The SDK's `handleSendTransactionStep` in `viemWallet.js` checks `client.useGasFeeEstimations` — if true, it forwards `gas`, `maxFeePerGas`, `maxPriorityFeePerGas` from the quote data. Our custom override strips those fields before calling base. **This should work.**\n\nBut wait — let me re-read our custom override carefully:\n\n```js\nhandleSendTransactionStep: async (chainId, item, step) => {\n  return base.handleSendTransactionStep(chainId, {\n    ...item,\n    data: { ...item.data, maxFeePerGas: undefined, maxPriorityFeePerGas: undefined, gas: undefined },\n  }, step)\n}\n```\n\nThe base `handleSendTransactionStep` signature is `(chainId, stepItem)` — only 2 params. We pass 3. The `step` param is ignored by the base. That's fine.\n\nThe base reads `stepData = stepItem.data`. We pass `{ ...item, data: { ...item.data, gas: undefined, ... } }`. So `stepData.gas` is `undefined`. The check `stepData.gas && client.useGasFeeEstimations` is `undefined && ...` = falsy. Gas won't be forwarded. ✅\n\n**So why is gas still high?** The screenshot shows `$2.72` on Base for an approval. On Base, gas price is very low (~0.001 gwei). For $2.72 at ~$3000 ETH, that's ~0.0009 ETH = 900,000 gwei worth of gas. That means the **gas limit** is enormous — like 900,000 units at 1 gwei. This is the quote's `gas` field being forwarded.\n\nLet me check if `useGasFeeEstimations` is actually being set to `false` by logging, and also check if there's another path where gas gets set:",
+  "time": {
+    "start": 1772773175047,
+    "end": 1772773175047
+  }
+}
