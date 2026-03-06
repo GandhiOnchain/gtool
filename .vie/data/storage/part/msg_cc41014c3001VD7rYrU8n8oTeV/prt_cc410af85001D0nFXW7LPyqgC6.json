@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc410af85001D0nFXW7LPyqgC6",
+  "messageID": "msg_cc41014c3001VD7rYrU8n8oTeV",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "The Layout has `min-h-screen` on the outer div. Since `showHeader={false}` is used in App.tsx, the header is hidden. The `main` has `flex-1` which stretches. The issue is that in a Farcaster mini app, `100vh` / `min-h-screen` can be unreliable.\n\nThe key fix is the `ScrollArea` height. Using `100svh` (small viewport height) is better for mobile/mini apps. But the real issue is the batch content needs to scroll within a bounded container. Let me look at what the Farcaster mini app frame dimensions typically are and ensure the scroll area is properly bounded.\n\nThe Farcaster mini app frame is typically 424px wide and around 695px tall (or the full viewport). The problem from the screenshot is that content is cut off at the bottom. The `h-[calc(100vh-140px)]` should work but `100vh` in a mini app iframe can be the full page height, not the visible frame.\n\nLet me use `100svh` which respects the small viewport (visible area) and also add a reasonable max-height fallback:",
+  "time": {
+    "start": 1772815960749,
+    "end": 1772815960749
+  }
+}

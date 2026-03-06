@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc410659200122LJo0r7e4rS5z",
+  "messageID": "msg_cc41014c3001VD7rYrU8n8oTeV",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Now I can see the issue. The batch tab uses `ScrollArea` with `h-[calc(100vh-140px)]` but in a Farcaster mini app frame, `100vh` doesn't work correctly. The content overflows outside the frame. Let me fix this by making the batch section use a proper fixed height that fits within the mini app frame.",
+  "time": {
+    "start": 1772815937688,
+    "end": 1772815937688
+  }
+}

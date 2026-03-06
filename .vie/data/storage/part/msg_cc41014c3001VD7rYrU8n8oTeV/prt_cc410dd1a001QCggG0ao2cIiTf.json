@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc410dd1a001QCggG0ao2cIiTf",
+  "messageID": "msg_cc41014c3001VD7rYrU8n8oTeV",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_012GPt61za3KddFvZKpJCoRs",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3464,
+      "limit": 20
+    },
+    "output": "<file>\n03465|                   onClick={executeBatchSwap}\n03466|                   disabled={batchTokens.filter(t => t.selected !== false).length === 0 || isSwapping || isSecurityScanning || !isConnected || !batchQuote}\n03467|                   className=\"w-full h-8 text-xs\"\n03468|                 >\n03469|                   {isSecurityScanning\n03470|                     ? 'Scanning...'\n03471|                     : isSwapping\n03472|                     ? (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridging...' : 'Batch Swapping...')\n03473|                     : isLoadingBatchQuote\n03474|                     ? 'Loading Quote...'\n03475|                     : (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridge' : 'Batch Swap')}\n03476|                 </Button>\n03477|               </div>\n03478|             </Card>\n03479|             </ScrollArea>\n03480|           </TabsContent>\n03481| \n03482| \n03483|           <TabsContent value=\"revoke\" className=\"space-y-2 mt-2\">\n03484|             <Card className=\"p-3\">\n\n(File has more lines. Use 'offset' parameter to read beyond line 3484)\n</file>",
+    "metadata": {
+      "preview": "                  onClick={executeBatchSwap}\n                  disabled={batchTokens.filter(t => t.selected !== false).length === 0 || isSwapping || isSecurityScanning || !isConnected || !batchQuote}\n                  className=\"w-full h-8 text-xs\"\n                >\n                  {isSecurityScanning\n                    ? 'Scanning...'\n                    : isSwapping\n                    ? (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridging...' : 'Batch Swapping...')\n                    : isLoadingBatchQuote\n                    ? 'Loading Quote...'\n                    : (batchChain && batchToChain && batchChain.id !== batchToChain.id ? 'Batch Bridge' : 'Batch Swap')}\n                </Button>\n              </div>\n            </Card>\n            </ScrollArea>\n          </TabsContent>\n\n\n          <TabsContent value=\"revoke\" className=\"space-y-2 mt-2\">\n            <Card className=\"p-3\">"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772815966116,
+      "end": 1772815966118
+    }
+  }
+}

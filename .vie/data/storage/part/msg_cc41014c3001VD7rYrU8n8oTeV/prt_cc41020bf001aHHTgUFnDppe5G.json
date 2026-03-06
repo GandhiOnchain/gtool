@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc41020bf001aHHTgUFnDppe5G",
+  "messageID": "msg_cc41014c3001VD7rYrU8n8oTeV",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01QgYYzYWptce5nFE9fXwjnT",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "find /home/user/sandbox/workspace/frontend/src -name \"*.tsx\" | xargs grep -l -i \"batch\" 2>/dev/null",
+      "description": "Find batch-related components"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/src/components/examples/AlchemyExample.tsx\n/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n",
+    "metadata": {
+      "output": "/home/user/sandbox/workspace/frontend/src/components/examples/AlchemyExample.tsx\n/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n",
+      "exit": 0,
+      "description": "Find batch-related components"
+    },
+    "title": "find /home/user/sandbox/workspace/frontend/src -name \"*.tsx\" | xargs grep -l -i \"batch\" 2>/dev/null",
+    "time": {
+      "start": 1772815918343,
+      "end": 1772815918365
+    }
+  }
+}

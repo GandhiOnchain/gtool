@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc4107817002p9C4rADtI9bL4P",
+  "messageID": "msg_cc41014c3001VD7rYrU8n8oTeV",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "The issue is the `ScrollArea` wrapping the batch content uses `h-[calc(100vh-140px)]`. In a Farcaster mini app, the viewport height is constrained (typically 424px tall). The outer container is `min-h-screen` which also causes issues. Let me fix the batch tab to use a proper scrollable container that fits within the mini app frame.",
+  "time": {
+    "start": 1772815942876,
+    "end": 1772815942876
+  }
+}

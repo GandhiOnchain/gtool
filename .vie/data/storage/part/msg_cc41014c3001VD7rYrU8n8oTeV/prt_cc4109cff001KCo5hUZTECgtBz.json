@@ -1,0 +1,24 @@
+{
+  "id": "prt_cc4109cff001KCo5hUZTECgtBz",
+  "messageID": "msg_cc41014c3001VD7rYrU8n8oTeV",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "glob",
+  "callID": "toolu_bdrk_01S2N4EkuzrAauf5s6VgGDyU",
+  "state": {
+    "status": "completed",
+    "input": {
+      "pattern": "**/components/Layout.tsx"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/src/components/Layout.tsx",
+    "metadata": {
+      "count": 1,
+      "truncated": false
+    },
+    "title": "",
+    "time": {
+      "start": 1772815949477,
+      "end": 1772815949513
+    }
+  }
+}

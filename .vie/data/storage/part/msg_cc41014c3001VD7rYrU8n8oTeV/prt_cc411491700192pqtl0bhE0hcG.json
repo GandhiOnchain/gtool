@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc411491700192pqtl0bhE0hcG",
+  "messageID": "msg_cc41014c3001VD7rYrU8n8oTeV",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "The changes are clean. Here's what was fixed:\n\n1. **`100svh` instead of `100vh`** — `svh` (small viewport height) respects the actual visible area in Farcaster mini app frames, where `100vh` can refer to the full document height rather than the visible frame.\n2. **`max-h-[600px]` cap** — prevents the scroll area from growing unbounded on larger screens.\n3. **Removed `min-h-screen`** from the page wrapper — avoids forcing the page to expand beyond the mini app frame.\n4. **`mb-4` on the Card** — adds bottom padding so the Batch Swap button isn't clipped at the edge of the scroll area.",
+  "time": {
+    "start": 1772815996088,
+    "end": 1772815996088
+  }
+}

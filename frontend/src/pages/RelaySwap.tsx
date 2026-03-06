@@ -2603,7 +2603,7 @@ export default function RelaySwap() {
     })
 
   return (
-    <div className="min-h-screen bg-background p-2 max-w-[424px] mx-auto">
+    <div className="bg-background p-2 max-w-[424px] mx-auto">
       <div className="space-y-2">
         {!isConnected ? (
           <Button
@@ -3151,8 +3151,8 @@ export default function RelaySwap() {
           </TabsContent>
 
           <TabsContent value="batch" className="mt-2">
-            <ScrollArea className="h-[calc(100vh-140px)]">
-            <Card className="p-3 mb-2">
+            <ScrollArea className="h-[calc(100svh-140px)] max-h-[600px]">
+            <Card className="p-3 mb-4">
               <div className="space-y-2">
                 <div className="text-sm font-medium">Batch Cleanup</div>
                 
