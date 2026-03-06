@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc1795abb001UjfgEtIP313OyU",
+  "messageID": "msg_cc1790c47001vyKnBE87tIIQqc",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01TZjPyJ2vwh58teEXGpwpyW",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "sed -n '181,220p' /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js",
+      "description": "Read createClient and getClient implementation"
+    },
+    "output": "export function getClient() {\n    return _client;\n}\n/**\n * Creates a Relay Client\n *\n * - Docs: https://docs.relay.link/references/sdk/createClient\n *\n * @param options - {@link RelayClientOptions}\n * @returns A Relay Client. {@link RelayClient}\n *\n * @example\n * import { createClient, LogLevel, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'\n *\n * const relayClient = createClient({\n *    baseApiUrl: MAINNET_RELAY_API,\n *    source: \"YOUR-SOURCE\",\n *    logLevel: LogLevel.Verbose,\n * })\n */\nexport function createClient(options) {\n    if (!_client) {\n        _client = new RelayClient({ ...options });\n    }\n    else {\n        _client.configure(options);\n    }\n    return _client;\n}\n//# sourceMappingURL=client.js.map\n",
+    "metadata": {
+      "output": "export function getClient() {\n    return _client;\n}\n/**\n * Creates a Relay Client\n *\n * - Docs: https://docs.relay.link/references/sdk/createClient\n *\n * @param options - {@link RelayClientOptions}\n * @returns A Relay Client. {@link RelayClient}\n *\n * @example\n * import { createClient, LogLevel, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'\n *\n * const relayClient = createClient({\n *    baseApiUrl: MAINNET_RELAY_API,\n *    source: \"YOUR-SOURCE\",\n *    logLevel: LogLevel.Verbose,\n * })\n */\nexport function createClient(options) {\n    if (!_client) {\n        _client = new RelayClient({ ...options });\n    }\n    else {\n        _client.configure(options);\n    }\n    return _client;\n}\n//# sourceMappingURL=client.js.map\n",
+      "exit": 0,
+      "description": "Read createClient and getClient implementation"
+    },
+    "title": "sed -n '181,220p' /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js",
+    "time": {
+      "start": 1772772482566,
+      "end": 1772772482568
+    }
+  }
+}

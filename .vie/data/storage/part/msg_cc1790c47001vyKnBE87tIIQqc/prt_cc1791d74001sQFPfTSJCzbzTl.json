@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc1791d74001sQFPfTSJCzbzTl",
+  "messageID": "msg_cc1790c47001vyKnBE87tIIQqc",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01GuVsvtUx4ZYDNxTc3mBM2Y",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"toast\\.\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | grep -i \"reject\\|error\\|denied\" | head -30",
+      "description": "Find all rejection-related toasts"
+    },
+    "output": "673:      toast.error(`Swap failed: ${executionDetails || 'Unknown error'}`)\n678:      toast.error('Swap was refunded')\n843:        toast.error('No tokens found for this chain')\n847:      toast.error('Failed to load tokens')\n1414:      toast.error('Failed to detect tokens')\n1422:      toast.error('Please enter a contract address')\n1427:      toast.error('Please select a chain first')\n1470:        toast.error(`Token not found on ${batchChain.displayName}`)\n1474:      toast.error('Failed to search token')\n1480:      toast.error('No quote available')\n1484:      toast.error('Please connect your wallet first')\n1488:      toast.error('Missing swap parameters')\n1492:      toast.error('Cannot swap the same token to itself')\n1499:      toast.error('Farcaster Solana wallet not connected')\n1503:      toast.error(`Recipient address required for ${toChain.displayName}`)\n1507:      toast.error('Wallet client not ready. Please reconnect.')\n1516:        toast.error('Please switch to the correct network in your wallet')\n1542:          toast.error(parseSwapError(msg))\n1549:          toast.error(parseSwapError(currentStep.error))\n1569:        toast.error('Quote not ready. Please wait a moment and try again.')\n1578:      toast.error(parseSwapError(msg))\n1641:      toast.error(friendly)\n1649:      toast.error('Please select chain and tokens to swap')\n1654:      toast.error('Please connect your wallet first')\n1663:      toast.error(`Blocked: ${names} flagged as high-risk. Deselect to proceed.`)\n1683:          toast.error(`Blocked: ${names} flagged as malicious.`)\n1700:        toast.error('Please switch to the correct network in your wallet')\n1712:      toast.error('Farcaster Solana wallet not connected')\n1728:        toast.error('No tokens with balance selected')\n1788:        toast.error('No transactions to execute in quote.')\n",
+    "metadata": {
+      "output": "673:      toast.error(`Swap failed: ${executionDetails || 'Unknown error'}`)\n678:      toast.error('Swap was refunded')\n843:        toast.error('No tokens found for this chain')\n847:      toast.error('Failed to load tokens')\n1414:      toast.error('Failed to detect tokens')\n1422:      toast.error('Please enter a contract address')\n1427:      toast.error('Please select a chain first')\n1470:        toast.error(`Token not found on ${batchChain.displayName}`)\n1474:      toast.error('Failed to search token')\n1480:      toast.error('No quote available')\n1484:      toast.error('Please connect your wallet first')\n1488:      toast.error('Missing swap parameters')\n1492:      toast.error('Cannot swap the same token to itself')\n1499:      toast.error('Farcaster Solana wallet not connected')\n1503:      toast.error(`Recipient address required for ${toChain.displayName}`)\n1507:      toast.error('Wallet client not ready. Please reconnect.')\n1516:        toast.error('Please switch to the correct network in your wallet')\n1542:          toast.error(parseSwapError(msg))\n1549:          toast.error(parseSwapError(currentStep.error))\n1569:        toast.error('Quote not ready. Please wait a moment and try again.')\n1578:      toast.error(parseSwapError(msg))\n1641:      toast.error(friendly)\n1649:      toast.error('Please select chain and tokens to swap')\n1654:      toast.error('Please connect your wallet first')\n1663:      toast.error(`Blocked: ${names} flagged as high-risk. Deselect to proceed.`)\n1683:          toast.error(`Blocked: ${names} flagged as malicious.`)\n1700:        toast.error('Please switch to the correct network in your wallet')\n1712:      toast.error('Farcaster Solana wallet not connected')\n1728:        toast.error('No tokens with balance selected')\n1788:        toast.error('No transactions to execute in quote.')\n",
+      "exit": 0,
+      "description": "Find all rejection-related toasts"
+    },
+    "title": "grep -n \"toast\\.\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | grep -i \"reject\\|error\\|denied\" | head -30",
+    "time": {
+      "start": 1772772467758,
+      "end": 1772772467765
+    }
+  }
+}

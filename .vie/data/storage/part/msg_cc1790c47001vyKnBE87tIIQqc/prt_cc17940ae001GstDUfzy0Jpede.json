@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc17940ae001GstDUfzy0Jpede",
+  "messageID": "msg_cc1790c47001vyKnBE87tIIQqc",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I see the full picture. When user rejects:\n\n1. The SDK calls the progress callback with `error` → `toast.error` fires (line 1542)\n2. The SDK also throws from `await result` → outer `catch` fires `toast.error` again (line 1578)\n3. Sometimes `currentStep?.error` also fires (line 1549)\n\nAlso the `createClient` at module level with empty `chains: []` is wrong — it creates a client with no chains, then the `useEffect` creates another one with chains but the first one (with no chains) may persist as the active client. Let me check how `createClient` works:",
+  "time": {
+    "start": 1772772480458,
+    "end": 1772772480458
+  }
+}

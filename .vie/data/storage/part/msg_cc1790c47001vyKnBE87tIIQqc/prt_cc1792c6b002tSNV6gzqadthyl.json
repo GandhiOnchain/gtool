@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc1792c6b002tSNV6gzqadthyl",
+  "messageID": "msg_cc1790c47001vyKnBE87tIIQqc",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "The multiple toasts on rejection come from lines 1542, 1549, and 1578 — the progress callback fires `toast.error` for the error, then the step error, then the outer catch also fires. Let me read those sections carefully:",
+  "time": {
+    "start": 1772772473682,
+    "end": 1772772473682
+  }
+}

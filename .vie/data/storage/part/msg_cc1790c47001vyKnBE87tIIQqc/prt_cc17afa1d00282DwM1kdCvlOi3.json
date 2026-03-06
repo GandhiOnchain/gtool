@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc17afa1d00282DwM1kdCvlOi3",
+  "messageID": "msg_cc1790c47001vyKnBE87tIIQqc",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "All clean. Here's a summary of all fixes:\n\n**Multiple toasts on rejection:**\n- The progress callback and the outer `catch` both fired `toast.error` independently. Added a `swapErrorShown` closure flag — once any error toast fires (from progress callback or catch), subsequent ones are suppressed.\n\n**Gas still high:**\n- The previous fix `createClient({ chains: [], useGasFeeEstimations: false })` at module level was wrong — it created the client with **empty chains**, breaking quote routing. The `useEffect` then called `createClient` again which only called `configure()` (since client already existed), but `configure` was not passed `useGasFeeEstimations` so it preserved `false` — but the empty chains caused the real problem.\n- Fix: removed the module-level call entirely. The `useEffect` now creates the client with real chains, then immediately calls `client.configure({ useGasFeeEstimations: false })` to ensure the flag is set on the same client instance that has the correct chains.",
+  "time": {
+    "start": 1772772595083,
+    "end": 1772772595083
+  }
+}

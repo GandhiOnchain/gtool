@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc17973ff001Mh0Eyilk10XFBk",
+  "messageID": "msg_cc1790c47001vyKnBE87tIIQqc",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_015GCFi3UJ8QqBCbiBEYDrLe",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "sed -n '143,170p' /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js",
+      "description": "Read configure method fully"
+    },
+    "output": "    configure(options) {\n        this.baseApiUrl = options.baseApiUrl ? options.baseApiUrl : this.baseApiUrl;\n        this.source = options.source ? options.source : this.source;\n        this.apiKey = options.apiKey !== undefined ? options.apiKey : this.apiKey;\n        this.logLevel =\n            options.logLevel !== undefined ? options.logLevel : LogLevel.None;\n        this.pollingInterval = options.pollingInterval\n            ? options.pollingInterval\n            : this.pollingInterval;\n        this.confirmationPollingInterval = options.confirmationPollingInterval\n            ? options.confirmationPollingInterval\n            : this.confirmationPollingInterval;\n        this.maxPollingAttemptsBeforeTimeout =\n            options.maxPollingAttemptsBeforeTimeout\n                ? options.maxPollingAttemptsBeforeTimeout\n                : this.maxPollingAttemptsBeforeTimeout;\n        this.useGasFeeEstimations =\n            options.useGasFeeEstimations !== undefined\n                ? options.useGasFeeEstimations\n                : this.useGasFeeEstimations;\n        this.websocketEnabled =\n            options.websocket?.enabled !== undefined\n                ? options.websocket.enabled\n                : this.websocketEnabled;\n        this.websocketUrl = options.websocket?.url || this.websocketUrl;\n        if (options.logger) {\n            this.log = options.logger;\n        }\n",
+    "metadata": {
+      "output": "    configure(options) {\n        this.baseApiUrl = options.baseApiUrl ? options.baseApiUrl : this.baseApiUrl;\n        this.source = options.source ? options.source : this.source;\n        this.apiKey = options.apiKey !== undefined ? options.apiKey : this.apiKey;\n        this.logLevel =\n            options.logLevel !== undefined ? options.logLevel : LogLevel.None;\n        this.pollingInterval = options.pollingInterval\n            ? options.pollingInterval\n            : this.pollingInterval;\n        this.confirmationPollingInterval = options.confirmationPollingInterval\n            ? options.confirmationPollingInterval\n            : this.confirmationPollingInterval;\n        this.maxPollingAttemptsBeforeTimeout =\n            options.maxPollingAttemptsBeforeTimeout\n                ? options.maxPollingAttemptsBeforeTimeout\n                : this.maxPollingAttemptsBeforeTimeout;\n        this.useGasFeeEstimations =\n            options.useGasFeeEstimations !== undefined\n                ? options.useGasFeeEstimations\n                : this.useGasFeeEstimations;\n        this.websocketEnabled =\n            options.websocket?.enabled !== undefined\n                ? options.websocket.enabled\n                : this.websocketEnabled;\n        this.websocketUrl = options.websocket?.url || this.websocketUrl;\n        if (options.logger) {\n            this.log = options.logger;\n        }\n",
+      "exit": 0,
+      "description": "Read configure method fully"
+    },
+    "title": "sed -n '143,170p' /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js",
+    "time": {
+      "start": 1772772488872,
+      "end": 1772772488874
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc179a0ae001q0pbiTbhLX0imw",
+  "messageID": "msg_cc1790c47001vyKnBE87tIIQqc",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_013gusq2heFyxkA1BWpBafjw",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 330,
+      "limit": 15
+    },
+    "output": "<file>\n00331|   const [debugInfo, setDebugInfo] = useState<string>('')\n00332|   const [chainSearch, setChainSearch] = useState('')\n00333| \n00334|   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n00335|   const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n00336| \n00337|   const { data: fromTokenPriceData } = useTokenPrice(\n00338|     undefined,\n00339|     fromToken ? { address: fromToken.address, chainId: fromToken.chainId } : undefined,\n00340|     { enabled: !!fromToken, staleTime: 30000 }\n00341|   )\n00342|   const fromTokenPrice = fromTokenPriceData?.price ?? 0\n00343| \n00344|   const { data: toTokenPriceData } = useTokenPrice(\n00345|     undefined,\n\n(File has more lines. Use 'offset' parameter to read beyond line 345)\n</file>",
+    "metadata": {
+      "preview": "  const [debugInfo, setDebugInfo] = useState<string>('')\n  const [chainSearch, setChainSearch] = useState('')\n\n  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n  const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n\n  const { data: fromTokenPriceData } = useTokenPrice(\n    undefined,\n    fromToken ? { address: fromToken.address, chainId: fromToken.chainId } : undefined,\n    { enabled: !!fromToken, staleTime: 30000 }\n  )\n  const fromTokenPrice = fromTokenPriceData?.price ?? 0\n\n  const { data: toTokenPriceData } = useTokenPrice(\n    undefined,"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772772500649,
+      "end": 1772772500651
+    }
+  }
+}

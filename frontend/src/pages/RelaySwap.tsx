@@ -10,8 +10,6 @@ import { useRelayChains, useTokenList, useTokenPrice, useQuote, useExecutionStat
 import { getClient, createClient, MAINNET_RELAY_API, adaptViemWallet } from '@relayprotocol/relay-sdk'
 import type { AdaptedWallet } from '@relayprotocol/relay-sdk'
 
-createClient({ baseApiUrl: MAINNET_RELAY_API, chains: [], useGasFeeEstimations: false })
-
 import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
 import { config } from '@/config'
 import { Network as AlchemyNetwork } from 'alchemy-sdk'
@@ -260,11 +258,11 @@ export default function RelaySwap() {
 
   useEffect(() => {
     if (viemChains && viemChains.length > 0) {
-      createClient({
+      const client = createClient({
         baseApiUrl: MAINNET_RELAY_API,
         chains: relayChains as unknown as Parameters<typeof createClient>[0]['chains'],
-        useGasFeeEstimations: false,
       })
+      client.configure({ useGasFeeEstimations: false })
     }
   }, [viemChains])
   const [fromChain, setFromChain] = useState<RelayChain | null>(null)
@@ -1531,6 +1529,8 @@ export default function RelaySwap() {
       return rawMsg.length > 0 ? rawMsg : 'Swap failed. Please try again.'
     }
 
+    let swapErrorShown = false
+
     try {
       const result = executeQuote((progress) => {
         console.log('Swap progress:', progress)
@@ -1539,14 +1539,20 @@ export default function RelaySwap() {
         if (error) {
           console.error('Swap progress error:', error)
           const msg = typeof error === 'string' ? error : error?.message || JSON.stringify(error)
-          toast.error(parseSwapError(msg))
+          if (!swapErrorShown) {
+            swapErrorShown = true
+            toast.error(parseSwapError(msg))
+          }
           setIsSwapping(false)
           return
         }
 
         if (currentStep?.error) {
           console.error('Step error:', currentStep.error)
-          toast.error(parseSwapError(currentStep.error))
+          if (!swapErrorShown) {
+            swapErrorShown = true
+            toast.error(parseSwapError(currentStep.error))
+          }
           setIsSwapping(false)
           return
         }
@@ -1574,8 +1580,11 @@ export default function RelaySwap() {
       await result
     } catch (error) {
       console.error('Swap execution failed:', error)
-      const msg = error instanceof Error ? error.message : String(error)
-      toast.error(parseSwapError(msg))
+      if (!swapErrorShown) {
+        swapErrorShown = true
+        const msg = error instanceof Error ? error.message : String(error)
+        toast.error(parseSwapError(msg))
+      }
       setIsSwapping(false)
     }
   }
@@ -1806,7 +1815,7 @@ export default function RelaySwap() {
             to: step.to,
             data: step.data,
             value: step.value,
-            chainId: batchChain.id as Parameters<typeof sendTx>[1]['chainId'],
+            chainId: batchChain.id as (8453 | 84532 | 1 | 56 | 42161 | 80094 | 43114 | 999 | 137 | 10 | 59144 | 534352 | 5000 | 130 | 360 | 98866),
           })
           console.log(`Step ${i + 1} (${step.stepId}) submitted:`, hash)
           toast.info(`${step.stepLabel} ${i + 1}/${txSteps.length} submitted...`)
@@ -2338,7 +2347,7 @@ export default function RelaySwap() {
       const hash = await sendTx(wagmiConfig, {
         to: approval.token.address as `0x${string}`,
         data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,
-        chainId: revokeChain.id as Parameters<typeof sendTx>[1]['chainId'],
+        chainId: revokeChain.id as (8453 | 84532 | 1 | 56 | 42161 | 80094 | 43114 | 999 | 137 | 10 | 59144 | 534352 | 5000 | 130 | 360 | 98866),
       })
       toast.info('Revoke submitted, confirming...')
       await waitForTransactionReceipt(wagmiConfig, { hash })
@@ -2381,7 +2390,7 @@ export default function RelaySwap() {
           const hash = await sendTx(wagmiConfig, {
             to: approval.token.address as `0x${string}`,
             data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,
-            chainId: revokeChain.id as Parameters<typeof sendTx>[1]['chainId'],
+            chainId: revokeChain.id as (8453 | 84532 | 1 | 56 | 42161 | 80094 | 43114 | 999 | 137 | 10 | 59144 | 534352 | 5000 | 130 | 360 | 98866),
           })
           await waitForTransactionReceipt(wagmiConfig, { hash })
           revokedKeys.add(`${approval.token.address.toLowerCase()}:${approval.spender.toLowerCase()}`)

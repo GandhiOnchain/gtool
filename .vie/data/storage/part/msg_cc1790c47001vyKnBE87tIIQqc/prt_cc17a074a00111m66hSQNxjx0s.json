@@ -1,0 +1,49 @@
+{
+  "id": "prt_cc17a074a00111m66hSQNxjx0s",
+  "messageID": "msg_cc1790c47001vyKnBE87tIIQqc",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_vrtx_01RKTeJ4LM8jCkZngJsDrEi1",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Fix multiple toasts on rejection: deduplicate progress callback vs catch block errors",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix gas: remove bad module-level createClient with empty chains, pass useGasFeeEstimations:false in useEffect",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Fix multiple toasts on rejection: deduplicate progress callback vs catch block errors\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Fix gas: remove bad module-level createClient with empty chains, pass useGasFeeEstimations:false in useEffect\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Fix multiple toasts on rejection: deduplicate progress callback vs catch block errors",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Fix gas: remove bad module-level createClient with empty chains, pass useGasFeeEstimations:false in useEffect",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "2"
+        }
+      ]
+    },
+    "title": "1 todos",
+    "time": {
+      "start": 1772772528596,
+      "end": 1772772528596
+    }
+  }
+}

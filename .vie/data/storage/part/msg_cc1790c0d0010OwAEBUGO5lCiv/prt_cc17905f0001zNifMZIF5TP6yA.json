@@ -1,0 +1,7 @@
+{
+  "id": "prt_cc17905f0001zNifMZIF5TP6yA",
+  "type": "text",
+  "text": "there are multiple toasts when i reject a swap in swap/bridge tab. identify and fix all multiple toasts anywhere.\n\nthe high gas fee issue is still not resolved. transactions are failing due to it. you did something wrong somewhere between the lines. run a full scan to identify the issue and fix it.",
+  "messageID": "msg_cc1790c0d0010OwAEBUGO5lCiv",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc1799bf5001NRKLvt1ehQr0dj",
+  "messageID": "msg_cc1790c47001vyKnBE87tIIQqc",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Fix the multiple toasts: use a ref to track if an error was already shown in the progress callback, so the outer catch doesn't fire again:",
+  "time": {
+    "start": 1772772500745,
+    "end": 1772772500745
+  }
+}

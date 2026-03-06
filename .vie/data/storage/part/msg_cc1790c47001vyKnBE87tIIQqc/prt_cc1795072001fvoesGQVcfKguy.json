@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc1795072001fvoesGQVcfKguy",
+  "messageID": "msg_cc1790c47001vyKnBE87tIIQqc",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01Rspjst3fuajbcHw3MAKzzV",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"createClient\\|getClient\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js | head -20",
+      "description": "Check how createClient and getClient work in relay-sdk"
+    },
+    "output": "181:export function getClient() {\n187: * - Docs: https://docs.relay.link/references/sdk/createClient\n193: * import { createClient, LogLevel, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'\n195: * const relayClient = createClient({\n201:export function createClient(options) {\n",
+    "metadata": {
+      "output": "181:export function getClient() {\n187: * - Docs: https://docs.relay.link/references/sdk/createClient\n193: * import { createClient, LogLevel, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'\n195: * const relayClient = createClient({\n201:export function createClient(options) {\n",
+      "exit": 0,
+      "description": "Check how createClient and getClient work in relay-sdk"
+    },
+    "title": "grep -n \"createClient\\|getClient\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js | head -20",
+    "time": {
+      "start": 1772772480443,
+      "end": 1772772480447
+    }
+  }
+}
