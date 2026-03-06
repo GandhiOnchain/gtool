@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc384bde00010oko5jObOdUkvI",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "OK so `hexToBigInt('21064')` = `21064n` — it treats it as hex `0x21064` = 135268 decimal. Wait no — `0x5248` = 21064 decimal. And `hexToBigInt('21064')` = `21064n`? That means viem's `hexToBigInt` is treating `'21064'` as decimal `21064`, not as hex. Let me verify:",
+  "time": {
+    "start": 1772806786268,
+    "end": 1772806786268
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc3858106001R0vp0Xna8pTnIW",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_018Dgdv1hnWTbpcmKeNVftdd",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 255,
+      "limit": 12
+    },
+    "output": "<file>\n00256|           chain,\n00257|           account: rawWalletClient.account ?? stepItem.data.from,\n00258|           to: stepItem.data.to as `0x${string}`,\n00259|           data: stepItem.data.data as `0x${string}`,\n00260|           value: hexToBigInt((stepItem.data.value as string) || '0'),\n00261|         })\n00262|       },\n00263|     }\n00264|   }, [rawWalletClient])\n00265| \n00266|   useEffect(() => {\n00267|     if (viemChains && viemChains.length > 0) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 267)\n</file>",
+    "metadata": {
+      "preview": "          chain,\n          account: rawWalletClient.account ?? stepItem.data.from,\n          to: stepItem.data.to as `0x${string}`,\n          data: stepItem.data.data as `0x${string}`,\n          value: hexToBigInt((stepItem.data.value as string) || '0'),\n        })\n      },\n    }\n  }, [rawWalletClient])\n\n  useEffect(() => {\n    if (viemChains && viemChains.length > 0) {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772806833158,
+      "end": 1772806833160
+    }
+  }
+}

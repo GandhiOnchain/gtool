@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc3844576001DF0zaMNMJvcBWL",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "**Found it.** When we pass `rawWalletClient` (a viem WalletClient), `isViemWalletClient` checks for `extend` and `getPermissions`. A viem WalletClient DOES have both of these. So `adaptViemWallet(wallet)` is called internally — and that internal `adaptViemWallet` reads `client.useGasFeeEstimations` at execution time.\n\nSo the flow is: pass raw viem WalletClient → SDK detects it → calls `adaptViemWallet` internally → `handleSendTransactionStep` checks `client.useGasFeeEstimations`. If `false`, gas fields are NOT forwarded. This should work IF `useGasFeeEstimations` is actually `false` at execution time.\n\n**The real problem**: Let me check if `configure` actually works on the `useGasFeeEstimations` property given it's defined with `Object.defineProperty`:",
+  "time": {
+    "start": 1772806758357,
+    "end": 1772806758357
+  }
+}

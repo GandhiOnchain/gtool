@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc383ff54001zTjqf7wKBXBlDB",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I see the critical issue. `createClient` is called inside a `useEffect` that depends on `viemChains`. But `useRelayChains()` returns chains immediately from its default value — `[convertViemChainToRelayChain(mainnet)]` — before the API response comes back. So `viemChains` is non-empty on first render, the effect fires, `createClient` is called with `useGasFeeEstimations: true` (default), then `configure({ useGasFeeEstimations: false })` is called. That should work.\n\n**But wait** — `createClient` is called with `chains: relayChains` which at that point is the default `[mainnet]`. Then when the real chains load, `viemChains` changes again, the effect fires again, `createClient` is called again — but since `_client` already exists, it calls `configure(options)` where `options` does NOT include `useGasFeeEstimations`. So `configure` preserves the existing value (`false`). That's fine.\n\nThe real issue must be something else entirely. Let me look at what the quote API actually returns for the `gas` field and whether `hexToBigInt` on a large hex value is the problem:",
+  "time": {
+    "start": 1772806743865,
+    "end": 1772806743865
+  }
+}

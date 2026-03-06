@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc38464c6002RZALhUjgNoQgt5",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "`writable: true` — so `configure` can set it. That's fine.\n\n**The actual root cause I've been missing**: The `useEffect` fires AFTER the first render. But `useQuote` is called on every render with `getClient() ?? undefined` as the client. On the very first render, `getClient()` returns `null` (no client created yet). So `useQuote` gets `undefined` as client. Then the effect fires, creates the client. On re-render, `useQuote` gets the client. But `executeQuote` is called by the user clicking swap — by that time the client exists with `useGasFeeEstimations: false`. So timing isn't the issue.\n\n**Let me look at this from a completely different angle** — what does the Relay API actually return in the `gas` field, and is it a decimal number or hex?",
+  "time": {
+    "start": 1772806767858,
+    "end": 1772806767858
+  }
+}

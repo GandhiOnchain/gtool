@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc383db770019ppdsH0aBAGLSX",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I see the exact issue. `useGasFeeEstimations` defaults to `true` in the constructor. Our `useEffect` calls `createClient(...)` which creates the client with `useGasFeeEstimations: true` (default), then calls `client.configure({ useGasFeeEstimations: false })`. But **`configure` is called on the same tick** — so it should work.\n\nLet me check what `useRelayChains` does — it may be creating its own client:",
+  "time": {
+    "start": 1772806728332,
+    "end": 1772806728332
+  }
+}

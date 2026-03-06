@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc383e666001eQY3jXHZaDP0gJ",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01NAmnwCmRABT6pNoUdR3Yxp",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_esm/src/hooks/useRelayChains.js 2>/dev/null",
+      "description": "Read useRelayChains hook fully"
+    },
+    "output": "import { convertViemChainToRelayChain, MAINNET_RELAY_API, setParams } from '@relayprotocol/relay-sdk';\nimport { configureViemChain } from '@relayprotocol/relay-sdk/chain-utils';\nimport fetcher from '../fetcher.js';\nimport { useQuery } from '@tanstack/react-query';\nimport { useMemo } from 'react';\nimport { mainnet } from 'viem/chains';\nexport const queryRelayChains = function (baseApiUrl = MAINNET_RELAY_API, options, headers) {\n    const url = new URL(`${baseApiUrl}/chains`);\n    setParams(url, options ?? {});\n    return fetcher(url.href, headers);\n};\nexport default function (baseApiUrl, options, queryOptions) {\n    const response = useQuery({\n        queryKey: ['useRelayChains', baseApiUrl, options],\n        queryFn: () => queryRelayChains(baseApiUrl, options),\n        retry: false,\n        ...queryOptions\n    });\n    return useMemo(() => {\n        const chains = response?.data?.chains?.map((chain) => configureViemChain(chain));\n        return {\n            ...response,\n            viemChains: chains?.map((chain) => chain.viemChain),\n            chains: chains ? chains : [convertViemChainToRelayChain(mainnet)]\n        };\n    }, [response.data, response.data?.chains, response.error, response.isLoading]);\n}\n//# sourceMappingURL=useRelayChains.js.map",
+    "metadata": {
+      "output": "import { convertViemChainToRelayChain, MAINNET_RELAY_API, setParams } from '@relayprotocol/relay-sdk';\nimport { configureViemChain } from '@relayprotocol/relay-sdk/chain-utils';\nimport fetcher from '../fetcher.js';\nimport { useQuery } from '@tanstack/react-query';\nimport { useMemo } from 'react';\nimport { mainnet } from 'viem/chains';\nexport const queryRelayChains = function (baseApiUrl = MAINNET_RELAY_API, options, headers) {\n    const url = new URL(`${baseApiUrl}/chains`);\n    setParams(url, options ?? {});\n    return fetcher(url.href, headers);\n};\nexport default function (baseApiUrl, options, queryOptions) {\n    const response = useQuery({\n        queryKey: ['useRelayChains', baseApiUrl, options],\n        queryFn: () => queryRelayChains(baseApiUrl, options),\n        retry: false,\n        ...queryOptions\n    });\n    return useMemo(() => {\n        const chains = response?.data?.chains?.map((chain) => configureViemChain(chain));\n        return {\n            ...response,\n            viemChains: chains?.map((chain) => chain.viemChain),\n            chains: chains ? chains : [convertViemChainToRelayChain(mainnet)]\n        };\n    }, [response.data, response.data?.chains, response.error, response.isLoading]);\n}\n//# sourceMappingURL=useRelayChains.js.map",
+      "exit": 0,
+      "description": "Read useRelayChains hook fully"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/_esm/src/hooks/useRelayChains.js 2>/dev/null",
+    "time": {
+      "start": 1772806728316,
+      "end": 1772806728319
+    }
+  }
+}

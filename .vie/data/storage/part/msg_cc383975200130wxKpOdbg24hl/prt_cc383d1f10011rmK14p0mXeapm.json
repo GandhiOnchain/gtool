@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc383d1f10011rmK14p0mXeapm",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_016mYVQa4KqdiJndcLNvM8gF",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "sed -n '100,145p' /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js",
+      "description": "Read RelayClient constructor end and configure method"
+    },
+    "output": "            enumerable: true,\n            configurable: true,\n            writable: true,\n            value: actions\n        });\n        this.version = SDK_VERSION;\n        this.uiVersion = options.uiVersion;\n        this.baseApiUrl = options.baseApiUrl ?? MAINNET_RELAY_API;\n        this.apiKey = options.apiKey;\n        this.logLevel =\n            options.logLevel !== undefined ? options.logLevel : LogLevel.None;\n        this.pollingInterval = options.pollingInterval;\n        this.maxPollingAttemptsBeforeTimeout =\n            options.maxPollingAttemptsBeforeTimeout;\n        this.useGasFeeEstimations = options.useGasFeeEstimations ?? true;\n        this.websocketEnabled = options.websocket?.enabled ?? false;\n        this.websocketUrl = options.websocket?.url ?? MAINNET_RELAY_WS;\n        if (options.chains) {\n            this.chains = options.chains;\n        }\n        else if (options.baseApiUrl?.includes('testnets')) {\n            this.chains = [_backupTestnetChain];\n        }\n        else {\n            this.chains = [_backupMainnetChain];\n        }\n        if (!options.source) {\n            if (typeof window !== 'undefined') {\n                let host = location.hostname;\n                if (host.indexOf('www.') === 0) {\n                    host = host.replace('www.', '');\n                }\n                this.source = host;\n                console.warn('RelaySDK automatically generated a source based on the url, we recommend providing a source when initializing the sdk. Refer to our docs for steps on how to do this: https://docs.relay.link/references/sdk/getting-started#configuration');\n            }\n        }\n        else {\n            this.source = options.source;\n        }\n        if (options.logger) {\n            this.log = options.logger;\n        }\n    }\n    configure(options) {\n        this.baseApiUrl = options.baseApiUrl ? options.baseApiUrl : this.baseApiUrl;\n        this.source = options.source ? options.source : this.source;\n",
+    "metadata": {
+      "output": "            enumerable: true,\n            configurable: true,\n            writable: true,\n            value: actions\n        });\n        this.version = SDK_VERSION;\n        this.uiVersion = options.uiVersion;\n        this.baseApiUrl = options.baseApiUrl ?? MAINNET_RELAY_API;\n        this.apiKey = options.apiKey;\n        this.logLevel =\n            options.logLevel !== undefined ? options.logLevel : LogLevel.None;\n        this.pollingInterval = options.pollingInterval;\n        this.maxPollingAttemptsBeforeTimeout =\n            options.maxPollingAttemptsBeforeTimeout;\n        this.useGasFeeEstimations = options.useGasFeeEstimations ?? true;\n        this.websocketEnabled = options.websocket?.enabled ?? false;\n        this.websocketUrl = options.websocket?.url ?? MAINNET_RELAY_WS;\n        if (options.chains) {\n            this.chains = options.chains;\n        }\n        else if (options.baseApiUrl?.includes('testnets')) {\n            this.chains = [_backupTestnetChain];\n        }\n        else {\n            this.chains = [_backupMainnetChain];\n        }\n        if (!options.source) {\n            if (typeof window !== 'undefined') {\n                let host = location.hostname;\n                if (host.indexOf('www.') === 0) {\n                    host = host.replace('www.', '');\n                }\n                this.source = host;\n                console.warn('RelaySDK automatically generated a source based on the url, we recommend providing a source when initializing the sdk. Refer to our docs for steps on how to do this: https://docs.relay.link/references/sdk/getting-started#configuration');\n            }\n        }\n        else {\n            this.source = options.source;\n        }\n        if (options.logger) {\n            this.log = options.logger;\n        }\n    }\n    configure(options) {\n        this.baseApiUrl = options.baseApiUrl ? options.baseApiUrl : this.baseApiUrl;\n        this.source = options.source ? options.source : this.source;\n",
+      "exit": 0,
+      "description": "Read RelayClient constructor end and configure method"
+    },
+    "title": "sed -n '100,145p' /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js",
+    "time": {
+      "start": 1772806722952,
+      "end": 1772806722954
+    }
+  }
+}

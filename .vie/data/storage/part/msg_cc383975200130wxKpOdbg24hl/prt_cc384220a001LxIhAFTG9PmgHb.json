@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc384220a001LxIhAFTG9PmgHb",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01253b4Qyyqe31iGNNNmqsjN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -rn \"isViemWalletClient\\|extend\\|getPermissions\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/viemWallet.js | head -10",
+      "description": "Check isViemWalletClient detection logic"
+    },
+    "output": "9:export function isViemWalletClient(wallet) {\n10:    return (wallet.extend !== undefined &&\n11:        wallet.getPermissions !== undefined);\n",
+    "metadata": {
+      "output": "9:export function isViemWalletClient(wallet) {\n10:    return (wallet.extend !== undefined &&\n11:        wallet.getPermissions !== undefined);\n",
+      "exit": 0,
+      "description": "Check isViemWalletClient detection logic"
+    },
+    "title": "grep -rn \"isViemWalletClient\\|extend\\|getPermissions\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/viemWallet.js | head -10",
+    "time": {
+      "start": 1772806743848,
+      "end": 1772806743850
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc3845bec001EwSw7hqTq16s2R",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01U4KqVBDpaPaZz8TfmFA2RY",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "sed -n '65,80p' /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js",
+      "description": "Read the Object.defineProperty for useGasFeeEstimations"
+    },
+    "output": "            configurable: true,\n            writable: true,\n            value: void 0\n        });\n        Object.defineProperty(this, \"useGasFeeEstimations\", {\n            enumerable: true,\n            configurable: true,\n            writable: true,\n            value: void 0\n        });\n        Object.defineProperty(this, \"chains\", {\n            enumerable: true,\n            configurable: true,\n            writable: true,\n            value: void 0\n        });\n",
+    "metadata": {
+      "output": "            configurable: true,\n            writable: true,\n            value: void 0\n        });\n        Object.defineProperty(this, \"useGasFeeEstimations\", {\n            enumerable: true,\n            configurable: true,\n            writable: true,\n            value: void 0\n        });\n        Object.defineProperty(this, \"chains\", {\n            enumerable: true,\n            configurable: true,\n            writable: true,\n            value: void 0\n        });\n",
+      "exit": 0,
+      "description": "Read the Object.defineProperty for useGasFeeEstimations"
+    },
+    "title": "sed -n '65,80p' /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js",
+    "time": {
+      "start": 1772806758341,
+      "end": 1772806758349
+    }
+  }
+}

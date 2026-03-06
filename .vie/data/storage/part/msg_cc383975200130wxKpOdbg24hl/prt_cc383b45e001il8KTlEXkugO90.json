@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc383b45e001il8KTlEXkugO90",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_017nxToD7YtpCzNY8bbv2RjP",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"useGasFeeEstimations\\|configure\\|_client\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js | head -30",
+      "description": "Check client singleton and configure behavior"
+    },
+    "output": "7:let _client;\n69:        Object.defineProperty(this, \"useGasFeeEstimations\", {\n114:        this.useGasFeeEstimations = options.useGasFeeEstimations ?? true;\n143:    configure(options) {\n159:        this.useGasFeeEstimations =\n160:            options.useGasFeeEstimations !== undefined\n161:                ? options.useGasFeeEstimations\n162:                : this.useGasFeeEstimations;\n182:    return _client;\n202:    if (!_client) {\n203:        _client = new RelayClient({ ...options });\n206:        _client.configure(options);\n208:    return _client;\n",
+    "metadata": {
+      "output": "7:let _client;\n69:        Object.defineProperty(this, \"useGasFeeEstimations\", {\n114:        this.useGasFeeEstimations = options.useGasFeeEstimations ?? true;\n143:    configure(options) {\n159:        this.useGasFeeEstimations =\n160:            options.useGasFeeEstimations !== undefined\n161:                ? options.useGasFeeEstimations\n162:                : this.useGasFeeEstimations;\n182:    return _client;\n202:    if (!_client) {\n203:        _client = new RelayClient({ ...options });\n206:        _client.configure(options);\n208:    return _client;\n",
+      "exit": 0,
+      "description": "Check client singleton and configure behavior"
+    },
+    "title": "grep -n \"useGasFeeEstimations\\|configure\\|_client\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js | head -30",
+    "time": {
+      "start": 1772806715719,
+      "end": 1772806715723
+    }
+  }
+}

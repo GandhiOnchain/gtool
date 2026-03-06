@@ -7,7 +7,8 @@ import { parseUnits, formatUnits, createPublicClient, http, defineChain, getAddr
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
 import { useRelayChains, useTokenList, useTokenPrice, useQuote, useExecutionStatus } from '@relayprotocol/relay-kit-hooks'
-import { getClient, createClient, MAINNET_RELAY_API } from '@relayprotocol/relay-sdk'
+import { getClient, createClient, MAINNET_RELAY_API, adaptViemWallet } from '@relayprotocol/relay-sdk'
+import type { AdaptedWallet } from '@relayprotocol/relay-sdk'
 
 import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
 import { config } from '@/config'
@@ -236,7 +237,31 @@ export default function RelaySwap() {
   const { chains: relayChains, viemChains } = useRelayChains()
   const chains: RelayChain[] = ((relayChains || []) as unknown as RelayChain[]).filter((c: RelayChain) => !c.disabled && c.vmType !== 'bvm')
 
-  const walletClient = rawWalletClient ?? undefined
+  const walletClient: AdaptedWallet | undefined = React.useMemo(() => {
+    if (!rawWalletClient) return undefined
+    const base = adaptViemWallet(rawWalletClient)
+    return {
+      ...base,
+      handleSendTransactionStep: async (chainId, stepItem) => {
+        const client = getClient()
+        const chain = client?.chains?.find((c) => c.id === chainId)?.viemChain
+        if (!chain) throw new Error(`Chain ${chainId} not found in relay client`)
+        const { createWalletClient: createWC, custom, hexToBigInt } = await import('viem')
+        const wc = createWC({
+          account: rawWalletClient.account ?? stepItem.data.from,
+          chain,
+          transport: custom(rawWalletClient.transport, { retryCount: 10, retryDelay: 200 }),
+        })
+        return wc.sendTransaction({
+          chain,
+          account: rawWalletClient.account ?? stepItem.data.from,
+          to: stepItem.data.to as `0x${string}`,
+          data: stepItem.data.data as `0x${string}`,
+          value: hexToBigInt(((stepItem.data.value as string) || '0') as `0x${string}`),
+        })
+      },
+    }
+  }, [rawWalletClient])
 
   useEffect(() => {
     if (viemChains && viemChains.length > 0) {

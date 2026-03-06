@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc3849491001Cme4HNoT70MI6F",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "**Critical finding**: The API example shows `\"gas\": 21064` — that's a **decimal integer**, not hex. But `hexToBigInt` in the SDK expects a hex string. If `gas` is `21064` (decimal), `hexToBigInt(21064)` would interpret it as hex `0x21064` = **135268** in decimal — a completely wrong gas limit!\n\nBut wait — `hexToBigInt` from viem: let me check what it does with a decimal number:",
+  "time": {
+    "start": 1772806776754,
+    "end": 1772806776754
+  }
+}

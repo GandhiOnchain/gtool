@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc384d1f7001saOmTJgaiA71d2",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "So `hexToBigInt('21064')` = `21064n` (treats as decimal), but `hexToBigInt('0x21064')` = `135268n`. The API returns `\"gas\": 21064` (a number, not a hex string). So `hexToBigInt(21064)` = `21064n` — correct gas limit.\n\nThe gas limit of 21064 is actually reasonable for a simple transfer. But for an approval transaction, it should be ~46000. The issue isn't the gas limit — it's the **gas price** (`maxFeePerGas`). Let me check what the API returns for `maxFeePerGas`:\n\nThe API example shows `\"maxFeePerGas\": \"18044119466\"` — that's ~18 gwei on Ethereum. On Base, it should be much lower. But if the quote was fetched on Ethereum and the user is on Base, the gas price would be wrong.\n\n**Wait** — I just realized something. The screenshot shows `$2.72` fee. On Base at ~0.001 gwei base fee, even 1M gas units = 0.000001 ETH = ~$0.003. For $2.72, you'd need either very high gas price OR very high gas limit. At 18 gwei (Ethereum price) × 46000 gas = 828000 gwei = 0.000828 ETH = ~$2.48. That matches! **The quote is returning Ethereum-level gas prices even for Base transactions.**\n\nThis happens because the quote's `maxFeePerGas` is set at quote time based on the origin chain's current gas price. If the quote was fetched when the user was on Ethereum, or if the API returns Ethereum-level gas prices for the approval step, those stale values get forwarded.\n\n**The fix**: `useGasFeeEstimations: false` should prevent this. But is it actually working? Let me add a direct patch to the SDK's `viemWallet.js` to force `useGasFeeEstimations` to false:\n\nActually — the cleanest fix is to **patch the node_modules file directly** to always skip gas fee estimations, since we can't reliably control the client state. But that's fragile. \n\nThe better approach: **implement a proper custom AdaptedWallet** that doesn't call `base.handleSendTransactionStep` at all, but instead directly calls `wallet.sendTransaction` without any gas fields:",
+  "time": {
+    "start": 1772806802730,
+    "end": 1772806802730
+  }
+}

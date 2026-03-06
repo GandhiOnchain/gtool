@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc383f49d001lKY1ElmU6jkQSp",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01BUSzWJNCyBnArht9KQeQ8W",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 207,
+      "limit": 55
+    },
+    "output": "<file>\n00208|         <div className=\"font-medium\">${token.valueUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>\n00209|         <div className=\"text-muted-foreground\">${token.priceUsd.toFixed(4)}</div>\n00210|       </div>\n00211|     </div>\n00212|   )\n00213| }\n00214| \n00215| const SOLANA_NATIVE_ADDRESS = '11111111111111111111111111111111'\n00216| const EVM_NATIVE_ADDRESS = '0x0000000000000000000000000000000000000000'\n00217| \n00218| const getChainIconUrl = (chain: RelayChain | null | undefined): string | undefined => {\n00219|   if (!chain) return undefined\n00220|   if (chain.iconUrl) return chain.iconUrl\n00221|   return `https://assets.relay.link/icons/${chain.id}/light.png`\n00222| }\n00223| \n00224| const getNativeAddress = (vmType?: string) =>\n00225|   vmType === 'svm' ? SOLANA_NATIVE_ADDRESS : EVM_NATIVE_ADDRESS\n00226| \n00227| const isNativeAddress = (address: string) =>\n00228|   address === EVM_NATIVE_ADDRESS || address === SOLANA_NATIVE_ADDRESS\n00229| \n00230| export default function RelaySwap() {\n00231|   const { address, isConnected, chainId: connectedChainId, connector } = useAccount()\n00232|   const { connect, connectors } = useConnect()\n00233|   const { disconnect } = useWallet()\n00234|   const { switchChain } = useSwitchChain()\n00235|   const { data: rawWalletClient } = useWalletClient()\n00236|   const { chains: relayChains, viemChains } = useRelayChains()\n00237|   const chains: RelayChain[] = ((relayChains || []) as unknown as RelayChain[]).filter((c: RelayChain) => !c.disabled && c.vmType !== 'bvm')\n00238| \n00239|   const walletClient = rawWalletClient ?? undefined\n00240| \n00241|   useEffect(() => {\n00242|     if (viemChains && viemChains.length > 0) {\n00243|       const client = createClient({\n00244|         baseApiUrl: MAINNET_RELAY_API,\n00245|         chains: relayChains as unknown as Parameters<typeof createClient>[0]['chains'],\n00246|       })\n00247|       client.configure({ useGasFeeEstimations: false })\n00248|     }\n00249|   }, [viemChains])\n00250|   const [fromChain, setFromChain] = useState<RelayChain | null>(null)\n00251|   const [toChain, setToChain] = useState<RelayChain | null>(null)\n00252|   const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n00253|   const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n00254|   const [fromAmount, setFromAmount] = useState('')\n00255|   const [toAmount, setToAmount] = useState('')\n00256|   const [isSwapping, setIsSwapping] = useState(false)\n00257|   const [slippage, setSlippage] = useState('0.1')\n00258|   const [searchTerm, setSearchTerm] = useState('')\n00259|   const [tokenSearchTerm, setTokenSearchTerm] = useState('')\n00260|   const [isChainSelectOpen, setIsChainSelectOpen] = useState(false)\n00261|   const [isTokenSelectOpen, setIsTokenSelectOpen] = useState(false)\n00262|   const [selectingFor, setSelectingFor] = useState<'from' | 'to' | 'batch' | 'batchTo' | 'revoke'>('from')\n\n(File has more lines. Use 'offset' parameter to read beyond line 262)\n</file>",
+    "metadata": {
+      "preview": "        <div className=\"font-medium\">${token.valueUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>\n        <div className=\"text-muted-foreground\">${token.priceUsd.toFixed(4)}</div>\n      </div>\n    </div>\n  )\n}\n\nconst SOLANA_NATIVE_ADDRESS = '11111111111111111111111111111111'\nconst EVM_NATIVE_ADDRESS = '0x0000000000000000000000000000000000000000'\n\nconst getChainIconUrl = (chain: RelayChain | null | undefined): string | undefined => {\n  if (!chain) return undefined\n  if (chain.iconUrl) return chain.iconUrl\n  return `https://assets.relay.link/icons/${chain.id}/light.png`\n}\n\nconst getNativeAddress = (vmType?: string) =>\n  vmType === 'svm' ? SOLANA_NATIVE_ADDRESS : EVM_NATIVE_ADDRESS\n\nconst isNativeAddress = (address: string) =>"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772806731976,
+      "end": 1772806731979
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc38480780012lhNsdvxlJZ0tF",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01UWfK3JKMVoDrTAQeEvr58f",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -rn \"gas\\b\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/types/api.d.ts 2>/dev/null | head -20",
+      "description": "Check API type definitions for gas"
+    },
+    "output": "422:                             *           \"gas\": 21064\n458:                             *   \"gas\": \"384398515652800\",\n467:                                /** @description Origin chain gas fee in wei */\n468:                                gas?: string;\n470:                                 * @description Origin chain gas currency\n476:                                /** @description Destination chain gas fee in wei */\n481:                                 * @description The currency for all relayer fees (gas and service)\n602:                             *           \"gas\": 21064\n638:                                 * @description Origin chain gas fee\n658:                                gas?: {\n716:                                 * @description Destination chain gas fee\n833:                                 * @description The amount of fees for the request that are subsidized by the request sponsor. Does not include deposit origin gas unless it is a permit based deposit.\n979:                             *           \"gas\": 21064\n1015:                             *   \"gas\": \"384398515652800\",\n1024:                                /** @description Origin chain gas fee in wei */\n1025:                                gas?: string;\n1027:                                 * @description Origin chain gas currency\n1033:                                /** @description Destination chain gas fee in wei */\n1038:                                 * @description The currency for all relayer fees (gas and service)\n1166:                             *           \"gas\": 21064\n",
+    "metadata": {
+      "output": "422:                             *           \"gas\": 21064\n458:                             *   \"gas\": \"384398515652800\",\n467:                                /** @description Origin chain gas fee in wei */\n468:                                gas?: string;\n470:                                 * @description Origin chain gas currency\n476:                                /** @description Destination chain gas fee in wei */\n481:                                 * @description The currency for all relayer fees (gas and service)\n602:                             *           \"gas\": 21064\n638:                                 * @description Origin chain gas fee\n658:                                gas?: {\n716:                                 * @description Destination chain gas fee\n833:                                 * @description The amount of fees for the request that are subsidized by the request sponsor. Does not include deposit origin gas unless it is a permit based deposit.\n979:                             *           \"gas\": 21064\n1015:                             *   \"gas\": \"384398515652800\",\n1024:                                /** @description Origin chain gas fee in wei */\n1025:                                gas?: string;\n1027:                                 * @description Origin chain gas currency\n1033:                                /** @description Destination chain gas fee in wei */\n1038:                                 * @description The currency for all relayer fees (gas and service)\n1166:                             *           \"gas\": 21064\n",
+      "exit": 0,
+      "description": "Check API type definitions for gas"
+    },
+    "title": "grep -rn \"gas\\b\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/types/api.d.ts 2>/dev/null | head -20",
+    "time": {
+      "start": 1772806767817,
+      "end": 1772806767825
+    }
+  }
+}

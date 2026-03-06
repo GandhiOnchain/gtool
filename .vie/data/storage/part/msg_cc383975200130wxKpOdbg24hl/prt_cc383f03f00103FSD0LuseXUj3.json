@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc383f03f00103FSD0LuseXUj3",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "`useRelayChains` doesn't create a client. Now let me look at the actual `useRelayChains` call in the component and how `createClient` is called:",
+  "time": {
+    "start": 1772806731994,
+    "end": 1772806731994
+  }
+}

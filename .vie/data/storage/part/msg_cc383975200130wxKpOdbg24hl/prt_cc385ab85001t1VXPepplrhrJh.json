@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc385ab85001t1VXPepplrhrJh",
+  "messageID": "msg_cc383975200130wxKpOdbg24hl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Clean. Here's what was actually wrong and what the fix does:\n\n**Root cause**: The SDK's `adaptViemWallet` internally calls `viemClient.sendTransaction({ ..., maxFeePerGas, maxPriorityFeePerGas, gas })` when `client.useGasFeeEstimations` is true. Even though we called `configure({ useGasFeeEstimations: false })`, there was a race: `createClient` creates the client with `useGasFeeEstimations: true` (the default), and `configure` is called immediately after — but the `useEffect` dependency on `viemChains` means it can fire multiple times. On the second fire (when real chains load), `createClient` calls `configure(options)` where `options` doesn't include `useGasFeeEstimations`, so `configure` preserves whatever value was there. The problem is the first `createClient` call sets `useGasFeeEstimations: true`, and the subsequent `configure({ useGasFeeEstimations: false })` may not always win the race before `executeQuote` is called.\n\n**The fix**: A custom `handleSendTransactionStep` that **completely bypasses the SDK's gas forwarding logic**. It builds its own `viemWalletClient` and calls `sendTransaction` with only `to`, `data`, and `value` — no `gas`, `maxFeePerGas`, or `maxPriorityFeePerGas`. The wallet (MetaMask) then estimates all gas fields from current chain state at submission time, giving correct fees.",
+  "time": {
+    "start": 1772806852364,
+    "end": 1772806852364
+  }
+}
