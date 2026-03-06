@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc3fef141001fxkgnoYISiAG7K",
+  "messageID": "msg_cc3fec638001SgxQVjhrbImNGS",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01AywjMHdUG2pQa9okyQeyWy",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2680,
+      "limit": 30
+    },
+    "output": "<file>\n02681|               >\n02682|                 <Settings className=\"h-4 w-4\" />\n02683|               </Button>\n02684|               <Button\n02685|                 variant=\"ghost\"\n02686|                 size=\"sm\"\n02687|                 onClick={async () => {\n02688|                   const connectorName = connector?.name || 'Unknown'\n02689|                   console.log('Disconnect clicked:', { connectorName, isConnected, address })\n02690|                   \n02691|                   if (connectorName === 'Farcaster Miniapp') {\n02692|                     toast.info('Farcaster wallet cannot be disconnected. Refresh to reconnect.')\n02693|                     return\n02694|                   }\n02695|                   \n02696|                   disconnect()\n02697|                   toast.success('Wallet disconnected')\n02698|                 }}\n02699|                 className=\"h-7 text-xs px-2\"\n02700|               >\n02701|                 {address?.slice(0, 6)}...{address?.slice(-4)}\n02702|               </Button>\n02703|             </div>\n02704|           </div>\n02705|         )}\n02706| \n02707|         <Tabs defaultValue=\"swap\" value={activeTab} onValueChange={setActiveTab} className=\"w-full\">\n02708|           <TabsList className=\"grid w-full grid-cols-3 h-8\">\n02709|             <TabsTrigger value=\"swap\" className=\"text-xs\">Swap / Bridge</TabsTrigger>\n02710|             <TabsTrigger value=\"batch\" className=\"text-xs\">Batch</TabsTrigger>\n\n(File has more lines. Use 'offset' parameter to read beyond line 2710)\n</file>",
+    "metadata": {
+      "preview": "              >\n                <Settings className=\"h-4 w-4\" />\n              </Button>\n              <Button\n                variant=\"ghost\"\n                size=\"sm\"\n                onClick={async () => {\n                  const connectorName = connector?.name || 'Unknown'\n                  console.log('Disconnect clicked:', { connectorName, isConnected, address })\n                  \n                  if (connectorName === 'Farcaster Miniapp') {\n                    toast.info('Farcaster wallet cannot be disconnected. Refresh to reconnect.')\n                    return\n                  }\n                  \n                  disconnect()\n                  toast.success('Wallet disconnected')\n                }}\n                className=\"h-7 text-xs px-2\"\n              >"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772814791708,
+      "end": 1772814791710
+    }
+  }
+}

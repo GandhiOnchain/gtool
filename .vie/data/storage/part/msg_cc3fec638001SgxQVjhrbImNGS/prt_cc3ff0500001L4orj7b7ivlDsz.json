@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc3ff0500001L4orj7b7ivlDsz",
+  "messageID": "msg_cc3fec638001SgxQVjhrbImNGS",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "The disconnect button shows the address and acts as a disconnect trigger. Since this is Farcaster-only, remove the disconnect logic entirely and just show the address as a non-interactive label.",
+  "time": {
+    "start": 1772814799294,
+    "end": 1772814799294
+  }
+}

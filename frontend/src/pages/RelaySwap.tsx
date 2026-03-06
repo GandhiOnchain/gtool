@@ -229,9 +229,8 @@ const isNativeAddress = (address: string) =>
   address === EVM_NATIVE_ADDRESS || address === SOLANA_NATIVE_ADDRESS
 
 export default function RelaySwap() {
-  const { address, isConnected, chainId: connectedChainId, connector } = useAccount()
+  const { address, isConnected, chainId: connectedChainId } = useAccount()
   const { connect, connectors } = useConnect()
-  const { disconnect } = useWallet()
   const { switchChain } = useSwitchChain()
   const { data: rawWalletClient } = useWalletClient()
   const { chains: relayChains, viemChains } = useRelayChains()
@@ -2681,25 +2680,9 @@ export default function RelaySwap() {
               >
                 <Settings className="h-4 w-4" />
               </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={async () => {
-                  const connectorName = connector?.name || 'Unknown'
-                  console.log('Disconnect clicked:', { connectorName, isConnected, address })
-                  
-                  if (connectorName === 'Farcaster Miniapp') {
-                    toast.info('Farcaster wallet cannot be disconnected. Refresh to reconnect.')
-                    return
-                  }
-                  
-                  disconnect()
-                  toast.success('Wallet disconnected')
-                }}
-                className="h-7 text-xs px-2"
-              >
+              <div className="h-7 text-xs px-2 flex items-center font-mono text-muted-foreground">
                 {address?.slice(0, 6)}...{address?.slice(-4)}
-              </Button>
+              </div>
             </div>
           </div>
         )}

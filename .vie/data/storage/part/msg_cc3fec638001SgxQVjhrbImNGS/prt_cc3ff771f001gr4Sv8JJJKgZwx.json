@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc3ff771f001gr4Sv8JJJKgZwx",
+  "messageID": "msg_cc3fec638001SgxQVjhrbImNGS",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Done. The disconnect button is replaced with a plain address display — no click handler, no disconnect logic. The `useWallet` and `connector` references are removed since they're no longer needed.",
+  "time": {
+    "start": 1772814826100,
+    "end": 1772814826100
+  }
+}

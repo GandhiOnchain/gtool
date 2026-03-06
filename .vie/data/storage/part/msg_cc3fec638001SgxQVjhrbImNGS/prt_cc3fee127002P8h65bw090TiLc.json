@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc3fee127002P8h65bw090TiLc",
+  "messageID": "msg_cc3fec638001SgxQVjhrbImNGS",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01NUCa4WXpht1oF53uuMg9jy",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"disconnect\\|Disconnect\\|farcaster\\|Farcaster\\|miniapp\\|connector\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -30",
+      "description": "Find disconnect and connector references"
+    },
+    "output": "3:import { sdk } from '@farcaster/miniapp-sdk'\n232:  const { address, isConnected, chainId: connectedChainId, connector } = useAccount()\n233:  const { connect, connectors } = useConnect()\n234:  const { disconnect } = useWallet()\n413:  // Detect Solana wallet via Farcaster SDK\n421:            console.log('Farcaster Solana wallet connected:', result.publicKey)\n426:        console.log('Farcaster Solana wallet not available:', error)\n1486:      toast.error('Farcaster Solana wallet not connected')\n1710:      toast.error('Farcaster Solana wallet not connected')\n2484:      const connector = connectors.find(c => c.id === 'io.metamask' || c.id === 'injected') || connectors[0]\n2485:      if (connector) {\n2486:        await connect({ connector })\n2488:        toast.error('No wallet connector found. Please install MetaMask or another Web3 wallet.')\n2688:                  const connectorName = connector?.name || 'Unknown'\n2689:                  console.log('Disconnect clicked:', { connectorName, isConnected, address })\n2691:                  if (connectorName === 'Farcaster Miniapp') {\n2692:                    toast.info('Farcaster wallet cannot be disconnected. Refresh to reconnect.')\n2696:                  disconnect()\n2697:                  toast.success('Wallet disconnected')\n2995:                        {solanaAddress || 'Farcaster Solana wallet not connected'}\n3117:                  <span className=\"text-xs font-medium\">Trending on Farcaster</span>\n3396:                      {solanaAddress || 'Farcaster Solana wallet not connected'}\n",
+    "metadata": {
+      "output": "3:import { sdk } from '@farcaster/miniapp-sdk'\n232:  const { address, isConnected, chainId: connectedChainId, connector } = useAccount()\n233:  const { connect, connectors } = useConnect()\n234:  const { disconnect } = useWallet()\n413:  // Detect Solana wallet via Farcaster SDK\n421:            console.log('Farcaster Solana wallet connected:', result.publicKey)\n426:        console.log('Farcaster Solana wallet not available:', error)\n1486:      toast.error('Farcaster Solana wallet not connected')\n1710:      toast.error('Farcaster Solana wallet not connected')\n2484:      const connector = connectors.find(c => c.id === 'io.metamask' || c.id === 'injected') || connectors[0]\n2485:      if (connector) {\n2486:        await connect({ connector })\n2488:        toast.error('No wallet connector found. Please install MetaMask or another Web3 wallet.')\n2688:                  const connectorName = connector?.name || 'Unknown'\n2689:                  console.log('Disconnect clicked:', { connectorName, isConnected, address })\n2691:                  if (connectorName === 'Farcaster Miniapp') {\n2692:                    toast.info('Farcaster wallet cannot be disconnected. Refresh to reconnect.')\n2696:                  disconnect()\n2697:                  toast.success('Wallet disconnected')\n2995:                        {solanaAddress || 'Farcaster Solana wallet not connected'}\n3117:                  <span className=\"text-xs font-medium\">Trending on Farcaster</span>\n3396:                      {solanaAddress || 'Farcaster Solana wallet not connected'}\n",
+      "exit": 0,
+      "description": "Find disconnect and connector references"
+    },
+    "title": "grep -n \"disconnect\\|Disconnect\\|farcaster\\|Farcaster\\|miniapp\\|connector\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -30",
+    "time": {
+      "start": 1772814788095,
+      "end": 1772814788109
+    }
+  }
+}
