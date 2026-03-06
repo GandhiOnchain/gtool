@@ -2603,7 +2603,7 @@ export default function RelaySwap() {
     })
 
   return (
-    <div className="bg-background p-2 max-w-[424px] mx-auto">
+    <div className="bg-background px-2 w-full max-w-[424px] mx-auto overflow-x-hidden">
       <div className="space-y-2">
         {!isConnected ? (
           <Button
@@ -3151,7 +3151,7 @@ export default function RelaySwap() {
           </TabsContent>
 
           <TabsContent value="batch" className="mt-2">
-            <ScrollArea className="h-[calc(100svh-140px)] max-h-[600px]">
+            <div className="overflow-y-auto overflow-x-hidden h-[calc(100svh-140px)] max-h-[600px] pr-0.5">
             <Card className="p-3 mb-4">
               <div className="space-y-2">
                 <div className="text-sm font-medium">Batch Cleanup</div>
@@ -3193,15 +3193,19 @@ export default function RelaySwap() {
 
                 <Separator />
 
-                <div className="flex items-center justify-between">
-                  <div className="text-xs text-muted-foreground">
-                    {isLoadingBatchTokens ? 'Scanning & checking security...' : batchTokens.length > 0 ? `${batchTokens.filter(t => t.selected !== false).length}/${batchTokens.length} selected${batchTokens.some(t => t.risk?.isSpam || t.risk?.riskLevel === 'high') ? ` · ${batchTokens.filter(t => t.risk?.isSpam || t.risk?.riskLevel === 'high').length} flagged` : ''}` : batchChain ? 'No tokens with balance found' : 'Select a chain to detect tokens'}
+                <div className="flex items-center justify-between gap-2 min-w-0">
+                  <div className="text-xs text-muted-foreground truncate flex-1 min-w-0">
+                    {isLoadingBatchTokens
+                      ? 'Scanning...'
+                      : batchTokens.length > 0
+                      ? `${batchTokens.filter(t => t.selected !== false).length}/${batchTokens.length} selected${batchTokens.some(t => t.risk?.isSpam || t.risk?.riskLevel === 'high') ? ` · ${batchTokens.filter(t => t.risk?.isSpam || t.risk?.riskLevel === 'high').length} flagged` : ''}`
+                      : batchChain ? 'No tokens found' : 'Select a chain'}
                   </div>
                   {batchTokens.length > 0 && (
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-6 text-xs px-2"
+                      className="h-6 text-xs px-2 flex-shrink-0"
                       onClick={() => {
                         const allSelected = batchTokens.every(t => t.selected !== false)
                         setBatchTokens(batchTokens.map(t => ({ ...t, selected: !allSelected })))
@@ -3280,8 +3284,8 @@ export default function RelaySwap() {
                               </div>
                               <div className="text-xs text-muted-foreground truncate">{wt.token.name}</div>
                             </div>
-                            <div className="text-right flex-shrink-0">
-                              <div className="text-xs font-medium">{parseFloat(wt.balanceFormatted).toFixed(4)}</div>
+                            <div className="text-right flex-shrink-0 max-w-[80px]">
+                              <div className="text-xs font-medium truncate">{parseFloat(wt.balanceFormatted).toFixed(4)}</div>
                             </div>
                           </div>
 
@@ -3476,7 +3480,7 @@ export default function RelaySwap() {
                 </Button>
               </div>
             </Card>
-            </ScrollArea>
+            </div>
           </TabsContent>
 
 

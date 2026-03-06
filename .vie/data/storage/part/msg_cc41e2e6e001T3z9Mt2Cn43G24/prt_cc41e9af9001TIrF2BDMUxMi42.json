@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc41e9af9001TIrF2BDMUxMi42",
+  "messageID": "msg_cc41e2e6e001T3z9Mt2Cn43G24",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Now fix the status line that can be very long and the \"Select All\" button getting clipped — wrap them better:",
+  "time": {
+    "start": 1772816875326,
+    "end": 1772816875326
+  }
+}

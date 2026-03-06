@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc41f3186001rMXlh7F6Nyp1pv",
+  "messageID": "msg_cc41e2e6e001T3z9Mt2Cn43G24",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "All clean. Here's what was fixed:\n\n1. **Root container** — added `overflow-x-hidden` and changed `p-2` to `px-2` so vertical padding doesn't add to width calculations\n2. **Replaced `ScrollArea`** with a plain `div` using `overflow-y-auto overflow-x-hidden` — `ScrollArea` (Radix) adds a ~15px scrollbar gutter that was pushing content outside the 424px frame\n3. **Status line** — shortened text and added `truncate flex-1 min-w-0` so it never pushes the \"Select All\" button off-screen\n4. **Token balance column** — capped at `max-w-[80px]` with `truncate` to prevent long numbers from overflowing",
+  "time": {
+    "start": 1772816908241,
+    "end": 1772816908241
+  }
+}

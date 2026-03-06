@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc41e3d95001frfwZldk7FWlbo",
+  "messageID": "msg_cc41e2e6e001T3z9Mt2Cn43G24",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01BmcxqZw5sbA4kSBvNZKVJY",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2605,
+      "limit": 10
+    },
+    "output": "<file>\n02606|     <div className=\"bg-background p-2 max-w-[424px] mx-auto\">\n02607|       <div className=\"space-y-2\">\n02608|         {!isConnected ? (\n02609|           <Button\n02610|             onClick={handleConnect}\n02611|             className=\"w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90\"\n02612|           >\n02613|             <Wallet className=\"h-4 w-4 mr-2\" />\n02614|             Connect Wallet\n02615|           </Button>\n\n(File has more lines. Use 'offset' parameter to read beyond line 2615)\n</file>",
+    "metadata": {
+      "preview": "    <div className=\"bg-background p-2 max-w-[424px] mx-auto\">\n      <div className=\"space-y-2\">\n        {!isConnected ? (\n          <Button\n            onClick={handleConnect}\n            className=\"w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90\"\n          >\n            <Wallet className=\"h-4 w-4 mr-2\" />\n            Connect Wallet\n          </Button>"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772816842952,
+      "end": 1772816842953
+    }
+  }
+}

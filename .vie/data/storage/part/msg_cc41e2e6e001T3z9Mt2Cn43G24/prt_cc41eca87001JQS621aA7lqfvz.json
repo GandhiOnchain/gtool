@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc41eca87001JQS621aA7lqfvz",
+  "messageID": "msg_cc41e2e6e001T3z9Mt2Cn43G24",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Now fix the token row balance value — truncate it so it doesn't overflow:",
+  "time": {
+    "start": 1772816880750,
+    "end": 1772816880750
+  }
+}

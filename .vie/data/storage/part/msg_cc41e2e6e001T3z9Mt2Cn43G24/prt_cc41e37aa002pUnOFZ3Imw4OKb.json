@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc41e37aa002pUnOFZ3Imw4OKb",
+  "messageID": "msg_cc41e2e6e001T3z9Mt2Cn43G24",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "The screenshot shows the content is being cut off on the right side — the token balances and \"Select All\" button are clipped. This is a horizontal overflow issue, not just vertical. The container is wider than the frame.",
+  "time": {
+    "start": 1772816842994,
+    "end": 1772816842994
+  }
+}
