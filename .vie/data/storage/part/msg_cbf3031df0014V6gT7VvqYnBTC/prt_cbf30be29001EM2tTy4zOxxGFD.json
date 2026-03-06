@@ -20,7 +20,8 @@
     "title": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-kit-hooks/",
     "time": {
       "start": 1772734168938,
-      "end": 1772734168940
+      "end": 1772734168940,
+      "compacted": 1772812970716
     }
   }
 }

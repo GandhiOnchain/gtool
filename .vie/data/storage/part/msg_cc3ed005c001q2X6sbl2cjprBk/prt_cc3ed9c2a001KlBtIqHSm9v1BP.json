@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc3ed9c2a001KlBtIqHSm9v1BP",
+  "messageID": "msg_cc3ed005c001q2X6sbl2cjprBk",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I'll apply both fixes:\n\n1. `useGasFeeEstimations: false` in `createClient` — disables stale gas forwarding in `handleSendTransactionStep`\n2. A minimal `AdaptedWallet` wrapper that only overrides `supportsAtomicBatch → false` — prevents the batch path which unconditionally forwards gas",
+  "time": {
+    "start": 1772813658229,
+    "end": 1772813658229
+  }
+}

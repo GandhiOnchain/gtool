@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && cat node_modules/@relayprotocol/relay-kit-hooks/dist/index.js 2>/dev/null | head -5 || ls node_modules/@relayprotocol/relay-kit-hooks/dist/ 2>/dev/null || ls node_modules/@relayprotocol/relay-kit-hooks/ 2>/dev/null",
     "time": {
       "start": 1772734166304,
-      "end": 1772734166305
+      "end": 1772734166305,
+      "compacted": 1772812970716
     }
   }
 }

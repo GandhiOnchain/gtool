@@ -20,7 +20,8 @@
     "title": "rg \"slippageTolerance\\|slippage\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -40",
     "time": {
       "start": 1772734157494,
-      "end": 1772734157500
+      "end": 1772734157500,
+      "compacted": 1772812970716
     }
   }
 }

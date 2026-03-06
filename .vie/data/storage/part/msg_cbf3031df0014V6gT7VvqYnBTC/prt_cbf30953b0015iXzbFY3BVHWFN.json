@@ -20,7 +20,8 @@
     "title": "rg \"gas\\b\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -30",
     "time": {
       "start": 1772734158279,
-      "end": 1772734158284
+      "end": 1772734158284,
+      "compacted": 1772812970716
     }
   }
 }

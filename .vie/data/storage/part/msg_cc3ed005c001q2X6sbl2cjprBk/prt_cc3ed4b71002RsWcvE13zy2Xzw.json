@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc3ed4b71002RsWcvE13zy2Xzw",
+  "messageID": "msg_cc3ed005c001q2X6sbl2cjprBk",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I see the full picture clearly:\n\n1. `handleSendTransactionStep` — gas fields gated by `client.useGasFeeEstimations` (default `true`)\n2. `handleBatchTransactionStep` — gas fields forwarded **unconditionally**, no `useGasFeeEstimations` check\n\nThe SDK defaults `useGasFeeEstimations = true`, so stale `maxFeePerGas`/`maxPriorityFeePerGas`/`gas` from the quote get forwarded to the wallet. The batch path always forwards them regardless.\n\nThe fix is to patch the SDK's node_modules file to set `useGasFeeEstimations = false` by default, OR — the clean approach — patch the viemWallet.js to remove the unconditional gas forwarding in `handleBatchTransactionStep` and add the `useGasFeeEstimations` check there too. But patching node_modules is fragile.\n\nThe correct approach: use a **postinstall patch** via `patch-package`, or simply set `useGasFeeEstimations: false` in `createClient`. Let me check if that option is accepted even if undocumented:",
+  "time": {
+    "start": 1772813642202,
+    "end": 1772813642202
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc3ed1d39001HKGiZ1MfC2UsXG",
+  "messageID": "msg_cc3ed005c001q2X6sbl2cjprBk",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Let me read the actual SDK source to understand exactly what happens with gas for specific transaction types.",
+  "time": {
+    "start": 1772813625376,
+    "end": 1772813625376
+  }
+}

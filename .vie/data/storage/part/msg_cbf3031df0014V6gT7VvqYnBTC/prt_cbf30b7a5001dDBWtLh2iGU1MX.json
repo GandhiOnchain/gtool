@@ -20,7 +20,8 @@
     "title": "cd /home/user/sandbox/workspace/frontend && cat node_modules/@relayprotocol/relay-sdk/dist/index.js 2>/dev/null | grep -i \"gas\\|maxFee\\|maxPriority\" | head -20",
     "time": {
       "start": 1772734167131,
-      "end": 1772734167132
+      "end": 1772734167132,
+      "compacted": 1772812970716
     }
   }
 }

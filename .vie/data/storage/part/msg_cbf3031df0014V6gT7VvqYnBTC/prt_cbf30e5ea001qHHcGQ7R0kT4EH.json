@@ -20,7 +20,8 @@
     "title": "grep -r \"useGasFeeEstimations\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/ | grep -v \".map\" | head -20",
     "time": {
       "start": 1772734179161,
-      "end": 1772734179175
+      "end": 1772734179175,
+      "compacted": 1772812970715
     }
   }
 }

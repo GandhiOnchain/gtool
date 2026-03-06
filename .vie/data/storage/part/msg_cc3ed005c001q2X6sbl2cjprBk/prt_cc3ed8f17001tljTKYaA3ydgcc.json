@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc3ed8f17001tljTKYaA3ydgcc",
+  "messageID": "msg_cc3ed005c001q2X6sbl2cjprBk",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_013KEqEHy1nQYCp2CUTgPb2w",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 235,
+      "limit": 25
+    },
+    "output": "<file>\n00236|   const { chains: relayChains, viemChains } = useRelayChains()\n00237|   const chains: RelayChain[] = ((relayChains || []) as unknown as RelayChain[]).filter((c: RelayChain) => !c.disabled && c.vmType !== 'bvm')\n00238| \n00239|   const walletClient = rawWalletClient ?? undefined\n00240| \n00241|   useEffect(() => {\n00242|     if (viemChains && viemChains.length > 0) {\n00243|       createClient({\n00244|         baseApiUrl: MAINNET_RELAY_API,\n00245|         chains: relayChains as unknown as Parameters<typeof createClient>[0]['chains'],\n00246|       })\n00247|     }\n00248|   }, [viemChains])\n00249|   const [fromChain, setFromChain] = useState<RelayChain | null>(null)\n00250|   const [toChain, setToChain] = useState<RelayChain | null>(null)\n00251|   const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n00252|   const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n00253|   const [fromAmount, setFromAmount] = useState('')\n00254|   const [toAmount, setToAmount] = useState('')\n00255|   const [isSwapping, setIsSwapping] = useState(false)\n00256|   const [slippage, setSlippage] = useState('0.1')\n00257|   const [searchTerm, setSearchTerm] = useState('')\n00258|   const [tokenSearchTerm, setTokenSearchTerm] = useState('')\n00259|   const [isChainSelectOpen, setIsChainSelectOpen] = useState(false)\n00260|   const [isTokenSelectOpen, setIsTokenSelectOpen] = useState(false)\n\n(File has more lines. Use 'offset' parameter to read beyond line 260)\n</file>",
+    "metadata": {
+      "preview": "  const { chains: relayChains, viemChains } = useRelayChains()\n  const chains: RelayChain[] = ((relayChains || []) as unknown as RelayChain[]).filter((c: RelayChain) => !c.disabled && c.vmType !== 'bvm')\n\n  const walletClient = rawWalletClient ?? undefined\n\n  useEffect(() => {\n    if (viemChains && viemChains.length > 0) {\n      createClient({\n        baseApiUrl: MAINNET_RELAY_API,\n        chains: relayChains as unknown as Parameters<typeof createClient>[0]['chains'],\n      })\n    }\n  }, [viemChains])\n  const [fromChain, setFromChain] = useState<RelayChain | null>(null)\n  const [toChain, setToChain] = useState<RelayChain | null>(null)\n  const [fromToken, setFromToken] = useState<RelayCurrency | null>(null)\n  const [toToken, setToToken] = useState<RelayCurrency | null>(null)\n  const [fromAmount, setFromAmount] = useState('')\n  const [toAmount, setToAmount] = useState('')\n  const [isSwapping, setIsSwapping] = useState(false)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772813652277,
+      "end": 1772813652279
+    }
+  }
+}

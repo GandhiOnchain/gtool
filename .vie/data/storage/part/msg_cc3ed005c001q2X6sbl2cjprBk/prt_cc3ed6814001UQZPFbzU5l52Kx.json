@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc3ed6814001UQZPFbzU5l52Kx",
+  "messageID": "msg_cc3ed005c001q2X6sbl2cjprBk",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_014agDMzRFdTZaz3Xqq9nJwm",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"useGasFeeEstimations\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/client.d.ts | head -5",
+      "description": "Check if useGasFeeEstimations is in the type definition"
+    },
+    "output": "15: * @property {boolean} [useGasFeeEstimations] - Whether to use gas fee estimations. Defaults to true.\n31:    useGasFeeEstimations?: boolean;\n50:    useGasFeeEstimations: boolean;\n",
+    "metadata": {
+      "output": "15: * @property {boolean} [useGasFeeEstimations] - Whether to use gas fee estimations. Defaults to true.\n31:    useGasFeeEstimations?: boolean;\n50:    useGasFeeEstimations: boolean;\n",
+      "exit": 0,
+      "description": "Check if useGasFeeEstimations is in the type definition"
+    },
+    "title": "grep -n \"useGasFeeEstimations\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/client.d.ts | head -5",
+    "time": {
+      "start": 1772813641807,
+      "end": 1772813641820
+    }
+  }
+}

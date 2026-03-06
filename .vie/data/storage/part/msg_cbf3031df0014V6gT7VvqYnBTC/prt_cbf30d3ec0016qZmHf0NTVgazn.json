@@ -20,7 +20,8 @@
     "title": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/viemWallet.js",
     "time": {
       "start": 1772734174607,
-      "end": 1772734174608
+      "end": 1772734174608,
+      "compacted": 1772812970715
     }
   }
 }

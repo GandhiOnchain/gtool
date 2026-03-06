@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc3ed6851001IEOjDV2ik37RjC",
+  "messageID": "msg_cc3ed005c001q2X6sbl2cjprBk",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_018Q1NT97tZcyspwxEDUSrtH",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"useGasFeeEstimations\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/types/RelayClientOptions.d.ts 2>/dev/null || grep -rn \"useGasFeeEstimations\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/ 2>/dev/null | grep -v \".map\\|tsbuild\" | head -10",
+      "description": "Check if useGasFeeEstimations is typed in RelayClientOptions"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/client.d.ts:15: * @property {boolean} [useGasFeeEstimations] - Whether to use gas fee estimations. Defaults to true.\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/client.d.ts:31:    useGasFeeEstimations?: boolean;\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/client.d.ts:50:    useGasFeeEstimations: boolean;\n",
+    "metadata": {
+      "output": "/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/client.d.ts:15: * @property {boolean} [useGasFeeEstimations] - Whether to use gas fee estimations. Defaults to true.\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/client.d.ts:31:    useGasFeeEstimations?: boolean;\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/client.d.ts:50:    useGasFeeEstimations: boolean;\n",
+      "exit": 0,
+      "description": "Check if useGasFeeEstimations is typed in RelayClientOptions"
+    },
+    "title": "grep -n \"useGasFeeEstimations\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/src/types/RelayClientOptions.d.ts 2>/dev/null || grep -rn \"useGasFeeEstimations\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_types/ 2>/dev/null | grep -v \".map\\|tsbuild\" | head -10",
+    "time": {
+      "start": 1772813642155,
+      "end": 1772813642182
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc3ed3b25001z0q5dr2vAcNHa2",
+  "messageID": "msg_cc3ed005c001q2X6sbl2cjprBk",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01V1EypM3mNKerKoZf6TQrGv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "sed -n '100,120p' /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js",
+      "description": "Read RelayClient constructor - useGasFeeEstimations default"
+    },
+    "output": "            enumerable: true,\n            configurable: true,\n            writable: true,\n            value: actions\n        });\n        this.version = SDK_VERSION;\n        this.uiVersion = options.uiVersion;\n        this.baseApiUrl = options.baseApiUrl ?? MAINNET_RELAY_API;\n        this.apiKey = options.apiKey;\n        this.logLevel =\n            options.logLevel !== undefined ? options.logLevel : LogLevel.None;\n        this.pollingInterval = options.pollingInterval;\n        this.maxPollingAttemptsBeforeTimeout =\n            options.maxPollingAttemptsBeforeTimeout;\n        this.useGasFeeEstimations = options.useGasFeeEstimations ?? true;\n        this.websocketEnabled = options.websocket?.enabled ?? false;\n        this.websocketUrl = options.websocket?.url ?? MAINNET_RELAY_WS;\n        if (options.chains) {\n            this.chains = options.chains;\n        }\n        else if (options.baseApiUrl?.includes('testnets')) {\n",
+    "metadata": {
+      "output": "            enumerable: true,\n            configurable: true,\n            writable: true,\n            value: actions\n        });\n        this.version = SDK_VERSION;\n        this.uiVersion = options.uiVersion;\n        this.baseApiUrl = options.baseApiUrl ?? MAINNET_RELAY_API;\n        this.apiKey = options.apiKey;\n        this.logLevel =\n            options.logLevel !== undefined ? options.logLevel : LogLevel.None;\n        this.pollingInterval = options.pollingInterval;\n        this.maxPollingAttemptsBeforeTimeout =\n            options.maxPollingAttemptsBeforeTimeout;\n        this.useGasFeeEstimations = options.useGasFeeEstimations ?? true;\n        this.websocketEnabled = options.websocket?.enabled ?? false;\n        this.websocketUrl = options.websocket?.url ?? MAINNET_RELAY_WS;\n        if (options.chains) {\n            this.chains = options.chains;\n        }\n        else if (options.baseApiUrl?.includes('testnets')) {\n",
+      "exit": 0,
+      "description": "Read RelayClient constructor - useGasFeeEstimations default"
+    },
+    "title": "sed -n '100,120p' /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/client.js",
+    "time": {
+      "start": 1772813631791,
+      "end": 1772813631793
+    }
+  }
+}

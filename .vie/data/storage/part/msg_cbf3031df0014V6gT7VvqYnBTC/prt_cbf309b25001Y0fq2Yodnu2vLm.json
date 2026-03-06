@@ -20,7 +20,8 @@
     "title": "rg \"slippage\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
     "time": {
       "start": 1772734159871,
-      "end": 1772734159874
+      "end": 1772734159874,
+      "compacted": 1772812970716
     }
   }
 }

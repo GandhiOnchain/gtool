@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc3ee09ea001mdNKDb64Q79WXT",
+  "messageID": "msg_cc3ed005c001q2X6sbl2cjprBk",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Two targeted fixes:\n\n**Fix 1 — `useGasFeeEstimations: false` in `createClient`**\nThe SDK's `handleSendTransactionStep` checks `client.useGasFeeEstimations` before forwarding `maxFeePerGas`, `maxPriorityFeePerGas`, and `gas` from the quote. These values are set at quote-fetch time and become stale by execution time. Setting this to `false` tells the SDK to omit them, letting the wallet estimate gas from current chain state.\n\n**Fix 2 — `supportsAtomicBatch: () => false`**\nThe SDK's `handleBatchTransactionStep` (used when approve + deposit are batched via EIP-5792) forwards `maxFeePerGas`, `maxPriorityFeePerGas`, and `gas` **unconditionally** — it has no `useGasFeeEstimations` check. This is a bug in the SDK. Overriding `supportsAtomicBatch` to always return `false` forces the SDK to execute approve and deposit as sequential individual transactions through `handleSendTransactionStep`, which respects `useGasFeeEstimations: false`.",
+  "time": {
+    "start": 1772813688170,
+    "end": 1772813688170
+  }
+}

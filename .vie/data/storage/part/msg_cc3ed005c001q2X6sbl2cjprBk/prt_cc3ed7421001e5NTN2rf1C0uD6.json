@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc3ed7421001e5NTN2rf1C0uD6",
+  "messageID": "msg_cc3ed005c001q2X6sbl2cjprBk",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "`useGasFeeEstimations` IS in the type definition — it's a valid option, just not documented on the website. It's in `RelayClientOptions` as an optional boolean. Setting it to `false` in `createClient` is the correct, type-safe way to disable stale gas forwarding.\n\nBut `handleBatchTransactionStep` ignores it — that's a bug in the SDK. The fix for that path: override `supportsAtomicBatch` to return `false` so the batch path is never taken, forcing sequential execution through `handleSendTransactionStep` which respects `useGasFeeEstimations`.\n\nNow let me apply both fixes cleanly:",
+  "time": {
+    "start": 1772813648869,
+    "end": 1772813648869
+  }
+}

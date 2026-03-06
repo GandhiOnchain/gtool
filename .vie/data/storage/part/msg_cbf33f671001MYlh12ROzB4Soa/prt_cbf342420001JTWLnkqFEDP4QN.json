@@ -20,7 +20,8 @@
     "title": "grep -n \"loadApprovals\\|revoke\\|Revoke\\|refresh\\|Refresh\" /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx | head -50",
     "time": {
       "start": 1772734391683,
-      "end": 1772734391691
+      "end": 1772734391691,
+      "compacted": 1772812970714
     }
   }
 }

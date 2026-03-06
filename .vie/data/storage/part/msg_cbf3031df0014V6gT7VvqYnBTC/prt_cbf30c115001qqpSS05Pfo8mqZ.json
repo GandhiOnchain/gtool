@@ -20,7 +20,8 @@
     "title": "ls /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/",
     "time": {
       "start": 1772734169551,
-      "end": 1772734169552
+      "end": 1772734169552,
+      "compacted": 1772812970716
     }
   }
 }
