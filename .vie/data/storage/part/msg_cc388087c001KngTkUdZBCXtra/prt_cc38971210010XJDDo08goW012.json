@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc38971210010XJDDo08goW012",
+  "messageID": "msg_cc388087c001KngTkUdZBCXtra",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01ByTvA5PrA2o2TYRgFnbakr",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "sed -n '155,185p' /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/viemWallet.js",
+      "description": "Read supportsAtomicBatch implementation"
+    },
+    "output": "                        e.message.includes('is not a function')) {\n                        getClient()?.log([\n                            'Execute Steps: Detected internal RPC Error when adding a chain to the wallet',\n                            e\n                        ], LogLevel.Verbose);\n                        return;\n                    }\n                    else {\n                        throw e;\n                    }\n                }\n                return;\n            }\n        },\n        supportsAtomicBatch: async (chainId) => {\n            if (!wallet.account)\n                return false;\n            try {\n                const capabilities = await wallet.getCapabilities({\n                    account: wallet.account,\n                    chainId\n                });\n                return (capabilities?.atomicBatch?.supported ??\n                    (capabilities.atomic?.status &&\n                        capabilities.atomic.status === 'supported'));\n            }\n            catch {\n                return false;\n            }\n        },\n        handleBatchTransactionStep: async (chainId, items) => {\n",
+    "metadata": {
+      "output": "                        e.message.includes('is not a function')) {\n                        getClient()?.log([\n                            'Execute Steps: Detected internal RPC Error when adding a chain to the wallet',\n                            e\n                        ], LogLevel.Verbose);\n                        return;\n                    }\n                    else {\n                        throw e;\n                    }\n                }\n                return;\n            }\n        },\n        supportsAtomicBatch: async (chainId) => {\n            if (!wallet.account)\n                return false;\n            try {\n                const capabilities = await wallet.getCapabilities({\n                    account: wallet.account,\n                    chainId\n                });\n                return (capabilities?.atomicBatch?.supported ??\n                    (capabilities.atomic?.status &&\n                        capabilities.atomic.status === 'supported'));\n            }\n            catch {\n                return false;\n            }\n        },\n        handleBatchTransactionStep: async (chainId, items) => {\n",
+      "exit": 0,
+      "description": "Read supportsAtomicBatch implementation"
+    },
+    "title": "sed -n '155,185p' /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/viemWallet.js",
+    "time": {
+      "start": 1772807091281,
+      "end": 1772807091283
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc3894857001XNbDexrB2sh4vX",
+  "messageID": "msg_cc388087c001KngTkUdZBCXtra",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "**Found it.** When there's an approve + deposit step, `canBatchTransactions` returns true, and `prepareBatchTransaction` batches them into a single step. Then `handleTransactionStepItem` is called with multiple items. In `sendTransactionSafely`, it checks `isBatchTransaction = Array.isArray(items) && items.length > 1 && wallet.handleBatchTransactionStep`. \n\nOur custom `walletClient` spreads `...base` from `adaptViemWallet` — which DOES include `handleBatchTransactionStep`. That method in `viemWallet.js` (lines 196-197) forwards `gas` **without checking `useGasFeeEstimations`**! That's the bug for the batched case.\n\nBut for the non-batched approval case (single item), `handleSendTransactionStep` is called. Our override handles that. \n\n**The real issue**: When `supportsAtomicBatch` returns true (e.g. for smart wallets or certain connectors), the SDK tries to batch approve+deposit. Our `handleBatchTransactionStep` (inherited from base) forwards gas fields. But more importantly — **`supportsAtomicBatch` may be returning true incorrectly** for the Farcaster miniapp connector, causing the SDK to try EIP-5792 batch calls which fail.\n\nLet me check:",
+  "time": {
+    "start": 1772807091322,
+    "end": 1772807091322
+  }
+}

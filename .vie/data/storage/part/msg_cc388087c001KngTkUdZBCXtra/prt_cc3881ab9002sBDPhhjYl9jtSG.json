@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc3881ab9002sBDPhhjYl9jtSG",
+  "messageID": "msg_cc388087c001KngTkUdZBCXtra",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "The screenshot shows \"RelayAppr...\" — this is an **approval** transaction, not the swap itself. The approval is going to the RelayApprover contract. The $2.29 fee on Base means MetaMask is estimating a huge gas limit because **the transaction simulation is failing** — MetaMask inflates gas when it can't simulate. The transaction fails because the approval is being sent to the wrong contract or with wrong calldata.\n\nLet me look at exactly what the Relay SDK does for approval steps vs deposit steps.",
+  "time": {
+    "start": 1772807009249,
+    "end": 1772807009249
+  }
+}

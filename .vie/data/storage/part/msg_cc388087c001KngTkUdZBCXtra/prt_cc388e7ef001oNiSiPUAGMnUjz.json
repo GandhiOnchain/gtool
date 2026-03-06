@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc388e7ef001oNiSiPUAGMnUjz",
+  "messageID": "msg_cc388087c001KngTkUdZBCXtra",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01KWvdGH93hi8VdPSWQGEHAg",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 380,
+      "limit": 20
+    },
+    "output": "<file>\n00381|       destinationCurrency: toToken!.address,\n00382|       amount: (() => { try { return parseUnits(fromAmount, fromToken!.decimals).toString() } catch { return '0' } })(),\n00383|       tradeType: 'EXACT_INPUT' as const,\n00384|       slippageTolerance: Math.floor(parseFloat(slippage) * 100).toString(),\n00385|       recipient: quoteCrossVMRecipient,\n00386|       includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n00387|       useExternalLiquidity: isCrossVMForQuote ? true : undefined,\n00388|     } : undefined,\n00389|     undefined,\n00390|     undefined,\n00391|     { enabled: quoteEnabled, refetchInterval: 15000 }\n00392|   )\n00393| \n00394|   const { data: executionStatusData } = useExecutionStatus(\n00395|     undefined,\n00396|     currentSwapRequestId ? { requestId: currentSwapRequestId } : undefined,\n00397|     undefined,\n00398|     undefined,\n00399|     { enabled: !!currentSwapRequestId, refetchInterval: 2000 }\n00400|   )\n\n(File has more lines. Use 'offset' parameter to read beyond line 400)\n</file>",
+    "metadata": {
+      "preview": "      destinationCurrency: toToken!.address,\n      amount: (() => { try { return parseUnits(fromAmount, fromToken!.decimals).toString() } catch { return '0' } })(),\n      tradeType: 'EXACT_INPUT' as const,\n      slippageTolerance: Math.floor(parseFloat(slippage) * 100).toString(),\n      recipient: quoteCrossVMRecipient,\n      includedSwapSources: includedSources.length > 0 ? includedSources : undefined,\n      useExternalLiquidity: isCrossVMForQuote ? true : undefined,\n    } : undefined,\n    undefined,\n    undefined,\n    { enabled: quoteEnabled, refetchInterval: 15000 }\n  )\n\n  const { data: executionStatusData } = useExecutionStatus(\n    undefined,\n    currentSwapRequestId ? { requestId: currentSwapRequestId } : undefined,\n    undefined,\n    undefined,\n    { enabled: !!currentSwapRequestId, refetchInterval: 2000 }\n  )"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772807055959,
+      "end": 1772807055962
+    }
+  }
+}

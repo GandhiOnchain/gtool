@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc388ddf7001Do0fr3BKnukCB6",
+  "messageID": "msg_cc388087c001KngTkUdZBCXtra",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_vrtx_01VA8txRbzVUmqRwkiVUZ9Gm",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 350,
+      "limit": 30
+    },
+    "output": "<file>\n00351|     toToken ? { address: toToken.address, chainId: toToken.chainId } : undefined,\n00352|     { enabled: !!toToken, staleTime: 30000 }\n00353|   )\n00354|   const toTokenPrice = toTokenPriceData?.price ?? 0\n00355| \n00356|   const quoteEnabled = !!(\n00357|     fromToken && toToken && fromAmount && parseFloat(fromAmount) > 0 &&\n00358|     fromChain && toChain &&\n00359|     !(fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) &&\n00360|     ((fromChain.vmType === 'svm' ? !!solanaAddress : !!address))\n00361|   )\n00362| \n00363|   const fromVMTypeForQuote = fromChain?.vmType || 'evm'\n00364|   const toVMTypeForQuote = toChain?.vmType || 'evm'\n00365|   const isCrossVMForQuote = fromVMTypeForQuote !== toVMTypeForQuote\n00366|   const quoteUserAddress = fromVMTypeForQuote === 'svm' ? (solanaAddress ?? undefined) : (address ?? undefined)\n00367|   const quoteCrossVMRecipient = isCrossVMForQuote\n00368|     ? (toVMTypeForQuote === 'svm' ? (solanaAddress ?? undefined) : (recipientAddress || undefined))\n00369|     : undefined\n00370| \n00371|   const includedSources = Object.entries(enabledSources).filter(([_, v]) => v).map(([k]) => k)\n00372| \n00373|   const { data: quote, isLoading: isLoadingQuote, executeQuote } = useQuote(\n00374|     getClient() ?? undefined,\n00375|     walletClient,\n00376|     quoteEnabled && quoteUserAddress ? {\n00377|       user: quoteUserAddress,\n00378|       originChainId: fromChain!.id,\n00379|       destinationChainId: toChain!.id,\n00380|       originCurrency: fromToken!.address,\n\n(File has more lines. Use 'offset' parameter to read beyond line 380)\n</file>",
+    "metadata": {
+      "preview": "    toToken ? { address: toToken.address, chainId: toToken.chainId } : undefined,\n    { enabled: !!toToken, staleTime: 30000 }\n  )\n  const toTokenPrice = toTokenPriceData?.price ?? 0\n\n  const quoteEnabled = !!(\n    fromToken && toToken && fromAmount && parseFloat(fromAmount) > 0 &&\n    fromChain && toChain &&\n    !(fromChain.id === toChain.id && fromToken.address.toLowerCase() === toToken.address.toLowerCase()) &&\n    ((fromChain.vmType === 'svm' ? !!solanaAddress : !!address))\n  )\n\n  const fromVMTypeForQuote = fromChain?.vmType || 'evm'\n  const toVMTypeForQuote = toChain?.vmType || 'evm'\n  const isCrossVMForQuote = fromVMTypeForQuote !== toVMTypeForQuote\n  const quoteUserAddress = fromVMTypeForQuote === 'svm' ? (solanaAddress ?? undefined) : (address ?? undefined)\n  const quoteCrossVMRecipient = isCrossVMForQuote\n    ? (toVMTypeForQuote === 'svm' ? (solanaAddress ?? undefined) : (recipientAddress || undefined))\n    : undefined\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772807053575,
+      "end": 1772807053577
+    }
+  }
+}

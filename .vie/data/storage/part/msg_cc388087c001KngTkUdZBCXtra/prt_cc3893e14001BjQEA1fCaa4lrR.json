@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc3893e14001BjQEA1fCaa4lrR",
+  "messageID": "msg_cc388087c001KngTkUdZBCXtra",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_0126exG4MJiipDRqbBekhVXe",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/prepareBatchTransaction.js",
+      "description": "Read prepareBatchTransaction to understand approve+deposit batching"
+    },
+    "output": "export function canBatchTransactions(steps) {\n    const firstStep = steps[0];\n    const secondStep = steps[1];\n    const hasIncompleteApproval = firstStep?.items?.some((item) => item.status === 'incomplete');\n    const hasIncompleteDeposit = secondStep?.items?.some((item) => item.status === 'incomplete');\n    return (firstStep?.id === 'approve' &&\n        (secondStep?.id === 'deposit' || secondStep?.id === 'swap') &&\n        hasIncompleteApproval &&\n        hasIncompleteDeposit);\n}\nexport function prepareBatchTransaction(steps) {\n    const secondStepId = steps[1]?.id; // deposit or swap\n    const batchedStep = {\n        id: `approve-and-${secondStepId}`,\n        action: 'Confirm transaction in your wallet',\n        description: `Batching approval and ${secondStepId} transactions`,\n        kind: 'transaction',\n        items: [\n            ...(steps[0].items || []),\n            ...(steps[1].items || []).map((item) => {\n                // mark the second step as complete\n                item.status = 'complete';\n                item.progressState = 'complete';\n                return item;\n            })\n        ],\n        requestId: steps[1].requestId ?? steps[0].requestId\n    };\n    return batchedStep;\n}\n//# sourceMappingURL=prepareBatchTransaction.js.map",
+    "metadata": {
+      "output": "export function canBatchTransactions(steps) {\n    const firstStep = steps[0];\n    const secondStep = steps[1];\n    const hasIncompleteApproval = firstStep?.items?.some((item) => item.status === 'incomplete');\n    const hasIncompleteDeposit = secondStep?.items?.some((item) => item.status === 'incomplete');\n    return (firstStep?.id === 'approve' &&\n        (secondStep?.id === 'deposit' || secondStep?.id === 'swap') &&\n        hasIncompleteApproval &&\n        hasIncompleteDeposit);\n}\nexport function prepareBatchTransaction(steps) {\n    const secondStepId = steps[1]?.id; // deposit or swap\n    const batchedStep = {\n        id: `approve-and-${secondStepId}`,\n        action: 'Confirm transaction in your wallet',\n        description: `Batching approval and ${secondStepId} transactions`,\n        kind: 'transaction',\n        items: [\n            ...(steps[0].items || []),\n            ...(steps[1].items || []).map((item) => {\n                // mark the second step as complete\n                item.status = 'complete';\n                item.progressState = 'complete';\n                return item;\n            })\n        ],\n        requestId: steps[1].requestId ?? steps[0].requestId\n    };\n    return batchedStep;\n}\n//# sourceMappingURL=prepareBatchTransaction.js.map",
+      "exit": 0,
+      "description": "Read prepareBatchTransaction to understand approve+deposit batching"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/prepareBatchTransaction.js",
+    "time": {
+      "start": 1772807078424,
+      "end": 1772807078430
+    }
+  }
+}

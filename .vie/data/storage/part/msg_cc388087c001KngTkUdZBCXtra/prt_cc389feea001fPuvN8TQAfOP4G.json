@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc389feea001fPuvN8TQAfOP4G",
+  "messageID": "msg_cc388087c001KngTkUdZBCXtra",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Clean. Here's the definitive root cause and fix:\n\n**Root cause — three compounding bugs:**\n\n1. **`handleBatchTransactionStep` forwarded stale gas fields without checking `useGasFeeEstimations`**. When approve + deposit steps exist, `canBatchTransactions` returns true and the SDK calls `handleBatchTransactionStep` instead of `handleSendTransactionStep`. Our previous override only patched `handleSendTransactionStep`, so the batch path still forwarded the quote's stale `maxFeePerGas`/`gas` values — causing the $2.29 fee.\n\n2. **`supportsAtomicBatch` could return true** for certain wallets (Farcaster miniapp connector, Coinbase Smart Wallet), causing the SDK to attempt EIP-5792 `sendCalls` which fails on most wallets, showing \"likely to fail\".\n\n3. **`value` field parsing**: The API returns `value` as either a decimal string (`\"0\"`, `\"995010715204139091\"`) or hex string (`\"0x...\"`). `hexToBigInt` only handles hex — passing a decimal string without `0x` prefix gives wrong results for non-zero values. Fixed with a prefix check: if it starts with `0x`, use `hexToBigInt`; otherwise use `BigInt()`.\n\n**The fix**: A complete custom wallet adapter that:\n- Overrides `supportsAtomicBatch` → always `false` (forces sequential approve then deposit)\n- Overrides `handleSendTransactionStep` → sends only `to`, `data`, `value` (no gas fields)\n- Overrides `handleBatchTransactionStep` → executes items sequentially, each without gas fields\n- Correctly parses `value` as either hex or decimal",
+  "time": {
+    "start": 1772807136993,
+    "end": 1772807136993
+  }
+}

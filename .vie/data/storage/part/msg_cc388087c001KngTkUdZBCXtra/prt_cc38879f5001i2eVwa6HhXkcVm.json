@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc38879f5001i2eVwa6HhXkcVm",
+  "messageID": "msg_cc388087c001KngTkUdZBCXtra",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "**Critical finding**: `hexToBigInt('995010715204139091')` = `995010715204139091n` — it treats the decimal string as hex! But the API returns `\"value\": \"995010715204139091\"` as a **decimal** string (wei amount). So `hexToBigInt` is interpreting it as hex, giving a completely wrong value.\n\nLet me verify:",
+  "time": {
+    "start": 1772807034120,
+    "end": 1772807034120
+  }
+}

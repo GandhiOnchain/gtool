@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc3897adf00221BakJfHcOJlpv",
+  "messageID": "msg_cc388087c001KngTkUdZBCXtra",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I have the complete picture. The issue is clear:\n\n1. Our custom `walletClient` spreads `...base` which includes `handleBatchTransactionStep` — that method forwards `gas` without checking `useGasFeeEstimations`\n2. More importantly: `supportsAtomicBatch` may return true for some wallets, causing the SDK to try EIP-5792 `sendCalls` which fails\n\n**The definitive fix**: Override ALL transaction-related methods in our custom wallet to strip gas fields, AND override `supportsAtomicBatch` to always return false (forcing sequential approve then deposit, which is the standard flow):",
+  "time": {
+    "start": 1772807106421,
+    "end": 1772807106421
+  }
+}

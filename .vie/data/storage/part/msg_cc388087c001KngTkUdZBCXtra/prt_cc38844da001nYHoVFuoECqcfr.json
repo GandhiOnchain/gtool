@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc38844da001nYHoVFuoECqcfr",
+  "messageID": "msg_cc388087c001KngTkUdZBCXtra",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I see the full picture. The SDK calls `wallet.handleSendTransactionStep(chainId, stepItem, step)`. Our custom `handleSendTransactionStep` receives `stepItem` and calls `sendTransaction` with only `to`, `data`, `value`. **This should work.**\n\nBut the screenshot shows \"likely to fail\" — this means MetaMask's simulation is failing, not that gas price is wrong. The transaction is actually reverting during simulation. The high fee is MetaMask's response to a failing simulation (it pads gas massively).\n\n**The real issue**: The approval transaction is failing simulation because the `value` field. Let me check — `hexToBigInt('0')` or `hexToBigInt('0x0')`. The approval step has `value: \"0\"` or `value: \"0x0\"`. Let me check what `hexToBigInt('0')` returns:",
+  "time": {
+    "start": 1772807025295,
+    "end": 1772807025295
+  }
+}

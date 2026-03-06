@@ -240,25 +240,38 @@ export default function RelaySwap() {
   const walletClient: AdaptedWallet | undefined = React.useMemo(() => {
     if (!rawWalletClient) return undefined
     const base = adaptViemWallet(rawWalletClient)
+
+    const sendTxClean = async (chainId: number, stepItem: { data: Record<string, unknown> }) => {
+      const client = getClient()
+      const chain = client?.chains?.find((c) => c.id === chainId)?.viemChain
+      if (!chain) throw new Error(`Chain ${chainId} not found in relay client`)
+      const { createWalletClient: createWC, custom: customTransport, hexToBigInt } = await import('viem')
+      const wc = createWC({
+        account: rawWalletClient.account ?? (stepItem.data.from as `0x${string}`),
+        chain,
+        transport: customTransport(rawWalletClient.transport, { retryCount: 10, retryDelay: 200 }),
+      })
+      const rawValue = (stepItem.data.value as string) || '0'
+      const value = /^0x/i.test(rawValue) ? hexToBigInt(rawValue as `0x${string}`) : BigInt(rawValue)
+      return wc.sendTransaction({
+        chain,
+        account: rawWalletClient.account ?? (stepItem.data.from as `0x${string}`),
+        to: stepItem.data.to as `0x${string}`,
+        data: stepItem.data.data as `0x${string}`,
+        value,
+      })
+    }
+
     return {
       ...base,
-      handleSendTransactionStep: async (chainId, stepItem) => {
-        const client = getClient()
-        const chain = client?.chains?.find((c) => c.id === chainId)?.viemChain
-        if (!chain) throw new Error(`Chain ${chainId} not found in relay client`)
-        const { createWalletClient: createWC, custom, hexToBigInt } = await import('viem')
-        const wc = createWC({
-          account: rawWalletClient.account ?? stepItem.data.from,
-          chain,
-          transport: custom(rawWalletClient.transport, { retryCount: 10, retryDelay: 200 }),
-        })
-        return wc.sendTransaction({
-          chain,
-          account: rawWalletClient.account ?? stepItem.data.from,
-          to: stepItem.data.to as `0x${string}`,
-          data: stepItem.data.data as `0x${string}`,
-          value: hexToBigInt(((stepItem.data.value as string) || '0') as `0x${string}`),
-        })
+      supportsAtomicBatch: async () => false,
+      handleSendTransactionStep: async (chainId, stepItem) =>
+        sendTxClean(chainId, stepItem as { data: Record<string, unknown> }),
+      handleBatchTransactionStep: async (chainId, items) => {
+        for (const item of items) {
+          await sendTxClean(chainId, item as { data: Record<string, unknown> })
+        }
+        return 'batch'
       },
     }
   }, [rawWalletClient])

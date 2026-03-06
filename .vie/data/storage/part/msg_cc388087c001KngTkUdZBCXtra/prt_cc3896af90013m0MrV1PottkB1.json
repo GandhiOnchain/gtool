@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc3896af90013m0MrV1PottkB1",
+  "messageID": "msg_cc388087c001KngTkUdZBCXtra",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_01HRVUTTBEfMdoFpj2PHjxuf",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"supportsAtomicBatch\\|sendCalls\\|EIP.5792\\|atomic\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/viemWallet.js | head -20",
+      "description": "Check supportsAtomicBatch and sendCalls in viemWallet"
+    },
+    "output": "169:        supportsAtomicBatch: async (chainId) => {\n177:                return (capabilities?.atomicBatch?.supported ??\n178:                    (capabilities.atomic?.status &&\n179:                        capabilities.atomic.status === 'supported'));\n205:            const { id } = await wallet.sendCalls({\n237:                        _hasSmartWalletCapabilities = Boolean(capabilities?.atomicBatch?.supported ||\n",
+    "metadata": {
+      "output": "169:        supportsAtomicBatch: async (chainId) => {\n177:                return (capabilities?.atomicBatch?.supported ??\n178:                    (capabilities.atomic?.status &&\n179:                        capabilities.atomic.status === 'supported'));\n205:            const { id } = await wallet.sendCalls({\n237:                        _hasSmartWalletCapabilities = Boolean(capabilities?.atomicBatch?.supported ||\n",
+      "exit": 0,
+      "description": "Check supportsAtomicBatch and sendCalls in viemWallet"
+    },
+    "title": "grep -n \"supportsAtomicBatch\\|sendCalls\\|EIP.5792\\|atomic\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/viemWallet.js | head -20",
+    "time": {
+      "start": 1772807090452,
+      "end": 1772807090457
+    }
+  }
+}

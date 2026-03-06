@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc3892aa8001z5wWMIuhwmoa5A",
+  "messageID": "msg_cc388087c001KngTkUdZBCXtra",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_vrtx_019QYB8DntdvAG8mTxGwqeM6",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -rn \"RelayApprover\\|approver\\|approve\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/ 2>/dev/null | grep -v \".map\" | head -20",
+      "description": "Find RelayApprover references in SDK"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/prepareBatchTransaction.js:6:    return (firstStep?.id === 'approve' &&\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/prepareBatchTransaction.js:14:        id: `approve-and-${secondStepId}`,\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/transaction.js:335:    step.id === 'approve' ||\n",
+    "metadata": {
+      "output": "/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/prepareBatchTransaction.js:6:    return (firstStep?.id === 'approve' &&\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/prepareBatchTransaction.js:14:        id: `approve-and-${secondStepId}`,\n/home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/utils/transaction.js:335:    step.id === 'approve' ||\n",
+      "exit": 0,
+      "description": "Find RelayApprover references in SDK"
+    },
+    "title": "grep -rn \"RelayApprover\\|approver\\|approve\" /home/user/sandbox/workspace/frontend/node_modules/@relayprotocol/relay-sdk/_esm/src/ 2>/dev/null | grep -v \".map\" | head -20",
+    "time": {
+      "start": 1772807074136,
+      "end": 1772807074154
+    }
+  }
+}
