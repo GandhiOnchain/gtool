@@ -1,0 +1,23 @@
+{
+  "id": "prt_cc41c1772001G8kySMOVhoDcZi",
+  "messageID": "msg_cc41bfbfa001T6kAMu1JcpMHvn",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_013axEQMDJU4MZRob95iTtHN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/env.json"
+    },
+    "output": "<file>\n00001| {\n00002|   \"VITE_PRIVY_APP_ID\": \"\",\n00003|   \"VITE_PRIVY_CLIENT_ID\": \"\",\n00004|   \"VITE_ALCHEMY_API_KEY\": \"\",\n00005|   \"VITE_MORALIS_API_KEY\": \"\",\n00006|   \"VITE_ZAPPER_API_KEY\": \"\"\n00007| }\n</file>",
+    "metadata": {
+      "preview": "{\n  \"VITE_PRIVY_APP_ID\": \"\",\n  \"VITE_PRIVY_CLIENT_ID\": \"\",\n  \"VITE_ALCHEMY_API_KEY\": \"\",\n  \"VITE_MORALIS_API_KEY\": \"\",\n  \"VITE_ZAPPER_API_KEY\": \"\"\n}"
+    },
+    "title": "frontend/src/env.json",
+    "time": {
+      "start": 1772816701574,
+      "end": 1772816701574
+    }
+  }
+}
