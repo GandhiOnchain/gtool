@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc4285070001C7QjF0QaMPQKfQ",
+  "messageID": "msg_cc427a515001HM9u84ZKbOlROv",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01J8aW3w7FrgnM3qGGRxk6md",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 506,
+      "limit": 30
+    },
+    "output": "<file>\n00507|     loadBatchToCurrencies()\n00508|   }, [batchToChain])\n00509| \n00510|   useEffect(() => {\n00511|     if (fromChain) {\n00512|       if (fromToken && fromToken.chainId !== fromChain.id) {\n00513|         setFromToken(null)\n00514|       }\n00515|       loadCurrencies(fromChain.id, 'from')\n00516|     }\n00517|   }, [fromChain])\n00518| \n00519|   useEffect(() => {\n00520|     if (toChain) {\n00521|       if (toToken && toToken.chainId !== toChain.id) {\n00522|         setToToken(null)\n00523|       }\n00524|       loadCurrencies(toChain.id, 'to')\n00525|     }\n00526|   }, [toChain])\n00527| \n00528|   useEffect(() => {\n00529|     if (address && chains.length > 0) {\n00530|       loadUserStreak()\n00531|     }\n00532|   }, [address, chains])\n00533| \n00534| \n00535| \n00536|   useEffect(() => {\n\n(File has more lines. Use 'offset' parameter to read beyond line 536)\n</file>",
+    "metadata": {
+      "preview": "    loadBatchToCurrencies()\n  }, [batchToChain])\n\n  useEffect(() => {\n    if (fromChain) {\n      if (fromToken && fromToken.chainId !== fromChain.id) {\n        setFromToken(null)\n      }\n      loadCurrencies(fromChain.id, 'from')\n    }\n  }, [fromChain])\n\n  useEffect(() => {\n    if (toChain) {\n      if (toToken && toToken.chainId !== toChain.id) {\n        setToToken(null)\n      }\n      loadCurrencies(toChain.id, 'to')\n    }\n  }, [toChain])"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772817502907,
+      "end": 1772817502911
+    }
+  }
+}

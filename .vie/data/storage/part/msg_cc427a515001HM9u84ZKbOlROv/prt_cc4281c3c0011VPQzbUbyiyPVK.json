@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc4281c3c0011VPQzbUbyiyPVK",
+  "messageID": "msg_cc427a515001HM9u84ZKbOlROv",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01Ga7sK2DBRyyUhZenhD7vFs",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 299,
+      "limit": 25
+    },
+    "output": "<file>\n00300|   const [isTokenSelectOpen, setIsTokenSelectOpen] = useState(false)\n00301|   const [selectingFor, setSelectingFor] = useState<'from' | 'to' | 'batch' | 'batchTo' | 'revoke'>('from')\n00302|   const [currencies, setCurrencies] = useState<RelayCurrency[]>([])\n00303|   const [fromCurrencies, setFromCurrencies] = useState<RelayCurrency[]>([])\n00304|   const [toCurrencies, setToCurrencies] = useState<RelayCurrency[]>([])\n00305|   const [trendingTokens, setTrendingTokens] = useState<TrendingToken[]>([])\n00306|   const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 })\n00307|   const [showSettings, setShowSettings] = useState(false)\n00308|   const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])\n00309|   const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])\n00310|   const [chainWalletTokens, setChainWalletTokens] = useState<Record<number, WalletToken[]>>({})\n00311|   const [contractAddressSearch, setContractAddressSearch] = useState('')\n00312|   const [swapSources, setSwapSources] = useState<string[]>([])\n00313|   const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})\n00314|   const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)\n00315|   const [loadingWalletChains, setLoadingWalletChains] = useState<Set<number>>(new Set())\n00316|   const [batchChain, setBatchChain] = useState<RelayChain | null>(null)\n00317|   const [batchToChain, setBatchToChain] = useState<RelayChain | null>(null)\n00318|   const [batchToToken, setBatchToToken] = useState<RelayCurrency | null>(null)\n00319|   const [batchToCurrencies, setBatchToCurrencies] = useState<RelayCurrency[]>([])\n00320|   const [recipientAddress, setRecipientAddress] = useState('')\n00321|   const [currentSwapRequestId, setCurrentSwapRequestId] = useState<string | null>(null)\n00322|   const [currentSwapChainId, setCurrentSwapChainId] = useState<number | null>(null)\n00323|   const [solanaAddress, setSolanaAddress] = useState<string | null>(null)\n00324|   const [customBalances, setCustomBalances] = useState<{\n\n(File has more lines. Use 'offset' parameter to read beyond line 324)\n</file>",
+    "metadata": {
+      "preview": "  const [isTokenSelectOpen, setIsTokenSelectOpen] = useState(false)\n  const [selectingFor, setSelectingFor] = useState<'from' | 'to' | 'batch' | 'batchTo' | 'revoke'>('from')\n  const [currencies, setCurrencies] = useState<RelayCurrency[]>([])\n  const [fromCurrencies, setFromCurrencies] = useState<RelayCurrency[]>([])\n  const [toCurrencies, setToCurrencies] = useState<RelayCurrency[]>([])\n  const [trendingTokens, setTrendingTokens] = useState<TrendingToken[]>([])\n  const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 })\n  const [showSettings, setShowSettings] = useState(false)\n  const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])\n  const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])\n  const [chainWalletTokens, setChainWalletTokens] = useState<Record<number, WalletToken[]>>({})\n  const [contractAddressSearch, setContractAddressSearch] = useState('')\n  const [swapSources, setSwapSources] = useState<string[]>([])\n  const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})\n  const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)\n  const [loadingWalletChains, setLoadingWalletChains] = useState<Set<number>>(new Set())\n  const [batchChain, setBatchChain] = useState<RelayChain | null>(null)\n  const [batchToChain, setBatchToChain] = useState<RelayChain | null>(null)\n  const [batchToToken, setBatchToToken] = useState<RelayCurrency | null>(null)\n  const [batchToCurrencies, setBatchToCurrencies] = useState<RelayCurrency[]>([])"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772817489901,
+      "end": 1772817489903
+    }
+  }
+}

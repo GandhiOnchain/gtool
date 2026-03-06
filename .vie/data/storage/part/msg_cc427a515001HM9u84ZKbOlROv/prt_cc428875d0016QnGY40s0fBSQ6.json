@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc428875d0016QnGY40s0fBSQ6",
+  "messageID": "msg_cc427a515001HM9u84ZKbOlROv",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Now add the security panel in the swap tab, right after the From card (after the chain/token selectors and amount input). Let me find the exact spot — after the From `</Card>` and before the swap arrow button:",
+  "time": {
+    "start": 1772817518507,
+    "end": 1772817518507
+  }
+}

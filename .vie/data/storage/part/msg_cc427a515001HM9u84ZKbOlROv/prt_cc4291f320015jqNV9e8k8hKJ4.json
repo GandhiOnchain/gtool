@@ -1,0 +1,73 @@
+{
+  "id": "prt_cc4291f320015jqNV9e8k8hKJ4",
+  "messageID": "msg_cc427a515001HM9u84ZKbOlROv",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "todowrite",
+  "callID": "toolu_bdrk_01UdFje65EzEzejbqUdYe43t",
+  "state": {
+    "status": "completed",
+    "input": {
+      "todos": [
+        {
+          "content": "Add fromTokenRisk state and scan trigger on fromToken change",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Show security panel below From token selector in swap tab",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Upgrade TokenRow in dialog to show expanded security panel for 'from' selection",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        }
+      ]
+    },
+    "output": "[\n  {\n    \"content\": \"Add fromTokenRisk state and scan trigger on fromToken change\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"1\"\n  },\n  {\n    \"content\": \"Show security panel below From token selector in swap tab\",\n    \"status\": \"completed\",\n    \"priority\": \"high\",\n    \"id\": \"2\"\n  },\n  {\n    \"content\": \"Upgrade TokenRow in dialog to show expanded security panel for 'from' selection\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\",\n    \"id\": \"3\"\n  },\n  {\n    \"content\": \"Run diagnostics\",\n    \"status\": \"pending\",\n    \"priority\": \"high\",\n    \"id\": \"4\"\n  }\n]",
+    "metadata": {
+      "todos": [
+        {
+          "content": "Add fromTokenRisk state and scan trigger on fromToken change",
+          "status": "completed",
+          "priority": "high",
+          "id": "1"
+        },
+        {
+          "content": "Show security panel below From token selector in swap tab",
+          "status": "completed",
+          "priority": "high",
+          "id": "2"
+        },
+        {
+          "content": "Upgrade TokenRow in dialog to show expanded security panel for 'from' selection",
+          "status": "in_progress",
+          "priority": "high",
+          "id": "3"
+        },
+        {
+          "content": "Run diagnostics",
+          "status": "pending",
+          "priority": "high",
+          "id": "4"
+        }
+      ]
+    },
+    "title": "2 todos",
+    "time": {
+      "start": 1772817557781,
+      "end": 1772817557782
+    }
+  }
+}

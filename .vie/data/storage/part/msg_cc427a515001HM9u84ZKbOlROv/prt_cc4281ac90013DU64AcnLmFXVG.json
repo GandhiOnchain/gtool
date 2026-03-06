@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc4281ac90013DU64AcnLmFXVG",
+  "messageID": "msg_cc427a515001HM9u84ZKbOlROv",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "First, add the `fromTokenRisk` state near the other state declarations:",
+  "time": {
+    "start": 1772817489909,
+    "end": 1772817489909
+  }
+}

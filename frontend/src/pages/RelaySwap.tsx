@@ -333,6 +333,8 @@ export default function RelaySwap() {
   const [batchQuote, setBatchQuote] = useState<RelayQuote | null>(null)
   const [isLoadingBatchQuote, setIsLoadingBatchQuote] = useState(false)
   const [isSecurityScanning, setIsSecurityScanning] = useState(false)
+  const [fromTokenRisk, setFromTokenRisk] = useState<TokenRisk | null>(null)
+  const [isLoadingFromTokenRisk, setIsLoadingFromTokenRisk] = useState(false)
   const [externalSearchResults, setExternalSearchResults] = useState<RelayCurrency[]>([])
   const [isSearchingExternal, setIsSearchingExternal] = useState(false)
   const [revokeChain, setRevokeChain] = useState<RelayChain | null>(null)
@@ -528,6 +530,36 @@ export default function RelaySwap() {
       loadUserStreak()
     }
   }, [address, chains])
+
+  // Scan fromToken security whenever it changes (skip native tokens — they're always safe)
+  useEffect(() => {
+    if (!fromToken || !fromChain) {
+      setFromTokenRisk(null)
+      return
+    }
+    const isNative = fromToken.metadata?.isNative || isNativeAddress(fromToken.address)
+    if (isNative) {
+      setFromTokenRisk(null)
+      return
+    }
+    const vmType = fromChain.vmType || 'evm'
+    if (vmType !== 'evm' && vmType !== 'hypevm') {
+      setFromTokenRisk(null)
+      return
+    }
+    let cancelled = false
+    setIsLoadingFromTokenRisk(true)
+    setFromTokenRisk(null)
+    scanTokenSecurity([{ address: fromToken.address, symbol: fromToken.symbol, name: fromToken.name }], fromChain.id)
+      .then(riskMap => {
+        if (cancelled) return
+        const risk = riskMap.get(fromToken.address.toLowerCase())
+        setFromTokenRisk(risk || null)
+      })
+      .catch(() => {})
+      .finally(() => { if (!cancelled) setIsLoadingFromTokenRisk(false) })
+    return () => { cancelled = true }
+  }, [fromToken?.address, fromToken?.chainId])
 
 
 
@@ -3069,6 +3101,138 @@ export default function RelaySwap() {
               </div>
             </Card>
 
+            {/* From token security panel */}
+            {isLoadingFromTokenRisk && (
+              <div className="flex items-center gap-1.5 px-1 text-[10px] text-muted-foreground">
+                <RefreshCw className="h-2.5 w-2.5 animate-spin flex-shrink-0" />
+                Scanning token security...
+              </div>
+            )}
+            {fromTokenRisk && !isLoadingFromTokenRisk && (() => {
+              const risk = fromTokenRisk
+              const isHighRisk = risk.riskLevel === 'high' || risk.isSpam
+              const isMedRisk = !isHighRisk && risk.riskLevel === 'medium'
+              const isLowRisk = !isHighRisk && !isMedRisk && risk.riskLevel === 'low'
+              const hasAnyRisk = isHighRisk || isMedRisk || isLowRisk
+              if (!hasAnyRisk) return null
+              const criticalFlags = (risk.flags || []).filter(f =>
+                ['honeypot', 'malicious', 'phishing', 'blackmail', 'stealing', 'fake', 'sanctioned', 'cybercrime', 'money laundering', 'airdrop scam', 'hidden owner', 'self-destruct', 'creator made', 'unsellable'].some(k => f.toLowerCase().includes(k))
+              )
+              const warningFlags = (risk.flags || []).filter(f => !criticalFlags.includes(f))
+              return (
+                <div className={`rounded border text-[10px] overflow-hidden ${isHighRisk ? 'border-destructive/40' : isMedRisk ? 'border-yellow-500/30' : 'border-blue-500/20'}`}>
+                  {/* Verdict banner */}
+                  {risk.verdict && (
+                    <div className={`px-2 py-1 font-medium flex items-center gap-1.5 ${isHighRisk ? 'bg-destructive/20 text-destructive' : isMedRisk ? 'bg-yellow-500/15 text-yellow-400' : 'bg-blue-500/10 text-blue-400'}`}>
+                      <span className="flex-shrink-0">{isHighRisk ? '✕' : isMedRisk ? '⚠' : '·'}</span>
+                      <span>{risk.verdict}</span>
+                    </div>
+                  )}
+                  <div className="px-2 py-1.5 space-y-1.5">
+                    {/* Taxes */}
+                    {(risk.taxes?.sellTax || risk.taxes?.buyTax || risk.taxes?.transferTax) ? (
+                      <div className="flex gap-3 flex-wrap">
+                        <span className="text-muted-foreground font-medium">Taxes:</span>
+                        {risk.taxes.buyTax !== undefined && risk.taxes.buyTax > 0 && (
+                          <span className={risk.taxes.buyTax > 10 ? 'text-destructive' : risk.taxes.buyTax > 5 ? 'text-yellow-400' : 'text-muted-foreground'}>
+                            Buy {risk.taxes.buyTax}%
+                          </span>
+                        )}
+                        {risk.taxes.sellTax !== undefined && risk.taxes.sellTax > 0 && (
+                          <span className={risk.taxes.sellTax > 10 ? 'text-destructive' : risk.taxes.sellTax > 5 ? 'text-yellow-400' : 'text-muted-foreground'}>
+                            Sell {risk.taxes.sellTax}%
+                          </span>
+                        )}
+                        {risk.taxes.transferTax !== undefined && risk.taxes.transferTax > 0 && (
+                          <span className="text-yellow-400">Transfer {risk.taxes.transferTax}%</span>
+                        )}
+                      </div>
+                    ) : null}
+                    {/* Holders */}
+                    {(risk.holders?.count || risk.holders?.creatorPercent || risk.holders?.top10Percent) ? (
+                      <div className="flex gap-3 flex-wrap">
+                        <span className="text-muted-foreground font-medium">Holders:</span>
+                        {risk.holders.count !== undefined && (
+                          <span className={risk.holders.count < 50 ? 'text-destructive' : risk.holders.count < 200 ? 'text-yellow-400' : 'text-muted-foreground'}>
+                            {risk.holders.count.toLocaleString()}
+                          </span>
+                        )}
+                        {risk.holders.creatorPercent !== undefined && risk.holders.creatorPercent > 0 && (
+                          <span className={risk.holders.creatorPercent > 50 ? 'text-destructive' : risk.holders.creatorPercent > 20 ? 'text-yellow-400' : 'text-muted-foreground'}>
+                            Creator {risk.holders.creatorPercent.toFixed(1)}%
+                          </span>
+                        )}
+                        {risk.holders.top10Percent !== undefined && risk.holders.top10Percent > 0 && (
+                          <span className={risk.holders.top10Percent > 80 ? 'text-destructive' : risk.holders.top10Percent > 60 ? 'text-yellow-400' : 'text-muted-foreground'}>
+                            Top10 {risk.holders.top10Percent.toFixed(0)}%
+                          </span>
+                        )}
+                      </div>
+                    ) : null}
+                    {/* Liquidity */}
+                    {risk.liquidity && (
+                      <div className="flex gap-3 flex-wrap">
+                        <span className="text-muted-foreground font-medium">Liquidity:</span>
+                        {!risk.liquidity.hasLiquidity ? (
+                          <span className="text-destructive">No pool</span>
+                        ) : (
+                          <>
+                            {risk.liquidity.dexName && <span className="text-muted-foreground">{risk.liquidity.dexName}</span>}
+                            {risk.liquidity.isLiquidityLocked
+                              ? <span className="text-green-400">{risk.liquidity.lockPercent ? `${risk.liquidity.lockPercent.toFixed(0)}% locked` : 'Locked'}</span>
+                              : <span className="text-yellow-400">LP not locked</span>
+                            }
+                          </>
+                        )}
+                      </div>
+                    )}
+                    {/* Contract */}
+                    {risk.contract && (
+                      <div className="flex gap-2 flex-wrap">
+                        <span className="text-muted-foreground font-medium">Contract:</span>
+                        {risk.contract.agedays !== undefined && (
+                          <span className={risk.contract.agedays < 7 ? 'text-destructive' : risk.contract.agedays < 30 ? 'text-yellow-400' : 'text-muted-foreground'}>
+                            {risk.contract.agedays < 1 ? 'Deployed today' : `${risk.contract.agedays}d old`}
+                          </span>
+                        )}
+                        <span className={risk.contract.isOpenSource ? 'text-green-400' : 'text-destructive'}>
+                          {risk.contract.isOpenSource ? 'Verified' : 'Unverified'}
+                        </span>
+                        {risk.contract.isMintable && <span className="text-yellow-400">Mintable</span>}
+                        {risk.contract.isProxy && <span className="text-yellow-400">Proxy</span>}
+                        {risk.contract.canSelfDestruct && <span className="text-destructive">Self-destruct</span>}
+                        {risk.contract.transferPausable && <span className="text-destructive">Pausable</span>}
+                        {risk.contract.ownerCanChangeBalance && <span className="text-destructive">Balance editable</span>}
+                        {risk.contract.hiddenOwner && <span className="text-destructive">Hidden owner</span>}
+                      </div>
+                    )}
+                    {/* Critical alerts */}
+                    {criticalFlags.length > 0 && (
+                      <div className="space-y-0.5">
+                        {criticalFlags.map((f, fi) => (
+                          <div key={fi} className="flex items-start gap-1 text-destructive font-medium">
+                            <span className="flex-shrink-0">✕</span><span>{f}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {/* Remaining warnings */}
+                    {warningFlags.filter(f =>
+                      !f.toLowerCase().includes('tax') && !f.toLowerCase().includes('holder') &&
+                      !f.toLowerCase().includes('liquidity') && !f.toLowerCase().includes('verified') &&
+                      !f.toLowerCase().includes('mintable') && !f.toLowerCase().includes('proxy') &&
+                      !f.toLowerCase().includes('old') && !f.toLowerCase().includes('today') &&
+                      !f.toLowerCase().includes('pausable') && !f.toLowerCase().includes('balance')
+                    ).map((f, fi) => (
+                      <div key={fi} className="flex items-start gap-1 text-muted-foreground">
+                        <span className="flex-shrink-0">·</span><span>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )
+            })()}
+
             <div className="flex justify-center -my-1">
               <Button
                 variant="ghost"
@@ -4141,45 +4305,124 @@ export default function RelaySwap() {
                       const isHighRisk = risk?.riskLevel === 'high' || risk?.isSpam
                       const isMedRisk = !isHighRisk && risk?.riskLevel === 'medium'
                       const isLowRisk = !isHighRisk && !isMedRisk && (risk?.riskLevel === 'low' || (risk?.flags && risk.flags.length > 0))
+                      const hasAnyRisk = isHighRisk || isMedRisk || isLowRisk
+                      const showExpanded = selectingFor === 'from' && hasAnyRisk && !!risk
+                      const critFlags = (risk?.flags || []).filter(f =>
+                        ['honeypot', 'malicious', 'phishing', 'blackmail', 'stealing', 'fake', 'sanctioned', 'cybercrime', 'money laundering', 'airdrop scam', 'hidden owner', 'self-destruct', 'creator made', 'unsellable'].some(k => f.toLowerCase().includes(k))
+                      )
                       return (
                         <div
+                          className={`rounded mb-0.5 overflow-hidden cursor-pointer transition-colors hover:bg-accent/60 ${isHighRisk ? 'border border-destructive/40 bg-destructive/5' : isMedRisk ? 'border border-yellow-500/30 bg-yellow-500/5' : isLowRisk ? 'border border-blue-500/20' : ''}`}
                           onClick={() => handleSelect(currency, walletToken)}
-                          className={`flex items-center gap-2 p-2 rounded cursor-pointer transition-colors hover:bg-accent/60 ${isHighRisk ? 'border border-destructive/40 bg-destructive/5' : isMedRisk ? 'border border-yellow-500/30 bg-yellow-500/5' : ''}`}
                         >
-                          <TokenLogo
-                            address={currency.metadata?.isNative || isNativeAddress(currency.address) ? undefined : currency.address}
-                            chainId={currency.chainId} symbol={currency.symbol} logoURI={currency.metadata?.logoURI}
-                          />
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-1 flex-wrap">
-                              <span className="text-xs font-medium">{currency.symbol}</span>
-                              {isHighRisk && (
-                                <Badge variant="destructive" className="text-[8px] h-3.5 px-1 leading-none">
-                                  {risk?.isHoneypot ? 'Honeypot' : 'High Risk'}
-                                </Badge>
-                              )}
-                              {isMedRisk && (
-                                <Badge className="text-[8px] h-3.5 px-1 leading-none bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
-                                  Caution
-                                </Badge>
-                              )}
-                              {isLowRisk && (
-                                <Badge className="text-[8px] h-3.5 px-1 leading-none bg-muted text-muted-foreground border-border">
-                                  Low Risk
-                                </Badge>
-                              )}
-                            </div>
-                            {risk && risk.flags.length > 0 ? (
-                              <div className="text-[10px] text-muted-foreground truncate">
-                                {risk.flags.join(' · ')}
+                          <div className="flex items-center gap-2 p-2">
+                            <TokenLogo
+                              address={currency.metadata?.isNative || isNativeAddress(currency.address) ? undefined : currency.address}
+                              chainId={currency.chainId} symbol={currency.symbol} logoURI={currency.metadata?.logoURI}
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-1 flex-wrap">
+                                <span className="text-xs font-medium">{currency.symbol}</span>
+                                {isHighRisk && (
+                                  <Badge variant="destructive" className="text-[8px] h-3.5 px-1 leading-none">
+                                    {risk?.isHoneypot ? 'Honeypot' : 'High Risk'}
+                                  </Badge>
+                                )}
+                                {isMedRisk && (
+                                  <Badge className="text-[8px] h-3.5 px-1 leading-none bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
+                                    Caution
+                                  </Badge>
+                                )}
+                                {isLowRisk && (
+                                  <Badge className="text-[8px] h-3.5 px-1 leading-none bg-muted text-muted-foreground border-border">
+                                    Low Risk
+                                  </Badge>
+                                )}
                               </div>
-                            ) : (
-                              <div className="text-xs text-muted-foreground truncate">{currency.name}</div>
+                              {!showExpanded && risk && risk.flags.length > 0 ? (
+                                <div className="text-[10px] text-muted-foreground truncate">{risk.flags.slice(0, 3).join(' · ')}</div>
+                              ) : !showExpanded ? (
+                                <div className="text-xs text-muted-foreground truncate">{currency.name}</div>
+                              ) : null}
+                            </div>
+                            {walletToken && parseFloat(walletToken.balanceFormatted) > 0 && (
+                              <div className="text-xs text-right flex-shrink-0">
+                                <div className="font-medium">{parseFloat(walletToken.balanceFormatted).toFixed(4)}</div>
+                              </div>
                             )}
                           </div>
-                          {walletToken && parseFloat(walletToken.balanceFormatted) > 0 && (
-                            <div className="text-xs text-right flex-shrink-0">
-                              <div className="font-medium">{parseFloat(walletToken.balanceFormatted).toFixed(4)}</div>
+                          {/* Expanded security panel — only in 'from' dropdown */}
+                          {showExpanded && risk && (
+                            <div className={`mx-2 mb-2 rounded border text-[10px] overflow-hidden ${isHighRisk ? 'border-destructive/30' : isMedRisk ? 'border-yellow-500/30' : 'border-blue-500/20'}`}
+                              onClick={e => e.stopPropagation()}>
+                              {risk.verdict && (
+                                <div className={`px-2 py-1 font-medium ${isHighRisk ? 'bg-destructive/20 text-destructive' : isMedRisk ? 'bg-yellow-500/15 text-yellow-400' : 'bg-blue-500/10 text-blue-400'}`}>
+                                  {risk.verdict}
+                                </div>
+                              )}
+                              <div className="px-2 py-1.5 space-y-1.5">
+                                {(risk.taxes?.sellTax || risk.taxes?.buyTax) ? (
+                                  <div className="flex gap-3 flex-wrap">
+                                    <span className="text-muted-foreground font-medium">Taxes:</span>
+                                    {risk.taxes.buyTax !== undefined && risk.taxes.buyTax > 0 && (
+                                      <span className={risk.taxes.buyTax > 10 ? 'text-destructive' : 'text-yellow-400'}>Buy {risk.taxes.buyTax}%</span>
+                                    )}
+                                    {risk.taxes.sellTax !== undefined && risk.taxes.sellTax > 0 && (
+                                      <span className={risk.taxes.sellTax > 10 ? 'text-destructive' : 'text-yellow-400'}>Sell {risk.taxes.sellTax}%</span>
+                                    )}
+                                    {risk.taxes.transferTax !== undefined && risk.taxes.transferTax > 0 && (
+                                      <span className="text-yellow-400">Transfer {risk.taxes.transferTax}%</span>
+                                    )}
+                                  </div>
+                                ) : null}
+                                {(risk.holders?.count || risk.holders?.creatorPercent) ? (
+                                  <div className="flex gap-3 flex-wrap">
+                                    <span className="text-muted-foreground font-medium">Holders:</span>
+                                    {risk.holders.count !== undefined && (
+                                      <span className={risk.holders.count < 50 ? 'text-destructive' : risk.holders.count < 200 ? 'text-yellow-400' : 'text-muted-foreground'}>
+                                        {risk.holders.count.toLocaleString()}
+                                      </span>
+                                    )}
+                                    {risk.holders.creatorPercent !== undefined && risk.holders.creatorPercent > 0 && (
+                                      <span className={risk.holders.creatorPercent > 50 ? 'text-destructive' : 'text-yellow-400'}>
+                                        Creator {risk.holders.creatorPercent.toFixed(1)}%
+                                      </span>
+                                    )}
+                                  </div>
+                                ) : null}
+                                {risk.liquidity && (
+                                  <div className="flex gap-3 flex-wrap">
+                                    <span className="text-muted-foreground font-medium">Liquidity:</span>
+                                    {!risk.liquidity.hasLiquidity
+                                      ? <span className="text-destructive">No pool</span>
+                                      : risk.liquidity.isLiquidityLocked
+                                        ? <span className="text-green-400">{risk.liquidity.lockPercent ? `${risk.liquidity.lockPercent.toFixed(0)}% locked` : 'Locked'}</span>
+                                        : <span className="text-yellow-400">LP not locked</span>
+                                    }
+                                  </div>
+                                )}
+                                {risk.contract && (
+                                  <div className="flex gap-2 flex-wrap">
+                                    <span className="text-muted-foreground font-medium">Contract:</span>
+                                    {risk.contract.agedays !== undefined && (
+                                      <span className={risk.contract.agedays < 7 ? 'text-destructive' : 'text-yellow-400'}>
+                                        {risk.contract.agedays < 1 ? 'Today' : `${risk.contract.agedays}d old`}
+                                      </span>
+                                    )}
+                                    <span className={risk.contract.isOpenSource ? 'text-green-400' : 'text-destructive'}>
+                                      {risk.contract.isOpenSource ? 'Verified' : 'Unverified'}
+                                    </span>
+                                    {risk.contract.isMintable && <span className="text-yellow-400">Mintable</span>}
+                                    {risk.contract.transferPausable && <span className="text-destructive">Pausable</span>}
+                                    {risk.contract.hiddenOwner && <span className="text-destructive">Hidden owner</span>}
+                                  </div>
+                                )}
+                                {critFlags.map((f, fi) => (
+                                  <div key={fi} className="flex items-start gap-1 text-destructive font-medium">
+                                    <span className="flex-shrink-0">✕</span><span>{f}</span>
+                                  </div>
+                                ))}
+                              </div>
                             </div>
                           )}
                         </div>

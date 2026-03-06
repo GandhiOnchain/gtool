@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc42a04da002bXIXCsrpNA57zi",
+  "messageID": "msg_cc427a515001HM9u84ZKbOlROv",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "All clean. Here's what was added:\n\n**In the swap tab (From section):**\n- After selecting a `from` token, a background scan fires automatically (skips native tokens — ETH/SOL are always safe)\n- While scanning: a subtle \"Scanning token security...\" spinner appears\n- When results arrive: a structured panel renders between the From card and the swap arrow, showing:\n  - **Verdict banner** — one-line plain-English summary, color-coded red/yellow/blue\n  - **Taxes** — buy/sell/transfer % with severity colors\n  - **Holders** — count, creator %, top-10 concentration\n  - **Liquidity** — pool presence, lock status + %\n  - **Contract** — age, verified/unverified, mintable, pausable, hidden owner\n  - **Critical alerts** — honeypot, phishing, sanctioned, etc. with ✕ prefix\n- Panel only shows if there are actual risks — safe tokens show nothing\n\n**In the token dropdown (From only):**\n- Risky tokens in the list now expand inline to show the same structured security panel\n- The panel is non-clickable (stops propagation) so you can read it without accidentally selecting the token\n- Other tabs (To, Batch destination) keep the compact single-line flag display",
+  "time": {
+    "start": 1772817621416,
+    "end": 1772817621416
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc429313d0013McCEcKmA8fZZm",
+  "messageID": "msg_cc427a515001HM9u84ZKbOlROv",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Now upgrade the `TokenRow` inside the dialog to show the full security panel when `selectingFor === 'from'`. Find the existing `TokenRow` definition inside the dialog:",
+  "time": {
+    "start": 1772817591537,
+    "end": 1772817591537
+  }
+}

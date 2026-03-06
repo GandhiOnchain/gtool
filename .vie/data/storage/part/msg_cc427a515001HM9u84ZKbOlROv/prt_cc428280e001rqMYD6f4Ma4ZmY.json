@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc428280e001rqMYD6f4Ma4ZmY",
+  "messageID": "msg_cc427a515001HM9u84ZKbOlROv",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01MCUdixfjp1rgoHw3WT7Ytv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 324,
+      "limit": 20
+    },
+    "output": "<file>\n00325|     from?: { value: bigint; decimals: number; symbol: string }\n00326|     to?: { value: bigint; decimals: number; symbol: string }\n00327|   }>({})\n00328|   const [inputMode, setInputMode] = useState<'token' | 'usd'>('token')\n00329|   const [toInputMode, setToInputMode] = useState<'token' | 'usd'>('token')\n00330|   const [usdAmount, setUsdAmount] = useState('')\n00331|   const [toUsdAmount, setToUsdAmount] = useState('')\n00332|   const [activeTab, setActiveTab] = useState('swap')\n00333|   const [batchQuote, setBatchQuote] = useState<RelayQuote | null>(null)\n00334|   const [isLoadingBatchQuote, setIsLoadingBatchQuote] = useState(false)\n00335|   const [isSecurityScanning, setIsSecurityScanning] = useState(false)\n00336|   const [externalSearchResults, setExternalSearchResults] = useState<RelayCurrency[]>([])\n00337|   const [isSearchingExternal, setIsSearchingExternal] = useState(false)\n00338|   const [revokeChain, setRevokeChain] = useState<RelayChain | null>(null)\n00339|   const [approvals, setApprovals] = useState<Array<{\n00340|     token: RelayCurrency\n00341|     spender: string\n00342|     spenderName?: string\n00343|     allowance: string\n00344|     allowanceFormatted: string\n\n(File has more lines. Use 'offset' parameter to read beyond line 344)\n</file>",
+    "metadata": {
+      "preview": "    from?: { value: bigint; decimals: number; symbol: string }\n    to?: { value: bigint; decimals: number; symbol: string }\n  }>({})\n  const [inputMode, setInputMode] = useState<'token' | 'usd'>('token')\n  const [toInputMode, setToInputMode] = useState<'token' | 'usd'>('token')\n  const [usdAmount, setUsdAmount] = useState('')\n  const [toUsdAmount, setToUsdAmount] = useState('')\n  const [activeTab, setActiveTab] = useState('swap')\n  const [batchQuote, setBatchQuote] = useState<RelayQuote | null>(null)\n  const [isLoadingBatchQuote, setIsLoadingBatchQuote] = useState(false)\n  const [isSecurityScanning, setIsSecurityScanning] = useState(false)\n  const [externalSearchResults, setExternalSearchResults] = useState<RelayCurrency[]>([])\n  const [isSearchingExternal, setIsSearchingExternal] = useState(false)\n  const [revokeChain, setRevokeChain] = useState<RelayChain | null>(null)\n  const [approvals, setApprovals] = useState<Array<{\n    token: RelayCurrency\n    spender: string\n    spenderName?: string\n    allowance: string\n    allowanceFormatted: string"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772817492551,
+      "end": 1772817492553
+    }
+  }
+}

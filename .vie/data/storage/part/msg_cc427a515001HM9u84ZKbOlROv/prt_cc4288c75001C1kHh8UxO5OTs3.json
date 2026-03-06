@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc4288c75001C1kHh8UxO5OTs3",
+  "messageID": "msg_cc427a515001HM9u84ZKbOlROv",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_0187PPE4GtQPUQuMhXXAWDhX",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2870,
+      "limit": 20
+    },
+    "output": "<file>\n02871|       <div className=\"space-y-2\">\n02872|         {!isConnected ? (\n02873|           <Button\n02874|             onClick={handleConnect}\n02875|             className=\"w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90\"\n02876|           >\n02877|             <Wallet className=\"h-4 w-4 mr-2\" />\n02878|             Connect Wallet\n02879|           </Button>\n02880|         ) : (\n02881|           <div className=\"flex items-center justify-between mb-2\">\n02882|             <div className=\"flex items-center gap-2\">\n02883|               {userStreak.currentStreak > 0 && (\n02884|                 <Badge variant=\"secondary\" className=\"gap-1 text-xs px-2 py-0.5\">\n02885|                   <Flame className=\"h-3 w-3\" />\n02886|                   {userStreak.currentStreak}\n02887|                 </Badge>\n02888|               )}\n02889|               {connectedChainId && (\n02890|                 <DropdownMenu onOpenChange={(open) => { if (!open) setChainSearch('') }}>\n\n(File has more lines. Use 'offset' parameter to read beyond line 2890)\n</file>",
+    "metadata": {
+      "preview": "      <div className=\"space-y-2\">\n        {!isConnected ? (\n          <Button\n            onClick={handleConnect}\n            className=\"w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90\"\n          >\n            <Wallet className=\"h-4 w-4 mr-2\" />\n            Connect Wallet\n          </Button>\n        ) : (\n          <div className=\"flex items-center justify-between mb-2\">\n            <div className=\"flex items-center gap-2\">\n              {userStreak.currentStreak > 0 && (\n                <Badge variant=\"secondary\" className=\"gap-1 text-xs px-2 py-0.5\">\n                  <Flame className=\"h-3 w-3\" />\n                  {userStreak.currentStreak}\n                </Badge>\n              )}\n              {connectedChainId && (\n                <DropdownMenu onOpenChange={(open) => { if (!open) setChainSearch('') }}>"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772817518314,
+      "end": 1772817518315
+    }
+  }
+}

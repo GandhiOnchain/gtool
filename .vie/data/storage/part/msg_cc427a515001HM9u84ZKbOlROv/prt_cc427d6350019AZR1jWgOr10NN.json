@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc427d6350019AZR1jWgOr10NN",
+  "messageID": "msg_cc427a515001HM9u84ZKbOlROv",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Now I have a full picture. The token select dialog already has a `TokenRow` component inside it that shows basic risk badges and flags joined as a string. I need to:\n\n1. Add a `fromTokenRisk` state to hold the security scan result for the selected `fromToken`\n2. Trigger a scan when `fromToken` changes (only for `from` selection)\n3. Show the full security panel below the \"From\" token selector in the swap tab\n4. Upgrade the `TokenRow` inside the dialog to show the structured security panel inline when `selectingFor === 'from'`",
+  "time": {
+    "start": 1772817486822,
+    "end": 1772817486822
+  }
+}
