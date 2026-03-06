@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc401393d001IFBP3IBSqXx2Wj",
+  "messageID": "msg_cc400c91a0015qC33S74zu8BMn",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01UQcY4AmXt9o3XsVKzF8WVY",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-wagmi-connector/dist/index.js | head -20",
+      "description": "Read miniapp-wagmi-connector source"
+    },
+    "output": "import { farcasterFrame, farcasterMiniApp } from './connector.js';\nexport * from './connector.js';\n// Default export is the new name\nexport default farcasterMiniApp;\n// Also export with old name for backward compatibility\nexport { farcasterFrame };\n",
+    "metadata": {
+      "output": "import { farcasterFrame, farcasterMiniApp } from './connector.js';\nexport * from './connector.js';\n// Default export is the new name\nexport default farcasterMiniApp;\n// Also export with old name for backward compatibility\nexport { farcasterFrame };\n",
+      "exit": 0,
+      "description": "Read miniapp-wagmi-connector source"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-wagmi-connector/dist/index.js | head -20",
+    "time": {
+      "start": 1772814941127,
+      "end": 1772814941128
+    }
+  }
+}

@@ -430,6 +430,15 @@ export default function RelaySwap() {
   }, [])
 
   useEffect(() => {
+    if (!isConnected) {
+      const farcasterConnector = connectors.find(c => c.id === 'farcaster')
+      if (farcasterConnector) {
+        connect({ connector: farcasterConnector })
+      }
+    }
+  }, [connectors, isConnected])
+
+  useEffect(() => {
     loadUserData()
     loadTrendingTokens()
     loadSwapSources()

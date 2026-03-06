@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc4013bcb001PaxPf5sM50azw0",
+  "messageID": "msg_cc400c91a0015qC33S74zu8BMn",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01MmeXZR16XLroDjLUK5map2",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "ls /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-wagmi-connector/dist/",
+      "description": "List miniapp-wagmi-connector dist files"
+    },
+    "output": "connector.d.ts\nconnector.js\nindex.d.ts\nindex.js\ntsconfig.tsbuildinfo\n",
+    "metadata": {
+      "output": "connector.d.ts\nconnector.js\nindex.d.ts\nindex.js\ntsconfig.tsbuildinfo\n",
+      "exit": 0,
+      "description": "List miniapp-wagmi-connector dist files"
+    },
+    "title": "ls /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-wagmi-connector/dist/",
+    "time": {
+      "start": 1772814941862,
+      "end": 1772814941864
+    }
+  }
+}

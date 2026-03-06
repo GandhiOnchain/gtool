@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc400f296001wLQwITnOTG2HaY",
+  "messageID": "msg_cc400c91a0015qC33S74zu8BMn",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01HoHuUAFdJjtJ9uxHx3ovkR",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"farcasterMiniApp\\|miniapp\\|miniApp\\|farcaster\" /home/user/sandbox/workspace/frontend/src/lib/blockchain/wagmi.ts",
+      "description": "Find farcaster connector ID in wagmi config"
+    },
+    "output": "5:import { farcasterMiniApp as miniAppConnector } from '@farcaster/miniapp-wagmi-connector'\n55:      connectors: [injected(), miniAppConnector()],\n",
+    "metadata": {
+      "output": "5:import { farcasterMiniApp as miniAppConnector } from '@farcaster/miniapp-wagmi-connector'\n55:      connectors: [injected(), miniAppConnector()],\n",
+      "exit": 0,
+      "description": "Find farcaster connector ID in wagmi config"
+    },
+    "title": "grep -n \"farcasterMiniApp\\|miniapp\\|miniApp\\|farcaster\" /home/user/sandbox/workspace/frontend/src/lib/blockchain/wagmi.ts",
+    "time": {
+      "start": 1772814923659,
+      "end": 1772814923661
+    }
+  }
+}

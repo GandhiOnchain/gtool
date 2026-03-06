@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc4016306001WTZeR6E40bS5QE",
+  "messageID": "msg_cc400c91a0015qC33S74zu8BMn",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "The connector ID is `'farcaster'`. Now I'll auto-connect on mount using a `useEffect`:",
+  "time": {
+    "start": 1772814952757,
+    "end": 1772814952757
+  }
+}

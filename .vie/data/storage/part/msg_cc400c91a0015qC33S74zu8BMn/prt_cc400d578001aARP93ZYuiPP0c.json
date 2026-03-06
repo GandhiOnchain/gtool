@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc400d578001aARP93ZYuiPP0c",
+  "messageID": "msg_cc400c91a0015qC33S74zu8BMn",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01PCQk1udbApGZ65DYE4MRhM",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2470,
+      "limit": 30
+    },
+    "output": "<file>\n02471|     const tempAmount = fromAmount\n02472|     setFromAmount(toAmount)\n02473|     setToAmount(tempAmount)\n02474|     \n02475|     // Recalculate USD amount after switching\n02476|     if (inputMode === 'usd' && toAmount && toTokenPrice > 0) {\n02477|       setUsdAmount((parseFloat(toAmount) * toTokenPrice).toFixed(2))\n02478|     }\n02479|   }\n02480| \n02481|   const handleConnect = async () => {\n02482|     try {\n02483|       const connector = connectors.find(c => c.id === 'io.metamask' || c.id === 'injected') || connectors[0]\n02484|       if (connector) {\n02485|         await connect({ connector })\n02486|       } else {\n02487|         toast.error('No wallet connector found. Please install MetaMask or another Web3 wallet.')\n02488|       }\n02489|     } catch (error) {\n02490|       console.error('Failed to connect wallet:', error)\n02491|       toast.error('Failed to connect wallet')\n02492|     }\n02493|   }\n02494| \n02495|   const setPercentageAmount = (percentage: number) => {\n02496|     if (!fromBalance) return\n02497|     const balance = parseFloat(formatUnits(fromBalance.value, fromBalance.decimals))\n02498|     const amount = (balance * percentage / 100).toString()\n02499|     setFromAmount(amount)\n02500|     \n\n(File has more lines. Use 'offset' parameter to read beyond line 2500)\n</file>",
+    "metadata": {
+      "preview": "    const tempAmount = fromAmount\n    setFromAmount(toAmount)\n    setToAmount(tempAmount)\n    \n    // Recalculate USD amount after switching\n    if (inputMode === 'usd' && toAmount && toTokenPrice > 0) {\n      setUsdAmount((parseFloat(toAmount) * toTokenPrice).toFixed(2))\n    }\n  }\n\n  const handleConnect = async () => {\n    try {\n      const connector = connectors.find(c => c.id === 'io.metamask' || c.id === 'injected') || connectors[0]\n      if (connector) {\n        await connect({ connector })\n      } else {\n        toast.error('No wallet connector found. Please install MetaMask or another Web3 wallet.')\n      }\n    } catch (error) {\n      console.error('Failed to connect wallet:', error)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772814915574,
+      "end": 1772814915575
+    }
+  }
+}

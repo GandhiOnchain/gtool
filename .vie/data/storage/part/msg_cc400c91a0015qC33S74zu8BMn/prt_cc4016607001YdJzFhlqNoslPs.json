@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc4016607001YdJzFhlqNoslPs",
+  "messageID": "msg_cc400c91a0015qC33S74zu8BMn",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_0177FZgko6x4Xn7Z8YYXCy5P",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 430,
+      "limit": 15
+    },
+    "output": "<file>\n00431| \n00432|   useEffect(() => {\n00433|     loadUserData()\n00434|     loadTrendingTokens()\n00435|     loadSwapSources()\n00436|   }, [])\n00437| \n00438|   useEffect(() => {\n00439|     if (chains.length < 2) return\n00440|     const baseChain = chains.find(c => c.id === 8453) || chains[0]\n00441|     const secondChain = chains.find(c => c.id !== baseChain.id) || chains[1]\n00442|     if (!fromChain || !fromChain.iconUrl) setFromChain(baseChain)\n00443|     if (!toChain || !toChain.iconUrl) setToChain(secondChain)\n00444|     if (!batchChain || !batchChain.iconUrl) setBatchChain(baseChain)\n00445|     if (!batchToChain || !batchToChain.iconUrl) setBatchToChain(baseChain)\n\n(File has more lines. Use 'offset' parameter to read beyond line 445)\n</file>",
+    "metadata": {
+      "preview": "\n  useEffect(() => {\n    loadUserData()\n    loadTrendingTokens()\n    loadSwapSources()\n  }, [])\n\n  useEffect(() => {\n    if (chains.length < 2) return\n    const baseChain = chains.find(c => c.id === 8453) || chains[0]\n    const secondChain = chains.find(c => c.id !== baseChain.id) || chains[1]\n    if (!fromChain || !fromChain.iconUrl) setFromChain(baseChain)\n    if (!toChain || !toChain.iconUrl) setToChain(secondChain)\n    if (!batchChain || !batchChain.iconUrl) setBatchChain(baseChain)\n    if (!batchToChain || !batchToChain.iconUrl) setBatchToChain(baseChain)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772814952735,
+      "end": 1772814952737
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc4014bf700134QbV8LX0HB8kY",
+  "messageID": "msg_cc400c91a0015qC33S74zu8BMn",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01A9psUHmdtvLkJxW84sRjf3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "grep -n \"id\\b\\|\\\"id\\\"\\|name\\b\\|\\\"name\\\"\" /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-wagmi-connector/dist/connector.js | head -15",
+      "description": "Find connector id and name in connector.js"
+    },
+    "output": "10:        id: 'farcaster',\n11:        name: 'Farcaster',\n23:                const isChainSupported = config.chains.some((x) => x.id === state.chainId);\n27:                    targetChainId = config.chains[0]?.id;\n47:                currentChainId = chain.id;\n93:            const chain = config.chains.find((x) => x.id === chainId);\n",
+    "metadata": {
+      "output": "10:        id: 'farcaster',\n11:        name: 'Farcaster',\n23:                const isChainSupported = config.chains.some((x) => x.id === state.chainId);\n27:                    targetChainId = config.chains[0]?.id;\n47:                currentChainId = chain.id;\n93:            const chain = config.chains.find((x) => x.id === chainId);\n",
+      "exit": 0,
+      "description": "Find connector id and name in connector.js"
+    },
+    "title": "grep -n \"id\\b\\|\\\"id\\\"\\|name\\b\\|\\\"name\\\"\" /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-wagmi-connector/dist/connector.js | head -15",
+    "time": {
+      "start": 1772814946311,
+      "end": 1772814946312
+    }
+  }
+}

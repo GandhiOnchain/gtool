@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc401d716002HjdGyT2dXFDhvL",
+  "messageID": "msg_cc400c91a0015qC33S74zu8BMn",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Done. On mount, if not already connected, it finds the `'farcaster'` connector and calls `connect` automatically. The manual `handleConnect` button remains as a fallback for the rare case where auto-connect fails.",
+  "time": {
+    "start": 1772814981315,
+    "end": 1772814981315
+  }
+}

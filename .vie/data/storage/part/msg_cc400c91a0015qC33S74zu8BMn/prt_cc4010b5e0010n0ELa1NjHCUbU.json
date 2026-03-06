@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc4010b5e0010n0ELa1NjHCUbU",
+  "messageID": "msg_cc400c91a0015qC33S74zu8BMn",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01ASt1LceBsdKEgzZiufokQB",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "node -e \"const {farcasterMiniApp} = require('/home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-wagmi-connector'); const c = farcasterMiniApp(); console.log('id:', c.id, 'name:', c.name);\" 2>/dev/null || grep -rn \"\\\"id\\\"\\|id:\" /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-wagmi-connector/dist/index.js 2>/dev/null | head -5",
+      "description": "Find farcaster miniapp connector ID"
+    },
+    "output": "id: undefined name: \n",
+    "metadata": {
+      "output": "id: undefined name: \n",
+      "exit": 0,
+      "description": "Find farcaster miniapp connector ID"
+    },
+    "title": "node -e \"const {farcasterMiniApp} = require('/home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-wagmi-connector'); const c = farcasterMiniApp(); console.log('id:', c.id, 'name:', c.name);\" 2>/dev/null || grep -rn \"\\\"id\\\"\\|id:\" /home/user/sandbox/workspace/frontend/node_modules/@farcaster/miniapp-wagmi-connector/dist/index.js 2>/dev/null | head -5",
+    "time": {
+      "start": 1772814930541,
+      "end": 1772814930987
+    }
+  }
+}
