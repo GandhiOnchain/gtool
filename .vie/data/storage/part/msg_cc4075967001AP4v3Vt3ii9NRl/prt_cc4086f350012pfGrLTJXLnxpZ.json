@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc4086f350012pfGrLTJXLnxpZ",
+  "messageID": "msg_cc4075967001AP4v3Vt3ii9NRl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now fix the revoke stale state — remove the `loadApprovals()` call that immediately re-fetches and restores revoked approvals:",
+  "time": {
+    "start": 1772815416014,
+    "end": 1772815416014
+  }
+}

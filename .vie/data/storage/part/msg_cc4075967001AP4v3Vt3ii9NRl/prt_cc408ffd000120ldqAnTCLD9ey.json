@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc408ffd000120ldqAnTCLD9ey",
+  "messageID": "msg_cc4075967001AP4v3Vt3ii9NRl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Both fixes applied:\n\n**Batch section out of frame**: Wrapped the entire batch `TabsContent` in a `ScrollArea` with `h-[calc(100vh-140px)]` so all content (token list, \"Swap to\" selector, quote summary, button) is reachable by scrolling within the miniapp viewport. Removed the inner fixed-height `ScrollArea` on the token list so tokens expand naturally.\n\n**Revoke shows stale approvals**: The `loadApprovals()` call immediately after `waitForTransactionReceipt` was re-fetching from Moralis (which indexes historical events, not current state) and restoring the just-revoked approval before the chain state propagated. Removed both `loadApprovals()` calls — the optimistic `setApprovals` filter is sufficient and immediate. The refresh button is still available for manual re-fetch when needed.",
+  "time": {
+    "start": 1772815454867,
+    "end": 1772815454867
+  }
+}

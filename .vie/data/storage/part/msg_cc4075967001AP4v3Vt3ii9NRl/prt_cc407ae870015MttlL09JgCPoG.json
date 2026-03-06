@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc407ae870015MttlL09JgCPoG",
+  "messageID": "msg_cc4075967001AP4v3Vt3ii9NRl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "Now I have the full picture. Two issues:\n\n1. **Batch section out of frame**: The whole batch tab is one big `Card` with a fixed `ScrollArea h-48` for tokens, but the \"Swap to\" section, quote summary, and button are all inside the same card — they overflow below the viewport. Need to make the entire tab content scrollable.\n\n2. **Revoke shows stale approvals**: `setApprovals` (optimistic removal) runs AFTER `waitForTransactionReceipt` — that's correct. But `loadApprovals()` is called right after without `await`, which re-fetches from Moralis and may restore the revoked approval before the chain state propagates. The fix: don't call `loadApprovals()` immediately after — remove it, the optimistic removal is sufficient.",
+  "time": {
+    "start": 1772815370280,
+    "end": 1772815370280
+  }
+}

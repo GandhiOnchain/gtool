@@ -2353,7 +2353,6 @@ export default function RelaySwap() {
           a.spender.toLowerCase() === approval.spender.toLowerCase())
       ))
       toast.success('Approval revoked')
-      loadApprovals()
     } catch (error) {
       const msg = error instanceof Error ? error.message.toLowerCase() : ''
       if (!msg.includes('user rejected') && !msg.includes('user denied')) {
@@ -2414,7 +2413,6 @@ export default function RelaySwap() {
       if (failCount > 0) toast.error(`Failed to revoke ${failCount} approval${failCount > 1 ? 's' : ''}`)
 
       setSelectedApprovals(new Set())
-      loadApprovals()
     } catch (error) {
       console.error('Batch revoke failed:', error)
       toast.error('Failed to revoke approvals')
@@ -3152,8 +3150,9 @@ export default function RelaySwap() {
             )}
           </TabsContent>
 
-          <TabsContent value="batch" className="space-y-2 mt-2">
-            <Card className="p-3">
+          <TabsContent value="batch" className="mt-2">
+            <ScrollArea className="h-[calc(100vh-140px)]">
+            <Card className="p-3 mb-2">
               <div className="space-y-2">
                 <div className="text-sm font-medium">Batch Cleanup</div>
                 
@@ -3213,8 +3212,7 @@ export default function RelaySwap() {
                   )}
                 </div>
 
-                <ScrollArea className="h-48">
-                  <div className="space-y-1">
+                <div className="space-y-1">
                     {batchTokens.map((wt, i) => {
                       const risk = wt.risk
                       const isHighRisk = risk?.riskLevel === 'high' || risk?.isSpam
@@ -3325,8 +3323,7 @@ export default function RelaySwap() {
                         </div>
                       )
                     })}
-                  </div>
-                </ScrollArea>
+                </div>
 
                 <Button
                   variant="outline"
@@ -3479,6 +3476,7 @@ export default function RelaySwap() {
                 </Button>
               </div>
             </Card>
+            </ScrollArea>
           </TabsContent>
 
 

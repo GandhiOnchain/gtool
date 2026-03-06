@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc407d5d5001GTGC5TsN8J9AT5",
+  "messageID": "msg_cc4075967001AP4v3Vt3ii9NRl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "text",
+  "text": "The batch tab is one big Card. The fix: remove the fixed `h-48` ScrollArea for tokens (let it grow naturally), and wrap the entire `TabsContent` in a `ScrollArea` so everything is reachable by scrolling within the miniapp viewport.",
+  "time": {
+    "start": 1772815376437,
+    "end": 1772815376437
+  }
+}

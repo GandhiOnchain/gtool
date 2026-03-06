@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc4081e0b001xALnFLWNf1qXRb",
+  "messageID": "msg_cc4075967001AP4v3Vt3ii9NRl",
+  "sessionID": "ses_340e18f1effehpbNS7x7gjeRl5",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_011an85PTxRFUoaPatjqd17k",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 3325,
+      "limit": 15
+    },
+    "output": "<file>\n03326|                       )\n03327|                     })}\n03328|                   </div>\n03329|                 </ScrollArea>\n03330| \n03331|                 <Button\n03332|                   variant=\"outline\"\n03333|                   size=\"sm\"\n03334|                   onClick={() => {\n03335|                     setSelectingFor('batch')\n03336|                     setIsTokenSelectOpen(true)\n03337|                   }}\n03338|                   className=\"w-full h-8 text-xs\"\n03339|                 >\n03340|                   Add Token\n\n(File has more lines. Use 'offset' parameter to read beyond line 3340)\n</file>",
+    "metadata": {
+      "preview": "                      )\n                    })}\n                  </div>\n                </ScrollArea>\n\n                <Button\n                  variant=\"outline\"\n                  size=\"sm\"\n                  onClick={() => {\n                    setSelectingFor('batch')\n                    setIsTokenSelectOpen(true)\n                  }}\n                  className=\"w-full h-8 text-xs\"\n                >\n                  Add Token"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772815392832,
+      "end": 1772815392834
+    }
+  }
+}
