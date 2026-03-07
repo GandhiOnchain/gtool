@@ -4269,7 +4269,7 @@ export default function RelaySwap() {
                             })}
                           </>
                         )}
-                        {walletTokensWithBal.length === 0 && relayList.length === 0 && !isLoadingWallet && !isSearchingExternal && (
+                        {walletTokensWithBal.length === 0 && relayList.length === 0 && !isLoadingWallet && !isSearchingExternal && !/^0x[a-fA-F0-9]{1,40}$/.test(tokenSearchTerm.trim()) && (
                           <div className="text-xs text-muted-foreground text-center p-4">No tokens found</div>
                         )}
                       </>

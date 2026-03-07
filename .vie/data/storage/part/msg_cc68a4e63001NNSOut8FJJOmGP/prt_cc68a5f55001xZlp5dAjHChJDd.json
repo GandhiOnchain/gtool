@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc68a5f55001xZlp5dAjHChJDd",
+  "messageID": "msg_cc68a4e63001NNSOut8FJJOmGP",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01QpvSCqg1nWnq4UPrdrD38D",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 4268,
+      "limit": 10
+    },
+    "output": "<file>\n04269|                             })}\n04270|                           </>\n04271|                         )}\n04272|                         {walletTokensWithBal.length === 0 && relayList.length === 0 && !isLoadingWallet && !isSearchingExternal && (\n04273|                           <div className=\"text-xs text-muted-foreground text-center p-4\">No tokens found</div>\n04274|                         )}\n04275|                       </>\n04276|                     )\n04277|                   })()}\n04278|                 </div>\n\n(File has more lines. Use 'offset' parameter to read beyond line 4278)\n</file>",
+    "metadata": {
+      "preview": "                            })}\n                          </>\n                        )}\n                        {walletTokensWithBal.length === 0 && relayList.length === 0 && !isLoadingWallet && !isSearchingExternal && (\n                          <div className=\"text-xs text-muted-foreground text-center p-4\">No tokens found</div>\n                        )}\n                      </>\n                    )\n                  })()}\n                </div>"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857483684,
+      "end": 1772857483686
+    }
+  }
+}

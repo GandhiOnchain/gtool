@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc68a598c001KmufbNYVWkpvzs",
+  "messageID": "msg_cc68a4e63001NNSOut8FJJOmGP",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "The issue is ordering — the `isSearchingExternal` state is set async after the debounce, so there's a gap where the search term is set but `isSearchingExternal` is still false. The fix is to detect a contract address pattern immediately on input and suppress \"No tokens found\" right away.",
+  "time": {
+    "start": 1772857483902,
+    "end": 1772857483902
+  }
+}

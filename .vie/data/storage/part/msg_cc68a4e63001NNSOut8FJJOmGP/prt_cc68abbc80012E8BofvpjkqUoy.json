@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc68abbc80012E8BofvpjkqUoy",
+  "messageID": "msg_cc68a4e63001NNSOut8FJJOmGP",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "The regex `/^0x[a-fA-F0-9]{1,40}$/` matches as soon as the user starts typing a hex address (from `0x` onwards), so \"No tokens found\" is suppressed immediately — before the debounce fires and `isSearchingExternal` becomes true.",
+  "time": {
+    "start": 1772857508010,
+    "end": 1772857508010
+  }
+}
