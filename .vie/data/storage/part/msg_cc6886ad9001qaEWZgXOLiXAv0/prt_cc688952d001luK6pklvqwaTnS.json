@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc688952d001luK6pklvqwaTnS",
+  "messageID": "msg_cc6886ad9001qaEWZgXOLiXAv0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Found it. Line 4272: the \"No tokens found\" condition doesn't account for `isSearchingExternal`. Fix it:",
+  "time": {
+    "start": 1772857368258,
+    "end": 1772857368258
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc688fe67001oyYv9uDUIGzK4U",
+  "messageID": "msg_cc6886ad9001qaEWZgXOLiXAv0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "One-line fix — added `&& !isSearchingExternal` to the \"No tokens found\" condition so it stays hidden while the external contract address lookup is still in flight.",
+  "time": {
+    "start": 1772857393789,
+    "end": 1772857393789
+  }
+}

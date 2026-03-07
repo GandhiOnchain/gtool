@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc68877e7001eYzhZrKks1woqB",
+  "messageID": "msg_cc6886ad9001qaEWZgXOLiXAv0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "The issue is clear — when `isSearchingExternal` is true, the list still renders and shows \"No tokens found\" because `filteredCurrencies` is empty while the search is in flight. Let me find the exact rendering logic.",
+  "time": {
+    "start": 1772857360693,
+    "end": 1772857360693
+  }
+}
