@@ -1,0 +1,27 @@
+{
+  "id": "prt_cc68f2072001C326ywJ6qELjdQ",
+  "messageID": "msg_cc68f0aa6001Q6sulLy01R8BjE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01W8LceewoL2CBUmbA4g358H",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git push -u origin HEAD:main 2>&1",
+      "timeout": 30000,
+      "description": "Push to main branch"
+    },
+    "output": "fatal: could not read Username for 'https://github.com': No such device or address\n",
+    "metadata": {
+      "output": "fatal: could not read Username for 'https://github.com': No such device or address\n",
+      "exit": 128,
+      "description": "Push to main branch"
+    },
+    "title": "cd /home/user/sandbox/workspace && git push -u origin HEAD:main 2>&1",
+    "time": {
+      "start": 1772857795392,
+      "end": 1772857795443
+    }
+  }
+}

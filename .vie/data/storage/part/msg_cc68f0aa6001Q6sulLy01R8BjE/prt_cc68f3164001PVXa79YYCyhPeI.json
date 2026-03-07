@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc68f3164001PVXa79YYCyhPeI",
+  "messageID": "msg_cc68f0aa6001Q6sulLy01R8BjE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Needs authentication. You'll need to push using a GitHub personal access token (PAT). Run this locally with your token:\n\n```bash\ngit remote set-url origin https://YOUR_TOKEN@github.com/GandhiOnchain/gtool.git\ngit push -u origin HEAD:main\n```\n\nOr if you have SSH set up:\n```bash\ngit remote set-url origin git@github.com:GandhiOnchain/gtool.git\ngit push -u origin HEAD:main\n```\n\nYou can create a PAT at **GitHub → Settings → Developer settings → Personal access tokens** with `repo` scope. The sandbox environment can't authenticate to GitHub directly — the push needs to happen from your local machine or with a token passed inline.",
+  "time": {
+    "start": 1772857801782,
+    "end": 1772857801782
+  }
+}

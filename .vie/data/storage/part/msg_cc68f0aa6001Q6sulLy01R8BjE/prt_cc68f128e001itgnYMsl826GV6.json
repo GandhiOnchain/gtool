@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc68f128e001itgnYMsl826GV6",
+  "messageID": "msg_cc68f0aa6001Q6sulLy01R8BjE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01Meerv6FQHQbPYcQukmyE2L",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git remote add origin https://github.com/GandhiOnchain/gtool.git && git remote -v",
+      "description": "Add remote origin"
+    },
+    "output": "origin\thttps://github.com/GandhiOnchain/gtool.git (fetch)\norigin\thttps://github.com/GandhiOnchain/gtool.git (push)\n",
+    "metadata": {
+      "output": "origin\thttps://github.com/GandhiOnchain/gtool.git (fetch)\norigin\thttps://github.com/GandhiOnchain/gtool.git (push)\n",
+      "exit": 0,
+      "description": "Add remote origin"
+    },
+    "title": "cd /home/user/sandbox/workspace && git remote add origin https://github.com/GandhiOnchain/gtool.git && git remote -v",
+    "time": {
+      "start": 1772857791900,
+      "end": 1772857791907
+    }
+  }
+}
