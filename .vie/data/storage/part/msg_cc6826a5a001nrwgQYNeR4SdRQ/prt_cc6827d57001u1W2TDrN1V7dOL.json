@@ -1,0 +1,24 @@
+{
+  "id": "prt_cc6827d57001u1W2TDrN1V7dOL",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "list",
+  "callID": "toolu_bdrk_01PDiGsfiM1LgxUsssp9fXY8",
+  "state": {
+    "status": "completed",
+    "input": {
+      "path": "/home/user/sandbox/workspace/frontend/src"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/src/\n  components/\n    ui/\n      chart.tsx\n      checkbox.tsx\n      collapsible.tsx\n      command.tsx\n      context-menu.tsx\n      dialog.tsx\n      drawer.tsx\n      dropdown-menu.tsx\n      form.tsx\n      glassmorphic-loading-skeleton.tsx\n      hover-card.tsx\n      input.tsx\n      label.tsx\n      menubar.tsx\n      navigation-menu.tsx\n      pagination.tsx\n      popover.tsx\n      progress.tsx\n      radio-group.tsx\n      resizable.tsx\n      scroll-area.tsx\n      select.tsx\n      separator.tsx\n      sheet.tsx\n      sidebar.tsx\n      skeleton.tsx\n      slider.tsx\n      sonner.tsx\n      switch.tsx\n      table.tsx\n      tabs.tsx\n      textarea.tsx\n      toast.tsx\n      toaster.tsx\n      toggle-group.tsx\n      toggle.tsx\n      tooltip.tsx\n      use-toast.ts\n  hooks/\n    alchemy/\n      nft/\n        useNftMetadataByTokenIdBatchOnSpecificChain.ts\n        useNftsByOwnerOnMultipleChains.ts\n        useOwnersByContractOnSpecificChain.ts\n      price/\n        useTokenPricesByAddress.ts\n        useTokenPricesBySymbol.ts\n      types/\n        index.ts\n        nft.types.ts\n        price.types.ts\n    use-mobile.tsx\n    use-toast.ts\n    useBlockchainClient.ts\n    useMoralisPortfolio.ts\n    useQueryEvents.ts\n    useReadContract.ts\n    useSendNativeGasTokenLifecycle.ts\n    useSignatures.ts\n    useSimulateWriteContracts.ts\n    useWallet.ts\n    useWatchEvent.ts\n    useWriteContractLifecycle.ts\n    useZapperPortfolio.ts\n  lib/\n    alchemy/\n      spam/\n        additional-spam-tokens/\n          index.ts\n        initial-spam-tokens/\n          base.json\n          bsc.json\n          ethereum.json\n          index.ts\n          optimism.json\n          polygon.json\n        index.ts\n        types.ts\n      config.ts\n    blockchain/\n      bigint.ts\n      chains.ts\n      events.ts\n      signatureUtils.ts\n      types.ts\n      wagmi.ts\n    providers/\n      AuthProvider.tsx\n      ThemeProvider.tsx\n    relay/\n      api.ts\n      types.ts\n    security/\n      rateLimit.ts\n      storage.ts\n      validation.ts\n    tokenLogos.ts\n    utils.ts\n  pages/\n    Index.tsx\n    NotFound.tsx\n    RelaySwap.tsx\n    RelaySwap.tsx.backup\n  themes/\n    brutal.css\n    matrix.css\n    modern.css\n    vie-original.css\n    wild-green.css\n  App.css\n  App.tsx\n  config.ts\n  env.json\n  index.css\n  main.tsx\n  vite-env.d.ts\n",
+    "metadata": {
+      "count": 100,
+      "truncated": true
+    },
+    "title": "frontend/src",
+    "time": {
+      "start": 1772856966882,
+      "end": 1772856966897
+    }
+  }
+}

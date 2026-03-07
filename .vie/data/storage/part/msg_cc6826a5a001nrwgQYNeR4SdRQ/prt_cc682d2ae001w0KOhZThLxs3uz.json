@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc682d2ae001w0KOhZThLxs3uz",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01CbSPgTC2Z5egYugRrYVq4V",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"useWallet\" src/pages/RelaySwap.tsx | head -5",
+      "description": "Check if useWallet is actually used in RelaySwap"
+    },
+    "output": "import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useWalletClient } from 'wagmi'\nimport { useWallet } from '@/hooks/useWallet'\n  const { data: rawWalletClient } = useWalletClient()\n",
+    "metadata": {
+      "output": "import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useWalletClient } from 'wagmi'\nimport { useWallet } from '@/hooks/useWallet'\n  const { data: rawWalletClient } = useWalletClient()\n",
+      "exit": 0,
+      "description": "Check if useWallet is actually used in RelaySwap"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"useWallet\" src/pages/RelaySwap.tsx | head -5",
+    "time": {
+      "start": 1772856989189,
+      "end": 1772856989194
+    }
+  }
+}

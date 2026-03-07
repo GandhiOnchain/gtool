@@ -1,0 +1,27 @@
+{
+  "id": "prt_cc686c026001Ov4O733AlLntP9",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01QofTP84nPLh1NJrRmLN5k2",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && bun run build 2>&1 | tail -5",
+      "timeout": 120000,
+      "description": "Final production build check"
+    },
+    "output": "\u001b[2moutput/\u001b[22m\u001b[2massets/\u001b[22m\u001b[36mbasic-BQoB86ZY.js                                \u001b[39m\u001b[1m\u001b[2m  208.28 kB\u001b[22m\u001b[22m\u001b[2m │ gzip:    39.12 kB\u001b[22m\n\u001b[2moutput/\u001b[22m\u001b[2massets/\u001b[22m\u001b[36mcore-GgU7Svv2.js                                 \u001b[39m\u001b[1m\u001b[33m  529.99 kB\u001b[39m\u001b[22m\u001b[2m │ gzip:   124.09 kB\u001b[22m\n\u001b[2moutput/\u001b[22m\u001b[2massets/\u001b[22m\u001b[36mdist-GHT8NSQF.js                                 \u001b[39m\u001b[1m\u001b[33m  657.11 kB\u001b[39m\u001b[22m\u001b[2m │ gzip:   190.89 kB\u001b[22m\n\u001b[2moutput/\u001b[22m\u001b[2massets/\u001b[22m\u001b[36mindex-BZ-K1RV2.js                                \u001b[39m\u001b[1m\u001b[33m7,052.81 kB\u001b[39m\u001b[22m\u001b[2m │ gzip: 1,556.62 kB\u001b[22m\n✓ built in 4.03s\n",
+    "metadata": {
+      "output": "\u001b[2moutput/\u001b[22m\u001b[2massets/\u001b[22m\u001b[36mbasic-BQoB86ZY.js                                \u001b[39m\u001b[1m\u001b[2m  208.28 kB\u001b[22m\u001b[22m\u001b[2m │ gzip:    39.12 kB\u001b[22m\n\u001b[2moutput/\u001b[22m\u001b[2massets/\u001b[22m\u001b[36mcore-GgU7Svv2.js                                 \u001b[39m\u001b[1m\u001b[33m  529.99 kB\u001b[39m\u001b[22m\u001b[2m │ gzip:   124.09 kB\u001b[22m\n\u001b[2moutput/\u001b[22m\u001b[2massets/\u001b[22m\u001b[36mdist-GHT8NSQF.js                                 \u001b[39m\u001b[1m\u001b[33m  657.11 kB\u001b[39m\u001b[22m\u001b[2m │ gzip:   190.89 kB\u001b[22m\n\u001b[2moutput/\u001b[22m\u001b[2massets/\u001b[22m\u001b[36mindex-BZ-K1RV2.js                                \u001b[39m\u001b[1m\u001b[33m7,052.81 kB\u001b[39m\u001b[22m\u001b[2m │ gzip: 1,556.62 kB\u001b[22m\n✓ built in 4.03s\n",
+      "exit": 0,
+      "description": "Final production build check"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && bun run build 2>&1 | tail -5",
+    "time": {
+      "start": 1772857246504,
+      "end": 1772857250965
+    }
+  }
+}

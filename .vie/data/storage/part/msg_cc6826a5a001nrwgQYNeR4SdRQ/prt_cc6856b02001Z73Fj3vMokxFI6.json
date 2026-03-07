@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc6856b02001Z73Fj3vMokxFI6",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01KYsMXhWiX4nuUyPn5f9tvU",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2415,
+      "limit": 60
+    },
+    "output": "<file>\n02416|     const storedCosts = secureStorage.getItem<Record<string, number>>(`token_costs_${address}`) || {}\n02417|     \n02418|     let totalCost = 0\n02419|     const tokenPnls: Array<{ symbol: string; pnl: number; percentage: number }> = []\n02420|     \n02421|     for (const token of tokens) {\n02422|       const key = `${token.chainId}_${token.address}`\n02423|       const cost = storedCosts[key] || token.valueUsd\n02424|       totalCost += cost\n02425|       \n02426|       const pnl = token.valueUsd - cost\n02427|       const percentage = cost > 0 ? (pnl / cost) * 100 : 0\n02428|       \n02429|       tokenPnls.push({\n02430|         symbol: token.symbol,\n02431|         pnl,\n02432|         percentage\n02433|       })\n02434|     }\n02435|     \n02436|     const totalPnl = currentValue - totalCost\n02437|     const totalPercentage = totalCost > 0 ? (totalPnl / totalCost) * 100 : 0\n02438|     \n02439|     return {\n02440|       total: totalPnl,\n02441|       percentage: totalPercentage,\n02442|       tokens: tokenPnls.sort((a, b) => Math.abs(b.pnl) - Math.abs(a.pnl)).slice(0, 5)\n02443|     }\n02444|   }\n02445| \n02446|   const getBlockExplorerUrl = (chainId: number, txHash: string): string => {\n02447|     const explorers: Record<number, string> = {\n02448|       1: 'https://etherscan.io/tx/',\n02449|       8453: 'https://basescan.org/tx/',\n02450|       84532: 'https://sepolia.basescan.org/tx/',\n02451|       42161: 'https://arbiscan.io/tx/',\n02452|       137: 'https://polygonscan.com/tx/',\n02453|       10: 'https://optimistic.etherscan.io/tx/',\n02454|       56: 'https://bscscan.com/tx/',\n02455|       43114: 'https://snowtrace.io/tx/',\n02456|       59144: 'https://lineascan.build/tx/',\n02457|       534352: 'https://scrollscan.com/tx/',\n02458|       5000: 'https://explorer.mantle.xyz/tx/',\n02459|       324: 'https://explorer.zksync.io/tx/',\n02460|       250: 'https://ftmscan.com/tx/',\n02461|       100: 'https://gnosisscan.io/tx/',\n02462|       42220: 'https://celoscan.io/tx/',\n02463|       130: 'https://uniscan.xyz/tx/',\n02464|       360: 'https://shapescan.xyz/tx/',\n02465|     }\n02466|     return (explorers[chainId] || 'https://relay.link/tx/') + txHash\n02467|   }\n02468| \n02469|   // Helper to get token logo URL (native tokens and common ERC-20s)\n02470|   const getNativeTokenLogo = (symbol: string): string | undefined => {\n02471|     const logos: Record<string, string> = {\n02472|       // Native tokens\n02473|       'ETH': 'https://assets.relay.link/icons/currencies/eth.png',\n02474|       'MATIC': 'https://assets.relay.link/icons/currencies/matic.png',\n02475|       'POL': 'https://assets.relay.link/icons/currencies/matic.png',\n\n(File has more lines. Use 'offset' parameter to read beyond line 2475)\n</file>",
+    "metadata": {
+      "preview": "    const storedCosts = secureStorage.getItem<Record<string, number>>(`token_costs_${address}`) || {}\n    \n    let totalCost = 0\n    const tokenPnls: Array<{ symbol: string; pnl: number; percentage: number }> = []\n    \n    for (const token of tokens) {\n      const key = `${token.chainId}_${token.address}`\n      const cost = storedCosts[key] || token.valueUsd\n      totalCost += cost\n      \n      const pnl = token.valueUsd - cost\n      const percentage = cost > 0 ? (pnl / cost) * 100 : 0\n      \n      tokenPnls.push({\n        symbol: token.symbol,\n        pnl,\n        percentage\n      })\n    }\n    "
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857158927,
+      "end": 1772857158929
+    }
+  }
+}

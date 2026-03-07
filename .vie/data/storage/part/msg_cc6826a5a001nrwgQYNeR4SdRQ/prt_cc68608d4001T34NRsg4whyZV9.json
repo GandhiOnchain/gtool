@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc68608d4001T34NRsg4whyZV9",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01GbMo8HHDwmAH6GKdmQFpWR",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"useSendTransaction\\|useWaitForTransaction\\|isTxPending\\|txError\\|isTxSuccess\" src/pages/RelaySwap.tsx | head -10",
+      "description": "Find transaction hook lines"
+    },
+    "output": "4:import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useWalletClient } from 'wagmi'\n317:  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n318:  const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n",
+    "metadata": {
+      "output": "4:import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useWalletClient } from 'wagmi'\n317:  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n318:  const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })\n",
+      "exit": 0,
+      "description": "Find transaction hook lines"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"useSendTransaction\\|useWaitForTransaction\\|isTxPending\\|txError\\|isTxSuccess\" src/pages/RelaySwap.tsx | head -10",
+    "time": {
+      "start": 1772857198855,
+      "end": 1772857198869
+    }
+  }
+}

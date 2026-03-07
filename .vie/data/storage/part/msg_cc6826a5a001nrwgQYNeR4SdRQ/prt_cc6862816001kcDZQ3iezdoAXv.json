@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc6862816001kcDZQ3iezdoAXv",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01QmzSEYxXRBSMpdozM33Se7",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"getBlockExplorerUrl\" src/pages/RelaySwap.tsx",
+      "description": "Find getBlockExplorerUrl usage"
+    },
+    "output": "2414:  const getBlockExplorerUrl = (chainId: number, txHash: string): string => {\n",
+    "metadata": {
+      "output": "2414:  const getBlockExplorerUrl = (chainId: number, txHash: string): string => {\n",
+      "exit": 0,
+      "description": "Find getBlockExplorerUrl usage"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"getBlockExplorerUrl\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857207394,
+      "end": 1772857207398
+    }
+  }
+}

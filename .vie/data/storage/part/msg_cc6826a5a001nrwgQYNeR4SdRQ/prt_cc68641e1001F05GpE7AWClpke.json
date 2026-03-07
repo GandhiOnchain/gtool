@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc68641e1001F05GpE7AWClpke",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "edit",
+  "callID": "toolu_bdrk_01PpHnC7tn1XMcC44oP6cEkN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "oldString": "  const getBlockExplorerUrl = (chainId: number, txHash: string): string => {\n    const explorers: Record<number, string> = {\n      1: 'https://etherscan.io/tx/',\n      8453: 'https://basescan.org/tx/',\n      84532: 'https://sepolia.basescan.org/tx/',\n      42161: 'https://arbiscan.io/tx/',\n      137: 'https://polygonscan.com/tx/',\n      10: 'https://optimistic.etherscan.io/tx/',\n      56: 'https://bscscan.com/tx/',\n      43114: 'https://snowtrace.io/tx/',\n      59144: 'https://lineascan.build/tx/',\n      534352: 'https://scrollscan.com/tx/',\n      5000: 'https://explorer.mantle.xyz/tx/',\n      324: 'https://explorer.zksync.io/tx/',\n      250: 'https://ftmscan.com/tx/',\n      100: 'https://gnosisscan.io/tx/',\n      42220: 'https://celoscan.io/tx/',\n      130: 'https://uniscan.xyz/tx/',\n      360: 'https://shapescan.xyz/tx/',\n    }\n    return (explorers[chainId] || 'https://relay.link/tx/') + txHash\n  }\n\n  const revokeApproval",
+      "newString": "  const revokeApproval"
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder><system-reminder>CRITICAL: Make sure you hook the wallet properly with the connect button.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "diff": "Index: /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n===================================================================\n--- /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n+++ /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx\n@@ -2410,31 +2410,8 @@\n     setIsLoadingApprovals(false)\n   }\n }\n \n-const getBlockExplorerUrl = (chainId: number, txHash: string): string => {\n-  const explorers: Record<number, string> = {\n-    1: 'https://etherscan.io/tx/',\n-    8453: 'https://basescan.org/tx/',\n-    84532: 'https://sepolia.basescan.org/tx/',\n-    42161: 'https://arbiscan.io/tx/',\n-    137: 'https://polygonscan.com/tx/',\n-    10: 'https://optimistic.etherscan.io/tx/',\n-    56: 'https://bscscan.com/tx/',\n-    43114: 'https://snowtrace.io/tx/',\n-    59144: 'https://lineascan.build/tx/',\n-    534352: 'https://scrollscan.com/tx/',\n-    5000: 'https://explorer.mantle.xyz/tx/',\n-    324: 'https://explorer.zksync.io/tx/',\n-    250: 'https://ftmscan.com/tx/',\n-    100: 'https://gnosisscan.io/tx/',\n-    42220: 'https://celoscan.io/tx/',\n-    130: 'https://uniscan.xyz/tx/',\n-    360: 'https://shapescan.xyz/tx/',\n-  }\n-  return (explorers[chainId] || 'https://relay.link/tx/') + txHash\n-}\n-\n const revokeApproval = async (approval: typeof approvals[0]) => {\n   if (!address || !revokeChain) return\n   setIsRevoking(true)\n   try {\n"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857216253,
+      "end": 1772857216276
+    }
+  }
+}

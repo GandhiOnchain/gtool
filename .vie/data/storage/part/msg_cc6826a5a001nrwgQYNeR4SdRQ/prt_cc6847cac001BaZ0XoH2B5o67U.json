@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc6847cac001BaZ0XoH2B5o67U",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Now remove the `setDebugInfo` calls and `setWalletTokens` calls, and `setContractAddressSearch` calls:",
+  "time": {
+    "start": 1772857099081,
+    "end": 1772857099081
+  }
+}

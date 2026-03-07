@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc683c268001ZHGYqBxXzgCiLG",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_0128CQpuMMSXvMxYuV3eV9tk",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1,
+      "limit": 12
+    },
+    "output": "<file>\n00002| import * as React from 'react'\n00003| import { sdk } from '@farcaster/miniapp-sdk'\n00004| import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useWalletClient } from 'wagmi'\n00005| import { useWallet } from '@/hooks/useWallet'\n00006| import { parseUnits, formatUnits, createPublicClient, http, defineChain, getAddress } from 'viem'\n00007| import { relayAPI } from '@/lib/relay/api'\n00008| import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\n00009| import { useRelayChains, useTokenList, useTokenPrice, useQuote, useExecutionStatus } from '@relayprotocol/relay-kit-hooks'\n00010| import { getClient, createClient, MAINNET_RELAY_API, adaptViemWallet } from '@relayprotocol/relay-sdk'\n00011| import type { AdaptedWallet } from '@relayprotocol/relay-sdk'\n00012| \n00013| import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'\n\n(File has more lines. Use 'offset' parameter to read beyond line 13)\n</file>",
+    "metadata": {
+      "preview": "import * as React from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useWalletClient } from 'wagmi'\nimport { useWallet } from '@/hooks/useWallet'\nimport { parseUnits, formatUnits, createPublicClient, http, defineChain, getAddress } from 'viem'\nimport { relayAPI } from '@/lib/relay/api'\nimport type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'\nimport { useRelayChains, useTokenList, useTokenPrice, useQuote, useExecutionStatus } from '@relayprotocol/relay-kit-hooks'\nimport { getClient, createClient, MAINNET_RELAY_API, adaptViemWallet } from '@relayprotocol/relay-sdk'\nimport type { AdaptedWallet } from '@relayprotocol/relay-sdk'\n\nimport { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857050345,
+      "end": 1772857050350
+    }
+  }
+}

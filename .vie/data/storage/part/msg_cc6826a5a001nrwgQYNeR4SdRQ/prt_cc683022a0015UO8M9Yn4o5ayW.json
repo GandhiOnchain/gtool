@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc683022a0015UO8M9Yn4o5ayW",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01HX8Ym4k1TuVEUFTxcreV5c",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"debugInfo\\b\" src/pages/RelaySwap.tsx | grep -v \"setDebugInfo\\|const \\[debug\"",
+      "description": "Check if debugInfo is rendered anywhere"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 1,
+      "description": "Check if debugInfo is rendered anywhere"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"debugInfo\\b\" src/pages/RelaySwap.tsx | grep -v \"setDebugInfo\\|const \\[debug\"",
+    "time": {
+      "start": 1772857001494,
+      "end": 1772857001498
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc685f08e0013FH8dm085O5P1Q",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01PwHGCaigB1DbaGitvy25p7",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"useSendTransaction\\|useWaitForTransactionReceipt\" src/pages/RelaySwap.tsx | head -5",
+      "description": "Find the useSendTransaction line"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Find the useSendTransaction line"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"useSendTransaction\\|useWaitForTransactionReceipt\" src/pages/RelaySwap.tsx | head -5",
+    "time": {
+      "start": 1772857193591,
+      "end": 1772857193598
+    }
+  }
+}

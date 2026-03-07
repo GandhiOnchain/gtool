@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc685d383001l5VSyYWif6phYt",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01JmQGMHuCcPwo6r6fwWMCKb",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"isTxPending|txError|getBlockExplorerUrl\" src/pages/RelaySwap.tsx | head -10",
+      "description": "Check if isTxPending, txError, getBlockExplorerUrl are used"
+    },
+    "output": "  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n  const getBlockExplorerUrl = (chainId: number, txHash: string): string => {\n",
+    "metadata": {
+      "output": "  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n  const getBlockExplorerUrl = (chainId: number, txHash: string): string => {\n",
+      "exit": 0,
+      "description": "Check if isTxPending, txError, getBlockExplorerUrl are used"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"isTxPending|txError|getBlockExplorerUrl\" src/pages/RelaySwap.tsx | head -10",
+    "time": {
+      "start": 1772857186479,
+      "end": 1772857186484
+    }
+  }
+}

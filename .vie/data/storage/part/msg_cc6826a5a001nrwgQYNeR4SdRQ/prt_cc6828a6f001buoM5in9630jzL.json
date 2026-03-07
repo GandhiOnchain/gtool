@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc6828a6f001buoM5in9630jzL",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01ARjVLVuv4T3h4VBefVKFYS",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -l \"glassmorphic\\|AlchemyExample\\|SwapWidgetExample\\|useMoralisPortfolio\\|useZapperPortfolio\\|useBlockchainClient\\|useSendNativeGasTokenLifecycle\\|useSignatures\\|useSimulateWriteContracts\\|useWriteContractLifecycle\\|useQueryEvents\\|useReadContract\\|useWatchEvent\" src/ --include=\"*.tsx\" --include=\"*.ts\" 2>/dev/null",
+      "description": "Find which hooks and components are actually used"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 2,
+      "description": "Find which hooks and components are actually used"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -l \"glassmorphic\\|AlchemyExample\\|SwapWidgetExample\\|useMoralisPortfolio\\|useZapperPortfolio\\|useBlockchainClient\\|useSendNativeGasTokenLifecycle\\|useSignatures\\|useSimulateWriteContracts\\|useWriteContractLifecycle\\|useQueryEvents\\|useReadContract\\|useWatchEvent\" src/ --include=\"*.tsx\" --include=\"*.ts\" 2>/dev/null",
+    "time": {
+      "start": 1772856972063,
+      "end": 1772856972067
+    }
+  }
+}

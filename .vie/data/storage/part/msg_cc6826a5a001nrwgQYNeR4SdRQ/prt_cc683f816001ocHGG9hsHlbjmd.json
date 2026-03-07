@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc683f816001ocHGG9hsHlbjmd",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "`SwapHistory` and `shareSwapReceipt` are defined but never called. Now let me make all the cleanups at once:",
+  "time": {
+    "start": 1772857066964,
+    "end": 1772857066964
+  }
+}

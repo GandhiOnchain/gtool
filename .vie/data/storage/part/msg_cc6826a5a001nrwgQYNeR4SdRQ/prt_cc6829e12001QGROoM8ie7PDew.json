@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc6829e12001QGROoM8ie7PDew",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01DMYbUWtUMo4CHB9HLYdMFn",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"glassmorphic-loading-skeleton|AlchemyExample|SwapWidgetExample|useMoralisPortfolio|useZapperPortfolio|useBlockchainClient|useSendNativeGasTokenLifecycle|useSignatures|useSimulateWriteContracts|useWriteContractLifecycle|useQueryEvents|useReadContract|useWatchEvent\" src/ --include=\"*.tsx\" --include=\"*.ts\" -l",
+      "description": "Find files importing unused hooks/components"
+    },
+    "output": "rg: unrecognized flag --include\n\nsimilar flags that are available: --include-zero\n",
+    "metadata": {
+      "output": "rg: unrecognized flag --include\n\nsimilar flags that are available: --include-zero\n",
+      "exit": 2,
+      "description": "Find files importing unused hooks/components"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"glassmorphic-loading-skeleton|AlchemyExample|SwapWidgetExample|useMoralisPortfolio|useZapperPortfolio|useBlockchainClient|useSendNativeGasTokenLifecycle|useSignatures|useSimulateWriteContracts|useWriteContractLifecycle|useQueryEvents|useReadContract|useWatchEvent\" src/ --include=\"*.tsx\" --include=\"*.ts\" -l",
+    "time": {
+      "start": 1772856976135,
+      "end": 1772856976138
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc682bf6c001TFparOs9hGesb7",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01CabaWzT6nY18WXTHbsrNhG",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"from.*examples\" src/ 2>/dev/null && echo \"---\" && cat src/App.tsx",
+      "description": "Check if examples are imported in App or anywhere"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 1,
+      "description": "Check if examples are imported in App or anywhere"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"from.*examples\" src/ 2>/dev/null && echo \"---\" && cat src/App.tsx",
+    "time": {
+      "start": 1772856984086,
+      "end": 1772856984109
+    }
+  }
+}

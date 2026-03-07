@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc68285f3001D3hwjCo3bEQRm8",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01Jxu4qH4RbKZj4don5eq4NR",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && cat src/pages/Index.tsx && echo \"---\" && cat src/pages/RelaySwap.tsx.backup 2>/dev/null | head -5 || echo \"backup exists\"",
+      "description": "Check Index.tsx and backup file"
+    },
+    "output": "import GlassmorphicLoadingSkeleton from '../components/ui/glassmorphic-loading-skeleton';\n\nconst Index = () => {\n  return (\n    <div className=\"min-h-screen bg-background\">\n      <GlassmorphicLoadingSkeleton />\n    </div>\n  );\n};\n\nexport default Index;---\nimport { useEffect, useState } from 'react'\nimport * as React from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'\nimport { useWallet } from '@/hooks/useWallet'\n",
+    "metadata": {
+      "output": "import GlassmorphicLoadingSkeleton from '../components/ui/glassmorphic-loading-skeleton';\n\nconst Index = () => {\n  return (\n    <div className=\"min-h-screen bg-background\">\n      <GlassmorphicLoadingSkeleton />\n    </div>\n  );\n};\n\nexport default Index;---\nimport { useEffect, useState } from 'react'\nimport * as React from 'react'\nimport { sdk } from '@farcaster/miniapp-sdk'\nimport { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain } from 'wagmi'\nimport { useWallet } from '@/hooks/useWallet'\n",
+      "exit": 0,
+      "description": "Check Index.tsx and backup file"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && cat src/pages/Index.tsx && echo \"---\" && cat src/pages/RelaySwap.tsx.backup 2>/dev/null | head -5 || echo \"backup exists\"",
+    "time": {
+      "start": 1772856969834,
+      "end": 1772856969839
+    }
+  }
+}

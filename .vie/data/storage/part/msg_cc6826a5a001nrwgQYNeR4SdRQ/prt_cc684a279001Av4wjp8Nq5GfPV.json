@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc684a279001Av4wjp8Nq5GfPV",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_015RU2mNEeaCmzbNA7HQKSH2",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1670,
+      "limit": 25
+    },
+    "output": "<file>\n01671|         )\n01672|         \n01673|         if (alreadyAdded) {\n01674|           toast.info(`${foundToken.symbol} already added to batch`)\n01675|           setContractAddressSearch('')\n01676|           return\n01677|         }\n01678|         \n01679|         // Add token to batch with balance of 0 (will be fetched when executing)\n01680|         const newToken: WalletToken = {\n01681|           token: foundToken,\n01682|           balance: '0',\n01683|           balanceFormatted: '0',\n01684|           selected: true,\n01685|         }\n01686|         \n01687|         setBatchTokens([...batchTokens, newToken])\n01688|         toast.success(`Added ${foundToken.symbol} to batch swap`)\n01689|         setContractAddressSearch('')\n01690|       } else {\n01691|         toast.error(`Token not found on ${batchChain.displayName}`)\n01692|       }\n01693|     } catch (error) {\n01694|       console.error('Failed to search token:', error)\n01695|       toast.error('Failed to search token')\n\n(File has more lines. Use 'offset' parameter to read beyond line 1695)\n</file>",
+    "metadata": {
+      "preview": "        )\n        \n        if (alreadyAdded) {\n          toast.info(`${foundToken.symbol} already added to batch`)\n          setContractAddressSearch('')\n          return\n        }\n        \n        // Add token to batch with balance of 0 (will be fetched when executing)\n        const newToken: WalletToken = {\n          token: foundToken,\n          balance: '0',\n          balanceFormatted: '0',\n          selected: true,\n        }\n        \n        setBatchTokens([...batchTokens, newToken])\n        toast.success(`Added ${foundToken.symbol} to batch swap`)\n        setContractAddressSearch('')\n      } else {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857107643,
+      "end": 1772857107645
+    }
+  }
+}

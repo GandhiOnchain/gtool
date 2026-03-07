@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc682e194001f49h1pjTNEfxvV",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01X7cQZaZHnsrGZ9Zr5PyzLv",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"contractAddressSearch|debugInfo|top10HolderPercent|lpTop10Percent\" src/pages/RelaySwap.tsx | head -20",
+      "description": "Check for unused state variables"
+    },
+    "output": "    lpTop10Percent?: number\n  const [contractAddressSearch, setContractAddressSearch] = useState('')\n  const [debugInfo, setDebugInfo] = useState<string>('')\n          const top10HolderPercent = parseFloat(info.holder_count ? '0' : '0')\n          const lpTop10Percent = parseFloat(info.lp_holder_count ? '0' : '0')\n              top10Percent: top10Pct || top10HolderPercent || undefined,\n              lpTop10Percent: lpTop10Percent || undefined,\n",
+    "metadata": {
+      "output": "    lpTop10Percent?: number\n  const [contractAddressSearch, setContractAddressSearch] = useState('')\n  const [debugInfo, setDebugInfo] = useState<string>('')\n          const top10HolderPercent = parseFloat(info.holder_count ? '0' : '0')\n          const lpTop10Percent = parseFloat(info.lp_holder_count ? '0' : '0')\n              top10Percent: top10Pct || top10HolderPercent || undefined,\n              lpTop10Percent: lpTop10Percent || undefined,\n",
+      "exit": 0,
+      "description": "Check for unused state variables"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"contractAddressSearch|debugInfo|top10HolderPercent|lpTop10Percent\" src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772856993424,
+      "end": 1772856993430
+    }
+  }
+}

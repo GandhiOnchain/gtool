@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc6847f64001hK37lQT17Lh6LE",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01Gvbttz6VQsFUDjR9xJPmZQ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"setDebugInfo|setWalletTokens|setContractAddressSearch\" src/pages/RelaySwap.tsx",
+      "description": "Find all remaining references to removed state setters"
+    },
+    "output": "545:    setWalletTokens([])\n1630:      setWalletTokens(tokensWithSelection)\n1675:          setContractAddressSearch('')\n1689:        setContractAddressSearch('')\n2232:    setDebugInfo('Fetching approvals from API...')\n2316:      setDebugInfo(`Processing ${data.length} approvals...`)\n2373:      setDebugInfo('API failed, using on-chain scan...')\n2388:      setDebugInfo('Querying Moralis indexer...')\n3541:                        setWalletTokens([])\n",
+    "metadata": {
+      "output": "545:    setWalletTokens([])\n1630:      setWalletTokens(tokensWithSelection)\n1675:          setContractAddressSearch('')\n1689:        setContractAddressSearch('')\n2232:    setDebugInfo('Fetching approvals from API...')\n2316:      setDebugInfo(`Processing ${data.length} approvals...`)\n2373:      setDebugInfo('API failed, using on-chain scan...')\n2388:      setDebugInfo('Querying Moralis indexer...')\n3541:                        setWalletTokens([])\n",
+      "exit": 0,
+      "description": "Find all remaining references to removed state setters"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"setDebugInfo|setWalletTokens|setContractAddressSearch\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857099069,
+      "end": 1772857099075
+    }
+  }
+}

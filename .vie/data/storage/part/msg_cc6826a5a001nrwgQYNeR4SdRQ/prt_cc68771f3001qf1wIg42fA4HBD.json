@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc68771f3001qf1wIg42fA4HBD",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Committed. Here's a summary of everything that went into the commit:\n\n**Dead code removed:**\n- `RelaySwap.tsx.backup` — deleted\n- `SwapHistory` interface — never used\n- State: `walletTokens`, `contractAddressSearch`, `debugInfo`\n- Functions: `searchTokenByContract`, `calculatePnl`, `getNativeTokenLogo`, `fetchTokenPrice`, `shareSwapReceipt`, `getBlockExplorerUrl`\n- Imports: `useWallet`, `Share2`, `X`, `getAddress`, `useTokenList`, `AlchemyNetwork`, `alchemy`, `useSendTransaction`, `useWaitForTransactionReceipt`\n- `Index.tsx` no longer imports the glassmorphic skeleton\n\n**Features shipped:**\n- Batch frame overflow fixed (`100svh`, `overflow-x-hidden`, native scroll div)\n- Alchemy + Moralis keys wired into `env.json`\n- 6-step security scanner with full GoPlus data extraction, honeypot.is simulation on 5 chains, contract age via block explorers\n- Structured security panels (verdict + taxes + holders + liquidity + contract) in both batch tab and swap tab From section\n- Auto-scan on `fromToken` selection; expanded inline panel in the From token dropdown",
+  "time": {
+    "start": 1772857295508,
+    "end": 1772857295508
+  }
+}

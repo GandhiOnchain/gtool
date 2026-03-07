@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc686672b001eEZKZzlu2RIlF6",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_012umxgXuskxUSfRJ3yMn8tP",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"\\bShare2\\b\\|\\bX\\b\" src/pages/RelaySwap.tsx | grep -v \"import\"",
+      "description": "Check Share2 and X icon usage"
+    },
+    "output": "981:            { headers: { accept: 'application/json', 'X-API-Key': moralisApiKey }, signal: AbortSignal.timeout(6000) }\n1440:              { headers: { accept: 'application/json', 'X-API-Key': moralisApiKey } }\n2351:            'X-API-Key': config.moralis.apiKey\n",
+    "metadata": {
+      "output": "981:            { headers: { accept: 'application/json', 'X-API-Key': moralisApiKey }, signal: AbortSignal.timeout(6000) }\n1440:              { headers: { accept: 'application/json', 'X-API-Key': moralisApiKey } }\n2351:            'X-API-Key': config.moralis.apiKey\n",
+      "exit": 0,
+      "description": "Check Share2 and X icon usage"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"\\bShare2\\b\\|\\bX\\b\" src/pages/RelaySwap.tsx | grep -v \"import\"",
+    "time": {
+      "start": 1772857223681,
+      "end": 1772857223687
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc682ed270014nmAjhn1nkZU3J",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01VAVz6zUQBDAuLwVUjghaE1",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"contractAddressSearch|setContractAddressSearch|debugInfo|setDebugInfo\" src/pages/RelaySwap.tsx",
+      "description": "Check usage of contractAddressSearch and debugInfo"
+    },
+    "output": "  const [contractAddressSearch, setContractAddressSearch] = useState('')\n  const [debugInfo, setDebugInfo] = useState<string>('')\n          setContractAddressSearch('')\n        setContractAddressSearch('')\n    setDebugInfo('Fetching approvals from API...')\n      setDebugInfo(`Processing ${data.length} approvals...`)\n      setDebugInfo('API failed, using on-chain scan...')\n      setDebugInfo('Querying Moralis indexer...')\n",
+    "metadata": {
+      "output": "  const [contractAddressSearch, setContractAddressSearch] = useState('')\n  const [debugInfo, setDebugInfo] = useState<string>('')\n          setContractAddressSearch('')\n        setContractAddressSearch('')\n    setDebugInfo('Fetching approvals from API...')\n      setDebugInfo(`Processing ${data.length} approvals...`)\n      setDebugInfo('API failed, using on-chain scan...')\n      setDebugInfo('Querying Moralis indexer...')\n",
+      "exit": 0,
+      "description": "Check usage of contractAddressSearch and debugInfo"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"contractAddressSearch|setContractAddressSearch|debugInfo|setDebugInfo\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772856995841,
+      "end": 1772856995847
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc684256a001Mj5grOOyhjH4QE",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01U7gkAqUA7nWDyeScsT52cB",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 40,
+      "limit": 8
+    },
+    "output": "<file>\n00041| \n00042| interface SwapHistory {\n00043|   id: string\n00044|   type: 'swap' | 'bridge' | 'batch' | 'batch-bridge' | 'revoke'\n00045|   fromToken: string\n00046|   fromTokenSymbol: string\n00047|   fromTokenDecimals: number\n00048|   fromTokenLogo?: string\n\n(File has more lines. Use 'offset' parameter to read beyond line 48)\n</file>",
+    "metadata": {
+      "preview": "\ninterface SwapHistory {\n  id: string\n  type: 'swap' | 'bridge' | 'batch' | 'batch-bridge' | 'revoke'\n  fromToken: string\n  fromTokenSymbol: string\n  fromTokenDecimals: number\n  fromTokenLogo?: string"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857075621,
+      "end": 1772857075623
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc6865845001fNTiSCXOeyCxzO",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_012RprwATgzPHeKU47SYErLT",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && grep -n \"secureStorage\\|Share2\\|TrendingUp\" src/pages/RelaySwap.tsx | head -10",
+      "description": "Check remaining usage of secureStorage and icons"
+    },
+    "output": "26:import { ArrowDownUp, TrendingUp, Share2, Flame, X, ChevronDown, Wallet, Settings, RefreshCw } from 'lucide-react'\n27:import { secureStorage } from '@/lib/security/storage'\n2089:    const streak = secureStorage.getItem<UserStreak>(`streak_${address}`)\n2100:        secureStorage.setItem(`streak_${address}`, updated)\n2112:    const current = secureStorage.getItem<UserStreak>(`streak_${address}`) || { currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 }\n2146:    secureStorage.setItem(`streak_${address}`, updated)\n3312:                  <TrendingUp className=\"h-3.5 w-3.5\" />\n",
+    "metadata": {
+      "output": "26:import { ArrowDownUp, TrendingUp, Share2, Flame, X, ChevronDown, Wallet, Settings, RefreshCw } from 'lucide-react'\n27:import { secureStorage } from '@/lib/security/storage'\n2089:    const streak = secureStorage.getItem<UserStreak>(`streak_${address}`)\n2100:        secureStorage.setItem(`streak_${address}`, updated)\n2112:    const current = secureStorage.getItem<UserStreak>(`streak_${address}`) || { currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 }\n2146:    secureStorage.setItem(`streak_${address}`, updated)\n3312:                  <TrendingUp className=\"h-3.5 w-3.5\" />\n",
+      "exit": 0,
+      "description": "Check remaining usage of secureStorage and icons"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && grep -n \"secureStorage\\|Share2\\|TrendingUp\" src/pages/RelaySwap.tsx | head -10",
+    "time": {
+      "start": 1772857220255,
+      "end": 1772857220260
+    }
+  }
+}

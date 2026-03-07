@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc683a323001bHgCrhfUh14rEQ",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Index.tsx is not used in App.tsx (the `/` route goes to RelaySwap directly). Clean it up to a simple redirect:",
+  "time": {
+    "start": 1772857043456,
+    "end": 1772857043456
+  }
+}

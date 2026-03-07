@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc68531cf001YI97LviEs85rTp",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01AnnWitLuMxWYG5Ppfqvv89",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 1635,
+      "limit": 65
+    },
+    "output": "<file>\n01636|     if (!contractAddress) {\n01637|       toast.error('Please enter a contract address')\n01638|       return\n01639|     }\n01640|     \n01641|     if (!batchChain) {\n01642|       toast.error('Please select a chain first')\n01643|       return\n01644|     }\n01645|     \n01646|     try {\n01647|       console.log('Searching for token:', contractAddress, 'on chain:', batchChain.id)\n01648|       \n01649|       const results = await relayAPI.getCurrencies({\n01650|         address: contractAddress,\n01651|         chainIds: [batchChain.id],\n01652|         useExternalSearch: true,\n01653|         limit: 10,\n01654|       })\n01655|       \n01656|       console.log('Search results:', results)\n01657|       \n01658|       if (results.length > 0) {\n01659|         const foundToken = results[0]\n01660|         \n01661|         // Check if already added\n01662|         const alreadyAdded = batchTokens.some(\n01663|           wt => wt.token.address.toLowerCase() === foundToken.address.toLowerCase() &&\n01664|                 wt.token.chainId === foundToken.chainId\n01665|         )\n01666|         \n01667|         if (alreadyAdded) {\n01668|           toast.info(`${foundToken.symbol} already added to batch`)\n01669|           return\n01670|         }\n01671|         \n01672|         // Add token to batch with balance of 0 (will be fetched when executing)\n01673|         const newToken: WalletToken = {\n01674|           token: foundToken,\n01675|           balance: '0',\n01676|           balanceFormatted: '0',\n01677|           selected: true,\n01678|         }\n01679|         \n01680|         setBatchTokens([...batchTokens, newToken])\n01681|         toast.success(`Added ${foundToken.symbol} to batch swap`)\n01682|       } else {\n01683|         toast.error(`Token not found on ${batchChain.displayName}`)\n01684|       }\n01685|     } catch (error) {\n01686|       console.error('Failed to search token:', error)\n01687|       toast.error('Failed to search token')\n01688|     }\n01689|   }\n01690| \n01691|   const executeSwap = async () => {\n01692|     if (!quote) {\n01693|       toast.error('No quote available')\n01694|       return\n01695|     }\n01696|     if (!isConnected || !address) {\n01697|       toast.error('Please connect your wallet first')\n01698|       return\n01699|     }\n01700|     if (!fromToken || !toToken || !fromAmount || !fromChain || !toChain) {\n\n(File has more lines. Use 'offset' parameter to read beyond line 1700)\n</file>",
+    "metadata": {
+      "preview": "    if (!contractAddress) {\n      toast.error('Please enter a contract address')\n      return\n    }\n    \n    if (!batchChain) {\n      toast.error('Please select a chain first')\n      return\n    }\n    \n    try {\n      console.log('Searching for token:', contractAddress, 'on chain:', batchChain.id)\n      \n      const results = await relayAPI.getCurrencies({\n        address: contractAddress,\n        chainIds: [batchChain.id],\n        useExternalSearch: true,\n        limit: 10,\n      })\n      "
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857144319,
+      "end": 1772857144321
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc685b67d0017vk07NB6ojdHhr",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01698jqUbvQ5qxQBQUouqMLR",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2565,
+      "limit": 10
+    },
+    "output": "<file>\n02566| \n02567|   const shareSwapReceipt = (swap: SwapHistory) => {\n02568|     const text = `Just swapped ${swap.fromAmount} ${swap.fromTokenSymbol} (${swap.fromChain}) to ${swap.toAmount} ${swap.toTokenSymbol} (${swap.toChain}) on Relay!`\n02569|     const url = `https://warpcast.com/~/compose?text=${encodeURIComponent(text)}`\n02570|     window.open(url, '_blank')\n02571|   }\n02572| \n02573|   const switchChains = () => {\n02574|     const temp = fromChain\n02575|     setFromChain(toChain)\n\n(File has more lines. Use 'offset' parameter to read beyond line 2575)\n</file>",
+    "metadata": {
+      "preview": "\n  const shareSwapReceipt = (swap: SwapHistory) => {\n    const text = `Just swapped ${swap.fromAmount} ${swap.fromTokenSymbol} (${swap.fromChain}) to ${swap.toAmount} ${swap.toTokenSymbol} (${swap.toChain}) on Relay!`\n    const url = `https://warpcast.com/~/compose?text=${encodeURIComponent(text)}`\n    window.open(url, '_blank')\n  }\n\n  const switchChains = () => {\n    const temp = fromChain\n    setFromChain(toChain)"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857179091,
+      "end": 1772857179093
+    }
+  }
+}

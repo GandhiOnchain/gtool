@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc68459060010Ohrr2Q1Jho81n",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01S96N5nLdwtmL5WtHGiNWyo",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 313,
+      "limit": 6
+    },
+    "output": "<file>\n00314|   const [isRevoking, setIsRevoking] = useState(false)\n00315|   const [selectedApprovals, setSelectedApprovals] = useState<Set<number>>(new Set())\n00316|   const [debugInfo, setDebugInfo] = useState<string>('')\n00317|   const [chainSearch, setChainSearch] = useState('')\n00318| \n00319|   const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()\n\n(File has more lines. Use 'offset' parameter to read beyond line 319)\n</file>",
+    "metadata": {
+      "preview": "  const [isRevoking, setIsRevoking] = useState(false)\n  const [selectedApprovals, setSelectedApprovals] = useState<Set<number>>(new Set())\n  const [debugInfo, setDebugInfo] = useState<string>('')\n  const [chainSearch, setChainSearch] = useState('')\n\n  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857088836,
+      "end": 1772857088838
+    }
+  }
+}

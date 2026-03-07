@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc685e025001e2Pc1i1P6Qsli8",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01FcMNFQWfwJs3m7fFqxe1GJ",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"\\bisTxPending\\b|\\btxError\\b|\\bgetBlockExplorerUrl\\b|\\bsendTransaction\\b|\\btxHash\\b\" src/pages/RelaySwap.tsx | grep -v \"const \\|import \\|useSendTransaction\\|useWaitForTransaction\"",
+      "description": "Check actual usage of these variables"
+    },
+    "output": "          if (data.status !== '1' || !data.result?.[0]?.txHash) return\n            `${explorerApi}?module=proxy&action=eth_getTransactionByHash&txhash=${txHash}&apikey=YourApiKeyToken`,\n    return (explorers[chainId] || 'https://relay.link/tx/') + txHash\n",
+    "metadata": {
+      "output": "          if (data.status !== '1' || !data.result?.[0]?.txHash) return\n            `${explorerApi}?module=proxy&action=eth_getTransactionByHash&txhash=${txHash}&apikey=YourApiKeyToken`,\n    return (explorers[chainId] || 'https://relay.link/tx/') + txHash\n",
+      "exit": 0,
+      "description": "Check actual usage of these variables"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"\\bisTxPending\\b|\\btxError\\b|\\bgetBlockExplorerUrl\\b|\\bsendTransaction\\b|\\btxHash\\b\" src/pages/RelaySwap.tsx | grep -v \"const \\|import \\|useSendTransaction\\|useWaitForTransaction\"",
+    "time": {
+      "start": 1772857189727,
+      "end": 1772857189733
+    }
+  }
+}

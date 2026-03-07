@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc682b0d9001UwFR9zqs88R9MP",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_018sv581s3a7odCmq2Hvcmfu",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"glassmorphic|AlchemyExample|SwapWidgetExample|useMoralisPortfolio|useZapperPortfolio|useBlockchainClient|useSendNativeGasTokenLifecycle|useSignatures|useSimulateWriteContracts|useWriteContractLifecycle|useQueryEvents|useReadContract|useWatchEvent\" src/ -l 2>/dev/null",
+      "description": "Find files using unused hooks"
+    },
+    "output": "src/pages/RelaySwap.tsx.backup\nsrc/pages/Index.tsx\nsrc/lib/blockchain/events.ts\nsrc/hooks/useZapperPortfolio.ts\nsrc/hooks/useWriteContractLifecycle.ts\nsrc/hooks/useWatchEvent.ts\nsrc/hooks/useSimulateWriteContracts.ts\nsrc/hooks/useSendNativeGasTokenLifecycle.ts\nsrc/hooks/useReadContract.ts\nsrc/hooks/useQueryEvents.ts\nsrc/hooks/useMoralisPortfolio.ts\nsrc/hooks/useBlockchainClient.ts\nsrc/components/ui/glassmorphic-loading-skeleton.tsx\nsrc/components/examples/SwapWidgetExample.tsx\nsrc/components/examples/AlchemyExample.tsx\nsrc/blockchain-config/deployments.ts\nsrc/blockchain-config/contracts/0x9006517125d02bffed79aea4bec56adf55911afebc2e9c7527a3358d1cdc331c/context.md\nsrc/blockchain-config/contracts/0x36f14e5ed6357f02a211ca00e217f39e9ed9d9a295213af56759c8c372bc8154/context.md\n",
+    "metadata": {
+      "output": "src/pages/RelaySwap.tsx.backup\nsrc/pages/Index.tsx\nsrc/lib/blockchain/events.ts\nsrc/hooks/useZapperPortfolio.ts\nsrc/hooks/useWriteContractLifecycle.ts\nsrc/hooks/useWatchEvent.ts\nsrc/hooks/useSimulateWriteContracts.ts\nsrc/hooks/useSendNativeGasTokenLifecycle.ts\nsrc/hooks/useReadContract.ts\nsrc/hooks/useQueryEvents.ts\nsrc/hooks/useMoralisPortfolio.ts\nsrc/hooks/useBlockchainClient.ts\nsrc/components/ui/glassmorphic-loading-skeleton.tsx\nsrc/components/examples/SwapWidgetExample.tsx\nsrc/components/examples/AlchemyExample.tsx\nsrc/blockchain-config/deployments.ts\nsrc/blockchain-config/contracts/0x9006517125d02bffed79aea4bec56adf55911afebc2e9c7527a3358d1cdc331c/context.md\nsrc/blockchain-config/contracts/0x36f14e5ed6357f02a211ca00e217f39e9ed9d9a295213af56759c8c372bc8154/context.md\n",
+      "exit": 0,
+      "description": "Find files using unused hooks"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"glassmorphic|AlchemyExample|SwapWidgetExample|useMoralisPortfolio|useZapperPortfolio|useBlockchainClient|useSendNativeGasTokenLifecycle|useSignatures|useSimulateWriteContracts|useWriteContractLifecycle|useQueryEvents|useReadContract|useWatchEvent\" src/ -l 2>/dev/null",
+    "time": {
+      "start": 1772856980209,
+      "end": 1772856980248
+    }
+  }
+}

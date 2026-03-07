@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc6848afa001hgfsBdu8F3yiAE",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01EZptDyABQNLruda2DUWRK4",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 542,
+      "limit": 6
+    },
+    "output": "<file>\n00543|   useEffect(() => {\n00544|     setBatchTokens([])\n00545|     setWalletTokens([])\n00546|     if (batchChain) {\n00547|       const vmType = batchChain.vmType || 'evm'\n00548|       const hasRequiredWallet = (vmType === 'svm' && solanaAddress) ||\n\n(File has more lines. Use 'offset' parameter to read beyond line 548)\n</file>",
+    "metadata": {
+      "preview": "  useEffect(() => {\n    setBatchTokens([])\n    setWalletTokens([])\n    if (batchChain) {\n      const vmType = batchChain.vmType || 'evm'\n      const hasRequiredWallet = (vmType === 'svm' && solanaAddress) ||"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857101622,
+      "end": 1772857101624
+    }
+  }
+}

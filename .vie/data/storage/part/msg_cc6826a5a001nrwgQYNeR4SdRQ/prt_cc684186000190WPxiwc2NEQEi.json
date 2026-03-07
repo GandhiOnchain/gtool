@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc684186000190WPxiwc2NEQEi",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Now remove the `SwapHistory` interface and unused state/functions. First find the exact lines:",
+  "time": {
+    "start": 1772857073127,
+    "end": 1772857073127
+  }
+}

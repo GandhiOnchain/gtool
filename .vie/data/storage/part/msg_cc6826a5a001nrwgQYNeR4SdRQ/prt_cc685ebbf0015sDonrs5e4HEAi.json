@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc685ebbf0015sDonrs5e4HEAi",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "`isTxPending`, `txError`, `sendTransaction` (the one from `useSendTransaction` — not the wagmi/actions one), and `getBlockExplorerUrl` are all unused. Clean them up:",
+  "time": {
+    "start": 1772857193603,
+    "end": 1772857193603
+  }
+}

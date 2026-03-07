@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc682c217001pFpQLSz21vg9rI",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01CP3tXE2dbDCL9AXiekSsWo",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"Index|glassmorphic|useMoralisPortfolio|useZapperPortfolio|useBlockchainClient|useSendNativeGasTokenLifecycle|useSignatures|useSimulateWriteContracts|useWriteContractLifecycle|useQueryEvents|useReadContract|useWatchEvent\" src/App.tsx src/pages/RelaySwap.tsx src/main.tsx 2>/dev/null",
+      "description": "Check what's actually imported in the main app files"
+    },
+    "output": "src/pages/RelaySwap.tsx:  const [logoIndex, setLogoIndex] = useState(0)\nsrc/pages/RelaySwap.tsx:      key={logoIndex}\nsrc/pages/RelaySwap.tsx:      src={logoUrls[logoIndex]}\nsrc/pages/RelaySwap.tsx:        if (logoIndex < logoUrls.length - 1) setLogoIndex(i => i + 1)\nsrc/pages/RelaySwap.tsx:  const [logoIndex, setLogoIndex] = useState(0)\nsrc/pages/RelaySwap.tsx:    if (logoIndex < logoUrls.length - 1) {\nsrc/pages/RelaySwap.tsx:      setLogoIndex(logoIndex + 1)\nsrc/pages/RelaySwap.tsx:        {!showFallback && logoUrls[logoIndex] ? (\nsrc/pages/RelaySwap.tsx:              key={logoIndex}\nsrc/pages/RelaySwap.tsx:              src={logoUrls[logoIndex]} \n",
+    "metadata": {
+      "output": "src/pages/RelaySwap.tsx:  const [logoIndex, setLogoIndex] = useState(0)\nsrc/pages/RelaySwap.tsx:      key={logoIndex}\nsrc/pages/RelaySwap.tsx:      src={logoUrls[logoIndex]}\nsrc/pages/RelaySwap.tsx:        if (logoIndex < logoUrls.length - 1) setLogoIndex(i => i + 1)\nsrc/pages/RelaySwap.tsx:  const [logoIndex, setLogoIndex] = useState(0)\nsrc/pages/RelaySwap.tsx:    if (logoIndex < logoUrls.length - 1) {\nsrc/pages/RelaySwap.tsx:      setLogoIndex(logoIndex + 1)\nsrc/pages/RelaySwap.tsx:        {!showFallback && logoUrls[logoIndex] ? (\nsrc/pages/RelaySwap.tsx:              key={logoIndex}\nsrc/pages/RelaySwap.tsx:              src={logoUrls[logoIndex]} \n",
+      "exit": 0,
+      "description": "Check what's actually imported in the main app files"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"Index|glassmorphic|useMoralisPortfolio|useZapperPortfolio|useBlockchainClient|useSendNativeGasTokenLifecycle|useSignatures|useSimulateWriteContracts|useWriteContractLifecycle|useQueryEvents|useReadContract|useWatchEvent\" src/App.tsx src/pages/RelaySwap.tsx src/main.tsx 2>/dev/null",
+    "time": {
+      "start": 1772856985593,
+      "end": 1772856985601
+    }
+  }
+}

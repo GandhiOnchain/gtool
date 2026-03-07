@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc6841b25001IHPh1I2EwCADtF",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01V9fumWcYVH3v18vBoegvhC",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 44,
+      "limit": 40
+    },
+    "output": "<file>\n00045|   fromToken: string\n00046|   fromTokenSymbol: string\n00047|   fromTokenDecimals: number\n00048|   fromTokenLogo?: string\n00049|   toToken: string\n00050|   toTokenSymbol: string\n00051|   toTokenDecimals: number\n00052|   toTokenLogo?: string\n00053|   fromAmount: string\n00054|   toAmount: string\n00055|   fromChain: string\n00056|   fromChainId: number\n00057|   fromChainIcon?: string\n00058|   toChain: string\n00059|   toChainId: number\n00060|   toChainIcon?: string\n00061|   status: string\n00062|   timestamp: number\n00063|   completedAt?: number\n00064|   txHash?: string\n00065|   inTxHash?: string\n00066|   batchTokens?: Array<{\n00067|     symbol: string\n00068|     amount: string\n00069|     logo?: string\n00070|     address: string\n00071|     usdValue?: string\n00072|   }>\n00073|   fromAmountUsd?: string\n00074|   toAmountUsd?: string\n00075| }\n00076| \n00077| interface UserStreak {\n00078|   currentStreak: number\n00079|   lastSwapTimestamp: number\n00080|   totalSwaps: number\n00081| }\n00082| \n00083| interface TokenRisk {\n00084|   isSpam: boolean\n\n(File has more lines. Use 'offset' parameter to read beyond line 84)\n</file>",
+    "metadata": {
+      "preview": "  fromToken: string\n  fromTokenSymbol: string\n  fromTokenDecimals: number\n  fromTokenLogo?: string\n  toToken: string\n  toTokenSymbol: string\n  toTokenDecimals: number\n  toTokenLogo?: string\n  fromAmount: string\n  toAmount: string\n  fromChain: string\n  fromChainId: number\n  fromChainIcon?: string\n  toChain: string\n  toChainId: number\n  toChainIcon?: string\n  status: string\n  timestamp: number\n  completedAt?: number\n  txHash?: string"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857073110,
+      "end": 1772857073113
+    }
+  }
+}

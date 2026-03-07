@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc68441930014wwcpIxyHNoay0",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01BomyGMawf8FYxm6Vdy6GSX",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg -n \"const \\[walletTokens|const \\[contractAddressSearch|const \\[debugInfo\" src/pages/RelaySwap.tsx",
+      "description": "Find unused state declarations"
+    },
+    "output": "273:  const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])\n275:  const [contractAddressSearch, setContractAddressSearch] = useState('')\n316:  const [debugInfo, setDebugInfo] = useState<string>('')\n",
+    "metadata": {
+      "output": "273:  const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])\n275:  const [contractAddressSearch, setContractAddressSearch] = useState('')\n316:  const [debugInfo, setDebugInfo] = useState<string>('')\n",
+      "exit": 0,
+      "description": "Find unused state declarations"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg -n \"const \\[walletTokens|const \\[contractAddressSearch|const \\[debugInfo\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857083612,
+      "end": 1772857083618
+    }
+  }
+}

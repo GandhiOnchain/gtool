@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc682ff4f001gvDVXQXM4fm2kq",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01VwzwEpX15epfp9z2FsWXX6",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"searchTokenByContract\\b|calculatePnl\\b|getNativeTokenLogo\\b\" src/pages/RelaySwap.tsx",
+      "description": "Check if these functions are called anywhere"
+    },
+    "output": "  const searchTokenByContract = async (contractAddress: string) => {\n  const calculatePnl = (currentValue: number, tokens: Array<{ symbol: string; valueUsd: number; address: string; chainId: number }>) => {\n  const getNativeTokenLogo = (symbol: string): string | undefined => {\n",
+    "metadata": {
+      "output": "  const searchTokenByContract = async (contractAddress: string) => {\n  const calculatePnl = (currentValue: number, tokens: Array<{ symbol: string; valueUsd: number; address: string; chainId: number }>) => {\n  const getNativeTokenLogo = (symbol: string): string | undefined => {\n",
+      "exit": 0,
+      "description": "Check if these functions are called anywhere"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"searchTokenByContract\\b|calculatePnl\\b|getNativeTokenLogo\\b\" src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857000489,
+      "end": 1772857000494
+    }
+  }
+}

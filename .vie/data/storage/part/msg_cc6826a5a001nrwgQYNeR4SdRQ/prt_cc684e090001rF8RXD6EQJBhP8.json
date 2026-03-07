@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc684e090001rF8RXD6EQJBhP8",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Now remove `setContractAddressSearch` calls (the function `searchTokenByContract` itself will be removed too):",
+  "time": {
+    "start": 1772857124873,
+    "end": 1772857124873
+  }
+}

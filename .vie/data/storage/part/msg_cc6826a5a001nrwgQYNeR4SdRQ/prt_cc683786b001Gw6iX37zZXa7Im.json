@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc683786b001Gw6iX37zZXa7Im",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01EjyxWtR35QN9ZqCxGyrmuf",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "rm /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx.backup",
+      "description": "Delete backup file"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Delete backup file"
+    },
+    "title": "rm /home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx.backup",
+    "time": {
+      "start": 1772857031434,
+      "end": 1772857031436
+    }
+  }
+}

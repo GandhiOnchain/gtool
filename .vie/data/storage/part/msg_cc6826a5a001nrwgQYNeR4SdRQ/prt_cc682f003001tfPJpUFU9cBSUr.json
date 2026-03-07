@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc682f003001tfPJpUFU9cBSUr",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01XWmZqLZPcV5za6XSrwAtAP",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"searchTokenByContract|calculatePnl|fetchTokenPrice|getNativeTokenLogo\" src/pages/RelaySwap.tsx | head -20",
+      "description": "Check for unused functions"
+    },
+    "output": "  const fetchTokenPrice = async (_tokenAddress: string, _chainId: number, _type: 'from' | 'to') => {\n  const searchTokenByContract = async (contractAddress: string) => {\n  const calculatePnl = (currentValue: number, tokens: Array<{ symbol: string; valueUsd: number; address: string; chainId: number }>) => {\n  const getNativeTokenLogo = (symbol: string): string | undefined => {\n",
+    "metadata": {
+      "output": "  const fetchTokenPrice = async (_tokenAddress: string, _chainId: number, _type: 'from' | 'to') => {\n  const searchTokenByContract = async (contractAddress: string) => {\n  const calculatePnl = (currentValue: number, tokens: Array<{ symbol: string; valueUsd: number; address: string; chainId: number }>) => {\n  const getNativeTokenLogo = (symbol: string): string | undefined => {\n",
+      "exit": 0,
+      "description": "Check for unused functions"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"searchTokenByContract|calculatePnl|fetchTokenPrice|getNativeTokenLogo\" src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772856997157,
+      "end": 1772856997163
+    }
+  }
+}

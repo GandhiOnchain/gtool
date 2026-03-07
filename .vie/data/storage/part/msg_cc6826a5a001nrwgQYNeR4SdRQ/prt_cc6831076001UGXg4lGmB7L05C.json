@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc6831076001UGXg4lGmB7L05C",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_014NkRRybYPp5T2Zi1n2eD4w",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"swapSources\\b|enabledSources\\b|setSwapSources\\b|setEnabledSources\\b|loadSwapSources\\b\" src/pages/RelaySwap.tsx | head -20",
+      "description": "Check swap sources usage"
+    },
+    "output": "  const [swapSources, setSwapSources] = useState<string[]>([])\n  const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})\n  const includedSources = Object.entries(enabledSources).filter(([_, v]) => v).map(([k]) => k)\n    loadSwapSources()\n  const loadSwapSources = async () => {\n      setSwapSources(sources)\n      setEnabledSources(initialEnabled)\n      setSwapSources(['weth', '0x', 'open-ocean', 'eisen'])\n      setEnabledSources({\n                    {swapSources.map((source) => (\n                          checked={enabledSources[source] || false}\n                            setEnabledSources(prev => ({ ...prev, [source]: checked }))\n",
+    "metadata": {
+      "output": "  const [swapSources, setSwapSources] = useState<string[]>([])\n  const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})\n  const includedSources = Object.entries(enabledSources).filter(([_, v]) => v).map(([k]) => k)\n    loadSwapSources()\n  const loadSwapSources = async () => {\n      setSwapSources(sources)\n      setEnabledSources(initialEnabled)\n      setSwapSources(['weth', '0x', 'open-ocean', 'eisen'])\n      setEnabledSources({\n                    {swapSources.map((source) => (\n                          checked={enabledSources[source] || false}\n                            setEnabledSources(prev => ({ ...prev, [source]: checked }))\n",
+      "exit": 0,
+      "description": "Check swap sources usage"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"swapSources\\b|enabledSources\\b|setSwapSources\\b|setEnabledSources\\b|loadSwapSources\\b\" src/pages/RelaySwap.tsx | head -20",
+    "time": {
+      "start": 1772857005292,
+      "end": 1772857005300
+    }
+  }
+}

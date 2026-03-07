@@ -1,0 +1,25 @@
+{
+  "id": "prt_cc68575b9002iV9NkwuazI5LGZ",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_012jSz1MtZz9AvHyvBfTk75b",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/src/pages/RelaySwap.tsx",
+      "offset": 2475,
+      "limit": 30
+    },
+    "output": "<file>\n02476|       'BNB': 'https://assets.relay.link/icons/currencies/bnb.png',\n02477|       'AVAX': 'https://assets.relay.link/icons/currencies/avax.png',\n02478|       'FTM': 'https://assets.relay.link/icons/currencies/ftm.png',\n02479|       'XDAI': 'https://assets.relay.link/icons/currencies/xdai.png',\n02480|       'CELO': 'https://assets.relay.link/icons/currencies/celo.png',\n02481|       'MNT': 'https://assets.relay.link/icons/currencies/mnt.png',\n02482|       // Common stablecoins (fallback if metadata missing)\n02483|       'USDC': 'https://assets.relay.link/icons/currencies/usdc.png',\n02484|       'USDT': 'https://assets.relay.link/icons/currencies/usdt.png',\n02485|       'DAI': 'https://assets.relay.link/icons/currencies/dai.png',\n02486|       'WETH': 'https://assets.relay.link/icons/currencies/weth.png',\n02487|       'WBTC': 'https://assets.relay.link/icons/currencies/wbtc.png',\n02488|     }\n02489|     return logos[symbol.toUpperCase()]\n02490|   }\n02491| \n02492|   const revokeApproval = async (approval: typeof approvals[0]) => {\n02493|     if (!address || !revokeChain) return\n02494|     setIsRevoking(true)\n02495|     try {\n02496|       if (connectedChainId !== revokeChain.id) {\n02497|         await switchChain({ chainId: revokeChain.id })\n02498|         await new Promise(r => setTimeout(r, 500))\n02499|       }\n02500|       const { sendTransaction: sendTx, waitForTransactionReceipt } = await import('wagmi/actions')\n02501|       const { wagmiConfig } = await import('@/lib/blockchain/wagmi')\n02502|       const hash = await sendTx(wagmiConfig, {\n02503|         to: approval.token.address as `0x${string}`,\n02504|         data: `0x095ea7b3${approval.spender.slice(2).padStart(64, '0')}${'0'.padStart(64, '0')}` as `0x${string}`,\n02505|         chainId: revokeChain.id as (8453 | 84532 | 1 | 56 | 42161 | 80094 | 43114 | 999 | 137 | 10 | 59144 | 534352 | 5000 | 130 | 360 | 98866),\n\n(File has more lines. Use 'offset' parameter to read beyond line 2505)\n</file>",
+    "metadata": {
+      "preview": "      'BNB': 'https://assets.relay.link/icons/currencies/bnb.png',\n      'AVAX': 'https://assets.relay.link/icons/currencies/avax.png',\n      'FTM': 'https://assets.relay.link/icons/currencies/ftm.png',\n      'XDAI': 'https://assets.relay.link/icons/currencies/xdai.png',\n      'CELO': 'https://assets.relay.link/icons/currencies/celo.png',\n      'MNT': 'https://assets.relay.link/icons/currencies/mnt.png',\n      // Common stablecoins (fallback if metadata missing)\n      'USDC': 'https://assets.relay.link/icons/currencies/usdc.png',\n      'USDT': 'https://assets.relay.link/icons/currencies/usdt.png',\n      'DAI': 'https://assets.relay.link/icons/currencies/dai.png',\n      'WETH': 'https://assets.relay.link/icons/currencies/weth.png',\n      'WBTC': 'https://assets.relay.link/icons/currencies/wbtc.png',\n    }\n    return logos[symbol.toUpperCase()]\n  }\n\n  const revokeApproval = async (approval: typeof approvals[0]) => {\n    if (!address || !revokeChain) return\n    setIsRevoking(true)\n    try {"
+    },
+    "title": "frontend/src/pages/RelaySwap.tsx",
+    "time": {
+      "start": 1772857161710,
+      "end": 1772857161712
+    }
+  }
+}

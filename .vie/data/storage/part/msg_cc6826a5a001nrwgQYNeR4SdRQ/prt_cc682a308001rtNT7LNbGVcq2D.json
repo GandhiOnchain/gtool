@@ -1,0 +1,26 @@
+{
+  "id": "prt_cc682a308001rtNT7LNbGVcq2D",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_011xzG3cZx4fedxABWgkMGy3",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && rg \"from.*examples/\" src/ --include=\"*.tsx\" --include=\"*.ts\" -l 2>/dev/null; rg \"RelaySwap.tsx.backup\" src/ -l 2>/dev/null; echo \"done\"",
+      "description": "Check if examples are imported anywhere"
+    },
+    "output": "done\n",
+    "metadata": {
+      "output": "done\n",
+      "exit": 0,
+      "description": "Check if examples are imported anywhere"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && rg \"from.*examples/\" src/ --include=\"*.tsx\" --include=\"*.ts\" -l 2>/dev/null; rg \"RelaySwap.tsx.backup\" src/ -l 2>/dev/null; echo \"done\"",
+    "time": {
+      "start": 1772856977449,
+      "end": 1772856977491
+    }
+  }
+}

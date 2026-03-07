@@ -1,0 +1,11 @@
+{
+  "id": "prt_cc685d1da001yZA0pPAvgvn0s3",
+  "messageID": "msg_cc6826a5a001nrwgQYNeR4SdRQ",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Now check for any remaining unused variables from wagmi destructuring:",
+  "time": {
+    "start": 1772857186489,
+    "end": 1772857186489
+  }
+}
