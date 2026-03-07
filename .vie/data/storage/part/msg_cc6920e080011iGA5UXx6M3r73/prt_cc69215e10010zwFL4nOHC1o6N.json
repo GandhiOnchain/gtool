@@ -1,0 +1,27 @@
+{
+  "id": "prt_cc69215e10010zwFL4nOHC1o6N",
+  "messageID": "msg_cc6920e080011iGA5UXx6M3r73",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01HDvKaNUmVhRsgmQGk42nLi",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git remote set-url origin https://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@github.com/GandhiOnchain/gtool.git && git push -u origin HEAD:main 2>&1",
+      "timeout": 30000,
+      "description": "Push to GitHub with token"
+    },
+    "output": "error: The destination you provided is not a full refname (i.e.,\nstarting with \"refs/\"). We tried to guess what you meant by:\n\n- Looking for a ref that matches 'main' on the remote side.\n- Checking if the <src> being pushed ('HEAD')\n  is a ref in \"refs/{heads,tags}/\". If so we add a corresponding\n  refs/{heads,tags}/ prefix on the remote side.\n\nNeither worked, so we gave up. You must fully qualify the ref.\nhint: The <src> part of the refspec is a commit object.\nhint: Did you mean to create a new branch by pushing to\nhint: 'HEAD:refs/heads/main'?\nerror: failed to push some refs to 'https://github.com/GandhiOnchain/gtool.git'\n",
+    "metadata": {
+      "output": "error: The destination you provided is not a full refname (i.e.,\nstarting with \"refs/\"). We tried to guess what you meant by:\n\n- Looking for a ref that matches 'main' on the remote side.\n- Checking if the <src> being pushed ('HEAD')\n  is a ref in \"refs/{heads,tags}/\". If so we add a corresponding\n  refs/{heads,tags}/ prefix on the remote side.\n\nNeither worked, so we gave up. You must fully qualify the ref.\nhint: The <src> part of the refspec is a commit object.\nhint: Did you mean to create a new branch by pushing to\nhint: 'HEAD:refs/heads/main'?\nerror: failed to push some refs to 'https://github.com/GandhiOnchain/gtool.git'\n",
+      "exit": 1,
+      "description": "Push to GitHub with token"
+    },
+    "title": "cd /home/user/sandbox/workspace && git remote set-url origin https://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@github.com/GandhiOnchain/gtool.git && git push -u origin HEAD:main 2>&1",
+    "time": {
+      "start": 1772857989749,
+      "end": 1772857989934
+    }
+  }
+}
