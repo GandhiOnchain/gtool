@@ -1,11 +1,5 @@
-import GlassmorphicLoadingSkeleton from '../components/ui/glassmorphic-loading-skeleton';
+import { Navigate } from 'react-router-dom'
 
-const Index = () => {
-  return (
-    <div className="min-h-screen bg-background">
-      <GlassmorphicLoadingSkeleton />
-    </div>
-  );
-};
+const Index = () => <Navigate to="/" replace />
 
-export default Index;
+export default Index

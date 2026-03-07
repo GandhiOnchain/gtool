@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react'
 import * as React from 'react'
 import { sdk } from '@farcaster/miniapp-sdk'
-import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt, useConnect, useSwitchChain, useWalletClient } from 'wagmi'
-import { useWallet } from '@/hooks/useWallet'
-import { parseUnits, formatUnits, createPublicClient, http, defineChain, getAddress } from 'viem'
+import { useAccount, useBalance, useConnect, useSwitchChain, useWalletClient } from 'wagmi'
+import { parseUnits, formatUnits, createPublicClient, http, defineChain } from 'viem'
 import { relayAPI } from '@/lib/relay/api'
 import type { RelayChain, RelayCurrency, RelayQuote } from '@/lib/relay/types'
-import { useRelayChains, useTokenList, useTokenPrice, useQuote, useExecutionStatus } from '@relayprotocol/relay-kit-hooks'
+import { useRelayChains, useTokenPrice, useQuote, useExecutionStatus } from '@relayprotocol/relay-kit-hooks'
 import { getClient, createClient, MAINNET_RELAY_API, adaptViemWallet } from '@relayprotocol/relay-sdk'
 import type { AdaptedWallet } from '@relayprotocol/relay-sdk'
 
-import { alchemy, getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
+import { getAlchemyNetwork, alchemySettings } from '@/lib/alchemy/config'
 import { config } from '@/config'
-import { Network as AlchemyNetwork } from 'alchemy-sdk'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
@@ -25,7 +23,7 @@ import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { Checkbox } from '@/components/ui/checkbox'
 import { toast } from 'sonner'
-import { ArrowDownUp, TrendingUp, Share2, Flame, X, ChevronDown, Wallet, Settings, RefreshCw } from 'lucide-react'
+import { ArrowDownUp, TrendingUp, Flame, ChevronDown, Wallet, Settings, RefreshCw } from 'lucide-react'
 import { secureStorage } from '@/lib/security/storage'
 import { validateAmount, validateSlippage, sanitizeInput } from '@/lib/security/validation'
 import { quoteRateLimiter } from '@/lib/security/rateLimit'
@@ -41,40 +39,6 @@ interface TrendingToken {
   priceChange24h?: number
 }
 
-interface SwapHistory {
-  id: string
-  type: 'swap' | 'bridge' | 'batch' | 'batch-bridge' | 'revoke'
-  fromToken: string
-  fromTokenSymbol: string
-  fromTokenDecimals: number
-  fromTokenLogo?: string
-  toToken: string
-  toTokenSymbol: string
-  toTokenDecimals: number
-  toTokenLogo?: string
-  fromAmount: string
-  toAmount: string
-  fromChain: string
-  fromChainId: number
-  fromChainIcon?: string
-  toChain: string
-  toChainId: number
-  toChainIcon?: string
-  status: string
-  timestamp: number
-  completedAt?: number
-  txHash?: string
-  inTxHash?: string
-  batchTokens?: Array<{
-    symbol: string
-    amount: string
-    logo?: string
-    address: string
-    usdValue?: string
-  }>
-  fromAmountUsd?: string
-  toAmountUsd?: string
-}
 
 interface UserStreak {
   currentStreak: number
@@ -306,9 +270,8 @@ export default function RelaySwap() {
   const [userStreak, setUserStreak] = useState<UserStreak>({ currentStreak: 0, lastSwapTimestamp: 0, totalSwaps: 0 })
   const [showSettings, setShowSettings] = useState(false)
   const [batchTokens, setBatchTokens] = useState<WalletToken[]>([])
-  const [walletTokens, setWalletTokens] = useState<WalletToken[]>([])
   const [chainWalletTokens, setChainWalletTokens] = useState<Record<number, WalletToken[]>>({})
-  const [contractAddressSearch, setContractAddressSearch] = useState('')
+
   const [swapSources, setSwapSources] = useState<string[]>([])
   const [enabledSources, setEnabledSources] = useState<Record<string, boolean>>({})
   const [isLoadingBatchTokens, setIsLoadingBatchTokens] = useState(false)
@@ -349,11 +312,9 @@ export default function RelaySwap() {
   const [isLoadingApprovals, setIsLoadingApprovals] = useState(false)
   const [isRevoking, setIsRevoking] = useState(false)
   const [selectedApprovals, setSelectedApprovals] = useState<Set<number>>(new Set())
-  const [debugInfo, setDebugInfo] = useState<string>('')
   const [chainSearch, setChainSearch] = useState('')
 
-  const { sendTransaction, data: txHash, isPending: isTxPending, error: txError } = useSendTransaction()
-  const { isSuccess: isTxSuccess } = useWaitForTransactionReceipt({ hash: txHash })
+
 
   const { data: fromTokenPriceData } = useTokenPrice(
     undefined,
@@ -580,7 +541,6 @@ export default function RelaySwap() {
 
   useEffect(() => {
     setBatchTokens([])
-    setWalletTokens([])
     if (batchChain) {
       const vmType = batchChain.vmType || 'evm'
       const hasRequiredWallet = (vmType === 'svm' && solanaAddress) ||
@@ -841,10 +801,6 @@ export default function RelaySwap() {
         [type]: undefined
       }))
     }
-  }
-
-  const fetchTokenPrice = async (_tokenAddress: string, _chainId: number, _type: 'from' | 'to') => {
-    // Replaced by useTokenPrice hooks
   }
 
   const dedupCurrencies = (currencies: RelayCurrency[]): RelayCurrency[] => {
@@ -1665,7 +1621,6 @@ export default function RelaySwap() {
         selected: !(t.risk?.isSpam || t.risk?.riskLevel === 'high'),
       }))
 
-      setWalletTokens(tokensWithSelection)
       setBatchTokens(tokensWithSelection)
       setChainWalletTokens(prev => ({ ...prev, [chain.id]: tokens }))
     } catch (error) {
@@ -1673,64 +1628,6 @@ export default function RelaySwap() {
       toast.error('Failed to detect tokens')
     } finally {
       setIsLoadingBatchTokens(false)
-    }
-  }
-
-  const searchTokenByContract = async (contractAddress: string) => {
-    if (!contractAddress) {
-      toast.error('Please enter a contract address')
-      return
-    }
-    
-    if (!batchChain) {
-      toast.error('Please select a chain first')
-      return
-    }
-    
-    try {
-      console.log('Searching for token:', contractAddress, 'on chain:', batchChain.id)
-      
-      const results = await relayAPI.getCurrencies({
-        address: contractAddress,
-        chainIds: [batchChain.id],
-        useExternalSearch: true,
-        limit: 10,
-      })
-      
-      console.log('Search results:', results)
-      
-      if (results.length > 0) {
-        const foundToken = results[0]
-        
-        // Check if already added
-        const alreadyAdded = batchTokens.some(
-          wt => wt.token.address.toLowerCase() === foundToken.address.toLowerCase() &&
-                wt.token.chainId === foundToken.chainId
-        )
-        
-        if (alreadyAdded) {
-          toast.info(`${foundToken.symbol} already added to batch`)
-          setContractAddressSearch('')
-          return
-        }
-        
-        // Add token to batch with balance of 0 (will be fetched when executing)
-        const newToken: WalletToken = {
-          token: foundToken,
-          balance: '0',
-          balanceFormatted: '0',
-          selected: true,
-        }
-        
-        setBatchTokens([...batchTokens, newToken])
-        toast.success(`Added ${foundToken.symbol} to batch swap`)
-        setContractAddressSearch('')
-      } else {
-        toast.error(`Token not found on ${batchChain.displayName}`)
-      }
-    } catch (error) {
-      console.error('Failed to search token:', error)
-      toast.error('Failed to search token')
     }
   }
 
@@ -2267,7 +2164,6 @@ export default function RelaySwap() {
     if (!address || !revokeChain) return
     
     setIsLoadingApprovals(true)
-    setDebugInfo('Fetching approvals from API...')
     
     try {
       console.log('🔍 Loading approvals for:', revokeChain.displayName, address)
@@ -2351,7 +2247,6 @@ export default function RelaySwap() {
       }
       
       console.log(`Found ${data.length} approvals from API`)
-      setDebugInfo(`Processing ${data.length} approvals...`)
       
       const foundApprovals: typeof approvals = []
       
@@ -2408,7 +2303,6 @@ export default function RelaySwap() {
       const err = error as Error
       console.error('❌ API fetch failed:', err)
       console.log('Falling back to on-chain scan...')
-      setDebugInfo('API failed, using on-chain scan...')
       
       // Fallback to on-chain scanning
       await loadApprovalsOnChain()
@@ -2423,7 +2317,6 @@ export default function RelaySwap() {
     
     try {
       console.log('Fetching approvals from Moralis...')
-      setDebugInfo('Querying Moralis indexer...')
       
       const chainMap: Record<number, string> = {
         1: 'eth',
@@ -2516,83 +2409,6 @@ export default function RelaySwap() {
     } finally {
       setIsLoadingApprovals(false)
     }
-  }
-
-  const calculatePnl = (currentValue: number, tokens: Array<{ symbol: string; valueUsd: number; address: string; chainId: number }>) => {
-    const storedCosts = secureStorage.getItem<Record<string, number>>(`token_costs_${address}`) || {}
-    
-    let totalCost = 0
-    const tokenPnls: Array<{ symbol: string; pnl: number; percentage: number }> = []
-    
-    for (const token of tokens) {
-      const key = `${token.chainId}_${token.address}`
-      const cost = storedCosts[key] || token.valueUsd
-      totalCost += cost
-      
-      const pnl = token.valueUsd - cost
-      const percentage = cost > 0 ? (pnl / cost) * 100 : 0
-      
-      tokenPnls.push({
-        symbol: token.symbol,
-        pnl,
-        percentage
-      })
-    }
-    
-    const totalPnl = currentValue - totalCost
-    const totalPercentage = totalCost > 0 ? (totalPnl / totalCost) * 100 : 0
-    
-    return {
-      total: totalPnl,
-      percentage: totalPercentage,
-      tokens: tokenPnls.sort((a, b) => Math.abs(b.pnl) - Math.abs(a.pnl)).slice(0, 5)
-    }
-  }
-
-  const getBlockExplorerUrl = (chainId: number, txHash: string): string => {
-    const explorers: Record<number, string> = {
-      1: 'https://etherscan.io/tx/',
-      8453: 'https://basescan.org/tx/',
-      84532: 'https://sepolia.basescan.org/tx/',
-      42161: 'https://arbiscan.io/tx/',
-      137: 'https://polygonscan.com/tx/',
-      10: 'https://optimistic.etherscan.io/tx/',
-      56: 'https://bscscan.com/tx/',
-      43114: 'https://snowtrace.io/tx/',
-      59144: 'https://lineascan.build/tx/',
-      534352: 'https://scrollscan.com/tx/',
-      5000: 'https://explorer.mantle.xyz/tx/',
-      324: 'https://explorer.zksync.io/tx/',
-      250: 'https://ftmscan.com/tx/',
-      100: 'https://gnosisscan.io/tx/',
-      42220: 'https://celoscan.io/tx/',
-      130: 'https://uniscan.xyz/tx/',
-      360: 'https://shapescan.xyz/tx/',
-    }
-    return (explorers[chainId] || 'https://relay.link/tx/') + txHash
-  }
-
-  // Helper to get token logo URL (native tokens and common ERC-20s)
-  const getNativeTokenLogo = (symbol: string): string | undefined => {
-    const logos: Record<string, string> = {
-      // Native tokens
-      'ETH': 'https://assets.relay.link/icons/currencies/eth.png',
-      'MATIC': 'https://assets.relay.link/icons/currencies/matic.png',
-      'POL': 'https://assets.relay.link/icons/currencies/matic.png',
-      'BNB': 'https://assets.relay.link/icons/currencies/bnb.png',
-      'AVAX': 'https://assets.relay.link/icons/currencies/avax.png',
-      'FTM': 'https://assets.relay.link/icons/currencies/ftm.png',
-      'XDAI': 'https://assets.relay.link/icons/currencies/xdai.png',
-      'CELO': 'https://assets.relay.link/icons/currencies/celo.png',
-      'MNT': 'https://assets.relay.link/icons/currencies/mnt.png',
-      // Common stablecoins (fallback if metadata missing)
-      'USDC': 'https://assets.relay.link/icons/currencies/usdc.png',
-      'USDT': 'https://assets.relay.link/icons/currencies/usdt.png',
-      'DAI': 'https://assets.relay.link/icons/currencies/dai.png',
-      'WETH': 'https://assets.relay.link/icons/currencies/weth.png',
-      'WBTC': 'https://assets.relay.link/icons/currencies/wbtc.png',
-    }
-    return logos[symbol.toUpperCase()]
   }
 
   const revokeApproval = async (approval: typeof approvals[0]) => {
@@ -2722,12 +2538,6 @@ export default function RelaySwap() {
         'eisen': true,
       })
     }
-  }
-
-  const shareSwapReceipt = (swap: SwapHistory) => {
-    const text = `Just swapped ${swap.fromAmount} ${swap.fromTokenSymbol} (${swap.fromChain}) to ${swap.toAmount} ${swap.toTokenSymbol} (${swap.toChain}) on Relay!`
-    const url = `https://warpcast.com/~/compose?text=${encodeURIComponent(text)}`
-    window.open(url, '_blank')
   }
 
   const switchChains = () => {
@@ -3575,9 +3385,8 @@ export default function RelaySwap() {
                       variant="outline"
                       size="sm"
                       onClick={() => {
-                        setBatchTokens([])
-                        setWalletTokens([])
-                        loadBatchWalletTokens()
+        setBatchTokens([])
+        loadBatchWalletTokens()
                       }}
                       disabled={isLoadingBatchTokens || !batchChain}
                       className="h-8 w-8 p-0 flex-shrink-0"
