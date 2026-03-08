@@ -1,0 +1,11 @@
+{
+  "id": "prt_ccd39e23f0015F8V8IzrDyGijS",
+  "messageID": "msg_ccd39b2de001Nfgr4EZTbkbpx2",
+  "sessionID": "ses_332ca28e8ffe71SyRyADdgQoom",
+  "type": "text",
+  "text": "Everything is already configured correctly. The `og-image.avif` already exists in `public/`. The image you're attaching — I can't access it from the attachment path, but since `og-image.avif` is already there, I just need to know: **do you want to replace it with a new image?**\n\nIf yes, please share the image via a URL or re-upload it. If the existing image is fine, I can proceed to commit and push to git right now.\n\nAlso — the `accountAssociation` in `farcaster.json` has empty fields. To publish on Farcaster, you'll need to sign the manifest with your Farcaster account. That's done through the Farcaster developer portal, not something I can do for you.\n\nShould I go ahead and push what's already there to git?",
+  "time": {
+    "start": 1772969652978,
+    "end": 1772969652978
+  }
+}

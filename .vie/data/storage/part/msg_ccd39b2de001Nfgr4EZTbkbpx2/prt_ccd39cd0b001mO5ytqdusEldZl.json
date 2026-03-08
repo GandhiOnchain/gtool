@@ -1,0 +1,24 @@
+{
+  "id": "prt_ccd39cd0b001mO5ytqdusEldZl",
+  "messageID": "msg_ccd39b2de001Nfgr4EZTbkbpx2",
+  "sessionID": "ses_332ca28e8ffe71SyRyADdgQoom",
+  "type": "tool",
+  "tool": "list",
+  "callID": "toolu_bdrk_01N7BJLbU3hn1RGYA2V2doz7",
+  "state": {
+    "status": "completed",
+    "input": {
+      "path": "/home/user/sandbox/workspace/frontend/public"
+    },
+    "output": "/home/user/sandbox/workspace/frontend/public/\n  .well-known/\n    farcaster.json\n  api-proxy.html\n  favicon.ico\n  og-image.avif\n  og-image.png\n  placeholder.svg\n  robots.txt\n",
+    "metadata": {
+      "count": 7,
+      "truncated": false
+    },
+    "title": "frontend/public",
+    "time": {
+      "start": 1772969643610,
+      "end": 1772969643621
+    }
+  }
+}

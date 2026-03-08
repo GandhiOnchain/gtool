@@ -1,0 +1,11 @@
+{
+  "id": "prt_ccd39c57b001QutVBQc8vMya3i",
+  "messageID": "msg_ccd39b2de001Nfgr4EZTbkbpx2",
+  "sessionID": "ses_332ca28e8ffe71SyRyADdgQoom",
+  "type": "text",
+  "text": "The `index.html` already has the Farcaster Mini App meta tag configured with `gtool.vercel.app`. The image isn't accessible from the attachment path — could you share the image file directly or confirm the correct URL?\n\nIn the meantime, let me check what's already in the public folder and read the skill docs for Farcaster Mini Apps.",
+  "time": {
+    "start": 1772969644178,
+    "end": 1772969644178
+  }
+}
