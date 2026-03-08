@@ -1,0 +1,11 @@
+{
+  "id": "prt_ccd3b714c001qo53MujOb1dk0K",
+  "messageID": "msg_ccd3b5e1b001UXDMkeB0BPu6L3",
+  "sessionID": "ses_332ca28e8ffe71SyRyADdgQoom",
+  "type": "text",
+  "text": "There's another secret detected in a new commit. Please allow this one too:\n\n**https://github.com/GandhiOnchain/gtool/security/secret-scanning/unblock-secret/3Af3MZEAXxtuheDvLp9KjUmaBAs**\n\nOnce allowed, let me know and I'll push again.",
+  "time": {
+    "start": 1772969751931,
+    "end": 1772969751931
+  }
+}

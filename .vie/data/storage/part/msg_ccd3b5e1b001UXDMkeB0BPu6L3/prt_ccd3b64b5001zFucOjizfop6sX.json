@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd3b64b5001zFucOjizfop6sX",
+  "messageID": "msg_ccd3b5e1b001UXDMkeB0BPu6L3",
+  "sessionID": "ses_332ca28e8ffe71SyRyADdgQoom",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_011s62eC8gULzrmnJbHR4Khy",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git push origin HEAD:main 2>&1",
+      "description": "Push to main branch"
+    },
+    "output": "remote: error: GH013: Repository rule violations found for refs/heads/main.        \nremote: \nremote: - GITHUB PUSH PROTECTION        \nremote:   —————————————————————————————————————————        \nremote:     Resolve the following violations before pushing again        \nremote: \nremote:     - Push cannot contain secrets        \nremote: \nremote:             \nremote:      (?) Learn how to resolve a blocked push        \nremote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        \nremote:             \nremote:             \nremote:       —— GitHub Personal Access Token ——————————————————————        \nremote:        locations:        \nremote:          - commit: 76ceb2a424fc2070b2fd2c9fdc17a749613431ae        \nremote:            path: .vie/data/storage/part/msg_ccd3aa2cb001T1jPGS61MJWIV3/prt_ccd3abbc2001miiAsxjkQb136C.json:11        \nremote:          - commit: 76ceb2a424fc2070b2fd2c9fdc17a749613431ae        \nremote:            path: .vie/data/storage/part/msg_ccd3aa2cb001T1jPGS61MJWIV3/prt_ccd3abbc2001miiAsxjkQb136C.json:20        \nremote:             \nremote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        \nremote:        https://github.com/GandhiOnchain/gtool/security/secret-scanning/unblock-secret/3Af3MZEAXxtuheDvLp9KjUmaBAs        \nremote:             \nremote: \nremote: \nTo https://github.com/GandhiOnchain/gtool.git\n ! [remote rejected]   HEAD -> main (push declined due to repository rule violations)\nerror: failed to push some refs to 'https://github.com/GandhiOnchain/gtool.git'\n",
+    "metadata": {
+      "output": "remote: error: GH013: Repository rule violations found for refs/heads/main.        \nremote: \nremote: - GITHUB PUSH PROTECTION        \nremote:   —————————————————————————————————————————        \nremote:     Resolve the following violations before pushing again        \nremote: \nremote:     - Push cannot contain secrets        \nremote: \nremote:             \nremote:      (?) Learn how to resolve a blocked push        \nremote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        \nremote:             \nremote:             \nremote:       —— GitHub Personal Access Token ——————————————————————        \nremote:        locations:        \nremote:          - commit: 76ceb2a424fc2070b2fd2c9fdc17a749613431ae        \nremote:            path: .vie/data/storage/part/msg_ccd3aa2cb001T1jPGS61MJWIV3/prt_ccd3abbc2001miiAsxjkQb136C.json:11        \nremote:          - commit: 76ceb2a424fc2070b2fd2c9fdc17a749613431ae        \nremote:            path: .vie/data/storage/part/msg_ccd3aa2cb001T1jPGS61MJWIV3/prt_ccd3abbc2001miiAsxjkQb136C.json:20        \nremote:             \nremote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        \nremote:        https://github.com/GandhiOnchain/gtool/security/secret-scanning/unblock-secret/3Af3MZEAXxtuheDvLp9KjUmaBAs        \nremote:             \nremote: \nremote: \nTo https://github.com/GandhiOnchain/gtool.git\n ! [remote rejected]   HEAD -> main (push declined due to repository rule violations)\nerror: failed to push some refs to 'https://github.com/GandhiOnchain/gtool.git'\n",
+      "exit": 1,
+      "description": "Push to main branch"
+    },
+    "title": "cd /home/user/sandbox/workspace && git push origin HEAD:main 2>&1",
+    "time": {
+      "start": 1772969748171,
+      "end": 1772969749437
+    }
+  }
+}
