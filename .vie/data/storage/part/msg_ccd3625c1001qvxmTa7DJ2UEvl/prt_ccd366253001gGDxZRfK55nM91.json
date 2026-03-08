@@ -1,0 +1,11 @@
+{
+  "id": "prt_ccd366253001gGDxZRfK55nM91",
+  "messageID": "msg_ccd3625c1001qvxmTa7DJ2UEvl",
+  "sessionID": "ses_332ca28e8ffe71SyRyADdgQoom",
+  "type": "text",
+  "text": "Here's a summary of the codebase:\n\n**App**: A Farcaster Mini App — a cross-chain token swap interface built on the Relay Protocol.\n\n**Main page** (`/`): `RelaySwap.tsx` — a massive (~2500+ line) single-component page with 4 tabs:\n- **Swap** — single token swap via Relay SDK (`useQuote` + `executeQuote`)\n- **Batch** — sweep multiple wallet tokens into one destination token/chain\n- **Revoke** — manage and revoke ERC-20 token approvals (via revoke.cash API + Moralis fallback)\n- **Portfolio** — wallet token balances (via Alchemy + Moralis fallback)\n\n**Key integrations**:\n- `@relayprotocol/relay-sdk` + `relay-kit-hooks` for cross-chain quotes and execution\n- Farcaster SDK (`@farcaster/miniapp-sdk`) for wallet connection + Solana wallet detection\n- Alchemy for token discovery, Moralis as fallback\n- GoPlus + Honeypot.is + Moralis for multi-layer token security scanning\n- Warpcast API for trending tokens\n\n**Lib structure**:\n- `lib/relay/` — typed API wrapper + types for Relay Protocol\n- `lib/security/` — rate limiting, secure storage, input validation\n- `lib/tokenLogos.ts` — logo URL fallback resolution\n- `lib/blockchain/wagmi.ts` — wagmi config\n\n**Theme**: `brutal.css` (vibrant purple/pink), dark mode default, no header shown (`showHeader={false}`).",
+  "time": {
+    "start": 1772969428504,
+    "end": 1772969428504
+  }
+}
