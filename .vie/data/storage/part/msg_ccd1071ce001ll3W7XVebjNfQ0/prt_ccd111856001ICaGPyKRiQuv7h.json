@@ -1,0 +1,27 @@
+{
+  "id": "prt_ccd111856001ICaGPyKRiQuv7h",
+  "messageID": "msg_ccd1071ce001ll3W7XVebjNfQ0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01Xmc4WFPaaGBXNpLtNu4pPW",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git push origin HEAD:refs/heads/main 2>&1",
+      "timeout": 30000,
+      "description": "Retry push"
+    },
+    "output": "fatal: could not read Password for 'https://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@github.com': No such device or address\n",
+    "metadata": {
+      "output": "fatal: could not read Password for 'https://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@github.com': No such device or address\n",
+      "exit": 128,
+      "description": "Retry push"
+    },
+    "title": "cd /home/user/sandbox/workspace && git push origin HEAD:refs/heads/main 2>&1",
+    "time": {
+      "start": 1772966976159,
+      "end": 1772966976225
+    }
+  }
+}

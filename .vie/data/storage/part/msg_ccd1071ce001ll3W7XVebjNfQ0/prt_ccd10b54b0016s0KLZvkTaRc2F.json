@@ -1,0 +1,23 @@
+{
+  "id": "prt_ccd10b54b0016s0KLZvkTaRc2F",
+  "messageID": "msg_ccd1071ce001ll3W7XVebjNfQ0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01GjqAVFb3MofT2JSMkHiDAH",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/public/.well-known/farcaster.json"
+    },
+    "output": "<file>\n00001| {\n00002|   \"frame\": {\n00003|     \"version\": \"1\",\n00004|     \"name\": \"Relay Swap\",\n00005|     \"iconUrl\": \"__ICON_URL__\",\n00006|     \"homeUrl\": \"__HOME_URL__\",\n00007|     \"imageUrl\": \"__IMAGE_URL__\"\n00008|   }\n00009| }\n00010| \n</file>",
+    "metadata": {
+      "preview": "{\n  \"frame\": {\n    \"version\": \"1\",\n    \"name\": \"Relay Swap\",\n    \"iconUrl\": \"__ICON_URL__\",\n    \"homeUrl\": \"__HOME_URL__\",\n    \"imageUrl\": \"__IMAGE_URL__\"\n  }\n}\n"
+    },
+    "title": "frontend/public/.well-known/farcaster.json",
+    "time": {
+      "start": 1772966950589,
+      "end": 1772966950590
+    }
+  }
+}

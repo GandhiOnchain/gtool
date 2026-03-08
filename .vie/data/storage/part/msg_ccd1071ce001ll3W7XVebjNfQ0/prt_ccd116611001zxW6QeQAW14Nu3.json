@@ -1,0 +1,11 @@
+{
+  "id": "prt_ccd116611001zxW6QeQAW14Nu3",
+  "messageID": "msg_ccd1071ce001ll3W7XVebjNfQ0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "The token was revoked by GitHub (it detected it in the commit). You need to create a new one.\n\n**Generate a new PAT:**\n1. Go to **github.com → Settings → Developer settings → Personal access tokens → Tokens (classic)**\n2. Click **Generate new token (classic)**\n3. Give it `repo` scope\n4. Copy the token and share it here — I'll push immediately\n\n---\n\nIn the meantime, here's what still needs to happen for the Farcaster publish after the push goes through:\n\n**Step 3 — Sign the manifest (accountAssociation)**\n\nAfter deploying, go to **[Warpcast Developer Tools](https://warpcast.com/~/developers/mini-apps)** and:\n1. Click **\"Add Mini App\"**\n2. Enter your URL: `https://gtool.vercel.app`\n3. Warpcast will generate a signed `accountAssociation` — copy the `header`, `payload`, and `signature` values\n4. Paste them into `farcaster.json` (I'll update the file once you have them)\n\n**Step 4 — Create an OG image**\n\nThe `imageUrl` in the manifest should be a **1200×630px** image (not just a favicon). You can create one at [og-playground.vercel.app](https://og-playground.vercel.app) or use Figma, then host it in `public/og-image.png`.\n\n**Step 5 — Submit**\n\nOnce the manifest is signed and deployed, submit at:\n**https://warpcast.com/~/developers/mini-apps**",
+  "time": {
+    "start": 1772967002780,
+    "end": 1772967002780
+  }
+}

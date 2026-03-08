@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd10920e001NnP77vxFtsJjcP",
+  "messageID": "msg_ccd1071ce001ll3W7XVebjNfQ0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01Vdg5JfS3T4e7Ra3386roc5",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "mkdir -p /home/user/sandbox/workspace/frontend/public/.well-known",
+      "description": "Create .well-known directory"
+    },
+    "output": "",
+    "metadata": {
+      "output": "",
+      "exit": 0,
+      "description": "Create .well-known directory"
+    },
+    "title": "mkdir -p /home/user/sandbox/workspace/frontend/public/.well-known",
+    "time": {
+      "start": 1772966941969,
+      "end": 1772966941970
+    }
+  }
+}

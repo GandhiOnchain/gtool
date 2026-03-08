@@ -1,0 +1,20 @@
+{
+  "id": "prt_ccd109ebd001CO0P12SbJBkatk",
+  "messageID": "msg_ccd1071ce001ll3W7XVebjNfQ0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "write",
+  "callID": "toolu_bdrk_01Ew75uRz5ZXtDJM4X6CGyY7",
+  "state": {
+    "status": "error",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/public/.well-known/farcaster.json",
+      "content": "{\n  \"accountAssociation\": {\n    \"header\": \"\",\n    \"payload\": \"\",\n    \"signature\": \"\"\n  },\n  \"frame\": {\n    \"version\": \"1\",\n    \"name\": \"GTool\",\n    \"iconUrl\": \"https://gtool.vercel.app/favicon.ico\",\n    \"homeUrl\": \"https://gtool.vercel.app\",\n    \"imageUrl\": \"https://gtool.vercel.app/og-image.png\",\n    \"buttonTitle\": \"Open GTool\",\n    \"splashImageUrl\": \"https://gtool.vercel.app/favicon.ico\",\n    \"splashBackgroundColor\": \"#000000\",\n    \"webhookUrl\": \"\"\n  }\n}\n"
+    },
+    "error": "Error: You must read the file /home/user/sandbox/workspace/frontend/public/.well-known/farcaster.json before overwriting it. Use the Read tool first",
+    "time": {
+      "start": 1772966946773,
+      "end": 1772966946773
+    }
+  }
+}

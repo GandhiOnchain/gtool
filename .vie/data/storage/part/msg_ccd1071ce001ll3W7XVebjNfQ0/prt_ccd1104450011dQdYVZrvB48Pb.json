@@ -1,0 +1,27 @@
+{
+  "id": "prt_ccd1104450011dQdYVZrvB48Pb",
+  "messageID": "msg_ccd1071ce001ll3W7XVebjNfQ0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01UQDbir45pRH6RTaK2v8jF6",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git add frontend/public/.well-known/farcaster.json frontend/index.html && git commit -m \"$(cat <<'EOF'\nAdd Farcaster mini app manifest and meta tags\n\n🤖 Generated with [vie](https://vie.dev)\n\nCo-Authored-By: vie <noreply@vie.dev>\nEOF\n)\" && git push origin HEAD:refs/heads/main 2>&1",
+      "timeout": 30000,
+      "description": "Commit and push Farcaster manifest"
+    },
+    "output": "[detached HEAD 91e52a2d] Add Farcaster mini app manifest and meta tags\n 2 files changed, 22 insertions(+), 14 deletions(-)\nfatal: could not read Password for 'https://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@github.com': No such device or address\n",
+    "metadata": {
+      "output": "[detached HEAD 91e52a2d] Add Farcaster mini app manifest and meta tags\n 2 files changed, 22 insertions(+), 14 deletions(-)\nfatal: could not read Password for 'https://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@github.com': No such device or address\n",
+      "exit": 128,
+      "description": "Commit and push Farcaster manifest"
+    },
+    "title": "cd /home/user/sandbox/workspace && git add frontend/public/.well-known/farcaster.json frontend/index.html && git commit -m \"$(cat <<'EOF'\nAdd Farcaster mini app manifest and meta tags\n\n🤖 Generated with [vie](https://vie.dev)\n\nCo-Authored-By: vie <noreply@vie.dev>\nEOF\n)\" && git push origin HEAD:refs/heads/main 2>&1",
+    "time": {
+      "start": 1772966972885,
+      "end": 1772966973077
+    }
+  }
+}

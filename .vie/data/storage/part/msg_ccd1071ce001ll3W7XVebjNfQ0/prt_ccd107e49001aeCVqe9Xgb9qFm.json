@@ -1,0 +1,11 @@
+{
+  "id": "prt_ccd107e49001aeCVqe9Xgb9qFm",
+  "messageID": "msg_ccd1071ce001ll3W7XVebjNfQ0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Here's how to publish it as a Farcaster Mini App:\n\n---\n\n**Step 1 — Get your Vercel URL**\n\nNote your deployed URL, e.g. `https://gtool.vercel.app`\n\n---\n\n**Step 2 — Add the Mini App manifest**\n\nFarcaster requires a manifest file at `/.well-known/farcaster.json`. Let me add it:",
+  "time": {
+    "start": 1772966938398,
+    "end": 1772966938398
+  }
+}
