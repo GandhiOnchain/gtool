@@ -1,9 +1,17 @@
 {
+  "accountAssociation": {
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
   "frame": {
     "version": "1",
-    "name": "Relay Swap",
-    "iconUrl": "__ICON_URL__",
-    "homeUrl": "__HOME_URL__",
-    "imageUrl": "__IMAGE_URL__"
+    "name": "GTool",
+    "iconUrl": "https://gtool.vercel.app/favicon.ico",
+    "homeUrl": "https://gtool.vercel.app",
+    "imageUrl": "https://gtool.vercel.app/favicon.ico",
+    "buttonTitle": "Open GTool",
+    "splashImageUrl": "https://gtool.vercel.app/favicon.ico",
+    "splashBackgroundColor": "#000000"
   }
 }
