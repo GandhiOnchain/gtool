@@ -1,0 +1,23 @@
+{
+  "id": "prt_ccd30b88b001dKutahFGh47Ts8",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01JmTpoJyidXCqKVvPLAaKKG",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/public/.well-known/farcaster.json"
+    },
+    "output": "<file>\n00001| {\n00002|   \"accountAssociation\": {\n00003|     \"header\": \"\",\n00004|     \"payload\": \"\",\n00005|     \"signature\": \"\"\n00006|   },\n00007|   \"frame\": {\n00008|     \"version\": \"1\",\n00009|     \"name\": \"GTool\",\n00010|     \"iconUrl\": \"https://gtool.vercel.app/favicon.ico\",\n00011|     \"homeUrl\": \"https://gtool.vercel.app\",\n00012|     \"imageUrl\": \"https://gtool.vercel.app/og-image.png\",\n00013|     \"buttonTitle\": \"Open GTool\",\n00014|     \"splashImageUrl\": \"https://gtool.vercel.app/og-image.png\",\n00015|     \"splashBackgroundColor\": \"#000000\"\n00016|   }\n00017| }\n00018| \n</file>",
+    "metadata": {
+      "preview": "{\n  \"accountAssociation\": {\n    \"header\": \"\",\n    \"payload\": \"\",\n    \"signature\": \"\"\n  },\n  \"frame\": {\n    \"version\": \"1\",\n    \"name\": \"GTool\",\n    \"iconUrl\": \"https://gtool.vercel.app/favicon.ico\",\n    \"homeUrl\": \"https://gtool.vercel.app\",\n    \"imageUrl\": \"https://gtool.vercel.app/og-image.png\",\n    \"buttonTitle\": \"Open GTool\",\n    \"splashImageUrl\": \"https://gtool.vercel.app/og-image.png\",\n    \"splashBackgroundColor\": \"#000000\"\n  }\n}\n"
+    },
+    "title": "frontend/public/.well-known/farcaster.json",
+    "time": {
+      "start": 1772969048759,
+      "end": 1772969048760
+    }
+  }
+}

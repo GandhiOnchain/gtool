@@ -7,11 +7,11 @@
   "frame": {
     "version": "1",
     "name": "GTool",
-    "iconUrl": "https://gtool.vercel.app/favicon.ico",
+    "iconUrl": "https://gtool.vercel.app/og-image.avif",
     "homeUrl": "https://gtool.vercel.app",
-    "imageUrl": "https://gtool.vercel.app/og-image.png",
+    "imageUrl": "https://gtool.vercel.app/og-image.avif",
     "buttonTitle": "Open GTool",
-    "splashImageUrl": "https://gtool.vercel.app/og-image.png",
+    "splashImageUrl": "https://gtool.vercel.app/og-image.avif",
     "splashBackgroundColor": "#000000"
   }
 }

@@ -1,0 +1,27 @@
+{
+  "id": "prt_ccd30fe14001UZhsaONrizRHk9",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01RHswU2LHANFmhwP56pkEDz",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git add frontend/public/og-image.avif frontend/public/.well-known/farcaster.json frontend/index.html && git commit -m \"$(cat <<'EOF'\nAdd OG image and update Farcaster manifest URLs\n\n🤖 Generated with [vie](https://vie.dev)\n\nCo-Authored-By: vie <noreply@vie.dev>\nEOF\n)\" && GIT_ASKPASS=echo git -c credential.helper='' push https://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@github.com/GandhiOnchain/gtool.git HEAD:refs/heads/main 2>&1",
+      "timeout": 30000,
+      "description": "Commit and push with new token"
+    },
+    "output": "[detached HEAD 7c463524] Add OG image and update Farcaster manifest URLs\n 3 files changed, 5 insertions(+), 5 deletions(-)\n create mode 100644 frontend/public/og-image.avif\nremote: Permission to GandhiOnchain/gtool.git denied to GandhiOnchain.\nfatal: unable to access 'https://github.com/GandhiOnchain/gtool.git/': The requested URL returned error: 403\n",
+    "metadata": {
+      "output": "[detached HEAD 7c463524] Add OG image and update Farcaster manifest URLs\n 3 files changed, 5 insertions(+), 5 deletions(-)\n create mode 100644 frontend/public/og-image.avif\nremote: Permission to GandhiOnchain/gtool.git denied to GandhiOnchain.\nfatal: unable to access 'https://github.com/GandhiOnchain/gtool.git/': The requested URL returned error: 403\n",
+      "exit": 128,
+      "description": "Commit and push with new token"
+    },
+    "title": "cd /home/user/sandbox/workspace && git add frontend/public/og-image.avif frontend/public/.well-known/farcaster.json frontend/index.html && git commit -m \"$(cat <<'EOF'\nAdd OG image and update Farcaster manifest URLs\n\n🤖 Generated with [vie](https://vie.dev)\n\nCo-Authored-By: vie <noreply@vie.dev>\nEOF\n)\" && GIT_ASKPASS=echo git -c credential.helper='' push https://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@github.com/GandhiOnchain/gtool.git HEAD:refs/heads/main 2>&1",
+    "time": {
+      "start": 1772969072811,
+      "end": 1772969072972
+    }
+  }
+}

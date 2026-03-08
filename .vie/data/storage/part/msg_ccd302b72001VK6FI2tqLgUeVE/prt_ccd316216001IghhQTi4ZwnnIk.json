@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd316216001IghhQTi4ZwnnIk",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01HatrJVKnZXu1RDNrBTxQwW",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s -H \"Authorization: token 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\" https://api.github.com/user | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('login'))\"",
+      "description": "Check which user the token belongs to"
+    },
+    "output": "GandhiOnchain\n",
+    "metadata": {
+      "output": "GandhiOnchain\n",
+      "exit": 0,
+      "description": "Check which user the token belongs to"
+    },
+    "title": "curl -s -H \"Authorization: token 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\" https://api.github.com/user | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('login'))\"",
+    "time": {
+      "start": 1772969092884,
+      "end": 1772969092994
+    }
+  }
+}

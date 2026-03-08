@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd3121cf0019MtPNBlksN3Yq4",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01Mk4Xk6UWuKWBFT635hUFzo",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s -o /dev/null -w \"%{http_code}\" -H \"Authorization: token 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\" https://api.github.com/user",
+      "description": "Test new token validity"
+    },
+    "output": "200",
+    "metadata": {
+      "output": "200",
+      "exit": 0,
+      "description": "Test new token validity"
+    },
+    "title": "curl -s -o /dev/null -w \"%{http_code}\" -H \"Authorization: token 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\" https://api.github.com/user",
+    "time": {
+      "start": 1772969076575,
+      "end": 1772969076817
+    }
+  }
+}

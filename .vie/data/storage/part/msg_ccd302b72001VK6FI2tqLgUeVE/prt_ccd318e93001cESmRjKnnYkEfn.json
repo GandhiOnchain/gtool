@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd318e93001cESmRjKnnYkEfn",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01LV8PEKHfArtx5JpngMK21J",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "TOKEN=\"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\"\n\n# Upload og-image.avif\nCONTENT=$(base64 -w 0 /home/user/sandbox/workspace/frontend/public/og-image.avif)\nSHA=$(curl -s -H \"Authorization: token $TOKEN\" https://api.github.com/repos/GandhiOnchain/gtool/contents/frontend/public/og-image.avif | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('sha',''))\" 2>/dev/null)\n\nPAYLOAD=$(python3 -c \"\nimport json\nd = {'message': 'Add OG image and update Farcaster manifest', 'content': '$CONTENT'}\nif '$SHA': d['sha'] = '$SHA'\nprint(json.dumps(d))\n\")\n\ncurl -s -o /dev/null -w \"%{http_code}\" -X PUT \\\n  -H \"Authorization: token $TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d \"$PAYLOAD\" \\\n  https://api.github.com/repos/GandhiOnchain/gtool/contents/frontend/public/og-image.avif",
+      "description": "Upload og-image.avif via GitHub API"
+    },
+    "output": "403",
+    "metadata": {
+      "output": "403",
+      "exit": 0,
+      "description": "Upload og-image.avif via GitHub API"
+    },
+    "title": "TOKEN=\"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\"\n\n# Upload og-image.avif\nCONTENT=$(base64 -w 0 /home/user/sandbox/workspace/frontend/public/og-image.avif)\nSHA=$(curl -s -H \"Authorization: token $TOKEN\" https://api.github.com/repos/GandhiOnchain/gtool/contents/frontend/public/og-image.avif | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('sha',''))\" 2>/dev/null)\n\nPAYLOAD=$(python3 -c \"\nimport json\nd = {'message': 'Add OG image and update Farcaster manifest', 'content': '$CONTENT'}\nif '$SHA': d['sha'] = '$SHA'\nprint(json.dumps(d))\n\")\n\ncurl -s -o /dev/null -w \"%{http_code}\" -X PUT \\\n  -H \"Authorization: token $TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d \"$PAYLOAD\" \\\n  https://api.github.com/repos/GandhiOnchain/gtool/contents/frontend/public/og-image.avif",
+    "time": {
+      "start": 1772969106583,
+      "end": 1772969106836
+    }
+  }
+}

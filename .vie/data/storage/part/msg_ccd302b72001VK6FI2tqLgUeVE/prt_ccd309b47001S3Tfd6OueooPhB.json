@@ -1,0 +1,21 @@
+{
+  "id": "prt_ccd309b47001S3Tfd6OueooPhB",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "edit",
+  "callID": "toolu_bdrk_019tzgpYn1Lx9JHLPMZMPHKS",
+  "state": {
+    "status": "error",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/public/.well-known/farcaster.json",
+      "oldString": "    \"iconUrl\": \"https://gtool.vercel.app/favicon.ico\",\n    \"homeUrl\": \"https://gtool.vercel.app\",\n    \"imageUrl\": \"https://gtool.vercel.app/favicon.ico\",\n    \"buttonTitle\": \"Open GTool\",\n    \"splashImageUrl\": \"https://gtool.vercel.app/favicon.ico\",\n    \"splashBackgroundColor\": \"#000000\"",
+      "newString": "    \"iconUrl\": \"https://gtool.vercel.app/og-image.avif\",\n    \"homeUrl\": \"https://gtool.vercel.app\",\n    \"imageUrl\": \"https://gtool.vercel.app/og-image.avif\",\n    \"buttonTitle\": \"Open GTool\",\n    \"splashImageUrl\": \"https://gtool.vercel.app/og-image.avif\",\n    \"splashBackgroundColor\": \"#000000\""
+    },
+    "error": "Error: oldString not found in content",
+    "time": {
+      "start": 1772969043360,
+      "end": 1772969043364
+    }
+  }
+}

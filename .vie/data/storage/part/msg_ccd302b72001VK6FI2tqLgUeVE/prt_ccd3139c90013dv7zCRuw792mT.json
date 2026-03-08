@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd3139c90013dv7zCRuw792mT",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01YQXdmUKaGwpriAHj11DeGp",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "curl -s -H \"Authorization: token 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\" https://api.github.com/repos/GandhiOnchain/gtool | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('permissions', d.get('message','')))\"",
+      "description": "Check token permissions on repo"
+    },
+    "output": "{'admin': True, 'maintain': True, 'push': True, 'triage': True, 'pull': True}\n",
+    "metadata": {
+      "output": "{'admin': True, 'maintain': True, 'push': True, 'triage': True, 'pull': True}\n",
+      "exit": 0,
+      "description": "Check token permissions on repo"
+    },
+    "title": "curl -s -H \"Authorization: token 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\" https://api.github.com/repos/GandhiOnchain/gtool | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('permissions', d.get('message','')))\"",
+    "time": {
+      "start": 1772969082935,
+      "end": 1772969083104
+    }
+  }
+}

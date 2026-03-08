@@ -1,0 +1,11 @@
+{
+  "id": "prt_ccd314fb5001GE12LdLTJQe70G",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Token has push access. The issue is the URL format with the fine-grained PAT. Let me use the API directly:",
+  "time": {
+    "start": 1772969089374,
+    "end": 1772969089374
+  }
+}

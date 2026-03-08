@@ -1,0 +1,27 @@
+{
+  "id": "prt_ccd3175c7001qu1DIAeDAa5ITA",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_011sFxrqpjyM7jaUEx14BnNd",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git remote set-url origin https://GandhiOnchain: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@github.com/GandhiOnchain/gtool.git && git push origin HEAD:refs/heads/main 2>&1",
+      "timeout": 30000,
+      "description": "Push with username:token format"
+    },
+    "output": "remote: Permission to GandhiOnchain/gtool.git denied to GandhiOnchain.\nfatal: unable to access 'https://github.com/GandhiOnchain/gtool.git/': The requested URL returned error: 403\n",
+    "metadata": {
+      "output": "remote: Permission to GandhiOnchain/gtool.git denied to GandhiOnchain.\nfatal: unable to access 'https://github.com/GandhiOnchain/gtool.git/': The requested URL returned error: 403\n",
+      "exit": 128,
+      "description": "Push with username:token format"
+    },
+    "title": "cd /home/user/sandbox/workspace && git remote set-url origin https://GandhiOnchain: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@github.com/GandhiOnchain/gtool.git && git push origin HEAD:refs/heads/main 2>&1",
+    "time": {
+      "start": 1772969098023,
+      "end": 1772969098116
+    }
+  }
+}

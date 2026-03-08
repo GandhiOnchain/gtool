@@ -1,0 +1,11 @@
+{
+  "id": "prt_ccd3188a10015sUJoWC21MsS08",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "The fine-grained PAT is authenticated but being denied — this usually means the token's **repository access** is set to \"Only select repositories\" and `gtool` wasn't included, or the token doesn't have **Contents: write** permission. Let me push the files directly via the GitHub API instead:",
+  "time": {
+    "start": 1772969106603,
+    "end": 1772969106603
+  }
+}

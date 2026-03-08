@@ -1,0 +1,23 @@
+{
+  "id": "prt_ccd30e1aa001oTEwNidHaWT9QR",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_017DgUSUWn41Zo5Czigbpvzd",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/index.html"
+    },
+    "output": "<file>\n00001| <!DOCTYPE html>\n00002| <html lang=\"en\" class=\"dark\">\n00003|   <head>\n00004|     <meta charset=\"UTF-8\" />\n00005|     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n00006|     <meta http-equiv=\"X-Content-Type-Options\" content=\"nosniff\" />\n00007|     <meta http-equiv=\"X-Frame-Options\" content=\"SAMEORIGIN\" />\n00008|     <meta http-equiv=\"X-XSS-Protection\" content=\"1; mode=block\" />\n00009|     <meta name=\"referrer\" content=\"strict-origin-when-cross-origin\" />\n00010|     <title>GTool</title>\n00011|     <meta name=\"description\" content=\"Swap, bridge and batch swap tokens across 85+ chains\" />\n00012|     <meta name=\"author\" content=\"GTool\" />\n00013| \n00014|     <meta property=\"og:title\" content=\"GTool\" />\n00015|     <meta property=\"og:description\" content=\"Swap, bridge and batch swap tokens across 85+ chains\" />\n00016|     <meta property=\"og:type\" content=\"website\" />\n00017|     <meta property=\"og:image\" content=\"https://gtool.vercel.app/og-image.png\" />\n00018| \n00019|     <meta name=\"twitter:card\" content=\"summary_large_image\" />\n00020| \n00021|     <meta name=\"fc:miniapp\" content='{\n00022|       \"version\": \"1\",\n00023|       \"imageUrl\": \"https://gtool.vercel.app/og-image.png\",\n00024|       \"button\": {\n00025|         \"title\": \"Open GTool\",\n00026|         \"action\": {\n00027|           \"type\": \"launch_miniapp\",\n00028|           \"name\": \"GTool\",\n00029|           \"url\": \"https://gtool.vercel.app\"\n00030|         }\n00031|       }\n00032|     }' />\n00033|   </head>\n00034| \n00035|   <body>\n00036|     <div id=\"root\"></div>\n00037|     <script type=\"module\" src=\"/src/main.tsx\"></script>\n00038|   </body>\n00039| </html>\n00040| \n</file>",
+    "metadata": {
+      "preview": "<!DOCTYPE html>\n<html lang=\"en\" class=\"dark\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <meta http-equiv=\"X-Content-Type-Options\" content=\"nosniff\" />\n    <meta http-equiv=\"X-Frame-Options\" content=\"SAMEORIGIN\" />\n    <meta http-equiv=\"X-XSS-Protection\" content=\"1; mode=block\" />\n    <meta name=\"referrer\" content=\"strict-origin-when-cross-origin\" />\n    <title>GTool</title>\n    <meta name=\"description\" content=\"Swap, bridge and batch swap tokens across 85+ chains\" />\n    <meta name=\"author\" content=\"GTool\" />\n\n    <meta property=\"og:title\" content=\"GTool\" />\n    <meta property=\"og:description\" content=\"Swap, bridge and batch swap tokens across 85+ chains\" />\n    <meta property=\"og:type\" content=\"website\" />\n    <meta property=\"og:image\" content=\"https://gtool.vercel.app/og-image.png\" />\n\n    <meta name=\"twitter:card\" content=\"summary_large_image\" />\n"
+    },
+    "title": "frontend/index.html",
+    "time": {
+      "start": 1772969059291,
+      "end": 1772969059292
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "prt_ccd31b3bd001IeXqP6D5wj48ek",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "The fine-grained PAT doesn't have Contents write permission on this repo. You need to fix the token settings:\n\n1. Go to **github.com → Settings → Developer settings → Personal access tokens → Fine-grained tokens**\n2. Click on the token `github_pat_11BS4RXEA0pX9xyI4fOOyE...`\n3. Under **Repository access** → make sure `gtool` is selected\n4. Under **Permissions → Repository permissions → Contents** → set to **Read and write**\n5. Save\n\n**OR** — easier — create a classic PAT instead:\n1. Go to **github.com → Settings → Developer settings → Personal access tokens → Tokens (classic)**\n2. **Generate new token (classic)**\n3. Check the `repo` scope (full control)\n4. Copy and share the token here",
+  "time": {
+    "start": 1772969116907,
+    "end": 1772969116907
+  }
+}

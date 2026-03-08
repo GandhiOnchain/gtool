@@ -1,0 +1,27 @@
+{
+  "id": "prt_ccd3152a5001GLUZASaEPtfrDv",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01BPJCNG2VdNkFzhhzwMNGi9",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git remote set-url origin https://x-token-auth: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@github.com/GandhiOnchain/gtool.git && git push origin HEAD:refs/heads/main 2>&1",
+      "timeout": 30000,
+      "description": "Push using x-token-auth format for fine-grained PAT"
+    },
+    "output": "remote: Permission to GandhiOnchain/gtool.git denied to GandhiOnchain.\nfatal: unable to access 'https://github.com/GandhiOnchain/gtool.git/': The requested URL returned error: 403\n",
+    "metadata": {
+      "output": "remote: Permission to GandhiOnchain/gtool.git denied to GandhiOnchain.\nfatal: unable to access 'https://github.com/GandhiOnchain/gtool.git/': The requested URL returned error: 403\n",
+      "exit": 128,
+      "description": "Push using x-token-auth format for fine-grained PAT"
+    },
+    "title": "cd /home/user/sandbox/workspace && git remote set-url origin https://x-token-auth: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@github.com/GandhiOnchain/gtool.git && git push origin HEAD:refs/heads/main 2>&1",
+    "time": {
+      "start": 1772969089361,
+      "end": 1772969089464
+    }
+  }
+}

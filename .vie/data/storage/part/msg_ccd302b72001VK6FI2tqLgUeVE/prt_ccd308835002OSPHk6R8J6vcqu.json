@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd308835002OSPHk6R8J6vcqu",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01Akpb1UjrXEpN99mAsWN3ae",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cp /home/user/sandbox/workspace/.attachments/original.avif /home/user/sandbox/workspace/frontend/public/og-image.avif && ls -lh /home/user/sandbox/workspace/frontend/public/og-image.avif",
+      "description": "Copy image to public folder"
+    },
+    "output": "-rw-r--r--    1 root     root       52.2K Mar  8 11:23 /home/user/sandbox/workspace/frontend/public/og-image.avif\n",
+    "metadata": {
+      "output": "-rw-r--r--    1 root     root       52.2K Mar  8 11:23 /home/user/sandbox/workspace/frontend/public/og-image.avif\n",
+      "exit": 0,
+      "description": "Copy image to public folder"
+    },
+    "title": "cp /home/user/sandbox/workspace/.attachments/original.avif /home/user/sandbox/workspace/frontend/public/og-image.avif && ls -lh /home/user/sandbox/workspace/frontend/public/og-image.avif",
+    "time": {
+      "start": 1772969036777,
+      "end": 1772969036780
+    }
+  }
+}

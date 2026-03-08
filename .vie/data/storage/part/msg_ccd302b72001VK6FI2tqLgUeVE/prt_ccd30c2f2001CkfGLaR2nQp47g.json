@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd30c2f2001CkfGLaR2nQp47g",
+  "messageID": "msg_ccd302b72001VK6FI2tqLgUeVE",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "edit",
+  "callID": "toolu_bdrk_01GzYgYznoT6u4fQgpcDNfQu",
+  "state": {
+    "status": "completed",
+    "input": {
+      "filePath": "/home/user/sandbox/workspace/frontend/public/.well-known/farcaster.json",
+      "oldString": "    \"iconUrl\": \"https://gtool.vercel.app/favicon.ico\",\n    \"homeUrl\": \"https://gtool.vercel.app\",\n    \"imageUrl\": \"https://gtool.vercel.app/og-image.png\",\n    \"buttonTitle\": \"Open GTool\",\n    \"splashImageUrl\": \"https://gtool.vercel.app/og-image.png\",\n    \"splashBackgroundColor\": \"#000000\"",
+      "newString": "    \"iconUrl\": \"https://gtool.vercel.app/og-image.avif\",\n    \"homeUrl\": \"https://gtool.vercel.app\",\n    \"imageUrl\": \"https://gtool.vercel.app/og-image.avif\",\n    \"buttonTitle\": \"Open GTool\",\n    \"splashImageUrl\": \"https://gtool.vercel.app/og-image.avif\",\n    \"splashBackgroundColor\": \"#000000\""
+    },
+    "output": "<system-reminder>CRITICAL: Make sure you read the hooks functionality and the functions they expose. DON'T MAKE ASSUMPTIONS</system-reminder><system-reminder>CRITICAL: Make sure you run the diagnostics tool when you're done with all the tasks.</system-reminder>",
+    "metadata": {
+      "diagnostics": {},
+      "diff": "Index: /home/user/sandbox/workspace/frontend/public/.well-known/farcaster.json\n===================================================================\n--- /home/user/sandbox/workspace/frontend/public/.well-known/farcaster.json\n+++ /home/user/sandbox/workspace/frontend/public/.well-known/farcaster.json\n@@ -6,12 +6,12 @@\n   },\n   \"frame\": {\n     \"version\": \"1\",\n     \"name\": \"GTool\",\n-    \"iconUrl\": \"https://gtool.vercel.app/favicon.ico\",\n+    \"iconUrl\": \"https://gtool.vercel.app/og-image.avif\",\n     \"homeUrl\": \"https://gtool.vercel.app\",\n-    \"imageUrl\": \"https://gtool.vercel.app/og-image.png\",\n+    \"imageUrl\": \"https://gtool.vercel.app/og-image.avif\",\n     \"buttonTitle\": \"Open GTool\",\n-    \"splashImageUrl\": \"https://gtool.vercel.app/og-image.png\",\n+    \"splashImageUrl\": \"https://gtool.vercel.app/og-image.avif\",\n     \"splashBackgroundColor\": \"#000000\"\n   }\n }\n"
+    },
+    "title": "frontend/public/.well-known/farcaster.json",
+    "time": {
+      "start": 1772969052731,
+      "end": 1772969052734
+    }
+  }
+}
