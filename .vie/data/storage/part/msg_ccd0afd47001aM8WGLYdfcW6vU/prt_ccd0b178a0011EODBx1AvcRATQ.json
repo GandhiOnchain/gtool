@@ -1,0 +1,11 @@
+{
+  "id": "prt_ccd0b178a0011EODBx1AvcRATQ",
+  "messageID": "msg_ccd0afd47001aM8WGLYdfcW6vU",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Pushed. Now in Vercel, make sure these settings are set:\n\n| Setting | Value |\n|---|---|\n| **Root Directory** | `frontend` |\n| **Build Command** | `bun run build` |\n| **Output Directory** | `output` |\n| **Install Command** | `bun install` |\n\nIf the project is already deployed, go to **Project → Settings → General** and update those fields, then trigger a redeploy. The `vercel.json` will handle the SPA routing so no more 404s on page refresh.",
+  "time": {
+    "start": 1772966584254,
+    "end": 1772966584254
+  }
+}
