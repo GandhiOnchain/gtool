@@ -1,0 +1,11 @@
+{
+  "id": "prt_ccd0937d5001LdObBVvGyLlPUt",
+  "messageID": "msg_ccd091277001ILmxhbgyEJE5lS",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "text",
+  "text": "Key issues I can see:\n\n1. **Build output is `./output`** — Vercel expects `dist` by default\n2. **Root is the repo root** — but the app is inside `frontend/`\n3. **SPA routing** — React Router needs a rewrite rule or Vercel will 404 on any route\n\nHere's exactly what to configure in Vercel:\n\n---\n\n**Step 1 — Import the repo**\nGo to [vercel.com/new](https://vercel.com/new), import `GandhiOnchain/gtool`.\n\n**Step 2 — Configure the project settings**\n\n| Setting | Value |\n|---|---|\n| **Framework Preset** | `Vite` |\n| **Root Directory** | `frontend` |\n| **Build Command** | `bun run build` |\n| **Output Directory** | `output` |\n| **Install Command** | `bun install` |\n\n**Step 3 — Add a `vercel.json` for SPA routing**\n\nThis is the critical part — without it every route except `/` returns 404.",
+  "time": {
+    "start": 1772966465154,
+    "end": 1772966465154
+  }
+}

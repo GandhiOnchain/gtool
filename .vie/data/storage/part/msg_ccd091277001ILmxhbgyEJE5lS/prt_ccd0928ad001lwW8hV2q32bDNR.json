@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd0928ad001lwW8hV2q32bDNR",
+  "messageID": "msg_ccd091277001ILmxhbgyEJE5lS",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01YJza1jR5ZQDeYCHZaVZCPH",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cat /home/user/sandbox/workspace/frontend/vite.config.ts",
+      "description": "Check vite config"
+    },
+    "output": "import react from \"@vitejs/plugin-react\";\nimport path from \"path\";\nimport { createLogger, defineConfig } from \"vite\";\nimport tailwindcss from '@tailwindcss/vite'\n\nconst baseline = process.env.BASE_DIR ? `/${process.env.BASE_DIR}/` : \"/\";\n\nconst logger = createLogger();\nconst loggerError = logger.error;\n\nlogger.error = (msg, options) => {\n\tloggerError(`<VieError>${msg}</VieError>`, options);\n};\n\nexport default defineConfig({\n\tbase: baseline,\n\tserver: {\n        warmup: {\n            clientFiles: [\n                \"./src/main.tsx\",\n                \"./src/pages/NotFound.tsx\",\n                \"./src/pages/Index.tsx\",\n                \"./src/index.css\",\n            ]\n        },\n\t\thost: \"::\",\n\t\tport: Number(process.env.FRONTEND_PORT || \"5174\"),\n\t\tallowedHosts: true,\n\t\tstrictPort: true,\n\t},\n\tpreview: {\n\t\thost: \"::\",\n\t\tport: Number(process.env.FRONTEND_PORT || \"5174\"),\n\t\tallowedHosts: true,\n\t\tstrictPort: true,\n\t\topen: false,\n\t},\n\tcustomLogger: logger,\n\tplugins: [react(), tailwindcss()].filter(Boolean),\n\tresolve: {\n\t\talias: {\n\t\t\t\"@\": path.resolve(__dirname, \"./src\"),\n\t\t},\n\t},\n\tbuild: {\n\t\tsourcemap: false,\n\t\tminify: false,\n\t\toutDir: \"./output\",\n\t\temptyOutDir: true,\n\t},\n\tdefine: {\n\t\t__APP_BASE_PATH__: JSON.stringify(baseline),\n\t},\n});\n",
+    "metadata": {
+      "output": "import react from \"@vitejs/plugin-react\";\nimport path from \"path\";\nimport { createLogger, defineConfig } from \"vite\";\nimport tailwindcss from '@tailwindcss/vite'\n\nconst baseline = process.env.BASE_DIR ? `/${process.env.BASE_DIR}/` : \"/\";\n\nconst logger = createLogger();\nconst loggerError = logger.error;\n\nlogger.error = (msg, options) => {\n\tloggerError(`<VieError>${msg}</VieError>`, options);\n};\n\nexport default defineConfig({\n\tbase: baseline,\n\tserver: {\n        warmup: {\n            clientFiles: [\n                \"./src/main.tsx\",\n                \"./src/pages/NotFound.tsx\",\n                \"./src/pages/Index.tsx\",\n                \"./src/index.css\",\n            ]\n        },\n\t\thost: \"::\",\n\t\tport: Number(process.env.FRONTEND_PORT || \"5174\"),\n\t\tallowedHosts: true,\n\t\tstrictPort: true,\n\t},\n\tpreview: {\n\t\thost: \"::\",\n\t\tport: Number(process.env.FRONTEND_PORT || \"5174\"),\n\t\tallowedHosts: true,\n\t\tstrictPort: true,\n\t\topen: false,\n\t},\n\tcustomLogger: logger,\n\tplugins: [react(), tailwindcss()].filter(Boolean),\n\tresolve: {\n\t\talias: {\n\t\t\t\"@\": path.resolve(__dirname, \"./src\"),\n\t\t},\n\t},\n\tbuild: {\n\t\tsourcemap: false,\n\t\tminify: false,\n\t\toutDir: \"./output\",\n\t\temptyOutDir: true,\n\t},\n\tdefine: {\n\t\t__APP_BASE_PATH__: JSON.stringify(baseline),\n\t},\n});\n",
+      "exit": 0,
+      "description": "Check vite config"
+    },
+    "title": "cat /home/user/sandbox/workspace/frontend/vite.config.ts",
+    "time": {
+      "start": 1772966455961,
+      "end": 1772966455963
+    }
+  }
+}

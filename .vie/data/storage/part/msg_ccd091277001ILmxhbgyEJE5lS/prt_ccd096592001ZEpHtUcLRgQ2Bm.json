@@ -1,0 +1,27 @@
+{
+  "id": "prt_ccd096592001ZEpHtUcLRgQ2Bm",
+  "messageID": "msg_ccd091277001ILmxhbgyEJE5lS",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01X58QUFhtvnTxV1hB1VbwV4",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git add frontend/vercel.json && git commit -m \"$(cat <<'EOF'\nAdd vercel.json for SPA routing and correct build output dir\n\n🤖 Generated with [vie](https://vie.dev)\n\nCo-Authored-By: vie <noreply@vie.dev>\nEOF\n)\" && git push origin HEAD:refs/heads/main 2>&1",
+      "timeout": 30000,
+      "description": "Commit and push vercel.json"
+    },
+    "output": "[detached HEAD ad68ff0f] Add vercel.json for SPA routing and correct build output dir\n 1 file changed, 5 insertions(+)\n create mode 100644 frontend/vercel.json\nremote: error: GH013: Repository rule violations found for refs/heads/main.        \nremote: \nremote: - GITHUB PUSH PROTECTION        \nremote:   —————————————————————————————————————————        \nremote:     Resolve the following violations before pushing again        \nremote: \nremote:     - Push cannot contain secrets        \nremote: \nremote:             \nremote:      (?) Learn how to resolve a blocked push        \nremote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        \nremote:             \nremote:             \nremote:       —— GitHub Personal Access Token ——————————————————————        \nremote:        locations:        \nremote:          - commit: cc225aa586486a9d79bc5649910f54a94685d33e        \nremote:            path: .vie/data/storage/part/msg_cc6920e080011iGA5UXx6M3r73/prt_cc69215e10010zwFL4nOHC1o6N.json:11        \nremote:          - commit: cc225aa586486a9d79bc5649910f54a94685d33e        \nremote:            path: .vie/data/storage/part/msg_cc6920e080011iGA5UXx6M3r73/prt_cc69215e10010zwFL4nOHC1o6N.json:21        \nremote:             \nremote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        \nremote:        https://github.com/GandhiOnchain/gtool/security/secret-scanning/unblock-secret/3AewirsC3ix4KIsmHPVZlTelyYw        \nremote:             \nremote: \nremote: \nTo https://github.com/GandhiOnchain/gtool.git\n ! [remote rejected]   HEAD -> main (push declined due to repository rule violations)\nerror: failed to push some refs to 'https://github.com/GandhiOnchain/gtool.git'\n",
+    "metadata": {
+      "output": "[detached HEAD ad68ff0f] Add vercel.json for SPA routing and correct build output dir\n 1 file changed, 5 insertions(+)\n create mode 100644 frontend/vercel.json\nremote: error: GH013: Repository rule violations found for refs/heads/main.        \nremote: \nremote: - GITHUB PUSH PROTECTION        \nremote:   —————————————————————————————————————————        \nremote:     Resolve the following violations before pushing again        \nremote: \nremote:     - Push cannot contain secrets        \nremote: \nremote:             \nremote:      (?) Learn how to resolve a blocked push        \nremote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        \nremote:             \nremote:             \nremote:       —— GitHub Personal Access Token ——————————————————————        \nremote:        locations:        \nremote:          - commit: cc225aa586486a9d79bc5649910f54a94685d33e        \nremote:            path: .vie/data/storage/part/msg_cc6920e080011iGA5UXx6M3r73/prt_cc69215e10010zwFL4nOHC1o6N.json:11        \nremote:          - commit: cc225aa586486a9d79bc5649910f54a94685d33e        \nremote:            path: .vie/data/storage/part/msg_cc6920e080011iGA5UXx6M3r73/prt_cc69215e10010zwFL4nOHC1o6N.json:21        \nremote:             \nremote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        \nremote:        https://github.com/GandhiOnchain/gtool/security/secret-scanning/unblock-secret/3AewirsC3ix4KIsmHPVZlTelyYw        \nremote:             \nremote: \nremote: \nTo https://github.com/GandhiOnchain/gtool.git\n ! [remote rejected]   HEAD -> main (push declined due to repository rule violations)\nerror: failed to push some refs to 'https://github.com/GandhiOnchain/gtool.git'\n",
+      "exit": 1,
+      "description": "Commit and push vercel.json"
+    },
+    "title": "cd /home/user/sandbox/workspace && git add frontend/vercel.json && git commit -m \"$(cat <<'EOF'\nAdd vercel.json for SPA routing and correct build output dir\n\n🤖 Generated with [vie](https://vie.dev)\n\nCo-Authored-By: vie <noreply@vie.dev>\nEOF\n)\" && git push origin HEAD:refs/heads/main 2>&1",
+    "time": {
+      "start": 1772966473268,
+      "end": 1772966473795
+    }
+  }
+}
