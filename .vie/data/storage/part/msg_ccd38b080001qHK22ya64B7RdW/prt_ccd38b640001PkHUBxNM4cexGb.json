@@ -1,0 +1,11 @@
+{
+  "id": "prt_ccd38b640001PkHUBxNM4cexGb",
+  "messageID": "msg_ccd38b080001qHK22ya64B7RdW",
+  "sessionID": "ses_332ca28e8ffe71SyRyADdgQoom",
+  "type": "text",
+  "text": "I can see you've shared a GitHub token, but I need the image file path to proceed. Could you share the image you want to use for the Farcaster Mini App?\n\nAlso, I'll need a few more details:\n- What's the Vercel deployment URL?\n- What's the Farcaster app name/description you want?\n\nOnce I have those, I can set up the Farcaster Mini App manifest and push to git.",
+  "time": {
+    "start": 1772969573899,
+    "end": 1772969573899
+  }
+}
