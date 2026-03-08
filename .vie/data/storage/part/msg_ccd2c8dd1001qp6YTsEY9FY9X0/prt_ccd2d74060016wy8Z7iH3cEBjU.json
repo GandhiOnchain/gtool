@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd2d74060016wy8Z7iH3cEBjU",
+  "messageID": "msg_ccd2c8dd1001qp6YTsEY9FY9X0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_011KgWmmf24mvSPSBPWakCHN",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && node -e \"\nconst sharp = require('sharp');\nsharp('/home/user/sandbox/workspace/.attachments/original.avif', { failOn: 'none' })\n  .jpeg({ quality: 95 })\n  .toFile('./public/og-image.jpg')\n  .then(info => console.log('Done:', JSON.stringify(info)))\n  .catch(e => console.error('Error:', e.message));\n\" 2>&1",
+      "description": "Try converting to jpg with failOn none"
+    },
+    "output": "Error: /home/user/sandbox/workspace/.attachments/original.avif: bad seek to 53521\n/home/user/sandbox/workspace/.attachments/original.avif: bad seek to 53494\n/home/user/sandbox/workspace/.attachments/original.avif: bad seek to 53490\nheif: Invalid input: Unspecified: Bitstream not supported by this decoder (2.0)\n",
+    "metadata": {
+      "output": "Error: /home/user/sandbox/workspace/.attachments/original.avif: bad seek to 53521\n/home/user/sandbox/workspace/.attachments/original.avif: bad seek to 53494\n/home/user/sandbox/workspace/.attachments/original.avif: bad seek to 53490\nheif: Invalid input: Unspecified: Bitstream not supported by this decoder (2.0)\n",
+      "exit": 0,
+      "description": "Try converting to jpg with failOn none"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && node -e \"\nconst sharp = require('sharp');\nsharp('/home/user/sandbox/workspace/.attachments/original.avif', { failOn: 'none' })\n  .jpeg({ quality: 95 })\n  .toFile('./public/og-image.jpg')\n  .then(info => console.log('Done:', JSON.stringify(info)))\n  .catch(e => console.error('Error:', e.message));\n\" 2>&1",
+    "time": {
+      "start": 1772968835358,
+      "end": 1772968835438
+    }
+  }
+}

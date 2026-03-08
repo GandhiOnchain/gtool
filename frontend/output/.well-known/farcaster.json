@@ -9,9 +9,9 @@
     "name": "GTool",
     "iconUrl": "https://gtool.vercel.app/favicon.ico",
     "homeUrl": "https://gtool.vercel.app",
-    "imageUrl": "https://gtool.vercel.app/favicon.ico",
+    "imageUrl": "https://gtool.vercel.app/og-image.png",
     "buttonTitle": "Open GTool",
-    "splashImageUrl": "https://gtool.vercel.app/favicon.ico",
+    "splashImageUrl": "https://gtool.vercel.app/og-image.png",
     "splashBackgroundColor": "#000000"
   }
 }

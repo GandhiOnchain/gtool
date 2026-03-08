@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd2e59e8001SeI0uEwwAAM0FH",
+  "messageID": "msg_ccd2c8dd1001qp6YTsEY9FY9X0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_013imHZqaB6r2D6FehysDThM",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git add frontend/package.json frontend/bun.lock && git commit -m \"$(cat <<'EOF'\nAdd OG image and update Farcaster manifest with real URLs\n\n🤖 Generated with [vie](https://vie.dev)\n\nCo-Authored-By: vie <noreply@vie.dev>\nEOF\n)\"",
+      "description": "Commit image and manifest updates"
+    },
+    "output": "[detached HEAD c6f8da1d] Add OG image and update Farcaster manifest with real URLs\n 5 files changed, 72 insertions(+), 8 deletions(-)\n create mode 100644 frontend/public/og-image.png\n",
+    "metadata": {
+      "output": "[detached HEAD c6f8da1d] Add OG image and update Farcaster manifest with real URLs\n 5 files changed, 72 insertions(+), 8 deletions(-)\n create mode 100644 frontend/public/og-image.png\n",
+      "exit": 0,
+      "description": "Commit image and manifest updates"
+    },
+    "title": "cd /home/user/sandbox/workspace && git add frontend/package.json frontend/bun.lock && git commit -m \"$(cat <<'EOF'\nAdd OG image and update Farcaster manifest with real URLs\n\n🤖 Generated with [vie](https://vie.dev)\n\nCo-Authored-By: vie <noreply@vie.dev>\nEOF\n)\"",
+    "time": {
+      "start": 1772968894822,
+      "end": 1772968894894
+    }
+  }
+}

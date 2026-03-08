@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd2cb5c5001pnRRaAd2DHiKkB",
+  "messageID": "msg_ccd2c8dd1001qp6YTsEY9FY9X0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01FAnexjtQSdjsoeQDsEtgge",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "find / -name \"original.avif\" 2>/dev/null | head -5",
+      "description": "Find the uploaded avif file"
+    },
+    "output": "/home/user/sandbox/workspace/.attachments/original.avif\n",
+    "metadata": {
+      "output": "/home/user/sandbox/workspace/.attachments/original.avif\n",
+      "exit": 0,
+      "description": "Find the uploaded avif file"
+    },
+    "title": "find / -name \"original.avif\" 2>/dev/null | head -5",
+    "time": {
+      "start": 1772968785907,
+      "end": 1772968804517
+    }
+  }
+}

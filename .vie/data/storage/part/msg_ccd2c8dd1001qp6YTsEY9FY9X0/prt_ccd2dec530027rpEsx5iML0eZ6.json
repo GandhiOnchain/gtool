@@ -1,0 +1,27 @@
+{
+  "id": "prt_ccd2dec530027rpEsx5iML0eZ6",
+  "messageID": "msg_ccd2c8dd1001qp6YTsEY9FY9X0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_0174ArbHi49wExVrgcz7wuxq",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "apk add --no-cache libavif-apps 2>&1 | tail -3",
+      "timeout": 30000,
+      "description": "Install avif decoder tools"
+    },
+    "output": "(7/7) Installing libavif-apps (1.3.0-r0)\nExecuting busybox-1.37.0-r20.trigger\nOK: 391 MiB in 101 packages\n",
+    "metadata": {
+      "output": "(7/7) Installing libavif-apps (1.3.0-r0)\nExecuting busybox-1.37.0-r20.trigger\nOK: 391 MiB in 101 packages\n",
+      "exit": 0,
+      "description": "Install avif decoder tools"
+    },
+    "title": "apk add --no-cache libavif-apps 2>&1 | tail -3",
+    "time": {
+      "start": 1772968865663,
+      "end": 1772968866162
+    }
+  }
+}

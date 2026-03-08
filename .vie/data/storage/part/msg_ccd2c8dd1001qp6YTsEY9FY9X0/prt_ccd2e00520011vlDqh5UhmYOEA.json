@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd2e00520011vlDqh5UhmYOEA",
+  "messageID": "msg_ccd2c8dd1001qp6YTsEY9FY9X0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_018GWFtMDAPgRCmcg9t1288T",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "avifdec /home/user/sandbox/workspace/.attachments/original.avif /home/user/sandbox/workspace/frontend/public/og-image.png 2>&1 && ls -lh /home/user/sandbox/workspace/frontend/public/og-image.png",
+      "description": "Decode AVIF to PNG with avifdec"
+    },
+    "output": "Decoding with codec 'dav1d' (48 worker threads), please wait...\nImage decoded: /home/user/sandbox/workspace/.attachments/original.avif\n * Resolution     : 1280x720\n * Bit Depth      : 10\n * Format         : YUV444\n * Alpha          : Absent\n * Range          : Full\n * Color Primaries: 1\n * Transfer Char. : 13\n * Matrix Coeffs. : 6\n * ICC Profile    : Absent\n * XMP Metadata   : Absent\n * Exif Metadata  : Absent\n * Transformations: None\n * Progressive    : Unavailable\n * Gain map       : Absent\n * 1 timescales per second, 1.00 seconds (1 timescales), 1 frame\n * Frame:\n   * Decoded frame [0] [pts 0.00 (0 timescales)] [duration 1.00 (1 timescales)] [1280x720]\nWrote PNG: /home/user/sandbox/workspace/frontend/public/og-image.png\n-rw-r--r--    1 root     root        1.1M Mar  8 11:21 /home/user/sandbox/workspace/frontend/public/og-image.png\n",
+    "metadata": {
+      "output": "Decoding with codec 'dav1d' (48 worker threads), please wait...\nImage decoded: /home/user/sandbox/workspace/.attachments/original.avif\n * Resolution     : 1280x720\n * Bit Depth      : 10\n * Format         : YUV444\n * Alpha          : Absent\n * Range          : Full\n * Color Primaries: 1\n * Transfer Char. : 13\n * Matrix Coeffs. : 6\n * ICC Profile    : Absent\n * XMP Metadata   : Absent\n * Exif Metadata  : Absent\n * Transformations: None\n * Progressive    : Unavailable\n * Gain map       : Absent\n * 1 timescales per second, 1.00 seconds (1 timescales), 1 frame\n * Frame:\n   * Decoded frame [0] [pts 0.00 (0 timescales)] [duration 1.00 (1 timescales)] [1280x720]\nWrote PNG: /home/user/sandbox/workspace/frontend/public/og-image.png\n-rw-r--r--    1 root     root        1.1M Mar  8 11:21 /home/user/sandbox/workspace/frontend/public/og-image.png\n",
+      "exit": 0,
+      "description": "Decode AVIF to PNG with avifdec"
+    },
+    "title": "avifdec /home/user/sandbox/workspace/.attachments/original.avif /home/user/sandbox/workspace/frontend/public/og-image.png 2>&1 && ls -lh /home/user/sandbox/workspace/frontend/public/og-image.png",
+    "time": {
+      "start": 1772968870839,
+      "end": 1772968870988
+    }
+  }
+}

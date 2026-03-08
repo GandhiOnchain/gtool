@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd2dd830001625AL6nGyjPJYo",
+  "messageID": "msg_ccd2c8dd1001qp6YTsEY9FY9X0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01UmqA5uZHpaeWUte9B9yz1E",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "convert /home/user/sandbox/workspace/.attachments/original.avif /home/user/sandbox/workspace/frontend/public/og-image.png 2>&1 && ls -lh /home/user/sandbox/workspace/frontend/public/og-image.png",
+      "description": "Convert AVIF to PNG with ImageMagick"
+    },
+    "output": "WARNING: The convert command is deprecated in IMv7, use \"magick\" instead of \"convert\" or \"magick convert\"\n\nconvert: no decode delegate for this image format `/home/user/sandbox/workspace/.attachments/original.avif' @ error/constitute.c/ReadImage/752.\nconvert: no images defined `/home/user/sandbox/workspace/frontend/public/og-image.png' @ error/deprecate.c/ConvertImageCommand/3368.\n",
+    "metadata": {
+      "output": "WARNING: The convert command is deprecated in IMv7, use \"magick\" instead of \"convert\" or \"magick convert\"\n\nconvert: no decode delegate for this image format `/home/user/sandbox/workspace/.attachments/original.avif' @ error/constitute.c/ReadImage/752.\nconvert: no images defined `/home/user/sandbox/workspace/frontend/public/og-image.png' @ error/deprecate.c/ConvertImageCommand/3368.\n",
+      "exit": 1,
+      "description": "Convert AVIF to PNG with ImageMagick"
+    },
+    "title": "convert /home/user/sandbox/workspace/.attachments/original.avif /home/user/sandbox/workspace/frontend/public/og-image.png 2>&1 && ls -lh /home/user/sandbox/workspace/frontend/public/og-image.png",
+    "time": {
+      "start": 1772968860630,
+      "end": 1772968860643
+    }
+  }
+}

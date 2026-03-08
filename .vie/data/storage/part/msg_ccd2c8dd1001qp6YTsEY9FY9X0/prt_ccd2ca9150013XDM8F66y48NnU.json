@@ -1,0 +1,19 @@
+{
+  "id": "prt_ccd2ca9150013XDM8F66y48NnU",
+  "messageID": "msg_ccd2c8dd1001qp6YTsEY9FY9X0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "read",
+  "callID": "toolu_bdrk_01YaN6QnGoV9g5rMWsQqKiiL",
+  "state": {
+    "status": "error",
+    "input": {
+      "filePath": "/.attachments/original.avif"
+    },
+    "error": "Error: ENOENT: no such file or directory, scandir '/.attachments'",
+    "time": {
+      "start": 1772968782459,
+      "end": 1772968782459
+    }
+  }
+}

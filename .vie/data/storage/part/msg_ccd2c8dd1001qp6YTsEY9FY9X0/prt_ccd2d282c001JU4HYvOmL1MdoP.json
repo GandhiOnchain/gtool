@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd2d282c001JU4HYvOmL1MdoP",
+  "messageID": "msg_ccd2c8dd1001qp6YTsEY9FY9X0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01QdKofbJHKMw57Aqj2JfYq5",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "which ffmpeg || which convert || which magick || which vips 2>/dev/null; echo \"done\"",
+      "description": "Check available image conversion tools"
+    },
+    "output": "done\n",
+    "metadata": {
+      "output": "done\n",
+      "exit": 0,
+      "description": "Check available image conversion tools"
+    },
+    "title": "which ffmpeg || which convert || which magick || which vips 2>/dev/null; echo \"done\"",
+    "time": {
+      "start": 1772968815590,
+      "end": 1772968815595
+    }
+  }
+}

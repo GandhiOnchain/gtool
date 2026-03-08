@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd2d553d001G388LmGl239DOV",
+  "messageID": "msg_ccd2c8dd1001qp6YTsEY9FY9X0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01B4nprxFdhXZx9sE7sbeT84",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace/frontend && node -e \"\nconst sharp = require('sharp');\nsharp('/.attachments/original.avif')\n  .png()\n  .toFile('./public/og-image.png')\n  .then(info => console.log('Done:', JSON.stringify(info)))\n  .catch(e => console.error('Error:', e.message));\n\" 2>&1",
+      "description": "Convert avif to png"
+    },
+    "output": "Error: Input file is missing: /.attachments/original.avif\n",
+    "metadata": {
+      "output": "Error: Input file is missing: /.attachments/original.avif\n",
+      "exit": 0,
+      "description": "Convert avif to png"
+    },
+    "title": "cd /home/user/sandbox/workspace/frontend && node -e \"\nconst sharp = require('sharp');\nsharp('/.attachments/original.avif')\n  .png()\n  .toFile('./public/og-image.png')\n  .then(info => console.log('Done:', JSON.stringify(info)))\n  .catch(e => console.error('Error:', e.message));\n\" 2>&1",
+    "time": {
+      "start": 1772968827594,
+      "end": 1772968827677
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd2e4af9001gy2zHkZtjaCG3k",
+  "messageID": "msg_ccd2c8dd1001qp6YTsEY9FY9X0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01TUhfEiD86H5Qnp1yAztW2p",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git add frontend/public/og-image.png frontend/public/.well-known/farcaster.json frontend/index.html && git status --short | grep frontend",
+      "description": "Stage files"
+    },
+    "output": " M frontend/bun.lock\nM  frontend/index.html\n M frontend/package.json\nM  frontend/public/.well-known/farcaster.json\nA  frontend/public/og-image.png\n",
+    "metadata": {
+      "output": " M frontend/bun.lock\nM  frontend/index.html\n M frontend/package.json\nM  frontend/public/.well-known/farcaster.json\nA  frontend/public/og-image.png\n",
+      "exit": 0,
+      "description": "Stage files"
+    },
+    "title": "cd /home/user/sandbox/workspace && git add frontend/public/og-image.png frontend/public/.well-known/farcaster.json frontend/index.html && git status --short | grep frontend",
+    "time": {
+      "start": 1772968890174,
+      "end": 1772968890336
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "prt_ccd2dca230011ZfpqVyjTTh9Cx",
+  "messageID": "msg_ccd2c8dd1001qp6YTsEY9FY9X0",
+  "sessionID": "ses_33bf30e3cffegGvBEG13wphmnT",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01C9UEkoUcQk8ghYaDLiKhzh",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "apk add --no-cache imagemagick 2>&1 | tail -3",
+      "timeout": 30000,
+      "description": "Install ImageMagick via apk"
+    },
+    "output": "(16/16) Installing imagemagick (7.1.2.15-r0)\nExecuting busybox-1.37.0-r20.trigger\nOK: 379 MiB in 94 packages\n",
+    "metadata": {
+      "output": "(16/16) Installing imagemagick (7.1.2.15-r0)\nExecuting busybox-1.37.0-r20.trigger\nOK: 379 MiB in 94 packages\n",
+      "exit": 0,
+      "description": "Install ImageMagick via apk"
+    },
+    "title": "apk add --no-cache imagemagick 2>&1 | tail -3",
+    "time": {
+      "start": 1772968856826,
+      "end": 1772968857459
+    }
+  }
+}
