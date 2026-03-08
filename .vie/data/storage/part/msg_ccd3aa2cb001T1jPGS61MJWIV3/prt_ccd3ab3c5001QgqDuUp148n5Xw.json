@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd3ab3c5001QgqDuUp148n5Xw",
+  "messageID": "msg_ccd3aa2cb001T1jPGS61MJWIV3",
+  "sessionID": "ses_332ca28e8ffe71SyRyADdgQoom",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_019WJqzFWvQzXxuPYRXTwQaM",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git remote -v",
+      "description": "Check git remotes"
+    },
+    "output": "origin\thttps://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@github.com/GandhiOnchain/gtool.git (fetch)\norigin\thttps://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@github.com/GandhiOnchain/gtool.git (push)\n",
+    "metadata": {
+      "output": "origin\thttps://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@github.com/GandhiOnchain/gtool.git (fetch)\norigin\thttps://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@github.com/GandhiOnchain/gtool.git (push)\n",
+      "exit": 0,
+      "description": "Check git remotes"
+    },
+    "title": "cd /home/user/sandbox/workspace && git remote -v",
+    "time": {
+      "start": 1772969702820,
+      "end": 1772969702823
+    }
+  }
+}

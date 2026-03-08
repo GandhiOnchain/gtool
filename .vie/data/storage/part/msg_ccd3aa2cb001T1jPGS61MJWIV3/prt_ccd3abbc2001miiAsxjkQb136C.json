@@ -1,0 +1,26 @@
+{
+  "id": "prt_ccd3abbc2001miiAsxjkQb136C",
+  "messageID": "msg_ccd3aa2cb001T1jPGS61MJWIV3",
+  "sessionID": "ses_332ca28e8ffe71SyRyADdgQoom",
+  "type": "tool",
+  "tool": "bash",
+  "callID": "toolu_bdrk_01E1EwpjnnDYMATc8KYN7Pe8",
+  "state": {
+    "status": "completed",
+    "input": {
+      "command": "cd /home/user/sandbox/workspace && git remote set-url origin https://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@github.com/GandhiOnchain/gtool.git && git push origin HEAD:main 2>&1",
+      "description": "Update remote with new token and push"
+    },
+    "output": "remote: error: GH013: Repository rule violations found for refs/heads/main.        \nremote: \nremote: - GITHUB PUSH PROTECTION        \nremote:   —————————————————————————————————————————        \nremote:     Resolve the following violations before pushing again        \nremote: \nremote:     - Push cannot contain secrets        \nremote: \nremote:             \nremote:      (?) Learn how to resolve a blocked push        \nremote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        \nremote:             \nremote:             \nremote:       —— GitHub Personal Access Token ——————————————————————        \nremote:        locations:        \nremote:          - commit: 40c0224584b5f12c6e4312fc9d925c8cc552543c        \nremote:            path: .vie/data/storage/part/msg_ccd32cc7c001l9jeHglYMwS4QE/prt_ccd32c898001ANIbdyuJIvYan7.json:4        \nremote:          - commit: 40c0224584b5f12c6e4312fc9d925c8cc552543c        \nremote:            path: .vie/data/storage/part/msg_ccd32ccda001v29MDF5HSrB1hA/prt_ccd32de6800118HOidjNaRQliy.json:11        \nremote:          - commit: 40c0224584b5f12c6e4312fc9d925c8cc552543c        \nremote:            path: .vie/data/storage/part/msg_ccd32ccda001v29MDF5HSrB1hA/prt_ccd32de6800118HOidjNaRQliy.json:21        \nremote:             \nremote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        \nremote:        https://github.com/GandhiOnchain/gtool/security/secret-scanning/unblock-secret/3Af2LKo0rpgYs1EsVhd9zA1jMl8        \nremote:             \nremote: \nremote: \nTo https://github.com/GandhiOnchain/gtool.git\n ! [remote rejected]   HEAD -> main (push declined due to repository rule violations)\nerror: failed to push some refs to 'https://github.com/GandhiOnchain/gtool.git'\n",
+    "metadata": {
+      "output": "remote: error: GH013: Repository rule violations found for refs/heads/main.        \nremote: \nremote: - GITHUB PUSH PROTECTION        \nremote:   —————————————————————————————————————————        \nremote:     Resolve the following violations before pushing again        \nremote: \nremote:     - Push cannot contain secrets        \nremote: \nremote:             \nremote:      (?) Learn how to resolve a blocked push        \nremote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        \nremote:             \nremote:             \nremote:       —— GitHub Personal Access Token ——————————————————————        \nremote:        locations:        \nremote:          - commit: 40c0224584b5f12c6e4312fc9d925c8cc552543c        \nremote:            path: .vie/data/storage/part/msg_ccd32cc7c001l9jeHglYMwS4QE/prt_ccd32c898001ANIbdyuJIvYan7.json:4        \nremote:          - commit: 40c0224584b5f12c6e4312fc9d925c8cc552543c        \nremote:            path: .vie/data/storage/part/msg_ccd32ccda001v29MDF5HSrB1hA/prt_ccd32de6800118HOidjNaRQliy.json:11        \nremote:          - commit: 40c0224584b5f12c6e4312fc9d925c8cc552543c        \nremote:            path: .vie/data/storage/part/msg_ccd32ccda001v29MDF5HSrB1hA/prt_ccd32de6800118HOidjNaRQliy.json:21        \nremote:             \nremote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        \nremote:        https://github.com/GandhiOnchain/gtool/security/secret-scanning/unblock-secret/3Af2LKo0rpgYs1EsVhd9zA1jMl8        \nremote:             \nremote: \nremote: \nTo https://github.com/GandhiOnchain/gtool.git\n ! [remote rejected]   HEAD -> main (push declined due to repository rule violations)\nerror: failed to push some refs to 'https://github.com/GandhiOnchain/gtool.git'\n",
+      "exit": 1,
+      "description": "Update remote with new token and push"
+    },
+    "title": "cd /home/user/sandbox/workspace && git remote set-url origin https://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@github.com/GandhiOnchain/gtool.git && git push origin HEAD:main 2>&1",
+    "time": {
+      "start": 1772969706985,
+      "end": 1772969708238
+    }
+  }
+}
